@@ -88,6 +88,17 @@ installer or component repository checkout is used. Only the release job gets
 `contents: write`; it downloads the verified package, rechecks its checksum and
 publishes an existing `v*` tag. Tags containing a hyphen become prereleases.
 Manual dispatch builds downloadable artifacts without publishing a release.
+Engine transfer artifacts and downloadable game ZIPs expire after one day; build
+logs remain for three days. Shared native runtimes/notices are uploaded only with
+the editor artifact and merged with the template before packaging. Engine uploads
+use ZIP compression; the already-compressed game package is not compressed again.
+
+If artifact upload reports a storage quota error, compilation may already have
+succeeded. Remove unneeded artifacts from completed runs across the owning account
+or review the account's Actions storage budget. Shorter retention applies to new
+uploads and does not remove existing artifacts. GitHub's storage accounting can
+take 6–12 hours to update. Keep compiler caches when clearing artifacts so the
+next build can reuse compiled objects.
 
 The workflow must complete on GitHub before its hosted execution is considered
 verified. Local script checks and package tests are not a hosted CI run.

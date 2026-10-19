@@ -92,6 +92,30 @@ class AssetSetupTests(unittest.TestCase):
                 install_private_assets.install_archive(archive,hashlib.sha256(archive.read_bytes()).hexdigest())
                 install.assert_called_once()
 
+    def test_archive_checksum_accepts_pasted_whitespace(self):
+        with tempfile.TemporaryDirectory() as scratch:
+            root=Path(scratch);archive=root/'assets.zip'
+            with zipfile.ZipFile(archive,'w') as zipped:
+                zipped.writestr('animations/manifest.json','{}')
+            digest=hashlib.sha256(archive.read_bytes()).hexdigest()
+            with patch.object(install_private_assets,'ROOT',root), \
+                 patch.object(install_private_assets,'required_files',return_value=['animations/manifest.json']), \
+                 patch.object(install_private_assets,'install') as install:
+                install_private_assets.install_archive(archive,' \n'+digest.upper()+'\r\n')
+                install.assert_called_once()
+
+    def test_archive_reports_wrong_root_before_installing(self):
+        with tempfile.TemporaryDirectory() as scratch:
+            root=Path(scratch);archive=root/'assets.zip'
+            with zipfile.ZipFile(archive,'w') as zipped:
+                zipped.writestr('assets/animations/manifest.json','{}')
+            with patch.object(install_private_assets,'ROOT',root), \
+                 patch.object(install_private_assets,'required_files',return_value=['animations/manifest.json']), \
+                 patch.object(install_private_assets,'install') as install:
+                with self.assertRaisesRegex(ValueError,'missing required entries: animations/manifest.json'):
+                    install_private_assets.install_archive(archive,hashlib.sha256(archive.read_bytes()).hexdigest())
+                install.assert_not_called()
+
     def test_asset_paths_cannot_escape_root(self):
         with self.assertRaises(ValueError):
             install_animations.relative_file(Path("safe"),"../outside.glb")

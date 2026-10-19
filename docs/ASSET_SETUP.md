@@ -168,6 +168,19 @@ repository secrets under Settings > Secrets and variables > Actions:
 | `R2_SECRET_ACCESS_KEY` | R2 S3 Secret Access Key |
 | `PRIVATE_GAME_ASSETS_SHA256` | SHA-256 of the uploaded ZIP |
 
+For `PRIVATE_GAME_ASSETS_SHA256`, paste only the 64 hexadecimal characters,
+without a filename, quotes, or the complete contents of a `.sha256` file.
+Compute the value from the exact ZIP uploaded to R2:
+
+```powershell
+(Get-FileHash -Algorithm SHA256 -LiteralPath 'engine/.local/private-assets/KYLR-game-assets.zip').Hash.ToLowerInvariant()
+```
+
+Replacing the R2 ZIP requires updating this secret. The installer reports checksum,
+missing-entry, manifest and audio validation failures separately; it never skips
+verification. An archive's root must contain `animations/` and `audio/`, without
+an enclosing `assets/` or project folder.
+
 Configure these repository variables in the same settings area:
 
 | Variable | Value |
