@@ -11,6 +11,8 @@ services:
       timeout: 3s
       retries: 12
   api:
+    # Only this loopback development stack requires the Docker socket.
+    user: "0:0"
     build:
       context: ../..
       dockerfile: services/deploy/Dockerfile.api

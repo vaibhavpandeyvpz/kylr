@@ -1,0 +1,31 @@
+services:
+  - type: web
+    name: kylr-api
+    runtime: docker
+    plan: free
+    dockerfilePath: ./game/services/deploy/Dockerfile.api
+    dockerContext: ./game
+    healthCheckPath: /healthz
+    envVars:
+      - key: SCHEDULER
+        value: edgegap
+      - key: MONGO_URI
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+      - key: CONTROL_TOKEN
+        generateValue: true
+      - key: EDGEGAP_API_KEY
+        sync: false
+      - key: EDGEGAP_APPLICATION
+        value: kylr
+      - key: EDGEGAP_VERSION
+        sync: false
+      - key: EDGEGAP_MAX_DEPLOYMENTS
+        value: '1'
+      - key: SERVER_START_SECONDS
+        value: '180'
+      - key: MATCH_TIMEOUT_SECONDS
+        value: '180'
+      - key: TRUST_PROXY_HOPS
+        value: '1'

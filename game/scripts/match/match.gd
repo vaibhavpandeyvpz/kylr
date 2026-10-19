@@ -249,12 +249,13 @@ func add_robot(id: int,nick: String,team: int,human: bool,head: String):
 
 func begin_countdown():
 	_prepare_countdown()
-	map.build_navigation()
+	# Human-only online matches do not need the bot traversal graph.
+	if not online: map.build_navigation()
 	_finish_countdown()
 
 func begin_countdown_async() -> void:
 	_prepare_countdown()
-	await map.build_navigation_async()
+	if not online: await map.build_navigation_async()
 	_finish_countdown()
 
 func _prepare_countdown() -> void:

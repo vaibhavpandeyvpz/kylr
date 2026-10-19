@@ -65,6 +65,25 @@ def test_refresh_rotation_logout_and_authentication(app):
     assert client.get('/v1/me',headers=headers(session)).status_code==401
     assert client.post('/v1/sessions/refresh',json={'refresh_token':rotated.json['refresh_token']}).status_code==401
 
+
+def test_logout_cancels_pending_matchmaking(app):
+    client=app.test_client()
+    session=register(client)
+    response=client.post('/v1/matches',json={'type':'DM'},headers=headers(session))
+    assert response.status_code==202
+    assert response.json['timeout_seconds']==app.config['MATCH_TIMEOUT']
+    assert client.delete('/v1/sessions',headers=headers(session)).status_code==200
+    record=app.extensions['store'].db.match_requests.find_one({'_id':response.json['request_id']})
+    assert record['state']=='Canceled'
+
+
+def test_atlas_connection_string_can_omit_a_database(monkeypatch):
+    client=mongomock.MongoClient()
+    monkeypatch.setattr('services.api.app.MongoClient',lambda *_args,**_kwargs:client)
+    app=create_app(configuration={'JWT_SECRET':'access-'+'x'*40,'CONTROL_TOKEN':'control-'+'y'*40,
+        'MONGO_URI':'mongodb+srv://example.invalid/'},scheduler=NoScheduler())
+    assert app.extensions['store'].db.name=='kylr'
+
 def test_loadout_catalog_is_validated_and_saved(app):
     client=app.test_client()
     session=register(client)
@@ -101,6 +120,7 @@ def test_unhealthy_server_and_empty_instance_are_retired(app):
     assert not store.server('test-server')['ready']
     store.db.servers.update_one({'_id':'test-server'},{'$set':{'last_occupied':time.time()-61}})
     assert store.heartbeat('test-server',{'match_id':'generation-1','phase':'Waiting','accounts':[]})['retire']
+    assert not store.server('test-server')['ready']
 
 def test_atomic_capacity_ticket_binding_replay_and_revoked_session(app):
     store=ready_server(app)
@@ -157,3 +177,35 @@ def test_released_admission_is_removed_on_the_next_heartbeat(app):
     store.release('test-server',assignment['reservation_id'])
     response=store.heartbeat('test-server',{'match_id':'generation-1','phase':'Active','accounts':[account]})
     assert response['revoked_accounts']==[account]
+
+
+def test_delayed_pre_admission_heartbeat_cannot_remove_loading_player(app):
+    store=ready_server(app)
+    session=register(app.test_client())
+    account=session['player']['id']
+    sid=store.db.sessions.find_one({'account':account})['_id']
+    assignment=store.reserve(account,sid,'CTF')
+    store.consume('test-server','generation-1',assignment['ticket'])
+    store.db.servers.update_one({'_id':'test-server'},{'$set':{'slots.0.claimed_at':time.time()-8}})
+    store.heartbeat('test-server',{'match_id':'generation-1','phase':'Countdown','accounts':[]})
+    assert len(store.server('test-server')['slots'])==1
+    response=store.heartbeat('test-server',{'match_id':'generation-1','phase':'Countdown','accounts':[account]})
+    assert not response['revoked_accounts']
+    assert store.server('test-server')['slots'][0]['seen']
+    store.heartbeat('test-server',{'match_id':'generation-1','phase':'Countdown','accounts':[]})
+    assert not store.server('test-server')['slots']
+
+
+@pytest.mark.skipif(not os.getenv('MONGO_TEST_URI'),reason='MongoDB positional multi-slot updates require the real database')
+def test_each_ticket_consumes_its_own_slot(app):
+    store=ready_server(app)
+    accounts=[]
+    for index in range(3):
+        session=register(app.test_client(),index)
+        account=session['player']['id']
+        accounts.append(account)
+        sid=store.db.sessions.find_one({'account':account})['_id']
+        ticket=store.reserve(account,sid,'CTF')
+        assert store.consume('test-server','generation-1',ticket['ticket'])['player']['id']==account
+    assert all(slot['state']=='admitted' for slot in store.server('test-server')['slots'])
+    assert not store.heartbeat('test-server',{'match_id':'generation-1','phase':'Active','accounts':accounts})['revoked_accounts']

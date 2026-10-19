@@ -5,11 +5,14 @@ import threading
 import time
 import logging
 import json
+from datetime import datetime, timezone
 from functools import wraps
+from contextlib import contextmanager
 import jwt
 from argon2 import PasswordHasher
 from argon2.exceptions import VerificationError
 from flask import Flask, g, jsonify, request
+from werkzeug.middleware.proxy_fix import ProxyFix
 from pymongo import MongoClient, ReturnDocument
 from pymongo.errors import DuplicateKeyError
 from pymongo.errors import PyMongoError
@@ -21,20 +24,46 @@ def create_app(database=None, configuration=None, scheduler=None, clock=time.tim
     app = Flask(__name__)
     app.config.update(MAX_CONTENT_LENGTH=8192, JWT_SECRET=os.getenv('JWT_SECRET',''),
                       CONTROL_TOKEN=os.getenv('CONTROL_TOKEN',''), ACCESS_SECONDS=900,
-                      SESSION_SECONDS=30*86400, MATCH_TIMEOUT=45,
+                      SESSION_SECONDS=30*86400, MATCH_TIMEOUT=int(os.getenv('MATCH_TIMEOUT_SECONDS','180')),
                       MONGO_URI=os.getenv('MONGO_URI','mongodb://127.0.0.1:27017/kylr'))
     app.config.update(configuration or {})
+    if not 0 < float(app.config['MATCH_TIMEOUT']) <= 600:
+        raise RuntimeError('MATCH_TIMEOUT_SECONDS must be between 1 and 600 seconds.')
+    proxy_hops = int(os.getenv('TRUST_PROXY_HOPS','0'))
+    if proxy_hops not in (0,1):
+        raise RuntimeError('TRUST_PROXY_HOPS must be 0 or 1.')
+    if proxy_hops:
+        # Enable only behind the single managed Render ingress, never a direct listener.
+        app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1)
     if len(app.config['JWT_SECRET'])<32 or len(app.config['CONTROL_TOKEN'])<32 or app.config['JWT_SECRET']==app.config['CONTROL_TOKEN']:
         raise RuntimeError('Provide independent JWT_SECRET and CONTROL_TOKEN values of at least 32 characters.')
     if database is None:
-        database = MongoClient(app.config['MONGO_URI'],serverSelectionTimeoutMS=3000).get_default_database()
+        database = MongoClient(app.config['MONGO_URI'],serverSelectionTimeoutMS=5000,
+            connectTimeoutMS=5000, socketTimeoutMS=10000, maxPoolSize=20).get_default_database('kylr')
     store = Store(database,clock)
     app.extensions['store'] = store
     hasher = PasswordHasher(time_cost=3,memory_cost=65536,parallelism=4)
     dummy_hash = hasher.hash(secrets.token_urlsafe(32))
+    password_slots = threading.BoundedSemaphore(2)
+    match_slots = threading.BoundedSemaphore(16)
+
+    @contextmanager
+    def password_work():
+        if not password_slots.acquire(blocking=False):
+            raise ApiError('SERVICE_BUSY','Account service is busy. Retry shortly.',429)
+        try:
+            yield
+        finally:
+            password_slots.release()
     if scheduler is None:
-        from .scheduler import Scheduler
-        scheduler = Scheduler(store,app.config['CONTROL_TOKEN'])
+        if os.getenv('SCHEDULER','docker') == 'edgegap':
+            from .edgegap import EdgegapScheduler
+            scheduler = EdgegapScheduler(store,app.config['CONTROL_TOKEN'])
+        else:
+            if os.getenv('SCHEDULER','docker') not in ('docker','local'):
+                raise RuntimeError('SCHEDULER must be docker, local or edgegap.')
+            from .scheduler import Scheduler
+            scheduler = Scheduler(store,app.config['CONTROL_TOKEN'])
     app.extensions['scheduler'] = scheduler
     app.extensions['match_workers'] = []
     if hasattr(scheduler, 'start_monitor'): scheduler.start_monitor()
@@ -66,19 +95,20 @@ def create_app(database=None, configuration=None, scheduler=None, clock=time.tim
     def malformed(_error): return api_error(ApiError('INVALID_REQUEST','Send a valid JSON object.'))
 
     @app.errorhandler(PyMongoError)
-    def unavailable(_error): return api_error(ApiError('SERVICE_UNAVAILABLE','The local database is unavailable. Retry shortly.',503))
+    def unavailable(_error): return api_error(ApiError('SERVICE_UNAVAILABLE','The account database is unavailable. Retry shortly.',503))
 
     def body(allowed,required=()):
         return fields(request.get_json(silent=True),allowed,required)
 
     def rate(scope,limit):
         # Atomic database counters work across API workers. Never use client-supplied forwarded IPs.
-        key = digest(f'{scope}:{request.remote_addr}:{int(clock()//60)}')
+        identity = g.account['_id'] if hasattr(g,'account') else request.remote_addr
+        key = digest(f'{scope}:{identity}:{int(clock()//60)}')
         entry = database.rate_limits.find_one_and_update({'_id':key},
-            {'$inc':{'count':1},'$setOnInsert':{'expires':clock()+120}},upsert=True,
+            {'$inc':{'count':1},'$setOnInsert':{'expires':clock()+120,
+                'delete_at':datetime.fromtimestamp(clock()+120,timezone.utc)}},upsert=True,
             return_document=ReturnDocument.AFTER)
         if entry['count']>limit: raise ApiError('RATE_LIMITED','Please wait before trying again.',429)
-        database.rate_limits.delete_many({'expires':{'$lt':clock()}})
 
     def authenticated(function):
         @wraps(function)
@@ -102,7 +132,9 @@ def create_app(database=None, configuration=None, scheduler=None, clock=time.tim
         @wraps(function)
         def guarded(*args,**kwargs):
             supplied = request.headers.get('X-Control-Token','')
-            if not secrets.compare_digest(supplied,app.config['CONTROL_TOKEN']):
+            server = store.server(kwargs['server_id']) if 'server_id' in kwargs else None
+            accepted = secrets.compare_digest(digest(supplied),server['control_hash']) if server and server.get('control_hash') else secrets.compare_digest(supplied,app.config['CONTROL_TOKEN'])
+            if not accepted:
                 raise ApiError('FORBIDDEN','Server credentials are required.',403)
             return function(*args,**kwargs)
         return guarded
@@ -117,7 +149,8 @@ def create_app(database=None, configuration=None, scheduler=None, clock=time.tim
     def new_session(account):
         refresh = secrets.token_urlsafe(48)
         session = {'_id':identifier(),'account':account['_id'],'credential_hash':digest(refresh),
-                   'expires':clock()+app.config['SESSION_SECONDS'],'revoked':False}
+                   'expires':clock()+app.config['SESSION_SECONDS'],'revoked':False,
+                   'delete_at':datetime.fromtimestamp(clock()+app.config['SESSION_SECONDS'],timezone.utc)}
         database.sessions.insert_one(session)
         return envelope(account,session,refresh)
 
@@ -142,9 +175,12 @@ def create_app(database=None, configuration=None, scheduler=None, clock=time.tim
         rate('registration',5)
         data = body(('username','password','display_name'),('username','password','display_name'))
         username,display = name(data['username'],True),name(data['display_name'])
+        supplied = password(data['password'])
+        with password_work():
+            password_hash = hasher.hash(supplied)
         account = {'_id':identifier(),'username':username,'username_key':username.lower(),
                    'display_name':display,'display_key':display.lower(),
-                   'password_hash':hasher.hash(password(data['password'])),
+                   'password_hash':password_hash,
                    'loadout':dict(DEFAULT_LOADOUT),'schema_version':1,'created':clock()}
         try: database.accounts.insert_one(account)
         except DuplicateKeyError: raise ApiError('NAME_TAKEN','That username or display name is already taken.',409)
@@ -157,11 +193,12 @@ def create_app(database=None, configuration=None, scheduler=None, clock=time.tim
         username = name(data['username'],True)
         supplied = password(data['password'])
         account = database.accounts.find_one({'username_key':username.lower()})
-        try: hasher.verify(account['password_hash'] if account else dummy_hash,supplied)
-        except VerificationError: account = None
-        if not account: raise ApiError('LOGIN_FAILED','Username or password was not accepted.',401)
-        if hasher.check_needs_rehash(account['password_hash']):
-            database.accounts.update_one({'_id':account['_id']},{'$set':{'password_hash':hasher.hash(supplied)}})
+        with password_work():
+            try: hasher.verify(account['password_hash'] if account else dummy_hash,supplied)
+            except VerificationError: account = None
+            if not account: raise ApiError('LOGIN_FAILED','Username or password was not accepted.',401)
+            if hasher.check_needs_rehash(account['password_hash']):
+                database.accounts.update_one({'_id':account['_id']},{'$set':{'password_hash':hasher.hash(supplied)}})
         return new_session(account)
 
     @app.post('/v1/sessions/refresh')
@@ -183,6 +220,8 @@ def create_app(database=None, configuration=None, scheduler=None, clock=time.tim
     @authenticated
     def logout():
         database.sessions.update_one({'_id':g.session['_id']},{'$set':{'revoked':True}})
+        database.match_requests.update_many({'session':g.session['_id'],
+            'state':{'$in':['Searching','Starting server','Ready']}},{'$set':{'state':'Canceled'}})
         database.servers.update_many({}, {'$pull':{'slots':{'session':g.session['_id'],'state':'reserved'}}})
         return {'revoked':True}
 
@@ -221,7 +260,7 @@ def create_app(database=None, configuration=None, scheduler=None, clock=time.tim
                     database.match_requests.update_one({'_id':request_id,'state':{'$ne':'Canceled'}},{'$set':{'state':'Starting server'}})
                     scheduler.ensure(match_type)
                     next_launch=clock()+2
-                time.sleep(0.1)
+                time.sleep(1)
             raise ApiError('MATCH_TIMEOUT','No server became ready in time. Retry from the lobby.',503)
         except Exception as error:
             # No exception body, password, bearer token or ticket enters logs/responses.
@@ -229,6 +268,8 @@ def create_app(database=None, configuration=None, scheduler=None, clock=time.tim
             message = error.message if isinstance(error,ApiError) else 'The server could not start. Retry from the lobby.'
             database.match_requests.update_one({'_id':request_id,'state':{'$ne':'Canceled'}},
                 {'$set':{'state':'Failed','error':{'code':code,'message':message}}})
+        finally:
+            match_slots.release()
 
     @app.post('/v1/matches')
     @authenticated
@@ -236,19 +277,37 @@ def create_app(database=None, configuration=None, scheduler=None, clock=time.tim
         rate('play',20)
         data = body(('type',),('type',))
         if data['type'] not in TYPES: raise ApiError('INVALID_MATCH_TYPE','Choose DM, TDM or CTF.')
+        pending = database.match_requests.find_one({'account':g.account['_id'], 'session':g.session['_id'],
+            'state':{'$in':['Searching','Starting server']}, 'deadline':{'$gt':clock()}})
+        if pending:
+            return {'request_id':pending['_id'],'state':pending['state'],
+                'timeout_seconds':max(1,pending['deadline']-clock())},202
+        if not match_slots.acquire(blocking=False):
+            raise ApiError('SERVICE_BUSY','Matchmaking is busy. Retry shortly.',429)
         record = {'_id':identifier(),'account':g.account['_id'],'session':g.session['_id'],
-                  'type':data['type'],'state':'Searching','created':clock()}
-        database.match_requests.insert_one(record)
+                  'type':data['type'],'state':'Searching','created':clock(),
+                  'deadline':clock()+app.config['MATCH_TIMEOUT'],
+                  'delete_at':datetime.fromtimestamp(clock()+86400,timezone.utc)}
+        try:
+            database.match_requests.insert_one(record)
+        except Exception:
+            match_slots.release()
+            raise
         worker=threading.Thread(target=run_match,args=(record['_id'],record['account'],record['session'],record['type']),daemon=True)
         app.extensions['match_workers']=[item for item in app.extensions['match_workers'] if item.is_alive()]
         app.extensions['match_workers'].append(worker)
         worker.start()
-        return {'request_id':record['_id'],'state':'Searching'},202
+        return {'request_id':record['_id'],'state':'Searching',
+                'timeout_seconds':app.config['MATCH_TIMEOUT']},202
 
     @app.get('/v1/matches/<request_id>')
     @authenticated
     def match_status(request_id):
         item = find_match(request_id)
+        if item['state'] in ('Searching','Starting server') and item.get('deadline',item['created']+app.config['MATCH_TIMEOUT']) <= clock():
+            database.match_requests.update_one({'_id':item['_id'],'state':item['state']},
+                {'$set':{'state':'Failed','error':{'code':'MATCH_TIMEOUT','message':'Server startup timed out. Retry for a fresh request.'}}})
+            item = find_match(request_id)
         response = {'request_id':item['_id'],'state':item['state']}
         if item.get('assignment'):
             if item['assignment']['expires_at']<=clock() and item['state']=='Ready':

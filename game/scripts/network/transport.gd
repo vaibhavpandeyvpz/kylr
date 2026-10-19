@@ -103,6 +103,7 @@ func build_round(type: String, previous_map := ""):
 	game = ArenaMatch.new()
 	game.name = "Match"
 	game.online = true
+	game.async_scene_loading = true
 	game.replicating = true
 	game.authority = server
 	game.map_id = selected_map
@@ -113,7 +114,10 @@ func build_round(type: String, previous_map := ""):
 	while not round_ready: await get_tree().physics_frame
 	for peer in peers: add_player(peer,peers[peer].player)
 	game.goal = 2*peers.size()
-	if peers.size() >= 2: game.begin_countdown()
+	if peers.size() >= 2:
+		game.loading_hold = true
+		await game.begin_countdown_async()
+		game.loading_hold = false
 	elif previous_map != "": game.finish(true,"Fewer than two players remain for the next match.")
 	building = false
 	next_map = -1
@@ -122,11 +126,12 @@ func build_round(type: String, previous_map := ""):
 	results_seen = false
 
 func heartbeat():
-	if heartbeat_pending or game == null or building: return
+	if heartbeat_pending or game == null: return
 	heartbeat_pending = true
 	var accounts: Array = []
 	for peer in peers: accounts.append(peers[peer].player.id)
-	var response := await private_request("heartbeat",{"match_id":generation,"phase":"Canceled" if game.result.get("canceled",false) else game.phase,"accounts":accounts})
+	var phase := "Finished" if building else "Canceled" if game.result.get("canceled",false) else game.phase
+	var response := await private_request("heartbeat",{"match_id":generation,"phase":phase,"accounts":accounts})
 	heartbeat_pending = false
 	if response.is_empty():
 		heartbeat_failures += 1
@@ -136,6 +141,7 @@ func heartbeat():
 	for account in response.get("revoked_accounts",[]):
 		for peer in peers.keys():
 			if peers[peer].player.id == account:
+				print("ONLINE_ADMISSION revoked robot=",peers[peer].id)
 				disconnected(peer)
 				multiplayer.multiplayer_peer.disconnect_peer(peer,true)
 	if response.get("retire",false): close(); get_tree().quit()
@@ -146,7 +152,7 @@ func connect_match(value: Dictionary):
 	connection_deadline = Time.get_ticks_msec()+12000
 	var enet := ENetMultiplayerPeer.new()
 	if enet.create_client(value.host,int(value.port)) != OK: failed.emit("Could not open the game connection."); return
-	multiplayer.connected_to_server.connect(func(): progress.emit("Joining"); join.rpc_id(1,generation,value.ticket))
+	multiplayer.connected_to_server.connect(func(): connection_deadline = Time.get_ticks_msec()+90000; progress.emit("Joining"); join.rpc_id(1,generation,value.ticket))
 	multiplayer.connection_failed.connect(func(): fail_connection("Connection failed. Retry for a fresh ticket."))
 	multiplayer.server_disconnected.connect(func(): fail_connection("The game server disconnected."))
 	multiplayer.multiplayer_peer = enet
@@ -174,7 +180,11 @@ func join(match_id: String, ticket: String):
 	next_id += 1
 	add_player(peer,accepted.player)
 	game.goal = 2*peers.size()
-	if game.phase == "Waiting" and peers.size() >= 2: game.begin_countdown()
+	if game.phase == "Waiting" and peers.size() >= 2:
+		game.loading_hold = true
+		await game.begin_countdown_async()
+		game.loading_hold = false
+		if closed or not peers.has(peer): return
 	initial.rpc_id(peer,peers[peer].id,pack_snapshot(peer))
 	heartbeat_clock = 5
 
@@ -296,10 +306,19 @@ func _physics_process(dt):
 		if not round_ready and connection_deadline > 0 and now > connection_deadline: fail_connection("Joining timed out. Retry for a fresh ticket.")
 		elif round_ready and silence_deadline > 0 and now > silence_deadline: fail_connection("The game server stopped responding.")
 		return
-	if building or not round_ready: return
+	# Loading yields between authored fixtures; keep the admission lease alive
+	# while reporting a non-admitting phase until the new world is complete.
+	if building:
+		if Time.get_ticks_msec() >= heartbeat_deadline:
+			heartbeat_deadline = Time.get_ticks_msec()+5000
+			heartbeat()
+		return
+	if not round_ready: return
 	for peer in peers.keys():
 		var link := (multiplayer.multiplayer_peer as ENetMultiplayerPeer).get_peer(peer)
-		if link == null or link.get_state() != ENetPacketPeer.STATE_CONNECTED: disconnected(peer)
+		if link == null or link.get_state() != ENetPacketPeer.STATE_CONNECTED:
+			print("ONLINE_CONNECTION lost robot=",peers[peer].id," state=",link.get_state() if link else -1)
+			disconnected(peer)
 	if Time.get_ticks_msec() >= diagnostic_deadline:
 		diagnostic_deadline = Time.get_ticks_msec()+5000
 		var connections: Array = []
@@ -354,11 +373,27 @@ func advance_round():
 	building = true
 	var previous := game.map_id
 	var type := game.match_type
+	for peer in peers:
+		if peer_connected(peer): preparing_round.rpc_id(peer,generation)
+	(multiplayer.multiplayer_peer as ENetMultiplayerPeer).get_host().flush()
+	await get_tree().process_frame
 	generation = Crypto.new().generate_random_bytes(16).hex_encode()
 	await build_round(type,previous)
 	await heartbeat()
 	for peer in peers:
 		if peer_connected(peer): initial.rpc_id(peer,peers[peer].id,pack_snapshot(peer))
+
+@rpc("authority","call_remote","reliable",0)
+func preparing_round(previous_generation: String):
+	if server or closed or previous_generation != generation: return
+	building = true
+	round_ready = false
+	silence_deadline = 0
+	connection_deadline = Time.get_ticks_msec()+90000
+	unacked.clear()
+	pending_snapshot.clear()
+	pending_presentation.clear()
+	loading.emit()
 
 func peer_connected(peer: int) -> bool:
 	var link := (multiplayer.multiplayer_peer as ENetMultiplayerPeer).get_peer(peer)
@@ -408,7 +443,7 @@ func initial(id: int, payload: PackedByteArray):
 	var state: Variant = bytes_to_var(payload.decompress_dynamic(256000,FileAccess.COMPRESSION_DEFLATE))
 	if not state is Dictionary: return
 	if server or closed or state.get("protocol",0) != 2: return
-	connection_deadline = Time.get_ticks_msec()+12000
+	connection_deadline = Time.get_ticks_msec()+90000
 	loading.emit()
 	building = true
 	round_ready = false
@@ -430,6 +465,7 @@ func initial(id: int, payload: PackedByteArray):
 	game.name = "Match"
 	game.online = true
 	game.authority = false
+	game.async_scene_loading = true
 	game.replicating = true
 	game.map_id = state.map
 	game.match_type = state.type

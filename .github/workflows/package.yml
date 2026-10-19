@@ -14,9 +14,15 @@ concurrency:
 
 jobs:
   engine:
-    name: Build custom Windows engine
+    name: Build Windows ${{ matrix.target }}
     runs-on: windows-2025-vs2026
     timeout-minutes: 240
+    strategy:
+      fail-fast: false
+      matrix:
+        target: [editor, template_release]
+    env:
+      SCONS_CACHE_MSVC_CONFIG: 'true'
     defaults:
       run:
         shell: pwsh
@@ -46,14 +52,23 @@ jobs:
         run: python -m pip install -r tools/requirements-build.txt
       - name: Prepare verified production runtimes
         run: ./tools/prepare_windows_dependencies.ps1
-      - name: Build editor and release template
+      - name: Restore compiled objects
+        uses: actions/cache@v5
+        with:
+          path: engine/.scons_cache
+          key: windows-vs2026-speed-v1-${{ matrix.target }}-${{ hashFiles('engine/**', '!engine/.local/**', '!engine/bin/**', '!engine/.scons_cache/**', 'tools/requirements-build.txt') }}
+          restore-keys: |
+            windows-vs2026-speed-v1-${{ matrix.target }}-
+      - name: Build target using runner CPUs
+        env:
+          ENGINE_TARGET: ${{ matrix.target }}
         run: |
-          ./engine/misc/scripts/build_windows.ps1 -Python python -Target editor -Jobs 2
-          ./engine/misc/scripts/build_windows.ps1 -Python python -Target template_release -Jobs 2
+          $jobs = [Math]::Max(1, [Environment]::ProcessorCount)
+          ./engine/misc/scripts/build_windows.ps1 -Python python -Target $env:ENGINE_TARGET -Jobs $jobs -CachePath (Join-Path $env:GITHUB_WORKSPACE 'engine/.scons_cache')
       - name: Upload matching engine and runtime bundle
         uses: actions/upload-artifact@v7
         with:
-          name: custom-engine-windows
+          name: custom-engine-windows-${{ matrix.target }}
           include-hidden-files: true
           if-no-files-found: error
           retention-days: 7
@@ -84,6 +99,11 @@ jobs:
       - uses: actions/setup-python@v7
         with:
           python-version: '3.12'
+      - name: Configure public multiplayer endpoint
+        env:
+          KYLR_PUBLIC_API_URL: ${{ vars.KYLR_PUBLIC_API_URL }}
+        run: |
+          if ($env:KYLR_PUBLIC_API_URL) { python tools/configure_online.py }
       - name: Restore separately licensed game assets
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
@@ -106,7 +126,8 @@ jobs:
           }
       - uses: actions/download-artifact@v8
         with:
-          name: custom-engine-windows
+          pattern: custom-engine-windows-*
+          merge-multiple: true
           path: engine
       - name: Import and verify game
         run: ./game/tools/verify.ps1

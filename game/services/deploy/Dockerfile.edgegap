@@ -1,0 +1,25 @@
+# Build context: repository root, after restoring the private asset bundle.
+FROM debian:bookworm-slim AS engine-build
+RUN apt-get update && apt-get install -y --no-install-recommends build-essential python3 python3-venv pkg-config libx11-dev libxcursor-dev libxinerama-dev libgl1-mesa-dev libglu1-mesa-dev libasound2-dev libpulse-dev libudev-dev libxi-dev libxrandr-dev libwayland-dev && rm -rf /var/lib/apt/lists/*
+COPY tools/requirements-build.txt /tmp/requirements-build.txt
+RUN python3 -m venv /build-tools && /build-tools/bin/pip install --no-cache-dir -r /tmp/requirements-build.txt
+COPY engine /engine
+WORKDIR /engine
+ARG BUILD_JOBS=2
+RUN /build-tools/bin/scons platform=linuxbsd target=editor arch=x86_64 use_streamline=no debug_symbols=no -j${BUILD_JOBS}
+
+FROM debian:bookworm-slim AS imported
+RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates libfontconfig1 libgl1 libx11-6 libxcursor1 libxinerama1 libxrandr2 libxi6 libasound2 libpulse0 && rm -rf /var/lib/apt/lists/* && useradd --create-home --uid 10001 kylr && mkdir -p /game/licenses && chown -R kylr:kylr /game
+COPY --from=engine-build /engine/bin/godot.linuxbsd.editor.x86_64 /usr/local/bin/godot
+WORKDIR /game
+COPY --chown=kylr:kylr game /game
+COPY --chown=kylr:kylr LICENSE NOTICE /game/
+COPY --from=engine-build --chown=kylr:kylr /engine/LICENSE.txt /game/licenses/Godot-LICENSE.txt
+COPY --from=engine-build --chown=kylr:kylr /engine/COPYRIGHT.txt /game/licenses/Godot-COPYRIGHT.txt
+USER kylr
+RUN godot --headless --editor --path /game --import --quit > /tmp/import.log 2>&1 && cat /tmp/import.log && ! grep -E 'SCRIPT ERROR:|^ERROR:' /tmp/import.log && godot --headless --path /game -s res://tools/write_licenses.gd -- --output=res://licenses/ENGINE-LICENSES.txt
+
+FROM imported AS runtime
+USER kylr
+EXPOSE 25000/udp
+ENTRYPOINT ["godot", "--headless", "--path", "/game", "-s", "res://scripts/network/server_main.gd"]

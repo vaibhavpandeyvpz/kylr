@@ -1,5 +1,5 @@
 FROM debian:bookworm-slim
-# Supply the Linux editor built from engine/4.7.2-stable-rtx at this path.
+# Supply the Linux editor built from the repository's engine/ source at this path.
 # Dedicated servers do not need Streamline or GPU ray tracing.
 RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates libfontconfig1 libgl1 libx11-6 libxcursor1 libxinerama1 libxrandr2 libxi6 libasound2 libpulse0 && rm -rf /var/lib/apt/lists/*
 COPY build/linux/godot.linuxbsd.editor.x86_64 /usr/local/bin/godot

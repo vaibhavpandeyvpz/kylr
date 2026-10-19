@@ -13,6 +13,8 @@ Run these scripts from the repository root with PowerShell 7:
 - `requirements-audio.txt`: Python 3.12 PCM preparation dependency.
 - `install_private_assets.py`: verify and restore a private ZIP downloaded by the AWS CLI or validate local assets.
 - `requirements-assets.txt`: original texture-generation dependencies.
+- `configure_online.py`: set the public HTTPS account-service origin in a client build.
+- `publish_edgegap_version.py`: register a private immutable server image after CI publication.
 
 Follow [licensed asset setup](../docs/ASSET_SETUP.md) before the first game import.
 Run focused installer checks with
@@ -21,3 +23,4 @@ requirements. Credentialed downloads require a separately licensed account.
 
 [Game tools](../game/tools/README.md) own import, testing, benchmarking and packaging.
 [Build and release](../docs/BUILD_AND_RELEASE.md) describes the complete pipeline.
+[Cloud hosting](../docs/CLOUD_HOSTING.md) lists Render/Atlas settings and Edgegap publication variables.

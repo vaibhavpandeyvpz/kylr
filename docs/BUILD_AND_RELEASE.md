@@ -12,7 +12,7 @@ locally before import using [asset setup](ASSET_SETUP.md).
 Binary assets, fonts and bundled native addons use Git LFS. Install Git LFS and
 run `git lfs install` before cloning. After a clone made without LFS, run
 `git lfs pull` from the repository root before importing or building.
-The workflow checks out LFS content in both build jobs. Licensed downloads,
+The workflow checks out LFS content in engine and game jobs. Licensed downloads,
 SDKs, credentials and build products remain ignored rather than stored in LFS.
 
 ## Windows prerequisites and dependencies
@@ -70,8 +70,19 @@ restores only the paths required by this checkout's catalogs before game import.
 Downloaded asset archives and API credentials are not uploaded as CI artifacts.
 
 [The active root workflow](../.github/workflows/package.yml) has three dependent
-jobs: **engine → game → release**. It uses `windows-2025-vs2026` for compilation
-and game checks. The engine artifact carries the editor, matching release
+stages: **engine → game → release**. The engine stage runs editor and release
+template builds on separate `windows-2025-vs2026` runners; the game stage waits
+for both and merges their artifacts. Each compiler uses the available runner CPUs.
+Target-specific SCons object caches are restored across runs, keyed by engine
+source and build-tool inputs with a compatible-target fallback. The cache is
+bounded to 3 GiB per target and excludes local SDKs, secrets and game assets.
+Release optimization and runtime checks remain enabled. Game-only edits reuse
+compiled engine objects; engine edits rebuild affected dependencies.
+
+The first build on an empty cache still compiles the complete engine. Free runner
+CPU allocation, cache eviction and linking prevent a fixed one-hour guarantee;
+check cold and warm hosted timings separately. For local cache reuse, the Windows
+build helper accepts `-CachePath` and `-CacheLimitGiB`. The engine artifact carries the editor, matching release
 template, verified runtimes and SDK notices to the game job. No stock Godot
 installer or component repository checkout is used. Only the release job gets
 `contents: write`; it downloads the verified package, rechecks its checksum and
@@ -80,3 +91,14 @@ Manual dispatch builds downloadable artifacts without publishing a release.
 
 The workflow must complete on GitHub before its hosted execution is considered
 verified. Local script checks and package tests are not a hosted CI run.
+
+## Multiplayer services
+
+[Cloud hosting](CLOUD_HOSTING.md) defines Render/Atlas configuration and the
+manual multiplayer workflow, which builds a custom Linux engine and private
+Edgegap server image. BuildKit persists intermediate engine layers in the GitHub
+Actions cache and uses four compiler jobs on the Linux runner. Game-only changes
+reuse the engine layer; engine source changes require recompilation. The image
+is loaded locally for validation before optional publication. Set `KYLR_PUBLIC_API_URL` as a repository variable to
+configure the Windows client endpoint during packaging. The backend and game
+server never share their hosting credentials with clients.

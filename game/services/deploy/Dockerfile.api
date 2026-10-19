@@ -3,8 +3,9 @@ WORKDIR /app
 COPY services/requirements.txt /app/requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 COPY services/api /app/services/api
-RUN useradd --create-home --uid 10001 arena
+RUN useradd --create-home --uid 10001 kylr
 # The local scheduler needs the Docker socket. This container is loopback-only;
 # do not expose it publicly or use this socket arrangement in production.
 EXPOSE 8080
+USER kylr
 CMD ["python", "-m", "services.api.app"]

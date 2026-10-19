@@ -70,6 +70,9 @@ feature; do not add dated test transcripts to it.
 `verify_online.py`, `verify_online_docker.py`, `verify_service_recovery.py`,
 `start_online.ps1`, `start_online_native.py` and `account_backup.py` are documented
 in [ONLINE.md](../../docs/ONLINE.md) and [ONLINE_PROTOCOL.md](../../docs/ONLINE_PROTOCOL.md).
+`verify_online.py --type DM|TDM|CTF` uses real MongoDB and independent custom-engine
+clients to check admission, combat, a late join and round replacement. Pass
+`--mongo` or set `MONGO_TEST_URI`; probes create and remove their own database.
 Keep the online client/server/UI probes, credential checks and impairment helper.
 Runtime packaging depends on `inspect_package.gd`, `write_licenses.gd`,
 `windows_engine_runtime.ps1` and `prepare_windows_vc_runtime.ps1`.
