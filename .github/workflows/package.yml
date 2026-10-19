@@ -65,23 +65,32 @@ jobs:
         run: |
           $jobs = [Math]::Max(1, [Environment]::ProcessorCount)
           ./engine/misc/scripts/build_windows.ps1 -Python python -Target $env:ENGINE_TARGET -Jobs $jobs -CachePath (Join-Path $env:GITHUB_WORKSPACE 'engine/.scons_cache')
+      - name: Stage target artifact
+        env:
+          ENGINE_TARGET: ${{ matrix.target }}
+        run: |
+          $bundle = Join-Path $env:RUNNER_TEMP 'engine-bundle'
+          New-Item -ItemType Directory -Force (Join-Path $bundle 'bin') | Out-Null
+          Copy-Item "engine/bin/godot.windows.$env:ENGINE_TARGET.x86_64*.exe" (Join-Path $bundle 'bin')
+          if ($env:ENGINE_TARGET -eq 'editor') {
+            Copy-Item 'engine/bin/*.dll' (Join-Path $bundle 'bin')
+            $sdk = '.local/streamline-sdk-v2.10.0'
+            New-Item -ItemType Directory -Force (Join-Path $bundle "$sdk/bin/x64") | Out-Null
+            Copy-Item "engine/$sdk/license.txt", "engine/$sdk/3rd-party-licenses.md" (Join-Path $bundle $sdk)
+            Copy-Item "engine/$sdk/bin/x64/*.license.txt" (Join-Path $bundle "$sdk/bin/x64")
+            $crt = '.local/msvc-runtime-14.51.36247'
+            New-Item -ItemType Directory -Force (Join-Path $bundle $crt) | Out-Null
+            Copy-Item "engine/$crt/*.dll", "engine/$crt/Redist.txt" (Join-Path $bundle $crt)
+          }
       - name: Upload matching engine and runtime bundle
         uses: actions/upload-artifact@v7
         with:
           name: custom-engine-windows-${{ matrix.target }}
           include-hidden-files: true
           if-no-files-found: error
-          retention-days: 7
-          compression-level: 1
-          path: |
-            engine/bin/godot.windows.editor.x86_64*.exe
-            engine/bin/godot.windows.template_release.x86_64*.exe
-            engine/bin/*.dll
-            engine/.local/streamline-sdk-v2.10.0/license.txt
-            engine/.local/streamline-sdk-v2.10.0/3rd-party-licenses.md
-            engine/.local/streamline-sdk-v2.10.0/bin/x64/*.license.txt
-            engine/.local/msvc-runtime-14.51.36247/*.dll
-            engine/.local/msvc-runtime-14.51.36247/Redist.txt
+          retention-days: 1
+          compression-level: 6
+          path: ${{ runner.temp }}/engine-bundle/
 
   game:
     name: Verify and export Windows game
@@ -147,7 +156,7 @@ jobs:
             game/build/KYLR-Windows-*.zip
             game/build/KYLR-Windows-*.zip.sha256
           if-no-files-found: error
-          retention-days: 14
+          retention-days: 1
           compression-level: 0
       - name: Upload verification and package logs
         if: always()
@@ -158,7 +167,7 @@ jobs:
             game/reports/verification/
             game/reports/packaging/
           if-no-files-found: ignore
-          retention-days: 14
+          retention-days: 3
 
   release:
     name: Publish tagged release

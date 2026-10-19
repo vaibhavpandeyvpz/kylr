@@ -69,16 +69,24 @@ def check():
 
 
 def install_archive(archive, digest):
+    digest = digest.strip()
     if not re.fullmatch(r'[0-9a-fA-F]{64}', digest):
-        raise ValueError('Supply the private asset SHA-256 pin')
-    if hashlib.sha256(archive.read_bytes()).hexdigest() != digest.lower():
-        raise ValueError('Private asset archive checksum mismatch')
+        raise ValueError('PRIVATE_GAME_ASSETS_SHA256 must contain only the 64 hexadecimal SHA-256 characters, without a filename or command output')
+    actual = hashlib.sha256(archive.read_bytes()).hexdigest()
+    if actual != digest.lower():
+        raise ValueError('Private asset archive checksum mismatch. Downloaded ZIP SHA-256: ' + actual +
+                         '. Verify the R2 object and update PRIVATE_GAME_ASSETS_SHA256 to the intended archive hash')
     parent = ROOT / 'engine/.local'
     parent.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory(dir=parent) as scratch:
         folder = Path(scratch)
         with zipfile.ZipFile(archive) as zipped:
-            for name in required_files():
+            required = required_files()
+            missing = [name for name in required if name not in zipped.namelist()]
+            if missing:
+                raise ValueError('Private ZIP is missing required entries: ' + ', '.join(missing[:5]) +
+                                 '. ZIP root must contain animations/ and audio/; see docs/ASSET_SETUP.md')
+            for name in required:
                 # Only this checkout's allowlisted paths can leave the archive.
                 target = folder / name
                 target.parent.mkdir(parents=True, exist_ok=True)
@@ -103,5 +111,9 @@ if __name__ == "__main__":
             install(args.source.resolve())
         else:
             install_archive(args.archive.resolve(), args.sha256)
-    except (ValueError, OSError, KeyError, zipfile.BadZipFile):
-        raise SystemExit("Private asset setup failed. Check the configured bundle, checksum and docs/ASSET_SETUP.md.") from None
+    except ValueError as error:
+        raise SystemExit(f"Private asset setup failed: {error}. See docs/ASSET_SETUP.md.") from None
+    except zipfile.BadZipFile:
+        raise SystemExit("Private asset setup failed: ZIP is invalid or corrupt. Download or rebuild the bundle.") from None
+    except (OSError, KeyError) as error:
+        raise SystemExit(f"Private asset setup failed: {type(error).__name__} while reading or installing required files. See docs/ASSET_SETUP.md.") from None
