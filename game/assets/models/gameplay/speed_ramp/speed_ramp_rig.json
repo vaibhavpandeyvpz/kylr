@@ -1,0 +1,378 @@
+{
+  "name": "speed_ramp",
+  "triangles": 4642,
+  "materials": [
+    "M_Primary_Metallic",
+    "M_Secondary_Metallic",
+    "M_Frame_Diffuse",
+    "M_Joint_Metallic",
+    "M_Emissive"
+  ],
+  "space": "Blender +Z up, forward -Y; Godot (x,z,-y)",
+  "authored_lwh_m": [
+    1.0,
+    1.5,
+    0.75
+  ],
+  "delivery_scale": 0.5,
+  "ground_offset_m": 0.155,
+  "mounting_m": {
+    "footprint": [
+      1.5,
+      1.0
+    ],
+    "base_z": 0.0,
+    "underground_depth": 0.0
+  },
+  "deck_profile_yz_m": [
+    [
+      0.413280189037323,
+      0.1550000011920929
+    ],
+    [
+      -0.18657946586608887,
+      0.7093948125839233
+    ]
+  ],
+  "shroud_stations": [
+    [
+      0.5,
+      0.1625,
+      0.66
+    ],
+    [
+      0.39,
+      0.2044300722023462,
+      0.705
+    ],
+    [
+      -0.172665536403656,
+      0.724449782371521,
+      0.705
+    ],
+    [
+      -0.1962260752916336,
+      0.7406108665466309,
+      0.705
+    ],
+    [
+      -0.223420649766922,
+      0.7493707823753357,
+      0.705
+    ],
+    [
+      -0.2519843578338623,
+      0.74999990940094,
+      0.705
+    ],
+    [
+      -0.27953824400901794,
+      0.7424458551406861,
+      0.705
+    ],
+    [
+      -0.303787499666214,
+      0.7273377466201782,
+      0.705
+    ],
+    [
+      -0.3227124810218811,
+      0.705933837890625,
+      0.705
+    ],
+    [
+      -0.33473700284957886,
+      0.6800168442726136,
+      0.705
+    ],
+    [
+      -0.3388596475124359,
+      0.6517451989650727,
+      0.705
+    ],
+    [
+      -0.5,
+      0.6517451989650727,
+      0.705
+    ]
+  ],
+  "authoring_shroud_stations": [
+    [
+      1.0,
+      0.015,
+      1.32
+    ],
+    [
+      0.78,
+      0.0988601444046924,
+      1.41
+    ],
+    [
+      -0.345331072807312,
+      1.138899564743042,
+      1.41
+    ],
+    [
+      -0.3924521505832672,
+      1.1712217330932617,
+      1.41
+    ],
+    [
+      -0.446841299533844,
+      1.1887415647506714,
+      1.41
+    ],
+    [
+      -0.5039687156677246,
+      1.1899998188018799,
+      1.41
+    ],
+    [
+      -0.5590764880180359,
+      1.174891710281372,
+      1.41
+    ],
+    [
+      -0.607574999332428,
+      1.1446754932403564,
+      1.41
+    ],
+    [
+      -0.6454249620437622,
+      1.10186767578125,
+      1.41
+    ],
+    [
+      -0.6694740056991577,
+      1.050033688545227,
+      1.41
+    ],
+    [
+      -0.6777192950248718,
+      0.9934903979301453,
+      1.41
+    ],
+    [
+      -1.0,
+      0.9934903979301453,
+      1.41
+    ]
+  ],
+  "authoring_nose_y": -0.969,
+  "belt": {
+    "station_count_per_lane": 24,
+    "lane_centers_x_m": [
+      0.285,
+      -0.285
+    ],
+    "lane_width_m": 0.43,
+    "radius_m": 0.065,
+    "perimeter_m": 2.0420352248333655,
+    "pitch_m": 0.08508480103472356,
+    "minimum_rib_gap_m": 0.024684697624343083,
+    "entry": [
+      0.0,
+      0.36000001430511475,
+      0.09735042601823807
+    ],
+    "exit": [
+      0.0,
+      -0.23985964059829712,
+      0.6517452001571655
+    ],
+    "axis": [
+      0.0,
+      -0.7343894839286804,
+      0.6787282824516296
+    ],
+    "normal": [
+      0.0,
+      0.6787282824516296,
+      0.7343894839286804
+    ],
+    "surface_offset_m": 0.0785,
+    "carrier": "Reinforced elastomer flexes between rigid stations; moulded ribs remain rigid."
+  },
+  "joints": [
+    {
+      "bone": "Root",
+      "parent": null,
+      "type": "fixed",
+      "pivot": [
+        0.0,
+        0.0,
+        0.1550000011920929
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": null
+    },
+    {
+      "bone": "Drive",
+      "parent": "Root",
+      "type": "hinge",
+      "pivot": [
+        0.0,
+        -0.23985964059829712,
+        0.6517452001571655
+      ],
+      "axis": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "range": null
+    },
+    {
+      "bone": "Idler",
+      "parent": "Root",
+      "type": "hinge",
+      "pivot": [
+        0.0,
+        0.36000001430511475,
+        0.09735042601823807
+      ],
+      "axis": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "range": null
+    },
+    {
+      "bone": "LeftService",
+      "parent": "Root",
+      "type": "hinge",
+      "pivot": [
+        0.6549999713897705,
+        -0.10000000149011612,
+        0.3149999976158142
+      ],
+      "axis": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "range": [
+        0,
+        35
+      ]
+    },
+    {
+      "bone": "RightService",
+      "parent": "Root",
+      "type": "hinge",
+      "pivot": [
+        -0.6549999713897705,
+        -0.10000000149011612,
+        0.3149999976158142
+      ],
+      "axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "range": [
+        0,
+        35
+      ]
+    }
+  ],
+  "animations": {
+    "convey": {
+      "frames": [
+        0,
+        1536
+      ],
+      "fps": 480,
+      "loop": true
+    },
+    "launch": {
+      "frames": [
+        0,
+        928
+      ],
+      "fps": 480,
+      "loop": false
+    },
+    "service_open": {
+      "frames": [
+        0,
+        480
+      ],
+      "fps": 480,
+      "loop": false
+    },
+    "service_close": {
+      "frames": [
+        0,
+        480
+      ],
+      "fps": 480,
+      "loop": false
+    }
+  },
+  "launch_design": {
+    "implemented_in_game": false,
+    "exit_angle_deg": 42.74434838377943,
+    "exit_height_m": 0.7093947815895081,
+    "launch_origin": [
+      0.0,
+      -0.18657946586608887,
+      0.7093948125839233
+    ],
+    "reference_gravity_m_s2": 9.81,
+    "peak_belt_speed_m_s": 6.337350697758721,
+    "traction_assist": "Electromagnetic beds preload compatible metal soles; release at LaunchOrigin. Future gameplay contract.",
+    "note": "Driven traction conveyor accelerates along its straight incline. Runtime gravity, robot grip and impulse remain to be agreed.",
+    "range_from_lip_m": 4.741938105675009
+  },
+  "service": {
+    "opening_degrees": 35,
+    "interlock": "Belts stopped before opening either cover."
+  },
+  "authoring_belt": {
+    "station_count_per_lane": 24,
+    "lane_centers_x_m": [
+      0.285,
+      -0.285
+    ],
+    "lane_width_m": 0.43,
+    "radius_m": 0.065,
+    "perimeter_m": 2.0420352248333655,
+    "pitch_m": 0.08508480103472356,
+    "minimum_rib_gap_m": 0.024684697624343083,
+    "entry": [
+      0.0,
+      0.7200000286102295,
+      -0.11529915034770966
+    ],
+    "exit": [
+      0.0,
+      -0.47971928119659424,
+      0.9934903979301453
+    ],
+    "axis": [
+      0.0,
+      -0.7343894839286804,
+      0.6787282824516296
+    ],
+    "normal": [
+      0.0,
+      0.6787282824516296,
+      0.7343894839286804
+    ],
+    "surface_offset_m": 0.157,
+    "carrier": "Reinforced elastomer flexes between rigid stations; moulded ribs remain rigid."
+  },
+  "material_classifiers": {
+    "M_Emissive": "Emissive",
+    "M_Frame_Diffuse": "Diffuse",
+    "M_Joint_Metallic": "Metallic",
+    "M_Primary_Metallic": "Metallic",
+    "M_Secondary_Metallic": "Metallic"
+  }
+}

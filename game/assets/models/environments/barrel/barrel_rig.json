@@ -1,0 +1,77 @@
+{
+  "name": "barrel",
+  "static": true,
+  "animations": [],
+  "units": "metres",
+  "triangles": 3965,
+  "triangle_budget": 5000,
+  "materials": [
+    "M_Primary_Metallic",
+    "M_Secondary_Metallic",
+    "M_Frame_Diffuse",
+    "M_Joint_Metallic",
+    "M_Glass"
+  ],
+  "dimensions_m": {
+    "height": 0.95,
+    "nominal_diameter": 0.6
+  },
+  "bounds_m": {
+    "lo": [
+      -0.2985554039478302,
+      -0.33899998664855957,
+      0.0
+    ],
+    "hi": [
+      0.2985554039478302,
+      0.2985554039478302,
+      0.949999988079071
+    ]
+  },
+  "tensor_height_m": 1.753,
+  "placement": "floor centre z=0; service/front -Y; up +Z",
+  "bones": [
+    {
+      "name": "Root",
+      "kind": "fixed",
+      "parent": null
+    }
+  ],
+  "joints": [
+    {
+      "bone": "Root",
+      "type": "fixed",
+      "parent": null,
+      "pivot": [
+        0,
+        0,
+        0
+      ],
+      "range": null
+    }
+  ],
+  "mechanics": {
+    "type": "sealed service reservoir",
+    "instrument": "analogue gauge with physical pointer and seated lens",
+    "drain": "capped shutoff valve with pinned lever and U guard",
+    "charge": "capped service coupling on a true armour flat",
+    "lid": "gasketed top with front toggle and rear retention cleat",
+    "lift": "two chime grips and two-foot top handle",
+    "armour": "two broad stamped half-shells with strengthening beads"
+  },
+  "checks": {
+    "connected_parts": 47,
+    "exact_solid_pairs": 86,
+    "no_solid_intersections": true,
+    "coplanar": true,
+    "budget": true,
+    "no_actions": true
+  },
+  "material_classifiers": {
+    "M_Frame_Diffuse": "Diffuse",
+    "M_Glass": "Glass",
+    "M_Joint_Metallic": "Metallic",
+    "M_Primary_Metallic": "Metallic",
+    "M_Secondary_Metallic": "Metallic"
+  }
+}

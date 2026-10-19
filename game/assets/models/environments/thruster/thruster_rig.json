@@ -1,0 +1,310 @@
+{
+  "name": "thruster",
+  "space": "Blender coords: +Z up, front -Y, left +X; the origin is the centre of the top mount face, which meets the platform's underside at z = 0, and the thruster hangs below it. glTF/Godot: (x, z, -y). The gimbal's joints turn about their bones' local X (degrees).",
+  "rest": "the nozzle straight down (no vectoring)",
+  "size_m": {
+    "diameter": 5.0,
+    "depth_at_rest": 4.61,
+    "depth_at_full_vectoring": 4.9811,
+    "envelope_depth": 5.0
+  },
+  "mount": {
+    "face": "the top face (z = 0), bolted flat to the platform's underside, 5 m round",
+    "note": "place it so its origin lies on the underside, its axis vertical"
+  },
+  "gimbal": {
+    "centre": [
+      0,
+      0,
+      -2.75
+    ],
+    "range_deg": [
+      -10.0,
+      10.0
+    ],
+    "pitch": "GimbalRing about +X: + swings the exhaust to the back (+Y), - to the front (-Y)",
+    "yaw": "Nozzle about +Y (in the ring): + swings the exhaust to the right (-X), - to the left (+X)",
+    "note": "the thrust on the platform is opposite to where the exhaust swings"
+  },
+  "exhaust": {
+    "object": "SK_ThrusterExhaust",
+    "material": "M_Exhaust_Emissive",
+    "bone": "Nozzle",
+    "surface": "the nozzle's bore from the exit rim up to the injector face, facing into the bore (double-sided)",
+    "profile_m": [
+      {
+        "radius": 1.62,
+        "z": -4.61
+      },
+      {
+        "radius": 1.199,
+        "z": -3.37
+      },
+      {
+        "radius": 0.949,
+        "z": -3.031
+      },
+      {
+        "radius": 0.0,
+        "z": -3.08
+      }
+    ],
+    "uv": "u 0..1 round the bore from +X toward +Y (counter-clockwise seen from above), v 0 at the exit rim up the wall to 1 at the injector's centre",
+    "triangles": 160
+  },
+  "gizmos": [
+    {
+      "name": "ExhaustOrigin",
+      "bone": "Nozzle",
+      "origin": [
+        0,
+        0,
+        -3.82
+      ],
+      "forward": [
+        0,
+        0,
+        -1
+      ],
+      "up": [
+        0,
+        -1,
+        0
+      ],
+      "godot": "-Z along the exhaust (out of the nozzle), +Y toward the thruster's front"
+    },
+    {
+      "name": "NozzleExit",
+      "bone": "Nozzle",
+      "origin": [
+        0,
+        0,
+        -4.61
+      ],
+      "forward": [
+        0,
+        0,
+        -1
+      ],
+      "up": [
+        0,
+        -1,
+        0
+      ],
+      "godot": "-Z along the exhaust (out of the nozzle), +Y toward the thruster's front"
+    }
+  ],
+  "materials_note": "map-generic finish in Tensor's materials (off-white and grey paint, matte black, stainless steel, bronze, titanium): no team colours",
+  "materials": [
+    "M_Primary_Metallic",
+    "M_Secondary_Metallic",
+    "M_Frame_Diffuse",
+    "M_Joint_Metallic",
+    "M_Emissive",
+    "M_Bronze_Metallic",
+    "M_Titanium_Metallic"
+  ],
+  "triangles": 4790,
+  "joints": [
+    {
+      "bone": "Root",
+      "parent": null,
+      "type": "fixed",
+      "pivot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": null,
+      "channel": null
+    },
+    {
+      "bone": "GimbalRing",
+      "parent": "Root",
+      "type": "hinge",
+      "pivot": [
+        2.0975,
+        0.0,
+        -2.75
+      ],
+      "axis": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "range": [
+        -10.0,
+        10.0
+      ],
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "Nozzle",
+      "parent": "GimbalRing",
+      "type": "hinge",
+      "pivot": [
+        0.0,
+        1.8575,
+        -2.75
+      ],
+      "axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "range": [
+        -10.0,
+        10.0
+      ],
+      "channel": "rotation_x_deg"
+    }
+  ],
+  "pistons": [
+    {
+      "cylinder": "ActuatorFrontCylinder",
+      "rod": "ActuatorFrontRod",
+      "cylinder_parent": "Root",
+      "rod_parent": "GimbalRing",
+      "cylinder_aims_at": "ActuatorFrontRod",
+      "rod_aims_at": "ActuatorFrontCylinder",
+      "stroke_m": [
+        1.0054,
+        1.6439
+      ],
+      "cylinder_length_m": 0.8546,
+      "rod_length_m": 0.8546
+    },
+    {
+      "cylinder": "ActuatorBackCylinder",
+      "rod": "ActuatorBackRod",
+      "cylinder_parent": "Root",
+      "rod_parent": "GimbalRing",
+      "cylinder_aims_at": "ActuatorBackRod",
+      "rod_aims_at": "ActuatorBackCylinder",
+      "stroke_m": [
+        1.0054,
+        1.6439
+      ],
+      "cylinder_length_m": 0.8546,
+      "rod_length_m": 0.8546
+    },
+    {
+      "cylinder": "ActuatorLeftCylinder",
+      "rod": "ActuatorLeftRod",
+      "cylinder_parent": "GimbalRing",
+      "rod_parent": "Nozzle",
+      "cylinder_aims_at": "ActuatorLeftRod",
+      "rod_aims_at": "ActuatorLeftCylinder",
+      "stroke_m": [
+        1.0531,
+        1.6956
+      ],
+      "cylinder_length_m": 0.8951,
+      "rod_length_m": 0.8951
+    },
+    {
+      "cylinder": "ActuatorRightCylinder",
+      "rod": "ActuatorRightRod",
+      "cylinder_parent": "GimbalRing",
+      "rod_parent": "Nozzle",
+      "cylinder_aims_at": "ActuatorRightRod",
+      "rod_aims_at": "ActuatorRightCylinder",
+      "stroke_m": [
+        1.0531,
+        1.6956
+      ],
+      "cylinder_length_m": 0.8951,
+      "rod_length_m": 0.8951
+    }
+  ],
+  "animations": {
+    "idle": {
+      "frames": [
+        0,
+        150
+      ],
+      "fps": 30,
+      "loop": true,
+      "joints": [
+        "GimbalRing",
+        "Nozzle"
+      ]
+    },
+    "sweep": {
+      "frames": [
+        0,
+        120
+      ],
+      "fps": 30,
+      "loop": true,
+      "joints": [
+        "GimbalRing",
+        "Nozzle"
+      ]
+    },
+    "vector_front": {
+      "frames": [
+        0,
+        1
+      ],
+      "fps": 30,
+      "loop": false,
+      "joints": [
+        "GimbalRing",
+        "Nozzle"
+      ]
+    },
+    "vector_back": {
+      "frames": [
+        0,
+        1
+      ],
+      "fps": 30,
+      "loop": false,
+      "joints": [
+        "GimbalRing",
+        "Nozzle"
+      ]
+    },
+    "vector_left": {
+      "frames": [
+        0,
+        1
+      ],
+      "fps": 30,
+      "loop": false,
+      "joints": [
+        "GimbalRing",
+        "Nozzle"
+      ]
+    },
+    "vector_right": {
+      "frames": [
+        0,
+        1
+      ],
+      "fps": 30,
+      "loop": false,
+      "joints": [
+        "GimbalRing",
+        "Nozzle"
+      ]
+    }
+  },
+  "usage": "Loop idle while the platform hovers. To steer, blend the vector_front / vector_back / vector_left / vector_right poses (the gimbal at full deflection, named by where the exhaust swings; a 2D blend space with the rest pose at its centre), or drive GimbalRing and Nozzle's local X rotation directly within range_deg and aim each actuator's cylinder and rod bone at the other (as their rows say). sweep is a full-range figure of eight for showcases. Put the flame shader on SK_ThrusterExhaust's M_Exhaust surface and start the plume at ExhaustOrigin; both follow the nozzle.",
+  "material_classifiers": {
+    "M_Bronze_Metallic": "Metallic",
+    "M_Emissive": "Emissive",
+    "M_Exhaust_Emissive": "Emissive",
+    "M_Frame_Diffuse": "Diffuse",
+    "M_Joint_Metallic": "Metallic",
+    "M_Primary_Metallic": "Metallic",
+    "M_Secondary_Metallic": "Metallic",
+    "M_Titanium_Metallic": "Metallic"
+  }
+}

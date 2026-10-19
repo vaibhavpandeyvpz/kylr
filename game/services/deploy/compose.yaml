@@ -1,0 +1,42 @@
+name: kylr-online
+services:
+  mongo:
+    image: mongo:8.0
+    volumes: [mongo-data:/data/db]
+    networks: [online]
+    ports: ["127.0.0.1:27017:27017"]
+    healthcheck:
+      test: [CMD, mongosh, --quiet, --eval, "db.adminCommand('ping').ok"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+  api:
+    build:
+      context: ../..
+      dockerfile: services/deploy/Dockerfile.api
+    environment:
+      MONGO_URI: mongodb://mongo:27017/kylr
+      JWT_SECRET: ${JWT_SECRET:?Generate a local JWT secret}
+      CONTROL_TOKEN: ${CONTROL_TOKEN:?Generate a separate control secret}
+      SCHEDULER: docker
+      GAME_IMAGE: kylr-game-server:local
+      GAME_NETWORK: kylr-online
+      GAME_API_URL: http://account-api:8080
+      PUBLIC_GAME_HOST: 127.0.0.1
+    volumes: [/var/run/docker.sock:/var/run/docker.sock]
+    networks:
+      online:
+        aliases: [account-api]
+    ports: ["127.0.0.1:8080:8080"]
+    depends_on:
+      mongo: {condition: service_healthy}
+    healthcheck:
+      test: [CMD, python, -c, "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8080/healthz', timeout=2)"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+volumes:
+  mongo-data:
+networks:
+  online:
+    name: kylr-online

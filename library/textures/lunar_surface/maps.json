@@ -1,0 +1,16 @@
+{
+  "tile_metres": 4.166666666666667,
+  "resolution": 2048,
+  "normal_convention": "OpenGL",
+  "orm": [
+    "occlusion",
+    "roughness",
+    "metallic_zero"
+  ],
+  "source_sha256": "eb7617d564fa6576068f0476e3a7f80a317adc32b43fb66a848f6fc19c25c799",
+  "maps": {
+    "regolith_albedo.png": "bbc98766c2a8378b361f672f84499d62c49d9db66c13d626b7518d0bfebdb5ce",
+    "regolith_normal.png": "6f0bc91eb815a58c6d3d9f9575a5bc7972001ac033a043f2cab7a6e2969de5de",
+    "regolith_orm.png": "fcc403905d21bcaf118a07afd59e837ebe42cb85a313147087b4d4e7d0c711ad"
+  }
+}

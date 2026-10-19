@@ -1,0 +1,840 @@
+{
+  "name": "flamethrower",
+  "space": "Blender coords: +Z up, the nozzle points -Y, the origin is the gun's bottom centre (the cans' lowest point, midway along the gun). glTF/Godot: (x, z, -y), so the nozzle points +Z (glTF's front). Hinges turn about their bone's local X (degrees), slides move along their bone's local Y (metres).",
+  "rest": "nozzle home, trigger forward, louvres shut, the gauge's needle up, pump rods home, pack in, catch out",
+  "size_m": {
+    "wide": 0.181,
+    "long": 0.696,
+    "high": 0.347,
+    "max_wide_long_high": [
+      0.25,
+      0.75,
+      0.35
+    ],
+    "bore_axis_height": 0.155,
+    "note": "a pressurised flamethrower; every weapon fits 0.25 x 0.75 x 0.35 m"
+  },
+  "materials": [
+    "M_Primary_Metallic",
+    "M_Secondary_Diffuse",
+    "M_Frame_Metallic",
+    "M_Joint_Metallic",
+    "M_Emissive",
+    "M_Bronze_Metallic",
+    "M_Red_Metallic",
+    "M_Metal_Metallic",
+    "M_Ceramic_Diffuse",
+    "M_Alu_Metallic"
+  ],
+  "triangles": {
+    "SK_Flamethrower": 4797,
+    "SK_FlamethrowerAmmo": 1278,
+    "SM_FlamethrowerAmmo": 1278
+  },
+  "joints": [
+    {
+      "bone": "Root",
+      "parent": null,
+      "type": "fixed",
+      "pivot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": null,
+      "channel": null
+    },
+    {
+      "bone": "Barrel",
+      "parent": "Root",
+      "type": "slide",
+      "pivot": [
+        0.0,
+        -0.205,
+        0.155
+      ],
+      "axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "range": [
+        0,
+        0.01
+      ],
+      "channel": "location_y_m"
+    },
+    {
+      "bone": "Trigger",
+      "parent": "Root",
+      "type": "hinge",
+      "pivot": [
+        0.0,
+        0.0505,
+        0.3065
+      ],
+      "axis": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "range": [
+        0,
+        12
+      ],
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "Louvre1",
+      "parent": "Root",
+      "type": "hinge",
+      "pivot": [
+        -0.0432,
+        -0.13,
+        0.1705
+      ],
+      "axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "range": [
+        0,
+        45
+      ],
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "Louvre2",
+      "parent": "Root",
+      "type": "hinge",
+      "pivot": [
+        -0.0432,
+        -0.13,
+        0.16
+      ],
+      "axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "range": [
+        0,
+        45
+      ],
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "Louvre3",
+      "parent": "Root",
+      "type": "hinge",
+      "pivot": [
+        -0.0432,
+        -0.13,
+        0.1495
+      ],
+      "axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "range": [
+        0,
+        45
+      ],
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "Needle",
+      "parent": "Root",
+      "type": "hinge",
+      "pivot": [
+        -0.047,
+        -0.045,
+        0.155
+      ],
+      "axis": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "range": [
+        -80,
+        10
+      ],
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "PumpA",
+      "parent": "Root",
+      "type": "slide",
+      "pivot": [
+        0.0487,
+        0.115,
+        0.1645
+      ],
+      "axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "range": [
+        0,
+        0.012
+      ],
+      "channel": "location_y_m"
+    },
+    {
+      "bone": "PumpB",
+      "parent": "Root",
+      "type": "slide",
+      "pivot": [
+        0.0487,
+        0.115,
+        0.1455
+      ],
+      "axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "range": [
+        0,
+        0.012
+      ],
+      "channel": "location_y_m"
+    },
+    {
+      "bone": "Mag",
+      "parent": "Root",
+      "type": "slide",
+      "pivot": [
+        0.0,
+        -0.015,
+        0.0
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "range": [
+        0,
+        0.03
+      ],
+      "channel": "location_y_m"
+    },
+    {
+      "bone": "MagCatch",
+      "parent": "Root",
+      "type": "slide",
+      "pivot": [
+        0.0,
+        -0.0052,
+        0.1115
+      ],
+      "axis": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "range": [
+        0,
+        0.01
+      ],
+      "channel": "location_y_m"
+    }
+  ],
+  "coupled": {
+    "Louvre2": "= Louvre1: the three slats swing together (baked into every action)",
+    "Louvre3": "= Louvre1: the three slats swing together (baked into every action)"
+  },
+  "animations": {
+    "idle": {
+      "frames": [
+        0,
+        60
+      ],
+      "fps": 30,
+      "loop": true,
+      "joints": [
+        "Needle",
+        "PumpA",
+        "PumpB"
+      ]
+    },
+    "fire_start": {
+      "frames": [
+        0,
+        8
+      ],
+      "fps": 30,
+      "loop": false,
+      "joints": [
+        "Louvre1",
+        "Louvre2",
+        "Louvre3",
+        "Needle",
+        "PumpB",
+        "Trigger"
+      ]
+    },
+    "fire": {
+      "frames": [
+        0,
+        30
+      ],
+      "fps": 30,
+      "loop": true,
+      "joints": [
+        "Barrel",
+        "Louvre1",
+        "Louvre2",
+        "Louvre3",
+        "Needle",
+        "PumpA",
+        "PumpB",
+        "Trigger"
+      ]
+    },
+    "fire_end": {
+      "frames": [
+        0,
+        14
+      ],
+      "fps": 30,
+      "loop": false,
+      "joints": [
+        "Louvre1",
+        "Louvre2",
+        "Louvre3",
+        "Needle",
+        "PumpB",
+        "Trigger"
+      ]
+    },
+    "mag_release": {
+      "frames": [
+        0,
+        15
+      ],
+      "fps": 30,
+      "loop": false,
+      "joints": [
+        "Mag",
+        "MagCatch"
+      ]
+    },
+    "mag_insert": {
+      "frames": [
+        0,
+        15
+      ],
+      "fps": 30,
+      "loop": false,
+      "joints": [
+        "Mag",
+        "MagCatch"
+      ]
+    }
+  },
+  "fire": {
+    "hold": "fire_start (8 frames: the trigger pulls, the louvres swing open, the gauge drops, the pump starts), then loop fire (30 frames: the pump's rods stroke in turn, the louvres flutter open, the nozzle pulses 1 cm back and home once a second, 15 frames back, 15 home), and on release fire_end (14 frames: everything settles home). Emit the flame stream from Muzzle (forward = its direction) from fire_start's frame 2 through fire; smoke from FumeVent while the louvres are open (fire_start frame 3 to fire_end frame 10).",
+    "pilot": "the pilot burns all the time the gun is held (idle, firing, reloading): a small flame at PilotFlame, its forward pointing at the stream ahead of the nozzle; it is what lights the stream as it leaves the nozzle.",
+    "idle": "idle (60 frames, loop): the gauge's needle quivers and the pump rods breathe; it starts and ends at rest, as every action except the fire loop (from fire_start, into fire_end).",
+    "recoil_m": 0.01,
+    "recoil_frames": [
+      15,
+      15
+    ],
+    "vent_open_deg": 45,
+    "pump_stroke_m": 0.012
+  },
+  "gizmos": {
+    "convention": "empties: in Blender local +Y is the gizmo's forward and +Z its up; in glTF / Godot -Z is forward and +Y up (Marker3D / Node3D under a BoneAttachment3D, so they follow the animations)",
+    "muzzle": {
+      "name": "Muzzle",
+      "bone": "Barrel",
+      "position": [
+        0.0,
+        -0.362,
+        0.155
+      ],
+      "forward": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "up": [
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    "muzzle_note": "1 cm in front of the nozzle's tip, on its bone (it pulses with it): the flame stream's and the damage's origin, forward = the stream's direction",
+    "pilot_flame": {
+      "name": "PilotFlame",
+      "bone": "Root",
+      "position": [
+        0.0,
+        -0.3299,
+        0.117
+      ],
+      "forward": [
+        0.0,
+        -0.8791,
+        0.4767
+      ],
+      "up": [
+        0.0,
+        0.4767,
+        0.8791
+      ]
+    },
+    "pilot_flame_note": "on the pilot's jet under the nozzle's tip, forward = along the pilot's axis, up into the stream about 5 cm ahead of the nozzle: a small, always-on flame here",
+    "fume_vent": {
+      "name": "FumeVent",
+      "bone": "Root",
+      "position": [
+        -0.047,
+        -0.13,
+        0.155
+      ],
+      "forward": [
+        -0.8944,
+        0.0,
+        -0.4472
+      ],
+      "up": [
+        -0.4472,
+        0.0,
+        0.8944
+      ]
+    },
+    "fume_vent_note": "on the louvred exhaust in the right flank, forward = out and down (the open slats turn the fumes down): smoke / heat haze while firing"
+  },
+  "ammo_hand_socket": {
+    "hand_bone": "LeftHand",
+    "bone": "Mag",
+    "grips": "the ammo pack for a reload, a wide grip: palm on its outer end, fingers across it and over its far edge, thumb up its front",
+    "note": "given at the pack's rest; the empty rides the Mag bone. For a reload, put the support hand on it where the pack is (released), carry the pack in that hand (pack = hand_bone_global * socket_in_pack.inverse()) and put it back the same way",
+    "wrist_blender": [
+      0.0405,
+      -0.0219,
+      -0.0119
+    ],
+    "bone_x_blender": [
+      0.0,
+      1.0,
+      0.0
+    ],
+    "bone_y_blender": [
+      -1.0,
+      0.0,
+      0.0
+    ],
+    "bone_z_blender": [
+      -0.0,
+      -0.0,
+      1.0
+    ],
+    "wrist_godot": [
+      0.0405,
+      -0.0119,
+      0.0219
+    ],
+    "bone_x_godot": [
+      0.0,
+      0.0,
+      -1.0
+    ],
+    "bone_y_godot": [
+      -1.0,
+      0.0,
+      -0.0
+    ],
+    "bone_z_godot": [
+      -0.0,
+      1.0,
+      0.0
+    ],
+    "grip_pose_deg": {
+      "LeftIndexProximal": [
+        45.0,
+        0,
+        0
+      ],
+      "LeftIndexIntermediate": [
+        49.5,
+        0,
+        0
+      ],
+      "LeftIndexDistal": [
+        36.0,
+        0,
+        0
+      ],
+      "LeftMiddleProximal": [
+        50.0,
+        0,
+        0
+      ],
+      "LeftMiddleIntermediate": [
+        55.0,
+        0,
+        0
+      ],
+      "LeftMiddleDistal": [
+        40.0,
+        0,
+        0
+      ],
+      "LeftRingProximal": [
+        50.0,
+        0,
+        0
+      ],
+      "LeftRingIntermediate": [
+        55.0,
+        0,
+        0
+      ],
+      "LeftRingDistal": [
+        40.0,
+        0,
+        0
+      ],
+      "LeftLittleProximal": [
+        45.0,
+        0,
+        0
+      ],
+      "LeftLittleIntermediate": [
+        49.5,
+        0,
+        0
+      ],
+      "LeftLittleDistal": [
+        36.0,
+        0,
+        0
+      ],
+      "LeftThumbMetacarpal": [
+        25,
+        0,
+        40
+      ],
+      "LeftThumbProximal": [
+        15,
+        0,
+        0
+      ],
+      "LeftThumbDistal": [
+        15,
+        0,
+        0
+      ]
+    }
+  },
+  "hand_sockets": {
+    "convention": "origin = the wrist pivot (the head of the character's Hand bone); the socket's glTF / Godot basis IS the Hand bone's basis for that grip (Tensor: X along the knuckle line, the left thumb on -X and the right on +X, Y from the wrist to the knuckles, Z out of the palm). In Godot set the hand bone's global pose to the socket's transform (relative to the skeleton) and solve the arm to reach it; or carry the gun in the right hand with gun = hand_bone_global * RightHandSocket_local.inverse(). In Blender the empties' own axes are (X, -Z, Y) of the bone frame because the exporter converts empties, not bones.",
+    "grip_pose": "grip_pose_deg per socket: Tensor's finger and thumb bone rotations (local XYZ, degrees) that close each hand onto its grip (animations/retarget.py closes Tensor's hands to them); the right index finger curls in to the trigger",
+    "LeftHandSocket": {
+      "hand_bone": "LeftHand",
+      "grips": "the side grip standing out of the left flank, thumb up",
+      "wrist_blender": [
+        0.1688,
+        -0.0373,
+        0.2165
+      ],
+      "bone_x_blender": [
+        -0.0,
+        0.0,
+        -1.0
+      ],
+      "bone_y_blender": [
+        -0.7431,
+        -0.6691,
+        0.0
+      ],
+      "bone_z_blender": [
+        -0.6691,
+        0.7431,
+        0.0
+      ],
+      "wrist_godot": [
+        0.1688,
+        0.2165,
+        0.0373
+      ],
+      "bone_x_godot": [
+        -0.0,
+        -1.0,
+        -0.0
+      ],
+      "bone_y_godot": [
+        -0.7431,
+        0.0,
+        0.6691
+      ],
+      "bone_z_godot": [
+        -0.6691,
+        0.0,
+        -0.7431
+      ],
+      "grip_pose_deg": {
+        "LeftIndexProximal": [
+          60.0,
+          0,
+          0
+        ],
+        "LeftIndexIntermediate": [
+          66.0,
+          0,
+          0
+        ],
+        "LeftIndexDistal": [
+          48.0,
+          0,
+          0
+        ],
+        "LeftMiddleProximal": [
+          65.0,
+          0,
+          0
+        ],
+        "LeftMiddleIntermediate": [
+          71.5,
+          0,
+          0
+        ],
+        "LeftMiddleDistal": [
+          52.0,
+          0,
+          0
+        ],
+        "LeftRingProximal": [
+          60.0,
+          0,
+          0
+        ],
+        "LeftRingIntermediate": [
+          66.0,
+          0,
+          0
+        ],
+        "LeftRingDistal": [
+          48.0,
+          0,
+          0
+        ],
+        "LeftLittleProximal": [
+          55.0,
+          0,
+          0
+        ],
+        "LeftLittleIntermediate": [
+          60.5,
+          0,
+          0
+        ],
+        "LeftLittleDistal": [
+          44.0,
+          0,
+          0
+        ],
+        "LeftThumbMetacarpal": [
+          50,
+          0,
+          25
+        ],
+        "LeftThumbProximal": [
+          60,
+          0,
+          0
+        ],
+        "LeftThumbDistal": [
+          60,
+          0,
+          0
+        ]
+      }
+    },
+    "RightHandSocket": {
+      "hand_bone": "RightHand",
+      "grips": "the upright grip on top (a pistol grip standing on the crown)",
+      "wrist_blender": [
+        -0.03,
+        0.1776,
+        0.2731
+      ],
+      "bone_x_blender": [
+        0.0,
+        -0.2588,
+        0.9659
+      ],
+      "bone_y_blender": [
+        0.0,
+        -0.9659,
+        -0.2588
+      ],
+      "bone_z_blender": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "wrist_godot": [
+        -0.03,
+        0.2731,
+        -0.1776
+      ],
+      "bone_x_godot": [
+        0.0,
+        0.9659,
+        0.2588
+      ],
+      "bone_y_godot": [
+        0.0,
+        -0.2588,
+        0.9659
+      ],
+      "bone_z_godot": [
+        1.0,
+        0.0,
+        -0.0
+      ],
+      "grip_pose_deg": {
+        "RightIndexProximal": [
+          36.0,
+          0,
+          0
+        ],
+        "RightIndexIntermediate": [
+          39.6,
+          0,
+          0
+        ],
+        "RightIndexDistal": [
+          28.8,
+          0,
+          0
+        ],
+        "RightMiddleProximal": [
+          65.0,
+          0,
+          0
+        ],
+        "RightMiddleIntermediate": [
+          71.5,
+          0,
+          0
+        ],
+        "RightMiddleDistal": [
+          52.0,
+          0,
+          0
+        ],
+        "RightRingProximal": [
+          65.0,
+          0,
+          0
+        ],
+        "RightRingIntermediate": [
+          71.5,
+          0,
+          0
+        ],
+        "RightRingDistal": [
+          52.0,
+          0,
+          0
+        ],
+        "RightLittleProximal": [
+          52.0,
+          0,
+          0
+        ],
+        "RightLittleIntermediate": [
+          57.2,
+          0,
+          0
+        ],
+        "RightLittleDistal": [
+          41.6,
+          0,
+          0
+        ],
+        "RightThumbMetacarpal": [
+          42,
+          0,
+          -25
+        ],
+        "RightThumbProximal": [
+          50,
+          0,
+          0
+        ],
+        "RightThumbDistal": [
+          50,
+          0,
+          0
+        ]
+      }
+    }
+  },
+  "ammo": {
+    "mesh": "SM_FlamethrowerAmmo in flamethrower_ammo.glb, at the AmmoMount gizmo",
+    "bone": "Mag",
+    "pickup_file": "flamethrower_ammo.glb",
+    "pickup_mesh": "SM_FlamethrowerAmmo",
+    "pickup_origin": "its bottom centre, lying as under the gun",
+    "axis": [
+      0,
+      0,
+      -1
+    ],
+    "travel_m": 0.03,
+    "note": "mag_release presses the catch and drops the pack (two cans on their manifold) off its socket (its neck out of the bore); past MAG_TRAVEL it is free: hide the pack's mesh and drop a physics copy of the pickup mesh at the Mag bone's transform. To reload, put the pack back at the end of its travel and play mag_insert (the catch snaps into the neck's groove)."
+  },
+  "usage": "idle (loop); fire: fire_start, fire (loop), fire_end; reload: mag_release, mag_insert.",
+  "ammo_mount": {
+    "gizmo": "AmmoMount",
+    "bone": "Mag",
+    "model": "flamethrower_ammo.glb",
+    "mesh": "SM_FlamethrowerAmmo",
+    "position_blender": [
+      -0.0,
+      -0.0181,
+      -0.0144
+    ],
+    "rotation_wxyz_blender": [
+      0.9945,
+      -0.1045,
+      0.0,
+      0.0
+    ],
+    "position_godot": [
+      -0.0,
+      -0.0144,
+      0.0181
+    ],
+    "note": "the ammo pack is its own model (<name>_ammo.glb / .fbx / .blend, its origin at its bottom centre, square to its own axes, its real size): parent its mesh to the AmmoMount node unmoved and it rides the Mag bone where the weapon's actions put it (a reload's release and insert); the weapon's own files carry no pack mesh. The same model is the ammo pickup."
+  },
+  "material_classifiers": {
+    "M_Alu_Metallic": "Metallic",
+    "M_Bronze_Metallic": "Metallic",
+    "M_Ceramic_Diffuse": "Diffuse",
+    "M_Emissive": "Emissive",
+    "M_Frame_Metallic": "Metallic",
+    "M_Joint_Metallic": "Metallic",
+    "M_Metal_Metallic": "Metallic",
+    "M_Primary_Metallic": "Metallic",
+    "M_Red_Metallic": "Metallic",
+    "M_Secondary_Diffuse": "Diffuse"
+  }
+}

@@ -1,0 +1,211 @@
+{
+  "name": "skyfall_module_bridge_A_bridge_lower_159_0",
+  "source_helper": "bridge",
+  "underbody": false,
+  "depth_m": 0.8,
+  "gizmos": [
+    {
+      "name": "BridgeSocketRear",
+      "attachment_kind": "bridge_socket",
+      "origin": [
+        0,
+        0,
+        0
+      ],
+      "matrix_world": [
+        [
+          1.0,
+          -0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "BridgeSocketFront",
+      "attachment_kind": "bridge_socket",
+      "origin": [
+        0,
+        -5,
+        0
+      ],
+      "matrix_world": [
+        [
+          -1.0,
+          -8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          8.742277657347586e-08,
+          -1.0,
+          0.0,
+          -5.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "SconceLightMountLeft",
+      "bone": "Root",
+      "attachment": "sconce_light",
+      "origin": [
+        -2.5,
+        -2.5,
+        -0.4
+      ],
+      "matrix_world": [
+        [
+          -4.371138828673793e-08,
+          1.0,
+          0.0,
+          -2.5
+        ],
+        [
+          -1.0,
+          -4.371138828673793e-08,
+          0.0,
+          -2.5
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          -0.4000000059604645
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "SconceLightMountRight",
+      "bone": "Root",
+      "attachment": "sconce_light",
+      "origin": [
+        2.5,
+        -2.5,
+        -0.4
+      ],
+      "matrix_world": [
+        [
+          7.549790126404332e-08,
+          -1.0,
+          0.0,
+          2.5
+        ],
+        [
+          1.0,
+          7.549790126404332e-08,
+          0.0,
+          -2.5
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          -0.4000000059604645
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "BattenLightMount",
+      "bone": "Root",
+      "attachment": "batten_light",
+      "required_mesh": "SK_Bridge5X5Cover",
+      "origin": [
+        0.0,
+        -2.5,
+        2.8399999141693115
+      ],
+      "matrix_world": [
+        [
+          7.549790126404332e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          1.0,
+          7.549790126404332e-08,
+          0.0,
+          -2.5
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          2.8399999141693115
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    }
+  ],
+  "cutouts": [],
+  "triangles": 4697,
+  "placement": "Rear docking edge at origin; span along -Y; deck z=0",
+  "meshes": {
+    "SK_Bridge5X5Deck": 956,
+    "SK_Bridge5X5SideFrameLeft": 108,
+    "SK_Bridge5X5SideFrameRight": 108,
+    "SK_Bridge5X5RailingLeft": 614,
+    "SK_Bridge5X5RailingRight": 614,
+    "SK_Bridge5X5Cover": 2297
+  },
+  "recess_clearance_per_side_m": 0.001,
+  "recess_top_above_surface_m": 0.5,
+  "triangle_budget": 4697,
+  "budget_approval": "2026-10-13: user requests all native geometry; final map budget equals measured total",
+  "material_classifiers": {
+    "M_Frame_Diffuse": "Diffuse",
+    "M_Joint_Diffuse": "Diffuse",
+    "M_Primary_Diffuse": "Diffuse",
+    "M_Regolith_Diffuse": "Diffuse",
+    "M_RegolithDark_Diffuse": "Diffuse",
+    "M_RegolithLight_Diffuse": "Diffuse",
+    "M_Secondary_Diffuse": "Diffuse"
+  }
+}

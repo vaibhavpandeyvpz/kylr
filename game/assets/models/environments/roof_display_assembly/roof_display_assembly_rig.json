@@ -1,0 +1,76 @@
+{
+  "name": "roof_display_assembly",
+  "static": true,
+  "animations": [],
+  "triangles": 3746,
+  "triangle_budget": 5000,
+  "meshes": {
+    "SK_RoofDisplayAssembly": 3710,
+    "SK_RoofDisplayGlass": 24,
+    "SK_RoofDisplayScreen1": 6,
+    "SK_RoofDisplayScreen2": 6
+  },
+  "bounds_m": {
+    "lo": [
+      -0.7329999804496765,
+      -0.1899999976158142,
+      -1.034999966621399
+    ],
+    "hi": [
+      0.7329999804496765,
+      0.1899999976158142,
+      0.0
+    ]
+  },
+  "tensor_height_m": 1.753,
+  "materials": [
+    "M_Frame_Diffuse",
+    "M_Glass",
+    "M_Joint_Metallic",
+    "M_Primary_Metallic",
+    "M_Screen_Emissive",
+    "M_Secondary_Metallic"
+  ],
+  "bones": [
+    {
+      "name": "Root",
+      "kind": "fixed",
+      "parent": null
+    }
+  ],
+  "placement": "Ceiling mounting face z=0; front -Y; up +Z; all geometry below mounting plane.",
+  "screens": {
+    "active_size_m": [
+      0.59,
+      0.331875
+    ],
+    "aspect": 1.7777777777777777,
+    "front": [
+      0,
+      -1,
+      0
+    ],
+    "uv0": "0..1 left-to-right, bottom-to-top; original embedded telemetry; runtime replaceable",
+    "glass_opacity": 0.1,
+    "glass_colour": "blue",
+    "glass_clearance_m": 0.01,
+    "glass_thickness_m": 0.002
+  },
+  "checks": {
+    "connected_parts": 63,
+    "exact_solid_pairs": 41,
+    "no_solid_intersections": true,
+    "coplanar": true,
+    "budget": true,
+    "no_actions": true
+  },
+  "mechanics": "Welded rail/downstands; bored clevises and through pins; retaining caps; seated removable bezels; sealed LCDs; rear heatsinks; terminal-anchored cable looms.",
+  "material_classifiers": {
+    "M_Frame_Diffuse": "Diffuse",
+    "M_Glass": "Glass",
+    "M_Joint_Metallic": "Metallic",
+    "M_Primary_Metallic": "Metallic",
+    "M_Screen_Emissive": "Emissive",
+    "M_Secondary_Metallic": "Metallic"
+  }
+}

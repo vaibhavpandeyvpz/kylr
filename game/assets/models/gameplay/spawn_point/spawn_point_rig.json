@@ -1,0 +1,526 @@
+{
+  "name": "spawn_point",
+  "space": "Blender coords: +Z up, front -Y, the floor surface is z = 0 with the origin at the hatch centre. glTF/Godot: (x, z, -y). Hinges turn about their bone's local X (degrees); slides move along their bone's local Y (metres).",
+  "rest": "the hatch open (panels parked in their pockets), the plate down",
+  "cutout_m": {
+    "tiers": [
+      {
+        "size": [
+          2.0,
+          2.0
+        ],
+        "from_z": 0.0,
+        "to_z": -0.22
+      },
+      {
+        "size": [
+          1.04,
+          1.04
+        ],
+        "from_z": -0.22,
+        "to_z": -1.5
+      }
+    ],
+    "hatch": [
+      1.0,
+      1.0
+    ],
+    "depth": 1.5,
+    "note": "a stepped cut-out with square outside corners: a 2 x 2 m box 0.22 m deep (the frame's housing, its top flush with the floor), and under its centre a 1.04 m square shaft to 1.5 m. The prop fills it exactly."
+  },
+  "materials_note": "map-generic finish in Tensor's materials (off-white and grey paint, matte black, stainless steel): no team colours",
+  "materials": [
+    "M_Primary_Metallic",
+    "M_Secondary_Metallic",
+    "M_Frame_Diffuse",
+    "M_Joint_Metallic",
+    "M_Emissive"
+  ],
+  "triangles": 1682,
+  "player_mount": {
+    "bone": "PlayerSocket",
+    "node": "PlayerMount",
+    "head": [
+      0.0,
+      0.0,
+      -1.2
+    ],
+    "place_by": "feet",
+    "note": "stand the player on the PlayerMount node (an invisible marker on the PlayerSocket bone, on the plate's top at its centre): -Z is their forward (the prop's front) and +Y up, so they ride the plate through raise / lower. Down, the plate is 1.2 m under the floor; up, flush with it. The plate reads the same from every side."
+  },
+  "joints": [
+    {
+      "bone": "Root",
+      "parent": null,
+      "type": "fixed",
+      "pivot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": null,
+      "channel": null
+    },
+    {
+      "bone": "LeftOuterCarriageFront",
+      "parent": "Root",
+      "type": "slide",
+      "pivot": [
+        0.561,
+        -0.645,
+        -0.13
+      ],
+      "axis": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "range": [
+        0,
+        0.255
+      ],
+      "channel": "location_y_m"
+    },
+    {
+      "bone": "LeftOuterCarriageBack",
+      "parent": "Root",
+      "type": "slide",
+      "pivot": [
+        0.561,
+        0.645,
+        -0.13
+      ],
+      "axis": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "range": [
+        0,
+        0.255
+      ],
+      "channel": "location_y_m"
+    },
+    {
+      "bone": "LeftInnerCarriageFront",
+      "parent": "Root",
+      "type": "slide",
+      "pivot": [
+        0.635,
+        -0.545,
+        -0.16
+      ],
+      "axis": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "range": [
+        0,
+        0.51
+      ],
+      "channel": "location_y_m"
+    },
+    {
+      "bone": "LeftInnerCarriageBack",
+      "parent": "Root",
+      "type": "slide",
+      "pivot": [
+        0.635,
+        0.545,
+        -0.16
+      ],
+      "axis": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "range": [
+        0,
+        0.51
+      ],
+      "channel": "location_y_m"
+    },
+    {
+      "bone": "RightOuterCarriageFront",
+      "parent": "Root",
+      "type": "slide",
+      "pivot": [
+        -0.561,
+        -0.645,
+        -0.13
+      ],
+      "axis": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "range": [
+        0,
+        0.255
+      ],
+      "channel": "location_y_m"
+    },
+    {
+      "bone": "RightOuterCarriageBack",
+      "parent": "Root",
+      "type": "slide",
+      "pivot": [
+        -0.561,
+        0.645,
+        -0.13
+      ],
+      "axis": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "range": [
+        0,
+        0.255
+      ],
+      "channel": "location_y_m"
+    },
+    {
+      "bone": "RightInnerCarriageFront",
+      "parent": "Root",
+      "type": "slide",
+      "pivot": [
+        -0.635,
+        -0.545,
+        -0.16
+      ],
+      "axis": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "range": [
+        0,
+        0.51
+      ],
+      "channel": "location_y_m"
+    },
+    {
+      "bone": "RightInnerCarriageBack",
+      "parent": "Root",
+      "type": "slide",
+      "pivot": [
+        -0.635,
+        0.545,
+        -0.16
+      ],
+      "axis": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "range": [
+        0,
+        0.51
+      ],
+      "channel": "location_y_m"
+    },
+    {
+      "bone": "LeftOuterPanel",
+      "parent": "LeftOuterCarriageFront",
+      "type": "slide",
+      "pivot": [
+        0.561,
+        0.0,
+        -0.023
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        0,
+        0.023
+      ],
+      "channel": "location_y_m"
+    },
+    {
+      "bone": "LeftInnerPanel",
+      "parent": "LeftInnerCarriageFront",
+      "type": "slide",
+      "pivot": [
+        0.635,
+        0.0,
+        -0.066
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        0,
+        0.066
+      ],
+      "channel": "location_y_m"
+    },
+    {
+      "bone": "RightOuterPanel",
+      "parent": "RightOuterCarriageFront",
+      "type": "slide",
+      "pivot": [
+        -0.561,
+        0.0,
+        -0.023
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        0,
+        0.023
+      ],
+      "channel": "location_y_m"
+    },
+    {
+      "bone": "RightInnerPanel",
+      "parent": "RightInnerCarriageFront",
+      "type": "slide",
+      "pivot": [
+        -0.635,
+        0.0,
+        -0.066
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        0,
+        0.066
+      ],
+      "channel": "location_y_m"
+    },
+    {
+      "bone": "Plate",
+      "parent": "Root",
+      "type": "slide",
+      "pivot": [
+        0.0,
+        0.0,
+        -1.2
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        0,
+        1.2
+      ],
+      "channel": "location_y_m"
+    },
+    {
+      "bone": "PlayerSocket",
+      "parent": "Plate",
+      "type": "fixed",
+      "pivot": [
+        0.0,
+        0.0,
+        -1.2
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": null,
+      "channel": null
+    }
+  ],
+  "coupled": {
+    "LeftOuterCarriageFront": [
+      {
+        "bone": "LeftOuterCarriageBack",
+        "ratio": 1.0
+      },
+      {
+        "bone": "LeftInnerCarriageFront",
+        "ratio": 2.0
+      },
+      {
+        "bone": "LeftInnerCarriageBack",
+        "ratio": 2.0
+      },
+      {
+        "bone": "RightOuterCarriageFront",
+        "ratio": 1.0
+      },
+      {
+        "bone": "RightOuterCarriageBack",
+        "ratio": 1.0
+      },
+      {
+        "bone": "RightInnerCarriageFront",
+        "ratio": 2.0
+      },
+      {
+        "bone": "RightInnerCarriageBack",
+        "ratio": 2.0
+      }
+    ],
+    "LeftOuterPanel": [
+      {
+        "bone": "LeftInnerPanel",
+        "ratio": 2.869565
+      },
+      {
+        "bone": "RightOuterPanel",
+        "ratio": 1.0
+      },
+      {
+        "bone": "RightInnerPanel",
+        "ratio": 2.869565
+      }
+    ]
+  },
+  "coupled_note": "a follower's value is its driver's times its ratio: the carriages run synchronised (the inner panels' twice as fast) and the lift cylinders raise and drop the panels together. The animations key them all.",
+  "animations": {
+    "open": {
+      "frames": [
+        0,
+        40
+      ],
+      "fps": 30,
+      "loop": false,
+      "joints": [
+        "LeftInnerCarriageBack",
+        "LeftInnerCarriageFront",
+        "LeftInnerPanel",
+        "LeftOuterCarriageBack",
+        "LeftOuterCarriageFront",
+        "LeftOuterPanel",
+        "RightInnerCarriageBack",
+        "RightInnerCarriageFront",
+        "RightInnerPanel",
+        "RightOuterCarriageBack",
+        "RightOuterCarriageFront",
+        "RightOuterPanel"
+      ]
+    },
+    "raise": {
+      "frames": [
+        0,
+        60
+      ],
+      "fps": 30,
+      "loop": false,
+      "joints": [
+        "Plate"
+      ]
+    },
+    "lower": {
+      "frames": [
+        0,
+        60
+      ],
+      "fps": 30,
+      "loop": false,
+      "joints": [
+        "Plate"
+      ]
+    },
+    "close": {
+      "frames": [
+        0,
+        40
+      ],
+      "fps": 30,
+      "loop": false,
+      "joints": [
+        "LeftInnerCarriageBack",
+        "LeftInnerCarriageFront",
+        "LeftInnerPanel",
+        "LeftOuterCarriageBack",
+        "LeftOuterCarriageFront",
+        "LeftOuterPanel",
+        "RightInnerCarriageBack",
+        "RightInnerCarriageFront",
+        "RightInnerPanel",
+        "RightOuterCarriageBack",
+        "RightOuterCarriageFront",
+        "RightOuterPanel"
+      ]
+    },
+    "deploy": {
+      "frames": [
+        0,
+        104
+      ],
+      "fps": 30,
+      "loop": false,
+      "joints": [
+        "LeftInnerCarriageBack",
+        "LeftInnerCarriageFront",
+        "LeftInnerPanel",
+        "LeftOuterCarriageBack",
+        "LeftOuterCarriageFront",
+        "LeftOuterPanel",
+        "Plate",
+        "RightInnerCarriageBack",
+        "RightInnerCarriageFront",
+        "RightInnerPanel",
+        "RightOuterCarriageBack",
+        "RightOuterCarriageFront",
+        "RightOuterPanel"
+      ]
+    },
+    "retract": {
+      "frames": [
+        0,
+        104
+      ],
+      "fps": 30,
+      "loop": false,
+      "joints": [
+        "LeftInnerCarriageBack",
+        "LeftInnerCarriageFront",
+        "LeftInnerPanel",
+        "LeftOuterCarriageBack",
+        "LeftOuterCarriageFront",
+        "LeftOuterPanel",
+        "Plate",
+        "RightInnerCarriageBack",
+        "RightInnerCarriageFront",
+        "RightInnerPanel",
+        "RightOuterCarriageBack",
+        "RightOuterCarriageFront",
+        "RightOuterPanel"
+      ]
+    }
+  },
+  "events": {
+    "deploy": {
+      "hatch_open": 40,
+      "plate_up": 104
+    },
+    "retract": {
+      "plate_down": 60,
+      "closed": 104
+    }
+  },
+  "usage": "spawning: play deploy (the panels drop and slide out, then the plate rises), spawning the player on PlayerMount once the hatch is open (frame 40), before the plate starts up (frame 44); or play open, spawn, then raise. When the player steps off the plate, play retract (the plate goes down, then the hatch closes), or lower then close. Never close with the plate up.",
+  "material_classifiers": {
+    "M_Emissive": "Emissive",
+    "M_Frame_Diffuse": "Diffuse",
+    "M_Joint_Metallic": "Metallic",
+    "M_Primary_Metallic": "Metallic",
+    "M_Secondary_Metallic": "Metallic"
+  }
+}

@@ -1,0 +1,66 @@
+{
+  "name": "storage_rack",
+  "static": true,
+  "animations": [],
+  "triangles": 4942,
+  "triangle_budget": 5000,
+  "bounds_m": {
+    "lo": [
+      -0.7450000047683716,
+      -0.3450000286102295,
+      0.0
+    ],
+    "hi": [
+      0.7450000047683716,
+      0.3450000286102295,
+      1.899999976158142
+    ]
+  },
+  "tensor_height_m": 1.753,
+  "shelf_tops_m": [
+    0.36,
+    0.97,
+    1.58
+  ],
+  "placement": "floor centre z=0; access/front -Y; up +Z",
+  "materials": [
+    "M_Primary_Metallic",
+    "M_Secondary_Metallic",
+    "M_Frame_Diffuse",
+    "M_Joint_Metallic"
+  ],
+  "bones": [
+    {
+      "name": "Root",
+      "kind": "fixed",
+      "parent": null
+    }
+  ],
+  "joints": [
+    {
+      "bone": "Root",
+      "type": "fixed",
+      "parent": null,
+      "pivot": [
+        0,
+        0,
+        0
+      ],
+      "range": null
+    }
+  ],
+  "checks": {
+    "connected_parts": 77,
+    "exact_solid_pairs": 49,
+    "no_solid_intersections": true,
+    "coplanar": true,
+    "budget": true,
+    "no_actions": true
+  },
+  "material_classifiers": {
+    "M_Frame_Diffuse": "Diffuse",
+    "M_Joint_Metallic": "Metallic",
+    "M_Primary_Metallic": "Metallic",
+    "M_Secondary_Metallic": "Metallic"
+  }
+}

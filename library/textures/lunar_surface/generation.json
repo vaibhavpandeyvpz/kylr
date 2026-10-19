@@ -1,0 +1,5 @@
+{
+  "generator": "OpenAI Imagegen (built-in tool)",
+  "third_party_image_inputs": false,
+  "prompt": "Create an original production texture asset: a square seamless tileable lunar regolith BASE COLOR / ALBEDO map, top down orthographic, filling the entire image. Dry dark neutral charcoal gray lunar mineral dust, dense fine angular crushed basalt grains, occasional small fractured stones embedded flush in compacted fine powder, subtle natural mottling across scales. A 4.17 meter wide patch of lunar soil; most grains tiny, sparse 1-4 cm small pebbles, no large rocks. Physically realistic detailed mineral surface suitable for close first-person videogame terrain, restrained contrast. Absolutely NO directional illumination, cast shadows, ambient occlusion, specular highlights, perspective, vignette, horizon, footprints, text, border, panels, or presentation. Pure diffuse color information with uniform flat illumination. Seamlessly matching opposite borders, no obvious repeating landmarks. Single grayscale-to-neutral-gray albedo map only, not a collection of maps. 2048x2048 square output if possible. Do not use any existing texture or supplied reference."
+}

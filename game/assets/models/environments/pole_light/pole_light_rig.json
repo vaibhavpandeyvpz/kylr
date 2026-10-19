@@ -1,0 +1,189 @@
+{
+  "name": "pole_light",
+  "static": true,
+  "animations": [],
+  "triangles": 4766,
+  "triangle_budget": 5000,
+  "meshes": {
+    "SK_PoleLight": 4766
+  },
+  "materials": [
+    "M_Primary_Metallic",
+    "M_Secondary_Metallic",
+    "M_Frame_Diffuse",
+    "M_Joint_Metallic",
+    "M_Emissive",
+    "M_Light_Emissive"
+  ],
+  "bounds_m": {
+    "lo": [
+      -1.3250000476837158,
+      -0.20000000298023224,
+      0.0
+    ],
+    "hi": [
+      1.3250000476837158,
+      0.20000000298023224,
+      4.1887526512146
+    ]
+  },
+  "tensor_height_m": 1.753,
+  "bones": [
+    {
+      "name": "Root",
+      "kind": "fixed",
+      "parent": null
+    }
+  ],
+  "gizmos": [
+    {
+      "name": "LightProjection01",
+      "bone": "Root",
+      "origin": [
+        -1.0913898944854736,
+        -0.07918652892112732,
+        4.047948837280273
+      ],
+      "forward": [
+        -0.14792004227638245,
+        -0.9245002865791321,
+        -0.3513101041316986
+      ],
+      "up": [
+        -0.055503662675619125,
+        -0.3468979299068451,
+        0.9362590909004211
+      ],
+      "cone_half_angle_deg": 45,
+      "range_m": 24,
+      "godot": "-Z points along projection"
+    },
+    {
+      "name": "LightProjection02",
+      "bone": "Root",
+      "origin": [
+        -0.44069042801856995,
+        -0.07481521368026733,
+        4.0382513999938965
+      ],
+      "forward": [
+        -0.1388368010520935,
+        -0.8677300214767456,
+        -0.4772515296936035
+      ],
+      "up": [
+        -0.07540120929479599,
+        -0.4712575674057007,
+        0.8787667155265808
+      ],
+      "cone_half_angle_deg": 45,
+      "range_m": 24,
+      "godot": "-Z points along projection"
+    },
+    {
+      "name": "LightProjection03",
+      "bone": "Root",
+      "origin": [
+        0.44069042801856995,
+        -0.07481521368026733,
+        4.0382513999938965
+      ],
+      "forward": [
+        0.1388368010520935,
+        -0.8677300214767456,
+        -0.4772515296936035
+      ],
+      "up": [
+        0.07540120929479599,
+        -0.4712575674057007,
+        0.8787667155265808
+      ],
+      "cone_half_angle_deg": 45,
+      "range_m": 24,
+      "godot": "-Z points along projection"
+    },
+    {
+      "name": "LightProjection04",
+      "bone": "Root",
+      "origin": [
+        1.0913898944854736,
+        -0.07918652892112732,
+        4.047948837280273
+      ],
+      "forward": [
+        0.14792004227638245,
+        -0.9245002865791321,
+        -0.3513101041316986
+      ],
+      "up": [
+        0.055503662675619125,
+        -0.3468979299068451,
+        0.9362590909004211
+      ],
+      "cone_half_angle_deg": 45,
+      "range_m": 24,
+      "godot": "-Z points along projection"
+    },
+    {
+      "name": "LightProjection05",
+      "bone": "Root",
+      "origin": [
+        -0.8499148488044739,
+        -0.06996794044971466,
+        3.505383014678955
+      ],
+      "forward": [
+        -0.1287645548582077,
+        -0.8047784566879272,
+        -0.5794405341148376
+      ],
+      "up": [
+        -0.09154610335826874,
+        -0.5721631050109863,
+        0.8150145411491394
+      ],
+      "cone_half_angle_deg": 45,
+      "range_m": 24,
+      "godot": "-Z points along projection"
+    },
+    {
+      "name": "LightProjection06",
+      "bone": "Root",
+      "origin": [
+        0.8499148488044739,
+        -0.06996794044971466,
+        3.505383014678955
+      ],
+      "forward": [
+        0.1287645548582077,
+        -0.8047784566879272,
+        -0.5794405341148376
+      ],
+      "up": [
+        0.09154610335826874,
+        -0.5721631050109863,
+        0.8150145411491394
+      ],
+      "cone_half_angle_deg": 45,
+      "range_m": 24,
+      "godot": "-Z points along projection"
+    }
+  ],
+  "checks": {
+    "connected_parts": 89,
+    "exact_solid_pairs": 225,
+    "no_solid_intersections": true,
+    "coplanar": true,
+    "budget": true,
+    "no_actions": true
+  },
+  "placement": "floor flange centre z=0; front -Y",
+  "material_classifiers": {
+    "M_Emissive": "Emissive",
+    "M_Frame_Diffuse": "Diffuse",
+    "M_Joint_Metallic": "Metallic",
+    "M_Light_Emissive": "Emissive",
+    "M_Primary_Metallic": "Metallic",
+    "M_Secondary_Metallic": "Metallic"
+  }
+}

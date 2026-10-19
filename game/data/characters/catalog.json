@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "characters": [{
+    "id":"tensor", "title":"Tensor", "model":"tensor",
+    "collision":"tensor_col", "shield":"tensor_shield",
+    "animation_family":"tensor", "forward_yaw":3.14159265359,
+    "skeleton":{"weapon_hand":"RightHand","head":"Head","root":"Root","aim_root":"Spine"},
+    "sockets":{"flag":"FlagMount"},
+    "heads":["projector","sentinel","porthole","raptor","arachne"],
+    "emotes":["victory_chicken_dance","victory_gangnam_style","victory_hip_hop_dancing","victory_macarena_dance","victory_wave_hip_hop_dance"],
+    "height":1.753, "eye_height":1.52, "capsule_radius":0.32
+  }]
+}

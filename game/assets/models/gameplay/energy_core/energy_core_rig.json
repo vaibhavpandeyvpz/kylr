@@ -1,0 +1,70 @@
+{
+  "name": "energy_core",
+  "outer_shape": "hollow_cube",
+  "authored_lwh_m": [
+    0.26,
+    0.26,
+    0.26
+  ],
+  "origin": "centre",
+  "layers_m": [
+    0.25
+  ],
+  "wall_thickness_m": 0.005,
+  "outer_opacity": 0.25,
+  "base_height_m": 0.015,
+  "guard_projection_m": 0.005,
+  "nominal_cube_m": 0.25,
+  "seat_clearance_m": 0.0005,
+  "glass_support_overlap_m3": 0.0,
+  "bones": [
+    "Outer",
+    "Inner"
+  ],
+  "animations": [
+    "spin"
+  ],
+  "animation_settings": {
+    "spin": {
+      "loop": true,
+      "fps": 24,
+      "frames": [
+        1,
+        121
+      ],
+      "axis": "Blender +Z / Godot +Y",
+      "Outer_degrees": 360,
+      "Inner_degrees": -360
+    }
+  },
+  "inner_shape": "solid_bolt_symmetric",
+  "symbol_lwh_m": [
+    0.0364,
+    0.13,
+    0.19
+  ],
+  "symbol_symmetry": "180_degree",
+  "triangles": 800,
+  "material_slots": [
+    "M_CoreArmor_Metallic",
+    "M_CoreOuter_Glass",
+    "M_CoreInner_Emissive"
+  ],
+  "symbol_clearance_m": 0.021611789137687423,
+  "preview_only": [
+    "camera",
+    "lights"
+  ],
+  "collision": "no solid collision companion authored",
+  "bolt_lwh_m": [
+    0.0364,
+    0.13,
+    0.19
+  ],
+  "bolt_symmetry": "180_degree",
+  "material_classifiers": {
+    "M_CoreArmor_Metallic": "Metallic",
+    "M_CoreInner_Emissive": "Emissive",
+    "M_CoreOuter_Glass": "Glass"
+  }
+}

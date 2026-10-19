@@ -1,0 +1,194 @@
+{
+  "name": "lunar_dome",
+  "static": false,
+  "animations": [
+    "open",
+    "close"
+  ],
+  "triangles": 4929,
+  "triangle_budget": 5000,
+  "bounds_m": {
+    "lo": [
+      -3.0,
+      -2.996000051498413,
+      0.0
+    ],
+    "hi": [
+      3.0,
+      3.0,
+      3.1600000858306885
+    ]
+  },
+  "materials": [
+    "M_Primary_Diffuse",
+    "M_Secondary_Diffuse",
+    "M_Frame_Diffuse",
+    "M_Joint_Diffuse",
+    "M_Glass",
+    "M_Rubber_Diffuse"
+  ],
+  "authored_parts": 12,
+  "bones": [
+    {
+      "name": "Root",
+      "parent": null,
+      "kind": "fixed",
+      "head": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "axis": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "limits": null
+    },
+    {
+      "name": "Door",
+      "parent": "Root",
+      "kind": "hinge",
+      "head": [
+        0.5899999737739563,
+        -2.9700000286102295,
+        0.4300000071525574
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "limits": [
+        0,
+        110
+      ]
+    },
+    {
+      "name": "Lock",
+      "parent": "Door",
+      "kind": "slide",
+      "head": [
+        -0.5,
+        -2.9100000858306885,
+        1.0399999618530273
+      ],
+      "axis": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "limits": [
+        0.0,
+        0.075
+      ]
+    }
+  ],
+  "placement": "floor-centred; front -Y; footprint includes entrance",
+  "mechanics": "20 radial ribs; hemispherical canopy; integrated vestibule; two bored three-knuckle hinges; retracting shoot bolt",
+  "interfaces": {
+    "frame_depth_mm": 45,
+    "pane_depth_mm": 29,
+    "pane_recess_mm": 8,
+    "gasket_width_mm": 11,
+    "hinge_radial_clearance_mm": 1,
+    "hinge_axial_clearance_mm": 1,
+    "floor_notch_front_y_m": -2.86,
+    "shroud_silicone_joint_width_mm": 14,
+    "silicone_joint_seated": true
+  },
+  "hemisphere": {
+    "radius_m": 2.92,
+    "vertical_radius_m": 2.92,
+    "centre_z_m": 0.18,
+    "uniform_scale_required": true
+  },
+  "passage_m": {
+    "width": 1.02,
+    "height": 1.94,
+    "threshold": 0.1,
+    "interior_height": 2.95
+  },
+  "checks": {
+    "connectivity": true,
+    "sampled_part_clearance": true,
+    "hinge_alignment": true,
+    "motion_states": 257,
+    "boolean_manifold": true,
+    "envelope": true,
+    "budget": true,
+    "roundtrips": [
+      "glb",
+      "fbx"
+    ],
+    "collision_roundtrips": [
+      "glb",
+      "fbx"
+    ]
+  },
+  "visibility": "Ground underside removed analytically; booleans remove internal union faces; glazing-visible interior retained.",
+  "architecture_dimensions": {
+    "door_type": "single",
+    "opening_width_m": 1.02,
+    "opening_height_m": 1.94,
+    "rooms": [
+      {
+        "floor_m": 0.1,
+        "ceiling_m": 3.05,
+        "height_m": 2.9499999999999997
+      }
+    ],
+    "measurement": "Open structural aperture; floor top to ceiling underside; chamfers reduce local clearance"
+  },
+  "gizmos": [
+    {
+      "name": "SconceLightMountTopCenter",
+      "bone": "Root",
+      "origin": [
+        0.0,
+        0.0,
+        3.049999952316284
+      ],
+      "mount_normal": [
+        5.357907539860207e-08,
+        0.0,
+        -1.0
+      ],
+      "attachment": "sconce_light",
+      "matrix_world": [
+        [
+          -1.0,
+          -5.357907539860207e-08,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          -0.0,
+          1.0,
+          0.0
+        ],
+        [
+          -5.357907539860207e-08,
+          1.0,
+          0.0,
+          3.049999952316284
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    }
+  ],
+  "material_classifiers": {
+    "M_Frame_Diffuse": "Diffuse",
+    "M_Glass": "Glass",
+    "M_Joint_Diffuse": "Diffuse",
+    "M_Primary_Diffuse": "Diffuse",
+    "M_Rubber_Diffuse": "Diffuse",
+    "M_Secondary_Diffuse": "Diffuse"
+  }
+}

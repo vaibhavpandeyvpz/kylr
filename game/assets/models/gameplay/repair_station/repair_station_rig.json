@@ -1,0 +1,537 @@
+{
+  "name": "repair_station",
+  "space": "Blender coords: +Z up, front -Y, left +X; the origin is on the floor at the tile's centre. glTF/Godot: (x, z, -y). Hinges turn about their bones' local X (degrees), carriages slide along their bones' local Y (metres, + up), the shield bone scales along its local Y (up).",
+  "rest": "stowed: the carriages parked high (the tools at 1.4 m), the arms folded along the towers (the left one pointing to the front, the right one to the back), the gripper closed; the shield at full size (the bind pose: hide it while the station is idle, or hold deactivate's last frame)",
+  "size_m": {
+    "footprint": [
+      2.0,
+      2.0
+    ],
+    "deck_height": 0.06,
+    "height": 2.0,
+    "note": "(user) it stands on a 2 x 2 m floor tile and matches it exactly: square outside corners, nothing leaves the tile in any state"
+  },
+  "patient": {
+    "gizmo": "PlayerMount",
+    "note": "put the player on PlayerMount (on the pad, facing the station's front, -Z in Godot) and let him idle there; the arms' paths are planned against Tensor's idle clip (animations/target tensor/common/idle) and keep clear of him on every frame",
+    "nearest_m": 0.028,
+    "clearance_min_m": 0.015,
+    "entry": "with the arms stowed nothing but the deck stands within |x| < 0.47 m: he walks in and out at the front or the back"
+  },
+  "shield": {
+    "object": "SK_RepairStationShield",
+    "material": "M_Shield_Emissive",
+    "triangles": 520,
+    "bone": "Shield",
+    "shape": {
+      "radius": 0.96,
+      "wall_top": 1.95,
+      "apex": 2.5,
+      "foot_z": 0.053,
+      "note": "a wall round the bay, then a half-ellipse dome"
+    },
+    "uv": "u 0..1 round it from +X toward +Y (the station's left, then its back), v 0 at its foot to 1 at the apex (by length along its section)",
+    "animation": "its bone's local Y scale (height) grows 0.001 -> 1 in activate and shrinks back in deactivate; repair doesn't key it",
+    "shader": "the game's: while it is up, bullets and blasts stop on it; 90% transparent emissive in previews (double-sided)"
+  },
+  "arms": {
+    "kinematics": "SCARA: a carriage sliding up its tower, then a shoulder, an elbow and a wrist turning about vertical axes; the right arm is the left one turned half round, so the same values move it alike",
+    "links_m": [
+      0.37,
+      0.33
+    ],
+    "tool_reach_m": {
+      "torch": 0.2,
+      "gripper": 0.2
+    },
+    "tools": {
+      "Left": "welding torch (TorchTip)",
+      "Right": "gripper: roll, two fingers (GripperCenter)"
+    }
+  },
+  "gizmos": [
+    {
+      "name": "PlayerMount",
+      "bone": "Root",
+      "origin": [
+        0.0,
+        0.0,
+        0.06
+      ],
+      "forward": [
+        0,
+        -1,
+        0
+      ],
+      "up": [
+        0,
+        0,
+        1
+      ],
+      "godot": "-Z along forward, +Y up"
+    },
+    {
+      "name": "TorchTip",
+      "bone": "WristLeft",
+      "origin": [
+        0.54,
+        0.16,
+        1.4
+      ],
+      "forward": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "up": [
+        0,
+        0,
+        1
+      ],
+      "godot": "-Z along forward, +Y up"
+    },
+    {
+      "name": "GripperCenter",
+      "bone": "GripperRollRight",
+      "origin": [
+        -0.54,
+        -0.146,
+        1.4
+      ],
+      "forward": [
+        -0.0,
+        -1.0,
+        0.0
+      ],
+      "up": [
+        0,
+        0,
+        1
+      ],
+      "godot": "-Z along forward, +Y up"
+    },
+    {
+      "name": "ShieldCenter",
+      "bone": "Root",
+      "origin": [
+        0.0,
+        0.0,
+        1.2765
+      ],
+      "forward": [
+        0,
+        -1,
+        0
+      ],
+      "up": [
+        0,
+        0,
+        1
+      ],
+      "godot": "-Z along forward, +Y up"
+    },
+    {
+      "name": "DownlightLeft",
+      "bone": "Root",
+      "origin": [
+        0.5,
+        0.0,
+        1.9334
+      ],
+      "forward": [
+        0,
+        0,
+        -1
+      ],
+      "up": [
+        0,
+        -1,
+        0
+      ],
+      "godot": "-Z along forward, +Y up"
+    },
+    {
+      "name": "DownlightRight",
+      "bone": "Root",
+      "origin": [
+        -0.5,
+        0.0,
+        1.9334
+      ],
+      "forward": [
+        0,
+        0,
+        -1
+      ],
+      "up": [
+        0,
+        -1,
+        0
+      ],
+      "godot": "-Z along forward, +Y up"
+    }
+  ],
+  "materials_note": "the environment props' finish in Tensor's materials (off-white and grey paint, matte black, stainless steel, bronze, titanium): no team colours; M_Shield is the shield's own slot",
+  "materials": [
+    "M_Primary_Metallic",
+    "M_Secondary_Metallic",
+    "M_Frame_Diffuse",
+    "M_Joint_Metallic",
+    "M_Emissive",
+    "M_Bronze_Metallic",
+    "M_Titanium_Metallic",
+    "M_RepairStatus_Emissive",
+    "M_Shield_Emissive"
+  ],
+  "triangles": 4694,
+  "joints": [
+    {
+      "bone": "Root",
+      "parent": null,
+      "type": "fixed",
+      "pivot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": null,
+      "channel": null
+    },
+    {
+      "bone": "Shield",
+      "parent": "Root",
+      "type": "fixed",
+      "pivot": [
+        0.0,
+        0.0,
+        0.053
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": null,
+      "channel": null
+    },
+    {
+      "bone": "CarriageLeft",
+      "parent": "Root",
+      "type": "slide",
+      "pivot": [
+        0.715,
+        0.0,
+        1.53
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        -1.03,
+        0.1399999999999999
+      ],
+      "channel": "location_y_m"
+    },
+    {
+      "bone": "ShoulderLeft",
+      "parent": "CarriageLeft",
+      "type": "hinge",
+      "pivot": [
+        0.54,
+        0.0,
+        1.53
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        -185.0,
+        35.0
+      ],
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "ElbowLeft",
+      "parent": "ShoulderLeft",
+      "type": "hinge",
+      "pivot": [
+        0.54,
+        -0.37,
+        1.53
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        -175.0,
+        175.0
+      ],
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "WristLeft",
+      "parent": "ElbowLeft",
+      "type": "hinge",
+      "pivot": [
+        0.54,
+        -0.04,
+        1.434
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        -160.0,
+        160.0
+      ],
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "CarriageRight",
+      "parent": "Root",
+      "type": "slide",
+      "pivot": [
+        -0.715,
+        0.0,
+        1.53
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        -1.03,
+        0.1399999999999999
+      ],
+      "channel": "location_y_m"
+    },
+    {
+      "bone": "ShoulderRight",
+      "parent": "CarriageRight",
+      "type": "hinge",
+      "pivot": [
+        -0.54,
+        0.0,
+        1.53
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        -185.0,
+        35.0
+      ],
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "ElbowRight",
+      "parent": "ShoulderRight",
+      "type": "hinge",
+      "pivot": [
+        -0.54,
+        0.37,
+        1.53
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        -175.0,
+        175.0
+      ],
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "WristRight",
+      "parent": "ElbowRight",
+      "type": "hinge",
+      "pivot": [
+        -0.54,
+        0.04,
+        1.434
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        -160.0,
+        160.0
+      ],
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "GripperRollRight",
+      "parent": "WristRight",
+      "type": "hinge",
+      "pivot": [
+        -0.54,
+        -0.044,
+        1.4
+      ],
+      "axis": [
+        -0.0,
+        -1.0,
+        0.0
+      ],
+      "range": [
+        -90.0,
+        90.0
+      ],
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "FingerRight1",
+      "parent": "GripperRollRight",
+      "type": "hinge",
+      "pivot": [
+        -0.523,
+        -0.076,
+        1.4
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        0.0,
+        32.0
+      ],
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "FingerRight2",
+      "parent": "GripperRollRight",
+      "type": "hinge",
+      "pivot": [
+        -0.557,
+        -0.076,
+        1.4
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "range": [
+        0.0,
+        32.0
+      ],
+      "channel": "rotation_x_deg"
+    }
+  ],
+  "animations": {
+    "activate": {
+      "frames": [
+        0,
+        30
+      ],
+      "fps": 30,
+      "loop": false,
+      "joints": [
+        "CarriageLeft",
+        "CarriageRight",
+        "ElbowLeft",
+        "ElbowRight",
+        "FingerRight1",
+        "FingerRight2",
+        "GripperRollRight",
+        "ShoulderLeft",
+        "ShoulderRight",
+        "WristLeft",
+        "WristRight",
+        "Shield"
+      ]
+    },
+    "repair": {
+      "frames": [
+        0,
+        150
+      ],
+      "fps": 30,
+      "loop": true,
+      "joints": [
+        "CarriageLeft",
+        "CarriageRight",
+        "ElbowLeft",
+        "ElbowRight",
+        "FingerRight1",
+        "FingerRight2",
+        "GripperRollRight",
+        "ShoulderLeft",
+        "ShoulderRight",
+        "WristLeft",
+        "WristRight"
+      ]
+    },
+    "deactivate": {
+      "frames": [
+        0,
+        30
+      ],
+      "fps": 30,
+      "loop": false,
+      "joints": [
+        "CarriageLeft",
+        "CarriageRight",
+        "ElbowLeft",
+        "ElbowRight",
+        "FingerRight1",
+        "FingerRight2",
+        "GripperRollRight",
+        "ShoulderLeft",
+        "ShoulderRight",
+        "WristLeft",
+        "WristRight",
+        "Shield"
+      ]
+    }
+  },
+  "effects": {
+    "TorchTip": {
+      "welding_frames": [
+        [
+          12,
+          51
+        ],
+        [
+          87,
+          126
+        ]
+      ],
+      "note": "repair's frames (at 30 fps) while the torch welds: run the sparks and the arc's flicker on TorchTip then"
+    }
+  },
+  "usage": "When the player stands on the pad: snap him to PlayerMount, show the shield and play activate (1 s, shield on: it grows out of its ring while the arms unfold and come down to him), then repair (5 s: the torch welds two seams over his front, the gripper grips and turns at his back; it ends where it starts, so loop it for a longer repair), then deactivate (1 s, shield off: the arms fold away while the shield sinks) and hide the shield. The shield blocks hits from activate to deactivate.",
+  "material_classifiers": {
+    "M_Bronze_Metallic": "Metallic",
+    "M_Emissive": "Emissive",
+    "M_Frame_Diffuse": "Diffuse",
+    "M_Joint_Metallic": "Metallic",
+    "M_Primary_Metallic": "Metallic",
+    "M_RepairStatus_Emissive": "Emissive",
+    "M_Secondary_Metallic": "Metallic",
+    "M_Shield_Emissive": "Emissive",
+    "M_Titanium_Metallic": "Metallic"
+  }
+}

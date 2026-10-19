@@ -1,0 +1,471 @@
+{
+  "name": "pulse_gun",
+  "triangles": 7486,
+  "triangle_budget": 7500,
+  "bounds_m": {
+    "lo": [
+      -0.5,
+      -0.5,
+      0.0
+    ],
+    "hi": [
+      0.5,
+      0.5,
+      0.5999999642372131
+    ]
+  },
+  "materials": [
+    "M_Primary_Metallic",
+    "M_Secondary_Metallic",
+    "M_Frame_Diffuse",
+    "M_Joint_Metallic",
+    "M_Emissive",
+    "M_Wire_Diffuse",
+    "M_Bronze_Metallic"
+  ],
+  "animations": [
+    {
+      "name": "armed",
+      "duration_s": 1,
+      "loop": false,
+      "elevation_deg": 15
+    },
+    {
+      "name": "unarmed",
+      "duration_s": 1,
+      "loop": false,
+      "elevation_deg": 60
+    },
+    {
+      "name": "aim",
+      "duration_s": 2,
+      "loop": false,
+      "elevation_deg": [
+        0,
+        60
+      ]
+    }
+  ],
+  "parts": [
+    "unibody perimeter chassis with swept armour bridges",
+    "annular stationary power housing",
+    "lofted quadrant armour with integral protective buttress",
+    "sealed power indicator backing",
+    "blank recessed sector power indicator",
+    "foundation anchoring screw",
+    "formed buttress wear strip seated to casting",
+    "lofted quadrant armour with integral protective buttress",
+    "sealed power indicator backing",
+    "blank recessed sector power indicator",
+    "foundation anchoring screw",
+    "formed buttress wear strip seated to casting",
+    "lofted quadrant armour with integral protective buttress",
+    "sealed power indicator backing",
+    "blank recessed sector power indicator",
+    "foundation anchoring screw",
+    "formed buttress wear strip seated to casting",
+    "lofted quadrant armour with integral protective buttress",
+    "sealed power indicator backing",
+    "blank recessed sector power indicator",
+    "foundation anchoring screw",
+    "formed buttress wear strip seated to casting",
+    "slew bearing exposed cartridge flange",
+    "slew thrust rotor",
+    "flared yoke deck with machined actuator pivot pocket",
+    "formed external coolant conduit",
+    "bored conduit compression coupling",
+    "bored conduit compression coupling",
+    "formed external coolant conduit",
+    "bored conduit compression coupling",
+    "bored conduit compression coupling",
+    "formed external coolant conduit",
+    "bored conduit compression coupling",
+    "bored conduit compression coupling",
+    "formed external coolant conduit",
+    "bored conduit compression coupling",
+    "bored conduit compression coupling",
+    "single-profile machined yoke, centred web and radiused bearing crown",
+    "recessed foot fastener on centred bolt line",
+    "recessed foot fastener on centred bolt line",
+    "flush elevation journal cartridge",
+    "coaxial bearing cover on full flat crown land",
+    "journal retaining spindle cap",
+    "bearing cover captive screw",
+    "bearing cover captive screw",
+    "bearing cover captive screw",
+    "bearing cover captive screw",
+    "single-profile machined yoke, centred web and radiused bearing crown",
+    "recessed foot fastener on centred bolt line",
+    "recessed foot fastener on centred bolt line",
+    "flush elevation journal cartridge",
+    "coaxial bearing cover on full flat crown land",
+    "journal retaining spindle cap",
+    "bearing cover captive screw",
+    "bearing cover captive screw",
+    "bearing cover captive screw",
+    "bearing cover captive screw",
+    "captured shouldered elevation spindle",
+    "cylindrical pulse breech with integral console land",
+    "display recessed gasket and backplate",
+    "machined removable display bezel",
+    "blank emissive side console",
+    "console socket screw",
+    "console socket screw",
+    "lofted accelerator shell with sixteen radiused cooling windows",
+    "flush accelerator energy rail",
+    "flush accelerator energy rail",
+    "rear tapered accelerator guide bush",
+    "front tapered accelerator guide bush",
+    "unibody bored pulse waveguide with integral induction cooling fins",
+    "forked muzzle armour with upper and lower machined cooling windows",
+    "rear breech heat exchanger with integral fins",
+    "rear coolant bored compression boss",
+    "rear coolant bored compression boss",
+    "gland-terminated breech coolant loop",
+    "rear coolant bored compression boss",
+    "rear coolant bored compression boss",
+    "gland-terminated breech coolant loop",
+    "actuator machined fork and seating flange",
+    "captured hydraulic clevis pin",
+    "captured deck hydraulic clevis pin",
+    "machined metal hydraulic cylinder with integral pinned eye",
+    "cylinder rod gland retaining ring",
+    "hydraulic piston rod with integral bored eye"
+  ],
+  "joints": [
+    {
+      "bone": "Root",
+      "parent": null,
+      "type": "fixed",
+      "pivot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": null
+    },
+    {
+      "bone": "Yaw",
+      "parent": "Root",
+      "type": "hinge",
+      "pivot": [
+        0.0,
+        0.0,
+        0.20000000298023224
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        -180,
+        180
+      ]
+    },
+    {
+      "bone": "Elevation",
+      "parent": "Yaw",
+      "type": "hinge",
+      "pivot": [
+        0.0,
+        0.03999999910593033,
+        0.4959999918937683
+      ],
+      "axis": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "range": [
+        0,
+        60
+      ]
+    },
+    {
+      "bone": "Barrel",
+      "parent": "Elevation",
+      "type": "slide",
+      "pivot": [
+        0.0,
+        -0.4350000023841858,
+        0.5109999775886536
+      ],
+      "axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "range": [
+        0,
+        0.01
+      ]
+    }
+  ],
+  "pistons": [
+    {
+      "name": "Elevator",
+      "cylinder": "ElevatorCylinder",
+      "rod": "ElevatorRod",
+      "parent_a": "Yaw",
+      "parent_b": "Elevation",
+      "a": [
+        0.0,
+        -0.2800000011920929,
+        0.22300000488758087
+      ],
+      "b": [
+        0.0,
+        -0.10499999672174454,
+        0.39100000262260437
+      ],
+      "stroke_m": [
+        0.2425881348416701,
+        0.37984250842856165
+      ],
+      "cylinder_length_m": 0.2159034400090864,
+      "rod_length_m": 0.2061999146154196,
+      "minimum_overlap_m": 0.042260846195944335
+    }
+  ],
+  "bones": [
+    {
+      "name": "Root",
+      "parent": null,
+      "head": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tail": [
+        0.0,
+        0.0,
+        0.10000000149011612
+      ],
+      "euler_order": "XYZ"
+    },
+    {
+      "name": "Yaw",
+      "parent": "Root",
+      "head": [
+        0.0,
+        0.0,
+        0.20000000298023224
+      ],
+      "tail": [
+        0.0,
+        -0.10000000149011612,
+        0.20000000298023224
+      ],
+      "euler_order": "XYZ"
+    },
+    {
+      "name": "Elevation",
+      "parent": "Yaw",
+      "head": [
+        0.0,
+        0.03999999910593033,
+        0.4959999918937683
+      ],
+      "tail": [
+        0.0,
+        0.03999999910593033,
+        0.5960000157356262
+      ],
+      "euler_order": "XYZ"
+    },
+    {
+      "name": "Barrel",
+      "parent": "Elevation",
+      "head": [
+        0.0,
+        -0.4350000023841858,
+        0.5109999775886536
+      ],
+      "tail": [
+        0.0,
+        -0.33500000834465027,
+        0.5109999775886536
+      ],
+      "euler_order": "XYZ"
+    },
+    {
+      "name": "ElevatorRod",
+      "parent": "Elevation",
+      "head": [
+        0.0,
+        -0.10499999672174454,
+        0.39100000262260437
+      ],
+      "tail": [
+        0.0,
+        -0.2537500262260437,
+        0.24819999933242798
+      ],
+      "euler_order": "XYZ"
+    },
+    {
+      "name": "ElevatorAnchorB",
+      "parent": "Elevation",
+      "head": [
+        0.0,
+        -0.10499999672174454,
+        0.39100000262260437
+      ],
+      "tail": [
+        0.0,
+        -0.10499999672174454,
+        0.41100001335144043
+      ],
+      "euler_order": "XYZ"
+    },
+    {
+      "name": "ElevatorCylinder",
+      "parent": "Yaw",
+      "head": [
+        0.0,
+        -0.2800000011920929,
+        0.22300000488758087
+      ],
+      "tail": [
+        0.0,
+        -0.12424997985363007,
+        0.3725200295448303
+      ],
+      "euler_order": "XYZ"
+    },
+    {
+      "name": "ElevatorAnchorA",
+      "parent": "Yaw",
+      "head": [
+        0.0,
+        -0.2800000011920929,
+        0.22300000488758087
+      ],
+      "tail": [
+        0.0,
+        -0.2800000011920929,
+        0.24300000071525574
+      ],
+      "euler_order": "XYZ"
+    }
+  ],
+  "gizmos": [
+    {
+      "name": "GroundMount",
+      "bone": "Root",
+      "origin": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "forward": [
+        8.742277657347586e-08,
+        -1.0,
+        0.0
+      ],
+      "up": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "godot": "local -Z forward, local +Y up"
+    },
+    {
+      "name": "Muzzle",
+      "bone": "Barrel",
+      "origin": [
+        0.0,
+        -0.4350000023841858,
+        0.5109999775886536
+      ],
+      "forward": [
+        8.742277657347586e-08,
+        -1.0,
+        0.0
+      ],
+      "up": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "godot": "local -Z forward, local +Y up"
+    },
+    {
+      "name": "AimOrigin",
+      "bone": "Elevation",
+      "origin": [
+        0.0,
+        0.03999999910593033,
+        0.4959999918937683
+      ],
+      "forward": [
+        8.742277657347586e-08,
+        -1.0,
+        0.0
+      ],
+      "up": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "godot": "local -Z forward, local +Y up"
+    },
+    {
+      "name": "DisplayMount",
+      "bone": "Elevation",
+      "origin": [
+        0.08399999886751175,
+        0.16500000655651093,
+        0.5109999775886536
+      ],
+      "forward": [
+        8.742277657347586e-08,
+        -1.0,
+        0.0
+      ],
+      "up": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "godot": "local -Z forward, local +Y up"
+    }
+  ],
+  "manufacturing_checks": {
+    "yoke_contour_symmetry_error_m": 1.4901161193847656e-08,
+    "paired_yoke_error_m": 9.313225746154785e-10,
+    "bearing_cover_seating_error_m": 3.0719530030864917e-08,
+    "yoke_thickness_m": 0.076,
+    "shared_y_datum_m": 0.03999999910593033,
+    "bridge_width_m": 0.054,
+    "guard_roots_fully_embedded": true,
+    "minimum_guard_root_clearance_m": 0.010203253477811813
+  },
+  "checks": {
+    "solid_pairs": 189,
+    "coplanar_pairs": 15559,
+    "connected_parts": 84,
+    "motion_states": 773,
+    "footprint_m": [
+      1,
+      1
+    ],
+    "no_solid_intersections": true
+  },
+  "placement": "ground-centred origin; front -Y; full yaw; elevation 0..60 degrees; library only",
+  "material_classifiers": {
+    "M_Bronze_Metallic": "Metallic",
+    "M_Emissive": "Emissive",
+    "M_Frame_Diffuse": "Diffuse",
+    "M_Joint_Metallic": "Metallic",
+    "M_Primary_Metallic": "Metallic",
+    "M_Secondary_Metallic": "Metallic",
+    "M_Wire_Diffuse": "Diffuse"
+  }
+}

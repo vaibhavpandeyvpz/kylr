@@ -1,0 +1,15 @@
+{
+  "name": "skyfall_module_platform_A_island_2_lower_regolith",
+  "triangles": 834,
+  "budget_excluded": true,
+  "gizmos": [],
+  "material_classifiers": {
+    "M_Frame_Diffuse": "Diffuse",
+    "M_Joint_Diffuse": "Diffuse",
+    "M_Primary_Diffuse": "Diffuse",
+    "M_Regolith_Diffuse": "Diffuse",
+    "M_RegolithDark_Diffuse": "Diffuse",
+    "M_RegolithLight_Diffuse": "Diffuse",
+    "M_Secondary_Diffuse": "Diffuse"
+  }
+}

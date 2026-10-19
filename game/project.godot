@@ -1,0 +1,60 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+boot_splash/show_image=false
+
+config/name="KYLR"
+config/project_settings_override="user://renderer.cfg"
+run/main_scene="res://main.tscn"
+config/features=PackedStringArray("4.7", "Forward Plus")
+config/icon="res://icon.svg"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/phantom_camera/plugin.cfg")
+
+[debug]
+
+settings/profiler/max_timestamp_query_elements=2048
+
+[autoload]
+
+PhantomCameraManager="*res://addons/phantom_camera/scripts/managers/phantom_camera_manager.gd"
+
+[display]
+
+window/size/viewport_width=1280
+window/size/viewport_height=720
+window/size/window_width_override=1280
+window/size/window_height_override=720
+window/stretch/mode="disabled"
+window/stretch/aspect="expand"
+
+[physics]
+
+3d/physics_engine="Jolt Physics"
+
+[rendering]
+
+streamline/project_id="95e2c838-4ac8-49cc-9532-755d2f2d15a1"
+streamline/dlss_preset="K"
+streamline/dlss_ray_reconstruction_preset="E"
+driver/threads/thread_model=1
+rendering_device/driver.windows="vulkan"
+anti_aliasing/quality/msaa_3d=2
+
+[shader_globals]
+
+arena_sky_time={
+"type": "float",
+"value": 0.0
+}

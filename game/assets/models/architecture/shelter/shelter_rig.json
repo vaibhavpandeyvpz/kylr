@@ -1,0 +1,310 @@
+{
+  "name": "shelter",
+  "triangle_budget": 5000,
+  "ground_envelope_m": [
+    5,
+    5
+  ],
+  "bones": [
+    {
+      "name": "Root",
+      "parent": null,
+      "kind": "fixed"
+    },
+    {
+      "name": "ServiceHatch",
+      "parent": "Root",
+      "kind": "hinge"
+    },
+    {
+      "name": "CoolantRotorLeft",
+      "parent": "Root",
+      "kind": "hinge"
+    },
+    {
+      "name": "CoolantRotorRight",
+      "parent": "Root",
+      "kind": "hinge"
+    }
+  ],
+  "joints": [
+    {
+      "bone": "Root",
+      "parent": null,
+      "type": "fixed",
+      "pivot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "axis": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "range": null
+    },
+    {
+      "bone": "ServiceHatch",
+      "parent": "Root",
+      "type": "hinge",
+      "pivot": [
+        -0.28999999165534973,
+        1.909999966621399,
+        1.4800000190734863
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        0,
+        95
+      ]
+    },
+    {
+      "bone": "CoolantRotorLeft",
+      "parent": "Root",
+      "type": "hinge",
+      "pivot": [
+        1.0399999618530273,
+        1.899999976158142,
+        1.4299999475479126
+      ],
+      "axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "range": [
+        0,
+        360
+      ]
+    },
+    {
+      "bone": "CoolantRotorRight",
+      "parent": "Root",
+      "type": "hinge",
+      "pivot": [
+        -1.0399999618530273,
+        1.899999976158142,
+        1.4299999475479126
+      ],
+      "axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "range": [
+        0,
+        360
+      ]
+    }
+  ],
+  "animations": {
+    "circulate": {
+      "frames": [
+        0.0,
+        120.0
+      ],
+      "fps": 30,
+      "loop": true
+    },
+    "service_open": {
+      "frames": [
+        0.0,
+        72.0
+      ],
+      "fps": 30,
+      "loop": false
+    },
+    "service_close": {
+      "frames": [
+        0.0,
+        72.0
+      ],
+      "fps": 30,
+      "loop": false
+    }
+  },
+  "passage_m": {
+    "front_width": 2.8,
+    "side_width": 2.4,
+    "minimum_height": 2.38,
+    "deck_height": 0.12,
+    "ramp_run": 0.29
+  },
+  "gizmos": [
+    {
+      "name": "BattenLightMount",
+      "bone": "Root",
+      "origin": [
+        0.0,
+        0.5,
+        2.820000171661377
+      ],
+      "mount_normal": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "attachment": "batten_light",
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          -0.0,
+          0.0
+        ],
+        [
+          -0.0,
+          1.0,
+          -0.0,
+          0.5
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          2.820000171661377
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "SconceLightMount",
+      "bone": "Root",
+      "origin": [
+        0.0,
+        1.5199998617172241,
+        1.7999999523162842
+      ],
+      "mount_normal": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "attachment": "sconce_light",
+      "matrix_world": [
+        [
+          1.0,
+          -0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          1.5199998617172241
+        ],
+        [
+          -0.0,
+          -0.0,
+          1.0,
+          1.7999999523162842
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    }
+  ],
+  "glazing": {
+    "material": "M_Glass",
+    "color": [
+      0,
+      0,
+      0
+    ],
+    "opacity": 0.1
+  },
+  "checks": {
+    "exact_solid_pairs": 130,
+    "connectivity": true,
+    "motion_states": 404,
+    "coplanar": true,
+    "degenerate_faces_removed": 36
+  },
+  "placement": "5x5m including apron and all motion; front -Y; open front/left/right; library only",
+  "mechanics": "continuous ramped load casting; separately seated machined armour; sealed radiator coolant cartridges with retained three-vane rotors and protected black 10% sight glasses; twin interleaved retained service hinges; bulkhead-seated coolant and copper power-bus glands",
+  "optional_surface": {
+    "object": "SK_ArchitectureRegolith",
+    "material": "M_Regolith_Diffuse",
+    "bone": "Root",
+    "optional": true,
+    "collision": false,
+    "scope": "visual apron only; excluded from building placement and traversal"
+  },
+  "meshes": {
+    "SK_Shelter": 4082,
+    "SK_ArchitectureRegolith": 96
+  },
+  "triangles": 4178,
+  "materials": [
+    "M_Emissive",
+    "M_Frame_Diffuse",
+    "M_Glass",
+    "M_Joint_Diffuse",
+    "M_Primary_Diffuse",
+    "M_Regolith_Diffuse",
+    "M_Secondary_Diffuse",
+    "M_Status_Emissive",
+    "M_Wire_Diffuse"
+  ],
+  "building_bounds_m": {
+    "lo": [
+      -2.299999952316284,
+      -2.299999952316284,
+      0.0
+    ],
+    "hi": [
+      2.299999952316284,
+      2.299999952316284,
+      3.0880002975463867
+    ]
+  },
+  "bounds_m": {
+    "lo": [
+      -2.492241621017456,
+      -2.492241621017456,
+      0.0
+    ],
+    "hi": [
+      2.492241621017456,
+      2.492241621017456,
+      3.0880002975463867
+    ]
+  },
+  "architecture_dimensions": {
+    "door_type": "open",
+    "rooms": [
+      {
+        "floor_m": 0.12,
+        "ceiling_m": 2.82,
+        "height_m": 2.7
+      }
+    ],
+    "measurement": "Open canopy; floor top to highest roof underside; minimum approach headroom 2.38 m"
+  },
+  "material_classifiers": {
+    "M_Emissive": "Emissive",
+    "M_Frame_Diffuse": "Diffuse",
+    "M_Glass": "Glass",
+    "M_Joint_Diffuse": "Diffuse",
+    "M_Primary_Diffuse": "Diffuse",
+    "M_Regolith_Diffuse": "Diffuse",
+    "M_Secondary_Diffuse": "Diffuse",
+    "M_Status_Emissive": "Emissive",
+    "M_Wire_Diffuse": "Diffuse"
+  }
+}

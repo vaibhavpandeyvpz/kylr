@@ -1,0 +1,84 @@
+{
+  "name": "lunar_lander",
+  "static": true,
+  "animations": [],
+  "triangles": 8129,
+  "meshes": {
+    "SK_LunarLanderBody": 4993,
+    "SK_LunarLanderGear": 3136
+  },
+  "triangle_budget_per_mesh": 5000,
+  "interface_fits": {
+    "upper_clevis_side_mm": 1.0000000000000009,
+    "foot_clevis_side_mm": 1.0000000000000147,
+    "foot_eye_spacing_mm": 1.0000000000000009,
+    "pin_bore_radial_mm": 1.0000000000000009,
+    "shaft_bore_min_mm": 4.0858798800484655,
+    "window_recess_mm": 3,
+    "ladder_shoe_min_z_m": 0
+  },
+  "materials": [
+    "M_Primary_Metallic",
+    "M_Secondary_Metallic",
+    "M_Frame_Diffuse",
+    "M_Joint_Metallic",
+    "M_Emissive",
+    "M_Titanium_Metallic",
+    "M_Bronze_Metallic",
+    "M_Glass"
+  ],
+  "bounds_m": {
+    "lo": [
+      -2.5,
+      -2.5,
+      0.0
+    ],
+    "hi": [
+      2.5,
+      2.5,
+      5.0
+    ]
+  },
+  "bones": [
+    {
+      "name": "Root",
+      "parent": null,
+      "kind": "fixed",
+      "head": [
+        0,
+        0,
+        0
+      ],
+      "tail": [
+        0,
+        0,
+        0.1
+      ]
+    }
+  ],
+  "pistons": [],
+  "team_presets": {},
+  "placement": "floor; front -Y; fixed deployed",
+  "mechanics": "four crush struts and paired drag stays; central vacuum engine; sealed airlock; retained capsule tanks",
+  "checks": {
+    "connectivity": true,
+    "coplanar": true,
+    "envelope": true,
+    "budget": true,
+    "no_actions": true,
+    "roundtrips": [
+      "glb",
+      "fbx"
+    ]
+  },
+  "material_classifiers": {
+    "M_Bronze_Metallic": "Metallic",
+    "M_Emissive": "Emissive",
+    "M_Frame_Diffuse": "Diffuse",
+    "M_Glass": "Glass",
+    "M_Joint_Metallic": "Metallic",
+    "M_Primary_Metallic": "Metallic",
+    "M_Secondary_Metallic": "Metallic",
+    "M_Titanium_Metallic": "Metallic"
+  }
+}

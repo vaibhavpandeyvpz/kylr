@@ -1,0 +1,40 @@
+class_name ArenaTuning
+extends RefCounted
+
+# Shared physical and resource values used by actors, AI, pickups and HUD.
+const GRAVITY := 19.6
+const WALK_SPEED := 3.0
+const RUN_MULTIPLIER := 2.0
+const SPRINT_MULTIPLIER := 4.0
+const RUN_SPEED := WALK_SPEED * RUN_MULTIPLIER
+const SPRINT_SPEED := WALK_SPEED * SPRINT_MULTIPLIER
+const CROUCH_SPEED := 2.5
+const GROUND_ACCELERATION := 48.0
+const GROUND_BRAKING := 60.0
+const AIR_ACCELERATION := 24.0
+const AIR_BRAKING := 2.0
+const NORMAL_JUMP_HEIGHT := 1.0
+const CHARGED_JUMP_HEIGHT := 2.0
+const CHARGE_SECONDS := 2.0
+const JUMP_PAD_HEIGHT := 10.0
+const JUMP_PAD_SPEED := 10.0
+const JUMP_BUFFER := 0.10
+const COYOTE_TIME := 0.08
+const STEP_HEIGHT := 0.4
+const ROCKET_SPLASH_RADIUS := 10.0
+const ROCKET_PUSH_SPEED := 11.0
+const ROCKET_BOUNCE_SPEED := 4.5
+const EMP_PUSH_SPEED := 5.0
+const EMP_BOUNCE_SPEED := 1.5
+const GRENADE_PUSH_SPEED := 11.0
+const GRENADE_BOUNCE_SPEED := 4.5
+const WEAPON_RECOIL_SPEED := 2.5
+const RECOIL_RECOVERY_SECONDS := 0.35
+const RECOIL_MAX_DEGREES := 15.0
+const KNOCKBACK_DRAG := 12.0
+const KNOCKBACK_MAX_SPEED := 18.0
+const MAX_EP := 100.0
+const HALF_EP := MAX_EP * 0.5
+const CRITICAL_EP := MAX_EP * 0.25
+const EP_DRAIN_PER_SECOND := 1.0
+const ENERGY_CORE_ELIGIBLE_EP := MAX_EP * 0.99

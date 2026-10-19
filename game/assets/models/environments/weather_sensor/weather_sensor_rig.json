@@ -1,0 +1,130 @@
+{
+  "name": "weather_sensor",
+  "triangles": 4965,
+  "triangle_budget": 5000,
+  "bounds_m": {
+    "lo": [
+      -0.6850093603134155,
+      -0.7649999856948853,
+      0.0
+    ],
+    "hi": [
+      0.6850093603134155,
+      0.45166417956352234,
+      2.5
+    ]
+  },
+  "materials": [
+    "M_Primary_Metallic",
+    "M_Secondary_Metallic",
+    "M_Frame_Diffuse",
+    "M_Joint_Metallic",
+    "M_Emissive"
+  ],
+  "tensor_height_m": 1.753,
+  "bones": [
+    {
+      "name": "Root",
+      "parent": null,
+      "kind": "fixed"
+    },
+    {
+      "name": "Anemometer",
+      "parent": "Root",
+      "kind": "hinge"
+    },
+    {
+      "name": "WindVane",
+      "parent": "Root",
+      "kind": "hinge"
+    }
+  ],
+  "animations": {
+    "measure": {
+      "frames": [
+        0.0,
+        120.0
+      ],
+      "fps": 30,
+      "loop": true
+    },
+    "gust": {
+      "frames": [
+        0.0,
+        90.0
+      ],
+      "fps": 30,
+      "loop": true
+    }
+  },
+  "joints": [
+    {
+      "bone": "Root",
+      "type": "fixed",
+      "parent": null,
+      "pivot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "axis": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "range": null
+    },
+    {
+      "bone": "Anemometer",
+      "type": "hinge",
+      "parent": "Root",
+      "pivot": [
+        -0.38999998569488525,
+        0.0,
+        2.318000078201294
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        -1080,
+        1080
+      ]
+    },
+    {
+      "bone": "WindVane",
+      "type": "hinge",
+      "parent": "Root",
+      "pivot": [
+        0.38999998569488525,
+        0.0,
+        2.318000078201294
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        -180,
+        180
+      ]
+    }
+  ],
+  "checks": {
+    "connected_parts": 148,
+    "exact_solid_pairs": 213,
+    "motion_states": 249,
+    "no_solid_intersections": true
+  },
+  "placement": "floor centre; front -Y; up +Z; library only",
+  "material_classifiers": {
+    "M_Emissive": "Emissive",
+    "M_Frame_Diffuse": "Diffuse",
+    "M_Joint_Metallic": "Metallic",
+    "M_Primary_Metallic": "Metallic",
+    "M_Secondary_Metallic": "Metallic"
+  }
+}

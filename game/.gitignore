@@ -1,0 +1,16 @@
+# Godot 4+ specific ignores
+.godot/
+/android/
+.env*
+!.env.example
+build/
+reports/*
+!reports/.gdignore
+services/.venv/
+__pycache__/
+*.pyc
+# Recreated from embedded collision GLB data by Godot's scene importer.
+assets/models/maps/*/*_col_*.png
+assets/models/maps/*/*_col_*.png.import
+
+.pytest_cache/

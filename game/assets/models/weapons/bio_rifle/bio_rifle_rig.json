@@ -1,0 +1,787 @@
+{
+  "name": "bio_rifle",
+  "space": "metres; Blender Z up, muzzle -Y; Godot (x,z,-y); origin on bottom plane at length centre",
+  "materials": [
+    "M_Primary",
+    "M_Secondary_Diffuse",
+    "M_Frame_Metallic",
+    "M_Joint_Metallic",
+    "M_Emissive",
+    "M_Bronze_Metallic",
+    "M_Glass",
+    "M_Metal_Metallic",
+    "M_Bio",
+    "M_Screen_Emissive",
+    "M_BioLiquid_Emissive",
+    "M_Receiver_Metallic",
+    "M_BioAmmoLiquid_Emissive"
+  ],
+  "size_m": {
+    "wide": 0.10600000619888306,
+    "long": 0.6330000162124634,
+    "high": 0.32199999690055847,
+    "max_wide_long_high": [
+      0.25,
+      0.75,
+      0.35
+    ],
+    "bore_axis_height": 0.276
+  },
+  "triangles": {
+    "SK_BioRifle": 4901,
+    "SM_BioRifleAmmo": 444,
+    "SM_BioRifleAmmoLiquid": 264,
+    "ammo_total": 708,
+    "SK_BioRifleLiquid": 32,
+    "weapon_total": 4933
+  },
+  "triangle_budgets": {
+    "SK_BioRifle": 5000,
+    "SM_BioRifleAmmo": 1500,
+    "SM_BioRifleAmmoLiquid": 500,
+    "SK_BioRifleLiquid": 500
+  },
+  "joints": [
+    {
+      "bone": "Root",
+      "parent": null,
+      "type": "fixed",
+      "pivot": [
+        0.0,
+        0.0455,
+        0.0
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": null
+    },
+    {
+      "bone": "Barrel",
+      "parent": "Root",
+      "type": "slide",
+      "pivot": [
+        0.0,
+        0.0005,
+        0.276
+      ],
+      "axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "range": [
+        0,
+        0.01
+      ]
+    },
+    {
+      "bone": "BioValve",
+      "parent": "Root",
+      "type": "hinge",
+      "pivot": [
+        0.027,
+        -0.0115,
+        0.22
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        0,
+        30
+      ]
+    },
+    {
+      "bone": "Trigger",
+      "parent": "Root",
+      "type": "hinge",
+      "pivot": [
+        0.0,
+        0.1324,
+        0.138
+      ],
+      "axis": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "range": [
+        0,
+        12
+      ]
+    },
+    {
+      "bone": "Mag",
+      "parent": "Root",
+      "type": "slide",
+      "pivot": [
+        0.0,
+        0.0605,
+        0.082
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "range": [
+        0,
+        0.020000000000000018
+      ]
+    },
+    {
+      "bone": "MagCatch",
+      "parent": "Root",
+      "type": "slide",
+      "pivot": [
+        0.0,
+        0.0697,
+        0.1548
+      ],
+      "axis": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "range": [
+        0,
+        0.01
+      ]
+    }
+  ],
+  "pistons": [],
+  "hand_sockets": {
+    "LeftHandSocket": {
+      "hand_bone": "LeftHand",
+      "wrist_blender": [
+        0.0603,
+        0.103799,
+        0.15502
+      ],
+      "wrist_godot": [
+        0.0603,
+        0.15502,
+        -0.103799
+      ],
+      "grip_pose_deg": {
+        "LeftIndexProximal": [
+          45,
+          0,
+          0
+        ],
+        "LeftIndexIntermediate": [
+          49.5,
+          0,
+          0
+        ],
+        "LeftIndexDistal": [
+          36.0,
+          0,
+          0
+        ],
+        "LeftMiddleProximal": [
+          50,
+          0,
+          0
+        ],
+        "LeftMiddleIntermediate": [
+          55.0,
+          0,
+          0
+        ],
+        "LeftMiddleDistal": [
+          40.0,
+          0,
+          0
+        ],
+        "LeftRingProximal": [
+          52,
+          0,
+          0
+        ],
+        "LeftRingIntermediate": [
+          57.2,
+          0,
+          0
+        ],
+        "LeftRingDistal": [
+          41.6,
+          0,
+          0
+        ],
+        "LeftLittleProximal": [
+          48,
+          0,
+          0
+        ],
+        "LeftLittleIntermediate": [
+          52.8,
+          0,
+          0
+        ],
+        "LeftLittleDistal": [
+          38.4,
+          0,
+          0
+        ],
+        "LeftThumbMetacarpal": [
+          20,
+          0,
+          30
+        ],
+        "LeftThumbProximal": [
+          20,
+          0,
+          0
+        ],
+        "LeftThumbDistal": [
+          20,
+          0,
+          0
+        ]
+      },
+      "bone_x_blender": [
+        0.0,
+        0.139173,
+        -0.990268
+      ],
+      "bone_x_godot": [
+        0.0,
+        -0.990268,
+        -0.139173
+      ],
+      "bone_y_blender": [
+        0.0,
+        -0.990268,
+        -0.139173
+      ],
+      "bone_y_godot": [
+        0.0,
+        -0.139173,
+        0.990268
+      ],
+      "bone_z_blender": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "bone_z_godot": [
+        -1.0,
+        0.0,
+        -0.0
+      ]
+    },
+    "RightHandSocket": {
+      "hand_bone": "RightHand",
+      "wrist_blender": [
+        -0.03,
+        0.259515,
+        0.104617
+      ],
+      "wrist_godot": [
+        -0.03,
+        0.104617,
+        -0.259515
+      ],
+      "grip_pose_deg": {
+        "RightIndexProximal": [
+          36,
+          0,
+          0
+        ],
+        "RightIndexIntermediate": [
+          39.6,
+          0,
+          0
+        ],
+        "RightIndexDistal": [
+          28.8,
+          0,
+          0
+        ],
+        "RightMiddleProximal": [
+          65,
+          0,
+          0
+        ],
+        "RightMiddleIntermediate": [
+          71.5,
+          0,
+          0
+        ],
+        "RightMiddleDistal": [
+          52.0,
+          0,
+          0
+        ],
+        "RightRingProximal": [
+          65,
+          0,
+          0
+        ],
+        "RightRingIntermediate": [
+          71.5,
+          0,
+          0
+        ],
+        "RightRingDistal": [
+          52.0,
+          0,
+          0
+        ],
+        "RightLittleProximal": [
+          52,
+          0,
+          0
+        ],
+        "RightLittleIntermediate": [
+          57.2,
+          0,
+          0
+        ],
+        "RightLittleDistal": [
+          41.6,
+          0,
+          0
+        ],
+        "RightThumbMetacarpal": [
+          42,
+          0,
+          -25
+        ],
+        "RightThumbProximal": [
+          50,
+          0,
+          0
+        ],
+        "RightThumbDistal": [
+          50,
+          0,
+          0
+        ]
+      },
+      "bone_x_blender": [
+        0.0,
+        -0.258819,
+        0.965926
+      ],
+      "bone_x_godot": [
+        0.0,
+        0.965926,
+        0.258819
+      ],
+      "bone_y_blender": [
+        0.0,
+        -0.965926,
+        -0.258819
+      ],
+      "bone_y_godot": [
+        0.0,
+        -0.258819,
+        0.965926
+      ],
+      "bone_z_blender": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "bone_z_godot": [
+        1.0,
+        0.0,
+        -0.0
+      ]
+    }
+  },
+  "ammo_hand_socket": {
+    "hand_bone": "LeftHand",
+    "bone": "Mag",
+    "grips": "the ammo pack for a reload, a wide grip: palm on its outer end, fingers across it and over its far edge, thumb up its front",
+    "note": "given at the pack's rest; the empty rides the Mag bone. For a reload, put the support hand on it where the pack is (released), carry the pack in that hand (pack = hand_bone_global * socket_in_pack.inverse()) and put it back the same way",
+    "wrist_blender": [
+      0.0665,
+      0.0605,
+      0.054
+    ],
+    "bone_x_blender": [
+      0.0,
+      1.0,
+      0.0
+    ],
+    "bone_y_blender": [
+      -1.0,
+      0.0,
+      0.0
+    ],
+    "bone_z_blender": [
+      -0.0,
+      -0.0,
+      1.0
+    ],
+    "wrist_godot": [
+      0.0665,
+      0.054,
+      -0.0605
+    ],
+    "bone_x_godot": [
+      0.0,
+      0.0,
+      -1.0
+    ],
+    "bone_y_godot": [
+      -1.0,
+      0.0,
+      -0.0
+    ],
+    "bone_z_godot": [
+      -0.0,
+      1.0,
+      0.0
+    ],
+    "grip_pose_deg": {
+      "LeftIndexProximal": [
+        45.0,
+        0,
+        0
+      ],
+      "LeftIndexIntermediate": [
+        49.5,
+        0,
+        0
+      ],
+      "LeftIndexDistal": [
+        36.0,
+        0,
+        0
+      ],
+      "LeftMiddleProximal": [
+        50.0,
+        0,
+        0
+      ],
+      "LeftMiddleIntermediate": [
+        55.0,
+        0,
+        0
+      ],
+      "LeftMiddleDistal": [
+        40.0,
+        0,
+        0
+      ],
+      "LeftRingProximal": [
+        50.0,
+        0,
+        0
+      ],
+      "LeftRingIntermediate": [
+        55.0,
+        0,
+        0
+      ],
+      "LeftRingDistal": [
+        40.0,
+        0,
+        0
+      ],
+      "LeftLittleProximal": [
+        45.0,
+        0,
+        0
+      ],
+      "LeftLittleIntermediate": [
+        49.5,
+        0,
+        0
+      ],
+      "LeftLittleDistal": [
+        36.0,
+        0,
+        0
+      ],
+      "LeftThumbMetacarpal": [
+        25,
+        0,
+        40
+      ],
+      "LeftThumbProximal": [
+        15,
+        0,
+        0
+      ],
+      "LeftThumbDistal": [
+        15,
+        0,
+        0
+      ]
+    }
+  },
+  "ammo": {
+    "bone": "Mag",
+    "pickup_file": "bio_rifle_ammo.glb",
+    "axis": [
+      0,
+      0,
+      -1
+    ],
+    "travel_m": 0.020000000000000018,
+    "note": "Separate six-cartridge bio cassette; guarded insertion with keyed rails, lock post and cross bolt. mag_release / mag_insert and combined reload actions authored.",
+    "mesh": "SM_BioRifleAmmo in bio_rifle_ammo.glb, at the AmmoMount gizmo"
+  },
+  "validation": {
+    "motion_sweep_states": 41,
+    "character_clips": "53 rifle-family clips and paired weapon tracks generated by animations/retarget.py"
+  },
+  "liquid": {
+    "mesh": "SK_BioRifleLiquid",
+    "material": "M_BioLiquid_Emissive",
+    "fill_fraction": 0.5,
+    "surface_blender_z": 0.207,
+    "glass_alpha": 0.1,
+    "shader": "Game shader deferred; closed half-cylinder surface and volume retained, Root rigid skin, no collider",
+    "centre_y_blender": -0.11850000000000001
+  },
+  "rest": "pressure tube home; trigger released; bio cassette seated",
+  "animations": {
+    "idle": {
+      "frames": [
+        0,
+        60
+      ],
+      "fps": 30,
+      "loop": true,
+      "joints": [
+        "Barrel",
+        "BioValve",
+        "Mag",
+        "MagCatch",
+        "Trigger"
+      ]
+    },
+    "fire_start": {
+      "frames": [
+        0,
+        8
+      ],
+      "fps": 30,
+      "loop": false,
+      "joints": [
+        "Barrel",
+        "BioValve",
+        "Mag",
+        "MagCatch",
+        "Trigger"
+      ]
+    },
+    "fire": {
+      "frames": [
+        0,
+        30
+      ],
+      "fps": 30,
+      "loop": true,
+      "joints": [
+        "Barrel",
+        "BioValve",
+        "Mag",
+        "MagCatch",
+        "Trigger"
+      ]
+    },
+    "fire_end": {
+      "frames": [
+        0,
+        14
+      ],
+      "fps": 30,
+      "loop": false,
+      "joints": [
+        "Barrel",
+        "BioValve",
+        "Mag",
+        "MagCatch",
+        "Trigger"
+      ]
+    },
+    "mag_release": {
+      "frames": [
+        0,
+        24
+      ],
+      "fps": 30,
+      "loop": false,
+      "joints": [
+        "Barrel",
+        "BioValve",
+        "Mag",
+        "MagCatch",
+        "Trigger"
+      ]
+    },
+    "mag_insert": {
+      "frames": [
+        0,
+        24
+      ],
+      "fps": 30,
+      "loop": false,
+      "joints": [
+        "Barrel",
+        "BioValve",
+        "Mag",
+        "MagCatch",
+        "Trigger"
+      ]
+    },
+    "reload": {
+      "frames": [
+        0,
+        54
+      ],
+      "fps": 30,
+      "loop": false,
+      "joints": [
+        "Barrel",
+        "BioValve",
+        "Mag",
+        "MagCatch",
+        "Trigger"
+      ]
+    },
+    "valve_open": {
+      "frames": [
+        0,
+        24
+      ],
+      "fps": 30,
+      "loop": false,
+      "joints": [
+        "Barrel",
+        "BioValve",
+        "Mag",
+        "MagCatch",
+        "Trigger"
+      ]
+    },
+    "valve_close": {
+      "frames": [
+        0,
+        24
+      ],
+      "fps": 30,
+      "loop": false,
+      "joints": [
+        "Barrel",
+        "BioValve",
+        "Mag",
+        "MagCatch",
+        "Trigger"
+      ]
+    }
+  },
+  "fire": {
+    "concept": "one metered bio charge fragments into multiple acid flakes discharged simultaneously through one broad bore",
+    "recoil_m": 0.01,
+    "timing": "fire_start opens the feed valve; fire is one 30-frame/1-second recoil cycle with a cluster emission at frame 0; fire_end closes the valve"
+  },
+  "gizmos": {
+    "convention": "same exported marker basis as the other weapons",
+    "markers": [
+      {
+        "name": "Muzzle",
+        "bone": "Barrel",
+        "position_blender": [
+          0.0,
+          -0.32650000882148744,
+          0.2759999930858612
+        ],
+        "forward": [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        "up": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      },
+      {
+        "name": "BioFeed",
+        "bone": "Root",
+        "position_blender": [
+          0.0,
+          -0.0025000004172325146,
+          0.2070000022649765
+        ],
+        "forward": [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        "up": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    ]
+  },
+  "usage": "Library asset; own mechanical actions authored. Game registration and liquid shader deferred.",
+  "construction": {
+    "pressure_path": "cassette to enclosed metering valve, lined batch cylinder, internal flexible coupling in the fixed sleeve, recoiling pressure tube and replaceable nozzle",
+    "parts": "open lofted receiver frame, lathed batch chamber with locking shoulders and bronze seal band, axial service spine, recessed circular plug, black contact keel, pedestal-mounted display console, turned steel barrel, bolted saddle castings, green glass pressure vessel with a separate half-filled liquid volume",
+    "materials": "M_Glass cartridge sleeves and separate M_BioAmmoLiquid; M_Glass green vessel at alpha 0.10; separate SK_BioRifleLiquid uses M_BioLiquid; pack glass at alpha 0.10 as requested",
+    "extraction": "closed bio-feed system retains spent capsules internally; no external shell ejection port",
+    "internals": "metering valve, capsule transfer and fragmentation internals described but not modelled",
+    "hand_reference": "rifle firing wrist and support wrist orientation; support palm fitted to bio dock; rifle shoulder stock without raised cheek comb; rifle-family holds and bottom reload retargeted separately"
+  },
+  "ammo_liquid": {
+    "mesh": "SM_BioRifleAmmoLiquid",
+    "material": "M_BioAmmoLiquid_Emissive",
+    "fill_fraction": 0.5,
+    "surface_pickup_z": 0.047,
+    "radius_m": 0.0045,
+    "cartridges": 6,
+    "shader": "independent liquid shader; no collider"
+  },
+  "ammo_mount": {
+    "gizmo": "AmmoMount",
+    "bone": "Mag",
+    "model": "bio_rifle_ammo.glb",
+    "mesh": "SM_BioRifleAmmo",
+    "position_blender": [
+      -0.0,
+      0.0605,
+      0.07
+    ],
+    "rotation_wxyz_blender": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "position_godot": [
+      -0.0,
+      0.07,
+      -0.0605
+    ],
+    "note": "the ammo pack is its own model (<name>_ammo.glb / .fbx / .blend, its origin at its bottom centre, square to its own axes, its real size): parent its mesh to the AmmoMount node unmoved and it rides the Mag bone where the weapon's actions put it (a reload's release and insert); the weapon's own files carry no pack mesh. The same model is the ammo pickup."
+  },
+  "material_classifiers": {
+    "M_BioAmmoLiquid_Emissive": "Emissive",
+    "M_BioLiquid_Emissive": "Emissive",
+    "M_Bronze_Metallic": "Metallic",
+    "M_Frame_Metallic": "Metallic",
+    "M_Glass": "Glass",
+    "M_Joint_Metallic": "Metallic",
+    "M_Metal_Metallic": "Metallic",
+    "M_Receiver_Metallic": "Metallic",
+    "M_Screen_Emissive": "Emissive",
+    "M_Secondary_Diffuse": "Diffuse"
+  }
+}

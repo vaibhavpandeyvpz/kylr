@@ -1,0 +1,3998 @@
+{
+  "name": "faceoff",
+  "source": "Figma 0pxQrXAGeHplJ0ANVYwD8e / 143:891",
+  "canvas_m": [
+    75,
+    75
+  ],
+  "triangles": 0,
+  "total_map_triangles": 7769,
+  "scenery_triangles": 38776,
+  "triangle_budget": 25000,
+  "markers": [
+    {
+      "name": "common-cistern-143_1752",
+      "role": "prop",
+      "asset": "cistern",
+      "category": "architecture",
+      "weapon": null,
+      "zone": "common",
+      "level": "ground",
+      "deck": "cistern",
+      "building": "cistern",
+      "position_blender": [
+        -2.6226043701171875e-08,
+        0.0,
+        0
+      ],
+      "position_godot": [
+        -2.6226043701171875e-08,
+        0,
+        -0.0
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        0.7853981633974483
+      ],
+      "figma_node": "143:1752",
+      "label": "Cistern",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "common-portal_gate-143_1753",
+      "role": "portal",
+      "asset": "portal_gate",
+      "category": "gameplay",
+      "weapon": null,
+      "zone": "common",
+      "level": "ground",
+      "deck": "cistern",
+      "building": "cistern",
+      "position_blender": [
+        0.0,
+        3.0,
+        0.07777777777777778
+      ],
+      "position_godot": [
+        0.0,
+        0.07777777777777778,
+        -3.0
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        5.551115123125783e-17
+      ],
+      "figma_node": "143:1753",
+      "label": "Portal 3B",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ],
+      "pair_label": "Portal 3B"
+    },
+    {
+      "name": "common-repair_station-143_1754",
+      "role": "repair_station",
+      "asset": "repair_station",
+      "category": "gameplay",
+      "weapon": null,
+      "zone": "common",
+      "level": "ground",
+      "deck": "cistern",
+      "building": "cistern",
+      "position_blender": [
+        0.0,
+        0.0,
+        0.07777777777777778
+      ],
+      "position_godot": [
+        0.0,
+        0.07777777777777778,
+        -0.0
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        0.0
+      ],
+      "figma_node": "143:1754",
+      "label": "Repair Station",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "common-container_long-143_1756",
+      "role": "prop",
+      "asset": "container_long",
+      "category": "architecture",
+      "weapon": null,
+      "zone": "common",
+      "level": "ground",
+      "deck": "common",
+      "building": null,
+      "position_blender": [
+        1.359118457324803,
+        -29.948693783171475,
+        0
+      ],
+      "position_godot": [
+        1.359118457324803,
+        0,
+        29.948693783171475
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        -3.096242208929043
+      ],
+      "figma_node": "143:1756",
+      "label": "Container Long",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ],
+      "open_actions": [
+        "front_open",
+        "rear_open"
+      ]
+    },
+    {
+      "name": "common-container-143_1757",
+      "role": "prop",
+      "asset": "container",
+      "category": "architecture",
+      "weapon": null,
+      "zone": "common",
+      "level": "ground",
+      "deck": "common",
+      "building": null,
+      "position_blender": [
+        -1.7866492062807082,
+        -31.08305764168501,
+        0
+      ],
+      "position_godot": [
+        -1.7866492062807082,
+        0,
+        31.08305764168501
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        3.0841759907124495
+      ],
+      "figma_node": "143:1757",
+      "label": "Container",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ],
+      "open_actions": [
+        "rear_open"
+      ]
+    },
+    {
+      "name": "common-item_cradle-143_1758",
+      "role": "shield",
+      "asset": "item_cradle",
+      "category": "gameplay",
+      "weapon": null,
+      "zone": "common",
+      "level": "ground",
+      "deck": "container",
+      "building": "container",
+      "position_blender": [
+        -1.7902541225772122,
+        -31.08581110671413,
+        0.16943074854325416
+      ],
+      "position_godot": [
+        -1.7902541225772122,
+        0.16943074854325416,
+        31.08581110671413
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        1.3919653614053067
+      ],
+      "figma_node": "143:1758",
+      "label": "Shield Core Pickup (Item Cradle)",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "common-hangar-143_1760",
+      "role": "prop",
+      "asset": "faceoff",
+      "category": "maps",
+      "weapon": null,
+      "zone": "common",
+      "level": "ground",
+      "deck": "hangar",
+      "building": "hangar",
+      "position_blender": [
+        30.0,
+        0.0,
+        0
+      ],
+      "position_godot": [
+        30.0,
+        0,
+        -0.0
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        -1.5707963267948966
+      ],
+      "figma_node": "143:1760",
+      "label": "Hangar",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ],
+      "asset_suffix": "_architecture_hangar",
+      "source_asset": "hangar",
+      "source_category": "architecture"
+    },
+    {
+      "name": "common-minigun-143_1761-L",
+      "role": "ammo",
+      "asset": "minigun",
+      "category": "weapons",
+      "weapon": "minigun",
+      "zone": "common",
+      "level": "ground",
+      "deck": "hangar",
+      "building": "hangar",
+      "position_blender": [
+        27.5,
+        -2.4,
+        0.11166253101736971
+      ],
+      "position_godot": [
+        27.5,
+        0.11166253101736971,
+        2.4
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        -1.5707963267948966
+      ],
+      "figma_node": "143:1761",
+      "label": "Ammo Pack - Minigun",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "common-minigun-143_1761-R",
+      "role": "ammo",
+      "asset": "minigun",
+      "category": "weapons",
+      "weapon": "minigun",
+      "zone": "common",
+      "level": "ground",
+      "deck": "hangar",
+      "building": "hangar",
+      "position_blender": [
+        27.5,
+        -2.6,
+        0.11166253101736971
+      ],
+      "position_godot": [
+        27.5,
+        0.11166253101736971,
+        2.6
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        -1.5707963267948966
+      ],
+      "figma_node": "143:1761",
+      "label": "Ammo Pack - Minigun",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "common-flak_cannon-143_1762-L",
+      "role": "ammo",
+      "asset": "flak_cannon",
+      "category": "weapons",
+      "weapon": "flak_cannon",
+      "zone": "common",
+      "level": "ground",
+      "deck": "hangar",
+      "building": "hangar",
+      "position_blender": [
+        32.5,
+        2.6,
+        0.11166253101736971
+      ],
+      "position_godot": [
+        32.5,
+        0.11166253101736971,
+        -2.6
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        -1.5707963267948966
+      ],
+      "figma_node": "143:1762",
+      "label": "Ammo Pack - Flak Cannon",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "common-flak_cannon-143_1762-R",
+      "role": "ammo",
+      "asset": "flak_cannon",
+      "category": "weapons",
+      "weapon": "flak_cannon",
+      "zone": "common",
+      "level": "ground",
+      "deck": "hangar",
+      "building": "hangar",
+      "position_blender": [
+        32.5,
+        2.4,
+        0.11166253101736971
+      ],
+      "position_godot": [
+        32.5,
+        0.11166253101736971,
+        -2.4
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        -1.5707963267948966
+      ],
+      "figma_node": "143:1762",
+      "label": "Ammo Pack - Flak Cannon",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "common-weapon_holder-2001_4",
+      "role": "weapon",
+      "asset": "weapon_holder",
+      "category": "gameplay",
+      "weapon": "minigun",
+      "zone": "common",
+      "level": "ground",
+      "deck": "hangar",
+      "building": "hangar",
+      "position_blender": [
+        32.5,
+        -2.5,
+        0.11166253101736971
+      ],
+      "position_godot": [
+        32.5,
+        0.11166253101736971,
+        2.5
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        -1.5707963267948966
+      ],
+      "figma_node": "2001:4",
+      "label": "Weapon Pickup - Minigun",
+      "wall_mounted": false,
+      "cutout_m": [
+        1,
+        1
+      ]
+    },
+    {
+      "name": "common-weapon_holder-2001_5",
+      "role": "weapon",
+      "asset": "weapon_holder",
+      "category": "gameplay",
+      "weapon": "flak_cannon",
+      "zone": "common",
+      "level": "ground",
+      "deck": "hangar",
+      "building": "hangar",
+      "position_blender": [
+        27.5,
+        2.5,
+        0.11166253101736971
+      ],
+      "position_godot": [
+        27.5,
+        0.11166253101736971,
+        -2.5
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        -1.5707963267948966
+      ],
+      "figma_node": "2001:5",
+      "label": "Weapon Pickup - Flak Cannon",
+      "wall_mounted": false,
+      "cutout_m": [
+        1,
+        1
+      ]
+    },
+    {
+      "name": "common-lodge-143_1764",
+      "role": "prop",
+      "asset": "faceoff",
+      "category": "maps",
+      "weapon": null,
+      "zone": "common",
+      "level": "ground",
+      "deck": "lodge",
+      "building": "lodge",
+      "position_blender": [
+        -24.393398463726044,
+        24.3933984375,
+        0
+      ],
+      "position_godot": [
+        -24.393398463726044,
+        0,
+        -24.3933984375
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        0.7853981639350127
+      ],
+      "figma_node": "143:1764",
+      "label": "Lodge",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ],
+      "asset_suffix": "_architecture_lodge",
+      "source_asset": "lodge",
+      "source_category": "architecture"
+    },
+    {
+      "name": "common-lightning_gun-2001_8-L",
+      "role": "ammo",
+      "asset": "lightning_gun",
+      "category": "weapons",
+      "weapon": "lightning_gun",
+      "zone": "common",
+      "level": "ground",
+      "deck": "lodge",
+      "building": "lodge",
+      "position_blender": [
+        -20.92517739532739,
+        24.329289323745737,
+        0.07731958762886598
+      ],
+      "position_godot": [
+        -20.92517739532739,
+        0.07731958762886598,
+        -24.329289323745737
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        0.7853981639350127
+      ],
+      "figma_node": "2001:8",
+      "label": "Ammo Pack - Lightning Gun",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "common-lightning_gun-2001_8-R",
+      "role": "ammo",
+      "asset": "lightning_gun",
+      "category": "weapons",
+      "weapon": "lightning_gun",
+      "zone": "common",
+      "level": "ground",
+      "deck": "lodge",
+      "building": "lodge",
+      "position_blender": [
+        -20.7837560391661,
+        24.470710680059067,
+        0.07731958762886598
+      ],
+      "position_godot": [
+        -20.7837560391661,
+        0.07731958762886598,
+        -24.470710680059067
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        0.7853981639350127
+      ],
+      "figma_node": "2001:8",
+      "label": "Ammo Pack - Lightning Gun",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "common-bio_rifle-2001_9-L",
+      "role": "ammo",
+      "asset": "bio_rifle",
+      "category": "weapons",
+      "weapon": "bio_rifle",
+      "zone": "common",
+      "level": "ground",
+      "deck": "lodge",
+      "building": "lodge",
+      "position_blender": [
+        -27.9962449002102,
+        24.329289319944582,
+        0.07731958762886598
+      ],
+      "position_godot": [
+        -27.9962449002102,
+        0.07731958762886598,
+        -24.329289319944582
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        0.7853981639350127
+      ],
+      "figma_node": "2001:9",
+      "label": "Ammo Pack - Bio Rifle",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "common-bio_rifle-2001_9-R",
+      "role": "ammo",
+      "asset": "bio_rifle",
+      "category": "weapons",
+      "weapon": "bio_rifle",
+      "zone": "common",
+      "level": "ground",
+      "deck": "lodge",
+      "building": "lodge",
+      "position_blender": [
+        -27.854823544048912,
+        24.470710676257912,
+        0.07731958762886598
+      ],
+      "position_godot": [
+        -27.854823544048912,
+        0.07731958762886598,
+        -24.470710676257912
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        0.7853981639350127
+      ],
+      "figma_node": "2001:9",
+      "label": "Ammo Pack - Bio Rifle",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "common-weapon_holder-2001_11",
+      "role": "weapon",
+      "asset": "weapon_holder",
+      "category": "gameplay",
+      "weapon": "lightning_gun",
+      "zone": "common",
+      "level": "ground",
+      "deck": "lodge",
+      "building": "lodge",
+      "position_blender": [
+        -24.390000471588728,
+        27.935534667970575,
+        0.07731958762886598
+      ],
+      "position_godot": [
+        -24.390000471588728,
+        0.07731958762886598,
+        -27.935534667970575
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        0.7853981639350127
+      ],
+      "figma_node": "2001:11",
+      "label": "Weapon Pickup - Lightning Gun",
+      "wall_mounted": false,
+      "cutout_m": [
+        1,
+        1
+      ]
+    },
+    {
+      "name": "common-weapon_holder-2001_12",
+      "role": "weapon",
+      "asset": "weapon_holder",
+      "category": "gameplay",
+      "weapon": "bio_rifle",
+      "zone": "common",
+      "level": "ground",
+      "deck": "lodge",
+      "building": "lodge",
+      "position_blender": [
+        -24.390000467787573,
+        20.864465332033078,
+        0.07731958762886598
+      ],
+      "position_godot": [
+        -24.390000467787573,
+        0.07731958762886598,
+        -20.864465332033078
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        0.7853981639350127
+      ],
+      "figma_node": "2001:12",
+      "label": "Weapon Pickup - Bio Rifle",
+      "wall_mounted": false,
+      "cutout_m": [
+        1,
+        1
+      ]
+    },
+    {
+      "name": "common-portal_gate-143_1766",
+      "role": "portal",
+      "asset": "portal_gate",
+      "category": "gameplay",
+      "weapon": null,
+      "zone": "common",
+      "level": "ground",
+      "deck": "lodge",
+      "building": "lodge",
+      "position_blender": [
+        -34.46966992860295,
+        34.46966975326084,
+        0
+      ],
+      "position_godot": [
+        -34.46966992860295,
+        0,
+        -34.46966975326084
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        0.7853981639350127
+      ],
+      "figma_node": "143:1766",
+      "label": "Portal 3A",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ],
+      "pair_label": "Portal 3A"
+    },
+    {
+      "name": "common-habitat_pod-143_1784",
+      "role": "prop",
+      "asset": "habitat_pod",
+      "category": "architecture",
+      "weapon": null,
+      "zone": "common",
+      "level": "ground",
+      "deck": "habitat_pod",
+      "building": "habitat_pod",
+      "position_blender": [
+        29.648427076339722,
+        -29.408426431417464,
+        0
+      ],
+      "position_godot": [
+        29.648427076339722,
+        0,
+        29.408426431417464
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        -2.352130621065231
+      ],
+      "figma_node": "143:1784",
+      "label": "Habitat Pod",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "common-item_cradle-143_1785",
+      "role": "weapon",
+      "asset": "item_cradle",
+      "category": "gameplay",
+      "weapon": "rocket_launcher",
+      "zone": "common",
+      "level": "ground",
+      "deck": "habitat_pod",
+      "building": "habitat_pod",
+      "position_blender": [
+        30.17991534424896,
+        -29.935610409178395,
+        0.7464454976303319
+      ],
+      "position_godot": [
+        30.17991534424896,
+        0.7464454976303319,
+        29.935610409178395
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        -7.064519601449921
+      ],
+      "figma_node": "143:1785",
+      "label": "Weapon Pickup - Rocket Launcher (Item Cradle)",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "common-rocket_launcher-2001_14-L",
+      "role": "ammo",
+      "asset": "rocket_launcher",
+      "category": "weapons",
+      "weapon": "rocket_launcher",
+      "zone": "common",
+      "level": "ground",
+      "deck": "habitat_pod",
+      "building": "habitat_pod",
+      "position_blender": [
+        29.043952219581435,
+        -28.808847639888494,
+        0.7464454976303319
+      ],
+      "position_godot": [
+        29.043952219581435,
+        0.7464454976303319,
+        28.808847639888494
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        -7.064519601449921
+      ],
+      "figma_node": "2001:14",
+      "label": "Ammo Pickup - Rocket Launcher",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "common-rocket_launcher-2001_14-R",
+      "role": "ammo",
+      "asset": "rocket_launcher",
+      "category": "weapons",
+      "weapon": "rocket_launcher",
+      "zone": "common",
+      "level": "ground",
+      "deck": "habitat_pod",
+      "building": "habitat_pod",
+      "position_blender": [
+        29.185947124332834,
+        -28.949693112036666,
+        0.7464454976303319
+      ],
+      "position_godot": [
+        29.185947124332834,
+        0.7464454976303319,
+        28.949693112036666
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        -7.064519601449921
+      ],
+      "figma_node": "2001:14",
+      "label": "Ammo Pickup - Rocket Launcher",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "common-shelter-143_1786",
+      "role": "prop",
+      "asset": "shelter",
+      "category": "architecture",
+      "weapon": null,
+      "zone": "common",
+      "level": "ground",
+      "deck": "shelter",
+      "building": "shelter",
+      "position_blender": [
+        0.0,
+        21.89,
+        0
+      ],
+      "position_godot": [
+        0.0,
+        0,
+        -21.89
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        -0.0
+      ],
+      "figma_node": "143:1786",
+      "label": "Shelter",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "common-item_cradle-2001_18",
+      "role": "weapon",
+      "asset": "item_cradle",
+      "category": "gameplay",
+      "weapon": "grenade_launcher",
+      "zone": "common",
+      "level": "ground",
+      "deck": "shelter",
+      "building": "shelter",
+      "position_blender": [
+        2.4712085723876954e-06,
+        21.13999758839607,
+        0.12
+      ],
+      "position_godot": [
+        2.4712085723876954e-06,
+        0.12,
+        -21.13999758839607
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        -1.5707963267948966
+      ],
+      "figma_node": "2001:18",
+      "label": "Weapon Pickup - Grenade Launcher (Item Cradle)",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "common-grenade_launcher-2001_19-L",
+      "role": "ammo",
+      "asset": "grenade_launcher",
+      "category": "weapons",
+      "weapon": "grenade_launcher",
+      "zone": "common",
+      "level": "ground",
+      "deck": "shelter",
+      "building": "shelter",
+      "position_blender": [
+        2.9802322381572078e-08,
+        22.740000029802324,
+        0.12
+      ],
+      "position_godot": [
+        2.9802322381572078e-08,
+        0.12,
+        -22.740000029802324
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        -1.5707963267948966
+      ],
+      "figma_node": "2001:19",
+      "label": "Ammo Pickup - Grenade Launcher",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "common-grenade_launcher-2001_19-R",
+      "role": "ammo",
+      "asset": "grenade_launcher",
+      "category": "weapons",
+      "weapon": "grenade_launcher",
+      "zone": "common",
+      "level": "ground",
+      "deck": "shelter",
+      "building": "shelter",
+      "position_blender": [
+        2.980232239381855e-08,
+        22.54000002980232,
+        0.12
+      ],
+      "position_godot": [
+        2.980232239381855e-08,
+        0.12,
+        -22.54000002980232
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        -1.5707963267948966
+      ],
+      "figma_node": "2001:19",
+      "label": "Ammo Pickup - Grenade Launcher",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "common-hub-143_1788",
+      "role": "prop",
+      "asset": "hub",
+      "category": "architecture",
+      "weapon": null,
+      "zone": "common",
+      "level": "ground",
+      "deck": "hub",
+      "building": "hub",
+      "position_blender": [
+        16.79,
+        -16.79,
+        0
+      ],
+      "position_godot": [
+        16.79,
+        0,
+        16.79
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        -2.356194490192345
+      ],
+      "figma_node": "143:1788",
+      "label": "Hub",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "common-emp_gun-143_1789-L",
+      "role": "ammo",
+      "asset": "emp_gun",
+      "category": "weapons",
+      "weapon": "emp_gun",
+      "zone": "common",
+      "level": "ground",
+      "deck": "hub",
+      "building": "hub",
+      "position_blender": [
+        16.153603896932108,
+        -16.0121825406948,
+        0.0967741935483871
+      ],
+      "position_godot": [
+        16.153603896932108,
+        0.0967741935483871,
+        16.0121825406948
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        -2.356194490192345
+      ],
+      "figma_node": "143:1789",
+      "label": "Ammo Pack - EMP",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "common-emp_gun-143_1789-R",
+      "role": "ammo",
+      "asset": "emp_gun",
+      "category": "weapons",
+      "weapon": "emp_gun",
+      "zone": "common",
+      "level": "ground",
+      "deck": "hub",
+      "building": "hub",
+      "position_blender": [
+        16.0121825406948,
+        -16.153603896932108,
+        0.0967741935483871
+      ],
+      "position_godot": [
+        16.0121825406948,
+        0.0967741935483871,
+        16.153603896932108
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        -2.356194490192345
+      ],
+      "figma_node": "143:1789",
+      "label": "Ammo Pack - EMP",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "common-rifle-143_1790-L",
+      "role": "ammo",
+      "asset": "rifle",
+      "category": "weapons",
+      "weapon": "rifle",
+      "zone": "common",
+      "level": "ground",
+      "deck": "hub",
+      "building": "hub",
+      "position_blender": [
+        17.5678174593052,
+        -17.42639610306789,
+        0.0967741935483871
+      ],
+      "position_godot": [
+        17.5678174593052,
+        0.0967741935483871,
+        17.42639610306789
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        -2.356194490192345
+      ],
+      "figma_node": "143:1790",
+      "label": "Ammo Pack - Rifle",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "common-rifle-143_1790-R",
+      "role": "ammo",
+      "asset": "rifle",
+      "category": "weapons",
+      "weapon": "rifle",
+      "zone": "common",
+      "level": "ground",
+      "deck": "hub",
+      "building": "hub",
+      "position_blender": [
+        17.42639610306789,
+        -17.5678174593052,
+        0.0967741935483871
+      ],
+      "position_godot": [
+        17.42639610306789,
+        0.0967741935483871,
+        17.5678174593052
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        -2.356194490192345
+      ],
+      "figma_node": "143:1790",
+      "label": "Ammo Pack - Rifle",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "common-minigun-143_1791-L",
+      "role": "ammo",
+      "asset": "minigun",
+      "category": "weapons",
+      "weapon": "minigun",
+      "zone": "common",
+      "level": "ground",
+      "deck": "hub",
+      "building": "hub",
+      "position_blender": [
+        16.153603896932108,
+        -17.42639610306789,
+        0.0967741935483871
+      ],
+      "position_godot": [
+        16.153603896932108,
+        0.0967741935483871,
+        17.42639610306789
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        -2.356194490192345
+      ],
+      "figma_node": "143:1791",
+      "label": "Ammo Pack - Minigun",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "common-minigun-143_1791-R",
+      "role": "ammo",
+      "asset": "minigun",
+      "category": "weapons",
+      "weapon": "minigun",
+      "zone": "common",
+      "level": "ground",
+      "deck": "hub",
+      "building": "hub",
+      "position_blender": [
+        16.0121825406948,
+        -17.5678174593052,
+        0.0967741935483871
+      ],
+      "position_godot": [
+        16.0121825406948,
+        0.0967741935483871,
+        17.5678174593052
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        -2.356194490192345
+      ],
+      "figma_node": "143:1791",
+      "label": "Ammo Pack - Minigun",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "common-bio_rifle-143_1792-L",
+      "role": "ammo",
+      "asset": "bio_rifle",
+      "category": "weapons",
+      "weapon": "bio_rifle",
+      "zone": "common",
+      "level": "ground",
+      "deck": "hub",
+      "building": "hub",
+      "position_blender": [
+        17.5678174593052,
+        -16.0121825406948,
+        0.0967741935483871
+      ],
+      "position_godot": [
+        17.5678174593052,
+        0.0967741935483871,
+        16.0121825406948
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        -2.356194490192345
+      ],
+      "figma_node": "143:1792",
+      "label": "Ammo Pack - Bio Rifle",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "common-bio_rifle-143_1792-R",
+      "role": "ammo",
+      "asset": "bio_rifle",
+      "category": "weapons",
+      "weapon": "bio_rifle",
+      "zone": "common",
+      "level": "ground",
+      "deck": "hub",
+      "building": "hub",
+      "position_blender": [
+        17.42639610306789,
+        -16.153603896932108,
+        0.0967741935483871
+      ],
+      "position_godot": [
+        17.42639610306789,
+        0.0967741935483871,
+        16.153603896932108
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        -2.356194490192345
+      ],
+      "figma_node": "143:1792",
+      "label": "Ammo Pack - Bio Rifle",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "common-lunar_rover-143_1794",
+      "role": "prop",
+      "asset": "lunar_rover",
+      "category": "environments",
+      "weapon": null,
+      "zone": "common",
+      "level": "ground",
+      "deck": "common",
+      "building": null,
+      "position_blender": [
+        -24.39096191763878,
+        0.003974611759185791,
+        0
+      ],
+      "position_godot": [
+        -24.39096191763878,
+        0,
+        -0.003974611759185791
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        1.5706333725113621
+      ],
+      "figma_node": "143:1794",
+      "label": "Lunar Rover",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "common-weather_sensor-143_1795",
+      "role": "prop",
+      "asset": "weather_sensor",
+      "category": "environments",
+      "weapon": null,
+      "zone": "common",
+      "level": "ground",
+      "deck": "common",
+      "building": null,
+      "position_blender": [
+        -13.79,
+        -13.79,
+        0
+      ],
+      "position_godot": [
+        -13.79,
+        0,
+        13.79
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        2.356194490192345
+      ],
+      "figma_node": "143:1795",
+      "label": "Wather Sensor",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "common-solar_tower-143_1796",
+      "role": "prop",
+      "asset": "solar_tower",
+      "category": "environments",
+      "weapon": null,
+      "zone": "common",
+      "level": "ground",
+      "deck": "common",
+      "building": null,
+      "position_blender": [
+        13.786015492081642,
+        13.793984571099282,
+        0
+      ],
+      "position_godot": [
+        13.786015492081642,
+        0,
+        -13.793984571099282
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        -0.7851092192793334
+      ],
+      "figma_node": "143:1796",
+      "label": "Solar Tower",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "common-lunar_lander-143_1797",
+      "role": "prop",
+      "asset": "lunar_lander",
+      "category": "environments",
+      "weapon": null,
+      "zone": "common",
+      "level": "ground",
+      "deck": "common",
+      "building": null,
+      "position_blender": [
+        0.0,
+        32.5,
+        0
+      ],
+      "position_godot": [
+        0.0,
+        0,
+        -32.5
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        -0.0
+      ],
+      "figma_node": "143:1797",
+      "label": "Lunar Lander",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "common-beacon_lantern-143_1799",
+      "role": "prop",
+      "asset": "beacon_lantern",
+      "category": "environments",
+      "weapon": null,
+      "zone": "common",
+      "level": "ground",
+      "deck": "common",
+      "building": null,
+      "position_blender": [
+        -34.5,
+        -8.38,
+        0
+      ],
+      "position_godot": [
+        -34.5,
+        0,
+        8.38
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        1.8090801862694388
+      ],
+      "figma_node": "143:1799",
+      "label": "Beacon Lantern 2",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "common-beacon_lantern-143_1800",
+      "role": "prop",
+      "asset": "beacon_lantern",
+      "category": "environments",
+      "weapon": null,
+      "zone": "common",
+      "level": "ground",
+      "deck": "common",
+      "building": null,
+      "position_blender": [
+        -34.5,
+        8.37,
+        0
+      ],
+      "position_godot": [
+        -34.5,
+        0,
+        -8.37
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        1.3327861919826804
+      ],
+      "figma_node": "143:1800",
+      "label": "Beacon Lantern 1",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "common-beacon_lantern-143_1801",
+      "role": "prop",
+      "asset": "beacon_lantern",
+      "category": "environments",
+      "weapon": null,
+      "zone": "common",
+      "level": "ground",
+      "deck": "common",
+      "building": null,
+      "position_blender": [
+        34.5,
+        -8.38,
+        0
+      ],
+      "position_godot": [
+        34.5,
+        0,
+        8.38
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        -1.8090801862694388
+      ],
+      "figma_node": "143:1801",
+      "label": "Beacon Lantern 3",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "common-beacon_lantern-143_1802",
+      "role": "prop",
+      "asset": "beacon_lantern",
+      "category": "environments",
+      "weapon": null,
+      "zone": "common",
+      "level": "ground",
+      "deck": "common",
+      "building": null,
+      "position_blender": [
+        34.5,
+        8.37,
+        0
+      ],
+      "position_godot": [
+        34.5,
+        0,
+        -8.37
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        -1.3327861919826804
+      ],
+      "figma_node": "143:1802",
+      "label": "Beacon Lantern 4",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "common-beacon_lantern-143_1803",
+      "role": "prop",
+      "asset": "beacon_lantern",
+      "category": "environments",
+      "weapon": null,
+      "zone": "common",
+      "level": "ground",
+      "deck": "common",
+      "building": null,
+      "position_blender": [
+        8.37,
+        -34.5,
+        0
+      ],
+      "position_godot": [
+        8.37,
+        0,
+        34.5
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        -2.903582518777577
+      ],
+      "figma_node": "143:1803",
+      "label": "Beacon Lantern 6",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "common-beacon_lantern-143_1804",
+      "role": "prop",
+      "asset": "beacon_lantern",
+      "category": "environments",
+      "weapon": null,
+      "zone": "common",
+      "level": "ground",
+      "deck": "common",
+      "building": null,
+      "position_blender": [
+        -8.38,
+        -34.5,
+        0
+      ],
+      "position_godot": [
+        -8.38,
+        0,
+        34.5
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        2.9033087941152513
+      ],
+      "figma_node": "143:1804",
+      "label": "Beacon Lantern 5",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "common-beacon_lantern-143_1805",
+      "role": "prop",
+      "asset": "beacon_lantern",
+      "category": "environments",
+      "weapon": null,
+      "zone": "common",
+      "level": "ground",
+      "deck": "common",
+      "building": null,
+      "position_blender": [
+        8.37,
+        34.5,
+        0
+      ],
+      "position_godot": [
+        8.37,
+        0,
+        -34.5
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        -0.23801013481221622
+      ],
+      "figma_node": "143:1805",
+      "label": "Beacon Lantern 7",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "common-beacon_lantern-143_1806",
+      "role": "prop",
+      "asset": "beacon_lantern",
+      "category": "environments",
+      "weapon": null,
+      "zone": "common",
+      "level": "ground",
+      "deck": "common",
+      "building": null,
+      "position_blender": [
+        -8.38,
+        34.5,
+        0
+      ],
+      "position_godot": [
+        -8.38,
+        0,
+        -34.5
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        0.23828385947454206
+      ],
+      "figma_node": "143:1806",
+      "label": "Beacon Lantern 8",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "common-barrel-143_1808",
+      "role": "prop",
+      "asset": "barrel",
+      "category": "environments",
+      "weapon": null,
+      "zone": "common",
+      "level": "ground",
+      "deck": "common",
+      "building": null,
+      "position_blender": [
+        -13.25,
+        11.07,
+        0
+      ],
+      "position_godot": [
+        -13.25,
+        0,
+        -11.07
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        0.8747973912734488
+      ],
+      "figma_node": "143:1808",
+      "label": "Barrel 1",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "common-barrel-143_1809",
+      "role": "prop",
+      "asset": "barrel",
+      "category": "environments",
+      "weapon": null,
+      "zone": "common",
+      "level": "ground",
+      "deck": "common",
+      "building": null,
+      "position_blender": [
+        -12.25,
+        10.43,
+        0
+      ],
+      "position_godot": [
+        -12.25,
+        0,
+        -10.43
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        0.8654734876719861
+      ],
+      "figma_node": "143:1809",
+      "label": "Barrel 2",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "common-barrel-143_1810",
+      "role": "prop",
+      "asset": "barrel",
+      "category": "environments",
+      "weapon": null,
+      "zone": "common",
+      "level": "ground",
+      "deck": "common",
+      "building": null,
+      "position_blender": [
+        -12.25,
+        11.57,
+        0
+      ],
+      "position_godot": [
+        -12.25,
+        0,
+        -11.57
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        0.8139378513423995
+      ],
+      "figma_node": "143:1810",
+      "label": "Barrel 3",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "common-barrel-143_1811",
+      "role": "prop",
+      "asset": "barrel",
+      "category": "environments",
+      "weapon": null,
+      "zone": "common",
+      "level": "ground",
+      "deck": "common",
+      "building": null,
+      "position_blender": [
+        7.37,
+        18.39,
+        0
+      ],
+      "position_godot": [
+        7.37,
+        0,
+        -18.39
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        -0.38116248349492715
+      ],
+      "figma_node": "143:1811",
+      "label": "Barrel 4",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "common-barrel-143_1812",
+      "role": "prop",
+      "asset": "barrel",
+      "category": "environments",
+      "weapon": null,
+      "zone": "common",
+      "level": "ground",
+      "deck": "common",
+      "building": null,
+      "position_blender": [
+        8.37,
+        17.75,
+        0
+      ],
+      "position_godot": [
+        8.37,
+        0,
+        -17.75
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        -0.4406291086495887
+      ],
+      "figma_node": "143:1812",
+      "label": "Barrel 5",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "common-barrel-143_1813",
+      "role": "prop",
+      "asset": "barrel",
+      "category": "environments",
+      "weapon": null,
+      "zone": "common",
+      "level": "ground",
+      "deck": "common",
+      "building": null,
+      "position_blender": [
+        8.37,
+        18.89,
+        0
+      ],
+      "position_godot": [
+        8.37,
+        0,
+        -18.89
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        -0.4170940533884754
+      ],
+      "figma_node": "143:1813",
+      "label": "Barrel 6",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "common-barrel-143_1814",
+      "role": "prop",
+      "asset": "barrel",
+      "category": "environments",
+      "weapon": null,
+      "zone": "common",
+      "level": "ground",
+      "deck": "common",
+      "building": null,
+      "position_blender": [
+        16.5,
+        -6.0,
+        0
+      ],
+      "position_godot": [
+        16.5,
+        0,
+        6.0
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        -1.9195673303788037
+      ],
+      "figma_node": "143:1814",
+      "label": "Barrel 7",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "common-barrel-143_1815",
+      "role": "prop",
+      "asset": "barrel",
+      "category": "environments",
+      "weapon": null,
+      "zone": "common",
+      "level": "ground",
+      "deck": "common",
+      "building": null,
+      "position_blender": [
+        17.5,
+        -6.64,
+        0
+      ],
+      "position_godot": [
+        17.5,
+        0,
+        6.64
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        -1.9334439161105745
+      ],
+      "figma_node": "143:1815",
+      "label": "Barrel 8",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "common-barrel-143_1816",
+      "role": "prop",
+      "asset": "barrel",
+      "category": "environments",
+      "weapon": null,
+      "zone": "common",
+      "level": "ground",
+      "deck": "common",
+      "building": null,
+      "position_blender": [
+        17.5,
+        -5.5,
+        0
+      ],
+      "position_godot": [
+        17.5,
+        0,
+        5.5
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        -1.8753072099970092
+      ],
+      "figma_node": "143:1816",
+      "label": "Barrel 9",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "common-barrel-143_1817",
+      "role": "prop",
+      "asset": "barrel",
+      "category": "environments",
+      "weapon": null,
+      "zone": "common",
+      "level": "ground",
+      "deck": "common",
+      "building": null,
+      "position_blender": [
+        -4.0,
+        -20.15,
+        0
+      ],
+      "position_godot": [
+        -4.0,
+        0,
+        20.15
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        2.945629073668043
+      ],
+      "figma_node": "143:1817",
+      "label": "Barrel 10",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "common-barrel-143_1818",
+      "role": "prop",
+      "asset": "barrel",
+      "category": "environments",
+      "weapon": null,
+      "zone": "common",
+      "level": "ground",
+      "deck": "common",
+      "building": null,
+      "position_blender": [
+        -3.0,
+        -20.79,
+        0
+      ],
+      "position_godot": [
+        -3.0,
+        0,
+        20.79
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        2.998281744141012
+      ],
+      "figma_node": "143:1818",
+      "label": "Barrel 11",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "common-barrel-143_1819",
+      "role": "prop",
+      "asset": "barrel",
+      "category": "environments",
+      "weapon": null,
+      "zone": "common",
+      "level": "ground",
+      "deck": "common",
+      "building": null,
+      "position_blender": [
+        -3.0,
+        -19.65,
+        0
+      ],
+      "position_godot": [
+        -3.0,
+        0,
+        19.65
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        2.9900907716215186
+      ],
+      "figma_node": "143:1819",
+      "label": "Barrel 12",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "common-pole_light-143_1821",
+      "role": "prop",
+      "asset": "pole_light",
+      "category": "environments",
+      "weapon": null,
+      "zone": "common",
+      "level": "ground",
+      "deck": "common",
+      "building": null,
+      "position_blender": [
+        -13.0,
+        -0.005,
+        0
+      ],
+      "position_godot": [
+        -13.0,
+        0,
+        0.005
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        1.5711809421605467
+      ],
+      "figma_node": "143:1821",
+      "label": "Pole Light 4",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "common-pole_light-143_1822",
+      "role": "prop",
+      "asset": "pole_light",
+      "category": "environments",
+      "weapon": null,
+      "zone": "common",
+      "level": "ground",
+      "deck": "common",
+      "building": null,
+      "position_blender": [
+        12.99,
+        -0.005,
+        0
+      ],
+      "position_godot": [
+        12.99,
+        0,
+        0.005
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        -1.5711812382462493
+      ],
+      "figma_node": "143:1822",
+      "label": "Pole Light 3",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "common-pole_light-143_1823",
+      "role": "prop",
+      "asset": "pole_light",
+      "category": "environments",
+      "weapon": null,
+      "zone": "common",
+      "level": "ground",
+      "deck": "common",
+      "building": null,
+      "position_blender": [
+        -0.005,
+        12.99,
+        0
+      ],
+      "position_godot": [
+        -0.005,
+        0,
+        -12.99
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        0.00038491145135272943
+      ],
+      "figma_node": "143:1823",
+      "label": "Pole Light 2",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "common-pole_light-143_1824",
+      "role": "prop",
+      "asset": "pole_light",
+      "category": "environments",
+      "weapon": null,
+      "zone": "common",
+      "level": "ground",
+      "deck": "common",
+      "building": null,
+      "position_blender": [
+        -0.005,
+        -13.0,
+        0
+      ],
+      "position_godot": [
+        -0.005,
+        0,
+        13.0
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        3.141208038224143
+      ],
+      "figma_node": "143:1824",
+      "label": "Pole Light 1",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "common-satellite-143_1825",
+      "role": "prop",
+      "asset": "satellite",
+      "category": "environments",
+      "weapon": null,
+      "zone": "common",
+      "level": "ground",
+      "deck": "common",
+      "building": null,
+      "position_blender": [
+        29.150859773159027,
+        -16.785278795957566,
+        0
+      ],
+      "position_godot": [
+        29.150859773159027,
+        0,
+        16.785278795957566
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        -2.0932371264763474
+      ],
+      "figma_node": "143:1825",
+      "label": "Satellite",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "common-jump_pad-143_1826",
+      "role": "jump_pad",
+      "asset": "jump_pad",
+      "category": "gameplay",
+      "weapon": null,
+      "zone": "common",
+      "level": "ground",
+      "deck": "common",
+      "building": null,
+      "position_blender": [
+        -15.5,
+        -11.0,
+        0
+      ],
+      "position_godot": [
+        -15.5,
+        0,
+        11.0
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        2.187987718335259
+      ],
+      "figma_node": "143:1826",
+      "label": "Jump Pad 2",
+      "wall_mounted": false,
+      "cutout_m": [
+        1,
+        1
+      ]
+    },
+    {
+      "name": "common-jump_pad-143_1827",
+      "role": "jump_pad",
+      "asset": "jump_pad",
+      "category": "gameplay",
+      "weapon": null,
+      "zone": "common",
+      "level": "ground",
+      "deck": "common",
+      "building": null,
+      "position_blender": [
+        15.5,
+        11.0,
+        0
+      ],
+      "position_godot": [
+        15.5,
+        0,
+        -11.0
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        -0.9536049352545344
+      ],
+      "figma_node": "143:1827",
+      "label": "Jump Pad 1",
+      "wall_mounted": false,
+      "cutout_m": [
+        1,
+        1
+      ]
+    },
+    {
+      "name": "B-bastion-2004_85",
+      "role": "prop",
+      "asset": "faceoff",
+      "category": "maps",
+      "weapon": null,
+      "zone": "B",
+      "level": "ground",
+      "deck": "bastion",
+      "building": "bastion",
+      "position_blender": [
+        -24.393398463726044,
+        -24.3966015625,
+        0
+      ],
+      "position_godot": [
+        -24.393398463726044,
+        0,
+        24.3966015625
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        2.3562601409151904
+      ],
+      "figma_node": "2004:85",
+      "label": "Bastion",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ],
+      "asset_suffix": "_architecture_bastion",
+      "source_asset": "bastion",
+      "source_category": "architecture"
+    },
+    {
+      "name": "B-storage_rack-2004_88",
+      "role": "prop",
+      "asset": "storage_rack",
+      "category": "environments",
+      "weapon": null,
+      "zone": "B",
+      "level": "ground",
+      "deck": "bastion",
+      "building": "bastion",
+      "position_blender": [
+        -24.65449395686388,
+        -16.515499998033047,
+        0.25531914893617025
+      ],
+      "position_godot": [
+        -24.65449395686388,
+        0.25531914893617025,
+        16.515499998033047
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        -0.7853981633974483
+      ],
+      "figma_node": "2004:88",
+      "label": "Storage Rack 2",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "B-storage_rack-2004_89",
+      "role": "prop",
+      "asset": "storage_rack",
+      "category": "environments",
+      "weapon": null,
+      "zone": "B",
+      "level": "ground",
+      "deck": "bastion",
+      "building": "bastion",
+      "position_blender": [
+        -25.76449395686388,
+        -17.625495115220545,
+        0.25531914893617025
+      ],
+      "position_godot": [
+        -25.76449395686388,
+        0.25531914893617025,
+        17.625495115220545
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        -0.7853981633974483
+      ],
+      "figma_node": "2004:89",
+      "label": "Storage Rack 1",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "B-weapon_holder-2004_91",
+      "role": "weapon",
+      "asset": "weapon_holder",
+      "category": "gameplay",
+      "weapon": "emp_gun",
+      "zone": "B",
+      "level": "ground",
+      "deck": "bastion",
+      "building": "bastion",
+      "position_blender": [
+        -19.46873734712601,
+        -24.75543701171875,
+        0.25531914893617025
+      ],
+      "position_godot": [
+        -19.46873734712601,
+        0.25531914893617025,
+        24.75543701171875
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        0.7853981633974483
+      ],
+      "figma_node": "2004:91",
+      "label": "Weapon Pickup - EMP",
+      "wall_mounted": false,
+      "cutout_m": [
+        1,
+        1
+      ]
+    },
+    {
+      "name": "B-weapon_holder-2004_92",
+      "role": "weapon",
+      "asset": "weapon_holder",
+      "category": "gameplay",
+      "weapon": "rifle",
+      "zone": "B",
+      "level": "ground",
+      "deck": "bastion",
+      "building": "bastion",
+      "position_blender": [
+        -18.054523479938506,
+        -23.34122314453125,
+        0.25531914893617025
+      ],
+      "position_godot": [
+        -18.054523479938506,
+        0.25531914893617025,
+        23.34122314453125
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        0.7853981633974483
+      ],
+      "figma_node": "2004:92",
+      "label": "Weapon Pickup - Rifle",
+      "wall_mounted": false,
+      "cutout_m": [
+        1,
+        1
+      ]
+    },
+    {
+      "name": "B-emp_gun-2004_94-L",
+      "role": "ammo",
+      "asset": "emp_gun",
+      "category": "weapons",
+      "weapon": "emp_gun",
+      "zone": "B",
+      "level": "ground",
+      "deck": "bastion",
+      "building": "bastion",
+      "position_blender": [
+        -18.478788845557162,
+        -25.886806869524904,
+        0.25531914893617025
+      ],
+      "position_godot": [
+        -18.478788845557162,
+        0.25531914893617025,
+        25.886806869524904
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        0.7853981633974483
+      ],
+      "figma_node": "2004:94",
+      "label": "Ammo Pickup - EMP",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "B-emp_gun-2004_94-R",
+      "role": "ammo",
+      "asset": "emp_gun",
+      "category": "weapons",
+      "weapon": "emp_gun",
+      "zone": "B",
+      "level": "ground",
+      "deck": "bastion",
+      "building": "bastion",
+      "position_blender": [
+        -18.337367489319853,
+        -25.745385513287594,
+        0.25531914893617025
+      ],
+      "position_godot": [
+        -18.337367489319853,
+        0.25531914893617025,
+        25.745385513287594
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        0.7853981633974483
+      ],
+      "figma_node": "2004:94",
+      "label": "Ammo Pickup - EMP",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "B-rifle-2004_95-L",
+      "role": "ammo",
+      "asset": "rifle",
+      "category": "weapons",
+      "weapon": "rifle",
+      "zone": "B",
+      "level": "ground",
+      "deck": "bastion",
+      "building": "bastion",
+      "position_blender": [
+        -17.064575588721222,
+        -24.472593002337405,
+        0.25531914893617025
+      ],
+      "position_godot": [
+        -17.064575588721222,
+        0.25531914893617025,
+        24.472593002337405
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        0.7853981633974483
+      ],
+      "figma_node": "2004:95",
+      "label": "Ammo Pickup - Rifle",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "B-rifle-2004_95-R",
+      "role": "ammo",
+      "asset": "rifle",
+      "category": "weapons",
+      "weapon": "rifle",
+      "zone": "B",
+      "level": "ground",
+      "deck": "bastion",
+      "building": "bastion",
+      "position_blender": [
+        -16.923154232483913,
+        -24.331171646100096,
+        0.25531914893617025
+      ],
+      "position_godot": [
+        -16.923154232483913,
+        0.25531914893617025,
+        24.331171646100096
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        0.7853981633974483
+      ],
+      "figma_node": "2004:95",
+      "label": "Ammo Pickup - Rifle",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "B-spawn_point-2004_97",
+      "role": "spawn",
+      "asset": "spawn_point",
+      "category": "gameplay",
+      "weapon": null,
+      "zone": "B",
+      "level": "ground",
+      "deck": "bastion",
+      "building": "bastion",
+      "position_blender": [
+        -30.133692092895508,
+        -22.925912111997604,
+        0.25531914893617025
+      ],
+      "position_godot": [
+        -30.133692092895508,
+        0.25531914893617025,
+        22.925912111997604
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        2.356194490192345
+      ],
+      "figma_node": "2004:97",
+      "label": "Spawn Point 4",
+      "wall_mounted": false,
+      "cutout_m": [
+        2,
+        2
+      ]
+    },
+    {
+      "name": "B-spawn_point-2004_98",
+      "role": "spawn",
+      "asset": "spawn_point",
+      "category": "gameplay",
+      "weapon": null,
+      "zone": "B",
+      "level": "ground",
+      "deck": "bastion",
+      "building": "bastion",
+      "position_blender": [
+        -22.90706115722656,
+        -30.152542971372604,
+        0.25531914893617025
+      ],
+      "position_godot": [
+        -22.90706115722656,
+        0.25531914893617025,
+        30.152542971372604
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        2.356194490192345
+      ],
+      "figma_node": "2004:98",
+      "label": "Spawn Point 3",
+      "wall_mounted": false,
+      "cutout_m": [
+        2,
+        2
+      ]
+    },
+    {
+      "name": "B-spawn_point-2004_99",
+      "role": "spawn",
+      "asset": "spawn_point",
+      "category": "gameplay",
+      "weapon": null,
+      "zone": "B",
+      "level": "ground",
+      "deck": "bastion",
+      "building": "bastion",
+      "position_blender": [
+        -22.87877685546875,
+        -25.881617678403856,
+        0.25531914893617025
+      ],
+      "position_godot": [
+        -22.87877685546875,
+        0.25531914893617025,
+        25.881617678403856
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        2.356194490192345
+      ],
+      "figma_node": "2004:99",
+      "label": "Spawn Point 2",
+      "wall_mounted": false,
+      "cutout_m": [
+        2,
+        2
+      ]
+    },
+    {
+      "name": "B-spawn_point-2004_100",
+      "role": "spawn",
+      "asset": "spawn_point",
+      "category": "gameplay",
+      "weapon": null,
+      "zone": "B",
+      "level": "ground",
+      "deck": "bastion",
+      "building": "bastion",
+      "position_blender": [
+        -25.862767333984376,
+        -22.897628420591353,
+        0.25531914893617025
+      ],
+      "position_godot": [
+        -25.862767333984376,
+        0.25531914893617025,
+        22.897628420591353
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        2.356194490192345
+      ],
+      "figma_node": "2004:100",
+      "label": "Spawn Point 1",
+      "wall_mounted": false,
+      "cutout_m": [
+        2,
+        2
+      ]
+    },
+    {
+      "name": "B-item_cradle-2004_102",
+      "role": "energy",
+      "asset": "item_cradle",
+      "category": "gameplay",
+      "weapon": null,
+      "zone": "B",
+      "level": "upper",
+      "deck": "bastion",
+      "building": "bastion",
+      "position_blender": [
+        -17.0000927734375,
+        -24.3999658203125,
+        3.4468085106382986
+      ],
+      "position_godot": [
+        -17.0000927734375,
+        3.4468085106382986,
+        24.3999658203125
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        -5.3437816372905846e-24
+      ],
+      "figma_node": "2004:102",
+      "label": "Energy Core Pickup (Item Cradle)",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "B-stasis_chamber-2004_104",
+      "role": "spawn",
+      "asset": "stasis_chamber",
+      "category": "gameplay",
+      "weapon": null,
+      "zone": "B",
+      "level": "upper",
+      "deck": "bastion",
+      "building": "bastion",
+      "position_blender": [
+        -24.397458801269533,
+        -31.632542971372605,
+        3.4468085106382986
+      ],
+      "position_godot": [
+        -24.397458801269533,
+        3.4468085106382986,
+        31.632542971372605
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        2.356194490192345
+      ],
+      "figma_node": "2004:104",
+      "label": "Spawn Point 5 (Stasis Chamber)",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "B-item_cradle-2004_106",
+      "role": "weapon",
+      "asset": "item_cradle",
+      "category": "gameplay",
+      "weapon": "flamethrower",
+      "zone": "B",
+      "level": "upper",
+      "deck": "bastion",
+      "building": "bastion",
+      "position_blender": [
+        -31.87877457857132,
+        -24.42543701171875,
+        3.4468085106382986
+      ],
+      "position_godot": [
+        -31.87877457857132,
+        3.4468085106382986,
+        24.42543701171875
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        0.7853981633974483
+      ],
+      "figma_node": "2004:106",
+      "label": "Weapon Pickup - Flamethrower (Item Cradle)",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "B-flamethrower-2004_108-L",
+      "role": "ammo",
+      "asset": "flamethrower",
+      "category": "weapons",
+      "weapon": "flamethrower",
+      "zone": "B",
+      "level": "upper",
+      "deck": "bastion",
+      "building": "bastion",
+      "position_blender": [
+        -30.888826077002474,
+        -25.556806869524905,
+        3.4468085106382986
+      ],
+      "position_godot": [
+        -30.888826077002474,
+        3.4468085106382986,
+        25.556806869524905
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        0.7853981633974483
+      ],
+      "figma_node": "2004:108",
+      "label": "Ammo Pickup - Flamethrower",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "B-flamethrower-2004_108-R",
+      "role": "ammo",
+      "asset": "flamethrower",
+      "category": "weapons",
+      "weapon": "flamethrower",
+      "zone": "B",
+      "level": "upper",
+      "deck": "bastion",
+      "building": "bastion",
+      "position_blender": [
+        -30.747404720765164,
+        -25.415385513287596,
+        3.4468085106382986
+      ],
+      "position_godot": [
+        -30.747404720765164,
+        3.4468085106382986,
+        25.415385513287596
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        0.7853981633974483
+      ],
+      "figma_node": "2004:108",
+      "label": "Ammo Pickup - Flamethrower",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "B-ctf_flag-2004_109",
+      "role": "flag_base",
+      "asset": "ctf_flag",
+      "category": "gameplay",
+      "weapon": null,
+      "zone": "B",
+      "level": "upper",
+      "deck": "bastion",
+      "building": "bastion",
+      "position_blender": [
+        -24.39679915189743,
+        -17.253203125,
+        3.4468085106382986
+      ],
+      "position_godot": [
+        -24.39679915189743,
+        3.4468085106382986,
+        17.253203125
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        -2.356194490192345
+      ],
+      "figma_node": "2004:109",
+      "label": "Flag Placement",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "B-pulse_gun-143_973",
+      "role": "pulse_gun",
+      "asset": "pulse_gun",
+      "category": "gameplay",
+      "weapon": null,
+      "zone": "B",
+      "level": "ground",
+      "deck": "common",
+      "building": null,
+      "position_blender": [
+        -16.5,
+        -13.29,
+        0
+      ],
+      "position_godot": [
+        -16.5,
+        0,
+        13.29
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        -0.0
+      ],
+      "figma_node": "143:973",
+      "label": "Pulse Gun B",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ],
+      "team": 1
+    },
+    {
+      "name": "A-laboratory-143_1693",
+      "role": "prop",
+      "asset": "faceoff",
+      "category": "maps",
+      "weapon": null,
+      "zone": "A",
+      "level": "ground",
+      "deck": "laboratory",
+      "building": "laboratory",
+      "position_blender": [
+        24.396601588726043,
+        24.3933984375,
+        0
+      ],
+      "position_godot": [
+        24.396601588726043,
+        0,
+        -24.3933984375
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        -0.7854638151953519
+      ],
+      "figma_node": "143:1693",
+      "label": "Laboratory",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ],
+      "asset_suffix": "_architecture_laboratory",
+      "source_asset": "laboratory",
+      "source_category": "architecture"
+    },
+    {
+      "name": "A-storage_rack-143_1696",
+      "role": "prop",
+      "asset": "storage_rack",
+      "category": "environments",
+      "weapon": null,
+      "zone": "A",
+      "level": "ground",
+      "deck": "laboratory",
+      "building": "laboratory",
+      "position_blender": [
+        24.65769921809435,
+        16.512296873033048,
+        0.25531914893617025
+      ],
+      "position_godot": [
+        24.65769921809435,
+        0.25531914893617025,
+        -16.512296873033048
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        3.9269908169872414
+      ],
+      "figma_node": "143:1696",
+      "label": "Storage Rack 2",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "A-storage_rack-143_1697",
+      "role": "prop",
+      "asset": "storage_rack",
+      "category": "environments",
+      "weapon": null,
+      "zone": "A",
+      "level": "ground",
+      "deck": "laboratory",
+      "building": "laboratory",
+      "position_blender": [
+        25.76769921809435,
+        17.622291990220546,
+        0.25531914893617025
+      ],
+      "position_godot": [
+        25.76769921809435,
+        0.25531914893617025,
+        -17.622291990220546
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        3.9269908169872414
+      ],
+      "figma_node": "143:1697",
+      "label": "Storage Rack 1",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "A-weapon_holder-2001_22",
+      "role": "weapon",
+      "asset": "weapon_holder",
+      "category": "gameplay",
+      "weapon": "emp_gun",
+      "zone": "A",
+      "level": "ground",
+      "deck": "laboratory",
+      "building": "laboratory",
+      "position_blender": [
+        19.47194108247757,
+        24.75223388671875,
+        0.25531914893617025
+      ],
+      "position_godot": [
+        19.47194108247757,
+        0.25531914893617025,
+        -24.75223388671875
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        -2.356194490192345
+      ],
+      "figma_node": "2001:22",
+      "label": "Weapon Pickup - EMP",
+      "wall_mounted": false,
+      "cutout_m": [
+        1,
+        1
+      ]
+    },
+    {
+      "name": "A-weapon_holder-2001_26",
+      "role": "weapon",
+      "asset": "weapon_holder",
+      "category": "gameplay",
+      "weapon": "rifle",
+      "zone": "A",
+      "level": "ground",
+      "deck": "laboratory",
+      "building": "laboratory",
+      "position_blender": [
+        18.05772721529007,
+        23.33802001953125,
+        0.25531914893617025
+      ],
+      "position_godot": [
+        18.05772721529007,
+        0.25531914893617025,
+        -23.33802001953125
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        -2.356194490192345
+      ],
+      "figma_node": "2001:26",
+      "label": "Weapon Pickup - Rifle",
+      "wall_mounted": false,
+      "cutout_m": [
+        1,
+        1
+      ]
+    },
+    {
+      "name": "A-emp_gun-2001_29-L",
+      "role": "ammo",
+      "asset": "emp_gun",
+      "category": "weapons",
+      "weapon": "emp_gun",
+      "zone": "A",
+      "level": "ground",
+      "deck": "laboratory",
+      "building": "laboratory",
+      "position_blender": [
+        18.481992580908724,
+        25.883603744524905,
+        0.25531914893617025
+      ],
+      "position_godot": [
+        18.481992580908724,
+        0.25531914893617025,
+        -25.883603744524905
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        -2.356194490192345
+      ],
+      "figma_node": "2001:29",
+      "label": "Ammo Pickup - EMP",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "A-emp_gun-2001_29-R",
+      "role": "ammo",
+      "asset": "emp_gun",
+      "category": "weapons",
+      "weapon": "emp_gun",
+      "zone": "A",
+      "level": "ground",
+      "deck": "laboratory",
+      "building": "laboratory",
+      "position_blender": [
+        18.340571224671415,
+        25.742182388287596,
+        0.25531914893617025
+      ],
+      "position_godot": [
+        18.340571224671415,
+        0.25531914893617025,
+        -25.742182388287596
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        -2.356194490192345
+      ],
+      "figma_node": "2001:29",
+      "label": "Ammo Pickup - EMP",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "A-rifle-2001_30-L",
+      "role": "ammo",
+      "asset": "rifle",
+      "category": "weapons",
+      "weapon": "rifle",
+      "zone": "A",
+      "level": "ground",
+      "deck": "laboratory",
+      "building": "laboratory",
+      "position_blender": [
+        17.067778713721225,
+        24.469389877337406,
+        0.25531914893617025
+      ],
+      "position_godot": [
+        17.067778713721225,
+        0.25531914893617025,
+        -24.469389877337406
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        -2.356194490192345
+      ],
+      "figma_node": "2001:30",
+      "label": "Ammo Pickup - Rifle",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "A-rifle-2001_30-R",
+      "role": "ammo",
+      "asset": "rifle",
+      "category": "weapons",
+      "weapon": "rifle",
+      "zone": "A",
+      "level": "ground",
+      "deck": "laboratory",
+      "building": "laboratory",
+      "position_blender": [
+        16.926357357483916,
+        24.327968521100097,
+        0.25531914893617025
+      ],
+      "position_godot": [
+        16.926357357483916,
+        0.25531914893617025,
+        -24.327968521100097
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        -2.356194490192345
+      ],
+      "figma_node": "2001:30",
+      "label": "Ammo Pickup - Rifle",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "A-spawn_point-2001_49",
+      "role": "spawn",
+      "asset": "spawn_point",
+      "category": "gameplay",
+      "weapon": null,
+      "zone": "A",
+      "level": "ground",
+      "deck": "laboratory",
+      "building": "laboratory",
+      "position_blender": [
+        30.13689453125,
+        22.922708986997606,
+        0.25531914893617025
+      ],
+      "position_godot": [
+        30.13689453125,
+        0.25531914893617025,
+        -22.922708986997606
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        -0.7853981633974483
+      ],
+      "figma_node": "2001:49",
+      "label": "Spawn Point 4",
+      "wall_mounted": false,
+      "cutout_m": [
+        2,
+        2
+      ]
+    },
+    {
+      "name": "A-spawn_point-2001_47",
+      "role": "spawn",
+      "asset": "spawn_point",
+      "category": "gameplay",
+      "weapon": null,
+      "zone": "A",
+      "level": "ground",
+      "deck": "laboratory",
+      "building": "laboratory",
+      "position_blender": [
+        22.910263671875,
+        30.149339846372605,
+        0.25531914893617025
+      ],
+      "position_godot": [
+        22.910263671875,
+        0.25531914893617025,
+        -30.149339846372605
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        -0.7853981633974483
+      ],
+      "figma_node": "2001:47",
+      "label": "Spawn Point 3",
+      "wall_mounted": false,
+      "cutout_m": [
+        2,
+        2
+      ]
+    },
+    {
+      "name": "A-spawn_point-2001_40",
+      "role": "spawn",
+      "asset": "spawn_point",
+      "category": "gameplay",
+      "weapon": null,
+      "zone": "A",
+      "level": "ground",
+      "deck": "laboratory",
+      "building": "laboratory",
+      "position_blender": [
+        22.8819775390625,
+        25.878414553403854,
+        0.25531914893617025
+      ],
+      "position_godot": [
+        22.8819775390625,
+        0.25531914893617025,
+        -25.878414553403854
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        -0.7853981633974483
+      ],
+      "figma_node": "2001:40",
+      "label": "Spawn Point 2",
+      "wall_mounted": false,
+      "cutout_m": [
+        2,
+        2
+      ]
+    },
+    {
+      "name": "A-spawn_point-2001_41",
+      "role": "spawn",
+      "asset": "spawn_point",
+      "category": "gameplay",
+      "weapon": null,
+      "zone": "A",
+      "level": "ground",
+      "deck": "laboratory",
+      "building": "laboratory",
+      "position_blender": [
+        25.8659716796875,
+        22.894425295591354,
+        0.25531914893617025
+      ],
+      "position_godot": [
+        25.8659716796875,
+        0.25531914893617025,
+        -22.894425295591354
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        -0.7853981633974483
+      ],
+      "figma_node": "2001:41",
+      "label": "Spawn Point 1",
+      "wall_mounted": false,
+      "cutout_m": [
+        2,
+        2
+      ]
+    },
+    {
+      "name": "A-item_cradle-143_1699",
+      "role": "energy",
+      "asset": "item_cradle",
+      "category": "gameplay",
+      "weapon": null,
+      "zone": "A",
+      "level": "upper",
+      "deck": "laboratory",
+      "building": "laboratory",
+      "position_blender": [
+        17.003291015625,
+        24.3967626953125,
+        3.4468085106382986
+      ],
+      "position_godot": [
+        17.003291015625,
+        3.4468085106382986,
+        -24.3967626953125
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        3.141592653589793
+      ],
+      "figma_node": "143:1699",
+      "label": "Energy Core Pickup (Item Cradle)",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "A-stasis_chamber-2001_55",
+      "role": "spawn",
+      "asset": "stasis_chamber",
+      "category": "gameplay",
+      "weapon": null,
+      "zone": "A",
+      "level": "upper",
+      "deck": "laboratory",
+      "building": "laboratory",
+      "position_blender": [
+        24.4006591796875,
+        31.629339846372606,
+        3.4468085106382986
+      ],
+      "position_godot": [
+        24.4006591796875,
+        3.4468085106382986,
+        -31.629339846372606
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        -0.7853981633974483
+      ],
+      "figma_node": "2001:55",
+      "label": "Spawn Point 5 (Stasis Chamber)",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "A-item_cradle-2001_34",
+      "role": "weapon",
+      "asset": "item_cradle",
+      "category": "gameplay",
+      "weapon": "flamethrower",
+      "zone": "A",
+      "level": "upper",
+      "deck": "laboratory",
+      "building": "laboratory",
+      "position_blender": [
+        31.88197526216507,
+        24.42223388671875,
+        3.4468085106382986
+      ],
+      "position_godot": [
+        31.88197526216507,
+        3.4468085106382986,
+        -24.42223388671875
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        -2.356194490192345
+      ],
+      "figma_node": "2001:34",
+      "label": "Weapon Pickup - Flamethrower (Item Cradle)",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "A-flamethrower-2001_37-L",
+      "role": "ammo",
+      "asset": "flamethrower",
+      "category": "weapons",
+      "weapon": "flamethrower",
+      "zone": "A",
+      "level": "upper",
+      "deck": "laboratory",
+      "building": "laboratory",
+      "position_blender": [
+        30.892026760596224,
+        25.553603744524903,
+        3.4468085106382986
+      ],
+      "position_godot": [
+        30.892026760596224,
+        3.4468085106382986,
+        -25.553603744524903
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        -2.356194490192345
+      ],
+      "figma_node": "2001:37",
+      "label": "Ammo Pickup - Flamethrower",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "A-flamethrower-2001_37-R",
+      "role": "ammo",
+      "asset": "flamethrower",
+      "category": "weapons",
+      "weapon": "flamethrower",
+      "zone": "A",
+      "level": "upper",
+      "deck": "laboratory",
+      "building": "laboratory",
+      "position_blender": [
+        30.750605404358915,
+        25.412182388287594,
+        3.4468085106382986
+      ],
+      "position_godot": [
+        30.750605404358915,
+        3.4468085106382986,
+        -25.412182388287594
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        -2.356194490192345
+      ],
+      "figma_node": "2001:37",
+      "label": "Ammo Pickup - Flamethrower",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "A-ctf_flag-2004_83",
+      "role": "flag_base",
+      "asset": "ctf_flag",
+      "category": "gameplay",
+      "weapon": null,
+      "zone": "A",
+      "level": "upper",
+      "deck": "laboratory",
+      "building": "laboratory",
+      "position_blender": [
+        24.400002276897432,
+        17.25,
+        3.4468085106382986
+      ],
+      "position_godot": [
+        24.400002276897432,
+        3.4468085106382986,
+        -17.25
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        0.7853981633974483
+      ],
+      "figma_node": "2004:83",
+      "label": "Flag Placement",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "A-pulse_gun-143_1747",
+      "role": "pulse_gun",
+      "asset": "pulse_gun",
+      "category": "gameplay",
+      "weapon": null,
+      "zone": "A",
+      "level": "ground",
+      "deck": "common",
+      "building": null,
+      "position_blender": [
+        16.5,
+        13.29,
+        0
+      ],
+      "position_godot": [
+        16.5,
+        0,
+        -13.29
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        -0.0
+      ],
+      "figma_node": "143:1747",
+      "label": "Pulse Gun A",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ],
+      "team": 0
+    },
+    {
+      "name": "common-jumbotron-143_1293",
+      "role": "jumbotron",
+      "asset": "jumbotron",
+      "category": "environments",
+      "weapon": null,
+      "zone": "common",
+      "level": "ground",
+      "deck": "common",
+      "building": null,
+      "position_blender": [
+        0.0,
+        0.0,
+        10
+      ],
+      "position_godot": [
+        0.0,
+        10,
+        -0.0
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        -0.0
+      ],
+      "figma_node": "143:1293",
+      "label": "Jumbotron",
+      "wall_mounted": false,
+      "cutout_m": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "lunar-scenery",
+      "role": "prop",
+      "asset": "faceoff",
+      "category": "maps",
+      "asset_suffix": "_scenery",
+      "zone": "common",
+      "building": null,
+      "level": "common",
+      "position_blender": [
+        0,
+        0,
+        0
+      ],
+      "position_godot": [
+        0,
+        0,
+        0
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        0
+      ],
+      "figma_node": "143:891",
+      "load_at_start": true,
+      "budget_excluded": true
+    }
+  ],
+  "holes": [
+    {
+      "marker": "common-weapon_holder-2001_4",
+      "building": "hangar",
+      "center": [
+        32.5,
+        -2.5,
+        0.11166253101736971
+      ],
+      "size": [
+        1,
+        1
+      ],
+      "depth": 1.38,
+      "yaw": -1.5707963267948966
+    },
+    {
+      "marker": "common-weapon_holder-2001_5",
+      "building": "hangar",
+      "center": [
+        27.5,
+        2.5,
+        0.11166253101736971
+      ],
+      "size": [
+        1,
+        1
+      ],
+      "depth": 1.38,
+      "yaw": -1.5707963267948966
+    },
+    {
+      "marker": "common-weapon_holder-2001_11",
+      "building": "lodge",
+      "center": [
+        -24.390000471588728,
+        27.935534667970575,
+        0.07731958762886598
+      ],
+      "size": [
+        1,
+        1
+      ],
+      "depth": 1.38,
+      "yaw": 0.7853981639350127
+    },
+    {
+      "marker": "common-weapon_holder-2001_12",
+      "building": "lodge",
+      "center": [
+        -24.390000467787573,
+        20.864465332033078,
+        0.07731958762886598
+      ],
+      "size": [
+        1,
+        1
+      ],
+      "depth": 1.38,
+      "yaw": 0.7853981639350127
+    },
+    {
+      "marker": "common-jump_pad-143_1826",
+      "building": null,
+      "center": [
+        -15.5,
+        -11.0,
+        0
+      ],
+      "size": [
+        1,
+        1
+      ],
+      "depth": 0.265,
+      "yaw": 2.187987718335259
+    },
+    {
+      "marker": "common-jump_pad-143_1827",
+      "building": null,
+      "center": [
+        15.5,
+        11.0,
+        0
+      ],
+      "size": [
+        1,
+        1
+      ],
+      "depth": 0.265,
+      "yaw": -0.9536049352545344
+    },
+    {
+      "marker": "B-weapon_holder-2004_91",
+      "building": "bastion",
+      "center": [
+        -19.46873734712601,
+        -24.75543701171875,
+        0.25531914893617025
+      ],
+      "size": [
+        1,
+        1
+      ],
+      "depth": 1.38,
+      "yaw": 0.7853981633974483
+    },
+    {
+      "marker": "B-weapon_holder-2004_92",
+      "building": "bastion",
+      "center": [
+        -18.054523479938506,
+        -23.34122314453125,
+        0.25531914893617025
+      ],
+      "size": [
+        1,
+        1
+      ],
+      "depth": 1.38,
+      "yaw": 0.7853981633974483
+    },
+    {
+      "marker": "B-spawn_point-2004_97",
+      "building": "bastion",
+      "center": [
+        -30.133692092895508,
+        -22.925912111997604,
+        0.25531914893617025
+      ],
+      "size": [
+        2,
+        2
+      ],
+      "depth": 1.5,
+      "yaw": 2.356194490192345
+    },
+    {
+      "marker": "B-spawn_point-2004_98",
+      "building": "bastion",
+      "center": [
+        -22.90706115722656,
+        -30.152542971372604,
+        0.25531914893617025
+      ],
+      "size": [
+        2,
+        2
+      ],
+      "depth": 1.5,
+      "yaw": 2.356194490192345
+    },
+    {
+      "marker": "B-spawn_point-2004_99",
+      "building": "bastion",
+      "center": [
+        -22.87877685546875,
+        -25.881617678403856,
+        0.25531914893617025
+      ],
+      "size": [
+        2,
+        2
+      ],
+      "depth": 1.5,
+      "yaw": 2.356194490192345
+    },
+    {
+      "marker": "B-spawn_point-2004_100",
+      "building": "bastion",
+      "center": [
+        -25.862767333984376,
+        -22.897628420591353,
+        0.25531914893617025
+      ],
+      "size": [
+        2,
+        2
+      ],
+      "depth": 1.5,
+      "yaw": 2.356194490192345
+    },
+    {
+      "marker": "A-weapon_holder-2001_22",
+      "building": "laboratory",
+      "center": [
+        19.47194108247757,
+        24.75223388671875,
+        0.25531914893617025
+      ],
+      "size": [
+        1,
+        1
+      ],
+      "depth": 1.38,
+      "yaw": -2.356194490192345
+    },
+    {
+      "marker": "A-weapon_holder-2001_26",
+      "building": "laboratory",
+      "center": [
+        18.05772721529007,
+        23.33802001953125,
+        0.25531914893617025
+      ],
+      "size": [
+        1,
+        1
+      ],
+      "depth": 1.38,
+      "yaw": -2.356194490192345
+    },
+    {
+      "marker": "A-spawn_point-2001_49",
+      "building": "laboratory",
+      "center": [
+        30.13689453125,
+        22.922708986997606,
+        0.25531914893617025
+      ],
+      "size": [
+        2,
+        2
+      ],
+      "depth": 1.5,
+      "yaw": -0.7853981633974483
+    },
+    {
+      "marker": "A-spawn_point-2001_47",
+      "building": "laboratory",
+      "center": [
+        22.910263671875,
+        30.149339846372605,
+        0.25531914893617025
+      ],
+      "size": [
+        2,
+        2
+      ],
+      "depth": 1.5,
+      "yaw": -0.7853981633974483
+    },
+    {
+      "marker": "A-spawn_point-2001_40",
+      "building": "laboratory",
+      "center": [
+        22.8819775390625,
+        25.878414553403854,
+        0.25531914893617025
+      ],
+      "size": [
+        2,
+        2
+      ],
+      "depth": 1.5,
+      "yaw": -0.7853981633974483
+    },
+    {
+      "marker": "A-spawn_point-2001_41",
+      "building": "laboratory",
+      "center": [
+        25.8659716796875,
+        22.894425295591354,
+        0.25531914893617025
+      ],
+      "size": [
+        2,
+        2
+      ],
+      "depth": 1.5,
+      "yaw": -0.7853981633974483
+    }
+  ],
+  "recess_clearance_per_side_m": 0.001,
+  "skeleton": "RIG_Faceoff",
+  "assembly_seconds": 3,
+  "actions": [
+    {
+      "name": "assemble",
+      "frames": [
+        1,
+        73
+      ],
+      "fps": 24
+    }
+  ],
+  "geometry": "playable lunar terrain and fixture wells; native architecture/props imported at gizmos",
+  "native_architecture_variants": [
+    "hangar",
+    "lodge",
+    "bastion",
+    "laboratory"
+  ],
+  "material_classifiers": {
+    "M_Emissive": "Emissive",
+    "M_Frame_Diffuse": "Diffuse",
+    "M_Glass": "Glass",
+    "M_Joint_Diffuse": "Diffuse",
+    "M_Primary_Diffuse": "Diffuse",
+    "M_Regolith_Diffuse": "Diffuse",
+    "M_RegolithDark_Diffuse": "Diffuse",
+    "M_RegolithLight_Diffuse": "Diffuse",
+    "M_Secondary_Diffuse": "Diffuse"
+  }
+}

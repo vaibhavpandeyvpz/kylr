@@ -1,0 +1,93 @@
+{
+  "name": "pressure_plate",
+  "space": "Blender coords: +Z up, front -Y, the floor is z = 0 with the origin under the plate's centre. glTF/Godot: (x, z, -y). The plate slides along its bone's local Y (value in metres; negative = pressed).",
+  "rest": "released (up)",
+  "cutout_m": {
+    "size": [
+      2.0,
+      1.0
+    ],
+    "depth": 0.2,
+    "rim_height": 0.0,
+    "note": "the tray sits in this cut-out, its rim and tread crowns flush with ground when unpressed; pressing moves downward"
+  },
+  "materials_note": "map-generic finish in Tensor's materials (off-white and grey paint, matte black, stainless steel): no team colours",
+  "materials": [
+    "M_Primary_Metallic",
+    "M_Secondary",
+    "M_Frame_Diffuse",
+    "M_Joint_Metallic",
+    "M_Emissive"
+  ],
+  "triangles": 752,
+  "joints": [
+    {
+      "bone": "Root",
+      "parent": null,
+      "type": "fixed",
+      "pivot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": null,
+      "channel": null
+    },
+    {
+      "bone": "Plate",
+      "parent": "Root",
+      "type": "slide",
+      "pivot": [
+        0.0,
+        0.0,
+        -0.005
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        -0.05,
+        0
+      ],
+      "channel": "location_y_m"
+    }
+  ],
+  "animations": {
+    "press": {
+      "frames": [
+        0,
+        4
+      ],
+      "fps": 30,
+      "loop": false,
+      "joints": [
+        "Plate"
+      ]
+    },
+    "release": {
+      "frames": [
+        0,
+        7
+      ],
+      "fps": 30,
+      "loop": false,
+      "joints": [
+        "Plate"
+      ]
+    }
+  },
+  "usage": "a step-on switch: play press when the first player (or anything heavy) steps on the plate and release when the last one steps off. The plate sinks 5 cm; the switch clicks at the bottom of press, and the game acts on it, for example toggling a barricade (raise / lower).",
+  "material_classifiers": {
+    "M_Emissive": "Emissive",
+    "M_Frame_Diffuse": "Diffuse",
+    "M_Joint_Metallic": "Metallic",
+    "M_Primary_Metallic": "Metallic"
+  }
+}

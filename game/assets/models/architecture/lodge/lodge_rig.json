@@ -1,0 +1,551 @@
+{
+  "name": "lodge",
+  "triangle_budget": 10000,
+  "triangle_budget_per_mesh": 5000,
+  "dimensions_m": {
+    "width": 15,
+    "depth": 15,
+    "height": 3.564432989690722
+  },
+  "materials": [
+    "M_Emissive",
+    "M_Frame_Diffuse",
+    "M_Glass",
+    "M_Joint_Diffuse",
+    "M_Primary_Diffuse",
+    "M_Regolith_Diffuse",
+    "M_Secondary_Diffuse"
+  ],
+  "bones": [
+    {
+      "name": "Root",
+      "parent": null,
+      "kind": "fixed"
+    },
+    {
+      "name": "Door",
+      "parent": "Root",
+      "kind": "hinge"
+    },
+    {
+      "name": "Lock",
+      "parent": "Door",
+      "kind": "slide"
+    },
+    {
+      "name": "RearDoor",
+      "parent": "Root",
+      "kind": "hinge"
+    },
+    {
+      "name": "RearLock",
+      "parent": "RearDoor",
+      "kind": "slide"
+    }
+  ],
+  "joints": [
+    {
+      "bone": "Root",
+      "type": "fixed",
+      "parent": null,
+      "pivot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "axis": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "range": null
+    },
+    {
+      "bone": "Door",
+      "type": "hinge",
+      "parent": "Root",
+      "pivot": [
+        -0.7799999713897705,
+        -7.382499694824219,
+        1.1211340427398682
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        -110,
+        0
+      ]
+    },
+    {
+      "bone": "Lock",
+      "type": "slide",
+      "parent": "Door",
+      "pivot": [
+        0.6749999523162842,
+        -7.25124979019165,
+        1.1211340427398682
+      ],
+      "axis": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "range": [
+        -0.135,
+        0.0
+      ]
+    },
+    {
+      "bone": "RearDoor",
+      "type": "hinge",
+      "parent": "Root",
+      "pivot": [
+        0.7799999713897705,
+        7.382499694824219,
+        1.1211340427398682
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        -110,
+        0
+      ]
+    },
+    {
+      "bone": "RearLock",
+      "type": "slide",
+      "parent": "RearDoor",
+      "pivot": [
+        -0.6749999523162842,
+        7.25124979019165,
+        1.1211340427398682
+      ],
+      "axis": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "range": [
+        -0.135,
+        0.0
+      ]
+    }
+  ],
+  "animations": {
+    "open": {
+      "frames": [
+        0.0,
+        96.0
+      ],
+      "fps": 30,
+      "loop": false
+    },
+    "close": {
+      "frames": [
+        0.0,
+        96.0
+      ],
+      "fps": 30,
+      "loop": false
+    },
+    "open_front": {
+      "frames": [
+        0.0,
+        96.0
+      ],
+      "fps": 30,
+      "loop": false
+    },
+    "close_front": {
+      "frames": [
+        0.0,
+        96.0
+      ],
+      "fps": 30,
+      "loop": false
+    },
+    "open_rear": {
+      "frames": [
+        0.0,
+        96.0
+      ],
+      "fps": 30,
+      "loop": false
+    },
+    "close_rear": {
+      "frames": [
+        0.0,
+        96.0
+      ],
+      "fps": 30,
+      "loop": false
+    },
+    "open_both": {
+      "frames": [
+        0.0,
+        96.0
+      ],
+      "fps": 30,
+      "loop": false
+    },
+    "close_both": {
+      "frames": [
+        0.0,
+        96.0
+      ],
+      "fps": 30,
+      "loop": false
+    }
+  },
+  "checks": {
+    "connected_parts": 214,
+    "hinge_land_samples": 72,
+    "exact_solid_pairs": 390,
+    "motion_states": 998,
+    "coplanar": true,
+    "interior_retained": true
+  },
+  "gizmos": [
+    {
+      "name": "BattenLightMountFrontLeft",
+      "bone": "Root",
+      "origin": [
+        -3.0,
+        -3.0,
+        2.396907091140747
+      ],
+      "mount_normal": [
+        -4.250390706062035e-09,
+        0.0,
+        -1.0
+      ],
+      "attachment": "batten_light",
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          4.250390706062035e-09,
+          -3.0
+        ],
+        [
+          0.0,
+          1.0,
+          -0.0,
+          -3.0
+        ],
+        [
+          -4.250390706062035e-09,
+          0.0,
+          1.0,
+          2.396907091140747
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "BattenLightMountFrontRight",
+      "bone": "Root",
+      "origin": [
+        3.0,
+        -3.0,
+        2.396907091140747
+      ],
+      "mount_normal": [
+        -4.250390706062035e-09,
+        0.0,
+        -1.0
+      ],
+      "attachment": "batten_light",
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          4.250390706062035e-09,
+          3.0
+        ],
+        [
+          0.0,
+          1.0,
+          -0.0,
+          -3.0
+        ],
+        [
+          -4.250390706062035e-09,
+          0.0,
+          1.0,
+          2.396907091140747
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "BattenLightMountRearLeft",
+      "bone": "Root",
+      "origin": [
+        -3.0,
+        3.0,
+        2.396907091140747
+      ],
+      "mount_normal": [
+        -4.250390706062035e-09,
+        0.0,
+        -1.0
+      ],
+      "attachment": "batten_light",
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          4.250390706062035e-09,
+          -3.0
+        ],
+        [
+          0.0,
+          1.0,
+          -0.0,
+          3.0
+        ],
+        [
+          -4.250390706062035e-09,
+          0.0,
+          1.0,
+          2.396907091140747
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "BattenLightMountRearRight",
+      "bone": "Root",
+      "origin": [
+        3.0,
+        3.0,
+        2.396907091140747
+      ],
+      "mount_normal": [
+        -4.250390706062035e-09,
+        0.0,
+        -1.0
+      ],
+      "attachment": "batten_light",
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          4.250390706062035e-09,
+          3.0
+        ],
+        [
+          0.0,
+          1.0,
+          -0.0,
+          3.0
+        ],
+        [
+          -4.250390706062035e-09,
+          0.0,
+          1.0,
+          2.396907091140747
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "SconceLightMountLeft",
+      "bone": "Root",
+      "origin": [
+        6.5,
+        0.0,
+        1.971649408340454
+      ],
+      "mount_normal": [
+        -1.0,
+        3.961685735021092e-08,
+        0.0
+      ],
+      "attachment": "sconce_light",
+      "matrix_world": [
+        [
+          -3.961685735021092e-08,
+          1.0,
+          0.0,
+          6.5
+        ],
+        [
+          -1.0,
+          -3.961685735021092e-08,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          -0.0,
+          1.0,
+          1.971649408340454
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "SconceLightMountRight",
+      "bone": "Root",
+      "origin": [
+        -6.5,
+        0.0,
+        1.971649408340454
+      ],
+      "mount_normal": [
+        1.0,
+        -1.0135963890434141e-07,
+        0.0
+      ],
+      "attachment": "sconce_light",
+      "matrix_world": [
+        [
+          1.0135963890434141e-07,
+          -1.0,
+          0.0,
+          -6.5
+        ],
+        [
+          1.0,
+          1.0135963890434141e-07,
+          0.0,
+          0.0
+        ],
+        [
+          -0.0,
+          -0.0,
+          1.0,
+          1.971649408340454
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    }
+  ],
+  "glazing": {
+    "material": "M_Glass",
+    "color": [
+      0,
+      0,
+      0
+    ],
+    "opacity": 0.1
+  },
+  "windows": {
+    "per_side": 6,
+    "per_bay": 2,
+    "width_m": 1.3,
+    "height_m": 0.91,
+    "clear_bay_width_m": 3.78,
+    "equal_gap_m": 0.39333333333333326,
+    "offset_from_bay_centre_m": 0.8466666666666667
+  },
+  "entrance": {
+    "width_m": 1.5,
+    "height_m": 2.0876288659793816,
+    "floor_m": 0.07731958762886598,
+    "ceiling_m": 2.3969072164948457,
+    "door_swing_deg": 110
+  },
+  "placement": "15 x 15 m fixed square foundation; front -Y; origin at grade; optional apron separate; library only",
+  "mechanics": "Three retained interleaved hinges per entrance; coaxial geared drive; captive enclosed shoot bolt retracts 180 mm before 110 degree outward swing. Bolted roof equipment, bored pipe clamps, seated glands and structural window mullions. Front/rear gussets, slope ribs and central roof plate omitted at user request.",
+  "optional_surface": {
+    "object": "SK_ArchitectureRegolith",
+    "material": "M_Regolith_Diffuse",
+    "bone": "Root",
+    "optional": true,
+    "collision": false,
+    "scope": "visual apron only; excluded from building placement and traversal"
+  },
+  "meshes": {
+    "SK_LodgeStructure": 2481,
+    "SK_LodgeRoof": 2523,
+    "SK_LodgeFrontMechanisms": 2224,
+    "SK_LodgeRearMechanisms": 2171,
+    "SK_ArchitectureRegolith": 84
+  },
+  "triangles": 9483,
+  "building_bounds_m": {
+    "lo": [
+      -7.5,
+      -7.5,
+      0.0
+    ],
+    "hi": [
+      7.5,
+      7.5,
+      3.5644330978393555
+    ]
+  },
+  "bounds_m": {
+    "lo": [
+      -8.299715995788574,
+      -8.642529487609863,
+      0.0
+    ],
+    "hi": [
+      8.372540473937988,
+      8.49887466430664,
+      3.5644330978393555
+    ]
+  },
+  "architecture_dimensions": {
+    "door_type": "single",
+    "opening_width_m": 1.5,
+    "opening_height_m": 2.0876288659793816,
+    "rooms": [
+      {
+        "floor_m": 0.07731958762886598,
+        "ceiling_m": 2.3969072164948457,
+        "height_m": 2.3195876288659796
+      }
+    ],
+    "measurement": "Open structural aperture; floor top to ceiling underside; chamfers reduce local clearance"
+  },
+  "material_classifiers": {
+    "M_Emissive": "Emissive",
+    "M_Frame_Diffuse": "Diffuse",
+    "M_Glass": "Glass",
+    "M_Joint_Diffuse": "Diffuse",
+    "M_Primary_Diffuse": "Diffuse",
+    "M_Regolith_Diffuse": "Diffuse",
+    "M_Secondary_Diffuse": "Diffuse"
+  }
+}

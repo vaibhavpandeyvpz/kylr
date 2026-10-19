@@ -1,0 +1,124 @@
+{
+  "name": "pillar",
+  "units": "metres",
+  "origin": "lower mount bottom centre",
+  "materials": [
+    "M_Primary_Metallic",
+    "M_Secondary_Metallic",
+    "M_Frame_Diffuse",
+    "M_Joint_Metallic",
+    "M_Bronze_Metallic",
+    "M_Emissive"
+  ],
+  "triangles": 2592,
+  "mounts": {
+    "lower": {
+      "bone": "Root",
+      "z_m": 0,
+      "size_m": [
+        0.9,
+        0.9
+      ],
+      "bolt_pattern_m": [
+        0.75,
+        0.75
+      ]
+    },
+    "upper": {
+      "bone": "Stage2",
+      "z_m_at_rest": 1.5,
+      "size_m": [
+        0.72,
+        0.72
+      ],
+      "bolt_pattern_m": [
+        0.58,
+        0.58
+      ]
+    }
+  },
+  "dimensions": {
+    "retracted_height_m": 1.5,
+    "extended_height_m": 3.0,
+    "ground_footprint_m": [
+      0.9,
+      0.9
+    ],
+    "max_body_width_m": 0.74
+  },
+  "joints": [
+    {
+      "bone": "Stage1",
+      "parent": "Root",
+      "type": "slide",
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "range_m": [
+        0,
+        0.75
+      ],
+      "channel": "location_y_m"
+    },
+    {
+      "bone": "Stage2",
+      "parent": "Stage1",
+      "type": "slide",
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "range_m": [
+        0,
+        0.75
+      ],
+      "channel": "location_y_m"
+    }
+  ],
+  "coupling": {
+    "Stage2": "Stage1",
+    "ratio": 1,
+    "description": "equal relative travel; full head travel is twice either stage"
+  },
+  "mechanics": {
+    "type": "single-acting, two-stage telescopic hydraulic cylinder",
+    "extension": "pressure at fixed lower port",
+    "retraction": "external compressive load after pressure release",
+    "minimum_overlap_m": {
+      "fixed_to_stage1": 0.22,
+      "stage1_to_stage2": 0.12
+    },
+    "anti_rotation": "keyed octagonal nested tubes"
+  },
+  "animations": {
+    "open": {
+      "frames": [
+        0,
+        45
+      ],
+      "fps": 30,
+      "start_height_m": 1.5,
+      "end_height_m": 3.0
+    },
+    "close": {
+      "frames": [
+        0,
+        45
+      ],
+      "fps": 30,
+      "start_height_m": 3.0,
+      "end_height_m": 1.5
+    }
+  },
+  "usage": "Attach the lower and upper four-bolt plates to opposed surfaces. Open pressurises the ram; close assumes an external compressive load. Keep both stage channels coupled 1:1 for procedural control.",
+  "material_classifiers": {
+    "M_Bronze_Metallic": "Metallic",
+    "M_Frame_Diffuse": "Diffuse",
+    "M_Joint_Metallic": "Metallic",
+    "M_Primary_Metallic": "Metallic",
+    "M_Secondary_Metallic": "Metallic"
+  }
+}

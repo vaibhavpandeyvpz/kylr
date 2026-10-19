@@ -1,0 +1,233 @@
+{
+  "version": 1,
+  "weapons": {
+    "pistol": {
+      "title": "Pistol",
+      "model": "pistol",
+      "animation_family": "pistol",
+      "range": 40.0,
+      "damage": 10.0,
+      "interval": 0.5,
+      "capacity": 0,
+      "recoil": 2.0,
+      "attack": "hitscan",
+      "muzzles": [
+        "Muzzle"
+      ],
+      "crosshair": {
+        "style": "cross",
+        "width": 2.8,
+        "radius": 16
+      }
+    },
+    "rifle": {
+      "title": "Rifle",
+      "model": "rifle",
+      "animation_family": "rifle",
+      "range": 50.0,
+      "damage": 10.0,
+      "interval": 0.25,
+      "capacity": 100,
+      "recoil": 2.0,
+      "attack": "hitscan",
+      "muzzles": [
+        "Muzzle"
+      ],
+      "crosshair": {
+        "style": "cross",
+        "width": 2.4,
+        "radius": 16
+      },
+      "scope_crosshair": {
+        "style": "scope",
+        "width": 1.4,
+        "radius": 15
+      }
+    },
+    "minigun": {
+      "title": "Minigun",
+      "model": "minigun",
+      "animation_family": "minigun",
+      "range": 60.0,
+      "damage": 5.0,
+      "interval": 0.125,
+      "capacity": 100,
+      "recoil": 2.0,
+      "attack": "hitscan",
+      "muzzles": [
+        "Muzzle1",
+        "Muzzle2",
+        "Muzzle3",
+        "Muzzle4",
+        "Muzzle5",
+        "Muzzle6"
+      ],
+      "crosshair": {
+        "style": "diagonal",
+        "width": 2.0,
+        "radius": 19
+      }
+    },
+    "lightning_gun": {
+      "title": "Lightning gun",
+      "model": "lightning_gun",
+      "animation_family": "lightning_gun",
+      "range": 25.0,
+      "damage": 20.0,
+      "interval": 0.5,
+      "capacity": 50,
+      "recoil": 1.0,
+      "attack": "beam",
+      "secondary_interval": 0.75,
+      "muzzles": [
+        "Muzzle"
+      ],
+      "crosshair": {
+        "style": "octagon",
+        "width": 1.6,
+        "radius": 16
+      },
+      "secondary_crosshair": { "style": "orb", "width": 1.6, "radius": 14 },
+      "damage_tick": 0.1
+    },
+    "emp_gun": {
+      "title": "EMP gun",
+      "model": "emp_gun",
+      "animation_family": "emp_gun",
+      "range": 20.0,
+      "damage": 10.0,
+      "interval": 0.75,
+      "capacity": 50,
+      "recoil": 5.0,
+      "attack": "projectile",
+      "muzzles": [
+        "Muzzle"
+      ],
+      "crosshair": {
+        "style": "broken_ring",
+        "width": 2.0,
+        "radius": 16
+      }
+    },
+    "rocket_launcher": {
+      "title": "Rocket launcher",
+      "lock_seconds": 0.4,
+      "turn_radius": 5.0,
+      "scope_crosshair": {"style": "scope", "width": 1.4, "radius": 18},
+      "model": "rocket_launcher",
+      "animation_family": "rocket_launcher",
+      "range": 100.0,
+      "damage": 50.0,
+      "interval": 0.75,
+      "capacity": 20,
+      "recoil": 2.0,
+      "attack": "rocket",
+      "muzzles": [
+        "Muzzle1"
+      ],
+      "crosshair": {
+        "style": "chevrons",
+        "width": 2.0,
+        "radius": 18
+      }
+    },
+    "flamethrower": {
+      "title": "Flamethrower",
+      "model": "flamethrower",
+      "animation_family": "flamethrower",
+      "range": 15.0,
+      "damage": 20.0,
+      "interval": 0.5,
+      "capacity": 50,
+      "recoil": 1.0,
+      "attack": "flame",
+      "secondary_interval": 0.75,
+      "muzzles": [
+        "Muzzle"
+      ],
+      "crosshair": {
+        "style": "brackets",
+        "width": 1.8,
+        "radius": 14
+      },
+      "secondary_crosshair": { "style": "orb", "width": 1.6, "radius": 14 },
+      "damage_tick": 0.1
+    },
+    "flak_cannon": {
+      "title": "Flak cannon",
+      "model": "flak_cannon",
+      "animation_family": "flak_cannon",
+      "range": 100,
+      "damage": 15,
+      "interval": 0.6666666666666666,
+      "capacity": 100,
+      "recoil": 2,
+      "attack": "reference_projectile",
+      "muzzles": [
+        "Muzzle1"
+      ],
+      "projectile_speed": 45,
+      "crosshair": {
+        "style": "flak",
+        "width": 2,
+        "radius": 14
+      },
+      "pellets": 10,
+      "spread_degrees": 8,
+      "bounces": 3,
+      "bounce_restitution": 0.5,
+      "bounce_falloff_ratio": 0.5,
+      "bounce_gravity": 19.6
+    },
+    "bio_rifle": {
+      "title": "Bio rifle",
+      "model": "bio_rifle",
+      "animation_family": "bio_rifle",
+      "range": 100,
+      "damage": 15,
+      "interval": 1,
+      "capacity": 100,
+      "recoil": 2,
+      "attack": "reference_projectile",
+      "muzzles": [
+        "Muzzle"
+      ],
+      "projectile_speed": 45,
+      "crosshair": {
+        "style": "bio",
+        "width": 2,
+        "radius": 14
+      },
+      "dot_damage": 5,
+      "dot_interval": 1,
+      "dot_duration": 3,
+      "slow_multiplier": 0.25,
+      "slow_duration": 0.5
+    },
+    "grenade_launcher": {
+      "title": "Grenade launcher",
+      "model": "grenade_launcher",
+      "animation_family": "grenade_launcher",
+      "range": 100,
+      "damage": 40,
+      "interval": 1,
+      "capacity": 40,
+      "recoil": 2,
+      "attack": "reference_projectile",
+      "muzzles": [
+        "Muzzle1"
+      ],
+      "projectile_speed": 15,
+      "crosshair": {
+        "style": "grenade",
+        "width": 2,
+        "radius": 14
+      },
+      "projectile_gravity": 9,
+      "splash_damage": 15,
+      "splash_radius": 5,
+      "slow_multiplier": 0.25,
+      "slow_duration": 0.5
+    }
+  }
+}

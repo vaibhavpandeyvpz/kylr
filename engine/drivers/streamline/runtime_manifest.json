@@ -1,0 +1,101 @@
+{
+  "schema": 1,
+  "sdk_version": "2.10.0",
+  "runtime_flavor": "production",
+  "source_url": "https://github.com/NVIDIA-RTX/Streamline/releases/download/v2.10.0/streamline-sdk-v2.10.0.zip",
+  "archive_sha256": "b0cc810c86b0335d4fd76a02d35fff53e528d2fb66c29860565130f76c9383b0",
+  "files": [
+    {
+      "bytes": 57840,
+      "sha256": "2a77dc3e1c724b7eea5755be0ae7423752e79a2459fae72181a9f00e3507e5d6",
+      "name": "NvLowLatencyVk.dll"
+    },
+    {
+      "bytes": 54778992,
+      "sha256": "22c4660249da5b352cde0ce4d95178c3761223dd6ac096d0b88e5c03d7a5cdd1",
+      "name": "nvngx_dlss.dll"
+    },
+    {
+      "bytes": 28590704,
+      "sha256": "4d53f6114edc61bd41fc293008aa818ab092bb8286830e61c98453da92d936d0",
+      "name": "nvngx_dlssd.dll"
+    },
+    {
+      "bytes": 7518320,
+      "sha256": "5685c065e6c048f673d70f5dda5b23570c8570642e4e284216f59c2e85583016",
+      "name": "nvngx_dlssg.dll"
+    },
+    {
+      "bytes": 674432,
+      "sha256": "be50a4c89177abb3695de92c57cc41662bfb7598ec447707b0d6efb77256d977",
+      "name": "sl.common.dll"
+    },
+    {
+      "bytes": 240256,
+      "sha256": "2dbee8cb45af3de640f98ee68b4955d1fd90e772784e843f00951ac53ab908f6",
+      "name": "sl.dlss.dll"
+    },
+    {
+      "bytes": 254080,
+      "sha256": "1a65ae1656d7aab4cb1025e14bc14a92330a3a3008a05aafae803c4fe508c260",
+      "name": "sl.dlss_d.dll"
+    },
+    {
+      "bytes": 459392,
+      "sha256": "e07fd38310805e34265929d1999f33ed5566cf30176c082ca84ef63992f6c7d7",
+      "name": "sl.dlss_g.dll"
+    },
+    {
+      "bytes": 569472,
+      "sha256": "c2397e96e35c1e78c0b351b0d2b070c6529ccc990f4cc73f04722db24dc2acce",
+      "name": "sl.interposer.dll"
+    },
+    {
+      "bytes": 967808,
+      "sha256": "4629c778ea65cf0676583936a0da61204c035bc4e1994e7736bc07e0114e42cb",
+      "name": "sl.nis.dll"
+    },
+    {
+      "bytes": 176256,
+      "sha256": "d6cd931f8db74978aa9159a41af288ae1480ffbeae59e64f4ea447074d861bc0",
+      "name": "sl.pcl.dll"
+    },
+    {
+      "bytes": 198784,
+      "sha256": "42c45991b8f2972d4f341d379bd9be093c408b59d01f22b338f505f476617cc5",
+      "name": "sl.reflex.dll"
+    }
+  ],
+  "notices": [
+    {
+      "bytes": 1591,
+      "sha256": "7b6f23e7d6f3ad6292f9308d2b42cdc3d82ae4e9b2abb55f230279d83bedd43d",
+      "name": "Streamline.txt",
+      "source": "license.txt"
+    },
+    {
+      "bytes": 13240,
+      "sha256": "4d5d9b8436d36cee01d27b7607634987618eef970b550f6b7ef03e82f9a6e473",
+      "name": "Streamline-third-party.md",
+      "source": "3rd-party-licenses.md"
+    },
+    {
+      "bytes": 26727,
+      "sha256": "3027f23ca5a46dd9cb8183fbd522983a86f64d7daac5982912bf9f214671f294",
+      "name": "DLSS.txt",
+      "source": "bin/x64/nvngx_dlss.license.txt"
+    },
+    {
+      "bytes": 1199,
+      "sha256": "f80ecfbce8a84a5b4c1c59dc5a9f0ee9cf5a989c9fba3a9486ee874f7595a454",
+      "name": "NIS.txt",
+      "source": "bin/x64/nis.license.txt"
+    },
+    {
+      "bytes": 20504,
+      "sha256": "ebf83c07fb3b2939908c3795d887afde3161c89a28ba391724efc784ce1bdabe",
+      "name": "Reflex.txt",
+      "source": "bin/x64/reflex.license.txt"
+    }
+  ]
+}

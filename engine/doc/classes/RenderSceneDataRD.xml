@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="RenderSceneDataRD" inherits="RenderSceneData" api_type="core" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../class.xsd">
+	<brief_description>
+		Render scene data implementation for the RenderingDevice based renderers.
+	</brief_description>
+	<description>
+		Object holds scene data related to rendering a single frame of a viewport. See also [RenderSceneData], [RenderData], and [RenderDataRD].
+		[b]Note:[/b] This is an internal rendering server object. Do not instantiate this class from a script.
+	</description>
+	<tutorials>
+	</tutorials>
+	<methods>
+		<method name="get_cam_projection_unjittered" qualifiers="const">
+			<return type="Projection" />
+			<description>
+				Returns the camera projection with the same depth and vertical-axis corrections as [method RenderSceneData.get_cam_projection], without temporal jitter. Use it to detect camera projection changes without treating temporal sampling offsets as camera cuts. Do not apply another depth correction.
+			</description>
+		</method>
+		<method name="get_taa_jitter" qualifiers="const">
+			<return type="Vector2" />
+			<description>
+				Returns the temporal projection translation in normalized device coordinates. It is zero when temporal jitter is not used. The rendered projection is the unjittered projection translated by this offset after projection. Unjittered UV motion vectors require half the previous-minus-current offset when reprojecting between jittered input images.
+			</description>
+		</method>
+	</methods>
+</class>

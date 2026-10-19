@@ -1,0 +1,297 @@
+{
+  "name": "portal_gate",
+  "space": "Blender coords: +Z up, front -Y, the floor is z = 0 with the origin at the field's foot. glTF/Godot: (x, z, -y). Carriages slide along their bones' local Y (metres, positive = up); flywheels turn about their bones' local X (degrees, unlimited).",
+  "rest": "inactive: carriages parked at the bottom, flywheels still",
+  "size_m": [
+    1.5,
+    0.1,
+    2.0
+  ],
+  "opening_m": {
+    "width": 1.25,
+    "height": 1.85,
+    "threshold_height": 0.02,
+    "passage": "clear 1.12 m wide up to 1.76 m and 0.9 m wide up to 1.83 m, over the threshold (Tensor is 1.753 m)"
+  },
+  "field": {
+    "object": "SK_PortalGateField",
+    "material": "M_Portal_Emissive",
+    "plane": "y = 0 (glTF z = 0)",
+    "rect_m": {
+      "x": [
+        -0.5996,
+        0.5996
+      ],
+      "z": [
+        0.045399999999999996,
+        1.8246
+      ]
+    },
+    "size_m": [
+      1.1992,
+      1.7792
+    ],
+    "normal": "-Y (front; glTF +Z), double-sided",
+    "uv": "u 0..1 across (to the gate's left, +X), v 0..1 up; seen from the front u runs left to right",
+    "gap_to_frame_m": 0.0254,
+    "note": "it floats 1 inch (25.4 mm) clear of the frame all round, its side edges straddled by the rail mounts and the carriages (front and back of it); hide it when the portal is off"
+  },
+  "gizmos": [
+    {
+      "name": "SpawnFront",
+      "bone": "Root",
+      "origin": [
+        0,
+        -0.6,
+        0
+      ],
+      "forward": [
+        0,
+        -1,
+        0
+      ],
+      "up": [
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "SpawnBack",
+      "bone": "Root",
+      "origin": [
+        0,
+        0.6,
+        0
+      ],
+      "forward": [
+        0,
+        1,
+        0
+      ],
+      "up": [
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "FieldCenter",
+      "bone": "Root",
+      "origin": [
+        0,
+        0,
+        0.935
+      ],
+      "forward": [
+        0,
+        -1,
+        0
+      ],
+      "up": [
+        0,
+        0,
+        1
+      ]
+    }
+  ],
+  "materials_note": "map-generic finish in Tensor's materials (off-white and grey paint, matte black, stainless steel, bronze): no team colours",
+  "materials": [
+    "M_Primary_Metallic",
+    "M_Secondary_Metallic",
+    "M_Frame_Diffuse",
+    "M_Joint_Metallic",
+    "M_Emissive",
+    "M_Bronze_Metallic",
+    "M_PortalStatus_Emissive",
+    "M_Portal_Emissive"
+  ],
+  "triangles": 3084,
+  "joints": [
+    {
+      "bone": "Root",
+      "parent": null,
+      "type": "fixed",
+      "pivot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": null,
+      "channel": null
+    },
+    {
+      "bone": "CarriageLeftFront",
+      "parent": "Root",
+      "type": "slide",
+      "pivot": [
+        0.611,
+        -0.018,
+        0.342
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        0,
+        1.316
+      ],
+      "channel": "location_y_m"
+    },
+    {
+      "bone": "CarriageLeftBack",
+      "parent": "Root",
+      "type": "slide",
+      "pivot": [
+        0.611,
+        0.018,
+        0.342
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        0,
+        1.316
+      ],
+      "channel": "location_y_m"
+    },
+    {
+      "bone": "CarriageRightFront",
+      "parent": "Root",
+      "type": "slide",
+      "pivot": [
+        -0.611,
+        -0.018,
+        0.342
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        0,
+        1.316
+      ],
+      "channel": "location_y_m"
+    },
+    {
+      "bone": "CarriageRightBack",
+      "parent": "Root",
+      "type": "slide",
+      "pivot": [
+        -0.611,
+        0.018,
+        0.342
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        0,
+        1.316
+      ],
+      "channel": "location_y_m"
+    },
+    {
+      "bone": "FlywheelLeft",
+      "parent": "Root",
+      "type": "hinge",
+      "pivot": [
+        0.22,
+        0.038,
+        1.925
+      ],
+      "axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "range": null,
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "FlywheelRight",
+      "parent": "Root",
+      "type": "hinge",
+      "pivot": [
+        -0.22,
+        0.038,
+        1.925
+      ],
+      "axis": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "range": null,
+      "channel": "rotation_x_deg"
+    }
+  ],
+  "animations": {
+    "activate": {
+      "frames": [
+        0,
+        60
+      ],
+      "fps": 30,
+      "loop": false,
+      "joints": [
+        "FlywheelLeft",
+        "FlywheelRight"
+      ]
+    },
+    "active": {
+      "frames": [
+        0,
+        120
+      ],
+      "fps": 30,
+      "loop": true,
+      "joints": [
+        "CarriageLeftBack",
+        "CarriageLeftFront",
+        "CarriageRightBack",
+        "CarriageRightFront",
+        "FlywheelLeft",
+        "FlywheelRight"
+      ]
+    },
+    "deactivate": {
+      "frames": [
+        0,
+        60
+      ],
+      "fps": 30,
+      "loop": false,
+      "joints": [
+        "FlywheelLeft",
+        "FlywheelRight"
+      ]
+    }
+  },
+  "flywheel_deg_per_frame": 12.0,
+  "usage": "activate (2 s) spins the flywheels up, then loop active (4 s: the emitter carriages sweep the field's height and back, the flywheels run); deactivate (2 s) spins them down. Start deactivate at the end of an active loop (the carriages parked). Show SK_PortalGateField while active and put the portal's shader on its M_Portal surface; teleport players who cross the field (y = 0) to the other portal's SpawnFront or SpawnBack, by the side they entered from.",
+  "material_classifiers": {
+    "M_Bronze_Metallic": "Metallic",
+    "M_Emissive": "Emissive",
+    "M_Frame_Diffuse": "Diffuse",
+    "M_Joint_Metallic": "Metallic",
+    "M_Portal_Emissive": "Emissive",
+    "M_PortalStatus_Emissive": "Emissive",
+    "M_Primary_Metallic": "Metallic",
+    "M_Secondary_Metallic": "Metallic"
+  }
+}

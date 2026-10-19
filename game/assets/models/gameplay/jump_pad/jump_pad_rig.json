@@ -1,0 +1,95 @@
+{
+  "name": "jump_pad",
+  "space": "Blender coords: +Z up, front -Y, the floor is z = 0 with the origin under the pad's centre. glTF/Godot: (x, z, -y). The plate slides along its bone's local Y (metres, positive = up).",
+  "rest": "down (flush with the floor)",
+  "cutout_m": {
+    "size": [
+      1.0,
+      1.0
+    ],
+    "depth": 0.265,
+    "note": "a plain box with square outside corners: it fills this cut-out exactly, its top flush with the floor"
+  },
+  "materials_note": "map-generic finish in Tensor's materials (off-white and grey paint, matte black, stainless steel): no team colours",
+  "materials": [
+    "M_Primary_Metallic",
+    "M_Secondary",
+    "M_Frame_Diffuse",
+    "M_Joint_Metallic",
+    "M_Emissive"
+  ],
+  "triangles": 1662,
+  "joints": [
+    {
+      "bone": "Root",
+      "parent": null,
+      "type": "fixed",
+      "pivot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": null,
+      "channel": null
+    },
+    {
+      "bone": "Plate",
+      "parent": "Root",
+      "type": "slide",
+      "pivot": [
+        0.0,
+        0.0,
+        -0.006
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        0,
+        0.15
+      ],
+      "channel": "location_y_m"
+    }
+  ],
+  "animations": {
+    "launch": {
+      "frames": [
+        0,
+        14
+      ],
+      "fps": 30,
+      "loop": false,
+      "joints": [
+        "Plate"
+      ]
+    }
+  },
+  "launch_frames": {
+    "up": [
+      0,
+      4
+    ],
+    "hold": [
+      4,
+      6
+    ],
+    "down": [
+      6,
+      14
+    ]
+  },
+  "usage": "a launch pad: play launch when a player steps on it and give them the jump impulse on the up-stroke (frames 0-4, the plate rising 15 cm); it holds, then comes down at half the speed. Re-trigger only once it is back down (frame 14).",
+  "material_classifiers": {
+    "M_Emissive": "Emissive",
+    "M_Frame_Diffuse": "Diffuse",
+    "M_Joint_Metallic": "Metallic",
+    "M_Primary_Metallic": "Metallic"
+  }
+}

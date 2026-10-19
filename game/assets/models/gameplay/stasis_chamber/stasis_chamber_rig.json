@@ -1,0 +1,135 @@
+{
+  "name": "stasis_chamber",
+  "static": false,
+  "animations": {
+    "open": {
+      "frames": [
+        0,
+        45
+      ],
+      "fps": 30,
+      "loop": false
+    },
+    "close": {
+      "frames": [
+        0,
+        45
+      ],
+      "fps": 30,
+      "loop": false
+    }
+  },
+  "triangles": 4960,
+  "triangle_budget": 5000,
+  "meshes": {
+    "SK_StasisChamber": 4948,
+    "SK_StasisChamberGlass": 12
+  },
+  "bounds_m": {
+    "lo": [
+      -0.625,
+      -0.75,
+      0.0
+    ],
+    "hi": [
+      0.625,
+      0.75,
+      2.67900013923645
+    ]
+  },
+  "ground_lw_m": [
+    1.5,
+    1.25
+  ],
+  "category": "gameplay",
+  "tensor_height_m": 1.753,
+  "occupant": {
+    "deck_m": 0.53,
+    "ceiling_m": 2.33,
+    "headroom_m": 0.04700000000000015
+  },
+  "placement": "floor centre z=0; viewing panel front -Y, up +Z",
+  "materials": [
+    "M_Bronze_Metallic",
+    "M_Emissive",
+    "M_Frame_Diffuse",
+    "M_Glass",
+    "M_Joint_Metallic",
+    "M_Primary_Metallic",
+    "M_Secondary_Metallic"
+  ],
+  "bones": [
+    {
+      "name": "Root",
+      "kind": "fixed",
+      "parent": null
+    },
+    {
+      "name": "Door",
+      "kind": "hinge",
+      "parent": "Root"
+    }
+  ],
+  "joints": [
+    {
+      "bone": "Root",
+      "type": "fixed",
+      "parent": null,
+      "pivot": [
+        0,
+        0,
+        0
+      ],
+      "range": null
+    },
+    {
+      "bone": "Door",
+      "type": "hinge",
+      "parent": "Root",
+      "pivot": [
+        0.550000011920929,
+        -0.6499999761581421,
+        1.4299999475479126
+      ],
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "range": [
+        0,
+        120.0
+      ]
+    }
+  ],
+  "checks": {
+    "connected_parts": 109,
+    "exact_solid_pairs": 98,
+    "no_solid_intersections": true,
+    "coplanar": true,
+    "shell_pedestal_seat": true,
+    "budget": true,
+    "door_motion": true
+  },
+  "door_swept_bounds_m": {
+    "lo": [
+      -0.626,
+      -1.7021777162551879,
+      -0.001
+    ],
+    "hi": [
+      1.122916651725769,
+      0.751,
+      2.68000013923645
+    ]
+  },
+  "material_classifiers": {
+    "M_Bronze_Metallic": "Metallic",
+    "M_Emissive": "Emissive",
+    "M_Frame_Diffuse": "Diffuse",
+    "M_Glass": "Glass",
+    "M_Joint_Metallic": "Metallic",
+    "M_Primary_Metallic": "Metallic",
+    "M_Secondary_Metallic": "Metallic"
+  }
+}

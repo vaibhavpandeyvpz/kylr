@@ -1,0 +1,149 @@
+{
+  "name": "solar_tower",
+  "static": false,
+  "animations": {
+    "track": {
+      "frames": [
+        0,
+        240
+      ],
+      "fps": 30,
+      "loop": true
+    },
+    "service_lower": {
+      "frames": [
+        0,
+        180
+      ],
+      "fps": 30,
+      "loop": false
+    },
+    "service_raise": {
+      "frames": [
+        0,
+        180
+      ],
+      "fps": 30,
+      "loop": false
+    }
+  },
+  "units": "metres",
+  "triangles": 4418,
+  "triangle_budget": 5000,
+  "bounds_m": {
+    "lo": [
+      -0.9480000138282776,
+      -0.5199999809265137,
+      0.0
+    ],
+    "hi": [
+      0.9510000348091125,
+      0.5199999809265137,
+      3.0
+    ]
+  },
+  "tensor_height_m": 1.753,
+  "materials": [
+    "M_Primary_Metallic",
+    "M_Secondary_Metallic",
+    "M_Frame_Diffuse",
+    "M_Joint_Metallic",
+    "M_Solar_Diffuse",
+    "M_Bronze_Metallic"
+  ],
+  "bones": [
+    {
+      "name": "Root",
+      "kind": "fixed",
+      "parent": null
+    },
+    {
+      "name": "Azimuth",
+      "kind": "hinge",
+      "parent": "Root"
+    },
+    {
+      "name": "Elevation",
+      "kind": "hinge",
+      "parent": "Azimuth"
+    }
+  ],
+  "joints": [
+    {
+      "bone": "Root",
+      "type": "fixed",
+      "parent": null,
+      "pivot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "axis": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "range": null
+    },
+    {
+      "bone": "Azimuth",
+      "type": "hinge",
+      "parent": "Root",
+      "pivot": [
+        0.0,
+        0.0,
+        0.35899999737739563
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        -180,
+        180
+      ]
+    },
+    {
+      "bone": "Elevation",
+      "type": "hinge",
+      "parent": "Azimuth",
+      "pivot": [
+        0.0,
+        0.0,
+        0.6349999904632568
+      ],
+      "axis": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "range": [
+        -65,
+        6
+      ]
+    }
+  ],
+  "placement": "floor centre z=0; photovoltaic/front -Y; up +Z",
+  "panel_modules": 10,
+  "module_dimensions_m": [
+    0.78,
+    0.426,
+    0.042
+  ],
+  "checks": {
+    "connected_parts": 119,
+    "exact_solid_pairs": 224,
+    "no_solid_intersections": true,
+    "coplanar": true,
+    "motion_states": 543
+  },
+  "material_classifiers": {
+    "M_Bronze_Metallic": "Metallic",
+    "M_Frame_Diffuse": "Diffuse",
+    "M_Joint_Metallic": "Metallic",
+    "M_Primary_Metallic": "Metallic",
+    "M_Secondary_Metallic": "Metallic",
+    "M_Solar_Diffuse": "Diffuse"
+  }
+}

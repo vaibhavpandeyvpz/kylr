@@ -1,0 +1,6 @@
+# Shared text normalization and binary/LFS rules live in the root attributes.
+*.py text diff=python
+*.md text diff=markdown
+*.json text
+*.sh text eol=lf
+*.gltf text

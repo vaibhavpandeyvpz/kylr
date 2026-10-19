@@ -1,0 +1,79 @@
+{
+  "name": "batten_light",
+  "static": true,
+  "animations": [],
+  "triangles": 1004,
+  "triangle_budget": 5000,
+  "meshes": {
+    "SK_BattenLight": 1004
+  },
+  "materials": [
+    "M_Primary_Metallic",
+    "M_Secondary_Metallic",
+    "M_Frame_Diffuse",
+    "M_Joint_Metallic",
+    "M_Emissive",
+    "M_Light_Emissive"
+  ],
+  "bounds_m": {
+    "lo": [
+      -0.6000000238418579,
+      -0.11999999731779099,
+      -0.10249999165534973
+    ],
+    "hi": [
+      0.6000000238418579,
+      0.11999999731779099,
+      0.0
+    ]
+  },
+  "tensor_height_m": 1.753,
+  "bones": [
+    {
+      "name": "Root",
+      "kind": "fixed",
+      "parent": null
+    }
+  ],
+  "gizmos": [
+    {
+      "name": "LightProjection",
+      "bone": "Root",
+      "origin": [
+        0.0,
+        0.0,
+        -0.09199999272823334
+      ],
+      "forward": [
+        0,
+        0,
+        -1
+      ],
+      "up": [
+        0,
+        -1,
+        0
+      ],
+      "cone_half_angle_deg": 70,
+      "range_m": 8,
+      "godot": "-Z points along projection"
+    }
+  ],
+  "checks": {
+    "connected_parts": 18,
+    "exact_solid_pairs": 13,
+    "no_solid_intersections": true,
+    "coplanar": true,
+    "budget": true,
+    "no_actions": true
+  },
+  "placement": "ceiling centre z=0, emitter down -Z",
+  "material_classifiers": {
+    "M_Emissive": "Emissive",
+    "M_Frame_Diffuse": "Diffuse",
+    "M_Joint_Metallic": "Metallic",
+    "M_Light_Emissive": "Emissive",
+    "M_Primary_Metallic": "Metallic",
+    "M_Secondary_Metallic": "Metallic"
+  }
+}

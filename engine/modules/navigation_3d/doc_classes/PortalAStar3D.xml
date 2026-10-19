@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="PortalAStar3D" inherits="AStar3D" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../doc/class.xsd">
+	<brief_description>Native portal-aware A* costs for traversal graphs.</brief_description>
+	<description>
+		Retains [AStar3D]'s directed connections, search, point weights and disabled-point behavior. Configured portal edges use a fixed cost instead of their Euclidean length; the heuristic includes those shortcuts as an admissible lower bound for graphs whose ordinary connections use Euclidean costs and weight scales of at least 1.
+		Native costs bypass script cost overrides while [member native_costs_enabled] is enabled. Disable it to compare an existing script implementation. Point additions, moves, removals and clearing invalidate native cost caches. Changing disabled points does not invalidate the geometric lower bound; shortcuts through disabled points can only make that bound more conservative.
+		Like [AStar3D], an instance must not be queried concurrently from multiple threads.
+	</description>
+	<methods>
+		<method name="configure_portal_connections">
+			<return type="void" />
+			<param index="0" name="connections" type="PackedInt64Array" />
+			<param index="1" name="cost" type="float" default="3.0" />
+			<description>
+				Sets directed portal pairs as [code][from_id, to_id, from_id, to_id, ...][/code]. Endpoints must exist. The cost must be finite and nonnegative. Up to 128 unique portal endpoints are supported; invalid input leaves the previous configuration intact. An empty array restores ordinary Euclidean native costs. This does not connect points; use [method AStar3D.connect_points] to establish graph edges.
+			</description>
+		</method>
+	</methods>
+	<members>
+		<member name="native_costs_enabled" type="bool" setter="set_native_costs_enabled" getter="is_native_costs_enabled" default="true">Whether to use native portal costs instead of script cost overrides.</member>
+	</members>
+</class>

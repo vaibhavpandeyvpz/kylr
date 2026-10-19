@@ -1,0 +1,1110 @@
+{
+  "provider": "ElevenLabs",
+  "flow_id": "PpP3eGPZzyLlN8qecqLt",
+  "recordings": [
+    {
+      "bank": "robot_00",
+      "key": "armor_hit",
+      "prompt": "Armor hit.",
+      "voice_id": "nPczCjzI2devNBz1zQrb",
+      "voice_name": "Brian - Deep, Resonant and Comforting",
+      "node_id": "FNmxlq0NOG0cr7IMmriD",
+      "generation_id": "OiwokLOexFMnzh8pYZSe",
+      "source": "source/robot_00/armor_hit.mp3",
+      "sha256": "55515fff65f7535cdb3bd8d9c83b76da0a2d37ed70b1651bdb5a29344bca7ae9",
+      "model_id": "eleven_multilingual_v2"
+    },
+    {
+      "bank": "robot_00",
+      "key": "pickup",
+      "prompt": "Got it.",
+      "voice_id": "nPczCjzI2devNBz1zQrb",
+      "voice_name": "Brian - Deep, Resonant and Comforting",
+      "node_id": "1MOuo9hl2Abkdrk5wXok",
+      "generation_id": "0yBtsss0a7CBukSrJv3i",
+      "source": "source/robot_00/pickup.mp3",
+      "sha256": "6cda97c4c503e2edcc58db35413019dcf195d80b0510268bc6f03d48d8eb1e8c",
+      "model_id": "eleven_multilingual_v2"
+    },
+    {
+      "bank": "robot_00",
+      "key": "repair_complete",
+      "prompt": "Repair complete. Ready to move.",
+      "node_id": "mJAwpCzXszUY169DUxkO",
+      "generation_id": "Q9EkF1I3RCSzznwHWZ5l",
+      "duration_secs": 1.86,
+      "candidate_ids": [
+        "Q9EkF1I3RCSzznwHWZ5l",
+        "VOdTx0Xp0tPfNzVcdsKj",
+        "ta2ody7isMtI96dDrXBR",
+        "NMRCck5a6UUe34QTeHfI"
+      ],
+      "voice_id": "nPczCjzI2devNBz1zQrb",
+      "voice_name": "Brian - Deep, Resonant and Comforting",
+      "source": "source/robot_00/repair_complete.mp3",
+      "sha256": "bcfd8a5eb73a673e8e3808c4479d542ba810be1bf638826dca14faa36309ff65",
+      "model_id": "eleven_multilingual_v2"
+    },
+    {
+      "bank": "robot_00",
+      "key": "power_low",
+      "prompt": "Power below fifty percent. Find an Energy Core.",
+      "node_id": "BJQstzMSL5TLJFPwYin9",
+      "generation_id": "9yogvAlGeO6cdKxQl13l",
+      "duration_secs": 2.88,
+      "candidate_ids": [
+        "xX90XvVrXrig5jGOqiu4",
+        "FJDc99QOXoQL8lPveKVP",
+        "9yogvAlGeO6cdKxQl13l",
+        "UWnLDHRHpVJuZ7U6DkH0"
+      ],
+      "voice_id": "nPczCjzI2devNBz1zQrb",
+      "voice_name": "Brian - Deep, Resonant and Comforting",
+      "source": "source/robot_00/power_low.mp3",
+      "sha256": "0ee23c4b455948b231db30f5d224614c9a98ccd9b50ee455739cbbaf812f19ae",
+      "model_id": "eleven_multilingual_v2"
+    },
+    {
+      "bank": "robot_00",
+      "key": "power_critical",
+      "prompt": "Critical power. Find an Energy Core now.",
+      "node_id": "wsPkkUgRX6ltX0xUV9wh",
+      "generation_id": "mmPf6L9MhVKGdwJZT85c",
+      "duration_secs": 2.37,
+      "candidate_ids": [
+        "55CnKAQcJzyEh1bSVY1z",
+        "7bpvbQ0447CLetc5XTIW",
+        "JEU8nMUCVE0inmPEv9KO",
+        "mmPf6L9MhVKGdwJZT85c"
+      ],
+      "voice_id": "nPczCjzI2devNBz1zQrb",
+      "voice_name": "Brian - Deep, Resonant and Comforting",
+      "source": "source/robot_00/power_critical.mp3",
+      "sha256": "fee21edc4e173d53a4a116553202f6a5b18e63c5aee4caf2f1b21081b52a1ee2",
+      "model_id": "eleven_multilingual_v2"
+    },
+    {
+      "bank": "robot_01",
+      "key": "armor_hit",
+      "prompt": "Armor hit.",
+      "node_id": "65CeED03l1sFwQojv44u",
+      "generation_id": "bvtXuJTUCPljwQjGPDXx",
+      "duration_secs": 0.93,
+      "candidate_ids": [
+        "JrNed2O4o10nTXHliiTc",
+        "9tf6FTYdNoItPOqPuz17",
+        "bvtXuJTUCPljwQjGPDXx",
+        "3TOAtRA1lSKTmQC1QIfI"
+      ],
+      "voice_id": "hpp4J3VqNfWAUOO0d1Us",
+      "voice_name": "Bella - Professional, Bright, Warm",
+      "source": "source/robot_01/armor_hit.mp3",
+      "sha256": "99c96973d6dead77361599d200c125b0616f1f25bd49686c11068faf8f58916c",
+      "model_id": "eleven_multilingual_v2"
+    },
+    {
+      "bank": "robot_01",
+      "key": "pickup",
+      "prompt": "Got it.",
+      "node_id": "kNhjWIy3mrsEGrmo7QqJ",
+      "generation_id": "qpEm27yw4GR0MXN35XvV",
+      "duration_secs": 0.79,
+      "candidate_ids": [
+        "9hOZXm7DcdK2lxpkd7Wf",
+        "RX5Wgbcrjdi4Sb71EpdH",
+        "qpEm27yw4GR0MXN35XvV",
+        "GpAPPxN1q7DapZSEtEUV"
+      ],
+      "voice_id": "hpp4J3VqNfWAUOO0d1Us",
+      "voice_name": "Bella - Professional, Bright, Warm",
+      "source": "source/robot_01/pickup.mp3",
+      "sha256": "a381dbad7466f6b7a005f0398cea97e9019a6fa51fc55d291a9b2578e7d5580e",
+      "model_id": "eleven_multilingual_v2"
+    },
+    {
+      "bank": "robot_01",
+      "key": "repair_complete",
+      "prompt": "Repair complete. Ready to move.",
+      "node_id": "LqrjX0JSxCdO8zySfIy0",
+      "generation_id": "I21TU55kiocO4YEzXWwx",
+      "duration_secs": 2.09,
+      "candidate_ids": [
+        "I21TU55kiocO4YEzXWwx",
+        "IdYSuMNGmpTSrfDf6YiE",
+        "pKG7BeVaCTO0hy96Qi58",
+        "VWRAFJgR6rAbEnteAdr3"
+      ],
+      "voice_id": "hpp4J3VqNfWAUOO0d1Us",
+      "voice_name": "Bella - Professional, Bright, Warm",
+      "source": "source/robot_01/repair_complete.mp3",
+      "sha256": "f55f3d7ca33294fd00ab47bb81b6e2e66ccece8fe005804fc1c9576f6a844ec5",
+      "model_id": "eleven_multilingual_v2"
+    },
+    {
+      "bank": "robot_01",
+      "key": "power_low",
+      "prompt": "Power below fifty percent. Find an Energy Core.",
+      "node_id": "V85eLqVmdhOBsEpAwKiC",
+      "generation_id": "P8OAAcXBUUHPnjlVElfZ",
+      "duration_secs": 3.39,
+      "candidate_ids": [
+        "DfEtL10HQr2CrqtSNB7t",
+        "P8OAAcXBUUHPnjlVElfZ",
+        "YgYQErS54hOeZR1PVPY6",
+        "5xhItYiTi9JHsDzB3qoB"
+      ],
+      "voice_id": "hpp4J3VqNfWAUOO0d1Us",
+      "voice_name": "Bella - Professional, Bright, Warm",
+      "source": "source/robot_01/power_low.mp3",
+      "sha256": "449ad6b842c3686a4caefd094e5e766144c90e3ee0e68284263332378ec9e8bf",
+      "model_id": "eleven_multilingual_v2"
+    },
+    {
+      "bank": "robot_01",
+      "key": "power_critical",
+      "prompt": "Critical power. Find an Energy Core now.",
+      "node_id": "1iXtjWakc8PphA0x1uqD",
+      "generation_id": "Qdq8DSAwjUQqTvlzvyO8",
+      "duration_secs": 2.83,
+      "candidate_ids": [
+        "b32kZnaQStawPayzjDjr",
+        "Qdq8DSAwjUQqTvlzvyO8",
+        "FNUCfnfqgkBmemJom7WZ",
+        "ZYZVjFu6WxeoQwVuTpSH"
+      ],
+      "voice_id": "hpp4J3VqNfWAUOO0d1Us",
+      "voice_name": "Bella - Professional, Bright, Warm",
+      "source": "source/robot_01/power_critical.mp3",
+      "sha256": "bb67b56667d06e71ca4c5a42a1f6bd5511bdf09bc140565c552bd7926f559a74",
+      "model_id": "eleven_multilingual_v2"
+    },
+    {
+      "bank": "robot_02",
+      "key": "armor_hit",
+      "prompt": "Armor hit.",
+      "node_id": "PVbhUyWPVUUbLzfJ3Twr",
+      "generation_id": "zG9ZqrgllQtI4QpIuZFv",
+      "duration_secs": 0.88,
+      "candidate_ids": [
+        "4e0Q9cdBJGKxsvUB431Z",
+        "zxofYPRrDrf1hQlqRII5",
+        "zG9ZqrgllQtI4QpIuZFv",
+        "iAiwfDm91Nu4P89J3RQo"
+      ],
+      "voice_id": "cjVigY5qzO86Huf0OWal",
+      "voice_name": "Eric - Smooth, Trustworthy",
+      "source": "source/robot_02/armor_hit.mp3",
+      "sha256": "a4cd8f782496b3e10d39249a20ed5cb81df7958938e6f9bbe56b0730ad80a887",
+      "model_id": "eleven_multilingual_v2"
+    },
+    {
+      "bank": "robot_02",
+      "key": "pickup",
+      "prompt": "Got it.",
+      "node_id": "fsbM7I4liRsp88YX4PQG",
+      "generation_id": "l5nKn0nexqg7z8eO2Uzg",
+      "duration_secs": 0.65,
+      "candidate_ids": [
+        "A6c1o8MYQgWTzLbxOlvS",
+        "Vk044eEBc80PC9WLWywH",
+        "HuhaBcG8zKWWTTaJUwVH",
+        "l5nKn0nexqg7z8eO2Uzg"
+      ],
+      "voice_id": "cjVigY5qzO86Huf0OWal",
+      "voice_name": "Eric - Smooth, Trustworthy",
+      "source": "source/robot_02/pickup.mp3",
+      "sha256": "90b6eafae3c15274774a079b794d0c306ef6be7a349cb78fa0b4d8b707c52a32",
+      "model_id": "eleven_multilingual_v2"
+    },
+    {
+      "bank": "robot_02",
+      "key": "repair_complete",
+      "prompt": "Repair complete. Ready to move.",
+      "node_id": "9t7HjGJdq4KFyoOTWKZe",
+      "generation_id": "K24K4htSAsgtcTkfRgRZ",
+      "duration_secs": 1.81,
+      "candidate_ids": [
+        "K24K4htSAsgtcTkfRgRZ",
+        "qdQ32M964tMTdq9KaVNB",
+        "YKmevr7Otg579KHmmhZp",
+        "sqbYYHkrzOObUhH6VWEg"
+      ],
+      "voice_id": "cjVigY5qzO86Huf0OWal",
+      "voice_name": "Eric - Smooth, Trustworthy",
+      "source": "source/robot_02/repair_complete.mp3",
+      "sha256": "e557058bdcfe1602862e94e1e6f16008596e4c2062fd88438d93f31dbcb64034",
+      "model_id": "eleven_multilingual_v2"
+    },
+    {
+      "bank": "robot_02",
+      "key": "power_low",
+      "prompt": "Power below fifty percent. Find an Energy Core.",
+      "node_id": "S5dCRV5cJoECasGyZac4",
+      "generation_id": "FU8TjHifDF5oYANPiKc2",
+      "duration_secs": 2.69,
+      "candidate_ids": [
+        "lDCUZ8Z156dTY6TjrU4r",
+        "oD1kduGDlQziEGCeKBQB",
+        "9elPmWqTcZ60fRSylX1q",
+        "FU8TjHifDF5oYANPiKc2"
+      ],
+      "voice_id": "cjVigY5qzO86Huf0OWal",
+      "voice_name": "Eric - Smooth, Trustworthy",
+      "source": "source/robot_02/power_low.mp3",
+      "sha256": "d5fa10e8fe426e4a884b248c53346acd899cb5dea01555ecd82bd7fefa4bd036",
+      "model_id": "eleven_multilingual_v2"
+    },
+    {
+      "bank": "robot_02",
+      "key": "power_critical",
+      "prompt": "Critical power. Find an Energy Core now.",
+      "node_id": "Uf8qoReQa46xw2WMF0xh",
+      "generation_id": "evJyT3jETzdhecVWxQze",
+      "duration_secs": 2.23,
+      "candidate_ids": [
+        "uiESaB5iXOy4BIeluWYP",
+        "evJyT3jETzdhecVWxQze",
+        "xGiKYzOmjiZQWwOI2Pi1",
+        "0GLArRYB6W4kEktTQNdt"
+      ],
+      "voice_id": "cjVigY5qzO86Huf0OWal",
+      "voice_name": "Eric - Smooth, Trustworthy",
+      "source": "source/robot_02/power_critical.mp3",
+      "sha256": "33cbf2e2f68f32139724535672b6d05223d2cae5afd302e88f753ccd8e012064",
+      "model_id": "eleven_multilingual_v2"
+    },
+    {
+      "bank": "robot_03",
+      "key": "armor_hit",
+      "prompt": "Armor hit.",
+      "node_id": "4SSAOkNaOghaS9Ps7YOU",
+      "generation_id": "92dqWDmyp69dJgejeGmO",
+      "duration_secs": 0.98,
+      "candidate_ids": [
+        "HrWj9CUagGou11QgGM8J",
+        "tw4chV8tJ1LIuegcyMn0",
+        "7K4PBJX1WmCoK4YrRyhy",
+        "92dqWDmyp69dJgejeGmO"
+      ],
+      "voice_id": "N2lVS1w4EtoT3dr4eOWO",
+      "voice_name": "Callum - Husky Trickster",
+      "source": "source/robot_03/armor_hit.mp3",
+      "sha256": "69bd4d4bd7d74e1618244943c4716c5b84d9908d74acd590c66c4bbed36340d9",
+      "model_id": "eleven_multilingual_v2"
+    },
+    {
+      "bank": "robot_03",
+      "key": "pickup",
+      "prompt": "Got it.",
+      "node_id": "pmOYO6yxI42irdTjImD0",
+      "generation_id": "PF8u2MRsBSzAvEXKmuxC",
+      "duration_secs": 0.84,
+      "candidate_ids": [
+        "PF8u2MRsBSzAvEXKmuxC",
+        "ZPU6FwtaRNvhIa8fcfwG",
+        "fPpvaTMmEcpEU4TMw7Ad",
+        "JRJxzx5DO3mqoathapPm"
+      ],
+      "voice_id": "N2lVS1w4EtoT3dr4eOWO",
+      "voice_name": "Callum - Husky Trickster",
+      "source": "source/robot_03/pickup.mp3",
+      "sha256": "9ce348e2bd69a9a8430a8c691a8be9c24ca774f0b1e2afef63849def42966e72",
+      "model_id": "eleven_multilingual_v2"
+    },
+    {
+      "bank": "robot_03",
+      "key": "repair_complete",
+      "prompt": "Repair complete. Ready to move.",
+      "node_id": "tbr7FgBdkpw1Z8H19rCJ",
+      "generation_id": "FXak4hOeRdznQA65v6Es",
+      "duration_secs": 2.46,
+      "candidate_ids": [
+        "jKUS2OSaTAb6e1YvZtP4",
+        "FXak4hOeRdznQA65v6Es",
+        "w3QRKdMfLmXWhGEK8xJ2",
+        "Kzrd1i4Nx2Iqr80fe9Ie"
+      ],
+      "voice_id": "N2lVS1w4EtoT3dr4eOWO",
+      "voice_name": "Callum - Husky Trickster",
+      "source": "source/robot_03/repair_complete.mp3",
+      "sha256": "4d31441b4687014238ce6ea8c9602ed20f11bbc18a67d89572de2fbbe3cb86e2",
+      "model_id": "eleven_multilingual_v2"
+    },
+    {
+      "bank": "robot_03",
+      "key": "power_low",
+      "prompt": "Power below fifty percent. Find an Energy Core.",
+      "node_id": "4KEiqMxRYdJZXuJlvbNN",
+      "generation_id": "7pHk0PA4mo08DxGq2t5Z",
+      "duration_secs": 3.76,
+      "candidate_ids": [
+        "7pHk0PA4mo08DxGq2t5Z",
+        "Pei7eLN9xVUhtnHNeluI",
+        "whKlBeDYDST7ztKnNoLh",
+        "k04H5sxkaX1GNFLkiNOU"
+      ],
+      "voice_id": "N2lVS1w4EtoT3dr4eOWO",
+      "voice_name": "Callum - Husky Trickster",
+      "source": "source/robot_03/power_low.mp3",
+      "sha256": "1ff92e1df041491b3a7866dc2dde0f6af2c707e83c4ccdcf51f2f19dbb67ec21",
+      "model_id": "eleven_multilingual_v2"
+    },
+    {
+      "bank": "robot_03",
+      "key": "power_critical",
+      "prompt": "Critical power. Find an Energy Core now.",
+      "node_id": "5SwnWwqxqLCXXXlIob9v",
+      "generation_id": "wq4IifUrXLyAm87THrrW",
+      "duration_secs": 3.25,
+      "candidate_ids": [
+        "wq4IifUrXLyAm87THrrW",
+        "jql9868TejNTV93iCBtG",
+        "MFd8f9AGJxA1PgNlBWZF",
+        "OwB0kbCZsyzcsDb6mhyn"
+      ],
+      "voice_id": "N2lVS1w4EtoT3dr4eOWO",
+      "voice_name": "Callum - Husky Trickster",
+      "source": "source/robot_03/power_critical.mp3",
+      "sha256": "e63e8e35f176cb345389f96ab4f6077349e21e593e97eba07a7665028e30d346",
+      "model_id": "eleven_multilingual_v2"
+    },
+    {
+      "bank": "robot_04",
+      "key": "armor_hit",
+      "prompt": "Armor hit.",
+      "node_id": "GvQe0oGGn3mgcCSc4eAS",
+      "generation_id": "MWE2wiqi3IamfE4DBgQP",
+      "duration_secs": 0.79,
+      "candidate_ids": [
+        "RaaafN0UuO1WhJjuB1HW",
+        "DFZBMNTG3prBTJYlzFT6",
+        "MWE2wiqi3IamfE4DBgQP",
+        "JOH1v76UxcBX9i18bOkm"
+      ],
+      "voice_id": "FGY2WhTYpPnrIDTdsKH5",
+      "voice_name": "Laura - Enthusiast, Quirky Attitude",
+      "source": "source/robot_04/armor_hit.mp3",
+      "sha256": "37728fc804db5b06dfff0c2d7f9e7801c8c765004ad112477128c799dc9df0cf",
+      "model_id": "eleven_multilingual_v2"
+    },
+    {
+      "bank": "robot_04",
+      "key": "pickup",
+      "prompt": "Got it.",
+      "node_id": "yMuGFyoozekqkRoCCYGL",
+      "generation_id": "kZzgeqrFykqFXDxp70b1",
+      "duration_secs": 0.74,
+      "candidate_ids": [
+        "bjvTmcledgIv9EBPs9CO",
+        "kZzgeqrFykqFXDxp70b1",
+        "3auMW2wO3ra9ChvDBfa7",
+        "9zhN4a5KEEgiopCPjUjP"
+      ],
+      "voice_id": "FGY2WhTYpPnrIDTdsKH5",
+      "voice_name": "Laura - Enthusiast, Quirky Attitude",
+      "source": "source/robot_04/pickup.mp3",
+      "sha256": "fcfbc76a6151e66bd3388e75abe7f97c1a8f0840ff2d014db850ee6a779c325b",
+      "model_id": "eleven_multilingual_v2"
+    },
+    {
+      "bank": "robot_04",
+      "key": "repair_complete",
+      "prompt": "Repair complete. Ready to move.",
+      "node_id": "tVQhKJquollUgXAgDMb9",
+      "generation_id": "Ctq2gm1LzhLKRm4qPNaP",
+      "duration_secs": 1.95,
+      "candidate_ids": [
+        "FuFJW4FW6x0uP7vdnnUt",
+        "6ZVJYqrRaRtNDyaClIZS",
+        "Ctq2gm1LzhLKRm4qPNaP",
+        "CCg4SPIIgV1APejh0jAA"
+      ],
+      "voice_id": "FGY2WhTYpPnrIDTdsKH5",
+      "voice_name": "Laura - Enthusiast, Quirky Attitude",
+      "source": "source/robot_04/repair_complete.mp3",
+      "sha256": "ce696bc0b8fd199ebed098264f8fe4cc6fe22a3420a143f1efe1da3591bf1a9b",
+      "model_id": "eleven_multilingual_v2"
+    },
+    {
+      "bank": "robot_04",
+      "key": "power_low",
+      "prompt": "Power below fifty percent. Find an Energy Core.",
+      "node_id": "SyUzQLQIKSFyI8AgH5Ej",
+      "generation_id": "S5s0ci5lJLfYtz78tZcv",
+      "duration_secs": 3.07,
+      "candidate_ids": [
+        "S5s0ci5lJLfYtz78tZcv",
+        "aEI4SMuG0brYNGCVVnzb",
+        "CRz4iNWeG26boHDEEXLJ",
+        "ILe391lk1eyi8Yk1qosx"
+      ],
+      "voice_id": "FGY2WhTYpPnrIDTdsKH5",
+      "voice_name": "Laura - Enthusiast, Quirky Attitude",
+      "source": "source/robot_04/power_low.mp3",
+      "sha256": "7756dd54d0629ece652db74cbeb61f8dbfb89ddd71a4ace7582fa022b70da5e9",
+      "model_id": "eleven_multilingual_v2"
+    },
+    {
+      "bank": "robot_04",
+      "key": "power_critical",
+      "prompt": "Critical power. Find an Energy Core now.",
+      "node_id": "osArY8X0NwkTlLUoQZB9",
+      "generation_id": "K84R8NWcZLeg66IgVUSe",
+      "duration_secs": 2.6,
+      "candidate_ids": [
+        "K84R8NWcZLeg66IgVUSe",
+        "aINb8rCxZE6gl2a4zZ2j",
+        "Dm7w957MnozI5nZNDZu7",
+        "Q44nw3xYptl6161uzPWF"
+      ],
+      "voice_id": "FGY2WhTYpPnrIDTdsKH5",
+      "voice_name": "Laura - Enthusiast, Quirky Attitude",
+      "source": "source/robot_04/power_critical.mp3",
+      "sha256": "4ea7dbb9941546aed3b2f828a23fd17a1b2c4701f9f7659e444add3be825f1bf",
+      "model_id": "eleven_multilingual_v2"
+    },
+    {
+      "bank": "robot_05",
+      "key": "armor_hit",
+      "prompt": "Armor hit.",
+      "node_id": "iuTupCpMY7nVvkfACXyV",
+      "generation_id": "bQOEjPgLhugGTS7FVir7",
+      "duration_secs": 0.88,
+      "candidate_ids": [
+        "bQOEjPgLhugGTS7FVir7",
+        "C10tUUeknrTztHkVpgYf",
+        "Gx7tdi3iCOI9Jq1zXMcM",
+        "9KWmbpBRs4lciHSuJBfw"
+      ],
+      "voice_id": "JBFqnCBsd6RMkjVDRZzb",
+      "voice_name": "George - Warm, Captivating Storyteller",
+      "source": "source/robot_05/armor_hit.mp3",
+      "sha256": "4796c236865de48ee49bcf220280fa437e8b32db0ae101106ece8d97545d5000",
+      "model_id": "eleven_multilingual_v2"
+    },
+    {
+      "bank": "robot_05",
+      "key": "pickup",
+      "prompt": "Got it.",
+      "node_id": "LrkEyvhrypRFVF6u77P4",
+      "generation_id": "eYN0gPK09a0poKRWQdRR",
+      "duration_secs": 0.79,
+      "candidate_ids": [
+        "o9jf28L7wMyltMnV5RH6",
+        "eYN0gPK09a0poKRWQdRR",
+        "1zI8IiBYAIxeyPTS6jWX",
+        "9KOmQDhJ77i0SCCDI7S2"
+      ],
+      "voice_id": "JBFqnCBsd6RMkjVDRZzb",
+      "voice_name": "George - Warm, Captivating Storyteller",
+      "source": "source/robot_05/pickup.mp3",
+      "sha256": "a140bf7d257c09a3b022c701636d5fefde363075ae693e74556922e321cefad1",
+      "model_id": "eleven_multilingual_v2"
+    },
+    {
+      "bank": "robot_05",
+      "key": "repair_complete",
+      "prompt": "Repair complete. Ready to move.",
+      "node_id": "UuVzEXUpT5SbDke0CurA",
+      "generation_id": "KHpJfzPOTzUrVl567Mdd",
+      "duration_secs": 2.18,
+      "candidate_ids": [
+        "CoSqbyeVZ8Utxv0J943R",
+        "kOuAYPUT5gGQOxHkEAYt",
+        "66hY0xALBznTMxvzhi3n",
+        "KHpJfzPOTzUrVl567Mdd"
+      ],
+      "voice_id": "JBFqnCBsd6RMkjVDRZzb",
+      "voice_name": "George - Warm, Captivating Storyteller",
+      "source": "source/robot_05/repair_complete.mp3",
+      "sha256": "ced82fb4b60d4b4fc786b528fd8bb411555855cd4507e6e219e2ff2402bfde0b",
+      "model_id": "eleven_multilingual_v2"
+    },
+    {
+      "bank": "robot_05",
+      "key": "power_low",
+      "prompt": "Power below fifty percent. Find an Energy Core.",
+      "node_id": "3cJHwodRJ8k6yYQTnDBc",
+      "generation_id": "CYRWZKg4OxFZN9Fafzy3",
+      "duration_secs": 3.2,
+      "candidate_ids": [
+        "nehH3XvnXXIHpIQFaLti",
+        "9YrWD99cYJzYFohiujdE",
+        "CYRWZKg4OxFZN9Fafzy3",
+        "uK7EtwrijLxmgnbsTm4B"
+      ],
+      "voice_id": "JBFqnCBsd6RMkjVDRZzb",
+      "voice_name": "George - Warm, Captivating Storyteller",
+      "source": "source/robot_05/power_low.mp3",
+      "sha256": "fcd3a6e68cfcabd8db1a104ba98e5c70d4821b46aa169cc995d6acec1b8fa7f9",
+      "model_id": "eleven_multilingual_v2"
+    },
+    {
+      "bank": "robot_05",
+      "key": "power_critical",
+      "prompt": "Critical power. Find an Energy Core now.",
+      "node_id": "lfbNtZ9f9wEXBytZixnW",
+      "generation_id": "s4U3O00MYaH4eK36PvIE",
+      "duration_secs": 2.79,
+      "candidate_ids": [
+        "s1QhKjJVsVZIXVxxj78U",
+        "s4U3O00MYaH4eK36PvIE",
+        "gw3K8XF35IjAjqBFtBaw",
+        "LujE5IBGpGbi4OAeMTuh"
+      ],
+      "voice_id": "JBFqnCBsd6RMkjVDRZzb",
+      "voice_name": "George - Warm, Captivating Storyteller",
+      "source": "source/robot_05/power_critical.mp3",
+      "sha256": "b4adb18c85827c25471c9597ff475f9c3373e956511f354441f458583c7342ee",
+      "model_id": "eleven_multilingual_v2"
+    },
+    {
+      "bank": "robot_06",
+      "key": "armor_hit",
+      "prompt": "Armor hit.",
+      "node_id": "ovxxzGW0cCv0GZMI0ekc",
+      "generation_id": "BVyoxAgTflZG3cTcZZ66",
+      "duration_secs": 1.07,
+      "candidate_ids": [
+        "3wNktHlK3UVKZ4jFt1bE",
+        "BVyoxAgTflZG3cTcZZ66",
+        "A1D0iffOU9xDTEkPXNyI",
+        "JQEylvcJdWGqKHmChpsw"
+      ],
+      "voice_id": "Xb7hH8MSUJpSbSDYk0k2",
+      "voice_name": "Alice - Clear, Engaging Educator",
+      "source": "source/robot_06/armor_hit.mp3",
+      "sha256": "871a6bcb3c78e23a39bd915511f2b1e7fdfc71cdea3361a0d0564355914cab24",
+      "model_id": "eleven_multilingual_v2"
+    },
+    {
+      "bank": "robot_06",
+      "key": "pickup",
+      "prompt": "Got it.",
+      "node_id": "FRgigopnzFVWjK2jYNLG",
+      "generation_id": "Jho2KtPOfN1OCYcKdC6u",
+      "duration_secs": 0.7,
+      "candidate_ids": [
+        "EzpHfXpXsn2x1ibaEzaP",
+        "ftKFhRyPUkPcuTFLpB6c",
+        "Jho2KtPOfN1OCYcKdC6u",
+        "RDdW9pIisMaadclGL2z1"
+      ],
+      "voice_id": "Xb7hH8MSUJpSbSDYk0k2",
+      "voice_name": "Alice - Clear, Engaging Educator",
+      "source": "source/robot_06/pickup.mp3",
+      "sha256": "01b9a83e0263d33d1ac7bfc6ff8852bf65339133bb6d1346673d5222cfd77135",
+      "model_id": "eleven_multilingual_v2"
+    },
+    {
+      "bank": "robot_06",
+      "key": "repair_complete",
+      "prompt": "Repair complete. Ready to move.",
+      "node_id": "Rb3KGWAS2hIEpKctTDXX",
+      "generation_id": "UvbF0WSe3OBb7MTBEW1g",
+      "duration_secs": 2.23,
+      "candidate_ids": [
+        "vhZULXvArRxsFNn4Uwtc",
+        "EuuM5nwr4L7Gqwz24NXz",
+        "HJuKvNMzsoG4fmakn7N6",
+        "UvbF0WSe3OBb7MTBEW1g"
+      ],
+      "voice_id": "Xb7hH8MSUJpSbSDYk0k2",
+      "voice_name": "Alice - Clear, Engaging Educator",
+      "source": "source/robot_06/repair_complete.mp3",
+      "sha256": "a1d84cd59947af8aa8d54c8ad3a6fa562bffd59d55905f699c8412064d7736ec",
+      "model_id": "eleven_multilingual_v2"
+    },
+    {
+      "bank": "robot_06",
+      "key": "power_low",
+      "prompt": "Power below fifty percent. Find an Energy Core.",
+      "node_id": "r0bggImxD09McAAqtqNL",
+      "generation_id": "LfRLRhGbnB79RkgKQbDZ",
+      "duration_secs": 3.48,
+      "candidate_ids": [
+        "FyWOX3hzqZb4VqtfcLrL",
+        "QH52a47bjlS1VMuNNDlu",
+        "GOKk588BEo6VoMBbzKED",
+        "LfRLRhGbnB79RkgKQbDZ"
+      ],
+      "voice_id": "Xb7hH8MSUJpSbSDYk0k2",
+      "voice_name": "Alice - Clear, Engaging Educator",
+      "source": "source/robot_06/power_low.mp3",
+      "sha256": "cd962fc655b9a150fded8beb66542dc74c9871053a2f8719858b05c98033a749",
+      "model_id": "eleven_multilingual_v2"
+    },
+    {
+      "bank": "robot_06",
+      "key": "power_critical",
+      "prompt": "Critical power. Find an Energy Core now.",
+      "node_id": "GtfluPCu1wJvdVouWZui",
+      "generation_id": "bMletPZafEIQlFsfawLP",
+      "duration_secs": 2.88,
+      "candidate_ids": [
+        "YFOMD64eQvOrwiwMHSC5",
+        "FyxHCq0mqc2PMmWdToZJ",
+        "bMletPZafEIQlFsfawLP",
+        "REMjjtJHBUkd6JLe0lY1"
+      ],
+      "voice_id": "Xb7hH8MSUJpSbSDYk0k2",
+      "voice_name": "Alice - Clear, Engaging Educator",
+      "source": "source/robot_06/power_critical.mp3",
+      "sha256": "2794cf9bcea232c0a11fc97fff6a212825b1b1ce0ed1209a3b83bf16942da2d4",
+      "model_id": "eleven_multilingual_v2"
+    },
+    {
+      "bank": "robot_07",
+      "key": "armor_hit",
+      "prompt": "Armor hit.",
+      "node_id": "HAFkYuhmzUYV8aAzd6tW",
+      "generation_id": "YtwOKUAkQcsQgWqpqS4V",
+      "duration_secs": 0.93,
+      "candidate_ids": [
+        "MCBga3a4p07e40Z0UPCb",
+        "6rB7yMLQlllRj0tHZKaX",
+        "YtwOKUAkQcsQgWqpqS4V",
+        "ze0be25ZalHttEBA2wEw"
+      ],
+      "voice_id": "SOYHLrjzK2X1ezoPC6cr",
+      "voice_name": "Harry - Fierce Warrior",
+      "source": "source/robot_07/armor_hit.mp3",
+      "sha256": "6ab15bd9389ef457a6f0d148b85d0d1d33253efc66dfb9d12c8c8cf1141ce6e8",
+      "model_id": "eleven_multilingual_v2"
+    },
+    {
+      "bank": "robot_07",
+      "key": "pickup",
+      "prompt": "Got it.",
+      "node_id": "ousXl1UVdqlyT8RO1ODM",
+      "generation_id": "CJjgozjJryWOuArI7BeL",
+      "duration_secs": 0.74,
+      "candidate_ids": [
+        "Gq6rPtFg5knYAV2q48XA",
+        "CJjgozjJryWOuArI7BeL",
+        "p5h43HJJIQfrFWT5tQjz"
+      ],
+      "voice_id": "SOYHLrjzK2X1ezoPC6cr",
+      "voice_name": "Harry - Fierce Warrior",
+      "source": "source/robot_07/pickup.mp3",
+      "sha256": "c5a5834ca7d8f1ee0bee081267ffe16fd41fdfc5887f89ff61d3f3df22da3ea6",
+      "model_id": "eleven_multilingual_v2"
+    },
+    {
+      "bank": "robot_07",
+      "key": "repair_complete",
+      "prompt": "Repair complete. Ready to move.",
+      "node_id": "k6ZxWavTy4tv0Wka8gWI",
+      "generation_id": "hLI9t3CHSsqKDU025Sht",
+      "duration_secs": 2.23,
+      "candidate_ids": [
+        "vm4ETqoUuqDHSaoPPW3M",
+        "hLI9t3CHSsqKDU025Sht"
+      ],
+      "voice_id": "SOYHLrjzK2X1ezoPC6cr",
+      "voice_name": "Harry - Fierce Warrior",
+      "source": "source/robot_07/repair_complete.mp3",
+      "sha256": "3391b03d8532ed874c363029104a99f49730ccf85249551e288600ab093ef195",
+      "model_id": "eleven_multilingual_v2"
+    },
+    {
+      "bank": "robot_07",
+      "key": "power_low",
+      "prompt": "Power below fifty percent. Find an Energy Core.",
+      "node_id": "LMRZNzV7CfYx0m8Qcdh4",
+      "generation_id": "yzIcho7eYSo2GDCFJcf1",
+      "duration_secs": 3.3,
+      "candidate_ids": [
+        "C2AgviI0xDOvNHPtwM33",
+        "yzIcho7eYSo2GDCFJcf1",
+        "rgAxdWVtV5AEXoZU2QT8",
+        "MGCdva1KWQPwzU6cWaYi"
+      ],
+      "voice_id": "SOYHLrjzK2X1ezoPC6cr",
+      "voice_name": "Harry - Fierce Warrior",
+      "source": "source/robot_07/power_low.mp3",
+      "sha256": "d4eb009b67d67a85ff06728b05bf07a3088470e56a4ee8b90266b550341d80cc",
+      "model_id": "eleven_multilingual_v2"
+    },
+    {
+      "bank": "robot_07",
+      "key": "power_critical",
+      "prompt": "Critical power. Find an Energy Core now.",
+      "node_id": "KRz1aFfoSmwLyL2gHyXZ",
+      "generation_id": "qcHR2w6xjVaHHqV1lCBd",
+      "duration_secs": 2.65,
+      "candidate_ids": [
+        "narkEUgjQpepkkQkCSHu",
+        "JllNZhX4AivcQSi23sTI",
+        "qcHR2w6xjVaHHqV1lCBd",
+        "fqDgNQYn8Eb0CwBdqBrr"
+      ],
+      "voice_id": "SOYHLrjzK2X1ezoPC6cr",
+      "voice_name": "Harry - Fierce Warrior",
+      "source": "source/robot_07/power_critical.mp3",
+      "sha256": "603b11eaf63ff2f06209b6a037ad0594a950dfd6a28a8ed33e0a55d100f5a279",
+      "model_id": "eleven_multilingual_v2"
+    },
+    {
+      "bank": "robot_08",
+      "key": "armor_hit",
+      "prompt": "Armor hit.",
+      "node_id": "IkKgEMf9g5ZwtilQky9B",
+      "generation_id": "FvxxRT9DMRSM376IXpxX",
+      "duration_secs": 0.74,
+      "candidate_ids": [
+        "qPH78dWJhLwLOwKxVZcT",
+        "bbYf0TxB58MPlhUuwXVX",
+        "FvxxRT9DMRSM376IXpxX",
+        "rnblUaePgAAet2025fKP"
+      ],
+      "voice_id": "SAz9YHcvj6GT2YYXdXww",
+      "voice_name": "River - Relaxed, Neutral, Informative",
+      "source": "source/robot_08/armor_hit.mp3",
+      "sha256": "8c187e345949ba8110d191a2a113277929bdfa444434d3d6bb80c74f55b45176",
+      "model_id": "eleven_multilingual_v2"
+    },
+    {
+      "bank": "robot_08",
+      "key": "pickup",
+      "prompt": "Got it.",
+      "node_id": "RDG9m6qxYMsrHoaT6PiN",
+      "generation_id": "tIF3vC051cpCn1M4pmfY",
+      "duration_secs": 0.65,
+      "candidate_ids": [
+        "Czggg0xbAEwqCPlb6tfo",
+        "tIF3vC051cpCn1M4pmfY",
+        "kmOILj60sF34L57hDVtu",
+        "UNfQ9C3WZiUsqWUVFE1A"
+      ],
+      "voice_id": "SAz9YHcvj6GT2YYXdXww",
+      "voice_name": "River - Relaxed, Neutral, Informative",
+      "source": "source/robot_08/pickup.mp3",
+      "sha256": "281ef5e3a520891f9064c81ffef7a1b187786cb00879102929f7c95d28098626",
+      "model_id": "eleven_multilingual_v2"
+    },
+    {
+      "bank": "robot_08",
+      "key": "repair_complete",
+      "prompt": "Repair complete. Ready to move.",
+      "node_id": "lr8ibYt9hF8i604RdGMK",
+      "generation_id": "lolW53lINgi4K9RtHLsV",
+      "duration_secs": 1.95,
+      "candidate_ids": [
+        "qB83RAsBdvq03ki2HtOc",
+        "lolW53lINgi4K9RtHLsV",
+        "cIWQRt4l5jcGPjRF3XqR",
+        "8Glk8F3S0k7ZDQ40k5OE"
+      ],
+      "voice_id": "SAz9YHcvj6GT2YYXdXww",
+      "voice_name": "River - Relaxed, Neutral, Informative",
+      "source": "source/robot_08/repair_complete.mp3",
+      "sha256": "bc80a0e7c9a51d4cb5f41cf198dc20bf7c4ce75a3d9bfbeb004c39e0de7874a1",
+      "model_id": "eleven_multilingual_v2"
+    },
+    {
+      "bank": "robot_08",
+      "key": "power_low",
+      "prompt": "Power below fifty percent. Find an Energy Core.",
+      "node_id": "FqgCicARrV08a5rxmX4W",
+      "generation_id": "oRfWHBIrjAxaoXVKMC5m",
+      "duration_secs": 2.83,
+      "candidate_ids": [
+        "1bMqOnq6md0TAbBVNgcW",
+        "oRfWHBIrjAxaoXVKMC5m",
+        "qcdiTxzIRwKVT38E7L63",
+        "j2EVidR5B6puph4xVOVv"
+      ],
+      "voice_id": "SAz9YHcvj6GT2YYXdXww",
+      "voice_name": "River - Relaxed, Neutral, Informative",
+      "source": "source/robot_08/power_low.mp3",
+      "sha256": "66a0bda5b490c336980fd1c6e156b8b4337006b1470267bf280d2b095144db7f",
+      "model_id": "eleven_multilingual_v2"
+    },
+    {
+      "bank": "robot_08",
+      "key": "power_critical",
+      "prompt": "Critical power. Find an Energy Core now.",
+      "node_id": "y7vea6EwjRbXSXyHpV8L",
+      "generation_id": "l7xGeKi5uVKeHpQTACgg",
+      "duration_secs": 2.65,
+      "candidate_ids": [
+        "l7xGeKi5uVKeHpQTACgg",
+        "7mKYZTFQMwj8BLMXapzE",
+        "s4oBu6zZXuk8yiuqtm4B",
+        "nq9hTdEQ5LJCXAJwE2iq"
+      ],
+      "voice_id": "SAz9YHcvj6GT2YYXdXww",
+      "voice_name": "River - Relaxed, Neutral, Informative",
+      "source": "source/robot_08/power_critical.mp3",
+      "sha256": "0e516d87602778ae2674cf36caf4c544afdb3f4c026cb47d0019c4de490a182e",
+      "model_id": "eleven_multilingual_v2"
+    },
+    {
+      "bank": "robot_09",
+      "key": "armor_hit",
+      "prompt": "Armor hit.",
+      "node_id": "04dx8RsKzXjgGJKGu7Bp",
+      "generation_id": "AEABa9Dl0XpmdYjs0FY3",
+      "duration_secs": 0.93,
+      "candidate_ids": [
+        "lH2GxZkvai9EEvujN3SF",
+        "y35mu4K7mF7zqLupUQ14",
+        "YZW6saTs4thxVGMcNdON",
+        "AEABa9Dl0XpmdYjs0FY3"
+      ],
+      "voice_id": "TX3LPaxmHKxFdv7VOQHJ",
+      "voice_name": "Liam - Energetic, Social Media Creator",
+      "source": "source/robot_09/armor_hit.mp3",
+      "sha256": "644692e99bc62824b39eb5f5ceec57aaf603eb4a0456a9d1fb8a19c6e2a41cdb",
+      "model_id": "eleven_multilingual_v2"
+    },
+    {
+      "bank": "robot_09",
+      "key": "pickup",
+      "prompt": "Got it.",
+      "node_id": "fQf7X9BHqmBmv3aakfH1",
+      "generation_id": "rRyTi3WcyexYN6FnsqTH",
+      "duration_secs": 0.7,
+      "candidate_ids": [
+        "Ayp0sp7WfJYAydahuMdh",
+        "rRyTi3WcyexYN6FnsqTH",
+        "w1ofKdLNFtUFibHTl03g",
+        "qrLNFlnNK0f23ApoH8p9"
+      ],
+      "voice_id": "TX3LPaxmHKxFdv7VOQHJ",
+      "voice_name": "Liam - Energetic, Social Media Creator",
+      "source": "source/robot_09/pickup.mp3",
+      "sha256": "8f89e7da2b181b44b21a5e706582d551b2db27a53c9e920ae359273e2cddd999",
+      "model_id": "eleven_multilingual_v2"
+    },
+    {
+      "bank": "robot_09",
+      "key": "repair_complete",
+      "prompt": "Repair complete. Ready to move.",
+      "node_id": "kAzAIJMgm3TNIzi8Zo30",
+      "generation_id": "oA9i146HeGnt2VgDyae3",
+      "duration_secs": 2.04,
+      "candidate_ids": [
+        "oA9i146HeGnt2VgDyae3",
+        "kPPNFt2VJ5vCYypztMj9",
+        "FRSs0dDwPhaROkn71on7",
+        "ATTCVB8dInhSk1t27PsZ"
+      ],
+      "voice_id": "TX3LPaxmHKxFdv7VOQHJ",
+      "voice_name": "Liam - Energetic, Social Media Creator",
+      "source": "source/robot_09/repair_complete.mp3",
+      "sha256": "482d8fb01916d6e2b58c67c94f394ca1e2aecabe2823b02af9367ad5f423d65a",
+      "model_id": "eleven_multilingual_v2"
+    },
+    {
+      "bank": "robot_09",
+      "key": "power_low",
+      "prompt": "Power below fifty percent. Find an Energy Core.",
+      "node_id": "OuCYdRc6Yk0w9pEziKZz",
+      "generation_id": "aiWoWxUsK4gjBQY3Ei9I",
+      "duration_secs": 3.62,
+      "candidate_ids": [
+        "WKBVFFNNh6xTlXHCvO09",
+        "8IG5uHtETHoWUhNnHaeE",
+        "aiWoWxUsK4gjBQY3Ei9I",
+        "kTqmupbvjnwHbKZoXGMf"
+      ],
+      "voice_id": "TX3LPaxmHKxFdv7VOQHJ",
+      "voice_name": "Liam - Energetic, Social Media Creator",
+      "source": "source/robot_09/power_low.mp3",
+      "sha256": "594b053f4f135c7000de26ad7f617aab821987dd565151cd2d1405c45b528c8d",
+      "model_id": "eleven_multilingual_v2"
+    },
+    {
+      "bank": "robot_09",
+      "key": "power_critical",
+      "prompt": "Critical power. Find an Energy Core now.",
+      "node_id": "8MkE4pHPSKqlXzoUQqfg",
+      "generation_id": "GzAKHC80XRMTMAEOnXdW",
+      "duration_secs": 2.88,
+      "candidate_ids": [
+        "GzAKHC80XRMTMAEOnXdW",
+        "xNX9tOwLWfobU7QDJFNx",
+        "e6IrYi3dWtbSC21aq1sn",
+        "QZIIGPMJNfdR0YS4TSGe"
+      ],
+      "voice_id": "TX3LPaxmHKxFdv7VOQHJ",
+      "voice_name": "Liam - Energetic, Social Media Creator",
+      "source": "source/robot_09/power_critical.mp3",
+      "sha256": "085dc249a32e7183eb469e1756d7e33252ee0bce64c97a01d30c123d2cf2e574",
+      "model_id": "eleven_multilingual_v2"
+    },
+    {
+      "bank": "announcer",
+      "key": "arena_warning",
+      "prompt": "Arena reconfiguration in ten seconds.",
+      "node_id": "DFM2LlokkaESSEQ9Ij5R",
+      "generation_id": "3wh0isPN46ww3pODAtUE",
+      "duration_secs": 2.37,
+      "candidate_ids": [
+        "3wh0isPN46ww3pODAtUE",
+        "VEi6xo05uUiKgzmkGiX5",
+        "dNz2rRqdkEzDtX5Dye4k",
+        "oEywIqSKmlo7v5Mzxsvy"
+      ],
+      "voice_id": "XrExE9yKIg1WjnnlVkGX",
+      "voice_name": "Matilda - Knowledgable, Professional",
+      "source": "source/announcer/arena_warning.mp3",
+      "sha256": "e0f800ef15fbbfd130b97ee0a068337ce0fe0304d565510b0224c110c8fcd907",
+      "model_id": "eleven_multilingual_v2"
+    },
+    {
+      "bank": "announcer",
+      "key": "arena_changed",
+      "prompt": "Cover banks reconfigured.",
+      "node_id": "0UtyrCXFKWsp1r8stMy3",
+      "generation_id": "ysoN21AMSnKoDvlXj1Bf",
+      "duration_secs": 1.67,
+      "candidate_ids": [
+        "P8cAKLz5kENf82KyWK0b",
+        "ysoN21AMSnKoDvlXj1Bf",
+        "d8VH8fEg9L965CxA21l1",
+        "n2NYfop4n1ytAhvvjY7e"
+      ],
+      "voice_id": "XrExE9yKIg1WjnnlVkGX",
+      "voice_name": "Matilda - Knowledgable, Professional",
+      "source": "source/announcer/arena_changed.mp3",
+      "sha256": "f41128c9e3055394e9a139015a0dc81ba119cb04f22021219af90b80c24c6a57",
+      "model_id": "eleven_multilingual_v2"
+    },
+    {
+      "bank": "announcer",
+      "key": "flag_taken",
+      "prompt": "Flag taken.",
+      "node_id": "KZtq8upM8lHIcQ4MENOk",
+      "generation_id": "9uM959FJMYcAm410n0BO",
+      "duration_secs": 1.16,
+      "candidate_ids": [
+        "4Zbl8S0GVtgABmztWxxE",
+        "eev02rgswn24wA1LgZ51",
+        "ivWQRZHuKxxH66xdyYbr",
+        "9uM959FJMYcAm410n0BO"
+      ],
+      "voice_id": "XrExE9yKIg1WjnnlVkGX",
+      "voice_name": "Matilda - Knowledgable, Professional",
+      "source": "source/announcer/flag_taken.mp3",
+      "sha256": "5347e0af03c29f2e69f55ddfd30a82b3d7a3ab4e951535fd270aceeb4dce5dbe",
+      "model_id": "eleven_multilingual_v2"
+    },
+    {
+      "bank": "announcer",
+      "key": "flag_dropped",
+      "prompt": "Flag dropped.",
+      "node_id": "uaM2EWplSsIobJ7n7jVE",
+      "generation_id": "aR3C5lxDzGheEAbL55vQ",
+      "duration_secs": 1.16,
+      "candidate_ids": [
+        "woT3S4llS6VVrBlkiBmW",
+        "aR3C5lxDzGheEAbL55vQ",
+        "lq9yNdwwBRVogRfmWqUC",
+        "PE4YtXQCgHJnkNSC7OGj"
+      ],
+      "voice_id": "XrExE9yKIg1WjnnlVkGX",
+      "voice_name": "Matilda - Knowledgable, Professional",
+      "source": "source/announcer/flag_dropped.mp3",
+      "sha256": "924d5ac20988f0bc3745652850322c3bd2b9cbeee485bd62723da498ef431586",
+      "model_id": "eleven_multilingual_v2"
+    },
+    {
+      "bank": "announcer",
+      "key": "flag_returned",
+      "prompt": "Flag returned home.",
+      "node_id": "xauv72uVCo1LCfwt85CS",
+      "generation_id": "6l8mUNd3jS8oygerwm4x",
+      "duration_secs": 1.44,
+      "candidate_ids": [
+        "eVSrUZ67fwDXAfZryyYB",
+        "RMK0zUFfJLV8eZyei3nf",
+        "6l8mUNd3jS8oygerwm4x",
+        "KixB9AnUkFAsbs0g42wh"
+      ],
+      "voice_id": "XrExE9yKIg1WjnnlVkGX",
+      "voice_name": "Matilda - Knowledgable, Professional",
+      "source": "source/announcer/flag_returned.mp3",
+      "sha256": "e0098e91ec03b2823fc3d1563916c2281370aa7ff6ff5a14ef7c34df88f96a73",
+      "model_id": "eleven_multilingual_v2"
+    },
+    {
+      "bank": "announcer",
+      "key": "flag_captured",
+      "prompt": "Flag captured.",
+      "node_id": "PiTvUwgd0Cu03R8KXn5H",
+      "generation_id": "WVGfU8zbLXSLtQODJBYw",
+      "duration_secs": 1.3,
+      "candidate_ids": [
+        "dX70O3tPOwnLAkbuyHTr",
+        "hq9wiEKOu5z9Kk4zsXCN",
+        "WVGfU8zbLXSLtQODJBYw",
+        "xvpVzljOL3vafKCJ0Vx4"
+      ],
+      "voice_id": "XrExE9yKIg1WjnnlVkGX",
+      "voice_name": "Matilda - Knowledgable, Professional",
+      "source": "source/announcer/flag_captured.mp3",
+      "sha256": "a62430718562ea032271bc82e5ed36324c658bcfc62da0f654499c4b44244a94",
+      "model_id": "eleven_multilingual_v2"
+    },
+    {
+      "bank": "announcer",
+      "key": "match_won",
+      "prompt": "Match complete. Victory.",
+      "node_id": "rUIx4trl1Tl2iN1Lwjgp",
+      "generation_id": "tyZxOSR1HRCNWa4LSnhO",
+      "duration_secs": 1.76,
+      "candidate_ids": [
+        "LQ1tMl4t89ADB2psMcfm",
+        "3QpSKpbdiW6Z7KQqQOTR",
+        "tyZxOSR1HRCNWa4LSnhO",
+        "1cGLR84or0hTkiQqKLRG"
+      ],
+      "voice_id": "XrExE9yKIg1WjnnlVkGX",
+      "voice_name": "Matilda - Knowledgable, Professional",
+      "source": "source/announcer/match_won.mp3",
+      "sha256": "356a3f89aed32e7b822fd4bb741507b3045d559fe37ee0b4fe77e705cc162ffe",
+      "model_id": "eleven_multilingual_v2"
+    },
+    {
+      "bank": "announcer",
+      "key": "draw",
+      "prompt": "Match complete. Draw.",
+      "node_id": "9FOJrjrOUxVdSUqVCBxB",
+      "generation_id": "6YQzUeDwKyBTmwDJrTIV",
+      "duration_secs": 1.76,
+      "candidate_ids": [
+        "6YQzUeDwKyBTmwDJrTIV",
+        "5mxYGOsg8J8BcXZjCd2P",
+        "gPdaQWNaxGEm9ZoIaLMX",
+        "tNOUHxZftbMj1Zm1CzID"
+      ],
+      "voice_id": "XrExE9yKIg1WjnnlVkGX",
+      "voice_name": "Matilda - Knowledgable, Professional",
+      "source": "source/announcer/draw.mp3",
+      "sha256": "a1ea49a3cf0194c2661591732377e0925cf8563ccff7a2b5058f5545b2b803d4",
+      "model_id": "eleven_multilingual_v2"
+    },
+    {
+      "bank": "announcer",
+      "key": "canceled",
+      "prompt": "Match canceled.",
+      "node_id": "Jy2HliNzhXF1TYhMktzR",
+      "generation_id": "7j9LeLu1I1T6nr13wyeK",
+      "duration_secs": 1.21,
+      "candidate_ids": [
+        "MNsDBYfkKn4j4ANy9KYl",
+        "IeAfLsXYFQ7stFpA0zpH",
+        "nLZnCpeJcRRm7qWRIQEt",
+        "7j9LeLu1I1T6nr13wyeK"
+      ],
+      "voice_id": "XrExE9yKIg1WjnnlVkGX",
+      "voice_name": "Matilda - Knowledgable, Professional",
+      "source": "source/announcer/canceled.mp3",
+      "sha256": "ac2f5370e4387dc1e114588b302e704e29ab7d0155e57d36d73ed4e1e805f7f7",
+      "model_id": "eleven_multilingual_v2"
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+*.log
+*_source_report.json
+*_roundtrip_report.json
+*_collision_report.json
+*_video_report.json

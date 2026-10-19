@@ -1,0 +1,13 @@
+{
+  "lobby": "res://assets/audio/music/lobby.ogg",
+  "assembly": "res://assets/audio/music/assembly.ogg",
+  "active": "res://assets/audio/music/active.ogg",
+  "pressure": "res://assets/audio/music/pressure.ogg",
+  "victory": "res://assets/audio/music/victory.ogg",
+  "draw": "res://assets/audio/music/draw.ogg",
+  "canceled": "res://assets/audio/music/canceled.ogg",
+  "capture_stinger": "res://assets/audio/music/capture_stinger.ogg",
+  "victory_stinger": "res://assets/audio/music/victory_stinger.ogg",
+  "draw_stinger": "res://assets/audio/music/draw_stinger.ogg",
+  "canceled_stinger": "res://assets/audio/music/canceled_stinger.ogg"
+}

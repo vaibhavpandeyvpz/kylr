@@ -1,0 +1,57 @@
+[gd_resource type="BehaviorTree" format=3]
+[ext_resource type="Script" path="res://scripts/ai/tasks/sense_arena.gd" id="sense"]
+[ext_resource type="Script" path="res://scripts/ai/tasks/select_intent.gd" id="intent"]
+[ext_resource type="BehaviorTree" path="res://data/ai/trees/survival.tres" id="survival"]
+[ext_resource type="Script" path="res://scripts/ai/tasks/publish_intent.gd" id="publish"]
+[sub_resource type="BTAction" id="publish"]
+script = ExtResource("publish")
+[sub_resource type="BTAction" id="sense"]
+script = ExtResource("sense")
+[sub_resource type="BTSubtree" id="survival"]
+subtree = ExtResource("survival")
+
+[sub_resource type="BTAction" id="egress"]
+script = ExtResource("intent")
+intent = "egress"
+
+[sub_resource type="BTAction" id="emergency"]
+script = ExtResource("intent")
+intent = "emergency"
+
+[sub_resource type="BTAction" id="combat"]
+script = ExtResource("intent")
+intent = "combat"
+
+[sub_resource type="BTAction" id="fortify"]
+script = ExtResource("intent")
+intent = "fortify"
+
+[sub_resource type="BTAction" id="objective"]
+script = ExtResource("intent")
+intent = "objective"
+
+[sub_resource type="BTAction" id="equipment_urgent"]
+script = ExtResource("intent")
+intent = "equipment_urgent"
+
+[sub_resource type="BTAction" id="equipment"]
+script = ExtResource("intent")
+intent = "equipment"
+
+[sub_resource type="BTAction" id="search"]
+script = ExtResource("intent")
+intent = "search"
+
+[sub_resource type="BTAction" id="patrol"]
+script = ExtResource("intent")
+intent = "patrol"
+
+[sub_resource type="BTDynamicSelector" id="priorities"]
+children = [SubResource("egress"), SubResource("emergency"), SubResource("survival"), SubResource("equipment_urgent"), SubResource("fortify"), SubResource("equipment"), SubResource("objective"), SubResource("combat"), SubResource("search"), SubResource("patrol")]
+
+[sub_resource type="BTSequence" id="root"]
+children = [SubResource("sense"), SubResource("priorities"), SubResource("publish")]
+
+[resource]
+description = "CTF: perception-led priorities with reachable goals and shared survival."
+root_task = SubResource("root")
