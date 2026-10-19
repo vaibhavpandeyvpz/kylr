@@ -1,0 +1,354 @@
+{
+  "name": "item_table",
+  "space": "Blender coords: +Z up, front -Y, origin at the floor surface in the hatch centre. glTF/Godot: (x, z, -y). Hinges turn about their bone's local X (value in degrees); slides move along their bone's local Y (value in metres).",
+  "rest": "deployed, doors open, claws closed (holding)",
+  "cutout_m": {
+    "patch": [
+      1.0,
+      1.0
+    ],
+    "hole": [
+      0.5,
+      0.9
+    ],
+    "depth": 1.592,
+    "max_weapon_length": 0.88,
+    "note": "the patch's top is flush with the floor at z = 0; the pit hangs below it, inside its footprint. It takes weapons up to 0.35 m tall lying on the platform (the stroke clears the doors' swing)."
+  },
+  "materials_note": "map-generic finish in Tensor's materials (off-white and grey paint, matte black, stainless steel): no team colours",
+  "materials": [
+    "M_Primary_Metallic",
+    "M_Secondary_Metallic",
+    "M_Frame_Diffuse",
+    "M_Joint_Metallic",
+    "M_Emissive"
+  ],
+  "triangles": 2671,
+  "weapon_socket": {
+    "bone": "WeaponSocket",
+    "head": [
+      0.0,
+      0.0,
+      0.608
+    ],
+    "mount": "ItemMount",
+    "place_by": "bottom",
+    "note": "the asset carries no weapon: put the game's weapon on the ItemMount node (an invisible marker on the WeaponSocket bone) by its bottom: the origin is where the weapon's underside goes, centred across the holder; -Z is the weapon's forward and +Y its up, so it follows the animations. Here: 0.20 m above the top platform's surface."
+  },
+  "joints": [
+    {
+      "bone": "Root",
+      "parent": null,
+      "type": "fixed",
+      "pivot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": null,
+      "channel": null
+    },
+    {
+      "bone": "LeftDoor",
+      "parent": "Root",
+      "type": "hinge",
+      "pivot": [
+        0.246,
+        0.45,
+        -0.02
+      ],
+      "axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "range": [
+        0,
+        90
+      ],
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "RightDoor",
+      "parent": "Root",
+      "type": "hinge",
+      "pivot": [
+        -0.246,
+        0.45,
+        -0.02
+      ],
+      "axis": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "range": [
+        0,
+        90
+      ],
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "Jack1",
+      "parent": "Root",
+      "type": "slide",
+      "pivot": [
+        0.0,
+        0.0,
+        -1.1933
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        -0.17466666666666666,
+        0
+      ],
+      "channel": "location_y_m"
+    },
+    {
+      "bone": "Jack2",
+      "parent": "Jack1",
+      "type": "slide",
+      "pivot": [
+        0.0,
+        0.0,
+        -1.0187
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        -0.17466666666666666,
+        0
+      ],
+      "channel": "location_y_m"
+    },
+    {
+      "bone": "Jack3",
+      "parent": "Jack2",
+      "type": "slide",
+      "pivot": [
+        0.0,
+        0.0,
+        -0.844
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        -0.17466666666666666,
+        0
+      ],
+      "channel": "location_y_m"
+    },
+    {
+      "bone": "Jack4",
+      "parent": "Jack3",
+      "type": "slide",
+      "pivot": [
+        0.0,
+        0.0,
+        -0.6693
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        -0.17466666666666666,
+        0
+      ],
+      "channel": "location_y_m"
+    },
+    {
+      "bone": "Jack5",
+      "parent": "Jack4",
+      "type": "slide",
+      "pivot": [
+        0.0,
+        0.0,
+        -0.4947
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        -0.17466666666666666,
+        0
+      ],
+      "channel": "location_y_m"
+    },
+    {
+      "bone": "Lift",
+      "parent": "Jack5",
+      "type": "slide",
+      "pivot": [
+        0.0,
+        0.0,
+        -0.31
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        -0.17466666666666666,
+        0
+      ],
+      "channel": "location_y_m"
+    },
+    {
+      "bone": "Turntable",
+      "parent": "Lift",
+      "type": "hinge",
+      "pivot": [
+        0.0,
+        0.0,
+        -0.28
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": null,
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "Platform",
+      "parent": "Turntable",
+      "type": "slide",
+      "pivot": [
+        0.0,
+        0.0,
+        0.368
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        0,
+        0.1
+      ],
+      "channel": "location_y_m"
+    },
+    {
+      "bone": "WeaponSocket",
+      "parent": "Platform",
+      "type": "fixed",
+      "pivot": [
+        0.0,
+        0.0,
+        0.608
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": null,
+      "channel": null
+    }
+  ],
+  "pistons": [],
+  "animations": {
+    "deploy": {
+      "frames": [
+        0,
+        81
+      ],
+      "fps": 30,
+      "loop": false,
+      "joints": [
+        "Jack1",
+        "Jack2",
+        "Jack3",
+        "Jack4",
+        "Jack5",
+        "LeftDoor",
+        "Lift",
+        "Platform",
+        "RightDoor"
+      ]
+    },
+    "retract": {
+      "frames": [
+        0,
+        81
+      ],
+      "fps": 30,
+      "loop": false,
+      "joints": [
+        "Jack1",
+        "Jack2",
+        "Jack3",
+        "Jack4",
+        "Jack5",
+        "LeftDoor",
+        "Lift",
+        "Platform",
+        "RightDoor"
+      ]
+    },
+    "spin": {
+      "frames": [
+        0,
+        120
+      ],
+      "fps": 30,
+      "loop": true,
+      "joints": [
+        "Turntable"
+      ]
+    },
+    "raise": {
+      "frames": [
+        0,
+        18
+      ],
+      "fps": 30,
+      "loop": false,
+      "joints": [
+        "Platform"
+      ]
+    },
+    "lower": {
+      "frames": [
+        0,
+        18
+      ],
+      "fps": 30,
+      "loop": false,
+      "joints": [
+        "Platform"
+      ]
+    }
+  },
+  "grip": null,
+  "usage": "deploy (doors swing open, the turret comes up, the rams raise the platform with the weapon hovering above it) -> spin (loop) -> stop spin at 0 deg -> retract (rams lower the platform, the turret goes down, doors swing shut). raise / lower move the rams alone. The weapon hovers over the platform at the ItemMount node.",
+  "material_classifiers": {
+    "M_Emissive": "Emissive",
+    "M_Frame_Diffuse": "Diffuse",
+    "M_Joint_Metallic": "Metallic",
+    "M_Primary_Metallic": "Metallic",
+    "M_Secondary_Metallic": "Metallic"
+  }
+}

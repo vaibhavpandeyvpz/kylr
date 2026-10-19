@@ -1,0 +1,13 @@
+[gd_resource type="BehaviorTree" format=3]
+[ext_resource type="Script" path="res://scripts/ai/tasks/select_intent.gd" id="1"]
+[sub_resource type="BTAction" id="repair"]
+script = ExtResource("1")
+intent = "repair"
+[sub_resource type="BTAction" id="energy"]
+script = ExtResource("1")
+intent = "energy"
+[sub_resource type="BTSelector" id="root"]
+children = [SubResource("repair"), SubResource("energy")]
+[resource]
+description = "Reach a viable repair bay or replenish energy before depletion."
+root_task = SubResource("root")

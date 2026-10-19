@@ -1,0 +1,788 @@
+{
+  "name": "pistol",
+  "space": "Blender coords: +Z up, the muzzle points -Y, the origin is the gun's bottom centre (the grip's pommel plane, midway along the gun). glTF/Godot: (x, z, -y), so the muzzle points +Z (glTF's front). Hinges turn about their bone's local X (degrees), slides move along their bone's local Y (metres).",
+  "rest": "slide and barrel home, hammer down on the firing pin, trigger forward, slide stop down, cartridge in, catch out",
+  "size_m": {
+    "wide": 0.073,
+    "long": 0.305,
+    "high": 0.201,
+    "max_wide_long_high": [
+      0.25,
+      0.75,
+      0.35
+    ],
+    "bore_axis_height": 0.152,
+    "note": "a full-size pistol's proportions at 1.25 scale, with its suppressor housing; every weapon fits 0.25 x 0.75 x 0.35 m"
+  },
+  "materials": [
+    "M_Primary_Metallic",
+    "M_Secondary_Diffuse",
+    "M_Frame_Metallic",
+    "M_Joint_Metallic",
+    "M_Emissive",
+    "M_Bronze_Metallic",
+    "M_Glass",
+    "M_Metal_Metallic"
+  ],
+  "triangles": {
+    "SK_Pistol": 4680,
+    "SK_PistolAmmo": 830,
+    "SM_PistolAmmo": 830
+  },
+  "joints": [
+    {
+      "bone": "Root",
+      "parent": null,
+      "type": "fixed",
+      "pivot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": null,
+      "channel": null
+    },
+    {
+      "bone": "Slide",
+      "parent": "Root",
+      "type": "slide",
+      "pivot": [
+        0.0,
+        -0.0405,
+        0.152
+      ],
+      "axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "range": [
+        0,
+        0.042
+      ],
+      "channel": "location_y_m"
+    },
+    {
+      "bone": "Barrel",
+      "parent": "Root",
+      "type": "slide",
+      "pivot": [
+        0.0,
+        -0.0625,
+        0.152
+      ],
+      "axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "range": [
+        0,
+        0.01
+      ],
+      "channel": "location_y_m"
+    },
+    {
+      "bone": "Hammer",
+      "parent": "Root",
+      "type": "hinge",
+      "pivot": [
+        0.0,
+        0.1305,
+        0.1215
+      ],
+      "axis": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "range": [
+        0,
+        80
+      ],
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "Trigger",
+      "parent": "Root",
+      "type": "hinge",
+      "pivot": [
+        0.0,
+        0.0405,
+        0.1015
+      ],
+      "axis": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "range": [
+        0,
+        12
+      ],
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "SlideStop",
+      "parent": "Root",
+      "type": "hinge",
+      "pivot": [
+        0.0,
+        0.036,
+        0.1215
+      ],
+      "axis": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "range": [
+        0,
+        6.5
+      ],
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "Mag",
+      "parent": "Root",
+      "type": "slide",
+      "pivot": [
+        0.0,
+        -0.0523,
+        0.045
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "range": [
+        0,
+        0.02
+      ],
+      "channel": "location_y_m"
+    },
+    {
+      "bone": "MagCatch",
+      "parent": "Root",
+      "type": "slide",
+      "pivot": [
+        0.0,
+        0.013,
+        0.089
+      ],
+      "axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "range": [
+        0,
+        0.004
+      ],
+      "channel": "location_y_m"
+    }
+  ],
+  "coupled": {
+    "Barrel": "min(Slide, 0.01): the barrel rides the slide's first centimetre, locked to its breech face (short recoil), then stops; the slide brings it home",
+    "Hammer": "at least as far back as the slide cams it: the recoiling slide pushes it back and it rides home on the slide's rear face (baked into every action)"
+  },
+  "animations": {
+    "idle": {
+      "frames": [
+        0,
+        30
+      ],
+      "fps": 30,
+      "loop": true,
+      "joints": [
+        "Barrel",
+        "Hammer",
+        "Slide",
+        "Trigger"
+      ]
+    },
+    "fire": {
+      "frames": [
+        0,
+        15
+      ],
+      "fps": 30,
+      "loop": false,
+      "joints": [
+        "Barrel",
+        "Hammer",
+        "Slide",
+        "Trigger"
+      ]
+    },
+    "fire_empty": {
+      "frames": [
+        0,
+        15
+      ],
+      "fps": 30,
+      "loop": false,
+      "joints": [
+        "Barrel",
+        "Hammer",
+        "Slide",
+        "SlideStop",
+        "Trigger"
+      ]
+    },
+    "slide_release": {
+      "frames": [
+        0,
+        15
+      ],
+      "fps": 30,
+      "loop": false,
+      "joints": [
+        "Barrel",
+        "Hammer",
+        "Slide",
+        "SlideStop"
+      ]
+    },
+    "mag_release": {
+      "frames": [
+        0,
+        15
+      ],
+      "fps": 30,
+      "loop": false,
+      "joints": [
+        "Mag",
+        "MagCatch"
+      ]
+    },
+    "mag_insert": {
+      "frames": [
+        0,
+        15
+      ],
+      "fps": 30,
+      "loop": false,
+      "joints": [
+        "Mag",
+        "MagCatch"
+      ]
+    }
+  },
+  "fire": {
+    "shot": "play fire (single shot, 15 frames): the trigger pulls and cocks the hammer 35 deg (double action) and trips it; it falls on frame 3: fire the hitscan / spawn the muzzle flash at Muzzle then, and puff gas at CompVent. The slide runs 42 mm back (the barrel 1 cm with it), fully back on frame 5: throw the spent case from ShellEject (forward = its direction) then; it is home by frame 12.",
+    "last_round": "fire_empty: as fire, but the slide stop rises and holds the slide open 38.7 mm back; after mag_release and mag_insert play slide_release (the slide stop drops, the slide runs home).",
+    "idle": "loop idle (30 frames) between shots: it holds the rest pose (nothing on a pistol moves at rest); every action starts and ends at rest except fire_empty, which ends with the slide held open (follow it with the reload and slide_release).",
+    "shot_frame": 3,
+    "eject_frame": 5,
+    "slide_travel_m": 0.042,
+    "slide_lock_m": 0.03869,
+    "recoil_m": 0.01
+  },
+  "gizmos": {
+    "convention": "empties: in Blender local +Y is the gizmo's forward and +Z its up; in glTF / Godot -Z is forward and +Y up (Marker3D / Node3D under a BoneAttachment3D, so they follow the animations)",
+    "muzzle": {
+      "name": "Muzzle",
+      "bone": "Barrel",
+      "position": [
+        0.0,
+        -0.167,
+        0.152
+      ],
+      "forward": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "up": [
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    "muzzle_note": "1 cm in front of the suppressor cap's face, on the barrel's bone: the hitscan's origin and where to play the muzzle flash (and its light)",
+    "shell_eject": {
+      "name": "ShellEject",
+      "bone": "Root",
+      "position": [
+        0.0,
+        -0.026,
+        0.19
+      ],
+      "forward": [
+        -0.4501,
+        0.2001,
+        0.8703
+      ],
+      "up": [
+        0.0919,
+        0.9798,
+        -0.1777
+      ]
+    },
+    "shell_eject_note": "on the ejection port in the housing's crown, over the chamber, forward = up, to the right and back as a case leaves: spawn the spent case there on fire's eject frame",
+    "comp_vent": {
+      "name": "CompVent",
+      "bone": "Root",
+      "position": [
+        0.0,
+        -0.125,
+        0.185
+      ],
+      "forward": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "up": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    "comp_vent_note": "over the compensator slots on the raked top, forward = up: a puff of gas on each shot",
+    "hook_vent": {
+      "name": "HookVent",
+      "bone": "Root",
+      "position": [
+        0.0,
+        -0.14,
+        0.067
+      ],
+      "forward": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "up": [
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    "hook_vent_note": "on the hook's front face over its exhaust slots, forward = out: the expansion chamber's gas on each shot"
+  },
+  "ammo_hand_socket": {
+    "hand_bone": "LeftHand",
+    "bone": "Mag",
+    "grips": "the ammo pack for a reload, a wide grip: palm on its outer end, fingers across it and over its far edge, thumb up its front",
+    "note": "given at the pack's rest; the empty rides the Mag bone. For a reload, put the support hand on it where the pack is (released), carry the pack in that hand (pack = hand_bone_global * socket_in_pack.inverse()) and put it back the same way",
+    "wrist_blender": [
+      0.077,
+      -0.0523,
+      0.029
+    ],
+    "bone_x_blender": [
+      0.0,
+      1.0,
+      0.0
+    ],
+    "bone_y_blender": [
+      -1.0,
+      0.0,
+      0.0
+    ],
+    "bone_z_blender": [
+      -0.0,
+      -0.0,
+      1.0
+    ],
+    "wrist_godot": [
+      0.077,
+      0.029,
+      0.0523
+    ],
+    "bone_x_godot": [
+      0.0,
+      0.0,
+      -1.0
+    ],
+    "bone_y_godot": [
+      -1.0,
+      0.0,
+      -0.0
+    ],
+    "bone_z_godot": [
+      -0.0,
+      1.0,
+      0.0
+    ],
+    "grip_pose_deg": {
+      "LeftIndexProximal": [
+        45.0,
+        0,
+        0
+      ],
+      "LeftIndexIntermediate": [
+        49.5,
+        0,
+        0
+      ],
+      "LeftIndexDistal": [
+        36.0,
+        0,
+        0
+      ],
+      "LeftMiddleProximal": [
+        50.0,
+        0,
+        0
+      ],
+      "LeftMiddleIntermediate": [
+        55.0,
+        0,
+        0
+      ],
+      "LeftMiddleDistal": [
+        40.0,
+        0,
+        0
+      ],
+      "LeftRingProximal": [
+        50.0,
+        0,
+        0
+      ],
+      "LeftRingIntermediate": [
+        55.0,
+        0,
+        0
+      ],
+      "LeftRingDistal": [
+        40.0,
+        0,
+        0
+      ],
+      "LeftLittleProximal": [
+        45.0,
+        0,
+        0
+      ],
+      "LeftLittleIntermediate": [
+        49.5,
+        0,
+        0
+      ],
+      "LeftLittleDistal": [
+        36.0,
+        0,
+        0
+      ],
+      "LeftThumbMetacarpal": [
+        25,
+        0,
+        40
+      ],
+      "LeftThumbProximal": [
+        15,
+        0,
+        0
+      ],
+      "LeftThumbDistal": [
+        15,
+        0,
+        0
+      ]
+    }
+  },
+  "hand_sockets": {
+    "convention": "origin = the wrist pivot (the head of the character's Hand bone); the socket's glTF / Godot basis IS the Hand bone's basis for that grip (Tensor: X along the knuckle line, the left thumb on -X and the right on +X, Y from the wrist to the knuckles, Z out of the palm). In Godot set the hand bone's global pose to the socket's transform (relative to the skeleton) and solve the arm to reach it; or carry the gun in the right hand with gun = hand_bone_global * RightHandSocket_local.inverse(). In Blender the empties' own axes are (X, -Z, Y) of the bone frame because the exporter converts empties, not bones.",
+    "grip_pose": "grip_pose_deg per socket: Tensor's finger and thumb bone rotations (local XYZ, degrees) that close each hand onto its grip (animations/retarget.py closes Tensor's hands to them); the right index finger curls in to the trigger",
+    "LeftHandSocket": {
+      "hand_bone": "LeftHand",
+      "grips": "the front from below, palm up on the lower left arc of the hook and cartridge",
+      "wrist_blender": [
+        0.0813,
+        0.0028,
+        0.0499
+      ],
+      "bone_x_blender": [
+        -0.5615,
+        0.8019,
+        -0.2044
+      ],
+      "bone_y_blender": [
+        -0.7535,
+        -0.5975,
+        -0.2743
+      ],
+      "bone_z_blender": [
+        -0.342,
+        -0.0,
+        0.9397
+      ],
+      "wrist_godot": [
+        0.0813,
+        0.0499,
+        -0.0028
+      ],
+      "bone_x_godot": [
+        -0.5615,
+        -0.2044,
+        -0.8019
+      ],
+      "bone_y_godot": [
+        -0.7535,
+        -0.2743,
+        0.5975
+      ],
+      "bone_z_godot": [
+        -0.342,
+        0.9397,
+        0.0
+      ],
+      "grip_pose_deg": {
+        "LeftIndexProximal": [
+          10.0,
+          0,
+          0
+        ],
+        "LeftIndexIntermediate": [
+          11.0,
+          0,
+          0
+        ],
+        "LeftIndexDistal": [
+          8.0,
+          0,
+          0
+        ],
+        "LeftMiddleProximal": [
+          19.0,
+          0,
+          0
+        ],
+        "LeftMiddleIntermediate": [
+          20.9,
+          0,
+          0
+        ],
+        "LeftMiddleDistal": [
+          15.2,
+          0,
+          0
+        ],
+        "LeftRingProximal": [
+          24.0,
+          0,
+          0
+        ],
+        "LeftRingIntermediate": [
+          26.4,
+          0,
+          0
+        ],
+        "LeftRingDistal": [
+          19.2,
+          0,
+          0
+        ],
+        "LeftLittleProximal": [
+          27.0,
+          0,
+          0
+        ],
+        "LeftLittleIntermediate": [
+          29.7,
+          0,
+          0
+        ],
+        "LeftLittleDistal": [
+          21.6,
+          0,
+          0
+        ],
+        "LeftThumbMetacarpal": [
+          24,
+          0,
+          25
+        ],
+        "LeftThumbProximal": [
+          16,
+          0,
+          0
+        ],
+        "LeftThumbDistal": [
+          16,
+          0,
+          0
+        ]
+      }
+    },
+    "RightHandSocket": {
+      "hand_bone": "RightHand",
+      "grips": "pistol grip",
+      "wrist_blender": [
+        -0.0327,
+        0.1676,
+        0.0681
+      ],
+      "bone_x_blender": [
+        0.0,
+        -0.2588,
+        0.9659
+      ],
+      "bone_y_blender": [
+        0.0,
+        -0.9659,
+        -0.2588
+      ],
+      "bone_z_blender": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "wrist_godot": [
+        -0.0327,
+        0.0681,
+        -0.1676
+      ],
+      "bone_x_godot": [
+        0.0,
+        0.9659,
+        0.2588
+      ],
+      "bone_y_godot": [
+        0.0,
+        -0.2588,
+        0.9659
+      ],
+      "bone_z_godot": [
+        1.0,
+        0.0,
+        -0.0
+      ],
+      "grip_pose_deg": {
+        "RightIndexProximal": [
+          36.0,
+          0,
+          0
+        ],
+        "RightIndexIntermediate": [
+          39.6,
+          0,
+          0
+        ],
+        "RightIndexDistal": [
+          28.8,
+          0,
+          0
+        ],
+        "RightMiddleProximal": [
+          65.0,
+          0,
+          0
+        ],
+        "RightMiddleIntermediate": [
+          71.5,
+          0,
+          0
+        ],
+        "RightMiddleDistal": [
+          52.0,
+          0,
+          0
+        ],
+        "RightRingProximal": [
+          60.0,
+          0,
+          0
+        ],
+        "RightRingIntermediate": [
+          66.0,
+          0,
+          0
+        ],
+        "RightRingDistal": [
+          48.0,
+          0,
+          0
+        ],
+        "RightLittleProximal": [
+          42.0,
+          0,
+          0
+        ],
+        "RightLittleIntermediate": [
+          46.2,
+          0,
+          0
+        ],
+        "RightLittleDistal": [
+          33.6,
+          0,
+          0
+        ],
+        "RightThumbMetacarpal": [
+          42,
+          0,
+          -25
+        ],
+        "RightThumbProximal": [
+          50,
+          0,
+          0
+        ],
+        "RightThumbDistal": [
+          50,
+          0,
+          0
+        ]
+      }
+    }
+  },
+  "ammo": {
+    "mesh": "SM_PistolAmmo in pistol_ammo.glb, at the AmmoMount gizmo",
+    "bone": "Mag",
+    "pickup_file": "pistol_ammo.glb",
+    "pickup_mesh": "SM_PistolAmmo",
+    "pickup_origin": "its bottom centre, upright",
+    "axis": [
+      0,
+      0,
+      -1
+    ],
+    "rails_m": 0.02,
+    "note": "mag_release pulls the catch back and drops the cartridge down its channel; past MAG_TRAVEL it is free: hide the cartridge mesh and drop a physics copy of the pickup mesh at the Mag bone's transform. To reload, put the cartridge back at the end of its travel and play mag_insert (the catch snaps into its notch)."
+  },
+  "usage": "idle (loop); fire per shot; fire_empty on the last round, then mag_release, mag_insert and slide_release; mag_release / mag_insert alone swap a cartridge with the slide home.",
+  "ammo_mount": {
+    "gizmo": "AmmoMount",
+    "bone": "Mag",
+    "model": "pistol_ammo.glb",
+    "mesh": "SM_PistolAmmo",
+    "position_blender": [
+      -0.0,
+      -0.0523,
+      0.045
+    ],
+    "rotation_wxyz_blender": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "position_godot": [
+      -0.0,
+      0.045,
+      0.0523
+    ],
+    "note": "the ammo pack is its own model (<name>_ammo.glb / .fbx / .blend, its origin at its bottom centre, square to its own axes, its real size): parent its mesh to the AmmoMount node unmoved and it rides the Mag bone where the weapon's actions put it (a reload's release and insert); the weapon's own files carry no pack mesh. The same model is the ammo pickup."
+  },
+  "material_classifiers": {
+    "M_Bronze_Metallic": "Metallic",
+    "M_Emissive": "Emissive",
+    "M_Frame_Metallic": "Metallic",
+    "M_Glass": "Glass",
+    "M_Joint_Metallic": "Metallic",
+    "M_Metal_Metallic": "Metallic",
+    "M_Primary_Metallic": "Metallic",
+    "M_Secondary_Diffuse": "Diffuse"
+  }
+}

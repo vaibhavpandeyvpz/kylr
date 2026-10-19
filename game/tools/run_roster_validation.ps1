@@ -1,0 +1,55 @@
+param(
+    [ValidateSet('faceoff','skyfall')][string]$Map = 'faceoff',
+    [ValidatePattern('^[A-Za-z_][A-Za-z0-9_]*$')][string]$ReportPrefix = 'asset_handoff',
+    [ValidateRange(1,16)][Nullable[int]]$DecisionPhases = $null,
+    [string]$Godot = (Join-Path $PSScriptRoot '../../engine/bin/godot.windows.editor.x86_64.console.exe')
+)
+$ErrorActionPreference = 'Stop'
+$project = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))
+$directory = Join-Path $project "reports/roster/$ReportPrefix-$Map"
+if (Test-Path -LiteralPath $directory) { throw 'Choose a fresh roster report prefix.' }
+New-Item -ItemType Directory -Force $directory | Out-Null
+$binary = Join-Path (Split-Path $Godot) 'godot.windows.editor.x86_64.exe'
+$probe = Join-Path $project 'tools/profile_bot_routes.gd'
+$binaryHash = (Get-FileHash -LiteralPath $binary).Hash
+$probeHash = (Get-FileHash -LiteralPath $probe).Hash
+$brain = Join-Path $project 'scripts/ai/brain.gd'
+$brainHash = (Get-FileHash -LiteralPath $brain).Hash
+$wrapperHash = (Get-FileHash -LiteralPath $PSCommandPath).Hash
+$rows = @()
+foreach ($mode in @('DM','TDM','CTF')) {
+    foreach ($count in @(2,4,6,8,10)) {
+        $seconds = if ($mode -eq 'CTF') { 120 } else { 30 }
+        $stem = $mode.ToLowerInvariant() + '-' + $count
+        $stdout = Join-Path $directory "$stem.log"
+        $stderr = Join-Path $directory "$stem-errors.log"
+        $reportPath = Join-Path $directory "$stem.json"
+        if (Test-Path -LiteralPath $reportPath) { throw "Stale roster result: $reportPath" }
+        $arguments = @('--headless','--fixed-fps','60','--path',('"'+$project+'"'),'--script','res://tools/profile_bot_routes.gd','--',
+            $mode,$count,$seconds,'normal','123',$Map,'1',"--report-prefix=$ReportPrefix","--report-output=res://reports/roster/$ReportPrefix-$Map/$stem.json")
+        if($null -ne $DecisionPhases){$arguments+="--decision-phases=$DecisionPhases"}
+        $process = Start-Process -FilePath $Godot -ArgumentList $arguments -WindowStyle Hidden -PassThru -RedirectStandardOutput $stdout -RedirectStandardError $stderr
+        if (-not $process.WaitForExit(240000)) { $process.Kill($true); throw "Roster case timed out: $stem" }
+        $process.Refresh()
+        $log = (Get-Content -LiteralPath $stdout -Raw) + (Get-Content -LiteralPath $stderr -Raw)
+        if ($process.ExitCode -ne 0 -or $log -match 'ERROR:|SCRIPT ERROR:|instances were leaked|RID.*was leaked' -or
+            $log -notmatch 'BOT_PROFILE' -or -not (Test-Path -LiteralPath $reportPath)) { throw "Roster case failed: $stem" }
+        $report = Get-Content -LiteralPath $reportPath -Raw | ConvertFrom-Json
+        if($null -ne $DecisionPhases -and $report.decision_phases -ne $DecisionPhases){throw "Decision schedule mismatch: $stem"}
+        if ($report.phase -ne 'Active' -or $report.mode -ne $mode -or $report.count -ne $count -or $report.robots.Count -ne $count -or
+            $report.match_elapsed -lt ($seconds-.1)) { throw "Incomplete roster case: $stem" }
+        $distance = ($report.robots | Measure-Object -Property distance -Sum).Sum
+        if ($distance -lt 10) { throw "Roster did not move meaningfully: $stem" }
+        $rows += @{mode=$mode; count=$count; simulated_seconds=$report.match_elapsed; distance_total=$distance;
+            captures=($report.robots | Measure-Object -Property captures -Sum).Sum; decision_phases=$report.decision_phases; passed=$true}
+        $rows | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath (Join-Path $directory 'cases.json') -Encoding utf8
+        Write-Output "PASS roster $Map $mode/$count ($seconds simulated seconds)"
+    }
+}
+if ($binaryHash -ne (Get-FileHash -LiteralPath $binary).Hash -or $probeHash -ne (Get-FileHash -LiteralPath $probe).Hash) { throw 'Engine or probe changed during roster validation.' }
+if($brainHash -ne (Get-FileHash -LiteralPath $brain).Hash -or $wrapperHash -ne (Get-FileHash -LiteralPath $PSCommandPath).Hash){throw 'Decision scheduler or wrapper changed during roster validation.'}
+@{passed=$true; cases=$rows; engine_sha256=$binaryHash; probe_sha256=$probeHash; brain_sha256=$brainHash; wrapper_sha256=$wrapperHash; decision_phases_requested=$DecisionPhases; map=$Map;
+  functional_roster_acceptance=$true; performance_acceptance=$false;
+  note='Headless functional matrix; inspect physical routes and objectives separately. Not an isolated performance measurement.'} |
+    ConvertTo-Json -Depth 6 | Set-Content -LiteralPath (Join-Path $directory 'manifest.json') -Encoding utf8
+Write-Output 'PASS roster matrix: 15 cases. This is not rendered FPS qualification.'

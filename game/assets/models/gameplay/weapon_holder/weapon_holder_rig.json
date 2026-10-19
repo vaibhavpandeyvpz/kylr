@@ -1,0 +1,655 @@
+{
+  "name": "weapon_holder",
+  "space": "Blender coords: +Z up, front -Y, origin at the floor surface in the hatch centre. Authored on the floor (user); to mount it on a wall, turn it so +Z points out of the wall. glTF/Godot: (x, z, -y). Hinges turn about their bone's local X (value in degrees); slides move along their bone's local Y (value in metres).",
+  "rest": "deployed, doors open, claws closed (holding)",
+  "cutout_m": {
+    "patch": [
+      1.0,
+      1.0
+    ],
+    "hole": [
+      0.5,
+      0.9
+    ],
+    "depth": 1.38,
+    "max_weapon_length": 0.88,
+    "note": "the patch's top is flush with the floor at z = 0; the pit hangs below it, inside its footprint"
+  },
+  "materials_note": "map-generic finish in Tensor's materials (off-white and grey paint, matte black, stainless steel): no team colours",
+  "materials": [
+    "M_Primary_Metallic",
+    "M_Secondary_Metallic",
+    "M_Frame_Diffuse",
+    "M_Joint_Metallic",
+    "M_Emissive"
+  ],
+  "triangles": 3505,
+  "weapon_socket": {
+    "bone": "WeaponSocket",
+    "head": [
+      0.0,
+      0.0,
+      0.49
+    ],
+    "mount": "WeaponMount",
+    "place_by": "bottom",
+    "note": "the asset carries no weapon: put the game's weapon on the WeaponMount node (an invisible marker on the WeaponSocket bone) by its bottom: the origin is where the weapon's underside goes, centred across the holder; the mount's axes match the weapon asset's origin axes for identity attachment and follow the animations. Here: the weapon stands upright and the claws close on its sides symmetrically, whatever its thickness (see grip)."
+  },
+  "joints": [
+    {
+      "bone": "Root",
+      "parent": null,
+      "type": "fixed",
+      "pivot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": null,
+      "channel": null
+    },
+    {
+      "bone": "LeftDoor",
+      "parent": "Root",
+      "type": "hinge",
+      "pivot": [
+        0.246,
+        0.45,
+        -0.02
+      ],
+      "axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "range": [
+        0,
+        90
+      ],
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "RightDoor",
+      "parent": "Root",
+      "type": "hinge",
+      "pivot": [
+        -0.246,
+        0.45,
+        -0.02
+      ],
+      "axis": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "range": [
+        0,
+        90
+      ],
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "Jack1",
+      "parent": "Root",
+      "type": "slide",
+      "pivot": [
+        0.0,
+        0.0,
+        -1.1163
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        -0.11375000000000002,
+        0
+      ],
+      "channel": "location_y_m"
+    },
+    {
+      "bone": "Jack2",
+      "parent": "Jack1",
+      "type": "slide",
+      "pivot": [
+        0.0,
+        0.0,
+        -1.0025
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        -0.11375000000000002,
+        0
+      ],
+      "channel": "location_y_m"
+    },
+    {
+      "bone": "Jack3",
+      "parent": "Jack2",
+      "type": "slide",
+      "pivot": [
+        0.0,
+        0.0,
+        -0.8888
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        -0.11375000000000002,
+        0
+      ],
+      "channel": "location_y_m"
+    },
+    {
+      "bone": "Jack4",
+      "parent": "Jack3",
+      "type": "slide",
+      "pivot": [
+        0.0,
+        0.0,
+        -0.775
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        -0.11375000000000002,
+        0
+      ],
+      "channel": "location_y_m"
+    },
+    {
+      "bone": "Jack5",
+      "parent": "Jack4",
+      "type": "slide",
+      "pivot": [
+        0.0,
+        0.0,
+        -0.6612
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        -0.11375000000000002,
+        0
+      ],
+      "channel": "location_y_m"
+    },
+    {
+      "bone": "Jack6",
+      "parent": "Jack5",
+      "type": "slide",
+      "pivot": [
+        0.0,
+        0.0,
+        -0.5475
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        -0.11375000000000002,
+        0
+      ],
+      "channel": "location_y_m"
+    },
+    {
+      "bone": "Jack7",
+      "parent": "Jack6",
+      "type": "slide",
+      "pivot": [
+        0.0,
+        0.0,
+        -0.4338
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        -0.11375000000000002,
+        0
+      ],
+      "channel": "location_y_m"
+    },
+    {
+      "bone": "Extend",
+      "parent": "Jack7",
+      "type": "slide",
+      "pivot": [
+        0.0,
+        0.0,
+        -0.31
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        -0.11375000000000002,
+        0
+      ],
+      "channel": "location_y_m"
+    },
+    {
+      "bone": "Spin",
+      "parent": "Extend",
+      "type": "hinge",
+      "pivot": [
+        0.0,
+        0.0,
+        -0.28
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": null,
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "ArmLeft",
+      "parent": "Spin",
+      "type": "hinge",
+      "pivot": [
+        0.155,
+        0.0,
+        0.21
+      ],
+      "axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "range": [
+        0,
+        10
+      ],
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "ClawLeft",
+      "parent": "ArmLeft",
+      "type": "hinge",
+      "pivot": [
+        0.09,
+        0.0,
+        0.425
+      ],
+      "axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "range": [
+        -40,
+        105
+      ],
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "ArmRight",
+      "parent": "Spin",
+      "type": "hinge",
+      "pivot": [
+        -0.155,
+        0.0,
+        0.21
+      ],
+      "axis": [
+        -0.0,
+        -1.0,
+        0.0
+      ],
+      "range": [
+        0,
+        10
+      ],
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "ClawRight",
+      "parent": "ArmRight",
+      "type": "hinge",
+      "pivot": [
+        -0.09,
+        0.0,
+        0.425
+      ],
+      "axis": [
+        -0.0,
+        -1.0,
+        0.0
+      ],
+      "range": [
+        -40,
+        105
+      ],
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "WeaponSocket",
+      "parent": "Spin",
+      "type": "fixed",
+      "pivot": [
+        0.0,
+        0.0,
+        0.49
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": null,
+      "channel": null
+    }
+  ],
+  "pistons": [
+    {
+      "cylinder": "ArmLeftPistonCylinder",
+      "rod": "ArmLeftPistonRod",
+      "cylinder_parent": "Spin",
+      "rod_parent": "ArmLeft",
+      "cylinder_aims_at": "ArmLeftPistonRod",
+      "rod_aims_at": "ArmLeftPistonCylinder",
+      "stroke_m": [
+        0.1532,
+        0.1636
+      ],
+      "cylinder_length_m": 0.1303,
+      "rod_length_m": 0.1303
+    },
+    {
+      "cylinder": "ArmRightPistonCylinder",
+      "rod": "ArmRightPistonRod",
+      "cylinder_parent": "Spin",
+      "rod_parent": "ArmRight",
+      "cylinder_aims_at": "ArmRightPistonRod",
+      "rod_aims_at": "ArmRightPistonCylinder",
+      "stroke_m": [
+        0.1532,
+        0.1636
+      ],
+      "cylinder_length_m": 0.1303,
+      "rod_length_m": 0.1303
+    }
+  ],
+  "animations": {
+    "deploy": {
+      "frames": [
+        0,
+        56
+      ],
+      "fps": 30,
+      "loop": false,
+      "joints": [
+        "Extend",
+        "Jack1",
+        "Jack2",
+        "Jack3",
+        "Jack4",
+        "Jack5",
+        "Jack6",
+        "Jack7",
+        "LeftDoor",
+        "RightDoor"
+      ]
+    },
+    "retract": {
+      "frames": [
+        0,
+        56
+      ],
+      "fps": 30,
+      "loop": false,
+      "joints": [
+        "Extend",
+        "Jack1",
+        "Jack2",
+        "Jack3",
+        "Jack4",
+        "Jack5",
+        "Jack6",
+        "Jack7",
+        "LeftDoor",
+        "RightDoor"
+      ]
+    },
+    "spin": {
+      "frames": [
+        0,
+        120
+      ],
+      "fps": 30,
+      "loop": true,
+      "joints": [
+        "Spin"
+      ]
+    },
+    "claw_open": {
+      "frames": [
+        0,
+        18
+      ],
+      "fps": 30,
+      "loop": false,
+      "joints": [
+        "ArmLeft",
+        "ArmRight",
+        "ClawLeft",
+        "ClawRight"
+      ]
+    },
+    "claw_close": {
+      "frames": [
+        0,
+        18
+      ],
+      "fps": 30,
+      "loop": false,
+      "joints": [
+        "ArmLeft",
+        "ArmRight",
+        "ClawLeft",
+        "ClawRight"
+      ]
+    }
+  },
+  "grip": {
+    "claws": [
+      "ClawLeft",
+      "ClawRight"
+    ],
+    "width": "the weapon's extent across the claws (m)",
+    "note": "close each claw to angle_deg for the held weapon's width (interpolate between rows); claw_close ends at 0 deg, the grip for the nominal width",
+    "nominal_width_m": 0.05,
+    "rows": [
+      {
+        "width_m": 0.03,
+        "ClawLeft": {
+          "angle_deg": -4.0,
+          "clamped": true
+        },
+        "ClawRight": {
+          "angle_deg": -4.0,
+          "clamped": true
+        }
+      },
+      {
+        "width_m": 0.04,
+        "ClawLeft": {
+          "angle_deg": -2.5,
+          "clamped": true
+        },
+        "ClawRight": {
+          "angle_deg": -2.5,
+          "clamped": true
+        }
+      },
+      {
+        "width_m": 0.05,
+        "ClawLeft": {
+          "angle_deg": -0.5,
+          "clamped": true
+        },
+        "ClawRight": {
+          "angle_deg": -0.5,
+          "clamped": true
+        }
+      },
+      {
+        "width_m": 0.06,
+        "ClawLeft": {
+          "angle_deg": 2.0,
+          "clamped": true
+        },
+        "ClawRight": {
+          "angle_deg": 2.0,
+          "clamped": true
+        }
+      },
+      {
+        "width_m": 0.07,
+        "ClawLeft": {
+          "angle_deg": 6.0,
+          "clamped": true
+        },
+        "ClawRight": {
+          "angle_deg": 6.0,
+          "clamped": true
+        }
+      },
+      {
+        "width_m": 0.08,
+        "ClawLeft": {
+          "angle_deg": 9.5,
+          "clamped": true
+        },
+        "ClawRight": {
+          "angle_deg": 9.5,
+          "clamped": true
+        }
+      },
+      {
+        "width_m": 0.09,
+        "ClawLeft": {
+          "angle_deg": 13.0,
+          "clamped": true
+        },
+        "ClawRight": {
+          "angle_deg": 13.0,
+          "clamped": true
+        }
+      },
+      {
+        "width_m": 0.1,
+        "ClawLeft": {
+          "angle_deg": 16.5,
+          "clamped": true
+        },
+        "ClawRight": {
+          "angle_deg": 16.5,
+          "clamped": true
+        }
+      },
+      {
+        "width_m": 0.11,
+        "ClawLeft": {
+          "angle_deg": 20.0,
+          "clamped": true
+        },
+        "ClawRight": {
+          "angle_deg": 20.0,
+          "clamped": true
+        }
+      },
+      {
+        "width_m": 0.12,
+        "ClawLeft": {
+          "angle_deg": 25.0,
+          "clamped": true
+        },
+        "ClawRight": {
+          "angle_deg": 25.0,
+          "clamped": true
+        }
+      },
+      {
+        "width_m": 0.13,
+        "ClawLeft": {
+          "angle_deg": 30.5,
+          "clamped": true
+        },
+        "ClawRight": {
+          "angle_deg": 30.5,
+          "clamped": true
+        }
+      },
+      {
+        "width_m": 0.14,
+        "ClawLeft": {
+          "angle_deg": 36.5,
+          "clamped": true
+        },
+        "ClawRight": {
+          "angle_deg": 36.5,
+          "clamped": true
+        }
+      },
+      {
+        "width_m": 0.15,
+        "ClawLeft": {
+          "angle_deg": 42.0,
+          "clamped": true
+        },
+        "ClawRight": {
+          "angle_deg": 42.0,
+          "clamped": true
+        }
+      },
+      {
+        "width_m": 0.16,
+        "ClawLeft": {
+          "angle_deg": 47.5,
+          "clamped": true
+        },
+        "ClawRight": {
+          "angle_deg": 47.5,
+          "clamped": true
+        }
+      }
+    ]
+  },
+  "usage": "deploy (doors open, turret comes out holding the weapon) -> spin (loop) -> claw_open when the weapon is taken -> claw_close -> stop spin at 0 deg -> retract (turret goes in, doors close). Pistons are baked into the animations; rebuild their aim constraints only for procedural poses.",
+  "material_classifiers": {
+    "M_Emissive": "Emissive",
+    "M_Frame_Diffuse": "Diffuse",
+    "M_Joint_Metallic": "Metallic",
+    "M_Primary_Metallic": "Metallic",
+    "M_Secondary_Metallic": "Metallic"
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "source": "source/fire_contact_atlas.png",
+  "generator": "OpenAI built-in imagegen",
+  "preparation": "export_fireball.py; pixel-preserving validation and copy",
+  "atlas_size": [
+    1254,
+    1254
+  ],
+  "tile_size": 313.5,
+  "grid": [
+    4,
+    4
+  ],
+  "frames": 16,
+  "scientific_validation": false,
+  "occupied_pixels": [
+    3122,
+    5335,
+    8689,
+    12151,
+    13149,
+    14915,
+    16936,
+    16041,
+    14451,
+    14174,
+    10416,
+    8782,
+    6349,
+    6207,
+    5116,
+    2981
+  ],
+  "sha256": "fea1bc787c150846f13c96c261b918560e2a55c51a1279e9cfbbd2d3f428e34d"
+}

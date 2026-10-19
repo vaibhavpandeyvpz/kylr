@@ -1,0 +1,65 @@
+{
+  "name": "lunar_rover",
+  "static": true,
+  "animations": [],
+  "triangles": 8369,
+  "meshes": {
+    "SK_LunarRoverBody": 2777,
+    "SK_LunarRoverSuspension": 1482,
+    "SK_LunarRoverWheels": 4110
+  },
+  "materials": [
+    "M_Frame_Diffuse",
+    "M_Joint_Metallic",
+    "M_Optics_Diffuse",
+    "M_Primary_Metallic",
+    "M_Secondary_Metallic",
+    "M_Solar_Diffuse",
+    "M_Titanium_Metallic"
+  ],
+  "bounds_m": {
+    "lo": [
+      -1.0,
+      -1.5,
+      0.0
+    ],
+    "hi": [
+      1.0,
+      1.5,
+      2.1600000858306885
+    ]
+  },
+  "triangle_budget_per_mesh": 5000,
+  "placement": "floor-centred, front -Y",
+  "interface_fits": {
+    "rocker_bogie_side_mm": 2.2500000000000018,
+    "dish_clevis_side_mm": 1.5000000000000013,
+    "support_pin_radial_mm": 0.7500000000000007,
+    "solar_cartridge_end_seam_mm": 60.00000000000006,
+    "solar_cartridge_lateral_seam_mm": 38.75000025000013,
+    "wheel_steering_clearance_mm": 3.74999999999992
+  },
+  "authored_parts": 137,
+  "checks": {
+    "connectivity": true,
+    "coplanar": true,
+    "mechanical_seats": true,
+    "envelope": true,
+    "budget": true,
+    "no_actions": true,
+    "roundtrips": [
+      "glb",
+      "fbx"
+    ]
+  },
+  "mechanics": "passive rocker-bogie; six hub motors; four steering knuckles; fixed deployed solar cartridges; stereo mast; dish; parked science arm",
+  "material_classifiers": {
+    "M_Frame_Diffuse": "Diffuse",
+    "M_Joint_Metallic": "Metallic",
+    "M_Optics_Diffuse": "Diffuse",
+    "M_Primary_Metallic": "Metallic",
+    "M_Secondary_Metallic": "Metallic",
+    "M_Solar_Diffuse": "Diffuse",
+    "M_Titanium_Metallic": "Metallic"
+  }
+}

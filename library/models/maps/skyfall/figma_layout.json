@@ -1,0 +1,4317 @@
+{
+  "file_key": "0pxQrXAGeHplJ0ANVYwD8e",
+  "node": "69:3",
+  "canvas_px": [
+    7500,
+    7500
+  ],
+  "metres_per_pixel": 0.01,
+  "inspected": "2026-10-15",
+  "placements": [
+    {
+      "figma_node": "2011:179",
+      "label": "Thruster",
+      "size_px": [
+        500,
+        500
+      ],
+      "center_px": [
+        1250.0,
+        3750.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Island 2",
+        "Ground"
+      ],
+      "placement_index": 0
+    },
+    {
+      "figma_node": "2011:181",
+      "label": "Platform 10x10",
+      "size_px": [
+        1000,
+        1000
+      ],
+      "center_px": [
+        1250.0,
+        3750.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Island 2",
+        "Ground",
+        "Floor"
+      ],
+      "placement_index": 1
+    },
+    {
+      "figma_node": "2011:182",
+      "label": "Platform Lip 3x3",
+      "size_px": [
+        300,
+        300
+      ],
+      "center_px": [
+        1250.0,
+        3100.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Island 2",
+        "Ground",
+        "Floor"
+      ],
+      "placement_index": 2
+    },
+    {
+      "figma_node": "2011:184",
+      "label": "Pillar 4",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        800.0,
+        3300.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Island 2",
+        "Ground",
+        "Pillars"
+      ],
+      "placement_index": 3
+    },
+    {
+      "figma_node": "2011:185",
+      "label": "Pillar 3",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        800.0,
+        4200.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Island 2",
+        "Ground",
+        "Pillars"
+      ],
+      "placement_index": 4
+    },
+    {
+      "figma_node": "2011:186",
+      "label": "Pillar 2",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        1700.0,
+        3300.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Island 2",
+        "Ground",
+        "Pillars"
+      ],
+      "placement_index": 5
+    },
+    {
+      "figma_node": "2011:187",
+      "label": "Pillar 1",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        1700.0,
+        4200.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Island 2",
+        "Ground",
+        "Pillars"
+      ],
+      "placement_index": 6
+    },
+    {
+      "figma_node": "2011:189",
+      "label": "Jump Pad 1",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        1250.0,
+        3100.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Island 2",
+        "Ground",
+        "Jump Pads"
+      ],
+      "placement_index": 7
+    },
+    {
+      "figma_node": "2011:192",
+      "label": "Platform 10x10",
+      "size_px": [
+        1000,
+        1000
+      ],
+      "center_px": [
+        1250.0,
+        3750.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Island 2",
+        "1st Floor",
+        "Floor"
+      ],
+      "placement_index": 8
+    },
+    {
+      "figma_node": "2011:193",
+      "label": "Hole",
+      "size_px": [
+        300,
+        300
+      ],
+      "center_px": [
+        1250.0,
+        3750.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Island 2",
+        "1st Floor",
+        "Floor"
+      ],
+      "placement_index": 9
+    },
+    {
+      "figma_node": "2011:195",
+      "label": "Barrel 3",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        950.0,
+        4097.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Island 2",
+        "1st Floor",
+        "Barrels"
+      ],
+      "placement_index": 10
+    },
+    {
+      "figma_node": "2011:196",
+      "label": "Barrel 2",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        850.0,
+        4033.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Island 2",
+        "1st Floor",
+        "Barrels"
+      ],
+      "placement_index": 11
+    },
+    {
+      "figma_node": "2011:197",
+      "label": "Barrel 1",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        850.0,
+        4147.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Island 2",
+        "1st Floor",
+        "Barrels"
+      ],
+      "placement_index": 12
+    },
+    {
+      "figma_node": "2011:199",
+      "label": "Weapon Pickup - Flamethrower (Item cradle)",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        1250.0,
+        3425.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Island 2",
+        "1st Floor",
+        "Weapon Pickups"
+      ],
+      "placement_index": 13
+    },
+    {
+      "figma_node": "2011:201",
+      "label": "Ammo Pickup - Flamethrower",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        1575.0,
+        3750.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Island 2",
+        "1st Floor",
+        "Ammo Pickups"
+      ],
+      "placement_index": 14
+    },
+    {
+      "figma_node": "2011:205",
+      "label": "Thruster 2",
+      "size_px": [
+        500,
+        500
+      ],
+      "center_px": [
+        700.0,
+        5450.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Mainland 2",
+        "Higher ground",
+        "Thrusters"
+      ],
+      "placement_index": 15
+    },
+    {
+      "figma_node": "2011:206",
+      "label": "Thruster 1",
+      "size_px": [
+        500,
+        500
+      ],
+      "center_px": [
+        1750.0,
+        6500.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Mainland 2",
+        "Higher ground",
+        "Thrusters"
+      ],
+      "placement_index": 16
+    },
+    {
+      "figma_node": "2011:208",
+      "label": "Platform 20x20",
+      "size_px": [
+        2000,
+        2000
+      ],
+      "center_px": [
+        1250.0,
+        6000.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Mainland 2",
+        "Higher ground",
+        "Floor"
+      ],
+      "placement_index": 17
+    },
+    {
+      "figma_node": "2011:209",
+      "label": "Platform Lip 2x5",
+      "size_px": [
+        500,
+        200
+      ],
+      "center_px": [
+        1250.0,
+        4900.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Mainland 2",
+        "Higher ground",
+        "Floor"
+      ],
+      "placement_index": 18
+    },
+    {
+      "figma_node": "2011:210",
+      "label": "Platform Lip 2x2",
+      "size_px": [
+        200,
+        200
+      ],
+      "center_px": [
+        2350.0,
+        6400.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Mainland 2",
+        "Higher ground",
+        "Floor"
+      ],
+      "placement_index": 19
+    },
+    {
+      "figma_node": "2011:212",
+      "label": "Barrel 3",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        2050.0,
+        5250.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Mainland 2",
+        "Higher ground",
+        "Barrels"
+      ],
+      "placement_index": 20
+    },
+    {
+      "figma_node": "2011:213",
+      "label": "Barrel 2",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        1950.0,
+        5186.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Mainland 2",
+        "Higher ground",
+        "Barrels"
+      ],
+      "placement_index": 21
+    },
+    {
+      "figma_node": "2011:214",
+      "label": "Barrel 1",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        1950.0,
+        5300.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Mainland 2",
+        "Higher ground",
+        "Barrels"
+      ],
+      "placement_index": 22
+    },
+    {
+      "figma_node": "2011:216",
+      "label": "Pillar 4",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        800.0,
+        5550.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Mainland 2",
+        "Higher ground",
+        "Pillars"
+      ],
+      "placement_index": 23
+    },
+    {
+      "figma_node": "2011:217",
+      "label": "Pillar 3",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        800.0,
+        6450.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Mainland 2",
+        "Higher ground",
+        "Pillars"
+      ],
+      "placement_index": 24
+    },
+    {
+      "figma_node": "2011:218",
+      "label": "Pillar 2",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        1700.0,
+        5550.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Mainland 2",
+        "Higher ground",
+        "Pillars"
+      ],
+      "placement_index": 25
+    },
+    {
+      "figma_node": "2011:219",
+      "label": "Pillar 1",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        1700.0,
+        6450.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Mainland 2",
+        "Higher ground",
+        "Pillars"
+      ],
+      "placement_index": 26
+    },
+    {
+      "figma_node": "2011:222",
+      "label": "Barricade 1",
+      "size_px": [
+        200,
+        400
+      ],
+      "center_px": [
+        1250.0,
+        5250.0
+      ],
+      "angle": -1.5707963267948963,
+      "path": [
+        "Zone B",
+        "Mainland 2",
+        "Higher ground",
+        "Barricades",
+        "Barricade 1"
+      ],
+      "placement_index": 27
+    },
+    {
+      "figma_node": "2011:223",
+      "label": "Pressure Plate 1",
+      "size_px": [
+        100,
+        200
+      ],
+      "center_px": [
+        1250.0,
+        5550.0
+      ],
+      "angle": -1.5707963267948963,
+      "path": [
+        "Zone B",
+        "Mainland 2",
+        "Higher ground",
+        "Barricades",
+        "Barricade 1"
+      ],
+      "placement_index": 28
+    },
+    {
+      "figma_node": "2011:225",
+      "label": "Ammo Pickup - Minigun",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        900.0,
+        6000.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Mainland 2",
+        "Higher ground",
+        "Ammo Pickups"
+      ],
+      "placement_index": 29
+    },
+    {
+      "figma_node": "2011:227",
+      "label": "Weapon Pickup Wall - Minigun",
+      "size_px": [
+        200,
+        200
+      ],
+      "center_px": [
+        600.0,
+        6000.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Mainland 2",
+        "Higher ground",
+        "Weapon Pickups"
+      ],
+      "placement_index": 30
+    },
+    {
+      "figma_node": "2011:228",
+      "label": "Weapon Pickup - Minigun",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        750.0,
+        6000.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Mainland 2",
+        "Higher ground",
+        "Weapon Pickups"
+      ],
+      "placement_index": 31
+    },
+    {
+      "figma_node": "2011:229",
+      "label": "Speedramp",
+      "size_px": [
+        300,
+        200
+      ],
+      "center_px": [
+        1250.0,
+        4900.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Mainland 2",
+        "Higher ground"
+      ],
+      "placement_index": 32
+    },
+    {
+      "figma_node": "2011:231",
+      "label": "Jump Pad 1",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        2350.0,
+        6400.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Mainland 2",
+        "Higher ground",
+        "Jump Pads"
+      ],
+      "placement_index": 33
+    },
+    {
+      "figma_node": "2011:232",
+      "label": "Terminal",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        1250.0,
+        6000.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Mainland 2",
+        "Higher ground"
+      ],
+      "placement_index": 34
+    },
+    {
+      "figma_node": "2011:235",
+      "label": "Platform 10x10",
+      "size_px": [
+        1000,
+        1000
+      ],
+      "center_px": [
+        1250.0,
+        6000.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Mainland 2",
+        "Rooftop",
+        "Floor"
+      ],
+      "placement_index": 35
+    },
+    {
+      "figma_node": "2011:236",
+      "label": "Hole 2x2",
+      "size_px": [
+        300,
+        300
+      ],
+      "center_px": [
+        1500.0,
+        6000.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Mainland 2",
+        "Rooftop",
+        "Floor"
+      ],
+      "placement_index": 36
+    },
+    {
+      "figma_node": "2011:238",
+      "label": "Barrel 3",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        950.0,
+        6347.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Mainland 2",
+        "Rooftop",
+        "Barrels"
+      ],
+      "placement_index": 37
+    },
+    {
+      "figma_node": "2011:239",
+      "label": "Barrel 2",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        850.0,
+        6283.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Mainland 2",
+        "Rooftop",
+        "Barrels"
+      ],
+      "placement_index": 38
+    },
+    {
+      "figma_node": "2011:240",
+      "label": "Barrel 1",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        850.0,
+        6397.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Mainland 2",
+        "Rooftop",
+        "Barrels"
+      ],
+      "placement_index": 39
+    },
+    {
+      "figma_node": "2011:242",
+      "label": "Weapon Pickup - Flak Cannon (Item Cradle)",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        1050.0,
+        5650.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Mainland 2",
+        "Rooftop",
+        "Weapon Pickups"
+      ],
+      "placement_index": 40
+    },
+    {
+      "figma_node": "2011:244",
+      "label": "Ammo Pickup - Flak Cannon",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        900.0,
+        5650.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Mainland 2",
+        "Rooftop",
+        "Ammo Pickups"
+      ],
+      "placement_index": 41
+    },
+    {
+      "figma_node": "2011:246",
+      "label": "Thruster",
+      "size_px": [
+        500,
+        500
+      ],
+      "center_px": [
+        3050.0,
+        6000.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Island 1"
+      ],
+      "placement_index": 42
+    },
+    {
+      "figma_node": "2011:248",
+      "label": "Platform Lip 2x2",
+      "size_px": [
+        200,
+        200
+      ],
+      "center_px": [
+        2450.0,
+        5600.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Island 1",
+        "Floor"
+      ],
+      "placement_index": 43
+    },
+    {
+      "figma_node": "2011:249",
+      "label": "Platform 10x10",
+      "size_px": [
+        1000,
+        1000
+      ],
+      "center_px": [
+        3050.0,
+        6000.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Island 1",
+        "Floor"
+      ],
+      "placement_index": 44
+    },
+    {
+      "figma_node": "2011:251",
+      "label": "Weapon Pickup - Rocket Launcher (Item cradle)",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        3050.0,
+        6000.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Island 1",
+        "Weapon Pickups"
+      ],
+      "placement_index": 45
+    },
+    {
+      "figma_node": "2011:253",
+      "label": "Ammo Pickup 2 - Rocket Pack",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        2850.0,
+        6000.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Island 1",
+        "Ammo Pickups"
+      ],
+      "placement_index": 46
+    },
+    {
+      "figma_node": "2011:254",
+      "label": "Ammo Pickup 1 - Rocket Pack",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        3250.0,
+        6000.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Island 1",
+        "Ammo Pickups"
+      ],
+      "placement_index": 47
+    },
+    {
+      "figma_node": "2011:256",
+      "label": "Jump Pad 1",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        2450.0,
+        5600.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Island 1",
+        "Jump Pads"
+      ],
+      "placement_index": 48
+    },
+    {
+      "figma_node": "2011:257",
+      "label": "Bridge 5x10",
+      "size_px": [
+        1000,
+        500
+      ],
+      "center_px": [
+        4050.0,
+        6000.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B"
+      ],
+      "placement_index": 49
+    },
+    {
+      "figma_node": "2011:261",
+      "label": "Thruster 4",
+      "size_px": [
+        500,
+        500
+      ],
+      "center_px": [
+        5100.0,
+        5100.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Mainland 1",
+        "Lower ground",
+        "Thrusters"
+      ],
+      "placement_index": 50
+    },
+    {
+      "figma_node": "2011:262",
+      "label": "Thruster 3",
+      "size_px": [
+        500,
+        500
+      ],
+      "center_px": [
+        6900.0,
+        5100.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Mainland 1",
+        "Lower ground",
+        "Thrusters"
+      ],
+      "placement_index": 51
+    },
+    {
+      "figma_node": "2011:263",
+      "label": "Thruster 2",
+      "size_px": [
+        500,
+        500
+      ],
+      "center_px": [
+        5100.0,
+        6900.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Mainland 1",
+        "Lower ground",
+        "Thrusters"
+      ],
+      "placement_index": 52
+    },
+    {
+      "figma_node": "2011:264",
+      "label": "Thruster 1",
+      "size_px": [
+        500,
+        500
+      ],
+      "center_px": [
+        6900.0,
+        6900.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Mainland 1",
+        "Lower ground",
+        "Thrusters"
+      ],
+      "placement_index": 53
+    },
+    {
+      "figma_node": "2011:265",
+      "label": "Platform 25x25",
+      "size_px": [
+        2500,
+        2500
+      ],
+      "center_px": [
+        6000.0,
+        6000.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Mainland 1",
+        "Lower ground"
+      ],
+      "placement_index": 54
+    },
+    {
+      "figma_node": "2011:266",
+      "label": "Platform Lip 2x10 (2x 2x5)",
+      "size_px": [
+        200,
+        1000
+      ],
+      "center_px": [
+        4650.0,
+        6000.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Mainland 1",
+        "Lower ground"
+      ],
+      "placement_index": 55
+    },
+    {
+      "figma_node": "2011:268",
+      "label": "Pillar 4",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        5050.0,
+        5050.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Mainland 1",
+        "Lower ground",
+        "Pillars"
+      ],
+      "placement_index": 56
+    },
+    {
+      "figma_node": "2011:269",
+      "label": "Pillar 3",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        5050.0,
+        6950.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Mainland 1",
+        "Lower ground",
+        "Pillars"
+      ],
+      "placement_index": 57
+    },
+    {
+      "figma_node": "2011:270",
+      "label": "Pillar 2",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        6950.0,
+        5050.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Mainland 1",
+        "Lower ground",
+        "Pillars"
+      ],
+      "placement_index": 58
+    },
+    {
+      "figma_node": "2011:271",
+      "label": "Pillar 1",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        6950.0,
+        6950.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Mainland 1",
+        "Lower ground",
+        "Pillars"
+      ],
+      "placement_index": 59
+    },
+    {
+      "figma_node": "2011:274",
+      "label": "Barricade 1",
+      "size_px": [
+        200,
+        400
+      ],
+      "center_px": [
+        4850.0,
+        6000.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Mainland 1",
+        "Lower ground",
+        "Barricades",
+        "Barricade 1"
+      ],
+      "placement_index": 60
+    },
+    {
+      "figma_node": "2011:275",
+      "label": "Pressure Plate 1",
+      "size_px": [
+        100,
+        200
+      ],
+      "center_px": [
+        5150.0,
+        6000.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Mainland 1",
+        "Lower ground",
+        "Barricades",
+        "Barricade 1"
+      ],
+      "placement_index": 61
+    },
+    {
+      "figma_node": "2011:277",
+      "label": "Ammo Pickup - Bio rifle",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        4900.0,
+        4900.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Mainland 1",
+        "Lower ground",
+        "Ammo Pickups"
+      ],
+      "placement_index": 62
+    },
+    {
+      "figma_node": "2011:278",
+      "label": "Ammo Pickup - Rifle",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        4900.0,
+        7100.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Mainland 1",
+        "Lower ground",
+        "Ammo Pickups"
+      ],
+      "placement_index": 63
+    },
+    {
+      "figma_node": "2011:281",
+      "label": "Shield Core Pickup 2",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        5600.0,
+        5400.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Mainland 1",
+        "Lower ground",
+        "Core Pickups",
+        "Shield Core Pickups"
+      ],
+      "placement_index": 64
+    },
+    {
+      "figma_node": "2011:283",
+      "label": "Energy Core Pickup 1",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        5600.0,
+        6600.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Mainland 1",
+        "Lower ground",
+        "Core Pickups",
+        "Energy Core Pickups"
+      ],
+      "placement_index": 65
+    },
+    {
+      "figma_node": "2011:285",
+      "label": "Weapon Pickup - Bio rifle",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        6600.0,
+        6750.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Mainland 1",
+        "Lower ground",
+        "Weapon Pickups"
+      ],
+      "placement_index": 66
+    },
+    {
+      "figma_node": "2011:286",
+      "label": "Weapon Pickup Wall - Bio Rifle",
+      "size_px": [
+        200,
+        200
+      ],
+      "center_px": [
+        6750.0,
+        6750.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Mainland 1",
+        "Lower ground",
+        "Weapon Pickups"
+      ],
+      "placement_index": 67
+    },
+    {
+      "figma_node": "2011:287",
+      "label": "Weapon Pickup - Rifle",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        6600.0,
+        5250.0
+      ],
+      "angle": 2.4492937051703357e-16,
+      "path": [
+        "Zone B",
+        "Mainland 1",
+        "Lower ground",
+        "Weapon Pickups"
+      ],
+      "placement_index": 68
+    },
+    {
+      "figma_node": "2011:288",
+      "label": "Weapon Pickup Wall - Rifle",
+      "size_px": [
+        200,
+        200
+      ],
+      "center_px": [
+        6750.0,
+        5250.0
+      ],
+      "angle": 2.4492937051703357e-16,
+      "path": [
+        "Zone B",
+        "Mainland 1",
+        "Lower ground",
+        "Weapon Pickups"
+      ],
+      "placement_index": 69
+    },
+    {
+      "figma_node": "2011:290",
+      "label": "Spawn Point 4",
+      "size_px": [
+        200,
+        200
+      ],
+      "center_px": [
+        6900.0,
+        5750.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Mainland 1",
+        "Lower ground",
+        "Spawn Points"
+      ],
+      "placement_index": 70
+    },
+    {
+      "figma_node": "2011:291",
+      "label": "Spawn Point 3",
+      "size_px": [
+        200,
+        200
+      ],
+      "center_px": [
+        6900.0,
+        6250.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Mainland 1",
+        "Lower ground",
+        "Spawn Points"
+      ],
+      "placement_index": 71
+    },
+    {
+      "figma_node": "2011:293",
+      "label": "Portal 1A",
+      "size_px": [
+        50,
+        100
+      ],
+      "center_px": [
+        6900.0,
+        6000.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Mainland 1",
+        "Lower ground",
+        "Portals"
+      ],
+      "placement_index": 72
+    },
+    {
+      "figma_node": "2011:295",
+      "label": "Barrel 3",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        6600.0,
+        4964.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Mainland 1",
+        "Lower ground",
+        "Barrels"
+      ],
+      "placement_index": 73
+    },
+    {
+      "figma_node": "2011:296",
+      "label": "Barrel 2",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        6500.0,
+        4900.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Mainland 1",
+        "Lower ground",
+        "Barrels"
+      ],
+      "placement_index": 74
+    },
+    {
+      "figma_node": "2011:297",
+      "label": "Barrel 1",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        6500.0,
+        5014.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Mainland 1",
+        "Lower ground",
+        "Barrels"
+      ],
+      "placement_index": 75
+    },
+    {
+      "figma_node": "2011:298",
+      "label": "Barrel 4",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        6600.0,
+        7050.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Mainland 1",
+        "Lower ground",
+        "Barrels"
+      ],
+      "placement_index": 76
+    },
+    {
+      "figma_node": "2011:299",
+      "label": "Barrel 5",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        6500.0,
+        6986.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Mainland 1",
+        "Lower ground",
+        "Barrels"
+      ],
+      "placement_index": 77
+    },
+    {
+      "figma_node": "2011:300",
+      "label": "Barrel 6",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        6500.0,
+        7100.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Mainland 1",
+        "Lower ground",
+        "Barrels"
+      ],
+      "placement_index": 78
+    },
+    {
+      "figma_node": "2011:301",
+      "label": "Workstation",
+      "size_px": [
+        100,
+        150
+      ],
+      "center_px": [
+        6000.0,
+        6000.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Mainland 1",
+        "Lower ground"
+      ],
+      "placement_index": 79
+    },
+    {
+      "figma_node": "2011:303",
+      "label": "Jump Pad 2",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        5850.0,
+        5400.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Mainland 1",
+        "Lower ground",
+        "Jump Pads"
+      ],
+      "placement_index": 80
+    },
+    {
+      "figma_node": "2011:304",
+      "label": "Jump Pad 1",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        6150.0,
+        6600.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Mainland 1",
+        "Lower ground",
+        "Jump Pads"
+      ],
+      "placement_index": 81
+    },
+    {
+      "figma_node": "2011:307",
+      "label": "Platform 20x20",
+      "size_px": [
+        2000,
+        2000
+      ],
+      "center_px": [
+        6000.0,
+        6000.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Mainland 1",
+        "Higher ground",
+        "Subtract"
+      ],
+      "placement_index": 82
+    },
+    {
+      "figma_node": "2011:308",
+      "label": "Hole 2",
+      "size_px": [
+        600,
+        300
+      ],
+      "center_px": [
+        6000.0,
+        5400.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Mainland 1",
+        "Higher ground",
+        "Subtract"
+      ],
+      "placement_index": 83
+    },
+    {
+      "figma_node": "2011:309",
+      "label": "Hole 1",
+      "size_px": [
+        600,
+        300
+      ],
+      "center_px": [
+        6000.0,
+        6600.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Mainland 1",
+        "Higher ground",
+        "Subtract"
+      ],
+      "placement_index": 84
+    },
+    {
+      "figma_node": "2011:311",
+      "label": "Pillar 4",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        5300.0,
+        5300.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Mainland 1",
+        "Higher ground",
+        "Pillars"
+      ],
+      "placement_index": 85
+    },
+    {
+      "figma_node": "2011:312",
+      "label": "Pillar 3",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        5300.0,
+        6700.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Mainland 1",
+        "Higher ground",
+        "Pillars"
+      ],
+      "placement_index": 86
+    },
+    {
+      "figma_node": "2011:313",
+      "label": "Pillar 2",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        6700.0,
+        5300.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Mainland 1",
+        "Higher ground",
+        "Pillars"
+      ],
+      "placement_index": 87
+    },
+    {
+      "figma_node": "2011:314",
+      "label": "Pillar 1",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        6700.0,
+        6700.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Mainland 1",
+        "Higher ground",
+        "Pillars"
+      ],
+      "placement_index": 88
+    },
+    {
+      "figma_node": "2011:316",
+      "label": "Spawn Point 2 (Stasis Chamber)",
+      "size_px": [
+        200,
+        200
+      ],
+      "center_px": [
+        6900.0,
+        5750.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Mainland 1",
+        "Higher ground",
+        "Spawn Points"
+      ],
+      "placement_index": 89
+    },
+    {
+      "figma_node": "2011:317",
+      "label": "Spawn Point 1 (Stasis Chamber)",
+      "size_px": [
+        200,
+        200
+      ],
+      "center_px": [
+        6900.0,
+        6250.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Mainland 1",
+        "Higher ground",
+        "Spawn Points"
+      ],
+      "placement_index": 90
+    },
+    {
+      "figma_node": "2011:318",
+      "label": "Repair Station",
+      "size_px": [
+        200,
+        200
+      ],
+      "center_px": [
+        6000.0,
+        6000.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Mainland 1",
+        "Higher ground"
+      ],
+      "placement_index": 91
+    },
+    {
+      "figma_node": "2011:324",
+      "label": "Ammo Pickup - Lightning Gun",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        5100.0,
+        6900.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Mainland 1",
+        "Higher ground",
+        "Ammo Pickups"
+      ],
+      "placement_index": 94
+    },
+    {
+      "figma_node": "2011:325",
+      "label": "Ammo Pickup - EMP",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        5100.0,
+        5100.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Mainland 1",
+        "Higher ground",
+        "Ammo Pickups"
+      ],
+      "placement_index": 95
+    },
+    {
+      "figma_node": "2011:327",
+      "label": "Weapon Pickup - Lightning Gun (Item cradle)",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        6900.0,
+        6900.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Mainland 1",
+        "Higher ground",
+        "Weapon Pickups"
+      ],
+      "placement_index": 96
+    },
+    {
+      "figma_node": "2011:328",
+      "label": "Weapon Pickup - EMP (Item cradle)",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        6900.0,
+        5100.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Mainland 1",
+        "Higher ground",
+        "Weapon Pickups"
+      ],
+      "placement_index": 97
+    },
+    {
+      "figma_node": "2011:329",
+      "label": "Roof Display Assembly",
+      "size_px": [
+        50,
+        150
+      ],
+      "center_px": [
+        6311.0,
+        6000.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Mainland 1",
+        "Higher ground"
+      ],
+      "placement_index": 98
+    },
+    {
+      "figma_node": "2011:332",
+      "label": "Platform 15x15",
+      "size_px": [
+        1500,
+        1500
+      ],
+      "center_px": [
+        6000.0,
+        6000.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Mainland 1",
+        "Rooftop",
+        "Floor"
+      ],
+      "placement_index": 99
+    },
+    {
+      "figma_node": "2011:334",
+      "label": "Barrel 3",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        5500.0,
+        6559.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Mainland 1",
+        "Rooftop",
+        "Barrels"
+      ],
+      "placement_index": 100
+    },
+    {
+      "figma_node": "2011:335",
+      "label": "Barrel 2",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        5400.0,
+        6495.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Mainland 1",
+        "Rooftop",
+        "Barrels"
+      ],
+      "placement_index": 101
+    },
+    {
+      "figma_node": "2011:336",
+      "label": "Barrel 1",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        5400.0,
+        6609.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Mainland 1",
+        "Rooftop",
+        "Barrels"
+      ],
+      "placement_index": 102
+    },
+    {
+      "figma_node": "2011:338",
+      "label": "Spawn Point 5 (Stasis Chamber)",
+      "size_px": [
+        200,
+        200
+      ],
+      "center_px": [
+        6600.0,
+        6600.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Mainland 1",
+        "Rooftop",
+        "Spawn Points"
+      ],
+      "placement_index": 103
+    },
+    {
+      "figma_node": "2011:340",
+      "label": "Weapon Pickup Wall - Grenade Launcher",
+      "size_px": [
+        200,
+        200
+      ],
+      "center_px": [
+        5450.0,
+        5450.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Mainland 1",
+        "Rooftop",
+        "Weapon Pickups"
+      ],
+      "placement_index": 104
+    },
+    {
+      "figma_node": "2011:341",
+      "label": "Weapon Pickup - Grenade Launcher",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        5450.0,
+        5600.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Mainland 1",
+        "Rooftop",
+        "Weapon Pickups"
+      ],
+      "placement_index": 105
+    },
+    {
+      "figma_node": "2011:343",
+      "label": "Ammo Pickup - Grenade Launcher",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        5650.0,
+        5450.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Mainland 1",
+        "Rooftop",
+        "Ammo Pickups"
+      ],
+      "placement_index": 106
+    },
+    {
+      "figma_node": "2011:345",
+      "label": "Portal 1B",
+      "size_px": [
+        50,
+        100
+      ],
+      "center_px": [
+        6600.0,
+        6000.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Mainland 1",
+        "Rooftop",
+        "Portals"
+      ],
+      "placement_index": 107
+    },
+    {
+      "figma_node": "2011:346",
+      "label": "Flag placement",
+      "size_px": [
+        200,
+        200
+      ],
+      "center_px": [
+        6100.0,
+        6000.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Mainland 1",
+        "Rooftop"
+      ],
+      "placement_index": 108
+    },
+    {
+      "figma_node": "2011:347",
+      "label": "Lunar dome",
+      "size_px": [
+        750,
+        750
+      ],
+      "center_px": [
+        6000.0,
+        6000.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone B",
+        "Mainland 1",
+        "Rooftop"
+      ],
+      "placement_index": 109
+    },
+    {
+      "figma_node": "2011:352",
+      "label": "Thruster",
+      "size_px": [
+        500,
+        500
+      ],
+      "center_px": [
+        6250.0,
+        3750.0
+      ],
+      "angle": 5.3437816372905846e-24,
+      "path": [
+        "Zone A",
+        "Island 2",
+        "Ground"
+      ],
+      "placement_index": 110
+    },
+    {
+      "figma_node": "2011:354",
+      "label": "Platform 10x10",
+      "size_px": [
+        1000,
+        1000
+      ],
+      "center_px": [
+        6250.0,
+        3750.0
+      ],
+      "angle": 5.3437816372905846e-24,
+      "path": [
+        "Zone A",
+        "Island 2",
+        "Ground",
+        "Floor"
+      ],
+      "placement_index": 111
+    },
+    {
+      "figma_node": "2011:355",
+      "label": "Platform Lip 3x3",
+      "size_px": [
+        300,
+        300
+      ],
+      "center_px": [
+        6250.0,
+        4400.0
+      ],
+      "angle": 5.3437816372905846e-24,
+      "path": [
+        "Zone A",
+        "Island 2",
+        "Ground",
+        "Floor"
+      ],
+      "placement_index": 112
+    },
+    {
+      "figma_node": "2011:357",
+      "label": "Pillar 4",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        6700.0,
+        4200.0
+      ],
+      "angle": 5.3437816372905846e-24,
+      "path": [
+        "Zone A",
+        "Island 2",
+        "Ground",
+        "Pillars"
+      ],
+      "placement_index": 113
+    },
+    {
+      "figma_node": "2011:358",
+      "label": "Pillar 3",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        6700.0,
+        3300.0
+      ],
+      "angle": 5.3437816372905846e-24,
+      "path": [
+        "Zone A",
+        "Island 2",
+        "Ground",
+        "Pillars"
+      ],
+      "placement_index": 114
+    },
+    {
+      "figma_node": "2011:359",
+      "label": "Pillar 2",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        5800.0,
+        4200.0
+      ],
+      "angle": 5.3437816372905846e-24,
+      "path": [
+        "Zone A",
+        "Island 2",
+        "Ground",
+        "Pillars"
+      ],
+      "placement_index": 115
+    },
+    {
+      "figma_node": "2011:360",
+      "label": "Pillar 1",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        5800.0,
+        3300.0
+      ],
+      "angle": 5.3437816372905846e-24,
+      "path": [
+        "Zone A",
+        "Island 2",
+        "Ground",
+        "Pillars"
+      ],
+      "placement_index": 116
+    },
+    {
+      "figma_node": "2011:362",
+      "label": "Jump Pad 1",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        6250.0,
+        4400.0
+      ],
+      "angle": 5.3437816372905846e-24,
+      "path": [
+        "Zone A",
+        "Island 2",
+        "Ground",
+        "Jump Pads"
+      ],
+      "placement_index": 117
+    },
+    {
+      "figma_node": "2011:365",
+      "label": "Platform 10x10",
+      "size_px": [
+        1000,
+        1000
+      ],
+      "center_px": [
+        6250.0,
+        3750.0
+      ],
+      "angle": 5.3437816372905846e-24,
+      "path": [
+        "Zone A",
+        "Island 2",
+        "1st Floor",
+        "Floor"
+      ],
+      "placement_index": 118
+    },
+    {
+      "figma_node": "2011:366",
+      "label": "Hole",
+      "size_px": [
+        300,
+        300
+      ],
+      "center_px": [
+        6250.0,
+        3750.0
+      ],
+      "angle": 5.3437816372905846e-24,
+      "path": [
+        "Zone A",
+        "Island 2",
+        "1st Floor",
+        "Floor"
+      ],
+      "placement_index": 119
+    },
+    {
+      "figma_node": "2011:368",
+      "label": "Barrel 3",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        6550.0,
+        3403.0
+      ],
+      "angle": 0.0,
+      "path": [
+        "Zone A",
+        "Island 2",
+        "1st Floor",
+        "Barrels"
+      ],
+      "placement_index": 120
+    },
+    {
+      "figma_node": "2011:369",
+      "label": "Barrel 2",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        6650.0,
+        3467.0
+      ],
+      "angle": 0.0,
+      "path": [
+        "Zone A",
+        "Island 2",
+        "1st Floor",
+        "Barrels"
+      ],
+      "placement_index": 121
+    },
+    {
+      "figma_node": "2011:370",
+      "label": "Barrel 1",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        6650.0,
+        3353.0
+      ],
+      "angle": 0.0,
+      "path": [
+        "Zone A",
+        "Island 2",
+        "1st Floor",
+        "Barrels"
+      ],
+      "placement_index": 122
+    },
+    {
+      "figma_node": "2011:372",
+      "label": "Weapon Pickup - Flamethrower (Item cradle)",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        6250.0,
+        4075.0
+      ],
+      "angle": 0.0,
+      "path": [
+        "Zone A",
+        "Island 2",
+        "1st Floor",
+        "Weapon Pickups"
+      ],
+      "placement_index": 123
+    },
+    {
+      "figma_node": "2011:374",
+      "label": "Ammo Pickup - Flamethrower",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        5925.0,
+        3750.0
+      ],
+      "angle": 5.3437816372905846e-24,
+      "path": [
+        "Zone A",
+        "Island 2",
+        "1st Floor",
+        "Ammo Pickups"
+      ],
+      "placement_index": 124
+    },
+    {
+      "figma_node": "2011:378",
+      "label": "Thruster 2",
+      "size_px": [
+        500,
+        500
+      ],
+      "center_px": [
+        6800.0,
+        2050.0
+      ],
+      "angle": 5.3437816372905846e-24,
+      "path": [
+        "Zone A",
+        "Mainland 2",
+        "Higher ground",
+        "Thrusters"
+      ],
+      "placement_index": 125
+    },
+    {
+      "figma_node": "2011:379",
+      "label": "Thruster 1",
+      "size_px": [
+        500,
+        500
+      ],
+      "center_px": [
+        5750.0,
+        1000.0
+      ],
+      "angle": 5.3437816372905846e-24,
+      "path": [
+        "Zone A",
+        "Mainland 2",
+        "Higher ground",
+        "Thrusters"
+      ],
+      "placement_index": 126
+    },
+    {
+      "figma_node": "2011:381",
+      "label": "Platform 20x20",
+      "size_px": [
+        2000,
+        2000
+      ],
+      "center_px": [
+        6250.0,
+        1500.0
+      ],
+      "angle": 5.3437816372905846e-24,
+      "path": [
+        "Zone A",
+        "Mainland 2",
+        "Higher ground",
+        "Floor"
+      ],
+      "placement_index": 127
+    },
+    {
+      "figma_node": "2011:382",
+      "label": "Platform Lip 2x5",
+      "size_px": [
+        500,
+        200
+      ],
+      "center_px": [
+        6250.0,
+        2600.0
+      ],
+      "angle": 5.3437816372905846e-24,
+      "path": [
+        "Zone A",
+        "Mainland 2",
+        "Higher ground",
+        "Floor"
+      ],
+      "placement_index": 128
+    },
+    {
+      "figma_node": "2011:383",
+      "label": "Platform Lip 2x2",
+      "size_px": [
+        200,
+        200
+      ],
+      "center_px": [
+        5150.0,
+        1100.0
+      ],
+      "angle": 5.3437816372905846e-24,
+      "path": [
+        "Zone A",
+        "Mainland 2",
+        "Higher ground",
+        "Floor"
+      ],
+      "placement_index": 129
+    },
+    {
+      "figma_node": "2011:385",
+      "label": "Barrel 3",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        5450.0,
+        2250.0
+      ],
+      "angle": 0.0,
+      "path": [
+        "Zone A",
+        "Mainland 2",
+        "Higher ground",
+        "Barrels"
+      ],
+      "placement_index": 130
+    },
+    {
+      "figma_node": "2011:386",
+      "label": "Barrel 2",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        5550.0,
+        2314.0
+      ],
+      "angle": 0.0,
+      "path": [
+        "Zone A",
+        "Mainland 2",
+        "Higher ground",
+        "Barrels"
+      ],
+      "placement_index": 131
+    },
+    {
+      "figma_node": "2011:387",
+      "label": "Barrel 1",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        5550.0,
+        2200.0
+      ],
+      "angle": 0.0,
+      "path": [
+        "Zone A",
+        "Mainland 2",
+        "Higher ground",
+        "Barrels"
+      ],
+      "placement_index": 132
+    },
+    {
+      "figma_node": "2011:389",
+      "label": "Pillar 4",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        6700.0,
+        1950.0
+      ],
+      "angle": 5.3437816372905846e-24,
+      "path": [
+        "Zone A",
+        "Mainland 2",
+        "Higher ground",
+        "Pillars"
+      ],
+      "placement_index": 133
+    },
+    {
+      "figma_node": "2011:390",
+      "label": "Pillar 3",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        6700.0,
+        1050.0
+      ],
+      "angle": 5.3437816372905846e-24,
+      "path": [
+        "Zone A",
+        "Mainland 2",
+        "Higher ground",
+        "Pillars"
+      ],
+      "placement_index": 134
+    },
+    {
+      "figma_node": "2011:391",
+      "label": "Pillar 2",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        5800.0,
+        1950.0
+      ],
+      "angle": 5.3437816372905846e-24,
+      "path": [
+        "Zone A",
+        "Mainland 2",
+        "Higher ground",
+        "Pillars"
+      ],
+      "placement_index": 135
+    },
+    {
+      "figma_node": "2011:392",
+      "label": "Pillar 1",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        5800.0,
+        1050.0
+      ],
+      "angle": 5.3437816372905846e-24,
+      "path": [
+        "Zone A",
+        "Mainland 2",
+        "Higher ground",
+        "Pillars"
+      ],
+      "placement_index": 136
+    },
+    {
+      "figma_node": "2011:395",
+      "label": "Barricade 1",
+      "size_px": [
+        200,
+        400
+      ],
+      "center_px": [
+        6250.0,
+        2250.0
+      ],
+      "angle": 1.5707963267948968,
+      "path": [
+        "Zone A",
+        "Mainland 2",
+        "Higher ground",
+        "Barricades",
+        "Barricade 1"
+      ],
+      "placement_index": 137
+    },
+    {
+      "figma_node": "2011:396",
+      "label": "Pressure Plate 1",
+      "size_px": [
+        100,
+        200
+      ],
+      "center_px": [
+        6250.0,
+        1950.0
+      ],
+      "angle": 1.5707963267948968,
+      "path": [
+        "Zone A",
+        "Mainland 2",
+        "Higher ground",
+        "Barricades",
+        "Barricade 1"
+      ],
+      "placement_index": 138
+    },
+    {
+      "figma_node": "2011:398",
+      "label": "Ammo Pickup - Minigun",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        6600.0,
+        1500.0
+      ],
+      "angle": 5.3437816372905846e-24,
+      "path": [
+        "Zone A",
+        "Mainland 2",
+        "Higher ground",
+        "Ammo Pickups"
+      ],
+      "placement_index": 139
+    },
+    {
+      "figma_node": "2011:400",
+      "label": "Weapon Pickup Wall - Minigun",
+      "size_px": [
+        200,
+        200
+      ],
+      "center_px": [
+        6900.0,
+        1500.0
+      ],
+      "angle": 5.3437816372905846e-24,
+      "path": [
+        "Zone A",
+        "Mainland 2",
+        "Higher ground",
+        "Weapon Pickups"
+      ],
+      "placement_index": 140
+    },
+    {
+      "figma_node": "2011:401",
+      "label": "Weapon Pickup - Minigun",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        6750.0,
+        1500.0
+      ],
+      "angle": 5.3437816372905846e-24,
+      "path": [
+        "Zone A",
+        "Mainland 2",
+        "Higher ground",
+        "Weapon Pickups"
+      ],
+      "placement_index": 141
+    },
+    {
+      "figma_node": "2011:402",
+      "label": "Speedramp",
+      "size_px": [
+        300,
+        200
+      ],
+      "center_px": [
+        6250.0,
+        2600.0
+      ],
+      "angle": 5.3437816372905846e-24,
+      "path": [
+        "Zone A",
+        "Mainland 2",
+        "Higher ground"
+      ],
+      "placement_index": 142
+    },
+    {
+      "figma_node": "2011:404",
+      "label": "Jump Pad 1",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        5150.0,
+        1100.0
+      ],
+      "angle": 5.3437816372905846e-24,
+      "path": [
+        "Zone A",
+        "Mainland 2",
+        "Higher ground",
+        "Jump Pads"
+      ],
+      "placement_index": 143
+    },
+    {
+      "figma_node": "2011:405",
+      "label": "Terminal",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        6250.0,
+        1500.0
+      ],
+      "angle": 0.0,
+      "path": [
+        "Zone A",
+        "Mainland 2",
+        "Higher ground"
+      ],
+      "placement_index": 144
+    },
+    {
+      "figma_node": "2011:408",
+      "label": "Platform 10x10",
+      "size_px": [
+        1000,
+        1000
+      ],
+      "center_px": [
+        6250.0,
+        1500.0
+      ],
+      "angle": 5.3437816372905846e-24,
+      "path": [
+        "Zone A",
+        "Mainland 2",
+        "Rooftop",
+        "Floor"
+      ],
+      "placement_index": 145
+    },
+    {
+      "figma_node": "2011:409",
+      "label": "Hole 2x2",
+      "size_px": [
+        300,
+        300
+      ],
+      "center_px": [
+        6000.0,
+        1500.0
+      ],
+      "angle": 5.3437816372905846e-24,
+      "path": [
+        "Zone A",
+        "Mainland 2",
+        "Rooftop",
+        "Floor"
+      ],
+      "placement_index": 146
+    },
+    {
+      "figma_node": "2011:411",
+      "label": "Barrel 3",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        6550.0,
+        1153.0
+      ],
+      "angle": 0.0,
+      "path": [
+        "Zone A",
+        "Mainland 2",
+        "Rooftop",
+        "Barrels"
+      ],
+      "placement_index": 147
+    },
+    {
+      "figma_node": "2011:412",
+      "label": "Barrel 2",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        6650.0,
+        1217.0
+      ],
+      "angle": 0.0,
+      "path": [
+        "Zone A",
+        "Mainland 2",
+        "Rooftop",
+        "Barrels"
+      ],
+      "placement_index": 148
+    },
+    {
+      "figma_node": "2011:413",
+      "label": "Barrel 1",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        6650.0,
+        1103.0
+      ],
+      "angle": 0.0,
+      "path": [
+        "Zone A",
+        "Mainland 2",
+        "Rooftop",
+        "Barrels"
+      ],
+      "placement_index": 149
+    },
+    {
+      "figma_node": "2011:415",
+      "label": "Weapon Pickup - Flak Cannon (Item Cradle)",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        6450.0,
+        1850.0
+      ],
+      "angle": 5.3437816372905846e-24,
+      "path": [
+        "Zone A",
+        "Mainland 2",
+        "Rooftop",
+        "Weapon Pickups"
+      ],
+      "placement_index": 150
+    },
+    {
+      "figma_node": "2011:417",
+      "label": "Ammo Pickup - Flak Cannon",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        6600.0,
+        1850.0
+      ],
+      "angle": 5.3437816372905846e-24,
+      "path": [
+        "Zone A",
+        "Mainland 2",
+        "Rooftop",
+        "Ammo Pickups"
+      ],
+      "placement_index": 151
+    },
+    {
+      "figma_node": "2011:419",
+      "label": "Thruster",
+      "size_px": [
+        500,
+        500
+      ],
+      "center_px": [
+        4450.0,
+        1500.0
+      ],
+      "angle": 5.3437816372905846e-24,
+      "path": [
+        "Zone A",
+        "Island 1"
+      ],
+      "placement_index": 152
+    },
+    {
+      "figma_node": "2011:421",
+      "label": "Platform Lip 2x2",
+      "size_px": [
+        200,
+        200
+      ],
+      "center_px": [
+        5050.0,
+        1900.0
+      ],
+      "angle": 5.3437816372905846e-24,
+      "path": [
+        "Zone A",
+        "Island 1",
+        "Floor"
+      ],
+      "placement_index": 153
+    },
+    {
+      "figma_node": "2011:422",
+      "label": "Platform 10x10",
+      "size_px": [
+        1000,
+        1000
+      ],
+      "center_px": [
+        4450.0,
+        1500.0
+      ],
+      "angle": 5.3437816372905846e-24,
+      "path": [
+        "Zone A",
+        "Island 1",
+        "Floor"
+      ],
+      "placement_index": 154
+    },
+    {
+      "figma_node": "2011:424",
+      "label": "Weapon Pickup - Rocket Launcher (Item cradle)",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        4450.0,
+        1500.0
+      ],
+      "angle": 5.3437816372905846e-24,
+      "path": [
+        "Zone A",
+        "Island 1",
+        "Weapon Pickups"
+      ],
+      "placement_index": 155
+    },
+    {
+      "figma_node": "2011:426",
+      "label": "Ammo Pickup 2 - Rocket Pack",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        4650.0,
+        1500.0
+      ],
+      "angle": 5.3437816372905846e-24,
+      "path": [
+        "Zone A",
+        "Island 1",
+        "Ammo Pickups"
+      ],
+      "placement_index": 156
+    },
+    {
+      "figma_node": "2011:427",
+      "label": "Ammo Pickup 1 - Rocket Pack",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        4250.0,
+        1500.0
+      ],
+      "angle": 5.3437816372905846e-24,
+      "path": [
+        "Zone A",
+        "Island 1",
+        "Ammo Pickups"
+      ],
+      "placement_index": 157
+    },
+    {
+      "figma_node": "2011:429",
+      "label": "Jump Pad 1",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        5050.0,
+        1900.0
+      ],
+      "angle": 5.3437816372905846e-24,
+      "path": [
+        "Zone A",
+        "Island 1",
+        "Jump Pads"
+      ],
+      "placement_index": 158
+    },
+    {
+      "figma_node": "2011:430",
+      "label": "Bridge 5x10",
+      "size_px": [
+        1000,
+        500
+      ],
+      "center_px": [
+        3450.0,
+        1500.0
+      ],
+      "angle": 0.0,
+      "path": [
+        "Zone A"
+      ],
+      "placement_index": 159
+    },
+    {
+      "figma_node": "2011:434",
+      "label": "Thruster 4",
+      "size_px": [
+        500,
+        500
+      ],
+      "center_px": [
+        2400.0,
+        2400.0
+      ],
+      "angle": 5.3437816372905846e-24,
+      "path": [
+        "Zone A",
+        "Mainland 1",
+        "Lower ground",
+        "Thrusters"
+      ],
+      "placement_index": 160
+    },
+    {
+      "figma_node": "2011:435",
+      "label": "Thruster 3",
+      "size_px": [
+        500,
+        500
+      ],
+      "center_px": [
+        600.0,
+        2400.0
+      ],
+      "angle": 5.3437816372905846e-24,
+      "path": [
+        "Zone A",
+        "Mainland 1",
+        "Lower ground",
+        "Thrusters"
+      ],
+      "placement_index": 161
+    },
+    {
+      "figma_node": "2011:436",
+      "label": "Thruster 2",
+      "size_px": [
+        500,
+        500
+      ],
+      "center_px": [
+        2400.0,
+        600.0
+      ],
+      "angle": 5.3437816372905846e-24,
+      "path": [
+        "Zone A",
+        "Mainland 1",
+        "Lower ground",
+        "Thrusters"
+      ],
+      "placement_index": 162
+    },
+    {
+      "figma_node": "2011:437",
+      "label": "Thruster 1",
+      "size_px": [
+        500,
+        500
+      ],
+      "center_px": [
+        600.0,
+        600.0
+      ],
+      "angle": 5.3437816372905846e-24,
+      "path": [
+        "Zone A",
+        "Mainland 1",
+        "Lower ground",
+        "Thrusters"
+      ],
+      "placement_index": 163
+    },
+    {
+      "figma_node": "2011:438",
+      "label": "Platform 25x25",
+      "size_px": [
+        2500,
+        2500
+      ],
+      "center_px": [
+        1500.0,
+        1500.0
+      ],
+      "angle": 5.3437816372905846e-24,
+      "path": [
+        "Zone A",
+        "Mainland 1",
+        "Lower ground"
+      ],
+      "placement_index": 164
+    },
+    {
+      "figma_node": "2011:439",
+      "label": "Platform Lip 2x10 (2x 2x5)",
+      "size_px": [
+        200,
+        1000
+      ],
+      "center_px": [
+        2850.0,
+        1500.0
+      ],
+      "angle": 5.3437816372905846e-24,
+      "path": [
+        "Zone A",
+        "Mainland 1",
+        "Lower ground"
+      ],
+      "placement_index": 165
+    },
+    {
+      "figma_node": "2011:441",
+      "label": "Pillar 4",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        2450.0,
+        2450.0
+      ],
+      "angle": 5.3437816372905846e-24,
+      "path": [
+        "Zone A",
+        "Mainland 1",
+        "Lower ground",
+        "Pillars"
+      ],
+      "placement_index": 166
+    },
+    {
+      "figma_node": "2011:442",
+      "label": "Pillar 3",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        2450.0,
+        550.0
+      ],
+      "angle": 5.3437816372905846e-24,
+      "path": [
+        "Zone A",
+        "Mainland 1",
+        "Lower ground",
+        "Pillars"
+      ],
+      "placement_index": 167
+    },
+    {
+      "figma_node": "2011:443",
+      "label": "Pillar 2",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        550.0,
+        2450.0
+      ],
+      "angle": 5.3437816372905846e-24,
+      "path": [
+        "Zone A",
+        "Mainland 1",
+        "Lower ground",
+        "Pillars"
+      ],
+      "placement_index": 168
+    },
+    {
+      "figma_node": "2011:444",
+      "label": "Pillar 1",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        550.0,
+        550.0
+      ],
+      "angle": 5.3437816372905846e-24,
+      "path": [
+        "Zone A",
+        "Mainland 1",
+        "Lower ground",
+        "Pillars"
+      ],
+      "placement_index": 169
+    },
+    {
+      "figma_node": "2011:447",
+      "label": "Barricade 1",
+      "size_px": [
+        200,
+        400
+      ],
+      "center_px": [
+        2650.0,
+        1500.0
+      ],
+      "angle": 5.3437816372905846e-24,
+      "path": [
+        "Zone A",
+        "Mainland 1",
+        "Lower ground",
+        "Barricades",
+        "Barricade 1"
+      ],
+      "placement_index": 170
+    },
+    {
+      "figma_node": "2011:448",
+      "label": "Pressure Plate 1",
+      "size_px": [
+        100,
+        200
+      ],
+      "center_px": [
+        2350.0,
+        1500.0
+      ],
+      "angle": 5.3437816372905846e-24,
+      "path": [
+        "Zone A",
+        "Mainland 1",
+        "Lower ground",
+        "Barricades",
+        "Barricade 1"
+      ],
+      "placement_index": 171
+    },
+    {
+      "figma_node": "2011:450",
+      "label": "Ammo Pickup - Bio rifle",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        2600.0,
+        2600.0
+      ],
+      "angle": 5.3437816372905846e-24,
+      "path": [
+        "Zone A",
+        "Mainland 1",
+        "Lower ground",
+        "Ammo Pickups"
+      ],
+      "placement_index": 172
+    },
+    {
+      "figma_node": "2011:451",
+      "label": "Ammo Pickup - Rifle",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        2600.0,
+        400.0
+      ],
+      "angle": 5.3437816372905846e-24,
+      "path": [
+        "Zone A",
+        "Mainland 1",
+        "Lower ground",
+        "Ammo Pickups"
+      ],
+      "placement_index": 173
+    },
+    {
+      "figma_node": "2011:454",
+      "label": "Shield Core Pickup 2",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        1900.0,
+        2100.0
+      ],
+      "angle": 5.3437816372905846e-24,
+      "path": [
+        "Zone A",
+        "Mainland 1",
+        "Lower ground",
+        "Core Pickups",
+        "Shield Core Pickups"
+      ],
+      "placement_index": 174
+    },
+    {
+      "figma_node": "2011:456",
+      "label": "Energy Core Pickup 1",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        1900.0,
+        900.0
+      ],
+      "angle": 5.3437816372905846e-24,
+      "path": [
+        "Zone A",
+        "Mainland 1",
+        "Lower ground",
+        "Core Pickups",
+        "Energy Core Pickups"
+      ],
+      "placement_index": 175
+    },
+    {
+      "figma_node": "2011:458",
+      "label": "Weapon Pickup - Bio rifle",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        900.0,
+        750.0
+      ],
+      "angle": 5.3437816372905846e-24,
+      "path": [
+        "Zone A",
+        "Mainland 1",
+        "Lower ground",
+        "Weapon Pickups"
+      ],
+      "placement_index": 176
+    },
+    {
+      "figma_node": "2011:459",
+      "label": "Weapon Pickup Wall - Bio Rifle",
+      "size_px": [
+        200,
+        200
+      ],
+      "center_px": [
+        750.0,
+        750.0
+      ],
+      "angle": 5.3437816372905846e-24,
+      "path": [
+        "Zone A",
+        "Mainland 1",
+        "Lower ground",
+        "Weapon Pickups"
+      ],
+      "placement_index": 177
+    },
+    {
+      "figma_node": "2011:460",
+      "label": "Weapon Pickup - Rifle",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        900.0,
+        2250.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone A",
+        "Mainland 1",
+        "Lower ground",
+        "Weapon Pickups"
+      ],
+      "placement_index": 178
+    },
+    {
+      "figma_node": "2011:461",
+      "label": "Weapon Pickup Wall - Rifle",
+      "size_px": [
+        200,
+        200
+      ],
+      "center_px": [
+        750.0,
+        2250.0
+      ],
+      "angle": -3.141592653589793,
+      "path": [
+        "Zone A",
+        "Mainland 1",
+        "Lower ground",
+        "Weapon Pickups"
+      ],
+      "placement_index": 179
+    },
+    {
+      "figma_node": "2011:463",
+      "label": "Spawn Point 4",
+      "size_px": [
+        200,
+        200
+      ],
+      "center_px": [
+        600.0,
+        1750.0
+      ],
+      "angle": 5.3437816372905846e-24,
+      "path": [
+        "Zone A",
+        "Mainland 1",
+        "Lower ground",
+        "Spawn Points"
+      ],
+      "placement_index": 180
+    },
+    {
+      "figma_node": "2011:464",
+      "label": "Spawn Point 3",
+      "size_px": [
+        200,
+        200
+      ],
+      "center_px": [
+        600.0,
+        1250.0
+      ],
+      "angle": 5.3437816372905846e-24,
+      "path": [
+        "Zone A",
+        "Mainland 1",
+        "Lower ground",
+        "Spawn Points"
+      ],
+      "placement_index": 181
+    },
+    {
+      "figma_node": "2011:466",
+      "label": "Portal 1A",
+      "size_px": [
+        50,
+        100
+      ],
+      "center_px": [
+        600.0,
+        1500.0
+      ],
+      "angle": 5.3437816372905846e-24,
+      "path": [
+        "Zone A",
+        "Mainland 1",
+        "Lower ground",
+        "Portals"
+      ],
+      "placement_index": 182
+    },
+    {
+      "figma_node": "2011:468",
+      "label": "Barrel 3",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        900.0,
+        2536.0
+      ],
+      "angle": 0.0,
+      "path": [
+        "Zone A",
+        "Mainland 1",
+        "Lower ground",
+        "Barrels"
+      ],
+      "placement_index": 183
+    },
+    {
+      "figma_node": "2011:469",
+      "label": "Barrel 2",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        1000.0,
+        2600.0
+      ],
+      "angle": 0.0,
+      "path": [
+        "Zone A",
+        "Mainland 1",
+        "Lower ground",
+        "Barrels"
+      ],
+      "placement_index": 184
+    },
+    {
+      "figma_node": "2011:470",
+      "label": "Barrel 1",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        1000.0,
+        2486.0
+      ],
+      "angle": 0.0,
+      "path": [
+        "Zone A",
+        "Mainland 1",
+        "Lower ground",
+        "Barrels"
+      ],
+      "placement_index": 185
+    },
+    {
+      "figma_node": "2011:471",
+      "label": "Barrel 4",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        900.0,
+        450.0
+      ],
+      "angle": 0.0,
+      "path": [
+        "Zone A",
+        "Mainland 1",
+        "Lower ground",
+        "Barrels"
+      ],
+      "placement_index": 186
+    },
+    {
+      "figma_node": "2011:472",
+      "label": "Barrel 5",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        1000.0,
+        514.0
+      ],
+      "angle": 0.0,
+      "path": [
+        "Zone A",
+        "Mainland 1",
+        "Lower ground",
+        "Barrels"
+      ],
+      "placement_index": 187
+    },
+    {
+      "figma_node": "2011:473",
+      "label": "Barrel 6",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        1000.0,
+        400.0
+      ],
+      "angle": 0.0,
+      "path": [
+        "Zone A",
+        "Mainland 1",
+        "Lower ground",
+        "Barrels"
+      ],
+      "placement_index": 188
+    },
+    {
+      "figma_node": "2011:474",
+      "label": "Workstation",
+      "size_px": [
+        100,
+        150
+      ],
+      "center_px": [
+        1500.0,
+        1500.0
+      ],
+      "angle": 0.0,
+      "path": [
+        "Zone A",
+        "Mainland 1",
+        "Lower ground"
+      ],
+      "placement_index": 189
+    },
+    {
+      "figma_node": "2011:476",
+      "label": "Jump Pad 2",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        1650.0,
+        2100.0
+      ],
+      "angle": 5.3437816372905846e-24,
+      "path": [
+        "Zone A",
+        "Mainland 1",
+        "Lower ground",
+        "Jump Pads"
+      ],
+      "placement_index": 190
+    },
+    {
+      "figma_node": "2011:477",
+      "label": "Jump Pad 1",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        1350.0,
+        900.0
+      ],
+      "angle": 5.3437816372905846e-24,
+      "path": [
+        "Zone A",
+        "Mainland 1",
+        "Lower ground",
+        "Jump Pads"
+      ],
+      "placement_index": 191
+    },
+    {
+      "figma_node": "2011:480",
+      "label": "Platform 20x20",
+      "size_px": [
+        2000,
+        2000
+      ],
+      "center_px": [
+        1500.0,
+        1500.0
+      ],
+      "angle": 5.3437816372905846e-24,
+      "path": [
+        "Zone A",
+        "Mainland 1",
+        "Higher ground",
+        "Subtract"
+      ],
+      "placement_index": 192
+    },
+    {
+      "figma_node": "2011:481",
+      "label": "Hole 2",
+      "size_px": [
+        600,
+        300
+      ],
+      "center_px": [
+        1500.0,
+        2100.0
+      ],
+      "angle": 0.0,
+      "path": [
+        "Zone A",
+        "Mainland 1",
+        "Higher ground",
+        "Subtract"
+      ],
+      "placement_index": 193
+    },
+    {
+      "figma_node": "2011:482",
+      "label": "Hole 1",
+      "size_px": [
+        600,
+        300
+      ],
+      "center_px": [
+        1500.0,
+        900.0
+      ],
+      "angle": 0.0,
+      "path": [
+        "Zone A",
+        "Mainland 1",
+        "Higher ground",
+        "Subtract"
+      ],
+      "placement_index": 194
+    },
+    {
+      "figma_node": "2011:484",
+      "label": "Pillar 4",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        2200.0,
+        2200.0
+      ],
+      "angle": 5.3437816372905846e-24,
+      "path": [
+        "Zone A",
+        "Mainland 1",
+        "Higher ground",
+        "Pillars"
+      ],
+      "placement_index": 195
+    },
+    {
+      "figma_node": "2011:485",
+      "label": "Pillar 3",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        2200.0,
+        800.0
+      ],
+      "angle": 5.3437816372905846e-24,
+      "path": [
+        "Zone A",
+        "Mainland 1",
+        "Higher ground",
+        "Pillars"
+      ],
+      "placement_index": 196
+    },
+    {
+      "figma_node": "2011:486",
+      "label": "Pillar 2",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        800.0,
+        2200.0
+      ],
+      "angle": 5.3437816372905846e-24,
+      "path": [
+        "Zone A",
+        "Mainland 1",
+        "Higher ground",
+        "Pillars"
+      ],
+      "placement_index": 197
+    },
+    {
+      "figma_node": "2011:487",
+      "label": "Pillar 1",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        800.0,
+        800.0
+      ],
+      "angle": 5.3437816372905846e-24,
+      "path": [
+        "Zone A",
+        "Mainland 1",
+        "Higher ground",
+        "Pillars"
+      ],
+      "placement_index": 198
+    },
+    {
+      "figma_node": "2011:489",
+      "label": "Spawn Point 2 (Stasis Chamber)",
+      "size_px": [
+        200,
+        200
+      ],
+      "center_px": [
+        600.0,
+        1750.0
+      ],
+      "angle": 5.3437816372905846e-24,
+      "path": [
+        "Zone A",
+        "Mainland 1",
+        "Higher ground",
+        "Spawn Points"
+      ],
+      "placement_index": 199
+    },
+    {
+      "figma_node": "2011:490",
+      "label": "Spawn Point 1 (Stasis Chamber)",
+      "size_px": [
+        200,
+        200
+      ],
+      "center_px": [
+        600.0,
+        1250.0
+      ],
+      "angle": 5.3437816372905846e-24,
+      "path": [
+        "Zone A",
+        "Mainland 1",
+        "Higher ground",
+        "Spawn Points"
+      ],
+      "placement_index": 200
+    },
+    {
+      "figma_node": "2011:491",
+      "label": "Repair Station",
+      "size_px": [
+        200,
+        200
+      ],
+      "center_px": [
+        1500.0,
+        1500.0
+      ],
+      "angle": 5.3437816372905846e-24,
+      "path": [
+        "Zone A",
+        "Mainland 1",
+        "Higher ground"
+      ],
+      "placement_index": 201
+    },
+    {
+      "figma_node": "2011:497",
+      "label": "Ammo Pickup - Lightning Gun",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        2400.0,
+        600.0
+      ],
+      "angle": 5.3437816372905846e-24,
+      "path": [
+        "Zone A",
+        "Mainland 1",
+        "Higher ground",
+        "Ammo Pickups"
+      ],
+      "placement_index": 204
+    },
+    {
+      "figma_node": "2011:498",
+      "label": "Ammo Pickup - EMP",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        2400.0,
+        2400.0
+      ],
+      "angle": 5.3437816372905846e-24,
+      "path": [
+        "Zone A",
+        "Mainland 1",
+        "Higher ground",
+        "Ammo Pickups"
+      ],
+      "placement_index": 205
+    },
+    {
+      "figma_node": "2011:500",
+      "label": "Weapon Pickup - Lightning Gun (Item cradle)",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        600.0,
+        600.0
+      ],
+      "angle": 5.3437816372905846e-24,
+      "path": [
+        "Zone A",
+        "Mainland 1",
+        "Higher ground",
+        "Weapon Pickups"
+      ],
+      "placement_index": 206
+    },
+    {
+      "figma_node": "2011:501",
+      "label": "Weapon Pickup - EMP (Item cradle)",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        600.0,
+        2400.0
+      ],
+      "angle": 5.3437816372905846e-24,
+      "path": [
+        "Zone A",
+        "Mainland 1",
+        "Higher ground",
+        "Weapon Pickups"
+      ],
+      "placement_index": 207
+    },
+    {
+      "figma_node": "2011:502",
+      "label": "Roof Display Assembly",
+      "size_px": [
+        50,
+        150
+      ],
+      "center_px": [
+        1189.0,
+        1500.0
+      ],
+      "angle": 0.0,
+      "path": [
+        "Zone A",
+        "Mainland 1",
+        "Higher ground"
+      ],
+      "placement_index": 208
+    },
+    {
+      "figma_node": "2011:505",
+      "label": "Platform 15x15",
+      "size_px": [
+        1500,
+        1500
+      ],
+      "center_px": [
+        1500.0,
+        1500.0
+      ],
+      "angle": 5.3437816372905846e-24,
+      "path": [
+        "Zone A",
+        "Mainland 1",
+        "Rooftop",
+        "Floor"
+      ],
+      "placement_index": 209
+    },
+    {
+      "figma_node": "2011:507",
+      "label": "Barrel 3",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        2000.0,
+        941.0
+      ],
+      "angle": 0.0,
+      "path": [
+        "Zone A",
+        "Mainland 1",
+        "Rooftop",
+        "Barrels"
+      ],
+      "placement_index": 210
+    },
+    {
+      "figma_node": "2011:508",
+      "label": "Barrel 2",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        2100.0,
+        1005.0
+      ],
+      "angle": 0.0,
+      "path": [
+        "Zone A",
+        "Mainland 1",
+        "Rooftop",
+        "Barrels"
+      ],
+      "placement_index": 211
+    },
+    {
+      "figma_node": "2011:509",
+      "label": "Barrel 1",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        2100.0,
+        891.0
+      ],
+      "angle": 0.0,
+      "path": [
+        "Zone A",
+        "Mainland 1",
+        "Rooftop",
+        "Barrels"
+      ],
+      "placement_index": 212
+    },
+    {
+      "figma_node": "2011:511",
+      "label": "Spawn Point 5 (Stasis Chamber)",
+      "size_px": [
+        200,
+        200
+      ],
+      "center_px": [
+        900.0,
+        900.0
+      ],
+      "angle": 5.3437816372905846e-24,
+      "path": [
+        "Zone A",
+        "Mainland 1",
+        "Rooftop",
+        "Spawn Points"
+      ],
+      "placement_index": 213
+    },
+    {
+      "figma_node": "2011:513",
+      "label": "Weapon Pickup Wall - Grenade Launcher",
+      "size_px": [
+        200,
+        200
+      ],
+      "center_px": [
+        2050.0,
+        2050.0
+      ],
+      "angle": 0.0,
+      "path": [
+        "Zone A",
+        "Mainland 1",
+        "Rooftop",
+        "Weapon Pickups"
+      ],
+      "placement_index": 214
+    },
+    {
+      "figma_node": "2011:514",
+      "label": "Weapon Pickup - Grenade Launcher",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        2050.0,
+        1900.0
+      ],
+      "angle": 5.3437816372905846e-24,
+      "path": [
+        "Zone A",
+        "Mainland 1",
+        "Rooftop",
+        "Weapon Pickups"
+      ],
+      "placement_index": 215
+    },
+    {
+      "figma_node": "2011:516",
+      "label": "Ammo Pickup - Grenade Launcher",
+      "size_px": [
+        100,
+        100
+      ],
+      "center_px": [
+        1850.0,
+        2050.0
+      ],
+      "angle": 5.3437816372905846e-24,
+      "path": [
+        "Zone A",
+        "Mainland 1",
+        "Rooftop",
+        "Ammo Pickups"
+      ],
+      "placement_index": 216
+    },
+    {
+      "figma_node": "2011:518",
+      "label": "Portal 1B",
+      "size_px": [
+        50,
+        100
+      ],
+      "center_px": [
+        900.0,
+        1500.0
+      ],
+      "angle": 5.3437816372905846e-24,
+      "path": [
+        "Zone A",
+        "Mainland 1",
+        "Rooftop",
+        "Portals"
+      ],
+      "placement_index": 217
+    },
+    {
+      "figma_node": "2011:519",
+      "label": "Flag placement",
+      "size_px": [
+        200,
+        200
+      ],
+      "center_px": [
+        1400.0,
+        1500.0
+      ],
+      "angle": 5.3437816372905846e-24,
+      "path": [
+        "Zone A",
+        "Mainland 1",
+        "Rooftop"
+      ],
+      "placement_index": 218
+    },
+    {
+      "figma_node": "2011:520",
+      "label": "Bunker",
+      "size_px": [
+        750,
+        750
+      ],
+      "center_px": [
+        1500.0,
+        1500.0
+      ],
+      "angle": 0.0,
+      "path": [
+        "Zone A",
+        "Mainland 1",
+        "Rooftop"
+      ],
+      "placement_index": 219
+    },
+    {
+      "figma_node": "131:182",
+      "label": "Jumbotron",
+      "size_px": [
+        1000,
+        1000
+      ],
+      "center_px": [
+        3750.0,
+        3750.0
+      ],
+      "angle": 0.0,
+      "path": [],
+      "placement_index": 220
+    }
+  ]
+}

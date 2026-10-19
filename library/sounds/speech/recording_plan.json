@@ -1,0 +1,99 @@
+{
+  "schema": 1,
+  "provider": "ElevenLabs",
+  "status": "generated and imported into game",
+  "direction": "Original fictional mechanical robot voices. No impersonations. Short dry speech, no music bed. Preserve intelligibility; any mechanical processing follows generation.",
+  "announcer_direction": "Neutral arena-control announcer; precise, clear, restrained urgency.",
+  "voices": [
+    {
+      "id": "robot_00",
+      "direction": "Deep, calm veteran; short measured phrases.",
+      "pitch_scale": 1.0,
+      "voice_id": "nPczCjzI2devNBz1zQrb",
+      "voice_name": "Brian - Deep, Resonant and Comforting"
+    },
+    {
+      "id": "robot_01",
+      "direction": "Bright, precise scout; quick but intelligible.",
+      "pitch_scale": 1.0,
+      "voice_id": "hpp4J3VqNfWAUOO0d1Us",
+      "voice_name": "Bella - Professional, Bright, Warm"
+    },
+    {
+      "id": "robot_02",
+      "direction": "Warm medium register; steady team leader.",
+      "pitch_scale": 1.0,
+      "voice_id": "cjVigY5qzO86Huf0OWal",
+      "voice_name": "Eric - Smooth, Trustworthy"
+    },
+    {
+      "id": "robot_03",
+      "direction": "Low gritty engineer; dry and matter of fact.",
+      "pitch_scale": 1.0,
+      "voice_id": "N2lVS1w4EtoT3dr4eOWO",
+      "voice_name": "Callum - Husky Trickster"
+    },
+    {
+      "id": "robot_04",
+      "direction": "Light agile voice; alert, restrained urgency.",
+      "pitch_scale": 1.0,
+      "voice_id": "FGY2WhTYpPnrIDTdsKH5",
+      "voice_name": "Laura - Enthusiast, Quirky Attitude"
+    },
+    {
+      "id": "robot_05",
+      "direction": "Rich resonant guardian; patient and direct.",
+      "pitch_scale": 1.0,
+      "voice_id": "JBFqnCBsd6RMkjVDRZzb",
+      "voice_name": "George - Warm, Captivating Storyteller"
+    },
+    {
+      "id": "robot_06",
+      "direction": "Crisp high register technician; clean consonants.",
+      "pitch_scale": 1.0,
+      "voice_id": "Xb7hH8MSUJpSbSDYk0k2",
+      "voice_name": "Alice - Clear, Engaging Educator"
+    },
+    {
+      "id": "robot_07",
+      "direction": "Medium gravelly fighter; clipped, confident.",
+      "pitch_scale": 1.0,
+      "voice_id": "SOYHLrjzK2X1ezoPC6cr",
+      "voice_name": "Harry - Fierce Warrior"
+    },
+    {
+      "id": "robot_08",
+      "direction": "Smooth low register strategist; controlled intensity.",
+      "pitch_scale": 1.0,
+      "voice_id": "SAz9YHcvj6GT2YYXdXww",
+      "voice_name": "River - Relaxed, Neutral, Informative"
+    },
+    {
+      "id": "robot_09",
+      "direction": "Lively medium register runner; clear and concise.",
+      "pitch_scale": 1.0,
+      "voice_id": "TX3LPaxmHKxFdv7VOQHJ",
+      "voice_name": "Liam - Energetic, Social Media Creator"
+    }
+  ],
+  "lines": {
+    "announcer": {
+      "arena_warning": "Arena reconfiguration in ten seconds.",
+      "arena_changed": "Cover banks reconfigured.",
+      "flag_taken": "Flag taken.",
+      "flag_dropped": "Flag dropped.",
+      "flag_returned": "Flag returned home.",
+      "flag_captured": "Flag captured.",
+      "match_won": "Match complete. Victory.",
+      "draw": "Match complete. Draw.",
+      "canceled": "Match canceled."
+    },
+    "robot": {
+      "armor_hit": "Armor hit.",
+      "pickup": "Got it.",
+      "repair_complete": "Repair complete. Ready to move.",
+      "power_low": "Power below fifty percent. Find an Energy Core.",
+      "power_critical": "Critical power. Find an Energy Core now."
+    }
+  }
+}

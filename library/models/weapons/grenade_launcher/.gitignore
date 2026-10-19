@@ -1,0 +1,6 @@
+# Generated validation reports; Python authoring scripts are the source.
+validation.json
+collision_validation.json
+cull_validation.json
+hold_validation.json
+grenade_launcher_collision_profile.json

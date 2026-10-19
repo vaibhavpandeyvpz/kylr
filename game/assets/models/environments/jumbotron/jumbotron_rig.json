@@ -1,0 +1,1526 @@
+{
+  "name": "jumbotron",
+  "space": "Blender coords: +Z up, front -Y, left +X; the origin is the centre of the belly pan's flat underside, on the rig's axis. glTF/Godot: (x, z, -y). The joints turn about their bones' local X (degrees).",
+  "rest": "the rotors stopped, every spot's head straight down (pan and tilt 0)",
+  "placement": {
+    "hover_height_m": 25.0,
+    "note": "place the origin 25 m over the middle of the arena, the rig's axis vertical and its Y along the map's long axis; the spots' zones and flood aims assume that height and map"
+  },
+  "size_m": {
+    "plan": [
+      10.0,
+      10.0
+    ],
+    "top": 4.28,
+    "lowest_at_rest": -1.006,
+    "lowest_in_any_state": -1.1013
+  },
+  "arena_m": {
+    "size": [
+      25.0,
+      75.0
+    ],
+    "long_axis": "the rig's Y (front-back)",
+    "floor_z": -25.0,
+    "zones": [
+      2,
+      6
+    ]
+  },
+  "spots": [
+    {
+      "name": "SpotLeft",
+      "pan_bone": "SpotLeftPan",
+      "tilt_bone": "SpotLeftTilt",
+      "gizmo": "SpotLeftBeam",
+      "pan_pivot": [
+        1.55,
+        0.0,
+        -0.12
+      ],
+      "tilt_centre": [
+        1.55,
+        0.0,
+        -0.7
+      ],
+      "tilt_axis": [
+        -0.0,
+        -1.0,
+        -0.0
+      ],
+      "zone": "x1y3",
+      "target": [
+        6.25,
+        6.25,
+        -25.0
+      ],
+      "flood_deg": {
+        "pan": 53.057,
+        "tilt": 17.839
+      },
+      "cone_half_angle_deg": 24.24,
+      "range_m": 33.85,
+      "rim_clear_of_rig": 1.0
+    },
+    {
+      "name": "SpotBackLeft",
+      "pan_bone": "SpotBackLeftPan",
+      "tilt_bone": "SpotBackLeftTilt",
+      "gizmo": "SpotBackLeftBeam",
+      "pan_pivot": [
+        1.096,
+        1.096,
+        -0.12
+      ],
+      "tilt_centre": [
+        1.096,
+        1.096,
+        -0.7
+      ],
+      "tilt_axis": [
+        0.7071,
+        -0.7071,
+        -0.0
+      ],
+      "zone": "x1y4",
+      "target": [
+        6.25,
+        18.75,
+        -25.0
+      ],
+      "flood_deg": {
+        "pan": 28.725,
+        "tilt": 37.119
+      },
+      "cone_half_angle_deg": 20.86,
+      "range_m": 41.34,
+      "rim_clear_of_rig": 1.0
+    },
+    {
+      "name": "SpotBack",
+      "pan_bone": "SpotBackPan",
+      "tilt_bone": "SpotBackTilt",
+      "gizmo": "SpotBackBeam",
+      "pan_pivot": [
+        0.0,
+        1.55,
+        -0.12
+      ],
+      "tilt_centre": [
+        0.0,
+        1.55,
+        -0.7
+      ],
+      "tilt_axis": [
+        1.0,
+        -0.0,
+        -0.0
+      ],
+      "zone": "x0y4",
+      "target": [
+        -6.25,
+        18.75,
+        -25.0
+      ],
+      "flood_deg": {
+        "pan": 19.97,
+        "tilt": 36.983
+      },
+      "cone_half_angle_deg": 20.88,
+      "range_m": 41.41,
+      "rim_clear_of_rig": 1.0
+    },
+    {
+      "name": "SpotBackRight",
+      "pan_bone": "SpotBackRightPan",
+      "tilt_bone": "SpotBackRightTilt",
+      "gizmo": "SpotBackRightBeam",
+      "pan_pivot": [
+        -1.096,
+        1.096,
+        -0.12
+      ],
+      "tilt_centre": [
+        -1.096,
+        1.096,
+        -0.7
+      ],
+      "tilt_axis": [
+        0.7071,
+        0.7071,
+        -0.0
+      ],
+      "zone": "x0y3",
+      "target": [
+        -6.25,
+        6.25,
+        -25.0
+      ],
+      "flood_deg": {
+        "pan": 0.0,
+        "tilt": 16.697
+      },
+      "cone_half_angle_deg": 24.35,
+      "range_m": 33.54,
+      "rim_clear_of_rig": 1.0
+    },
+    {
+      "name": "SpotRight",
+      "pan_bone": "SpotRightPan",
+      "tilt_bone": "SpotRightTilt",
+      "gizmo": "SpotRightBeam",
+      "pan_pivot": [
+        -1.55,
+        0.0,
+        -0.12
+      ],
+      "tilt_centre": [
+        -1.55,
+        0.0,
+        -0.7
+      ],
+      "tilt_axis": [
+        0.0,
+        1.0,
+        -0.0
+      ],
+      "zone": "x0y2",
+      "target": [
+        -6.25,
+        -6.25,
+        -25.0
+      ],
+      "flood_deg": {
+        "pan": 53.057,
+        "tilt": 17.839
+      },
+      "cone_half_angle_deg": 24.24,
+      "range_m": 33.85,
+      "rim_clear_of_rig": 1.0
+    },
+    {
+      "name": "SpotFrontRight",
+      "pan_bone": "SpotFrontRightPan",
+      "tilt_bone": "SpotFrontRightTilt",
+      "gizmo": "SpotFrontRightBeam",
+      "pan_pivot": [
+        -1.096,
+        -1.096,
+        -0.12
+      ],
+      "tilt_centre": [
+        -1.096,
+        -1.096,
+        -0.7
+      ],
+      "tilt_axis": [
+        -0.7071,
+        0.7071,
+        -0.0
+      ],
+      "zone": "x0y1",
+      "target": [
+        -6.25,
+        -18.75,
+        -25.0
+      ],
+      "flood_deg": {
+        "pan": 28.725,
+        "tilt": 37.119
+      },
+      "cone_half_angle_deg": 20.86,
+      "range_m": 41.34,
+      "rim_clear_of_rig": 1.0
+    },
+    {
+      "name": "SpotFront",
+      "pan_bone": "SpotFrontPan",
+      "tilt_bone": "SpotFrontTilt",
+      "gizmo": "SpotFrontBeam",
+      "pan_pivot": [
+        -0.0,
+        -1.55,
+        -0.12
+      ],
+      "tilt_centre": [
+        -0.0,
+        -1.55,
+        -0.7
+      ],
+      "tilt_axis": [
+        -1.0,
+        0.0,
+        -0.0
+      ],
+      "zone": "x1y1",
+      "target": [
+        6.25,
+        -18.75,
+        -25.0
+      ],
+      "flood_deg": {
+        "pan": 19.97,
+        "tilt": 36.983
+      },
+      "cone_half_angle_deg": 20.88,
+      "range_m": 41.41,
+      "rim_clear_of_rig": 1.0
+    },
+    {
+      "name": "SpotFrontLeft",
+      "pan_bone": "SpotFrontLeftPan",
+      "tilt_bone": "SpotFrontLeftTilt",
+      "gizmo": "SpotFrontLeftBeam",
+      "pan_pivot": [
+        1.096,
+        -1.096,
+        -0.12
+      ],
+      "tilt_centre": [
+        1.096,
+        -1.096,
+        -0.7
+      ],
+      "tilt_axis": [
+        -0.7071,
+        -0.7071,
+        0.0
+      ],
+      "zone": "x1y2",
+      "target": [
+        6.25,
+        -6.25,
+        -25.0
+      ],
+      "flood_deg": {
+        "pan": 0.0,
+        "tilt": 16.697
+      },
+      "cone_half_angle_deg": 24.35,
+      "range_m": 33.54,
+      "rim_clear_of_rig": 1.0
+    },
+    {
+      "name": "SpotDuctBackLeft",
+      "pan_bone": "SpotDuctBackLeftPan",
+      "tilt_bone": "SpotDuctBackLeftTilt",
+      "gizmo": "SpotDuctBackLeftBeam",
+      "pan_pivot": [
+        4.4783,
+        4.4783,
+        2.76
+      ],
+      "tilt_centre": [
+        4.4783,
+        4.4783,
+        2.18
+      ],
+      "tilt_axis": [
+        0.7071,
+        -0.7071,
+        -0.0
+      ],
+      "zone": "x1y5",
+      "target": [
+        6.25,
+        31.25,
+        -25.0
+      ],
+      "flood_deg": {
+        "pan": 41.214,
+        "tilt": 44.629
+      },
+      "cone_half_angle_deg": 16.94,
+      "range_m": 50.04,
+      "rim_clear_of_rig": 1.0
+    },
+    {
+      "name": "SpotDuctBackRight",
+      "pan_bone": "SpotDuctBackRightPan",
+      "tilt_bone": "SpotDuctBackRightTilt",
+      "gizmo": "SpotDuctBackRightBeam",
+      "pan_pivot": [
+        -4.4783,
+        4.4783,
+        2.76
+      ],
+      "tilt_centre": [
+        -4.4783,
+        4.4783,
+        2.18
+      ],
+      "tilt_axis": [
+        0.7071,
+        0.7071,
+        -0.0
+      ],
+      "zone": "x0y5",
+      "target": [
+        -6.25,
+        31.25,
+        -25.0
+      ],
+      "flood_deg": {
+        "pan": -41.214,
+        "tilt": 44.629
+      },
+      "cone_half_angle_deg": 16.94,
+      "range_m": 50.04,
+      "rim_clear_of_rig": 1.0
+    },
+    {
+      "name": "SpotDuctFrontRight",
+      "pan_bone": "SpotDuctFrontRightPan",
+      "tilt_bone": "SpotDuctFrontRightTilt",
+      "gizmo": "SpotDuctFrontRightBeam",
+      "pan_pivot": [
+        -4.4783,
+        -4.4783,
+        2.76
+      ],
+      "tilt_centre": [
+        -4.4783,
+        -4.4783,
+        2.18
+      ],
+      "tilt_axis": [
+        -0.7071,
+        0.7071,
+        -0.0
+      ],
+      "zone": "x0y0",
+      "target": [
+        -6.25,
+        -31.25,
+        -25.0
+      ],
+      "flood_deg": {
+        "pan": 41.214,
+        "tilt": 44.629
+      },
+      "cone_half_angle_deg": 16.94,
+      "range_m": 50.04,
+      "rim_clear_of_rig": 1.0
+    },
+    {
+      "name": "SpotDuctFrontLeft",
+      "pan_bone": "SpotDuctFrontLeftPan",
+      "tilt_bone": "SpotDuctFrontLeftTilt",
+      "gizmo": "SpotDuctFrontLeftBeam",
+      "pan_pivot": [
+        4.4783,
+        -4.4783,
+        2.76
+      ],
+      "tilt_centre": [
+        4.4783,
+        -4.4783,
+        2.18
+      ],
+      "tilt_axis": [
+        -0.7071,
+        -0.7071,
+        0.0
+      ],
+      "zone": "x1y0",
+      "target": [
+        6.25,
+        -31.25,
+        -25.0
+      ],
+      "flood_deg": {
+        "pan": -41.214,
+        "tilt": 44.629
+      },
+      "cone_half_angle_deg": 16.94,
+      "range_m": 50.04,
+      "rim_clear_of_rig": 1.0
+    }
+  ],
+  "spot_rule": "pan about +Z (+ counter-clockwise from above), tilt about the tilt axis (+ swings the beam out, away from the rig's axis); beam = -Z cos(tilt) + Rz(pan)(out) sin(tilt), from the tilt centre",
+  "rotors": [
+    {
+      "bone": "RotorBackLeft",
+      "centre": [
+        3.4,
+        3.4,
+        0.0
+      ],
+      "spin": "clockwise",
+      "hover_deg_per_s": -900.0
+    },
+    {
+      "bone": "RotorBackRight",
+      "centre": [
+        -3.4,
+        3.4,
+        0.0
+      ],
+      "spin": "counter-clockwise",
+      "hover_deg_per_s": 900.0
+    },
+    {
+      "bone": "RotorFrontRight",
+      "centre": [
+        -3.4,
+        -3.4,
+        0.0
+      ],
+      "spin": "clockwise",
+      "hover_deg_per_s": -900.0
+    },
+    {
+      "bone": "RotorFrontLeft",
+      "centre": [
+        3.4,
+        -3.4,
+        0.0
+      ],
+      "spin": "counter-clockwise",
+      "hover_deg_per_s": 900.0
+    }
+  ],
+  "screens": {
+    "object": "SK_JumbotronScreen",
+    "material": "M_Screen_Emissive",
+    "triangles": 8,
+    "faces": "one on each face of the box (+X, +Y, -X, -Y), each 3.1 x 1.744 m (16:9), centred at z 1.75",
+    "uv": "each display 0..1: u from its left to its right as seen from in front of it, v up (the same image on all four; tell them apart by their normals)"
+  },
+  "marquees": {
+    "object": "SK_JumbotronMarquee",
+    "material": "M_Marquee_Emissive",
+    "triangles": 96,
+    "bands": [
+      {
+        "ring": "lower",
+        "radius_m": 1.5367,
+        "z": [
+          0.34,
+          0.78
+        ]
+      },
+      {
+        "ring": "upper",
+        "radius_m": 2.4588,
+        "z": [
+          2.9,
+          3.36
+        ]
+      }
+    ],
+    "uv": "each band u 0..1 once round from +X toward +Y (counter-clockwise from above: scroll u to run text round it), v 0 at its bottom to 1 at its top; tile u for the band's length"
+  },
+  "gizmos": [
+    {
+      "name": "SpotLeftBeam",
+      "bone": "SpotLeftTilt",
+      "origin": [
+        1.55,
+        0.0,
+        -1.006
+      ],
+      "forward": [
+        0,
+        0,
+        -1
+      ],
+      "up": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "godot": "-Z along the beam: a SpotLight3D under it with no transform shines where the head points"
+    },
+    {
+      "name": "SpotBackLeftBeam",
+      "bone": "SpotBackLeftTilt",
+      "origin": [
+        1.096,
+        1.096,
+        -1.006
+      ],
+      "forward": [
+        0,
+        0,
+        -1
+      ],
+      "up": [
+        0.7071,
+        0.7071,
+        0.0
+      ],
+      "godot": "-Z along the beam: a SpotLight3D under it with no transform shines where the head points"
+    },
+    {
+      "name": "SpotBackBeam",
+      "bone": "SpotBackTilt",
+      "origin": [
+        0.0,
+        1.55,
+        -1.006
+      ],
+      "forward": [
+        0,
+        0,
+        -1
+      ],
+      "up": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "godot": "-Z along the beam: a SpotLight3D under it with no transform shines where the head points"
+    },
+    {
+      "name": "SpotBackRightBeam",
+      "bone": "SpotBackRightTilt",
+      "origin": [
+        -1.096,
+        1.096,
+        -1.006
+      ],
+      "forward": [
+        0,
+        0,
+        -1
+      ],
+      "up": [
+        -0.7071,
+        0.7071,
+        0.0
+      ],
+      "godot": "-Z along the beam: a SpotLight3D under it with no transform shines where the head points"
+    },
+    {
+      "name": "SpotRightBeam",
+      "bone": "SpotRightTilt",
+      "origin": [
+        -1.55,
+        0.0,
+        -1.006
+      ],
+      "forward": [
+        0,
+        0,
+        -1
+      ],
+      "up": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "godot": "-Z along the beam: a SpotLight3D under it with no transform shines where the head points"
+    },
+    {
+      "name": "SpotFrontRightBeam",
+      "bone": "SpotFrontRightTilt",
+      "origin": [
+        -1.096,
+        -1.096,
+        -1.006
+      ],
+      "forward": [
+        0,
+        0,
+        -1
+      ],
+      "up": [
+        -0.7071,
+        -0.7071,
+        0.0
+      ],
+      "godot": "-Z along the beam: a SpotLight3D under it with no transform shines where the head points"
+    },
+    {
+      "name": "SpotFrontBeam",
+      "bone": "SpotFrontTilt",
+      "origin": [
+        -0.0,
+        -1.55,
+        -1.006
+      ],
+      "forward": [
+        0,
+        0,
+        -1
+      ],
+      "up": [
+        -0.0,
+        -1.0,
+        0.0
+      ],
+      "godot": "-Z along the beam: a SpotLight3D under it with no transform shines where the head points"
+    },
+    {
+      "name": "SpotFrontLeftBeam",
+      "bone": "SpotFrontLeftTilt",
+      "origin": [
+        1.096,
+        -1.096,
+        -1.006
+      ],
+      "forward": [
+        0,
+        0,
+        -1
+      ],
+      "up": [
+        0.7071,
+        -0.7071,
+        0.0
+      ],
+      "godot": "-Z along the beam: a SpotLight3D under it with no transform shines where the head points"
+    },
+    {
+      "name": "SpotDuctBackLeftBeam",
+      "bone": "SpotDuctBackLeftTilt",
+      "origin": [
+        4.4783,
+        4.4783,
+        1.874
+      ],
+      "forward": [
+        0,
+        0,
+        -1
+      ],
+      "up": [
+        0.7071,
+        0.7071,
+        0.0
+      ],
+      "godot": "-Z along the beam: a SpotLight3D under it with no transform shines where the head points"
+    },
+    {
+      "name": "SpotDuctBackRightBeam",
+      "bone": "SpotDuctBackRightTilt",
+      "origin": [
+        -4.4783,
+        4.4783,
+        1.874
+      ],
+      "forward": [
+        0,
+        0,
+        -1
+      ],
+      "up": [
+        -0.7071,
+        0.7071,
+        0.0
+      ],
+      "godot": "-Z along the beam: a SpotLight3D under it with no transform shines where the head points"
+    },
+    {
+      "name": "SpotDuctFrontRightBeam",
+      "bone": "SpotDuctFrontRightTilt",
+      "origin": [
+        -4.4783,
+        -4.4783,
+        1.874
+      ],
+      "forward": [
+        0,
+        0,
+        -1
+      ],
+      "up": [
+        -0.7071,
+        -0.7071,
+        0.0
+      ],
+      "godot": "-Z along the beam: a SpotLight3D under it with no transform shines where the head points"
+    },
+    {
+      "name": "SpotDuctFrontLeftBeam",
+      "bone": "SpotDuctFrontLeftTilt",
+      "origin": [
+        4.4783,
+        -4.4783,
+        1.874
+      ],
+      "forward": [
+        0,
+        0,
+        -1
+      ],
+      "up": [
+        0.7071,
+        -0.7071,
+        0.0
+      ],
+      "godot": "-Z along the beam: a SpotLight3D under it with no transform shines where the head points"
+    }
+  ],
+  "materials_note": "map-generic finish in Tensor's materials (off-white and grey paint, matte black, stainless steel, titanium), a warm white lamp for the lenses: no team colours; M_Screen and M_Marquee (white, emissive) are for the game's textures",
+  "materials": [
+    "M_Primary_Metallic",
+    "M_Secondary_Metallic",
+    "M_Frame_Diffuse",
+    "M_Joint_Metallic",
+    "M_Emissive",
+    "M_Titanium_Metallic",
+    "M_Lamp_Emissive"
+  ],
+  "triangles": 4772,
+  "joints": [
+    {
+      "bone": "Root",
+      "parent": null,
+      "type": "fixed",
+      "pivot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": null,
+      "channel": null
+    },
+    {
+      "bone": "RotorBackLeft",
+      "parent": "Root",
+      "type": "hinge",
+      "pivot": [
+        3.4,
+        3.4,
+        3.28
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": null,
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "RotorBackRight",
+      "parent": "Root",
+      "type": "hinge",
+      "pivot": [
+        -3.4,
+        3.4,
+        3.28
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": null,
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "RotorFrontRight",
+      "parent": "Root",
+      "type": "hinge",
+      "pivot": [
+        -3.4,
+        -3.4,
+        3.28
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": null,
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "RotorFrontLeft",
+      "parent": "Root",
+      "type": "hinge",
+      "pivot": [
+        3.4,
+        -3.4,
+        3.28
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": null,
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "SpotLeftPan",
+      "parent": "Root",
+      "type": "hinge",
+      "pivot": [
+        1.55,
+        0.0,
+        -0.12
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        -270.0,
+        270.0
+      ],
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "SpotLeftTilt",
+      "parent": "SpotLeftPan",
+      "type": "hinge",
+      "pivot": [
+        1.55,
+        -0.41,
+        -0.7
+      ],
+      "axis": [
+        -0.0,
+        -1.0,
+        -0.0
+      ],
+      "range": [
+        -80.0,
+        80.0
+      ],
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "SpotBackLeftPan",
+      "parent": "Root",
+      "type": "hinge",
+      "pivot": [
+        1.096,
+        1.096,
+        -0.12
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        -270.0,
+        270.0
+      ],
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "SpotBackLeftTilt",
+      "parent": "SpotBackLeftPan",
+      "type": "hinge",
+      "pivot": [
+        1.3859,
+        0.8061,
+        -0.7
+      ],
+      "axis": [
+        0.7071,
+        -0.7071,
+        -0.0
+      ],
+      "range": [
+        -80.0,
+        80.0
+      ],
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "SpotBackPan",
+      "parent": "Root",
+      "type": "hinge",
+      "pivot": [
+        0.0,
+        1.55,
+        -0.12
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        -270.0,
+        270.0
+      ],
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "SpotBackTilt",
+      "parent": "SpotBackPan",
+      "type": "hinge",
+      "pivot": [
+        0.41,
+        1.55,
+        -0.7
+      ],
+      "axis": [
+        1.0,
+        -0.0,
+        -0.0
+      ],
+      "range": [
+        -80.0,
+        80.0
+      ],
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "SpotBackRightPan",
+      "parent": "Root",
+      "type": "hinge",
+      "pivot": [
+        -1.096,
+        1.096,
+        -0.12
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        -270.0,
+        270.0
+      ],
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "SpotBackRightTilt",
+      "parent": "SpotBackRightPan",
+      "type": "hinge",
+      "pivot": [
+        -0.8061,
+        1.3859,
+        -0.7
+      ],
+      "axis": [
+        0.7071,
+        0.7071,
+        -0.0
+      ],
+      "range": [
+        -80.0,
+        80.0
+      ],
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "SpotRightPan",
+      "parent": "Root",
+      "type": "hinge",
+      "pivot": [
+        -1.55,
+        0.0,
+        -0.12
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        -270.0,
+        270.0
+      ],
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "SpotRightTilt",
+      "parent": "SpotRightPan",
+      "type": "hinge",
+      "pivot": [
+        -1.55,
+        0.41,
+        -0.7
+      ],
+      "axis": [
+        0.0,
+        1.0,
+        -0.0
+      ],
+      "range": [
+        -80.0,
+        80.0
+      ],
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "SpotFrontRightPan",
+      "parent": "Root",
+      "type": "hinge",
+      "pivot": [
+        -1.096,
+        -1.096,
+        -0.12
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        -270.0,
+        270.0
+      ],
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "SpotFrontRightTilt",
+      "parent": "SpotFrontRightPan",
+      "type": "hinge",
+      "pivot": [
+        -1.3859,
+        -0.8061,
+        -0.7
+      ],
+      "axis": [
+        -0.7071,
+        0.7071,
+        -0.0
+      ],
+      "range": [
+        -80.0,
+        80.0
+      ],
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "SpotFrontPan",
+      "parent": "Root",
+      "type": "hinge",
+      "pivot": [
+        -0.0,
+        -1.55,
+        -0.12
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        -270.0,
+        270.0
+      ],
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "SpotFrontTilt",
+      "parent": "SpotFrontPan",
+      "type": "hinge",
+      "pivot": [
+        -0.41,
+        -1.55,
+        -0.7
+      ],
+      "axis": [
+        -1.0,
+        0.0,
+        -0.0
+      ],
+      "range": [
+        -80.0,
+        80.0
+      ],
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "SpotFrontLeftPan",
+      "parent": "Root",
+      "type": "hinge",
+      "pivot": [
+        1.096,
+        -1.096,
+        -0.12
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        -270.0,
+        270.0
+      ],
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "SpotFrontLeftTilt",
+      "parent": "SpotFrontLeftPan",
+      "type": "hinge",
+      "pivot": [
+        0.8061,
+        -1.3859,
+        -0.7
+      ],
+      "axis": [
+        -0.7071,
+        -0.7071,
+        0.0
+      ],
+      "range": [
+        -80.0,
+        80.0
+      ],
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "SpotDuctBackLeftPan",
+      "parent": "Root",
+      "type": "hinge",
+      "pivot": [
+        4.4783,
+        4.4783,
+        2.76
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        -270.0,
+        270.0
+      ],
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "SpotDuctBackLeftTilt",
+      "parent": "SpotDuctBackLeftPan",
+      "type": "hinge",
+      "pivot": [
+        4.7683,
+        4.1884,
+        2.18
+      ],
+      "axis": [
+        0.7071,
+        -0.7071,
+        -0.0
+      ],
+      "range": [
+        -80.0,
+        80.0
+      ],
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "SpotDuctBackRightPan",
+      "parent": "Root",
+      "type": "hinge",
+      "pivot": [
+        -4.4783,
+        4.4783,
+        2.76
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        -270.0,
+        270.0
+      ],
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "SpotDuctBackRightTilt",
+      "parent": "SpotDuctBackRightPan",
+      "type": "hinge",
+      "pivot": [
+        -4.1884,
+        4.7683,
+        2.18
+      ],
+      "axis": [
+        0.7071,
+        0.7071,
+        -0.0
+      ],
+      "range": [
+        -80.0,
+        80.0
+      ],
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "SpotDuctFrontRightPan",
+      "parent": "Root",
+      "type": "hinge",
+      "pivot": [
+        -4.4783,
+        -4.4783,
+        2.76
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        -270.0,
+        270.0
+      ],
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "SpotDuctFrontRightTilt",
+      "parent": "SpotDuctFrontRightPan",
+      "type": "hinge",
+      "pivot": [
+        -4.7683,
+        -4.1884,
+        2.18
+      ],
+      "axis": [
+        -0.7071,
+        0.7071,
+        -0.0
+      ],
+      "range": [
+        -80.0,
+        80.0
+      ],
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "SpotDuctFrontLeftPan",
+      "parent": "Root",
+      "type": "hinge",
+      "pivot": [
+        4.4783,
+        -4.4783,
+        2.76
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        -270.0,
+        270.0
+      ],
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "SpotDuctFrontLeftTilt",
+      "parent": "SpotDuctFrontLeftPan",
+      "type": "hinge",
+      "pivot": [
+        4.1884,
+        -4.7683,
+        2.18
+      ],
+      "axis": [
+        -0.7071,
+        -0.7071,
+        0.0
+      ],
+      "range": [
+        -80.0,
+        80.0
+      ],
+      "channel": "rotation_x_deg"
+    }
+  ],
+  "animations": {
+    "hover": {
+      "frames": [
+        0,
+        60
+      ],
+      "fps": 30,
+      "loop": true,
+      "joints": [
+        "RotorBackLeft",
+        "RotorBackRight",
+        "RotorFrontLeft",
+        "RotorFrontRight"
+      ]
+    },
+    "spin_up": {
+      "frames": [
+        0,
+        96
+      ],
+      "fps": 30,
+      "loop": false,
+      "joints": [
+        "RotorBackLeft",
+        "RotorBackRight",
+        "RotorFrontLeft",
+        "RotorFrontRight"
+      ]
+    },
+    "spin_down": {
+      "frames": [
+        0,
+        96
+      ],
+      "fps": 30,
+      "loop": false,
+      "joints": [
+        "RotorBackLeft",
+        "RotorBackRight",
+        "RotorFrontLeft",
+        "RotorFrontRight"
+      ]
+    },
+    "lights_on": {
+      "frames": [
+        0,
+        45
+      ],
+      "fps": 30,
+      "loop": false,
+      "joints": [
+        "SpotBackLeftPan",
+        "SpotBackLeftTilt",
+        "SpotBackPan",
+        "SpotBackRightPan",
+        "SpotBackRightTilt",
+        "SpotBackTilt",
+        "SpotDuctBackLeftPan",
+        "SpotDuctBackLeftTilt",
+        "SpotDuctBackRightPan",
+        "SpotDuctBackRightTilt",
+        "SpotDuctFrontLeftPan",
+        "SpotDuctFrontLeftTilt",
+        "SpotDuctFrontRightPan",
+        "SpotDuctFrontRightTilt",
+        "SpotFrontLeftPan",
+        "SpotFrontLeftTilt",
+        "SpotFrontPan",
+        "SpotFrontRightPan",
+        "SpotFrontRightTilt",
+        "SpotFrontTilt",
+        "SpotLeftPan",
+        "SpotLeftTilt",
+        "SpotRightPan",
+        "SpotRightTilt"
+      ]
+    },
+    "flood": {
+      "frames": [
+        0,
+        1
+      ],
+      "fps": 30,
+      "loop": false,
+      "joints": [
+        "SpotBackLeftPan",
+        "SpotBackLeftTilt",
+        "SpotBackPan",
+        "SpotBackRightPan",
+        "SpotBackRightTilt",
+        "SpotBackTilt",
+        "SpotDuctBackLeftPan",
+        "SpotDuctBackLeftTilt",
+        "SpotDuctBackRightPan",
+        "SpotDuctBackRightTilt",
+        "SpotDuctFrontLeftPan",
+        "SpotDuctFrontLeftTilt",
+        "SpotDuctFrontRightPan",
+        "SpotDuctFrontRightTilt",
+        "SpotFrontLeftPan",
+        "SpotFrontLeftTilt",
+        "SpotFrontPan",
+        "SpotFrontRightPan",
+        "SpotFrontRightTilt",
+        "SpotFrontTilt",
+        "SpotLeftPan",
+        "SpotLeftTilt",
+        "SpotRightPan",
+        "SpotRightTilt"
+      ]
+    },
+    "show": {
+      "frames": [
+        0,
+        240
+      ],
+      "fps": 30,
+      "loop": true,
+      "joints": [
+        "SpotBackLeftPan",
+        "SpotBackLeftTilt",
+        "SpotBackPan",
+        "SpotBackRightPan",
+        "SpotBackRightTilt",
+        "SpotBackTilt",
+        "SpotDuctBackLeftPan",
+        "SpotDuctBackLeftTilt",
+        "SpotDuctBackRightPan",
+        "SpotDuctBackRightTilt",
+        "SpotDuctFrontLeftPan",
+        "SpotDuctFrontLeftTilt",
+        "SpotDuctFrontRightPan",
+        "SpotDuctFrontRightTilt",
+        "SpotFrontLeftPan",
+        "SpotFrontLeftTilt",
+        "SpotFrontPan",
+        "SpotFrontRightPan",
+        "SpotFrontRightTilt",
+        "SpotFrontTilt",
+        "SpotLeftPan",
+        "SpotLeftTilt",
+        "SpotRightPan",
+        "SpotRightTilt"
+      ]
+    },
+    "lights_off": {
+      "frames": [
+        0,
+        45
+      ],
+      "fps": 30,
+      "loop": false,
+      "joints": [
+        "SpotBackLeftPan",
+        "SpotBackLeftTilt",
+        "SpotBackPan",
+        "SpotBackRightPan",
+        "SpotBackRightTilt",
+        "SpotBackTilt",
+        "SpotDuctBackLeftPan",
+        "SpotDuctBackLeftTilt",
+        "SpotDuctBackRightPan",
+        "SpotDuctBackRightTilt",
+        "SpotDuctFrontLeftPan",
+        "SpotDuctFrontLeftTilt",
+        "SpotDuctFrontRightPan",
+        "SpotDuctFrontRightTilt",
+        "SpotFrontLeftPan",
+        "SpotFrontLeftTilt",
+        "SpotFrontPan",
+        "SpotFrontRightPan",
+        "SpotFrontRightTilt",
+        "SpotFrontTilt",
+        "SpotLeftPan",
+        "SpotLeftTilt",
+        "SpotRightPan",
+        "SpotRightTilt"
+      ]
+    }
+  },
+  "usage": "Play spin_up, then loop hover while the rig flies (spin_down to land it: the rotors only). The spots layer on top: lights_on swings them from rest to flood (every zone of the map lit), flood holds it, show loops a sweep that starts and ends on flood, lights_off returns them to rest. Or drive each spot's pan and tilt directly within range (aim with spot_rule). Put a SpotLight3D on each Spot<Position>Beam gizmo with its cone_half_angle_deg as spot_angle and range_m as its range. The displays and marquees take the game's textures on M_Screen and M_Marquee.",
+  "material_classifiers": {
+    "M_Emissive": "Emissive",
+    "M_Frame_Diffuse": "Diffuse",
+    "M_Joint_Metallic": "Metallic",
+    "M_Lamp_Emissive": "Emissive",
+    "M_Marquee_Emissive": "Emissive",
+    "M_Primary_Metallic": "Metallic",
+    "M_Screen_Emissive": "Emissive",
+    "M_Secondary_Metallic": "Metallic",
+    "M_Titanium_Metallic": "Metallic"
+  }
+}

@@ -1,0 +1,716 @@
+{
+  "name": "hub",
+  "triangle_budget": 10000,
+  "ground_envelope_m": [
+    6,
+    6
+  ],
+  "bones": [
+    {
+      "name": "Root",
+      "parent": null,
+      "kind": "fixed"
+    },
+    {
+      "name": "DoorFrontUpper",
+      "parent": "Root",
+      "kind": "slide"
+    },
+    {
+      "name": "DoorFrontLower",
+      "parent": "Root",
+      "kind": "slide"
+    },
+    {
+      "name": "StageFrontLeft",
+      "parent": "Root",
+      "kind": "slide"
+    },
+    {
+      "name": "StageFrontRight",
+      "parent": "Root",
+      "kind": "slide"
+    },
+    {
+      "name": "DoorLeftUpper",
+      "parent": "Root",
+      "kind": "slide"
+    },
+    {
+      "name": "DoorLeftLower",
+      "parent": "Root",
+      "kind": "slide"
+    },
+    {
+      "name": "StageLeftLeft",
+      "parent": "Root",
+      "kind": "slide"
+    },
+    {
+      "name": "StageLeftRight",
+      "parent": "Root",
+      "kind": "slide"
+    },
+    {
+      "name": "DoorRearUpper",
+      "parent": "Root",
+      "kind": "slide"
+    },
+    {
+      "name": "DoorRearLower",
+      "parent": "Root",
+      "kind": "slide"
+    },
+    {
+      "name": "StageRearLeft",
+      "parent": "Root",
+      "kind": "slide"
+    },
+    {
+      "name": "StageRearRight",
+      "parent": "Root",
+      "kind": "slide"
+    },
+    {
+      "name": "DoorRightUpper",
+      "parent": "Root",
+      "kind": "slide"
+    },
+    {
+      "name": "DoorRightLower",
+      "parent": "Root",
+      "kind": "slide"
+    },
+    {
+      "name": "StageRightLeft",
+      "parent": "Root",
+      "kind": "slide"
+    },
+    {
+      "name": "StageRightRight",
+      "parent": "Root",
+      "kind": "slide"
+    }
+  ],
+  "joints": [
+    {
+      "bone": "Root",
+      "parent": null,
+      "type": "fixed",
+      "pivot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "axis": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "range": null
+    },
+    {
+      "bone": "DoorFrontUpper",
+      "parent": "Root",
+      "type": "slide",
+      "pivot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        0.0,
+        0.9677419475278546
+      ]
+    },
+    {
+      "bone": "DoorFrontLower",
+      "parent": "Root",
+      "type": "slide",
+      "pivot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        0.0,
+        1.9354838950557092
+      ]
+    },
+    {
+      "bone": "StageFrontLeft",
+      "parent": "Root",
+      "type": "slide",
+      "pivot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        0.0,
+        0.9677419475278546
+      ]
+    },
+    {
+      "bone": "StageFrontRight",
+      "parent": "Root",
+      "type": "slide",
+      "pivot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        0.0,
+        0.9677419475278546
+      ]
+    },
+    {
+      "bone": "DoorLeftUpper",
+      "parent": "Root",
+      "type": "slide",
+      "pivot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        0.0,
+        0.9677419475278546
+      ]
+    },
+    {
+      "bone": "DoorLeftLower",
+      "parent": "Root",
+      "type": "slide",
+      "pivot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        0.0,
+        1.9354838950557092
+      ]
+    },
+    {
+      "bone": "StageLeftLeft",
+      "parent": "Root",
+      "type": "slide",
+      "pivot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        0.0,
+        0.9677419475278546
+      ]
+    },
+    {
+      "bone": "StageLeftRight",
+      "parent": "Root",
+      "type": "slide",
+      "pivot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        0.0,
+        0.9677419475278546
+      ]
+    },
+    {
+      "bone": "DoorRearUpper",
+      "parent": "Root",
+      "type": "slide",
+      "pivot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        0.0,
+        0.9677419475278546
+      ]
+    },
+    {
+      "bone": "DoorRearLower",
+      "parent": "Root",
+      "type": "slide",
+      "pivot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        0.0,
+        1.9354838950557092
+      ]
+    },
+    {
+      "bone": "StageRearLeft",
+      "parent": "Root",
+      "type": "slide",
+      "pivot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        0.0,
+        0.9677419475278546
+      ]
+    },
+    {
+      "bone": "StageRearRight",
+      "parent": "Root",
+      "type": "slide",
+      "pivot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        0.0,
+        0.9677419475278546
+      ]
+    },
+    {
+      "bone": "DoorRightUpper",
+      "parent": "Root",
+      "type": "slide",
+      "pivot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        0.0,
+        0.9677419475278546
+      ]
+    },
+    {
+      "bone": "DoorRightLower",
+      "parent": "Root",
+      "type": "slide",
+      "pivot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        0.0,
+        1.9354838950557092
+      ]
+    },
+    {
+      "bone": "StageRightLeft",
+      "parent": "Root",
+      "type": "slide",
+      "pivot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        0.0,
+        0.9677419475278546
+      ]
+    },
+    {
+      "bone": "StageRightRight",
+      "parent": "Root",
+      "type": "slide",
+      "pivot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        0.0,
+        0.9677419475278546
+      ]
+    }
+  ],
+  "animations": {
+    "open_front": {
+      "frames": [
+        0.0,
+        96.0
+      ],
+      "fps": 30,
+      "loop": false
+    },
+    "close_front": {
+      "frames": [
+        0.0,
+        96.0
+      ],
+      "fps": 30,
+      "loop": false
+    },
+    "open_left": {
+      "frames": [
+        0.0,
+        96.0
+      ],
+      "fps": 30,
+      "loop": false
+    },
+    "close_left": {
+      "frames": [
+        0.0,
+        96.0
+      ],
+      "fps": 30,
+      "loop": false
+    },
+    "open_rear": {
+      "frames": [
+        0.0,
+        96.0
+      ],
+      "fps": 30,
+      "loop": false
+    },
+    "close_rear": {
+      "frames": [
+        0.0,
+        96.0
+      ],
+      "fps": 30,
+      "loop": false
+    },
+    "open_right": {
+      "frames": [
+        0.0,
+        96.0
+      ],
+      "fps": 30,
+      "loop": false
+    },
+    "close_right": {
+      "frames": [
+        0.0,
+        96.0
+      ],
+      "fps": 30,
+      "loop": false
+    },
+    "open": {
+      "frames": [
+        0.0,
+        96.0
+      ],
+      "fps": 30,
+      "loop": false
+    },
+    "close": {
+      "frames": [
+        0.0,
+        96.0
+      ],
+      "fps": 30,
+      "loop": false
+    }
+  },
+  "passage_m": {
+    "width": 1.5,
+    "height": 1.9354838709677418,
+    "threshold": 0.0967741935483871,
+    "interior_height": 3.0
+  },
+  "glazing": {
+    "material": "M_Glass",
+    "color": [
+      0,
+      0,
+      0
+    ],
+    "opacity": 0.1
+  },
+  "gizmos": [
+    {
+      "name": "BattenLightMount",
+      "bone": "Root",
+      "origin": [
+        0.0,
+        0.0,
+        3.096774101257324
+      ],
+      "mount_normal": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "attachment": "batten_light",
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          -0.0,
+          0.0
+        ],
+        [
+          -0.0,
+          1.0,
+          -0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          3.096774101257324
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "SconceLightMountNorthEast",
+      "bone": "Root",
+      "origin": [
+        1.8565001487731934,
+        1.8565001487731934,
+        1.2096774578094482
+      ],
+      "mount_normal": [
+        -0.7071068286895752,
+        -0.7071067690849304,
+        0.0
+      ],
+      "attachment": "sconce_light",
+      "matrix_world": [
+        [
+          0.7071067690849304,
+          0.7071068286895752,
+          0.0,
+          1.8565001487731934
+        ],
+        [
+          -0.7071068286895752,
+          0.7071067690849304,
+          0.0,
+          1.8565001487731934
+        ],
+        [
+          0.0,
+          -0.0,
+          1.0,
+          1.2096774578094482
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "SconceLightMountSouthWest",
+      "bone": "Root",
+      "origin": [
+        -1.8565001487731934,
+        -1.8565001487731934,
+        1.2096774578094482
+      ],
+      "mount_normal": [
+        0.7071068286895752,
+        0.7071067690849304,
+        0.0
+      ],
+      "attachment": "sconce_light",
+      "matrix_world": [
+        [
+          -0.7071067690849304,
+          -0.7071068286895752,
+          0.0,
+          -1.8565001487731934
+        ],
+        [
+          0.7071068286895752,
+          -0.7071067690849304,
+          0.0,
+          -1.8565001487731934
+        ],
+        [
+          0.0,
+          -0.0,
+          1.0,
+          1.2096774578094482
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    }
+  ],
+  "checks": {
+    "exact_solid_pairs": 444,
+    "connectivity": true,
+    "motion_states": 970,
+    "coplanar": true
+  },
+  "mechanics": "Four independently guided telescoping doors; upper travel 1.2m, lower 2.4m; double-acting two-stage hydraulic cylinders, separate storage depth lanes, 140mm minimum engagement; fixed overhead flanges and bored C-section guides.",
+  "placement": "6x6m centred floor envelope including optional apron; front -Y; library only",
+  "optional_surface": {
+    "object": "SK_ArchitectureRegolith",
+    "material": "M_Regolith_Diffuse",
+    "bone": "Root",
+    "optional": true,
+    "collision": false,
+    "scope": "visual apron only; excluded from building placement and traversal"
+  },
+  "meshes": {
+    "SK_HubStructure": 4225,
+    "SK_HubDoors": 4018,
+    "SK_ArchitectureRegolith": 144
+  },
+  "triangles": 8387,
+  "materials": [
+    "M_Emissive",
+    "M_Frame_Diffuse",
+    "M_Glass",
+    "M_Joint_Diffuse",
+    "M_Primary_Diffuse",
+    "M_Regolith_Diffuse",
+    "M_Secondary_Diffuse"
+  ],
+  "building_bounds_m": {
+    "lo": [
+      -2.9800000190734863,
+      -2.9800000190734863,
+      0.0
+    ],
+    "hi": [
+      2.9800000190734863,
+      2.9800000190734863,
+      3.500000238418579
+    ]
+  },
+  "bounds_m": {
+    "lo": [
+      -2.9800000190734863,
+      -2.9800000190734863,
+      0.0
+    ],
+    "hi": [
+      2.9800000190734863,
+      2.9800000190734863,
+      3.500000238418579
+    ]
+  },
+  "architecture_dimensions": {
+    "door_type": "single",
+    "opening_width_m": 1.5,
+    "opening_height_m": 1.9354838709677418,
+    "rooms": [
+      {
+        "floor_m": 0.0967741935483871,
+        "ceiling_m": 3.096774193548387,
+        "height_m": 2.9999999999999996
+      }
+    ],
+    "measurement": "Open structural aperture; floor top to ceiling underside; chamfers reduce local clearance"
+  },
+  "material_classifiers": {
+    "M_Emissive": "Emissive",
+    "M_Frame_Diffuse": "Diffuse",
+    "M_Glass": "Glass",
+    "M_Joint_Diffuse": "Diffuse",
+    "M_Primary_Diffuse": "Diffuse",
+    "M_Regolith_Diffuse": "Diffuse",
+    "M_Secondary_Diffuse": "Diffuse"
+  }
+}

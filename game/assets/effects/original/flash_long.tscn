@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/presentation/vfx/original/effect_composition.gd" id="1"]
+
+[node name="Effect" type="Node3D"]
+script = ExtResource("1")
+kind = "flash_long"

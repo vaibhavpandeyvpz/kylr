@@ -1,0 +1,35 @@
+{
+  "source": "source/grenade_atlas.png",
+  "generator": "OpenAI built-in imagegen",
+  "preparation": "export_fireball.py; pixel-preserving validation and copy",
+  "atlas_size": [
+    1254,
+    1254
+  ],
+  "tile_size": 313.5,
+  "grid": [
+    4,
+    4
+  ],
+  "frames": 16,
+  "scientific_validation": false,
+  "occupied_pixels": [
+    3430,
+    6400,
+    8227,
+    10844,
+    15825,
+    19778,
+    22249,
+    22548,
+    20153,
+    19793,
+    20681,
+    18441,
+    15088,
+    14551,
+    14552,
+    14396
+  ],
+  "sha256": "610ff182d81fdef57a36b3bae52e8a6b3f7825be85fb1493179c32fc8f3246ec"
+}

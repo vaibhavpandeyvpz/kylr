@@ -1,0 +1,454 @@
+{
+  "name": "container",
+  "triangles": 8654,
+  "meshes": {
+    "SK_ContainerStructure": 4326,
+    "SK_ContainerFormedShell": 976,
+    "SK_ContainerFrontDoors": 1674,
+    "SK_ContainerRearDoors": 1678
+  },
+  "triangle_budget_per_mesh": 5000,
+  "bounds_m": {
+    "lo": [
+      -1.1297497749328613,
+      -1.5330348014831543,
+      0.0
+    ],
+    "hi": [
+      1.1297497749328613,
+      1.5330348014831543,
+      2.438861608505249
+    ]
+  },
+  "materials": [
+    "M_Primary_Diffuse",
+    "M_Secondary_Diffuse",
+    "M_Frame_Diffuse",
+    "M_Joint_Diffuse",
+    "M_Emissive"
+  ],
+  "tensor_height_m": 1.753,
+  "dimensions_m": {
+    "width": 2.2594995366079704,
+    "depth": 2.991,
+    "height": 2.4388614970865086
+  },
+  "bones": [
+    {
+      "name": "Root",
+      "parent": null,
+      "kind": "fixed"
+    },
+    {
+      "name": "LeftDoor",
+      "parent": "Root",
+      "kind": "hinge"
+    },
+    {
+      "name": "LeftDoorTopBolt",
+      "parent": "LeftDoor",
+      "kind": "slide"
+    },
+    {
+      "name": "LeftDoorBottomBolt",
+      "parent": "LeftDoor",
+      "kind": "slide"
+    },
+    {
+      "name": "RightDoor",
+      "parent": "Root",
+      "kind": "hinge"
+    },
+    {
+      "name": "RightDoorTopBolt",
+      "parent": "RightDoor",
+      "kind": "slide"
+    },
+    {
+      "name": "RightDoorBottomBolt",
+      "parent": "RightDoor",
+      "kind": "slide"
+    },
+    {
+      "name": "RearLeftDoor",
+      "parent": "Root",
+      "kind": "hinge"
+    },
+    {
+      "name": "RearLeftDoorTopBolt",
+      "parent": "RearLeftDoor",
+      "kind": "slide"
+    },
+    {
+      "name": "RearLeftDoorBottomBolt",
+      "parent": "RearLeftDoor",
+      "kind": "slide"
+    },
+    {
+      "name": "RearRightDoor",
+      "parent": "Root",
+      "kind": "hinge"
+    },
+    {
+      "name": "RearRightDoorTopBolt",
+      "parent": "RearRightDoor",
+      "kind": "slide"
+    },
+    {
+      "name": "RearRightDoorBottomBolt",
+      "parent": "RearRightDoor",
+      "kind": "slide"
+    }
+  ],
+  "animations": {
+    "front_open": {
+      "frames": [
+        0.0,
+        96.0
+      ],
+      "fps": 30,
+      "loop": false
+    },
+    "rear_open": {
+      "frames": [
+        0.0,
+        96.0
+      ],
+      "fps": 30,
+      "loop": false
+    },
+    "rear_close": {
+      "frames": [
+        0.0,
+        96.0
+      ],
+      "fps": 30,
+      "loop": false
+    },
+    "front_close": {
+      "frames": [
+        0.0,
+        96.0
+      ],
+      "fps": 30,
+      "loop": false
+    }
+  },
+  "joints": [
+    {
+      "bone": "Root",
+      "type": "fixed",
+      "parent": null,
+      "pivot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "axis": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "range": null
+    },
+    {
+      "bone": "LeftDoor",
+      "type": "hinge",
+      "parent": "Root",
+      "pivot": [
+        1.0,
+        -1.4700134992599487,
+        1.2194308042526245
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        0,
+        105
+      ]
+    },
+    {
+      "bone": "LeftDoorTopBolt",
+      "type": "slide",
+      "parent": "LeftDoor",
+      "pivot": [
+        0.3151065707206726,
+        -1.4635258913040161,
+        1.4401613473892212
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        -0.06588973466698167,
+        0.0
+      ]
+    },
+    {
+      "bone": "LeftDoorBottomBolt",
+      "type": "slide",
+      "parent": "LeftDoor",
+      "pivot": [
+        0.3151065707206726,
+        -1.4635258913040161,
+        0.9987000823020935
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        0.0,
+        0.06588973466698167
+      ]
+    },
+    {
+      "bone": "RightDoor",
+      "type": "hinge",
+      "parent": "Root",
+      "pivot": [
+        -1.0,
+        -1.4700134992599487,
+        1.2194308042526245
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        -105,
+        0
+      ]
+    },
+    {
+      "bone": "RightDoorTopBolt",
+      "type": "slide",
+      "parent": "RightDoor",
+      "pivot": [
+        -0.3151065707206726,
+        -1.4635258913040161,
+        1.4401613473892212
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        -0.06588973466698167,
+        0.0
+      ]
+    },
+    {
+      "bone": "RightDoorBottomBolt",
+      "type": "slide",
+      "parent": "RightDoor",
+      "pivot": [
+        -0.3151065707206726,
+        -1.4635258913040161,
+        0.9987000823020935
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        0.0,
+        0.06588973466698167
+      ]
+    },
+    {
+      "bone": "RearLeftDoor",
+      "type": "hinge",
+      "parent": "Root",
+      "pivot": [
+        -1.0,
+        1.4700134992599487,
+        1.2194308042526245
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        0,
+        105
+      ]
+    },
+    {
+      "bone": "RearLeftDoorTopBolt",
+      "type": "slide",
+      "parent": "RearLeftDoor",
+      "pivot": [
+        -0.3151065707206726,
+        1.4635258913040161,
+        1.4401613473892212
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        -0.06588973466698167,
+        0.0
+      ]
+    },
+    {
+      "bone": "RearLeftDoorBottomBolt",
+      "type": "slide",
+      "parent": "RearLeftDoor",
+      "pivot": [
+        -0.3151065707206726,
+        1.4635258913040161,
+        0.9987000823020935
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        0.0,
+        0.06588973466698167
+      ]
+    },
+    {
+      "bone": "RearRightDoor",
+      "type": "hinge",
+      "parent": "Root",
+      "pivot": [
+        1.0,
+        1.4700134992599487,
+        1.2194308042526245
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        -105,
+        0
+      ]
+    },
+    {
+      "bone": "RearRightDoorTopBolt",
+      "type": "slide",
+      "parent": "RearRightDoor",
+      "pivot": [
+        0.3151065707206726,
+        1.4635258913040161,
+        1.4401613473892212
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        -0.06588973466698167,
+        0.0
+      ]
+    },
+    {
+      "bone": "RearRightDoorBottomBolt",
+      "type": "slide",
+      "parent": "RearRightDoor",
+      "pivot": [
+        0.3151065707206726,
+        1.4635258913040161,
+        0.9987000823020935
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        0.0,
+        0.06588973466698167
+      ]
+    }
+  ],
+  "checks": {
+    "connected_parts": 165,
+    "exact_solid_pairs": 244,
+    "motion_states": 520,
+    "no_solid_intersections": true
+  },
+  "placement": "floor centre; front -Y; up +Z; library only",
+  "mechanics": "Captive powered opposing shoot bolts retract 70 mm before twin leaves swing 105 degrees outward. Three interleaved pinned hinges per leaf. Formed 8 mm wall/roof panels in structural casting.",
+  "architecture_dimensions": {
+    "door_type": "double",
+    "opening_width_m": 2.0,
+    "opening_height_m": 2.1,
+    "rooms": [
+      {
+        "floor_m": 0.16943074854325416,
+        "ceiling_m": 2.369206633796504,
+        "height_m": 2.1997758852532496
+      }
+    ],
+    "measurement": "Open structural aperture; floor top to ceiling underside; chamfers reduce local clearance"
+  },
+  "gizmos": [
+    {
+      "name": "BattenLightMountCenter",
+      "bone": "Root",
+      "origin": [
+        0.0,
+        0.0,
+        2.369206428527832
+      ],
+      "mount_normal": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "attachment": "batten_light",
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          -0.0,
+          0.0
+        ],
+        [
+          -0.0,
+          1.0,
+          -0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          2.369206428527832
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    }
+  ],
+  "material_classifiers": {
+    "M_Emissive": "Emissive",
+    "M_Frame_Diffuse": "Diffuse",
+    "M_Joint_Diffuse": "Diffuse",
+    "M_Primary_Diffuse": "Diffuse",
+    "M_Secondary_Diffuse": "Diffuse"
+  }
+}

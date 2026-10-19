@@ -1,0 +1,553 @@
+{
+  "name": "hangar",
+  "triangles": 9925,
+  "triangle_budget": 10000,
+  "meshes": {
+    "SK_HangarArchitectureFront": 3073,
+    "SK_HangarArchitectureRear": 2290,
+    "SK_HangarCladdingAndServices": 2625,
+    "SK_HangarDoors": 1745,
+    "SK_ArchitectureRegolith": 192
+  },
+  "bounds_m": {
+    "lo": [
+      -5.541439056396484,
+      -6.125022888183594,
+      0.0
+    ],
+    "hi": [
+      5.545185089111328,
+      6.186293125152588,
+      3.394541025161743
+    ]
+  },
+  "materials": [
+    "M_Emissive",
+    "M_Frame_Diffuse",
+    "M_Glass",
+    "M_Joint_Diffuse",
+    "M_Primary_Diffuse",
+    "M_Regolith_Diffuse",
+    "M_Secondary_Diffuse"
+  ],
+  "bones": [
+    {
+      "name": "Root",
+      "parent": null,
+      "kind": "fixed"
+    },
+    {
+      "name": "LeftDoor",
+      "parent": "Root",
+      "kind": "hinge"
+    },
+    {
+      "name": "LeftDoorBolt",
+      "parent": "LeftDoor",
+      "kind": "slide"
+    },
+    {
+      "name": "RightDoor",
+      "parent": "Root",
+      "kind": "hinge"
+    },
+    {
+      "name": "RightDoorBolt",
+      "parent": "RightDoor",
+      "kind": "slide"
+    }
+  ],
+  "joints": [
+    {
+      "bone": "Root",
+      "parent": null,
+      "type": "fixed",
+      "pivot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "axis": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "range": null
+    },
+    {
+      "bone": "LeftDoor",
+      "parent": "Root",
+      "type": "hinge",
+      "pivot": [
+        -1.078260898590088,
+        -4.76086950302124,
+        1.1616625785827637
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        0,
+        105
+      ]
+    },
+    {
+      "bone": "LeftDoorBolt",
+      "parent": "LeftDoor",
+      "type": "slide",
+      "pivot": [
+        -0.1608695685863495,
+        -4.782608985900879,
+        1.4694212675094604
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        0.9999999403953552
+      ],
+      "range": [
+        -0.0724137918423527,
+        0.0
+      ]
+    },
+    {
+      "bone": "RightDoor",
+      "parent": "Root",
+      "type": "hinge",
+      "pivot": [
+        1.078260898590088,
+        -4.76086950302124,
+        1.1616625785827637
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        -105,
+        0
+      ]
+    },
+    {
+      "bone": "RightDoorBolt",
+      "parent": "RightDoor",
+      "type": "slide",
+      "pivot": [
+        0.1608695685863495,
+        -4.782608985900879,
+        1.4694212675094604
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        0.9999999403953552
+      ],
+      "range": [
+        -0.0724137918423527,
+        0.0
+      ]
+    }
+  ],
+  "animations": {
+    "open": {
+      "frames": [
+        0.0,
+        96.0
+      ],
+      "fps": 30,
+      "loop": false
+    },
+    "close": {
+      "frames": [
+        0.0,
+        96.0
+      ],
+      "fps": 30,
+      "loop": false
+    },
+    "open_left": {
+      "frames": [
+        0.0,
+        96.0
+      ],
+      "fps": 30,
+      "loop": false
+    },
+    "close_left": {
+      "frames": [
+        0.0,
+        96.0
+      ],
+      "fps": 30,
+      "loop": false
+    },
+    "open_right": {
+      "frames": [
+        0.0,
+        96.0
+      ],
+      "fps": 30,
+      "loop": false
+    },
+    "close_right": {
+      "frames": [
+        0.0,
+        96.0
+      ],
+      "fps": 30,
+      "loop": false
+    }
+  },
+  "ground_envelope_m": [
+    10,
+    11
+  ],
+  "passage_m": {
+    "width": 2.0,
+    "height": 2.1,
+    "threshold": 0.11166253101736971
+  },
+  "exterior_shell_m": {
+    "width": 9,
+    "depth": 10
+  },
+  "surrounding_platform": false,
+  "floor_slab_m": {
+    "width": 9,
+    "depth": 10.18,
+    "height": 0.11166253101736971,
+    "ramp_width": 2.22120514613985,
+    "ramp_run": 0.42
+  },
+  "glazing": {
+    "material": "M_Glass",
+    "color": [
+      0,
+      0,
+      0
+    ],
+    "opacity": 0.1
+  },
+  "finishes": {
+    "walls": "M_Primary_Diffuse",
+    "roof": "M_Secondary_Diffuse",
+    "framing": "M_Secondary_Diffuse",
+    "windows": "M_Glass"
+  },
+  "entry_frame_m": {
+    "face_thickness": 0.44,
+    "base_thickness": 0.59,
+    "guide_width": 0.024,
+    "parallel_offsets": true
+  },
+  "gizmos": [
+    {
+      "name": "BattenLightMountFront",
+      "bone": "Root",
+      "origin": [
+        0.0,
+        -2.200000047683716,
+        3.1116623878479004
+      ],
+      "mount_normal": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "attachment": "batten_light",
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          -0.0,
+          0.0
+        ],
+        [
+          -0.0,
+          1.0,
+          -0.0,
+          -2.200000047683716
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          3.1116623878479004
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "BattenLightMountRear",
+      "bone": "Root",
+      "origin": [
+        0.0,
+        2.4000000953674316,
+        3.1116623878479004
+      ],
+      "mount_normal": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "attachment": "batten_light",
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          -0.0,
+          0.0
+        ],
+        [
+          -0.0,
+          1.0,
+          -0.0,
+          2.4000000953674316
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          3.1116623878479004
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "SconceLightMountLeftFront",
+      "bone": "Root",
+      "origin": [
+        4.289999485015869,
+        -1.7999999523162842,
+        1.6377172470092773
+      ],
+      "mount_normal": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "attachment": "sconce_light",
+      "matrix_world": [
+        [
+          0.0,
+          1.0,
+          0.0,
+          4.289999485015869
+        ],
+        [
+          -1.0,
+          -0.0,
+          0.0,
+          -1.7999999523162842
+        ],
+        [
+          0.0,
+          -0.0,
+          1.0,
+          1.6377172470092773
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "SconceLightMountLeftRear",
+      "bone": "Root",
+      "origin": [
+        4.289999485015869,
+        1.75,
+        1.6377172470092773
+      ],
+      "mount_normal": [
+        -1.0,
+        -1.3706952017855656e-07,
+        0.0
+      ],
+      "attachment": "sconce_light",
+      "matrix_world": [
+        [
+          1.3706952017855656e-07,
+          1.0,
+          0.0,
+          4.289999485015869
+        ],
+        [
+          -1.0,
+          1.3706952017855656e-07,
+          0.0,
+          1.75
+        ],
+        [
+          0.0,
+          -0.0,
+          1.0,
+          1.6377172470092773
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "SconceLightMountRightFront",
+      "bone": "Root",
+      "origin": [
+        -4.289999961853027,
+        -1.7999999523162842,
+        1.6377172470092773
+      ],
+      "mount_normal": [
+        1.0,
+        -2.6496644522921997e-07,
+        0.0
+      ],
+      "attachment": "sconce_light",
+      "matrix_world": [
+        [
+          2.6496644522921997e-07,
+          -1.0,
+          0.0,
+          -4.289999961853027
+        ],
+        [
+          1.0,
+          2.6496644522921997e-07,
+          0.0,
+          -1.7999999523162842
+        ],
+        [
+          -0.0,
+          -0.0,
+          1.0,
+          1.6377172470092773
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "SconceLightMountRightRear",
+      "bone": "Root",
+      "origin": [
+        -4.289999485015869,
+        1.75,
+        1.6377172470092773
+      ],
+      "mount_normal": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "attachment": "sconce_light",
+      "matrix_world": [
+        [
+          0.0,
+          -1.0,
+          0.0,
+          -4.289999485015869
+        ],
+        [
+          1.0,
+          -0.0,
+          0.0,
+          1.75
+        ],
+        [
+          0.0,
+          -0.0,
+          1.0,
+          1.6377172470092773
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    }
+  ],
+  "checks": {
+    "exact_solid_pairs": 338,
+    "connectivity": true,
+    "motion_states": 690,
+    "coplanar": true,
+    "full_ground_sweep": true
+  },
+  "placement": "ground centre; front -Y; up +Z; library only",
+  "main_chamber_clear_floor_m": {
+    "width": 8.2,
+    "depth": 9.56,
+    "area": 78.392
+  },
+  "entrance_recess_floor_area_m2": 0.6760342605590799,
+  "closed_room_floor_area_m2": 79.06803426055907,
+  "optional_surface": {
+    "object": "SK_ArchitectureRegolith",
+    "material": "M_Regolith_Diffuse",
+    "bone": "Root",
+    "optional": true,
+    "collision": false,
+    "scope": "visual apron only; excluded from building placement and traversal"
+  },
+  "building_bounds_m": {
+    "lo": [
+      -4.691999912261963,
+      -5.5,
+      0.0
+    ],
+    "hi": [
+      4.691999912261963,
+      5.193999767303467,
+      3.394541025161743
+    ]
+  },
+  "budget_passed": true,
+  "delivery_status": "validated",
+  "architecture_dimensions": {
+    "door_type": "double",
+    "opening_width_m": 2.0,
+    "opening_height_m": 2.1,
+    "rooms": [
+      {
+        "floor_m": 0.11166253101736971,
+        "ceiling_m": 3.111662531017369,
+        "height_m": 2.999999999999999
+      }
+    ],
+    "measurement": "Open structural aperture; floor top to ceiling underside; chamfers reduce local clearance"
+  },
+  "material_classifiers": {
+    "M_Emissive": "Emissive",
+    "M_Frame_Diffuse": "Diffuse",
+    "M_Glass": "Glass",
+    "M_Joint_Diffuse": "Diffuse",
+    "M_Primary_Diffuse": "Diffuse",
+    "M_Regolith_Diffuse": "Diffuse",
+    "M_Secondary_Diffuse": "Diffuse"
+  }
+}

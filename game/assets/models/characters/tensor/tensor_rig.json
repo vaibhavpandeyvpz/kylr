@@ -1,0 +1,2283 @@
+{
+  "name": "tensor",
+  "height_m": 1.753,
+  "space": "Blender coords: +Z up, faces -Y, left = +X. glTF/Godot: (x, z, -y). Limits are degrees about each bone's local axes; local X is the flex axis. limit_envelopes_deg: the pose must lie inside one of these [x, y, z] boxes (coupled limits).",
+  "team_materials": [
+    "M_Primary_Metallic",
+    "M_Secondary_Metallic"
+  ],
+  "team_presets": {
+    "green": {
+      "M_Primary_Metallic": [
+        0.13,
+        0.17,
+        0.08
+      ],
+      "M_Secondary_Metallic": [
+        0.4,
+        0.29,
+        0.15
+      ]
+    },
+    "red": {
+      "M_Primary_Metallic": [
+        0.18,
+        0.035,
+        0.025
+      ],
+      "M_Secondary_Metallic": [
+        0.45,
+        0.39,
+        0.25
+      ]
+    },
+    "yellow": {
+      "M_Primary_Metallic": [
+        0.521,
+        0.356,
+        0.076
+      ],
+      "M_Secondary_Metallic": [
+        0.069,
+        0.11,
+        0.162
+      ]
+    },
+    "blue": {
+      "M_Primary_Metallic": [
+        0.069,
+        0.11,
+        0.162
+      ],
+      "M_Secondary_Metallic": [
+        0.521,
+        0.356,
+        0.076
+      ]
+    }
+  },
+  "materials": [
+    "M_Primary_Metallic",
+    "M_Secondary_Metallic",
+    "M_Frame_Diffuse",
+    "M_Joint_Metallic",
+    "M_Emissive",
+    "M_Wire_Metallic",
+    "M_Hose_Diffuse",
+    "M_Titanium_Metallic",
+    "M_Bronze_Metallic",
+    "M_Alu_Metallic",
+    "M_Black_Diffuse"
+  ],
+  "uv_atlases": {
+    "materials": [
+      "M_Primary_Metallic",
+      "M_Secondary_Metallic",
+      "M_Frame_Diffuse",
+      "M_Joint_Metallic",
+      "M_Emissive",
+      "M_Wire_Metallic",
+      "M_Hose_Diffuse",
+      "M_Titanium_Metallic",
+      "M_Bronze_Metallic",
+      "M_Alu_Metallic",
+      "M_Black_Diffuse"
+    ],
+    "resolution": 2048,
+    "note": "Unique 0..1 layouts shared by body and head variants; each original material has its own atlas. Source finishes and emission are unchanged."
+  },
+  "triangles": {
+    "body": 14451,
+    "head_projector": 826,
+    "head_sentinel": 828,
+    "head_porthole": 801,
+    "head_raptor": 266,
+    "head_arachne": 580
+  },
+  "head_variants": {
+    "default": "projector",
+    "note": "one mesh per head, skinned to Head; show one, hide the rest",
+    "meshes": {
+      "projector": "SK_TensorHeadProjector",
+      "sentinel": "SK_TensorHeadSentinel",
+      "porthole": "SK_TensorHeadPorthole",
+      "raptor": "SK_TensorHeadRaptor",
+      "arachne": "SK_TensorHeadArachne"
+    }
+  },
+  "bones": [
+    {
+      "name": "Root",
+      "parent": null,
+      "head": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tail": [
+        0.0,
+        0.0,
+        0.15
+      ],
+      "flex_axis": [
+        1.0,
+        0.0,
+        -0.0
+      ],
+      "limits_deg": {},
+      "euler_order": "XYZ"
+    },
+    {
+      "name": "Hips",
+      "parent": "Root",
+      "head": [
+        0.0,
+        0.0,
+        0.94
+      ],
+      "tail": [
+        0.0,
+        0.0,
+        1.04
+      ],
+      "flex_axis": [
+        1.0,
+        0.0,
+        -0.0
+      ],
+      "limits_deg": {},
+      "euler_order": "XYZ"
+    },
+    {
+      "name": "Spine",
+      "parent": "Hips",
+      "head": [
+        0.0,
+        0.0,
+        1.04
+      ],
+      "tail": [
+        0.0,
+        0.0,
+        1.15
+      ],
+      "flex_axis": [
+        1.0,
+        0.0,
+        -0.0
+      ],
+      "limits_deg": {
+        "x": [
+          -8,
+          15
+        ],
+        "y": [
+          -25,
+          25
+        ],
+        "z": [
+          -10,
+          10
+        ]
+      },
+      "euler_order": "XYZ"
+    },
+    {
+      "name": "Chest",
+      "parent": "Spine",
+      "head": [
+        0.0,
+        0.0,
+        1.15
+      ],
+      "tail": [
+        0.0,
+        0.0,
+        1.27
+      ],
+      "flex_axis": [
+        1.0,
+        0.0,
+        -0.0
+      ],
+      "limits_deg": {
+        "x": [
+          -5,
+          10
+        ],
+        "y": [
+          -20,
+          20
+        ],
+        "z": [
+          -6,
+          6
+        ]
+      },
+      "euler_order": "XYZ"
+    },
+    {
+      "name": "UpperChest",
+      "parent": "Chest",
+      "head": [
+        0.0,
+        0.0,
+        1.27
+      ],
+      "tail": [
+        0.0,
+        0.0,
+        1.434
+      ],
+      "flex_axis": [
+        1.0,
+        0.0,
+        -0.0
+      ],
+      "limits_deg": {
+        "x": [
+          -10,
+          15
+        ],
+        "y": [
+          -15,
+          15
+        ],
+        "z": [
+          -10,
+          10
+        ]
+      },
+      "euler_order": "XYZ"
+    },
+    {
+      "name": "Neck",
+      "parent": "UpperChest",
+      "head": [
+        0.0,
+        0.0,
+        1.434
+      ],
+      "tail": [
+        0.0,
+        0.0,
+        1.6
+      ],
+      "flex_axis": [
+        1.0,
+        0.0,
+        -0.0
+      ],
+      "limits_deg": {
+        "x": [
+          0,
+          0
+        ],
+        "y": [
+          -90,
+          90
+        ],
+        "z": [
+          0,
+          0
+        ]
+      },
+      "euler_order": "XYZ"
+    },
+    {
+      "name": "Head",
+      "parent": "Neck",
+      "head": [
+        0.0,
+        0.0,
+        1.6
+      ],
+      "tail": [
+        0.0,
+        0.0,
+        1.753
+      ],
+      "flex_axis": [
+        1.0,
+        0.0,
+        -0.0
+      ],
+      "limits_deg": {
+        "x": [
+          -20,
+          25
+        ],
+        "y": [
+          0,
+          0
+        ],
+        "z": [
+          0,
+          0
+        ]
+      },
+      "euler_order": "XYZ"
+    },
+    {
+      "name": "LeftShoulder",
+      "parent": "UpperChest",
+      "head": [
+        0.03,
+        0.0,
+        1.405
+      ],
+      "tail": [
+        0.175,
+        0.0,
+        1.405
+      ],
+      "flex_axis": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "limits_deg": {
+        "x": [
+          -4,
+          5
+        ],
+        "y": [
+          0,
+          0
+        ],
+        "z": [
+          -5,
+          5
+        ]
+      },
+      "euler_order": "XYZ"
+    },
+    {
+      "name": "RightShoulder",
+      "parent": "UpperChest",
+      "head": [
+        -0.03,
+        0.0,
+        1.405
+      ],
+      "tail": [
+        -0.175,
+        0.0,
+        1.405
+      ],
+      "flex_axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "limits_deg": {
+        "x": [
+          -4,
+          5
+        ],
+        "y": [
+          0,
+          0
+        ],
+        "z": [
+          -5,
+          5
+        ]
+      },
+      "euler_order": "XYZ"
+    },
+    {
+      "name": "LeftUpperArm",
+      "parent": "LeftShoulder",
+      "head": [
+        0.175,
+        0.0,
+        1.405
+      ],
+      "tail": [
+        0.475,
+        0.0,
+        1.405
+      ],
+      "flex_axis": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "limits_deg": {
+        "x": [
+          -60,
+          80
+        ],
+        "y": [
+          -90,
+          90
+        ],
+        "z": [
+          -95,
+          55
+        ]
+      },
+      "euler_order": "XYZ"
+    },
+    {
+      "name": "RightUpperArm",
+      "parent": "RightShoulder",
+      "head": [
+        -0.175,
+        0.0,
+        1.405
+      ],
+      "tail": [
+        -0.475,
+        0.0,
+        1.405
+      ],
+      "flex_axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "limits_deg": {
+        "x": [
+          -60,
+          80
+        ],
+        "y": [
+          -90,
+          90
+        ],
+        "z": [
+          -55,
+          95
+        ]
+      },
+      "euler_order": "XYZ"
+    },
+    {
+      "name": "LeftLowerArm",
+      "parent": "LeftUpperArm",
+      "head": [
+        0.475,
+        0.0,
+        1.405
+      ],
+      "tail": [
+        0.725,
+        0.0,
+        1.405
+      ],
+      "flex_axis": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "limits_deg": {
+        "x": [
+          0,
+          140
+        ],
+        "y": [
+          -90,
+          90
+        ],
+        "z": [
+          0,
+          0
+        ]
+      },
+      "euler_order": "YXZ"
+    },
+    {
+      "name": "RightLowerArm",
+      "parent": "RightUpperArm",
+      "head": [
+        -0.475,
+        0.0,
+        1.405
+      ],
+      "tail": [
+        -0.725,
+        0.0,
+        1.405
+      ],
+      "flex_axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "limits_deg": {
+        "x": [
+          0,
+          140
+        ],
+        "y": [
+          -90,
+          90
+        ],
+        "z": [
+          0,
+          0
+        ]
+      },
+      "euler_order": "YXZ"
+    },
+    {
+      "name": "LeftHand",
+      "parent": "LeftLowerArm",
+      "head": [
+        0.725,
+        0.0,
+        1.405
+      ],
+      "tail": [
+        0.82,
+        0.0,
+        1.405
+      ],
+      "flex_axis": [
+        -0.0,
+        1.0,
+        0.0
+      ],
+      "limits_deg": {
+        "x": [
+          -70,
+          80
+        ],
+        "y": [
+          -90,
+          90
+        ],
+        "z": [
+          -25,
+          25
+        ]
+      },
+      "euler_order": "XYZ"
+    },
+    {
+      "name": "RightHand",
+      "parent": "RightLowerArm",
+      "head": [
+        -0.725,
+        0.0,
+        1.405
+      ],
+      "tail": [
+        -0.82,
+        0.0,
+        1.405
+      ],
+      "flex_axis": [
+        -0.0,
+        -1.0,
+        0.0
+      ],
+      "limits_deg": {
+        "x": [
+          -70,
+          80
+        ],
+        "y": [
+          -90,
+          90
+        ],
+        "z": [
+          -25,
+          25
+        ]
+      },
+      "euler_order": "XYZ"
+    },
+    {
+      "name": "LeftUpperLeg",
+      "parent": "Hips",
+      "head": [
+        0.095,
+        0.0,
+        0.915
+      ],
+      "tail": [
+        0.095,
+        -0.01,
+        0.49
+      ],
+      "flex_axis": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "limits_deg": {
+        "x": [
+          -30,
+          100
+        ],
+        "y": [
+          -15,
+          5
+        ],
+        "z": [
+          -10,
+          75
+        ]
+      },
+      "euler_order": "XYZ",
+      "limit_envelopes_deg": [
+        [
+          [
+            -30,
+            30
+          ],
+          [
+            -5,
+            5
+          ],
+          [
+            -10,
+            75
+          ]
+        ],
+        [
+          [
+            -30,
+            60
+          ],
+          [
+            -15,
+            5
+          ],
+          [
+            -10,
+            40
+          ]
+        ],
+        [
+          [
+            -30,
+            100
+          ],
+          [
+            -10,
+            5
+          ],
+          [
+            -10,
+            10
+          ]
+        ]
+      ]
+    },
+    {
+      "name": "RightUpperLeg",
+      "parent": "Hips",
+      "head": [
+        -0.095,
+        0.0,
+        0.915
+      ],
+      "tail": [
+        -0.095,
+        -0.01,
+        0.49
+      ],
+      "flex_axis": [
+        -1.0,
+        0.0,
+        -0.0
+      ],
+      "limits_deg": {
+        "x": [
+          -30,
+          100
+        ],
+        "y": [
+          -5,
+          15
+        ],
+        "z": [
+          -75,
+          10
+        ]
+      },
+      "euler_order": "XYZ",
+      "limit_envelopes_deg": [
+        [
+          [
+            -30,
+            30
+          ],
+          [
+            -5,
+            5
+          ],
+          [
+            -75,
+            10
+          ]
+        ],
+        [
+          [
+            -30,
+            60
+          ],
+          [
+            -5,
+            15
+          ],
+          [
+            -40,
+            10
+          ]
+        ],
+        [
+          [
+            -30,
+            100
+          ],
+          [
+            -5,
+            10
+          ],
+          [
+            -10,
+            10
+          ]
+        ]
+      ]
+    },
+    {
+      "name": "LeftLowerLeg",
+      "parent": "LeftUpperLeg",
+      "head": [
+        0.095,
+        -0.01,
+        0.49
+      ],
+      "tail": [
+        0.095,
+        0.0,
+        0.085
+      ],
+      "flex_axis": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "limits_deg": {
+        "x": [
+          0,
+          105
+        ],
+        "y": [
+          0,
+          0
+        ],
+        "z": [
+          0,
+          0
+        ]
+      },
+      "euler_order": "XYZ"
+    },
+    {
+      "name": "RightLowerLeg",
+      "parent": "RightUpperLeg",
+      "head": [
+        -0.095,
+        -0.01,
+        0.49
+      ],
+      "tail": [
+        -0.095,
+        0.0,
+        0.085
+      ],
+      "flex_axis": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "limits_deg": {
+        "x": [
+          0,
+          105
+        ],
+        "y": [
+          0,
+          0
+        ],
+        "z": [
+          0,
+          0
+        ]
+      },
+      "euler_order": "XYZ"
+    },
+    {
+      "name": "LeftFoot",
+      "parent": "LeftLowerLeg",
+      "head": [
+        0.095,
+        0.0,
+        0.085
+      ],
+      "tail": [
+        0.095,
+        -0.12,
+        0.085
+      ],
+      "flex_axis": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "limits_deg": {
+        "x": [
+          -30,
+          40
+        ],
+        "y": [
+          -15,
+          15
+        ],
+        "z": [
+          0,
+          0
+        ]
+      },
+      "euler_order": "YXZ"
+    },
+    {
+      "name": "RightFoot",
+      "parent": "RightLowerLeg",
+      "head": [
+        -0.095,
+        0.0,
+        0.085
+      ],
+      "tail": [
+        -0.095,
+        -0.12,
+        0.085
+      ],
+      "flex_axis": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "limits_deg": {
+        "x": [
+          -30,
+          40
+        ],
+        "y": [
+          -15,
+          15
+        ],
+        "z": [
+          0,
+          0
+        ]
+      },
+      "euler_order": "YXZ"
+    },
+    {
+      "name": "LeftToes",
+      "parent": "LeftFoot",
+      "head": [
+        0.095,
+        -0.125,
+        0.035
+      ],
+      "tail": [
+        0.095,
+        -0.195,
+        0.035
+      ],
+      "flex_axis": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "limits_deg": {
+        "x": [
+          -20,
+          45
+        ],
+        "y": [
+          0,
+          0
+        ],
+        "z": [
+          0,
+          0
+        ]
+      },
+      "euler_order": "XYZ"
+    },
+    {
+      "name": "RightToes",
+      "parent": "RightFoot",
+      "head": [
+        -0.095,
+        -0.125,
+        0.035
+      ],
+      "tail": [
+        -0.095,
+        -0.195,
+        0.035
+      ],
+      "flex_axis": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "limits_deg": {
+        "x": [
+          -20,
+          45
+        ],
+        "y": [
+          0,
+          0
+        ],
+        "z": [
+          0,
+          0
+        ]
+      },
+      "euler_order": "XYZ"
+    },
+    {
+      "name": "LeftIndexProximal",
+      "parent": "LeftHand",
+      "head": [
+        0.82,
+        -0.03,
+        1.405
+      ],
+      "tail": [
+        0.86,
+        -0.03,
+        1.405
+      ],
+      "flex_axis": [
+        -0.0,
+        1.0,
+        0.0
+      ],
+      "limits_deg": {
+        "x": [
+          -15,
+          90
+        ],
+        "y": [
+          0,
+          0
+        ],
+        "z": [
+          0,
+          0
+        ]
+      },
+      "euler_order": "XYZ"
+    },
+    {
+      "name": "RightIndexProximal",
+      "parent": "RightHand",
+      "head": [
+        -0.82,
+        -0.03,
+        1.405
+      ],
+      "tail": [
+        -0.86,
+        -0.03,
+        1.405
+      ],
+      "flex_axis": [
+        -0.0,
+        -1.0,
+        0.0
+      ],
+      "limits_deg": {
+        "x": [
+          -15,
+          90
+        ],
+        "y": [
+          0,
+          0
+        ],
+        "z": [
+          0,
+          0
+        ]
+      },
+      "euler_order": "XYZ"
+    },
+    {
+      "name": "LeftIndexIntermediate",
+      "parent": "LeftIndexProximal",
+      "head": [
+        0.86,
+        -0.03,
+        1.405
+      ],
+      "tail": [
+        0.888,
+        -0.03,
+        1.405
+      ],
+      "flex_axis": [
+        -0.0,
+        1.0,
+        0.0
+      ],
+      "limits_deg": {
+        "x": [
+          0,
+          100
+        ],
+        "y": [
+          0,
+          0
+        ],
+        "z": [
+          0,
+          0
+        ]
+      },
+      "euler_order": "XYZ"
+    },
+    {
+      "name": "RightIndexIntermediate",
+      "parent": "RightIndexProximal",
+      "head": [
+        -0.86,
+        -0.03,
+        1.405
+      ],
+      "tail": [
+        -0.888,
+        -0.03,
+        1.405
+      ],
+      "flex_axis": [
+        -0.0,
+        -1.0,
+        0.0
+      ],
+      "limits_deg": {
+        "x": [
+          0,
+          100
+        ],
+        "y": [
+          0,
+          0
+        ],
+        "z": [
+          0,
+          0
+        ]
+      },
+      "euler_order": "XYZ"
+    },
+    {
+      "name": "LeftIndexDistal",
+      "parent": "LeftIndexIntermediate",
+      "head": [
+        0.888,
+        -0.03,
+        1.405
+      ],
+      "tail": [
+        0.91,
+        -0.03,
+        1.405
+      ],
+      "flex_axis": [
+        -0.0,
+        1.0,
+        0.0
+      ],
+      "limits_deg": {
+        "x": [
+          0,
+          80
+        ],
+        "y": [
+          0,
+          0
+        ],
+        "z": [
+          0,
+          0
+        ]
+      },
+      "euler_order": "XYZ"
+    },
+    {
+      "name": "RightIndexDistal",
+      "parent": "RightIndexIntermediate",
+      "head": [
+        -0.888,
+        -0.03,
+        1.405
+      ],
+      "tail": [
+        -0.91,
+        -0.03,
+        1.405
+      ],
+      "flex_axis": [
+        -0.0,
+        -1.0,
+        0.0
+      ],
+      "limits_deg": {
+        "x": [
+          0,
+          80
+        ],
+        "y": [
+          0,
+          0
+        ],
+        "z": [
+          0,
+          0
+        ]
+      },
+      "euler_order": "XYZ"
+    },
+    {
+      "name": "LeftMiddleProximal",
+      "parent": "LeftHand",
+      "head": [
+        0.823,
+        -0.01,
+        1.405
+      ],
+      "tail": [
+        0.867,
+        -0.01,
+        1.405
+      ],
+      "flex_axis": [
+        -0.0,
+        1.0,
+        0.0
+      ],
+      "limits_deg": {
+        "x": [
+          -15,
+          90
+        ],
+        "y": [
+          0,
+          0
+        ],
+        "z": [
+          0,
+          0
+        ]
+      },
+      "euler_order": "XYZ"
+    },
+    {
+      "name": "RightMiddleProximal",
+      "parent": "RightHand",
+      "head": [
+        -0.823,
+        -0.01,
+        1.405
+      ],
+      "tail": [
+        -0.867,
+        -0.01,
+        1.405
+      ],
+      "flex_axis": [
+        -0.0,
+        -1.0,
+        0.0
+      ],
+      "limits_deg": {
+        "x": [
+          -15,
+          90
+        ],
+        "y": [
+          0,
+          0
+        ],
+        "z": [
+          0,
+          0
+        ]
+      },
+      "euler_order": "XYZ"
+    },
+    {
+      "name": "LeftMiddleIntermediate",
+      "parent": "LeftMiddleProximal",
+      "head": [
+        0.867,
+        -0.01,
+        1.405
+      ],
+      "tail": [
+        0.897,
+        -0.01,
+        1.405
+      ],
+      "flex_axis": [
+        -0.0,
+        1.0,
+        0.0
+      ],
+      "limits_deg": {
+        "x": [
+          0,
+          100
+        ],
+        "y": [
+          0,
+          0
+        ],
+        "z": [
+          0,
+          0
+        ]
+      },
+      "euler_order": "XYZ"
+    },
+    {
+      "name": "RightMiddleIntermediate",
+      "parent": "RightMiddleProximal",
+      "head": [
+        -0.867,
+        -0.01,
+        1.405
+      ],
+      "tail": [
+        -0.897,
+        -0.01,
+        1.405
+      ],
+      "flex_axis": [
+        -0.0,
+        -1.0,
+        0.0
+      ],
+      "limits_deg": {
+        "x": [
+          0,
+          100
+        ],
+        "y": [
+          0,
+          0
+        ],
+        "z": [
+          0,
+          0
+        ]
+      },
+      "euler_order": "XYZ"
+    },
+    {
+      "name": "LeftMiddleDistal",
+      "parent": "LeftMiddleIntermediate",
+      "head": [
+        0.897,
+        -0.01,
+        1.405
+      ],
+      "tail": [
+        0.921,
+        -0.01,
+        1.405
+      ],
+      "flex_axis": [
+        -0.0,
+        1.0,
+        0.0
+      ],
+      "limits_deg": {
+        "x": [
+          0,
+          80
+        ],
+        "y": [
+          0,
+          0
+        ],
+        "z": [
+          0,
+          0
+        ]
+      },
+      "euler_order": "XYZ"
+    },
+    {
+      "name": "RightMiddleDistal",
+      "parent": "RightMiddleIntermediate",
+      "head": [
+        -0.897,
+        -0.01,
+        1.405
+      ],
+      "tail": [
+        -0.921,
+        -0.01,
+        1.405
+      ],
+      "flex_axis": [
+        -0.0,
+        -1.0,
+        0.0
+      ],
+      "limits_deg": {
+        "x": [
+          0,
+          80
+        ],
+        "y": [
+          0,
+          0
+        ],
+        "z": [
+          0,
+          0
+        ]
+      },
+      "euler_order": "XYZ"
+    },
+    {
+      "name": "LeftRingProximal",
+      "parent": "LeftHand",
+      "head": [
+        0.82,
+        0.01,
+        1.405
+      ],
+      "tail": [
+        0.861,
+        0.01,
+        1.405
+      ],
+      "flex_axis": [
+        -0.0,
+        1.0,
+        0.0
+      ],
+      "limits_deg": {
+        "x": [
+          -15,
+          90
+        ],
+        "y": [
+          0,
+          0
+        ],
+        "z": [
+          0,
+          0
+        ]
+      },
+      "euler_order": "XYZ"
+    },
+    {
+      "name": "RightRingProximal",
+      "parent": "RightHand",
+      "head": [
+        -0.82,
+        0.01,
+        1.405
+      ],
+      "tail": [
+        -0.861,
+        0.01,
+        1.405
+      ],
+      "flex_axis": [
+        -0.0,
+        -1.0,
+        0.0
+      ],
+      "limits_deg": {
+        "x": [
+          -15,
+          90
+        ],
+        "y": [
+          0,
+          0
+        ],
+        "z": [
+          0,
+          0
+        ]
+      },
+      "euler_order": "XYZ"
+    },
+    {
+      "name": "LeftRingIntermediate",
+      "parent": "LeftRingProximal",
+      "head": [
+        0.861,
+        0.01,
+        1.405
+      ],
+      "tail": [
+        0.889,
+        0.01,
+        1.405
+      ],
+      "flex_axis": [
+        -0.0,
+        1.0,
+        0.0
+      ],
+      "limits_deg": {
+        "x": [
+          0,
+          100
+        ],
+        "y": [
+          0,
+          0
+        ],
+        "z": [
+          0,
+          0
+        ]
+      },
+      "euler_order": "XYZ"
+    },
+    {
+      "name": "RightRingIntermediate",
+      "parent": "RightRingProximal",
+      "head": [
+        -0.861,
+        0.01,
+        1.405
+      ],
+      "tail": [
+        -0.889,
+        0.01,
+        1.405
+      ],
+      "flex_axis": [
+        -0.0,
+        -1.0,
+        0.0
+      ],
+      "limits_deg": {
+        "x": [
+          0,
+          100
+        ],
+        "y": [
+          0,
+          0
+        ],
+        "z": [
+          0,
+          0
+        ]
+      },
+      "euler_order": "XYZ"
+    },
+    {
+      "name": "LeftRingDistal",
+      "parent": "LeftRingIntermediate",
+      "head": [
+        0.889,
+        0.01,
+        1.405
+      ],
+      "tail": [
+        0.911,
+        0.01,
+        1.405
+      ],
+      "flex_axis": [
+        -0.0,
+        1.0,
+        0.0
+      ],
+      "limits_deg": {
+        "x": [
+          0,
+          80
+        ],
+        "y": [
+          0,
+          0
+        ],
+        "z": [
+          0,
+          0
+        ]
+      },
+      "euler_order": "XYZ"
+    },
+    {
+      "name": "RightRingDistal",
+      "parent": "RightRingIntermediate",
+      "head": [
+        -0.889,
+        0.01,
+        1.405
+      ],
+      "tail": [
+        -0.911,
+        0.01,
+        1.405
+      ],
+      "flex_axis": [
+        -0.0,
+        -1.0,
+        0.0
+      ],
+      "limits_deg": {
+        "x": [
+          0,
+          80
+        ],
+        "y": [
+          0,
+          0
+        ],
+        "z": [
+          0,
+          0
+        ]
+      },
+      "euler_order": "XYZ"
+    },
+    {
+      "name": "LeftLittleProximal",
+      "parent": "LeftHand",
+      "head": [
+        0.813,
+        0.03,
+        1.405
+      ],
+      "tail": [
+        0.846,
+        0.03,
+        1.405
+      ],
+      "flex_axis": [
+        -0.0,
+        1.0,
+        0.0
+      ],
+      "limits_deg": {
+        "x": [
+          -15,
+          90
+        ],
+        "y": [
+          0,
+          0
+        ],
+        "z": [
+          0,
+          0
+        ]
+      },
+      "euler_order": "XYZ"
+    },
+    {
+      "name": "RightLittleProximal",
+      "parent": "RightHand",
+      "head": [
+        -0.813,
+        0.03,
+        1.405
+      ],
+      "tail": [
+        -0.846,
+        0.03,
+        1.405
+      ],
+      "flex_axis": [
+        -0.0,
+        -1.0,
+        0.0
+      ],
+      "limits_deg": {
+        "x": [
+          -15,
+          90
+        ],
+        "y": [
+          0,
+          0
+        ],
+        "z": [
+          0,
+          0
+        ]
+      },
+      "euler_order": "XYZ"
+    },
+    {
+      "name": "LeftLittleIntermediate",
+      "parent": "LeftLittleProximal",
+      "head": [
+        0.846,
+        0.03,
+        1.405
+      ],
+      "tail": [
+        0.87,
+        0.03,
+        1.405
+      ],
+      "flex_axis": [
+        -0.0,
+        1.0,
+        0.0
+      ],
+      "limits_deg": {
+        "x": [
+          0,
+          100
+        ],
+        "y": [
+          0,
+          0
+        ],
+        "z": [
+          0,
+          0
+        ]
+      },
+      "euler_order": "XYZ"
+    },
+    {
+      "name": "RightLittleIntermediate",
+      "parent": "RightLittleProximal",
+      "head": [
+        -0.846,
+        0.03,
+        1.405
+      ],
+      "tail": [
+        -0.87,
+        0.03,
+        1.405
+      ],
+      "flex_axis": [
+        -0.0,
+        -1.0,
+        0.0
+      ],
+      "limits_deg": {
+        "x": [
+          0,
+          100
+        ],
+        "y": [
+          0,
+          0
+        ],
+        "z": [
+          0,
+          0
+        ]
+      },
+      "euler_order": "XYZ"
+    },
+    {
+      "name": "LeftLittleDistal",
+      "parent": "LeftLittleIntermediate",
+      "head": [
+        0.87,
+        0.03,
+        1.405
+      ],
+      "tail": [
+        0.89,
+        0.03,
+        1.405
+      ],
+      "flex_axis": [
+        -0.0,
+        1.0,
+        0.0
+      ],
+      "limits_deg": {
+        "x": [
+          0,
+          80
+        ],
+        "y": [
+          0,
+          0
+        ],
+        "z": [
+          0,
+          0
+        ]
+      },
+      "euler_order": "XYZ"
+    },
+    {
+      "name": "RightLittleDistal",
+      "parent": "RightLittleIntermediate",
+      "head": [
+        -0.87,
+        0.03,
+        1.405
+      ],
+      "tail": [
+        -0.89,
+        0.03,
+        1.405
+      ],
+      "flex_axis": [
+        -0.0,
+        -1.0,
+        0.0
+      ],
+      "limits_deg": {
+        "x": [
+          0,
+          80
+        ],
+        "y": [
+          0,
+          0
+        ],
+        "z": [
+          0,
+          0
+        ]
+      },
+      "euler_order": "XYZ"
+    },
+    {
+      "name": "LeftThumbMetacarpal",
+      "parent": "LeftHand",
+      "head": [
+        0.75,
+        -0.038,
+        1.397
+      ],
+      "tail": [
+        0.777,
+        -0.062,
+        1.393
+      ],
+      "flex_axis": [
+        0.608,
+        0.5968,
+        0.5236
+      ],
+      "limits_deg": {
+        "x": [
+          -10,
+          50
+        ],
+        "y": [
+          0,
+          0
+        ],
+        "z": [
+          -25,
+          25
+        ]
+      },
+      "euler_order": "XYZ"
+    },
+    {
+      "name": "RightThumbMetacarpal",
+      "parent": "RightHand",
+      "head": [
+        -0.75,
+        -0.038,
+        1.397
+      ],
+      "tail": [
+        -0.777,
+        -0.062,
+        1.393
+      ],
+      "flex_axis": [
+        0.608,
+        -0.5968,
+        -0.5236
+      ],
+      "limits_deg": {
+        "x": [
+          -10,
+          50
+        ],
+        "y": [
+          0,
+          0
+        ],
+        "z": [
+          -25,
+          25
+        ]
+      },
+      "euler_order": "XYZ"
+    },
+    {
+      "name": "LeftThumbProximal",
+      "parent": "LeftThumbMetacarpal",
+      "head": [
+        0.777,
+        -0.062,
+        1.393
+      ],
+      "tail": [
+        0.801,
+        -0.078,
+        1.39
+      ],
+      "flex_axis": [
+        0.5079,
+        0.6575,
+        0.5566
+      ],
+      "limits_deg": {
+        "x": [
+          0,
+          70
+        ],
+        "y": [
+          0,
+          0
+        ],
+        "z": [
+          0,
+          0
+        ]
+      },
+      "euler_order": "XYZ"
+    },
+    {
+      "name": "RightThumbProximal",
+      "parent": "RightThumbMetacarpal",
+      "head": [
+        -0.777,
+        -0.062,
+        1.393
+      ],
+      "tail": [
+        -0.801,
+        -0.078,
+        1.39
+      ],
+      "flex_axis": [
+        0.5079,
+        -0.6575,
+        -0.5566
+      ],
+      "limits_deg": {
+        "x": [
+          0,
+          70
+        ],
+        "y": [
+          0,
+          0
+        ],
+        "z": [
+          0,
+          0
+        ]
+      },
+      "euler_order": "XYZ"
+    },
+    {
+      "name": "LeftThumbDistal",
+      "parent": "LeftThumbProximal",
+      "head": [
+        0.801,
+        -0.078,
+        1.39
+      ],
+      "tail": [
+        0.821,
+        -0.088,
+        1.388
+      ],
+      "flex_axis": [
+        0.4101,
+        0.7043,
+        0.5795
+      ],
+      "limits_deg": {
+        "x": [
+          0,
+          80
+        ],
+        "y": [
+          0,
+          0
+        ],
+        "z": [
+          0,
+          0
+        ]
+      },
+      "euler_order": "XYZ"
+    },
+    {
+      "name": "RightThumbDistal",
+      "parent": "RightThumbProximal",
+      "head": [
+        -0.801,
+        -0.078,
+        1.39
+      ],
+      "tail": [
+        -0.821,
+        -0.088,
+        1.388
+      ],
+      "flex_axis": [
+        0.4101,
+        -0.7043,
+        -0.5795
+      ],
+      "limits_deg": {
+        "x": [
+          0,
+          80
+        ],
+        "y": [
+          0,
+          0
+        ],
+        "z": [
+          0,
+          0
+        ]
+      },
+      "euler_order": "XYZ"
+    }
+  ],
+  "pistons": [
+    {
+      "cylinder": "LeftHeadPistonCylinder",
+      "rod": "LeftHeadPistonRod",
+      "cylinder_parent": "Neck",
+      "rod_parent": "Head",
+      "cylinder_aims_at": "LeftHeadPistonRod",
+      "rod_aims_at": "LeftHeadPistonCylinder",
+      "stroke_m": [
+        0.0875,
+        0.1297
+      ],
+      "cylinder_length_m": 0.0744,
+      "rod_length_m": 0.0744,
+      "min_overlap_m": 0.0191
+    },
+    {
+      "cylinder": "RightHeadPistonCylinder",
+      "rod": "RightHeadPistonRod",
+      "cylinder_parent": "Neck",
+      "rod_parent": "Head",
+      "cylinder_aims_at": "RightHeadPistonRod",
+      "rod_aims_at": "RightHeadPistonCylinder",
+      "stroke_m": [
+        0.0875,
+        0.1297
+      ],
+      "cylinder_length_m": 0.0744,
+      "rod_length_m": 0.0744,
+      "min_overlap_m": 0.0191
+    },
+    {
+      "cylinder": "LeftSpineStrutCylinder",
+      "rod": "LeftSpineStrutRod",
+      "cylinder_parent": "Hips",
+      "rod_parent": "Chest",
+      "cylinder_aims_at": "LeftSpineStrutRod",
+      "rod_aims_at": "LeftSpineStrutCylinder",
+      "stroke_m": [
+        0.1626,
+        0.2602
+      ],
+      "cylinder_length_m": 0.1382,
+      "rod_length_m": 0.1382,
+      "min_overlap_m": 0.0163
+    },
+    {
+      "cylinder": "RightSpineStrutCylinder",
+      "rod": "RightSpineStrutRod",
+      "cylinder_parent": "Hips",
+      "rod_parent": "Chest",
+      "cylinder_aims_at": "RightSpineStrutRod",
+      "rod_aims_at": "RightSpineStrutCylinder",
+      "stroke_m": [
+        0.1626,
+        0.2602
+      ],
+      "cylinder_length_m": 0.1382,
+      "rod_length_m": 0.1382,
+      "min_overlap_m": 0.0163
+    },
+    {
+      "cylinder": "LeftElbowPistonCylinder",
+      "rod": "LeftElbowPistonRod",
+      "cylinder_parent": "LeftUpperArm",
+      "rod_parent": "LeftElbowHinge",
+      "cylinder_aims_at": "LeftElbowPistonRod",
+      "rod_aims_at": "LeftElbowPistonCylinder",
+      "stroke_m": [
+        0.1465,
+        0.2329
+      ],
+      "cylinder_length_m": 0.1245,
+      "rod_length_m": 0.1245,
+      "min_overlap_m": 0.0161
+    },
+    {
+      "cylinder": "RightElbowPistonCylinder",
+      "rod": "RightElbowPistonRod",
+      "cylinder_parent": "RightUpperArm",
+      "rod_parent": "RightElbowHinge",
+      "cylinder_aims_at": "RightElbowPistonRod",
+      "rod_aims_at": "RightElbowPistonCylinder",
+      "stroke_m": [
+        0.1465,
+        0.2329
+      ],
+      "cylinder_length_m": 0.1245,
+      "rod_length_m": 0.1245,
+      "min_overlap_m": 0.0161
+    },
+    {
+      "cylinder": "LeftKneePistonCylinder",
+      "rod": "LeftKneePistonRod",
+      "cylinder_parent": "LeftUpperLeg",
+      "rod_parent": "LeftLowerLeg",
+      "cylinder_aims_at": "LeftKneePistonRod",
+      "rod_aims_at": "LeftKneePistonCylinder",
+      "stroke_m": [
+        0.2356,
+        0.3762
+      ],
+      "cylinder_length_m": 0.2003,
+      "rod_length_m": 0.2003,
+      "min_overlap_m": 0.0244
+    },
+    {
+      "cylinder": "RightKneePistonCylinder",
+      "rod": "RightKneePistonRod",
+      "cylinder_parent": "RightUpperLeg",
+      "rod_parent": "RightLowerLeg",
+      "cylinder_aims_at": "RightKneePistonRod",
+      "rod_aims_at": "RightKneePistonCylinder",
+      "stroke_m": [
+        0.2356,
+        0.3762
+      ],
+      "cylinder_length_m": 0.2003,
+      "rod_length_m": 0.2003,
+      "min_overlap_m": 0.0244
+    },
+    {
+      "cylinder": "LeftAnklePistonCylinder",
+      "rod": "LeftAnklePistonRod",
+      "cylinder_parent": "LeftLowerLeg",
+      "rod_parent": "LeftFoot",
+      "cylinder_aims_at": "LeftAnklePistonRod",
+      "rod_aims_at": "LeftAnklePistonCylinder",
+      "stroke_m": [
+        0.1907,
+        0.2956
+      ],
+      "cylinder_length_m": 0.1621,
+      "rod_length_m": 0.1621,
+      "min_overlap_m": 0.0285
+    },
+    {
+      "cylinder": "RightAnklePistonCylinder",
+      "rod": "RightAnklePistonRod",
+      "cylinder_parent": "RightLowerLeg",
+      "rod_parent": "RightFoot",
+      "cylinder_aims_at": "RightAnklePistonRod",
+      "rod_aims_at": "RightAnklePistonCylinder",
+      "stroke_m": [
+        0.1907,
+        0.2956
+      ],
+      "cylinder_length_m": 0.1621,
+      "rod_length_m": 0.1621,
+      "min_overlap_m": 0.0285
+    }
+  ],
+  "mech_stages": [
+    {
+      "bone": "LeftShoulderPitch",
+      "parent": "LeftShoulder",
+      "driver": "locked_track",
+      "target": "LeftUpperArm",
+      "target_point": "tail",
+      "lock_axis": "LOCK_Y",
+      "track_axis": "TRACK_X"
+    },
+    {
+      "bone": "LeftShoulderRoll",
+      "parent": "LeftShoulderPitch",
+      "driver": "damped_track",
+      "target": "LeftUpperArm",
+      "target_point": "tail",
+      "lock_axis": null,
+      "track_axis": "TRACK_Y"
+    },
+    {
+      "bone": "LeftHipYaw",
+      "parent": "Hips",
+      "driver": "locked_track",
+      "target": "LeftHipAxis",
+      "target_point": "tail",
+      "lock_axis": "LOCK_Y",
+      "track_axis": "TRACK_X"
+    },
+    {
+      "bone": "LeftHipRoll",
+      "parent": "LeftHipYaw",
+      "driver": "damped_track",
+      "target": "LeftHipAxis",
+      "target_point": "tail",
+      "lock_axis": null,
+      "track_axis": "TRACK_Y"
+    },
+    {
+      "bone": "LeftAnklePitch",
+      "parent": "LeftLowerLeg",
+      "driver": "locked_track",
+      "target": "LeftFoot",
+      "target_point": "tail",
+      "lock_axis": "LOCK_X",
+      "track_axis": "TRACK_Y"
+    },
+    {
+      "bone": "LeftElbowHinge",
+      "parent": "LeftUpperArm",
+      "driver": "locked_track",
+      "target": "LeftLowerArm",
+      "target_point": "tail",
+      "lock_axis": "LOCK_X",
+      "track_axis": "TRACK_Y"
+    },
+    {
+      "bone": "RightShoulderPitch",
+      "parent": "RightShoulder",
+      "driver": "locked_track",
+      "target": "RightUpperArm",
+      "target_point": "tail",
+      "lock_axis": "LOCK_Y",
+      "track_axis": "TRACK_X"
+    },
+    {
+      "bone": "RightShoulderRoll",
+      "parent": "RightShoulderPitch",
+      "driver": "damped_track",
+      "target": "RightUpperArm",
+      "target_point": "tail",
+      "lock_axis": null,
+      "track_axis": "TRACK_Y"
+    },
+    {
+      "bone": "RightHipYaw",
+      "parent": "Hips",
+      "driver": "locked_track",
+      "target": "RightHipAxis",
+      "target_point": "tail",
+      "lock_axis": "LOCK_Y",
+      "track_axis": "TRACK_NEGATIVE_X"
+    },
+    {
+      "bone": "RightHipRoll",
+      "parent": "RightHipYaw",
+      "driver": "damped_track",
+      "target": "RightHipAxis",
+      "target_point": "tail",
+      "lock_axis": null,
+      "track_axis": "TRACK_Y"
+    },
+    {
+      "bone": "RightAnklePitch",
+      "parent": "RightLowerLeg",
+      "driver": "locked_track",
+      "target": "RightFoot",
+      "target_point": "tail",
+      "lock_axis": "LOCK_X",
+      "track_axis": "TRACK_Y"
+    },
+    {
+      "bone": "RightElbowHinge",
+      "parent": "RightUpperArm",
+      "driver": "locked_track",
+      "target": "RightLowerArm",
+      "target_point": "tail",
+      "lock_axis": "LOCK_X",
+      "track_axis": "TRACK_Y"
+    }
+  ],
+  "markers": [
+    {
+      "bone": "LeftHipAxis",
+      "parent": "LeftUpperLeg"
+    },
+    {
+      "bone": "RightHipAxis",
+      "parent": "RightUpperLeg"
+    }
+  ],
+  "gizmos": [
+    {
+      "name": "FlagMount",
+      "bone": "UpperChest",
+      "origin": [
+        0.0,
+        0.222,
+        1.39
+      ],
+      "forward": [
+        0,
+        -1,
+        0
+      ],
+      "up": [
+        0,
+        0,
+        1
+      ],
+      "godot": "-Z forward, +Y up",
+      "note": "the middle of the grab handle bar's axis on the power pack: put a carried CTF flag's BackMount here (the same axes), its hook's pocket on the bar"
+    }
+  ],
+  "material_classifiers": {
+    "M_Alu_Metallic": "Metallic",
+    "M_Black_Diffuse": "Diffuse",
+    "M_Bronze_Metallic": "Metallic",
+    "M_Emissive": "Emissive",
+    "M_Frame_Diffuse": "Diffuse",
+    "M_Hose_Diffuse": "Diffuse",
+    "M_Joint_Metallic": "Metallic",
+    "M_Primary_Metallic": "Metallic",
+    "M_Secondary_Metallic": "Metallic",
+    "M_ShieldShroud_Diffuse": "Diffuse",
+    "M_Titanium_Metallic": "Metallic",
+    "M_Wire_Metallic": "Metallic"
+  }
+}

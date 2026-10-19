@@ -1,0 +1,146 @@
+{
+  "schema": 1,
+  "announcer": {
+    "arena_warning": "speech/announcer/arena_warning",
+    "arena_changed": "speech/announcer/arena_changed",
+    "flag_taken": "speech/announcer/flag_taken",
+    "flag_dropped": "speech/announcer/flag_dropped",
+    "flag_returned": "speech/announcer/flag_returned",
+    "flag_captured": "speech/announcer/flag_captured",
+    "match_won": "speech/announcer/match_won",
+    "draw": "speech/announcer/draw",
+    "canceled": "speech/announcer/canceled"
+  },
+  "robots": [
+    {
+      "id": "robot_00",
+      "pitch_scale": 1.0,
+      "lines": {
+        "armor_hit": "speech/robot_00/armor_hit",
+        "pickup": "speech/robot_00/pickup",
+        "repair_complete": "speech/robot_00/repair_complete",
+        "power_low": "speech/robot_00/power_low",
+        "power_critical": "speech/robot_00/power_critical"
+      },
+      "voice_id": "nPczCjzI2devNBz1zQrb",
+      "voice_name": "Brian - Deep, Resonant and Comforting"
+    },
+    {
+      "id": "robot_01",
+      "pitch_scale": 1.0,
+      "lines": {
+        "armor_hit": "speech/robot_01/armor_hit",
+        "pickup": "speech/robot_01/pickup",
+        "repair_complete": "speech/robot_01/repair_complete",
+        "power_low": "speech/robot_01/power_low",
+        "power_critical": "speech/robot_01/power_critical"
+      },
+      "voice_id": "hpp4J3VqNfWAUOO0d1Us",
+      "voice_name": "Bella - Professional, Bright, Warm"
+    },
+    {
+      "id": "robot_02",
+      "pitch_scale": 1.0,
+      "lines": {
+        "armor_hit": "speech/robot_02/armor_hit",
+        "pickup": "speech/robot_02/pickup",
+        "repair_complete": "speech/robot_02/repair_complete",
+        "power_low": "speech/robot_02/power_low",
+        "power_critical": "speech/robot_02/power_critical"
+      },
+      "voice_id": "cjVigY5qzO86Huf0OWal",
+      "voice_name": "Eric - Smooth, Trustworthy"
+    },
+    {
+      "id": "robot_03",
+      "pitch_scale": 1.0,
+      "lines": {
+        "armor_hit": "speech/robot_03/armor_hit",
+        "pickup": "speech/robot_03/pickup",
+        "repair_complete": "speech/robot_03/repair_complete",
+        "power_low": "speech/robot_03/power_low",
+        "power_critical": "speech/robot_03/power_critical"
+      },
+      "voice_id": "N2lVS1w4EtoT3dr4eOWO",
+      "voice_name": "Callum - Husky Trickster"
+    },
+    {
+      "id": "robot_04",
+      "pitch_scale": 1.0,
+      "lines": {
+        "armor_hit": "speech/robot_04/armor_hit",
+        "pickup": "speech/robot_04/pickup",
+        "repair_complete": "speech/robot_04/repair_complete",
+        "power_low": "speech/robot_04/power_low",
+        "power_critical": "speech/robot_04/power_critical"
+      },
+      "voice_id": "FGY2WhTYpPnrIDTdsKH5",
+      "voice_name": "Laura - Enthusiast, Quirky Attitude"
+    },
+    {
+      "id": "robot_05",
+      "pitch_scale": 1.0,
+      "lines": {
+        "armor_hit": "speech/robot_05/armor_hit",
+        "pickup": "speech/robot_05/pickup",
+        "repair_complete": "speech/robot_05/repair_complete",
+        "power_low": "speech/robot_05/power_low",
+        "power_critical": "speech/robot_05/power_critical"
+      },
+      "voice_id": "JBFqnCBsd6RMkjVDRZzb",
+      "voice_name": "George - Warm, Captivating Storyteller"
+    },
+    {
+      "id": "robot_06",
+      "pitch_scale": 1.0,
+      "lines": {
+        "armor_hit": "speech/robot_06/armor_hit",
+        "pickup": "speech/robot_06/pickup",
+        "repair_complete": "speech/robot_06/repair_complete",
+        "power_low": "speech/robot_06/power_low",
+        "power_critical": "speech/robot_06/power_critical"
+      },
+      "voice_id": "Xb7hH8MSUJpSbSDYk0k2",
+      "voice_name": "Alice - Clear, Engaging Educator"
+    },
+    {
+      "id": "robot_07",
+      "pitch_scale": 1.0,
+      "lines": {
+        "armor_hit": "speech/robot_07/armor_hit",
+        "pickup": "speech/robot_07/pickup",
+        "repair_complete": "speech/robot_07/repair_complete",
+        "power_low": "speech/robot_07/power_low",
+        "power_critical": "speech/robot_07/power_critical"
+      },
+      "voice_id": "SOYHLrjzK2X1ezoPC6cr",
+      "voice_name": "Harry - Fierce Warrior"
+    },
+    {
+      "id": "robot_08",
+      "pitch_scale": 1.0,
+      "lines": {
+        "armor_hit": "speech/robot_08/armor_hit",
+        "pickup": "speech/robot_08/pickup",
+        "repair_complete": "speech/robot_08/repair_complete",
+        "power_low": "speech/robot_08/power_low",
+        "power_critical": "speech/robot_08/power_critical"
+      },
+      "voice_id": "SAz9YHcvj6GT2YYXdXww",
+      "voice_name": "River - Relaxed, Neutral, Informative"
+    },
+    {
+      "id": "robot_09",
+      "pitch_scale": 1.0,
+      "lines": {
+        "armor_hit": "speech/robot_09/armor_hit",
+        "pickup": "speech/robot_09/pickup",
+        "repair_complete": "speech/robot_09/repair_complete",
+        "power_low": "speech/robot_09/power_low",
+        "power_critical": "speech/robot_09/power_critical"
+      },
+      "voice_id": "TX3LPaxmHKxFdv7VOQHJ",
+      "voice_name": "Liam - Energetic, Social Media Creator"
+    }
+  ]
+}

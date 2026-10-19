@@ -1,0 +1,182 @@
+{
+  "name": "item_cradle",
+  "triangles": 5238,
+  "triangle_budget": 5500,
+  "budget_exception": "User-approved item_cradle ceiling of 5500 triangles; other props retain their default budget.",
+  "materials": [
+    "M_Primary_Metallic",
+    "M_Secondary_Metallic",
+    "M_Frame_Diffuse",
+    "M_Joint_Metallic",
+    "M_Emissive",
+    "M_Wire_Diffuse"
+  ],
+  "front": "-Y",
+  "units": "m",
+  "size_m": [
+    1.0,
+    1.0,
+    0.5
+  ],
+  "outer_footprint_m": [
+    1.0,
+    1.0
+  ],
+  "deck_diameter_m": 0.9259259259259258,
+  "tensor_height_m": 1.753,
+  "placement": "freestanding; origin on floor; no cutout; entire motion inside 1 x 1 m tile",
+  "item_socket": {
+    "mount": "ItemMount",
+    "bone": "ItemSocket",
+    "bottom_m": [
+      0,
+      0,
+      0.4
+    ]
+  },
+  "mechanics": "Four 21.0 mm retained shafts in bored pedestal clevises, coaxial geared electric drives; rigid hook shells.",
+  "joints": [
+    {
+      "bone": "Root",
+      "parent": null,
+      "type": "fixed",
+      "pivot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": null
+    },
+    {
+      "bone": "ClampFrontLeft",
+      "parent": "Root",
+      "type": "hinge",
+      "pivot": [
+        0.24879683554172516,
+        -0.24879683554172516,
+        0.1666666716337204
+      ],
+      "axis": [
+        0.7071067690849304,
+        0.7071067690849304,
+        0.0
+      ],
+      "range": [
+        0,
+        25.0
+      ]
+    },
+    {
+      "bone": "ClampRearLeft",
+      "parent": "Root",
+      "type": "hinge",
+      "pivot": [
+        0.24879683554172516,
+        0.24879683554172516,
+        0.1666666716337204
+      ],
+      "axis": [
+        -0.7071067690849304,
+        0.7071067690849304,
+        0.0
+      ],
+      "range": [
+        0,
+        25.0
+      ]
+    },
+    {
+      "bone": "ClampRearRight",
+      "parent": "Root",
+      "type": "hinge",
+      "pivot": [
+        -0.24879683554172516,
+        0.24879683554172516,
+        0.1666666716337204
+      ],
+      "axis": [
+        -0.7071067690849304,
+        -0.7071067690849304,
+        0.0
+      ],
+      "range": [
+        0,
+        25.0
+      ]
+    },
+    {
+      "bone": "ClampFrontRight",
+      "parent": "Root",
+      "type": "hinge",
+      "pivot": [
+        -0.24879683554172516,
+        -0.24879683554172516,
+        0.1666666716337204
+      ],
+      "axis": [
+        0.7071067690849304,
+        -0.7071067690849304,
+        0.0
+      ],
+      "range": [
+        0,
+        25.0
+      ]
+    },
+    {
+      "bone": "ItemSocket",
+      "parent": "Root",
+      "type": "fixed",
+      "pivot": [
+        0.0,
+        0.0,
+        0.4000000059604645
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": null
+    }
+  ],
+  "animations": {
+    "open": {
+      "fps": 30,
+      "loop": false,
+      "frames": [
+        0,
+        36
+      ]
+    },
+    "close": {
+      "fps": 30,
+      "loop": false,
+      "frames": [
+        0,
+        42
+      ]
+    }
+  },
+  "usage": "close holds; open releases. No platform rotation. ItemMount is fixed on the deck.",
+  "validation": {
+    "motion_states": 210,
+    "connectivity": "PASS",
+    "hinge_alignment": "PASS",
+    "motion_clearance": "PASS",
+    "1m_tile_envelope": "PASS"
+  },
+  "material_classifiers": {
+    "M_Emissive": "Emissive",
+    "M_Frame_Diffuse": "Diffuse",
+    "M_Joint_Metallic": "Metallic",
+    "M_Primary_Metallic": "Metallic",
+    "M_Secondary_Metallic": "Metallic",
+    "M_Wire_Diffuse": "Diffuse"
+  }
+}

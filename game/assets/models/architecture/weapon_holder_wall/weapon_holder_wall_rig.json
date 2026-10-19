@@ -1,0 +1,89 @@
+{
+  "name": "weapon_holder_wall",
+  "static": true,
+  "animations": [],
+  "triangles": 2244,
+  "triangle_budget": 5000,
+  "bounds_m": {
+    "lo": [
+      -1,
+      -1,
+      0
+    ],
+    "hi": [
+      1,
+      1,
+      2.2848100662231445
+    ]
+  },
+  "origin": "floor centre",
+  "bones": [
+    {
+      "name": "Root",
+      "kind": "fixed"
+    }
+  ],
+  "materials_source": "gameplay/item_table/model.py MATERIALS",
+  "recess_clearance_per_side_m": 0.001,
+  "block_dimensions_m": [
+    2,
+    2,
+    2
+  ],
+  "roof_equipment": {
+    "source": "lodge/model.py equipment()",
+    "footprint_m": [
+      1,
+      1
+    ],
+    "base_z_m": 2,
+    "height_m": 0.28481006622314453
+  },
+  "cavity_depth_m": 1.3809999999999998,
+  "gizmos": [
+    {
+      "name": "WeaponHolderMount",
+      "attachment": "weapon_holder",
+      "bone": "Root",
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          7.549790126404332e-08,
+          -1.0,
+          -1.0
+        ],
+        [
+          0.0,
+          1.0,
+          7.549790126404332e-08,
+          1.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "origin": [
+        0.0,
+        -1.0,
+        1.0
+      ]
+    }
+  ],
+  "preview_only": "Separate native fixture imported onto attachment gizmo; not exported",
+  "material_classifiers": {
+    "M_Emissive": "Emissive",
+    "M_Frame_Diffuse": "Diffuse",
+    "M_Joint_Diffuse": "Diffuse",
+    "M_Primary_Diffuse": "Diffuse",
+    "M_Secondary_Diffuse": "Diffuse"
+  }
+}

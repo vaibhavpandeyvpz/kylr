@@ -1,0 +1,81 @@
+{
+  "name": "terminal",
+  "static": true,
+  "animations": [],
+  "triangles": 3840,
+  "triangle_budget": 5000,
+  "bounds_m": {
+    "lo": [
+      -0.36000001430511475,
+      -0.3579999804496765,
+      0.0
+    ],
+    "hi": [
+      0.36000001430511475,
+      0.3199999928474426,
+      1.850000023841858
+    ]
+  },
+  "tensor_height_m": 1.753,
+  "control_height_m": 1.089,
+  "placement": "floor centre z=0; screens front -Y, up +Z",
+  "screen_tilt_deg": 15,
+  "display_centre_height_m": 1.35,
+  "glazing": {
+    "screen_air_gap_m": 0.01,
+    "pane_thickness_m": 0.002,
+    "opacity": 0.1
+  },
+  "materials": [
+    "M_Bronze_Metallic",
+    "M_Emissive",
+    "M_Frame_Diffuse",
+    "M_Glass",
+    "M_Joint_Metallic",
+    "M_Light_Emissive",
+    "M_Primary_Metallic",
+    "M_Screen_Emissive",
+    "M_Secondary_Metallic"
+  ],
+  "bones": [
+    {
+      "name": "Root",
+      "kind": "fixed",
+      "parent": null
+    }
+  ],
+  "joints": [
+    {
+      "bone": "Root",
+      "type": "fixed",
+      "parent": null,
+      "pivot": [
+        0,
+        0,
+        0
+      ],
+      "range": null
+    }
+  ],
+  "checks": {
+    "connected_parts": 105,
+    "exact_solid_pairs": 202,
+    "no_solid_intersections": true,
+    "coplanar": true,
+    "shared_shelf_seat": true,
+    "screen_normals_front": true,
+    "budget": true,
+    "no_actions": true
+  },
+  "material_classifiers": {
+    "M_Bronze_Metallic": "Metallic",
+    "M_Emissive": "Emissive",
+    "M_Frame_Diffuse": "Diffuse",
+    "M_Glass": "Glass",
+    "M_Joint_Metallic": "Metallic",
+    "M_Light_Emissive": "Emissive",
+    "M_Primary_Metallic": "Metallic",
+    "M_Screen_Emissive": "Emissive",
+    "M_Secondary_Metallic": "Metallic"
+  }
+}

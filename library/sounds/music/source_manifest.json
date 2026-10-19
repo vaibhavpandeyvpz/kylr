@@ -1,0 +1,204 @@
+{
+  "provider": "ElevenLabs",
+  "flow_id": "PpP3eGPZzyLlN8qecqLt",
+  "recordings": [
+    {
+      "bank": "music",
+      "key": "lobby",
+      "prompt": "Original instrumental electronic industrial score in D minor at 100 BPM, with restrained metallic percussion, warm sub bass and a short three-note synthesized motif. Crisp spacious production, no vocals, leave space for speech. Quiet sparse mechanical ambience and relaxed pulse; steady loop with no climax.",
+      "node_id": "YEaN3sQESvnXjTxQ9L0N",
+      "generation_id": "8b3H7OiijpDgvcshgBrD",
+      "duration_secs": 40.0,
+      "candidate_ids": [
+        "Fei0Tu0QYLglvPUqTG7e",
+        "lyMucw93x4XX29x6Xfbl",
+        "8b3H7OiijpDgvcshgBrD",
+        "SHqVZV7OwDC3BYpJiBoy"
+      ],
+      "duration": 40,
+      "source": "source/music/lobby.mp3",
+      "sha256": "aa3a3e69c730e195bf02f69e9b2869f1515b1c3853fafb761dea866bc097d406",
+      "model_id": "eleven_music_v2"
+    },
+    {
+      "bank": "music",
+      "key": "assembly",
+      "prompt": "Original instrumental electronic industrial score in D minor at 100 BPM, with restrained metallic percussion, warm sub bass and a short three-note synthesized motif. Crisp spacious production, no vocals, leave space for speech. Start sparse, build in three steps to a strong final metallic downbeat and stop cleanly.",
+      "node_id": "NkDEHHNAc6odxkc9CNOB",
+      "generation_id": "rKhNMZzNxUVz6ekOSZhz",
+      "duration_secs": 13.0,
+      "candidate_ids": [
+        "QVRvPXLWUKojwIK6o1D5",
+        "4TwL84OivVAA1MoS8oqV",
+        "rKhNMZzNxUVz6ekOSZhz",
+        "xr4ZcCWFY84ny9Mox5Vf"
+      ],
+      "duration": 13,
+      "source": "source/music/assembly.mp3",
+      "sha256": "149c53e3f265315dcf1be6d54044173cdd6b8f23121020b4d2a7f204b8b8af49",
+      "model_id": "eleven_music_v2"
+    },
+    {
+      "bank": "music",
+      "key": "active",
+      "prompt": "Original instrumental electronic industrial score in D minor at 100 BPM, with restrained metallic percussion, warm sub bass and a short three-note synthesized motif. Crisp spacious production, no vocals, leave space for speech. Steady controlled combat energy, tight syncopated beat and understated synth ostinato; consistent looping rhythm.",
+      "node_id": "JUsRHWFLt20VU2ssDZkY",
+      "generation_id": "OgCG1qbzjk3qvpb8JfIx",
+      "duration_secs": 40.0,
+      "candidate_ids": [
+        "af2sKmXKDwpERrR5hyR0",
+        "L6MWLnFzfX7wgzQV3lJh",
+        "OgCG1qbzjk3qvpb8JfIx",
+        "ai6eXQ31gkYxFhWA4Mtm"
+      ],
+      "duration": 40,
+      "source": "source/music/active.mp3",
+      "sha256": "ad304fddc2de96a645df8f989fc0fb341a2d07088732f58c7fca643006057d67",
+      "model_id": "eleven_music_v2"
+    },
+    {
+      "bank": "music",
+      "key": "pressure",
+      "prompt": "Original instrumental electronic industrial score in D minor at 100 BPM, with restrained metallic percussion, warm sub bass and a short three-note synthesized motif. Crisp spacious production, no vocals, leave space for speech. Percussion-only intensity layer: urgent metallic hi-hats and tom pulses, no melody, no bass. Constant loop, same tempo.",
+      "node_id": "E6cGbziMjyZqLJYHfgJI",
+      "generation_id": "pDdBsFtDmlWEC2ypyc5H",
+      "duration_secs": 40.0,
+      "candidate_ids": [
+        "WDt7tsWuLzN0RnER9mGd",
+        "FdKm6Fu7EY6lyByySit0",
+        "pDdBsFtDmlWEC2ypyc5H",
+        "DUWXMpp9anR7xhtO8UEj"
+      ],
+      "duration": 40,
+      "source": "source/music/pressure.mp3",
+      "sha256": "87ddc85d34b77ee4dacdb7671f6953e95e8fed655dd10fb3bbd14f03ab411e82",
+      "model_id": "eleven_music_v2"
+    },
+    {
+      "bank": "music",
+      "key": "victory",
+      "prompt": "Original instrumental electronic industrial score in D minor at 100 BPM, with restrained metallic percussion, warm sub bass and a short three-note synthesized motif. Crisp spacious production, no vocals, leave space for speech. Confident uplifting resolution of the three-note motif with broad synth harmony, then restrained sustained ending.",
+      "node_id": "TfQPgIilbnQi8KSNLHqF",
+      "generation_id": "10yWSQ1GCVlsQDDeXF6q",
+      "duration_secs": 15.0,
+      "candidate_ids": [
+        "hhufz6CNlWBMJ1QmQ6Yq",
+        "ZqpJZzVLQL1ZTgx2A1l5",
+        "10yWSQ1GCVlsQDDeXF6q",
+        "IjQbj2HtFsqfulUNBFZh"
+      ],
+      "duration": 15,
+      "source": "source/music/victory.mp3",
+      "sha256": "24a1f6a1066ccc530308f1354fc999e6b9e91b4249daa8788b74b07131414b52",
+      "model_id": "eleven_music_v2"
+    },
+    {
+      "bank": "music",
+      "key": "draw",
+      "prompt": "Original instrumental electronic industrial score in D minor at 100 BPM, with restrained metallic percussion, warm sub bass and a short three-note synthesized motif. Crisp spacious production, no vocals, leave space for speech. Neutral unresolved motif, quiet measured drums, balanced calm ending.",
+      "node_id": "7Ndd7tJ4UBeNkZNVpNaG",
+      "generation_id": "pRYK0jmeteKCM3d1zb4A",
+      "duration_secs": 15.0,
+      "candidate_ids": [
+        "drRN29ZzvLqwuTf0GFsy",
+        "78ZiCFFEYrw3FDEGidOs",
+        "pRYK0jmeteKCM3d1zb4A",
+        "vVyT3TqloZiPG4kalBoX"
+      ],
+      "duration": 15,
+      "source": "source/music/draw.mp3",
+      "sha256": "433ce7d421b2d65f154b00640fa0d22cd32c8bd0cacf03de925ed387ca5bba64",
+      "model_id": "eleven_music_v2"
+    },
+    {
+      "bank": "music",
+      "key": "canceled",
+      "prompt": "Original instrumental electronic industrial score in D minor at 100 BPM, with restrained metallic percussion, warm sub bass and a short three-note synthesized motif. Crisp spacious production, no vocals, leave space for speech. Brief descending soft synth phrase and gentle fade; restrained and neutral.",
+      "node_id": "GGEqRb3Higf19Vdi8k1T",
+      "generation_id": "ShfSzLQXXRRKauAFLwog",
+      "duration_secs": 7.0,
+      "candidate_ids": [
+        "GhaDG1hs8NKjP71FT5vQ",
+        "ShfSzLQXXRRKauAFLwog",
+        "HShpZuQssBbex3xXJQpe",
+        "g4HwG91egdjfZwftsJlm"
+      ],
+      "duration": 6,
+      "source": "source/music/canceled.mp3",
+      "sha256": "c70ed6b36ae1f22485b019342e456050e0d828f00f565843208911de0febabe8",
+      "model_id": "eleven_music_v2"
+    },
+    {
+      "bank": "music",
+      "key": "capture_stinger",
+      "prompt": "Original instrumental electronic industrial score in D minor at 100 BPM, with restrained metallic percussion, warm sub bass and a short three-note synthesized motif. Crisp spacious production, no vocals, leave space for speech. Short bright ascending three-note motif and one crisp metallic accent; clean tail, no ongoing beat.",
+      "node_id": "nPTjfyz29NI88LFEQWbb",
+      "generation_id": "AL6H2dENPc8biHk35vzj",
+      "duration_secs": 3.0,
+      "candidate_ids": [
+        "CHk8AjnX1FBP5BaIVEqy",
+        "GJNbQ4I3Bzv7ESrv9Vyz",
+        "AL6H2dENPc8biHk35vzj",
+        "l36nIlJssdpspMfYdz3W"
+      ],
+      "duration": 3,
+      "source": "source/music/capture_stinger.mp3",
+      "sha256": "ad5c5a2b97534ae7cad1004cbbbb4f14472f8d8f0d74aea55d1201362a15fea4",
+      "model_id": "eleven_music_v2"
+    },
+    {
+      "bank": "music",
+      "key": "victory_stinger",
+      "prompt": "Original instrumental electronic industrial score in D minor at 100 BPM, with restrained metallic percussion, warm sub bass and a short three-note synthesized motif. Crisp spacious production, no vocals, leave space for speech. Brief decisive triumphant three-note motif, broad synth chord, clean fading tail.",
+      "node_id": "saIVdhxCPt87PbCnMp0p",
+      "generation_id": "cNiKmsXwZkThesRLo7q8",
+      "duration_secs": 6.0,
+      "candidate_ids": [
+        "gXbLtLr91tN9gj3niIby",
+        "cNiKmsXwZkThesRLo7q8",
+        "V2mgl2nuHBXTxvoeHRPB",
+        "dnmQ1uAe9JEX4bozdnyl"
+      ],
+      "duration": 4,
+      "source": "source/music/victory_stinger.mp3",
+      "sha256": "e967743e4799ca54730f33e027016f4872bf0505cd843235a29736f4a9d4451c",
+      "model_id": "eleven_music_v2"
+    },
+    {
+      "bank": "music",
+      "key": "draw_stinger",
+      "prompt": "Original instrumental electronic industrial score in D minor at 100 BPM, with restrained metallic percussion, warm sub bass and a short three-note synthesized motif. Crisp spacious production, no vocals, leave space for speech. Brief neutral three-note motif and suspended synth chord, clean fading tail.",
+      "node_id": "jUMiBWSCB4qoCUUON7nv",
+      "generation_id": "qtqr4WaQEyNFKDcPt3nH",
+      "duration_secs": 6.0,
+      "candidate_ids": [
+        "Po8iavq9ZV6VzfyG1Jn2",
+        "TB8hBaAFEW4g4OpJ82LA",
+        "qtqr4WaQEyNFKDcPt3nH",
+        "YmQmAXR7JkdZabZUOEmx"
+      ],
+      "duration": 4,
+      "source": "source/music/draw_stinger.mp3",
+      "sha256": "51d28ca29382503865d66872544ef9a93e60aa5739611dede1d2baeb340819bc",
+      "model_id": "eleven_music_v2"
+    },
+    {
+      "bank": "music",
+      "key": "canceled_stinger",
+      "prompt": "Original instrumental electronic industrial score in D minor at 100 BPM, with restrained metallic percussion, warm sub bass and a short three-note synthesized motif. Crisp spacious production, no vocals, leave space for speech. Brief descending two-note soft synth phrase, clean fading tail.",
+      "node_id": "WMYSBgzfWGlNozBGCDPy",
+      "generation_id": "CEDM8gjXIwpbxVIq1cYE",
+      "duration_secs": 6.0,
+      "candidate_ids": [
+        "bJp01FERzbKsNZy6j7TO",
+        "b0u1XpE69MGCNY2Zy91I",
+        "CEDM8gjXIwpbxVIq1cYE",
+        "o3lnvAZCS9FrCeqm0dx6"
+      ],
+      "duration": 3,
+      "source": "source/music/canceled_stinger.mp3",
+      "sha256": "c6edd3aef130a7d92c7719fa4492b92cd19ada9a2466c875cf27a3e472a66476",
+      "model_id": "eleven_music_v2"
+    }
+  ]
+}

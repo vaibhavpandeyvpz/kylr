@@ -1,0 +1,897 @@
+{
+  "name": "faceoff_architecture_bastion",
+  "triangles": 8692,
+  "triangle_budget": 10309,
+  "meshes": {
+    "SK_BastionShell": 346,
+    "SK_BastionFrameFront": 1868,
+    "SK_BastionFrameRear": 1518,
+    "SK_BastionServices": 3885,
+    "SK_BastionMechanisms": 883,
+    "SK_ArchitectureRegolith": 192
+  },
+  "bounds_m": {
+    "lo": [
+      -8.46818733215332,
+      -8.471545219421387,
+      0.0
+    ],
+    "hi": [
+      8.466273307800293,
+      8.361167907714844,
+      7.879701137542725
+    ]
+  },
+  "materials": [
+    "M_Emissive",
+    "M_Frame_Diffuse",
+    "M_Glass",
+    "M_Joint_Diffuse",
+    "M_Primary_Diffuse",
+    "M_Regolith_Diffuse",
+    "M_Secondary_Diffuse"
+  ],
+  "bones": [
+    {
+      "name": "Root",
+      "parent": null,
+      "kind": "fixed"
+    },
+    {
+      "name": "Door",
+      "parent": "Root",
+      "kind": "hinge"
+    },
+    {
+      "name": "Lock",
+      "parent": "Door",
+      "kind": "slide"
+    },
+    {
+      "name": "CargoLift",
+      "parent": "Root",
+      "kind": "slide"
+    }
+  ],
+  "joints": [
+    {
+      "bone": "Root",
+      "parent": null,
+      "type": "fixed",
+      "pivot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "axis": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "range": null
+    },
+    {
+      "bone": "Door",
+      "parent": "Root",
+      "type": "hinge",
+      "pivot": [
+        0.8400000333786011,
+        -6.409999847412109,
+        1.30531907081604
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        -105,
+        0
+      ]
+    },
+    {
+      "bone": "Lock",
+      "parent": "Door",
+      "type": "slide",
+      "pivot": [
+        -0.48749998211860657,
+        -6.342499732971191,
+        1.9787676334381104
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        -0.08689655568438981,
+        0.0
+      ]
+    },
+    {
+      "bone": "CargoLift",
+      "parent": "Root",
+      "type": "slide",
+      "pivot": [
+        0.0,
+        3.9000000953674316,
+        0.25531914830207825
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        0.0,
+        3.1914894718819458
+      ]
+    }
+  ],
+  "animations": {
+    "open": {
+      "frames": [
+        0.0,
+        96.0
+      ],
+      "fps": 30,
+      "loop": false
+    },
+    "close": {
+      "frames": [
+        0.0,
+        96.0
+      ],
+      "fps": 30,
+      "loop": false
+    },
+    "lift_up": {
+      "frames": [
+        0.0,
+        96.0
+      ],
+      "fps": 30,
+      "loop": false
+    },
+    "lift_down": {
+      "frames": [
+        0.0,
+        96.0
+      ],
+      "fps": 30,
+      "loop": false
+    }
+  },
+  "gizmos": [
+    {
+      "name": "BattenLightMountGroundFrontLeft",
+      "bone": "Root",
+      "origin": [
+        -4.0,
+        -3.0,
+        3.255319118499756
+      ],
+      "mount_normal": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "attachment": "batten_light",
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          -0.0,
+          -4.0
+        ],
+        [
+          -0.0,
+          1.0,
+          -0.0,
+          -3.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          3.255319118499756
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "BattenLightMountGroundFrontRight",
+      "bone": "Root",
+      "origin": [
+        4.0,
+        -3.0,
+        3.255319118499756
+      ],
+      "mount_normal": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "attachment": "batten_light",
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          -0.0,
+          4.0
+        ],
+        [
+          -0.0,
+          1.0,
+          -0.0,
+          -3.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          3.255319118499756
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "BattenLightMountGroundRearLeft",
+      "bone": "Root",
+      "origin": [
+        -4.0,
+        3.0,
+        3.255319118499756
+      ],
+      "mount_normal": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "attachment": "batten_light",
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          -0.0,
+          -4.0
+        ],
+        [
+          -0.0,
+          1.0,
+          -0.0,
+          3.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          3.255319118499756
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "BattenLightMountGroundRearRight",
+      "bone": "Root",
+      "origin": [
+        4.0,
+        3.0,
+        3.255319118499756
+      ],
+      "mount_normal": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "attachment": "batten_light",
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          -0.0,
+          4.0
+        ],
+        [
+          -0.0,
+          1.0,
+          -0.0,
+          3.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          3.255319118499756
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "BattenLightMountUpperFrontLeft",
+      "bone": "Root",
+      "origin": [
+        -4.0,
+        -3.0,
+        6.143617153167725
+      ],
+      "mount_normal": [
+        1.3500247142417265e-08,
+        0.0,
+        -1.0
+      ],
+      "attachment": "batten_light",
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          -1.3500247142417265e-08,
+          -4.0
+        ],
+        [
+          -0.0,
+          1.0,
+          -0.0,
+          -3.0
+        ],
+        [
+          1.3500247142417265e-08,
+          0.0,
+          1.0,
+          6.143617153167725
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "BattenLightMountUpperFrontRight",
+      "bone": "Root",
+      "origin": [
+        4.0,
+        -3.0,
+        6.143617153167725
+      ],
+      "mount_normal": [
+        1.3500247142417265e-08,
+        0.0,
+        -1.0
+      ],
+      "attachment": "batten_light",
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          -1.3500247142417265e-08,
+          4.0
+        ],
+        [
+          -0.0,
+          1.0,
+          -0.0,
+          -3.0
+        ],
+        [
+          1.3500247142417265e-08,
+          0.0,
+          1.0,
+          6.143617153167725
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "BattenLightMountUpperRearLeft",
+      "bone": "Root",
+      "origin": [
+        -4.0,
+        3.0,
+        6.143617153167725
+      ],
+      "mount_normal": [
+        1.3500247142417265e-08,
+        0.0,
+        -1.0
+      ],
+      "attachment": "batten_light",
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          -1.3500247142417265e-08,
+          -4.0
+        ],
+        [
+          -0.0,
+          1.0,
+          -0.0,
+          3.0
+        ],
+        [
+          1.3500247142417265e-08,
+          0.0,
+          1.0,
+          6.143617153167725
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "BattenLightMountUpperRearRight",
+      "bone": "Root",
+      "origin": [
+        4.0,
+        3.0,
+        6.143617153167725
+      ],
+      "mount_normal": [
+        1.3500247142417265e-08,
+        0.0,
+        -1.0
+      ],
+      "attachment": "batten_light",
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          -1.3500247142417265e-08,
+          4.0
+        ],
+        [
+          -0.0,
+          1.0,
+          -0.0,
+          3.0
+        ],
+        [
+          1.3500247142417265e-08,
+          0.0,
+          1.0,
+          6.143617153167725
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "SconceLightMountGroundLeft",
+      "bone": "Root",
+      "origin": [
+        6.5,
+        0.0,
+        1.7553192377090454
+      ],
+      "mount_normal": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "attachment": "sconce_light",
+      "matrix_world": [
+        [
+          0.0,
+          1.0,
+          0.0,
+          6.5
+        ],
+        [
+          -1.0,
+          -0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          -0.0,
+          1.0,
+          1.7553192377090454
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "SconceLightMountGroundRight",
+      "bone": "Root",
+      "origin": [
+        -6.5,
+        0.0,
+        1.7553192377090454
+      ],
+      "mount_normal": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "attachment": "sconce_light",
+      "matrix_world": [
+        [
+          0.0,
+          -1.0,
+          0.0,
+          -6.5
+        ],
+        [
+          1.0,
+          -0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          -0.0,
+          1.0,
+          1.7553192377090454
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "SconceLightMountUpperLeft",
+      "bone": "Root",
+      "origin": [
+        6.500000476837158,
+        0.0,
+        5.265957355499268
+      ],
+      "mount_normal": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "attachment": "sconce_light",
+      "matrix_world": [
+        [
+          0.0,
+          1.0,
+          0.0,
+          6.500000476837158
+        ],
+        [
+          -1.0,
+          -0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          -0.0,
+          1.0,
+          5.265957355499268
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "SconceLightMountUpperRight",
+      "bone": "Root",
+      "origin": [
+        -6.500000476837158,
+        0.0,
+        5.265957355499268
+      ],
+      "mount_normal": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "attachment": "sconce_light",
+      "matrix_world": [
+        [
+          0.0,
+          -1.0,
+          0.0,
+          -6.500000476837158
+        ],
+        [
+          1.0,
+          -0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          -0.0,
+          1.0,
+          5.265957355499268
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "LiftSurfaceMount",
+      "bone": "CargoLift",
+      "origin": [
+        0,
+        3.9,
+        0.25531914893617025
+      ],
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          3.9000000953674316
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.25531914830207825
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "attachment_kind": "lift_surface"
+    }
+  ],
+  "placement_envelope_m": [
+    15,
+    15
+  ],
+  "surrounding_platform": true,
+  "upper_floor_m": {
+    "width": 13.0,
+    "depth": 13.0,
+    "usable_area": 150.06920000000002,
+    "elevation": 3.4468085106382986
+  },
+  "cargo_lift_m": {
+    "width": 3,
+    "depth": 3,
+    "travel": 3.191489361702128,
+    "lower": 0.25531914893617025,
+    "upper": 3.4468085106382986,
+    "center": [
+      0,
+      3.9
+    ]
+  },
+  "passage_m": {
+    "width": 1.5,
+    "height": 2.1,
+    "ramp_width": 1.9500000000000002,
+    "single_leaf": true
+  },
+  "roof_layout_m": {
+    "edge_margin": 1.1124999999999998,
+    "front_row_gap": 1.1124999999999998,
+    "front_baseline": -5.1875,
+    "rear_baseline": 5.1875,
+    "controller_direct_roof": true
+  },
+  "rear_bulkhead": {
+    "solid": true,
+    "inner_y": 6.5,
+    "outer_y": 6.7,
+    "lift_mounts_full_land": true
+  },
+  "trigger": {
+    "object": "SK_BastionLiftPlatformTrigger",
+    "bone": "CargoLift",
+    "role": "occupancy area; not a solid blocker"
+  },
+  "checks": {
+    "exact_solid_pairs": 402,
+    "connectivity": true,
+    "motion_states": 388,
+    "coplanar": true,
+    "full_ground_sweep": true,
+    "full_hinge_and_crown_flange_lands": true,
+    "paint_boundaries_geometrically_split": true
+  },
+  "placement": "ground centre; front -Y; up +Z; library only; game integration deferred",
+  "optional_surface": {
+    "object": "SK_ArchitectureRegolith",
+    "material": "M_Regolith_Diffuse",
+    "bone": "Root",
+    "optional": true,
+    "collision": false,
+    "scope": "visual apron only; excluded from building placement and traversal"
+  },
+  "building_bounds_m": {
+    "lo": [
+      -7.349999904632568,
+      -7.5,
+      0.0
+    ],
+    "hi": [
+      7.349999904632568,
+      7.349999904632568,
+      7.879701137542725
+    ]
+  },
+  "architecture_dimensions": {
+    "door_type": "single",
+    "opening_width_m": 1.5,
+    "opening_height_m": 2.1,
+    "rooms": [
+      {
+        "floor_m": 0.25531914893617025,
+        "ceiling_m": 3.2553191489361706,
+        "height_m": 3.0000000000000004
+      },
+      {
+        "floor_m": 3.4468085106382986,
+        "ceiling_m": 6.143617021276596,
+        "height_m": 2.696808510638298
+      }
+    ],
+    "measurement": "Open structural aperture; floor top to ceiling underside; chamfers reduce local clearance"
+  },
+  "material_classifiers": {
+    "M_Emissive": "Emissive",
+    "M_Frame_Diffuse": "Diffuse",
+    "M_Glass": "Glass",
+    "M_Joint_Diffuse": "Diffuse",
+    "M_Primary_Diffuse": "Diffuse",
+    "M_Regolith_Diffuse": "Diffuse",
+    "M_RegolithDark_Diffuse": "Diffuse",
+    "M_RegolithLight_Diffuse": "Diffuse",
+    "M_Secondary_Diffuse": "Diffuse"
+  },
+  "map_owned_boolean_triangles": 309,
+  "native_triangle_budget": 10000,
+  "source_asset": "bastion",
+  "source_category": "architecture",
+  "faceoff_cutouts": [
+    {
+      "marker": "B-weapon_holder-2004_91",
+      "building": "bastion",
+      "center": [
+        -3.7362098693847656,
+        -3.2282819747924805,
+        0.25531914830207825
+      ],
+      "size": [
+        1,
+        1
+      ],
+      "depth": 1.38,
+      "yaw": -1.5708619775177421
+    },
+    {
+      "marker": "B-weapon_holder-2004_92",
+      "building": "bastion",
+      "center": [
+        -3.736339569091797,
+        -5.228282928466797,
+        0.25531914830207825
+      ],
+      "size": [
+        1,
+        1
+      ],
+      "depth": 1.38,
+      "yaw": -1.5708619775177421
+    },
+    {
+      "marker": "B-spawn_point-2004_97",
+      "building": "bastion",
+      "center": [
+        5.099132537841797,
+        3.0187301635742188,
+        0.25531914830207825
+      ],
+      "size": [
+        2,
+        2
+      ],
+      "depth": 1.5,
+      "yaw": -6.565072284558937e-05
+    },
+    {
+      "marker": "B-spawn_point-2004_98",
+      "building": "bastion",
+      "center": [
+        -5.120866775512695,
+        3.019399642944336,
+        0.25531914830207825
+      ],
+      "size": [
+        2,
+        2
+      ],
+      "depth": 1.5,
+      "yaw": -6.565072284558937e-05
+    },
+    {
+      "marker": "B-spawn_point-2004_99",
+      "building": "bastion",
+      "center": [
+        -2.1210670471191406,
+        -0.020795822143554688,
+        0.25531914830207825
+      ],
+      "size": [
+        2,
+        2
+      ],
+      "depth": 1.5,
+      "yaw": -6.565072284558937e-05
+    },
+    {
+      "marker": "B-spawn_point-2004_100",
+      "building": "bastion",
+      "center": [
+        2.0989341735839844,
+        -0.021070480346679688,
+        0.25531914830207825
+      ],
+      "size": [
+        2,
+        2
+      ],
+      "depth": 1.5,
+      "yaw": -6.565072284558937e-05
+    }
+  ],
+  "recess_clearance_per_side_m": 0.001
+}

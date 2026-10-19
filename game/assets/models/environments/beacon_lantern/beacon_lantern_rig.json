@@ -1,0 +1,50 @@
+{
+  "name": "beacon_lantern",
+  "static": true,
+  "animations": [],
+  "units": "metres",
+  "triangles": 4510,
+  "triangle_budget": 5000,
+  "bounds_m": {
+    "lo": [
+      -0.3881220519542694,
+      -0.3881220519542694,
+      0.0
+    ],
+    "hi": [
+      0.3881220519542694,
+      0.3881220519542694,
+      1.0
+    ]
+  },
+  "tensor_height_m": 1.753,
+  "materials": [
+    "M_Primary_Metallic",
+    "M_Secondary_Metallic",
+    "M_Frame_Diffuse",
+    "M_Joint_Metallic",
+    "M_Emissive"
+  ],
+  "bones": [
+    {
+      "name": "Root",
+      "kind": "fixed",
+      "parent": null
+    }
+  ],
+  "placement": "floor centre z=0; service/front -Y; up +Z",
+  "checks": {
+    "connected_parts": 27,
+    "exact_solid_pairs": 30,
+    "no_solid_intersections": true,
+    "coplanar": true,
+    "no_actions": true
+  },
+  "material_classifiers": {
+    "M_Emissive": "Emissive",
+    "M_Frame_Diffuse": "Diffuse",
+    "M_Joint_Metallic": "Metallic",
+    "M_Primary_Metallic": "Metallic",
+    "M_Secondary_Metallic": "Metallic"
+  }
+}

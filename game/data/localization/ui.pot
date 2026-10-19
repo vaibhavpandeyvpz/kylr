@@ -1,0 +1,362 @@
+# KYLR UI translation template.
+# Dynamic score/name values stay outside translated labels.
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: en\n"
+
+#: scripts/ui/hud/match_hud_frame.gd:52 scripts/ui/hud/match_hud_frame.gd:53 scripts/ui/hud/match_hud_frame.gd:60 scripts/ui/hud/match_hud_frame.gd:61 scripts/ui/hud/match_hud_frame.gd:86
+msgid "%02d"
+msgstr ""
+
+#: scripts/ui/hud/match_hud_frame.gd:88
+msgid "%d"
+msgstr ""
+
+#: scripts/ui/ui.gd:785
+msgid "%s / %d %s / reached %.2fs"
+msgstr ""
+
+#: scripts/ui/ui.gd:255
+msgid "100 EP lasts 100 seconds. Find a Core before\nyour robot shuts down. At 50% EP, sprinting\nand charged jumps become unavailable."
+msgstr ""
+
+#: scripts/ui/online_ui.gd:87
+msgid "2–10 players / no bots\n30 minutes / target adjusts with the roster"
+msgstr ""
+
+#: scripts/ui/online_ui.gd:70
+msgid "ALREADY HAVE AN ACCOUNT / SIGN IN"
+msgstr ""
+
+#: scripts/ui/ui.gd:438
+msgid "APPLY"
+msgstr ""
+
+#: scripts/ui/ui.gd:401
+msgid "Ambient occlusion"
+msgstr ""
+
+#: scripts/ui/ui.gd:404
+msgid "Antialiasing"
+msgstr ""
+
+#: scripts/ui/tutorial.gd:24
+msgid "At 50 AH or less, enter a Ready repair bay. The first second is vulnerable; repair releases you after seven seconds."
+msgstr ""
+
+#: scripts/ui/online_ui.gd:71 scripts/ui/online_ui.gd:94 scripts/ui/online_ui.gd:224 scripts/ui/ui.gd:230 scripts/ui/ui.gd:420
+msgid "BACK"
+msgstr ""
+
+#: scripts/ui/ui.gd:376
+msgid "BINDINGS / Escape always opens the menu"
+msgstr ""
+
+#: scripts/ui/ui.gd:163
+msgid "BUILT TO\nOUTLAST."
+msgstr ""
+
+#: scripts/ui/ui.gd:403
+msgid "Bloom"
+msgstr ""
+
+#: scripts/ui/ui.gd:206
+msgid "CALL SIGN / "
+msgstr ""
+
+#: scripts/ui/online_ui.gd:105
+msgid "CANCEL"
+msgstr ""
+
+#: scripts/ui/hud/match_hud_frame.gd:64
+msgid "CAPTURES"
+msgstr ""
+
+#: scripts/ui/online_ui.gd:206
+msgid "COULD NOT JOIN"
+msgstr ""
+
+#: scripts/ui/online_ui.gd:49
+msgid "CREATE ACCOUNT"
+msgstr ""
+
+#: scripts/ui/online_ui.gd:88 scripts/ui/online_ui.gd:218
+msgid "CUSTOMISE"
+msgstr ""
+
+#: scripts/ui/ui.gd:384
+msgid "Callout frequency"
+msgstr ""
+
+#: scripts/ui/ui.gd:385 scripts/ui/ui.gd:412
+msgid "Captions"
+msgstr ""
+
+#: scripts/ui/tutorial.gd:25
+msgid "Carry the enemy flag home while your own flag is home. Recover a dropped friendly flag by touching it."
+msgstr ""
+
+#: scripts/ui/online_ui.gd:82
+msgid "Choose a match"
+msgstr ""
+
+#: scripts/ui/ui.gd:432
+msgid "DEFAULTS"
+msgstr ""
+
+#: scripts/ui/ui.gd:388
+msgid "DISPLAY"
+msgstr ""
+
+#: scripts/ui/ui.gd:389
+msgid "Display mode"
+msgstr ""
+
+#: scripts/ui/online_ui.gd:54
+msgid "Display name / 1–20 letters, digits, . or _"
+msgstr ""
+
+#: scripts/ui/hud/match_hud_frame.gd:54
+msgid "ELIMINATIONS"
+msgstr ""
+
+#: scripts/ui/tutorial.gd:23
+msgid "EP drains while you fight. Collect green Energy Cores before shutdown; purple Shield Cores restore SH."
+msgstr ""
+
+#: scripts/ui/ui.gd:169
+msgid "EXIT"
+msgstr ""
+
+#: scripts/ui/tutorial.gd:25
+msgid "Eliminate opponents to reach the score goal. Hold the scoreboard key to check the current totals."
+msgstr ""
+
+#: scripts/ui/ui.gd:171
+msgid "FACEOFF  /  FLOATING COMBAT FACILITY\n7 weapons  /  DM · TDM · CTF  /  Tensor platform"
+msgstr ""
+
+#: scripts/ui/tutorial.gd:26
+msgid "FIRST LIFE / %d OF 5"
+msgstr ""
+
+#: scripts/ui/ui.gd:164
+msgid "Fight for power. Control the arena."
+msgstr ""
+
+#: scripts/ui/online_ui.gd:104
+msgid "Finding an available local server.\nYou can cancel before or during admission."
+msgstr ""
+
+#: scripts/ui/tutorial.gd:22
+msgid "Fire: %s. Reload: %s. An empty weapon reloads or switches to your previous gun with ammo, then pistol. Cycle owned guns with the wheel."
+msgstr ""
+
+#: scripts/ui/ui.gd:414
+msgid "First-life tutorial hints"
+msgstr ""
+
+#: scripts/ui/ui.gd:366
+msgid "Focus or hover a setting to see its effect. Changes remain pending until Apply."
+msgstr ""
+
+#: scripts/ui/hud/match_hud_frame.gd:48
+msgid "GOAL %d"
+msgstr ""
+
+#: scripts/ui/ui.gd:411
+msgid "High contrast"
+msgstr ""
+
+#: scripts/ui/ui.gd:166 scripts/ui/ui.gd:193
+msgid "INSTANT ACTION"
+msgstr ""
+
+#: scripts/ui/ui.gd:373
+msgid "Invert vertical look"
+msgstr ""
+
+#: scripts/ui/ui.gd:162
+msgid "K Y L R"
+msgstr ""
+
+#: scripts/ui/hud/hud_kill_feed.gd:48
+msgid "KILL FEED"
+msgstr ""
+
+#: scripts/ui/ui.gd:400
+msgid "Light shadows"
+msgstr ""
+
+#: scripts/ui/online_ui.gd:50
+msgid "Local online service"
+msgstr ""
+
+#: scripts/ui/ui.gd:774
+msgid "MATCH COMPLETE / "
+msgstr ""
+
+#: scripts/ui/ui.gd:331
+msgid "MATCH STILL RUNNING / Your robot remains vulnerable"
+msgstr ""
+
+#: scripts/ui/ui.gd:405
+msgid "MOTION & CAMERA"
+msgstr ""
+
+#: scripts/ui/ui.gd:371
+msgid "MOUSE & AIM"
+msgstr ""
+
+#: scripts/ui/ui.gd:777
+msgid "MVP / "
+msgstr ""
+
+#: scripts/ui/online_ui.gd:81
+msgid "ONLINE / "
+msgstr ""
+
+#: scripts/ui/online_ui.gd:30 scripts/ui/ui.gd:167
+msgid "ONLINE MULTIPLAYER"
+msgstr ""
+
+#: scripts/ui/ui.gd:757
+msgid "PAUSED"
+msgstr ""
+
+#: scripts/ui/online_ui.gd:96
+msgid "PLAY"
+msgstr ""
+
+#: scripts/ui/ui.gd:254
+msgid "POWER IS TIME"
+msgstr ""
+
+#: scripts/ui/online_ui.gd:55
+msgid "Password / at least 12 characters"
+msgstr ""
+
+#: scripts/ui/online_ui.gd:222
+msgid "Preview changes immediately.\nSave updates your account."
+msgstr ""
+
+#: scripts/ui/ui.gd:398
+msgid "QUALITY"
+msgstr ""
+
+#: scripts/ui/online_ui.gd:58
+msgid "REGISTER"
+msgstr ""
+
+#: scripts/ui/ui.gd:758
+msgid "RESUME"
+msgstr ""
+
+#: scripts/ui/online_ui.gd:208
+msgid "RETRY"
+msgstr ""
+
+#: scripts/ui/online_ui.gd:209 scripts/ui/ui.gd:805
+msgid "RETURN TO LOBBY"
+msgstr ""
+
+#: scripts/ui/ui.gd:760
+msgid "RETURN TO MAIN MENU"
+msgstr ""
+
+#: scripts/ui/online_ui.gd:223
+msgid "REVERT"
+msgstr ""
+
+#: scripts/ui/ui.gd:786
+msgid "Reaching times are elapsed match time. Kill time breaks individual / MVP ties."
+msgstr ""
+
+#: scripts/ui/ui.gd:413
+msgid "Reduce decorative motion"
+msgstr ""
+
+#: scripts/ui/ui.gd:386
+msgid "Reduced dynamic range"
+msgstr ""
+
+#: scripts/ui/online_ui.gd:31
+msgid "Restoring account…"
+msgstr ""
+
+#: scripts/ui/online_ui.gd:265
+msgid "SAVE"
+msgstr ""
+
+#: scripts/ui/online_ui.gd:89 scripts/ui/ui.gd:168 scripts/ui/ui.gd:330 scripts/ui/ui.gd:759
+msgid "SETTINGS"
+msgstr ""
+
+#: scripts/ui/online_ui.gd:90
+msgid "SIGN OUT"
+msgstr ""
+
+#: scripts/ui/ui.gd:225
+msgid "START MATCH"
+msgstr ""
+
+#: scripts/ui/online_ui.gd:97
+msgid "Session stays in memory on this device."
+msgstr ""
+
+#: scripts/ui/ui.gd:408
+msgid "Sprint speed lines"
+msgstr ""
+
+#: scripts/ui/hud/match_hud_frame.gd:51
+msgid "TARGET"
+msgstr ""
+
+#: scripts/ui/hud/match_hud_frame.gd:58
+msgid "TEAM A"
+msgstr ""
+
+#: scripts/ui/hud/match_hud_frame.gd:59
+msgid "TEAM B"
+msgstr ""
+
+#: scripts/ui/hud/match_hud_frame.gd:76
+msgid "TOP KILLERS"
+msgstr ""
+
+#: scripts/ui/online_ui.gd:264
+msgid "Unsaved changes"
+msgstr ""
+
+#: scripts/ui/online_ui.gd:51
+msgid "Username / 3–24 letters, digits, . or _"
+msgstr ""
+
+#: scripts/ui/ui.gd:399
+msgid "Visual quality"
+msgstr ""
+
+#: scripts/ui/ui.gd:365
+msgid "YOUR CONTROL SYSTEM"
+msgstr ""
+
+#: scripts/ui/hud/match_hud_frame.gd:50
+msgid "YOUR KILLS"
+msgstr ""
+
+#: scripts/ui/ui.gd:196
+msgid "Your robot's call sign"
+msgstr ""
+
+#: scripts/ui/tutorial.gd:21
+msgid "Your team: %s. Team letters remain visible alongside colors."
+msgstr ""
+
+#: scripts/ui/weapon_readout.gd:71
+msgid "∞"
+msgstr ""
+
+#: scripts/ui/online_ui.gd:234
+msgid "●"
+msgstr ""

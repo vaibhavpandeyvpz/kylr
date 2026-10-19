@@ -1,0 +1,437 @@
+{
+  "pistol": {
+    "asset": "weapons/shots/pistol",
+    "gain": 0,
+    "near": 5,
+    "far": 65,
+    "priority": 60,
+    "limit": 8,
+    "playback_gain": 0
+  },
+  "rifle": {
+    "asset": "weapons/shots/rifle",
+    "gain": 0,
+    "near": 6,
+    "far": 80,
+    "priority": 62,
+    "limit": 8,
+    "playback_gain": 0
+  },
+  "minigun": {
+    "asset": "weapons/shots/minigun",
+    "gain": 0,
+    "near": 5,
+    "far": 75,
+    "priority": 55,
+    "limit": 8,
+    "playback_gain": 0
+  },
+  "rocket_launcher": {
+    "asset": "weapons/shots/rocket_launcher",
+    "gain": 0,
+    "near": 7,
+    "far": 90,
+    "priority": 75,
+    "playback_gain": 0
+  },
+  "emp_gun": {
+    "asset": "weapons/shots/emp_gun",
+    "gain": 0,
+    "near": 6,
+    "far": 65,
+    "priority": 70,
+    "playback_gain": 0
+  },
+  "lightning_gun": {
+    "asset": "weapons/shots/lightning_gun_primary",
+    "gain": 0,
+    "near": 4,
+    "far": 40,
+    "priority": 60,
+    "loop": true,
+    "pitch": 0,
+    "playback_gain": 0
+  },
+  "flamethrower": {
+    "asset": "weapons/shots/flamethrower_primary",
+    "gain": 0,
+    "near": 4,
+    "far": 35,
+    "priority": 58,
+    "loop": true,
+    "pitch": 0,
+    "playback_gain": 0
+  },
+  "hit_pistol": {
+    "asset": "weapons/hits/pistol_01",
+    "variants": [
+      "weapons/hits/pistol_01",
+      "weapons/hits/pistol_02",
+      "weapons/hits/pistol_03"
+    ],
+    "gain": 0,
+    "near": 3,
+    "far": 40,
+    "priority": 62,
+    "limit": 8,
+    "cooldown": 0.08,
+    "pitch": 0.025,
+    "playback_gain": 0
+  },
+  "hit_rifle": {
+    "asset": "weapons/hits/rifle",
+    "gain": 0,
+    "near": 3,
+    "far": 50,
+    "priority": 65,
+    "limit": 8,
+    "cooldown": 0.08,
+    "pitch": 0.025,
+    "playback_gain": 0
+  },
+  "hit_minigun": {
+    "asset": "weapons/hits/minigun",
+    "gain": 0,
+    "near": 3,
+    "far": 38,
+    "priority": 56,
+    "limit": 8,
+    "cooldown": 0.08,
+    "pitch": 0.025,
+    "playback_gain": 0
+  },
+  "hit_rocket_launcher": {
+    "asset": "weapons/hits/rocket_launcher",
+    "gain": 0,
+    "near": 8,
+    "far": 100,
+    "priority": 80,
+    "limit": 6,
+    "cooldown": 0.08,
+    "pitch": 0.025,
+    "playback_gain": 0
+  },
+  "hit_emp_gun": {
+    "asset": "weapons/hits/emp_gun",
+    "gain": 0,
+    "near": 3,
+    "far": 45,
+    "priority": 66,
+    "limit": 8,
+    "cooldown": 0.12,
+    "pitch": 0.025,
+    "playback_gain": 0
+  },
+  "hit_shield": {
+    "asset": "weapons/hits/shield",
+    "gain": 0,
+    "near": 3,
+    "far": 48,
+    "priority": 70,
+    "limit": 8,
+    "cooldown": 0.08,
+    "pitch": 0.025,
+    "playback_gain": 0
+  },
+  "hit_lightning_gun": {
+    "asset": "weapons/hits/lightning_gun_primary",
+    "gain": 0,
+    "near": 3,
+    "far": 42,
+    "priority": 62,
+    "limit": 4,
+    "loop": true,
+    "pitch": 0,
+    "playback_gain": 0
+  },
+  "hit_flamethrower": {
+    "asset": "weapons/hits/flamethrower_primary",
+    "gain": 0,
+    "near": 3,
+    "far": 30,
+    "priority": 48,
+    "limit": 4,
+    "loop": true,
+    "pitch": 0,
+    "playback_gain": 0
+  },
+  "portal_enter": {
+    "asset": "world/portal_enter",
+    "gain": -10,
+    "near": 3,
+    "far": 28,
+    "priority": 55
+  },
+  "portal_exit": {
+    "asset": "world/portal_exit",
+    "gain": -10,
+    "near": 3,
+    "far": 28,
+    "priority": 55
+  },
+  "pickup_item": {
+    "asset": "world/pickup_item",
+    "gain": -19,
+    "near": 2,
+    "far": 18,
+    "priority": 65,
+    "bus": "Interface"
+  },
+  "pickup_weapon": {
+    "asset": "world/pickup_weapon",
+    "gain": -19,
+    "near": 2,
+    "far": 18,
+    "priority": 65,
+    "bus": "Interface"
+  },
+  "pickup_ammo": {
+    "asset": "world/pickup_ammo",
+    "gain": -19,
+    "near": 2,
+    "far": 18,
+    "priority": 65,
+    "bus": "Interface"
+  },
+  "reload": {
+    "asset": "world/reload",
+    "gain": -19,
+    "near": 2,
+    "far": 16,
+    "priority": 65
+  },
+  "low_energy": {
+    "asset": "world/interface",
+    "gain": -17,
+    "priority": 100,
+    "bus": "Critical",
+    "cooldown": 8,
+    "pitch": 0
+  },
+  "thruster_bed": {
+    "asset": "world/thruster",
+    "gain": -12,
+    "near": 4,
+    "far": 55,
+    "priority": 10,
+    "limit": 9,
+    "bus": "Ambience",
+    "loop": true,
+    "pitch": 0
+  },
+  "repair_weld": {
+    "asset": "world/repair_weld",
+    "gain": -11,
+    "near": 2,
+    "far": 20,
+    "priority": 35,
+    "limit": 2,
+    "loop": true,
+    "pitch": 0
+  },
+  "repair_ready": {
+    "asset": "world/repair_ready",
+    "gain": -28,
+    "near": 2,
+    "far": 14,
+    "priority": 12,
+    "limit": 2,
+    "bus": "Ambience",
+    "loop": true,
+    "pitch": 0
+  },
+  "repair_start_stop": {
+    "asset": "world/repair_start_stop",
+    "gain": -18,
+    "near": 3,
+    "far": 25,
+    "priority": 65,
+    "cooldown": 0,
+    "pitch": 0
+  },
+  "jump_pad_launch": {
+    "asset": "world/jump_pad_launch",
+    "gain": -14,
+    "near": 4,
+    "far": 45,
+    "priority": 70
+  },
+  "barricade_open": {
+    "asset": "world/barricade_open",
+    "gain": -20,
+    "near": 5,
+    "far": 50,
+    "priority": 30,
+    "limit": 3
+  },
+  "barricade_close": {
+    "asset": "world/barricade_close",
+    "gain": -20,
+    "near": 5,
+    "far": 50,
+    "priority": 30,
+    "limit": 3
+  },
+  "walk": {
+    "asset": "world/walk",
+    "gain": -16,
+    "near": 2,
+    "far": 20,
+    "priority": 45,
+    "limit": 10,
+    "loop": true,
+    "pitch": 0
+  },
+  "land": {
+    "asset": "world/jump_land",
+    "gain": -11,
+    "near": 3,
+    "far": 26,
+    "priority": 60,
+    "pitch": 0
+  },
+  "interface": {
+    "asset": "world/interface",
+    "gain": -24,
+    "priority": 80,
+    "bus": "Interface",
+    "limit": 2,
+    "pitch": 0
+  },
+  "objective": {
+    "asset": "world/interface",
+    "gain": -14,
+    "priority": 100,
+    "bus": "Critical",
+    "pitch": 0
+  },
+  "flamethrower_secondary": {
+    "asset": "weapons/shots/flamethrower_secondary",
+    "gain": 0,
+    "near": 4,
+    "far": 35,
+    "priority": 58,
+    "loop": false,
+    "pitch": 0,
+    "limit": 8,
+    "cooldown": 0.06,
+    "playback_gain": 0
+  },
+  "hit_flamethrower_secondary": {
+    "asset": "weapons/hits/flamethrower_secondary",
+    "gain": 0,
+    "near": 3,
+    "far": 30,
+    "priority": 48,
+    "limit": 8,
+    "loop": false,
+    "pitch": 0,
+    "cooldown": 0.08,
+    "playback_gain": 0
+  },
+  "lightning_gun_secondary": {
+    "asset": "weapons/shots/lightning_gun_secondary",
+    "gain": 0,
+    "near": 4,
+    "far": 40,
+    "priority": 60,
+    "loop": false,
+    "pitch": 0,
+    "limit": 8,
+    "cooldown": 0.06,
+    "playback_gain": 0
+  },
+  "hit_lightning_gun_secondary": {
+    "asset": "weapons/hits/lightning_gun_secondary",
+    "gain": 0,
+    "near": 3,
+    "far": 42,
+    "priority": 62,
+    "limit": 8,
+    "loop": false,
+    "pitch": 0,
+    "cooldown": 0.08,
+    "playback_gain": 0
+  },
+  "flak_cannon": {
+    "asset": "weapons/flak_cannon_shot",
+    "gain": 0,
+    "near": 5,
+    "far": 65,
+    "priority": 60,
+    "limit": 8,
+    "playback_gain": 0
+  },
+  "hit_flak_cannon": {
+    "asset": "weapons/flak_cannon_hit",
+    "gain": 0,
+    "near": 5,
+    "far": 65,
+    "priority": 60,
+    "limit": 8,
+    "playback_gain": 0
+  },
+  "flak_cannon_bounce": {
+    "asset": "weapons/flak_cannon_bounce",
+    "gain": 0,
+    "near": 5,
+    "far": 65,
+    "priority": 60,
+    "limit": 8,
+    "playback_gain": 0
+  },
+  "bio_rifle": {
+    "asset": "weapons/bio_rifle_shot",
+    "gain": 0,
+    "near": 5,
+    "far": 65,
+    "priority": 60,
+    "limit": 8,
+    "playback_gain": 0
+  },
+  "hit_bio_rifle": {
+    "asset": "weapons/bio_rifle_hit",
+    "gain": 0,
+    "near": 5,
+    "far": 65,
+    "priority": 60,
+    "limit": 8,
+    "playback_gain": 0
+  },
+  "grenade_launcher": {
+    "asset": "weapons/grenade_launcher_shot",
+    "gain": 0,
+    "near": 5,
+    "far": 65,
+    "priority": 60,
+    "limit": 8,
+    "playback_gain": 0
+  },
+  "hit_grenade_launcher": {
+    "asset": "weapons/grenade_launcher_hit",
+    "gain": 0,
+    "near": 5,
+    "far": 65,
+    "priority": 60,
+    "limit": 8,
+    "playback_gain": 0
+  },
+  "pulse_gun": {
+    "asset": "weapons/pulse_gun_shot",
+    "gain": 0,
+    "near": 5,
+    "far": 65,
+    "priority": 60,
+    "limit": 8,
+    "playback_gain": 0
+  },
+  "hit_pulse_gun": {
+    "asset": "weapons/pulse_gun_hit",
+    "gain": 0,
+    "near": 5,
+    "far": 65,
+    "priority": 60,
+    "limit": 8,
+    "playback_gain": 0
+  }
+}

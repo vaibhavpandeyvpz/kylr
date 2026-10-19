@@ -1,0 +1,816 @@
+{
+  "name": "grenade_launcher",
+  "space": "Metres. Blender +Z up, muzzle -Y, origin on grip bottom at the weapon length centre. glTF/Godot (x,z,-y); muzzle +Z. Hinge local X in degrees; slide local Y in metres.",
+  "rest": "Single barrel home, breech closed, circular six-round drum latched.",
+  "size_m": {
+    "wide": 0.16,
+    "long": 0.56,
+    "high": 0.275,
+    "max_wide_long_high": [
+      0.25,
+      0.75,
+      0.35
+    ],
+    "note": "every weapon fits 0.25 x 0.75 x 0.35 m; it fits the item table's and the weapon holder's hatches and the item table's 0.5 m tall-weapon stroke",
+    "barrel_axis_height": 0.2
+  },
+  "materials": [
+    "M_Primary_Metallic",
+    "M_Secondary_Diffuse",
+    "M_Frame_Metallic",
+    "M_Joint_Metallic",
+    "M_Emissive",
+    "M_Bronze_Metallic",
+    "M_Glass",
+    "M_Metal_Metallic",
+    "M_Wire"
+  ],
+  "triangles": {
+    "SK_GrenadeLauncher": 4753,
+    "SK_GrenadeLauncherAmmo": 1208,
+    "SM_GrenadeLauncherAmmo": 1208,
+    "SK_GrenadeLauncherRocket": 290
+  },
+  "joints": [
+    {
+      "bone": "Root",
+      "parent": null,
+      "type": "fixed",
+      "pivot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": null,
+      "channel": null
+    },
+    {
+      "bone": "Barrel",
+      "parent": "Root",
+      "type": "slide",
+      "pivot": [
+        0.0,
+        -0.15,
+        0.2
+      ],
+      "axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "range": [
+        0,
+        0.01
+      ],
+      "channel": "location_y_m"
+    },
+    {
+      "bone": "LoadedGrenade",
+      "parent": "Barrel",
+      "type": "slide",
+      "pivot": [
+        0.0,
+        -0.123,
+        0.2
+      ],
+      "axis": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "range": [
+        0,
+        0.135
+      ],
+      "channel": "location_y_m"
+    },
+    {
+      "bone": "FeedRam",
+      "parent": "Root",
+      "type": "slide",
+      "pivot": [
+        0.0,
+        0.055,
+        0.2
+      ],
+      "axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "range": [
+        0,
+        0.153
+      ],
+      "channel": "location_y_m"
+    },
+    {
+      "bone": "Trigger",
+      "parent": "Root",
+      "type": "hinge",
+      "pivot": [
+        0.0,
+        0.0869,
+        0.138
+      ],
+      "axis": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "range": [
+        0,
+        12
+      ],
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "Mag",
+      "parent": "Root",
+      "type": "slide",
+      "pivot": [
+        0.0,
+        -0.05,
+        0.22
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "range": [
+        0,
+        0.015
+      ],
+      "channel": "location_y_m"
+    },
+    {
+      "bone": "MagLatch",
+      "parent": "Root",
+      "type": "hinge",
+      "pivot": [
+        0.0,
+        -0.121,
+        0.15
+      ],
+      "axis": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "range": [
+        0,
+        25
+      ],
+      "channel": "rotation_x_deg"
+    }
+  ],
+  "animations": {
+    "idle": {
+      "frames": [
+        0,
+        60
+      ],
+      "fps": 30,
+      "loop": true,
+      "joints": [
+        "Trigger"
+      ]
+    },
+    "fire": {
+      "frames": [
+        0,
+        32
+      ],
+      "fps": 30,
+      "loop": false,
+      "joints": [
+        "Barrel",
+        "FeedRam",
+        "LoadedGrenade",
+        "Trigger"
+      ]
+    },
+    "cycle": {
+      "frames": [
+        0,
+        32
+      ],
+      "fps": 30,
+      "loop": false,
+      "joints": [
+        "FeedRam"
+      ]
+    },
+    "mag_release": {
+      "frames": [
+        0,
+        12
+      ],
+      "fps": 30,
+      "loop": false,
+      "joints": [
+        "FeedRam",
+        "Mag",
+        "MagLatch"
+      ]
+    },
+    "mag_insert": {
+      "frames": [
+        0,
+        12
+      ],
+      "fps": 30,
+      "loop": false,
+      "joints": [
+        "FeedRam",
+        "Mag",
+        "MagLatch"
+      ]
+    }
+  },
+  "fire": {
+    "launch_frame": 4,
+    "spawn_frame": 4,
+    "index_deg": 0,
+    "frames": 32,
+    "recoil_m": 0.01,
+    "recoil_frames": [
+      15,
+      15
+    ],
+    "note": "Single bore; 10 mm recoil over 30 frames. Feed piston remains closed through firing, withdraws 153 mm after frame 4, then returns to battery. Spawn ballistic grenade at frame 4. Circular cassette uses a spring follower; no rotating barrel carrier."
+  },
+  "gizmos": {
+    "convention": "empties: in Blender local +Y is the gizmo's forward and +Z its up; in glTF / Godot -Z is forward and +Y up (Marker3D / Node3D under a BoneAttachment3D, so they follow the animations)",
+    "muzzles": [
+      {
+        "name": "Muzzle1",
+        "bone": "Barrel",
+        "position": [
+          0.0,
+          -0.29,
+          0.2
+        ],
+        "forward": [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        "up": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    ],
+    "muzzle_note": "Muzzle1 is 10 mm ahead of the single barrel and rides its recoil slide.",
+    "backblast": {
+      "name": "Backblast",
+      "bone": "Root",
+      "position": [
+        0.0,
+        0.15,
+        0.25
+      ],
+      "forward": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "up": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    "backblast_note": "Legacy marker name for the receiver pressure purge; the ballistic grenade has no motor.",
+    "shell_ejection": {
+      "name": "ShellEject",
+      "bone": "Root",
+      "note": "Service/purge location; caseless grenades have no brass case to eject."
+    }
+  },
+  "ammo_hand_socket": {
+    "hand_bone": "LeftHand",
+    "bone": "Mag",
+    "grips": "the ammo pack for a reload, a wide grip: palm on its outer end, fingers across it and over its far edge, thumb up its front",
+    "note": "given at the pack's rest; the empty rides the Mag bone. For a reload, put the support hand on it where the pack is (released), carry the pack in that hand (pack = hand_bone_global * socket_in_pack.inverse()) and put it back the same way",
+    "wrist_blender": [
+      0.028,
+      -0.0455,
+      0.032
+    ],
+    "bone_x_blender": [
+      0.0,
+      1.0,
+      0.0
+    ],
+    "bone_y_blender": [
+      -1.0,
+      0.0,
+      0.0
+    ],
+    "bone_z_blender": [
+      -0.0,
+      -0.0,
+      1.0
+    ],
+    "wrist_godot": [
+      0.028,
+      0.032,
+      0.0455
+    ],
+    "bone_x_godot": [
+      0.0,
+      0.0,
+      -1.0
+    ],
+    "bone_y_godot": [
+      -1.0,
+      0.0,
+      -0.0
+    ],
+    "bone_z_godot": [
+      -0.0,
+      1.0,
+      0.0
+    ],
+    "grip_pose_deg": {
+      "LeftIndexProximal": [
+        45.0,
+        0,
+        0
+      ],
+      "LeftIndexIntermediate": [
+        49.5,
+        0,
+        0
+      ],
+      "LeftIndexDistal": [
+        36.0,
+        0,
+        0
+      ],
+      "LeftMiddleProximal": [
+        50.0,
+        0,
+        0
+      ],
+      "LeftMiddleIntermediate": [
+        55.0,
+        0,
+        0
+      ],
+      "LeftMiddleDistal": [
+        40.0,
+        0,
+        0
+      ],
+      "LeftRingProximal": [
+        50.0,
+        0,
+        0
+      ],
+      "LeftRingIntermediate": [
+        55.0,
+        0,
+        0
+      ],
+      "LeftRingDistal": [
+        40.0,
+        0,
+        0
+      ],
+      "LeftLittleProximal": [
+        45.0,
+        0,
+        0
+      ],
+      "LeftLittleIntermediate": [
+        49.5,
+        0,
+        0
+      ],
+      "LeftLittleDistal": [
+        36.0,
+        0,
+        0
+      ],
+      "LeftThumbMetacarpal": [
+        25,
+        0,
+        40
+      ],
+      "LeftThumbProximal": [
+        15,
+        0,
+        0
+      ],
+      "LeftThumbDistal": [
+        15,
+        0,
+        0
+      ]
+    }
+  },
+  "hand_sockets": {
+    "convention": "origin = the wrist pivot (the head of the character's Hand bone); the socket's glTF / Godot basis IS the Hand bone's basis for that grip (Tensor: X along the knuckle line, the left thumb on -X and the right on +X, Y from the wrist to the knuckles, Z out of the palm). In Godot set the hand bone's global pose to the socket's transform (relative to the skeleton) and solve the arm to reach it; or carry the gun in the right hand with gun = hand_bone_global * RightHandSocket_local.inverse(). In Blender the empties' own axes are (X, -Z, Y) of the bone frame because the exporter converts empties, not bones.",
+    "grip_pose": "grip_pose_deg per socket: Tensor's finger and thumb bone rotations (local XYZ, degrees) that close each hand onto its grip (animations/retarget.py closes Tensor's hands to them); the right index finger curls in to the trigger",
+    "LeftHandSocket": {
+      "hand_bone": "LeftHand",
+      "grips": "machined flat beneath circular drum",
+      "wrist_blender": [
+        0.0861,
+        0.008,
+        0.0532
+      ],
+      "bone_x_blender": [
+        -0.6259,
+        0.7459,
+        -0.2278
+      ],
+      "bone_y_blender": [
+        -0.7009,
+        -0.6661,
+        -0.2551
+      ],
+      "bone_z_blender": [
+        -0.342,
+        -0.0,
+        0.9397
+      ],
+      "wrist_godot": [
+        0.0861,
+        0.0532,
+        -0.008
+      ],
+      "bone_x_godot": [
+        -0.6259,
+        -0.2278,
+        -0.7459
+      ],
+      "bone_y_godot": [
+        -0.7009,
+        -0.2551,
+        0.6661
+      ],
+      "bone_z_godot": [
+        -0.342,
+        0.9397,
+        0.0
+      ],
+      "grip_pose_deg": {
+        "LeftIndexProximal": [
+          10.0,
+          0,
+          0
+        ],
+        "LeftIndexIntermediate": [
+          11.0,
+          0,
+          0
+        ],
+        "LeftIndexDistal": [
+          8.0,
+          0,
+          0
+        ],
+        "LeftMiddleProximal": [
+          19.0,
+          0,
+          0
+        ],
+        "LeftMiddleIntermediate": [
+          20.9,
+          0,
+          0
+        ],
+        "LeftMiddleDistal": [
+          15.2,
+          0,
+          0
+        ],
+        "LeftRingProximal": [
+          24.0,
+          0,
+          0
+        ],
+        "LeftRingIntermediate": [
+          26.4,
+          0,
+          0
+        ],
+        "LeftRingDistal": [
+          19.2,
+          0,
+          0
+        ],
+        "LeftLittleProximal": [
+          27.0,
+          0,
+          0
+        ],
+        "LeftLittleIntermediate": [
+          29.7,
+          0,
+          0
+        ],
+        "LeftLittleDistal": [
+          21.6,
+          0,
+          0
+        ],
+        "LeftThumbMetacarpal": [
+          24,
+          0,
+          25
+        ],
+        "LeftThumbProximal": [
+          16,
+          0,
+          0
+        ],
+        "LeftThumbDistal": [
+          16,
+          0,
+          0
+        ]
+      },
+      "bone": "Mag"
+    },
+    "RightHandSocket": {
+      "hand_bone": "RightHand",
+      "grips": "pistol grip",
+      "wrist_blender": [
+        -0.03,
+        0.214,
+        0.1046
+      ],
+      "bone_x_blender": [
+        0.0,
+        -0.2588,
+        0.9659
+      ],
+      "bone_y_blender": [
+        0.0,
+        -0.9659,
+        -0.2588
+      ],
+      "bone_z_blender": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "wrist_godot": [
+        -0.03,
+        0.1046,
+        -0.214
+      ],
+      "bone_x_godot": [
+        0.0,
+        0.9659,
+        0.2588
+      ],
+      "bone_y_godot": [
+        0.0,
+        -0.2588,
+        0.9659
+      ],
+      "bone_z_godot": [
+        1.0,
+        0.0,
+        -0.0
+      ],
+      "grip_pose_deg": {
+        "RightIndexProximal": [
+          36.0,
+          0,
+          0
+        ],
+        "RightIndexIntermediate": [
+          39.6,
+          0,
+          0
+        ],
+        "RightIndexDistal": [
+          28.8,
+          0,
+          0
+        ],
+        "RightMiddleProximal": [
+          65.0,
+          0,
+          0
+        ],
+        "RightMiddleIntermediate": [
+          71.5,
+          0,
+          0
+        ],
+        "RightMiddleDistal": [
+          52.0,
+          0,
+          0
+        ],
+        "RightRingProximal": [
+          65.0,
+          0,
+          0
+        ],
+        "RightRingIntermediate": [
+          71.5,
+          0,
+          0
+        ],
+        "RightRingDistal": [
+          52.0,
+          0,
+          0
+        ],
+        "RightLittleProximal": [
+          52.0,
+          0,
+          0
+        ],
+        "RightLittleIntermediate": [
+          57.2,
+          0,
+          0
+        ],
+        "RightLittleDistal": [
+          41.6,
+          0,
+          0
+        ],
+        "RightThumbMetacarpal": [
+          42,
+          0,
+          -25
+        ],
+        "RightThumbProximal": [
+          50,
+          0,
+          0
+        ],
+        "RightThumbDistal": [
+          50,
+          0,
+          0
+        ]
+      }
+    }
+  },
+  "ammo": {
+    "mesh": "SM_GrenadeLauncherAmmo in grenade_launcher_ammo.glb, at the AmmoMount gizmo",
+    "bone": "Mag",
+    "pickup_file": "grenade_launcher_ammo.glb",
+    "pickup_mesh": "SM_GrenadeLauncherAmmo",
+    "pickup_origin": "its bottom centre",
+    "rockets": 5,
+    "rails_m": 0.015,
+    "note": "Separate cylindrical six-station spring drum, five rounds retained and the sixth chambered; release the cam catch then slide down 15 mm before detachment.",
+    "rounds": 5,
+    "capacity": 6
+  },
+  "rocket": {
+    "file": "grenade_launcher_rocket.glb",
+    "mesh": "SK_GrenadeLauncherRocket",
+    "rig": "RIG_GrenadeLauncherRocket",
+    "triangles": 290,
+    "origin": "sealed tail centre; unpowered ballistic grenade",
+    "length_m": 0.082,
+    "diameter_m": 0.032,
+    "joints": [
+      {
+        "bone": "GrenadeBody",
+        "parent": null,
+        "type": "fixed",
+        "pivot": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "axis": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "range": null
+      }
+    ],
+    "animations": {},
+    "gizmos": [
+      {
+        "name": "Warhead",
+        "bone": "GrenadeBody",
+        "position": [
+          0.0,
+          -0.083,
+          0.0
+        ],
+        "forward": [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        "up": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    ],
+    "gizmo_note": "Warhead marks the grenade nose. This ballistic projectile has no motor or exhaust emitter."
+  },
+  "usage": "Library-only. idle, fire, cycle, mag_release, mag_insert. No game integration.",
+  "primary_srgb": "#746b5a",
+  "grenade": {
+    "file": "grenade_launcher_grenade.glb",
+    "mesh": "SK_GrenadeLauncherRocket",
+    "rig": "RIG_GrenadeLauncherRocket",
+    "triangles": 290,
+    "origin": "sealed tail centre; unpowered ballistic grenade",
+    "length_m": 0.082,
+    "diameter_m": 0.032,
+    "joints": [
+      {
+        "bone": "GrenadeBody",
+        "parent": null,
+        "type": "fixed",
+        "pivot": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "axis": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "range": null
+      }
+    ],
+    "animations": {},
+    "gizmos": [
+      {
+        "name": "Warhead",
+        "bone": "GrenadeBody",
+        "position": [
+          0.0,
+          -0.083,
+          0.0
+        ],
+        "forward": [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        "up": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    ],
+    "gizmo_note": "Warhead marks the grenade nose. This ballistic projectile has no motor or exhaust emitter."
+  },
+  "ammo_mount": {
+    "gizmo": "AmmoMount",
+    "bone": "Mag",
+    "model": "grenade_launcher_ammo.glb",
+    "mesh": "SM_GrenadeLauncherAmmo",
+    "position_blender": [
+      -0.0,
+      -0.05,
+      0.048
+    ],
+    "rotation_wxyz_blender": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "position_godot": [
+      -0.0,
+      0.048,
+      0.05
+    ],
+    "note": "the ammo pack is its own model (<name>_ammo.glb / .fbx / .blend, its origin at its bottom centre, square to its own axes, its real size): parent its mesh to the AmmoMount node unmoved and it rides the Mag bone where the weapon's actions put it (a reload's release and insert); the weapon's own files carry no pack mesh. The same model is the ammo pickup."
+  },
+  "material_classifiers": {
+    "M_Bronze_Metallic": "Metallic",
+    "M_Emissive": "Emissive",
+    "M_Frame_Metallic": "Metallic",
+    "M_Glass": "Glass",
+    "M_Joint_Metallic": "Metallic",
+    "M_Metal_Metallic": "Metallic",
+    "M_Primary_Metallic": "Metallic",
+    "M_Secondary_Diffuse": "Diffuse"
+  }
+}

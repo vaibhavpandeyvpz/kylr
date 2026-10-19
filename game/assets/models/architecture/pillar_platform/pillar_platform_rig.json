@@ -1,0 +1,114 @@
+{
+  "name": "pillar_platform",
+  "static": true,
+  "animations": [],
+  "triangles": 2084,
+  "triangle_budget": 5000,
+  "bounds_m": {
+    "lo": [
+      -0.5,
+      -0.5,
+      -0.5
+    ],
+    "hi": [
+      0.5,
+      0.5,
+      0.5
+    ]
+  },
+  "origin": "block centre",
+  "bones": [
+    {
+      "name": "Root",
+      "kind": "fixed"
+    }
+  ],
+  "materials_source": "gameplay/item_table/model.py MATERIALS",
+  "recess_clearance_per_side_m": 0.001,
+  "block_dimensions_m": [
+    1,
+    1,
+    1
+  ],
+  "roof_equipment": null,
+  "cavity_depth_m": null,
+  "gizmos": [
+    {
+      "name": "PillarMountTop",
+      "attachment": "pillar",
+      "bone": "Root",
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          -7.549790126404332e-08,
+          0.0
+        ],
+        [
+          0.0,
+          7.549790126404332e-08,
+          1.0,
+          0.5
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "origin": [
+        0.0,
+        0.0,
+        0.5
+      ]
+    },
+    {
+      "name": "PillarMountBottom",
+      "attachment": "pillar",
+      "bone": "Root",
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          -1.0,
+          -7.549790126404332e-08,
+          0.0
+        ],
+        [
+          0.0,
+          7.549790126404332e-08,
+          -1.0,
+          -0.5
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "origin": [
+        0.0,
+        0.0,
+        -0.5
+      ]
+    }
+  ],
+  "preview_only": "Separate native fixture imported onto attachment gizmo; not exported",
+  "material_classifiers": {
+    "M_Primary_Diffuse": "Diffuse",
+    "M_Secondary_Diffuse": "Diffuse"
+  }
+}

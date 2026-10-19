@@ -1,0 +1,783 @@
+{
+  "name": "emp_gun",
+  "space": "Blender coords: +Z up, the muzzle points -Y, the origin is the gun's bottom centre (the pistol grip's pommel plane, midway along the gun). glTF/Godot: (x, z, -y), so the muzzle points +Z (glTF's front). Hinges turn about their bone's local X (degrees), slides move along their bone's local Y (metres).",
+  "rest": "waveguide home, intake shut, battery in, catch out, trigger released",
+  "size_m": {
+    "wide": 0.102,
+    "long": 0.669,
+    "high": 0.324,
+    "max_wide_long_high": [
+      0.25,
+      0.75,
+      0.35
+    ],
+    "bore_axis_height": 0.205,
+    "note": "every weapon fits 0.25 x 0.75 x 0.35 m; it fits the item table's and the weapon holder's hatches and the item table's 0.5 m tall-weapon stroke"
+  },
+  "materials": [
+    "M_Primary_Metallic",
+    "M_Secondary_Diffuse",
+    "M_Frame_Metallic",
+    "M_Joint_Metallic",
+    "M_Emissive",
+    "M_Bronze_Metallic",
+    "M_Glass",
+    "M_Metal_Metallic"
+  ],
+  "triangles": {
+    "SK_EmpGun": 3973,
+    "SK_EmpGunAmmo": 494,
+    "SM_EmpGunAmmo": 494
+  },
+  "joints": [
+    {
+      "bone": "Root",
+      "parent": null,
+      "type": "fixed",
+      "pivot": [
+        0.0,
+        0.0274,
+        0.0
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": null,
+      "channel": null
+    },
+    {
+      "bone": "Barrel",
+      "parent": "Root",
+      "type": "slide",
+      "pivot": [
+        0.0,
+        -0.0676,
+        0.205
+      ],
+      "axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "range": [
+        0,
+        0.01
+      ],
+      "channel": "location_y_m"
+    },
+    {
+      "bone": "Trigger",
+      "parent": "Root",
+      "type": "hinge",
+      "pivot": [
+        0.0,
+        0.1143,
+        0.138
+      ],
+      "axis": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "range": [
+        0,
+        12
+      ],
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "Intake",
+      "parent": "Root",
+      "type": "hinge",
+      "pivot": [
+        0.0,
+        0.0613,
+        0.2777
+      ],
+      "axis": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "range": [
+        0,
+        24
+      ],
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "Mag",
+      "parent": "Root",
+      "type": "slide",
+      "pivot": [
+        0.0,
+        0.0424,
+        0.082
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "range": [
+        0,
+        0.020000000000000018
+      ],
+      "channel": "location_y_m"
+    },
+    {
+      "bone": "MagCatch",
+      "parent": "Root",
+      "type": "slide",
+      "pivot": [
+        0.0,
+        0.0516,
+        0.1548
+      ],
+      "axis": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "range": [
+        0,
+        0.01
+      ],
+      "channel": "location_y_m"
+    }
+  ],
+  "pistons": [
+    {
+      "name": "IntakeLeftAct",
+      "barrel_bone": "IntakeLeftActCylinder",
+      "rod_bone": "IntakeLeftActRod",
+      "barrel_on": "Root",
+      "rod_on": "Intake",
+      "pin_a": [
+        0.017,
+        -0.085,
+        0.2687
+      ],
+      "pin_b": [
+        0.017,
+        -0.0259,
+        0.2855
+      ],
+      "radius": 0.0035,
+      "stroke_m": [
+        0.0615,
+        0.0787
+      ]
+    },
+    {
+      "name": "IntakeRightAct",
+      "barrel_bone": "IntakeRightActCylinder",
+      "rod_bone": "IntakeRightActRod",
+      "barrel_on": "Root",
+      "rod_on": "Intake",
+      "pin_a": [
+        -0.017,
+        -0.085,
+        0.2687
+      ],
+      "pin_b": [
+        -0.017,
+        -0.0259,
+        0.2855
+      ],
+      "radius": 0.0035,
+      "stroke_m": [
+        0.0615,
+        0.0787
+      ]
+    }
+  ],
+  "pistons_note": "each intake actuator is baked into the actions (its barrel and rod bones' rotations); in a pose of your own, aim the barrel at the rod's pin and the rod at the barrel's",
+  "animations": {
+    "idle": {
+      "frames": [
+        0,
+        60
+      ],
+      "fps": 30,
+      "loop": true,
+      "joints": [
+        "Intake"
+      ]
+    },
+    "fire_start": {
+      "frames": [
+        0,
+        8
+      ],
+      "fps": 30,
+      "loop": false,
+      "joints": [
+        "Intake",
+        "Trigger"
+      ]
+    },
+    "fire": {
+      "frames": [
+        0,
+        30
+      ],
+      "fps": 30,
+      "loop": true,
+      "joints": [
+        "Barrel",
+        "Intake",
+        "Trigger"
+      ]
+    },
+    "fire_end": {
+      "frames": [
+        0,
+        14
+      ],
+      "fps": 30,
+      "loop": false,
+      "joints": [
+        "Intake",
+        "Trigger"
+      ]
+    },
+    "mag_release": {
+      "frames": [
+        0,
+        15
+      ],
+      "fps": 30,
+      "loop": false,
+      "joints": [
+        "Mag",
+        "MagCatch"
+      ]
+    },
+    "mag_insert": {
+      "frames": [
+        0,
+        15
+      ],
+      "fps": 30,
+      "loop": false,
+      "joints": [
+        "Mag",
+        "MagCatch"
+      ]
+    }
+  },
+  "fire": {
+    "pulse": "primary fire (hold): play fire_start once (8 frames: the trigger pulls, the intake door opens 24 deg), then loop fire (30 frames = one EMP pulse: spawn it at Muzzle on the loop's frame 0, as the waveguide starts 1 cm back, 15 frames back, 15 home; the door flutters 3 deg), and on release play fire_end (14 frames: the door closes).",
+    "air": "while the door is open (fire_start to fire_end) draw air into AirIntake (particles moving against its forward axis) and puff hot air out of the Vent gizmos on each pulse",
+    "idle": "loop idle between shots: the intake door breathes 3 deg open and shut over 60 frames on its actuators. Every action starts and ends with the door where the next begins, so they chain without a jump.",
+    "recoil_m": 0.01,
+    "recoil_frames": [
+      15,
+      15
+    ]
+  },
+  "gizmos": {
+    "convention": "empties: in Blender local +Y is the gizmo's forward and +Z its up; in glTF / Godot -Z is forward and +Y up (Marker3D / Node3D under a BoneAttachment3D, so they follow the animations)",
+    "muzzle": {
+      "name": "Muzzle",
+      "bone": "Barrel",
+      "position": [
+        0.0,
+        -0.3446,
+        0.205
+      ],
+      "forward": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "up": [
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    "muzzle_note": "1 cm in front of the muzzle head's aperture, on the waveguide's bone (it recoils with it): the EMP pulse's origin and direction, and where to play the muzzle's air effects",
+    "air_intake": {
+      "name": "AirIntake",
+      "bone": "Root",
+      "position": [
+        0.0,
+        -0.0068,
+        0.2737
+      ],
+      "forward": [
+        -0.0,
+        -0.9892,
+        -0.1468
+      ],
+      "up": [
+        0.0,
+        -0.1468,
+        0.9892
+      ]
+    },
+    "air_intake_note": "in the mouth the intake door opens on the top, facing forward up the top's incline: draw the cooling air in toward it while firing",
+    "vents": [
+      {
+        "name": "VentLeft",
+        "bone": "Root",
+        "position": [
+          0.032,
+          0.1874,
+          0.2625
+        ],
+        "forward": [
+          1.0,
+          0.0,
+          0.0
+        ],
+        "up": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      },
+      {
+        "name": "VentRight",
+        "bone": "Root",
+        "position": [
+          -0.032,
+          0.1874,
+          0.2625
+        ],
+        "forward": [
+          -1.0,
+          0.0,
+          0.0
+        ],
+        "up": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    ],
+    "vent_note": "the middle of each upper flank's exhaust slots, forward out of the flank: hot air or shimmer on each pulse"
+  },
+  "ammo_hand_socket": {
+    "hand_bone": "LeftHand",
+    "bone": "Mag",
+    "grips": "the ammo pack for a reload, a wide grip: palm on its outer end, fingers across it and over its far edge, thumb up its front",
+    "note": "given at the pack's rest; the empty rides the Mag bone. For a reload, put the support hand on it where the pack is (released), carry the pack in that hand (pack = hand_bone_global * socket_in_pack.inverse()) and put it back the same way",
+    "wrist_blender": [
+      0.0665,
+      0.0424,
+      0.054
+    ],
+    "bone_x_blender": [
+      0.0,
+      1.0,
+      0.0
+    ],
+    "bone_y_blender": [
+      -1.0,
+      0.0,
+      0.0
+    ],
+    "bone_z_blender": [
+      -0.0,
+      -0.0,
+      1.0
+    ],
+    "wrist_godot": [
+      0.0665,
+      0.054,
+      -0.0424
+    ],
+    "bone_x_godot": [
+      0.0,
+      0.0,
+      -1.0
+    ],
+    "bone_y_godot": [
+      -1.0,
+      0.0,
+      -0.0
+    ],
+    "bone_z_godot": [
+      -0.0,
+      1.0,
+      0.0
+    ],
+    "grip_pose_deg": {
+      "LeftIndexProximal": [
+        45.0,
+        0,
+        0
+      ],
+      "LeftIndexIntermediate": [
+        49.5,
+        0,
+        0
+      ],
+      "LeftIndexDistal": [
+        36.0,
+        0,
+        0
+      ],
+      "LeftMiddleProximal": [
+        50.0,
+        0,
+        0
+      ],
+      "LeftMiddleIntermediate": [
+        55.0,
+        0,
+        0
+      ],
+      "LeftMiddleDistal": [
+        40.0,
+        0,
+        0
+      ],
+      "LeftRingProximal": [
+        50.0,
+        0,
+        0
+      ],
+      "LeftRingIntermediate": [
+        55.0,
+        0,
+        0
+      ],
+      "LeftRingDistal": [
+        40.0,
+        0,
+        0
+      ],
+      "LeftLittleProximal": [
+        45.0,
+        0,
+        0
+      ],
+      "LeftLittleIntermediate": [
+        49.5,
+        0,
+        0
+      ],
+      "LeftLittleDistal": [
+        36.0,
+        0,
+        0
+      ],
+      "LeftThumbMetacarpal": [
+        25,
+        0,
+        40
+      ],
+      "LeftThumbProximal": [
+        15,
+        0,
+        0
+      ],
+      "LeftThumbDistal": [
+        15,
+        0,
+        0
+      ]
+    }
+  },
+  "hand_sockets": {
+    "convention": "origin = the wrist pivot (the head of the character's Hand bone); the socket's glTF / Godot basis IS the Hand bone's basis for that grip (Tensor: X along the knuckle line, the left thumb on -X and the right on +X, Y from the wrist to the knuckles, Z out of the palm). In Godot set the hand bone's global pose to the socket's transform (relative to the skeleton) and solve the arm to reach it; or carry the gun in the right hand with gun = hand_bone_global * RightHandSocket_local.inverse(). In Blender the empties' own axes are (X, -Z, Y) of the bone frame because the exporter converts empties, not bones.",
+    "grip_pose": "grip_pose_deg per socket: Tensor's finger and thumb bone rotations (local XYZ, degrees) that close each hand onto its grip (animations/retarget.py closes Tensor's hands to them); the right index finger curls in to the trigger",
+    "LeftHandSocket": {
+      "hand_bone": "LeftHand",
+      "grips": "the forend, from below, palm up",
+      "wrist_blender": [
+        0.0771,
+        -0.0166,
+        0.1642
+      ],
+      "bone_x_blender": [
+        -0.6259,
+        0.7459,
+        -0.2278
+      ],
+      "bone_y_blender": [
+        -0.7009,
+        -0.6661,
+        -0.2551
+      ],
+      "bone_z_blender": [
+        -0.342,
+        -0.0,
+        0.9397
+      ],
+      "wrist_godot": [
+        0.0771,
+        0.1642,
+        0.0166
+      ],
+      "bone_x_godot": [
+        -0.6259,
+        -0.2278,
+        -0.7459
+      ],
+      "bone_y_godot": [
+        -0.7009,
+        -0.2551,
+        0.6661
+      ],
+      "bone_z_godot": [
+        -0.342,
+        0.9397,
+        0.0
+      ],
+      "grip_pose_deg": {
+        "LeftIndexProximal": [
+          10.0,
+          0,
+          0
+        ],
+        "LeftIndexIntermediate": [
+          11.0,
+          0,
+          0
+        ],
+        "LeftIndexDistal": [
+          8.0,
+          0,
+          0
+        ],
+        "LeftMiddleProximal": [
+          19.0,
+          0,
+          0
+        ],
+        "LeftMiddleIntermediate": [
+          20.9,
+          0,
+          0
+        ],
+        "LeftMiddleDistal": [
+          15.2,
+          0,
+          0
+        ],
+        "LeftRingProximal": [
+          24.0,
+          0,
+          0
+        ],
+        "LeftRingIntermediate": [
+          26.4,
+          0,
+          0
+        ],
+        "LeftRingDistal": [
+          19.2,
+          0,
+          0
+        ],
+        "LeftLittleProximal": [
+          27.0,
+          0,
+          0
+        ],
+        "LeftLittleIntermediate": [
+          29.7,
+          0,
+          0
+        ],
+        "LeftLittleDistal": [
+          21.6,
+          0,
+          0
+        ],
+        "LeftThumbMetacarpal": [
+          24,
+          0,
+          25
+        ],
+        "LeftThumbProximal": [
+          16,
+          0,
+          0
+        ],
+        "LeftThumbDistal": [
+          16,
+          0,
+          0
+        ]
+      }
+    },
+    "RightHandSocket": {
+      "hand_bone": "RightHand",
+      "grips": "pistol grip",
+      "wrist_blender": [
+        -0.03,
+        0.2414,
+        0.1046
+      ],
+      "bone_x_blender": [
+        0.0,
+        -0.2588,
+        0.9659
+      ],
+      "bone_y_blender": [
+        0.0,
+        -0.9659,
+        -0.2588
+      ],
+      "bone_z_blender": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "wrist_godot": [
+        -0.03,
+        0.1046,
+        -0.2414
+      ],
+      "bone_x_godot": [
+        0.0,
+        0.9659,
+        0.2588
+      ],
+      "bone_y_godot": [
+        0.0,
+        -0.2588,
+        0.9659
+      ],
+      "bone_z_godot": [
+        1.0,
+        0.0,
+        -0.0
+      ],
+      "grip_pose_deg": {
+        "RightIndexProximal": [
+          36.0,
+          0,
+          0
+        ],
+        "RightIndexIntermediate": [
+          39.6,
+          0,
+          0
+        ],
+        "RightIndexDistal": [
+          28.8,
+          0,
+          0
+        ],
+        "RightMiddleProximal": [
+          65.0,
+          0,
+          0
+        ],
+        "RightMiddleIntermediate": [
+          71.5,
+          0,
+          0
+        ],
+        "RightMiddleDistal": [
+          52.0,
+          0,
+          0
+        ],
+        "RightRingProximal": [
+          65.0,
+          0,
+          0
+        ],
+        "RightRingIntermediate": [
+          71.5,
+          0,
+          0
+        ],
+        "RightRingDistal": [
+          52.0,
+          0,
+          0
+        ],
+        "RightLittleProximal": [
+          52.0,
+          0,
+          0
+        ],
+        "RightLittleIntermediate": [
+          57.2,
+          0,
+          0
+        ],
+        "RightLittleDistal": [
+          41.6,
+          0,
+          0
+        ],
+        "RightThumbMetacarpal": [
+          42,
+          0,
+          -25
+        ],
+        "RightThumbProximal": [
+          50,
+          0,
+          0
+        ],
+        "RightThumbDistal": [
+          50,
+          0,
+          0
+        ]
+      }
+    }
+  },
+  "ammo": {
+    "mesh": "SM_EmpGunAmmo in emp_gun_ammo.glb, at the AmmoMount gizmo",
+    "bone": "Mag",
+    "pickup_file": "emp_gun_ammo.glb",
+    "pickup_mesh": "SM_EmpGunAmmo",
+    "pickup_origin": "its bottom centre, level",
+    "axis": [
+      0,
+      0,
+      -1
+    ],
+    "travel_m": 0.02,
+    "note": "mag_release presses the catch and drops the battery out of its dock (its lock post out of the bore); past its travel it is free: hide the battery's mesh and drop a physics copy of the pickup mesh at the Mag bone's transform. To reload, put the battery back at the end of its travel and play mag_insert (the catch snaps into the post's groove)."
+  },
+  "usage": "idle (loop); fire: fire_start, fire (loop, one pulse a loop), fire_end; reload: mag_release, mag_insert.",
+  "ammo_mount": {
+    "gizmo": "AmmoMount",
+    "bone": "Mag",
+    "model": "emp_gun_ammo.glb",
+    "mesh": "SM_EmpGunAmmo",
+    "position_blender": [
+      -0.0,
+      0.0424,
+      0.07
+    ],
+    "rotation_wxyz_blender": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "position_godot": [
+      -0.0,
+      0.07,
+      -0.0424
+    ],
+    "note": "the ammo pack is its own model (<name>_ammo.glb / .fbx / .blend, its origin at its bottom centre, square to its own axes, its real size): parent its mesh to the AmmoMount node unmoved and it rides the Mag bone where the weapon's actions put it (a reload's release and insert); the weapon's own files carry no pack mesh. The same model is the ammo pickup."
+  },
+  "material_classifiers": {
+    "M_Bronze_Metallic": "Metallic",
+    "M_Emissive": "Emissive",
+    "M_Frame_Metallic": "Metallic",
+    "M_Glass": "Glass",
+    "M_Joint_Metallic": "Metallic",
+    "M_Metal_Metallic": "Metallic",
+    "M_Primary_Metallic": "Metallic",
+    "M_Secondary_Diffuse": "Diffuse"
+  }
+}

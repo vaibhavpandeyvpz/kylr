@@ -1,0 +1,204 @@
+{
+  "name": "habitat_pod",
+  "triangles": 7491,
+  "triangle_budget": 7500,
+  "meshes": {
+    "SK_HabitatPod": 7491
+  },
+  "materials": [
+    "M_Emissive",
+    "M_Frame_Diffuse",
+    "M_Glass",
+    "M_Joint_Diffuse",
+    "M_Primary_Diffuse",
+    "M_Secondary_Diffuse"
+  ],
+  "bounds_m": {
+    "lo": [
+      -1.988999843597412,
+      -1.9099998474121094,
+      0.0
+    ],
+    "hi": [
+      1.988999843597412,
+      1.8480000495910645,
+      3.652606725692749
+    ]
+  },
+  "bones": [
+    {
+      "name": "Root",
+      "parent": null,
+      "kind": "fixed"
+    },
+    {
+      "name": "Door",
+      "parent": "Root",
+      "kind": "hinge"
+    },
+    {
+      "name": "Lock",
+      "parent": "Door",
+      "kind": "slide"
+    }
+  ],
+  "animations": {
+    "open": {
+      "frames": [
+        0.0,
+        96.0
+      ],
+      "fps": 30,
+      "loop": false
+    },
+    "close": {
+      "frames": [
+        0.0,
+        96.0
+      ],
+      "fps": 30,
+      "loop": false
+    }
+  },
+  "joints": [
+    {
+      "bone": "Root",
+      "type": "fixed",
+      "parent": null,
+      "pivot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "axis": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "range": null
+    },
+    {
+      "bone": "Door",
+      "type": "hinge",
+      "parent": "Root",
+      "pivot": [
+        -0.6800000071525574,
+        -1.840000033378601,
+        1.7964454889297485
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        -105,
+        0
+      ]
+    },
+    {
+      "bone": "Lock",
+      "type": "slide",
+      "parent": "Door",
+      "pivot": [
+        0.46000000834465027,
+        -1.8289999961853027,
+        2.3488149642944336
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        -0.09952606606869524,
+        0.0
+      ]
+    }
+  ],
+  "gizmos": [
+    {
+      "name": "PlayerMount",
+      "bone": "Root",
+      "position_m": [
+        0.0,
+        0.0,
+        0.7464454770088196
+      ]
+    },
+    {
+      "name": "BattenLightMountCenter",
+      "bone": "Root",
+      "origin": [
+        0.0,
+        0.0,
+        3.145023822784424
+      ],
+      "mount_normal": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "attachment": "batten_light",
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          -0.0,
+          0.0
+        ],
+        [
+          -0.0,
+          1.0,
+          -0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          3.145023822784424
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    }
+  ],
+  "tensor_height_m": 1.753,
+  "deck_height_m": 0.7464454976303319,
+  "clear_door_m": [
+    1.2,
+    2.1
+  ],
+  "checks": {
+    "connected_parts": 210,
+    "exact_solid_pairs": 172,
+    "motion_states": 300
+  },
+  "placement": "front -Y, up Z, ground origin; library only",
+  "architecture_dimensions": {
+    "door_type": "single",
+    "opening_width_m": 1.2,
+    "opening_height_m": 2.1,
+    "rooms": [
+      {
+        "floor_m": 0.7464454976303319,
+        "ceiling_m": 3.1450236966824647,
+        "height_m": 2.398578199052133
+      }
+    ],
+    "measurement": "Open structural aperture; floor top to ceiling underside; chamfers reduce local clearance"
+  },
+  "material_classifiers": {
+    "M_Emissive": "Emissive",
+    "M_Frame_Diffuse": "Diffuse",
+    "M_Glass": "Glass",
+    "M_Joint_Diffuse": "Diffuse",
+    "M_Primary_Diffuse": "Diffuse",
+    "M_Secondary_Diffuse": "Diffuse"
+  }
+}

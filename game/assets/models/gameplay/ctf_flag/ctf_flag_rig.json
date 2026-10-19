@@ -1,0 +1,826 @@
+{
+  "name": "ctf_flag",
+  "space": "Blender coords: +Z up, front -Y, left +X; the origin is on the ground under the spine (GroundMount). glTF/Godot: (x, z, -y). Hinges turn about their bones' local X (degrees).",
+  "rest": "standing: legs deployed, latch open, cloth flat",
+  "size_m": {
+    "height_standing": 1.2495,
+    "length_stowed": 0.9995,
+    "limits": [
+      1.25,
+      1.0
+    ],
+    "pole_width_max": 0.05,
+    "foot_reach": 0.25,
+    "pole_bottom_standing": 0.25,
+    "cloth": {
+      "fly": 0.5,
+      "height": 0.33
+    }
+  },
+  "mounts": {
+    "ground": {
+      "gizmo": "GroundMount",
+      "note": "stand the flag with GroundMount on the ground (its legs deployed: play deploy, or the rest pose); its three pads' soles are at its origin's height"
+    },
+    "back": {
+      "gizmo": "BackMount",
+      "note": "play stow, then match BackMount to the carrier's FlagMount (position and axes; attach under a BoneAttachment3D on his UpperChest): the hook's pocket sits on the grab handle bar on Tensor's power pack and the latch shuts under it; the flag keeps his orientation (its front toward his back, the cloth flying behind him)",
+      "tensor": {
+        "gizmo": "FlagMount",
+        "bone": "UpperChest",
+        "origin_rest_m": [
+          0.0,
+          0.222,
+          1.39
+        ],
+        "hook_to_bar_gap_m": 0.0015
+      }
+    }
+  },
+  "gizmos": [
+    {
+      "name": "GroundMount",
+      "bone": "Root",
+      "origin": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "forward": [
+        0,
+        -1,
+        0
+      ],
+      "up": [
+        0,
+        0,
+        1
+      ],
+      "godot": "-Z toward the flag's front, +Y up its spine"
+    },
+    {
+      "name": "BackMount",
+      "bone": "Root",
+      "origin": [
+        0.0,
+        -0.046,
+        0.75
+      ],
+      "forward": [
+        0,
+        -1,
+        0
+      ],
+      "up": [
+        0,
+        0,
+        1
+      ],
+      "godot": "-Z toward the flag's front, +Y up its spine"
+    }
+  ],
+  "cloth": {
+    "object": "SK_CtfFlagCloth",
+    "material": "M_Flag_Emissive",
+    "triangles": 304,
+    "shader": "emissive; tint it with the team's colour in game (double-sided)",
+    "uv": "u 0 at the luff (the rod) to 1 at the fly, v 0 at the bottom edge to 1 at the top; the sleeve round the rod on u = 0",
+    "skinning": "the sheet is smooth-skinned (up to 4 bone influences a vertex, bilinear across the rows and segments); the sleeve rigid on Swivel",
+    "bones": {
+      "rows": 4,
+      "segments": 6,
+      "names": "Cloth<row>_<segment>, row 0 at the bottom edge, segment 0 at the luff",
+      "hinge": "about +Z (vertical); + turns toward -X",
+      "limits_deg": [
+        -35.0,
+        35.0
+      ]
+    },
+    "max_stretch": 0.0163
+  },
+  "team_tinted": [
+    "M_Flag_Emissive",
+    "M_Emissive"
+  ],
+  "materials_note": "the environment props' finish in Tensor's materials (off-white and grey paint, matte black, stainless steel, bronze, titanium); M_Flag (the cloth) and M_Emissive (the strips and the beacon) are the ones to tint per team",
+  "materials": [
+    "M_Primary_Metallic",
+    "M_Secondary_Metallic",
+    "M_Frame_Diffuse",
+    "M_Joint_Metallic",
+    "M_Emissive",
+    "M_Bronze_Metallic",
+    "M_Titanium_Metallic"
+  ],
+  "triangles": 2668,
+  "joints": [
+    {
+      "bone": "Root",
+      "parent": null,
+      "type": "fixed",
+      "pivot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": null,
+      "channel": null
+    },
+    {
+      "bone": "LegBack",
+      "parent": "Root",
+      "type": "hinge",
+      "pivot": [
+        0.0,
+        0.036,
+        0.29
+      ],
+      "axis": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "range": [
+        0.0,
+        141.392
+      ],
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "LegFrontLeft",
+      "parent": "Root",
+      "type": "hinge",
+      "pivot": [
+        0.0312,
+        -0.018,
+        0.29
+      ],
+      "axis": [
+        -0.5,
+        -0.866,
+        0.0
+      ],
+      "range": [
+        0.0,
+        141.392
+      ],
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "LegFrontRight",
+      "parent": "Root",
+      "type": "hinge",
+      "pivot": [
+        -0.0312,
+        -0.018,
+        0.29
+      ],
+      "axis": [
+        -0.5,
+        0.866,
+        0.0
+      ],
+      "range": [
+        0.0,
+        141.392
+      ],
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "Latch",
+      "parent": "Root",
+      "type": "hinge",
+      "pivot": [
+        0.0,
+        -0.027,
+        0.728
+      ],
+      "axis": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "range": [
+        0.0,
+        90.0
+      ],
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "Swivel",
+      "parent": "Root",
+      "type": "hinge",
+      "pivot": [
+        0.0,
+        0.045,
+        1.2065
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        -40.0,
+        40.0
+      ],
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "Cloth0_0",
+      "parent": "Swivel",
+      "type": "hinge",
+      "pivot": [
+        0.0,
+        0.051,
+        0.8645
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        -35.0,
+        35.0
+      ],
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "Cloth0_1",
+      "parent": "Cloth0_0",
+      "type": "hinge",
+      "pivot": [
+        0.0,
+        0.1343,
+        0.8645
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        -35.0,
+        35.0
+      ],
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "Cloth0_2",
+      "parent": "Cloth0_1",
+      "type": "hinge",
+      "pivot": [
+        0.0,
+        0.2177,
+        0.8645
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        -35.0,
+        35.0
+      ],
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "Cloth0_3",
+      "parent": "Cloth0_2",
+      "type": "hinge",
+      "pivot": [
+        0.0,
+        0.301,
+        0.8645
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        -35.0,
+        35.0
+      ],
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "Cloth0_4",
+      "parent": "Cloth0_3",
+      "type": "hinge",
+      "pivot": [
+        0.0,
+        0.3843,
+        0.8645
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        -35.0,
+        35.0
+      ],
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "Cloth0_5",
+      "parent": "Cloth0_4",
+      "type": "hinge",
+      "pivot": [
+        0.0,
+        0.4677,
+        0.8645
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        -35.0,
+        35.0
+      ],
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "Cloth1_0",
+      "parent": "Swivel",
+      "type": "hinge",
+      "pivot": [
+        0.0,
+        0.051,
+        0.9745
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        -35.0,
+        35.0
+      ],
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "Cloth1_1",
+      "parent": "Cloth1_0",
+      "type": "hinge",
+      "pivot": [
+        0.0,
+        0.1343,
+        0.9745
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        -35.0,
+        35.0
+      ],
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "Cloth1_2",
+      "parent": "Cloth1_1",
+      "type": "hinge",
+      "pivot": [
+        0.0,
+        0.2177,
+        0.9745
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        -35.0,
+        35.0
+      ],
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "Cloth1_3",
+      "parent": "Cloth1_2",
+      "type": "hinge",
+      "pivot": [
+        0.0,
+        0.301,
+        0.9745
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        -35.0,
+        35.0
+      ],
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "Cloth1_4",
+      "parent": "Cloth1_3",
+      "type": "hinge",
+      "pivot": [
+        0.0,
+        0.3843,
+        0.9745
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        -35.0,
+        35.0
+      ],
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "Cloth1_5",
+      "parent": "Cloth1_4",
+      "type": "hinge",
+      "pivot": [
+        0.0,
+        0.4677,
+        0.9745
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        -35.0,
+        35.0
+      ],
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "Cloth2_0",
+      "parent": "Swivel",
+      "type": "hinge",
+      "pivot": [
+        0.0,
+        0.051,
+        1.0845
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        -35.0,
+        35.0
+      ],
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "Cloth2_1",
+      "parent": "Cloth2_0",
+      "type": "hinge",
+      "pivot": [
+        0.0,
+        0.1343,
+        1.0845
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        -35.0,
+        35.0
+      ],
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "Cloth2_2",
+      "parent": "Cloth2_1",
+      "type": "hinge",
+      "pivot": [
+        0.0,
+        0.2177,
+        1.0845
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        -35.0,
+        35.0
+      ],
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "Cloth2_3",
+      "parent": "Cloth2_2",
+      "type": "hinge",
+      "pivot": [
+        0.0,
+        0.301,
+        1.0845
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        -35.0,
+        35.0
+      ],
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "Cloth2_4",
+      "parent": "Cloth2_3",
+      "type": "hinge",
+      "pivot": [
+        0.0,
+        0.3843,
+        1.0845
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        -35.0,
+        35.0
+      ],
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "Cloth2_5",
+      "parent": "Cloth2_4",
+      "type": "hinge",
+      "pivot": [
+        0.0,
+        0.4677,
+        1.0845
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        -35.0,
+        35.0
+      ],
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "Cloth3_0",
+      "parent": "Swivel",
+      "type": "hinge",
+      "pivot": [
+        0.0,
+        0.051,
+        1.1945
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        -35.0,
+        35.0
+      ],
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "Cloth3_1",
+      "parent": "Cloth3_0",
+      "type": "hinge",
+      "pivot": [
+        0.0,
+        0.1343,
+        1.1945
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        -35.0,
+        35.0
+      ],
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "Cloth3_2",
+      "parent": "Cloth3_1",
+      "type": "hinge",
+      "pivot": [
+        0.0,
+        0.2177,
+        1.1945
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        -35.0,
+        35.0
+      ],
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "Cloth3_3",
+      "parent": "Cloth3_2",
+      "type": "hinge",
+      "pivot": [
+        0.0,
+        0.301,
+        1.1945
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        -35.0,
+        35.0
+      ],
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "Cloth3_4",
+      "parent": "Cloth3_3",
+      "type": "hinge",
+      "pivot": [
+        0.0,
+        0.3843,
+        1.1945
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        -35.0,
+        35.0
+      ],
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "Cloth3_5",
+      "parent": "Cloth3_4",
+      "type": "hinge",
+      "pivot": [
+        0.0,
+        0.4677,
+        1.1945
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        -35.0,
+        35.0
+      ],
+      "channel": "rotation_x_deg"
+    }
+  ],
+  "animations": {
+    "stow": {
+      "frames": [
+        0,
+        24
+      ],
+      "fps": 30,
+      "loop": false,
+      "joints": [
+        "Latch",
+        "LegBack",
+        "LegFrontLeft",
+        "LegFrontRight"
+      ]
+    },
+    "deploy": {
+      "frames": [
+        0,
+        22
+      ],
+      "fps": 30,
+      "loop": false,
+      "joints": [
+        "Latch",
+        "LegBack",
+        "LegFrontLeft",
+        "LegFrontRight"
+      ]
+    },
+    "wave": {
+      "frames": [
+        0,
+        90
+      ],
+      "fps": 30,
+      "loop": true,
+      "joints": [
+        "Cloth0_0",
+        "Cloth0_1",
+        "Cloth0_2",
+        "Cloth0_3",
+        "Cloth0_4",
+        "Cloth0_5",
+        "Cloth1_0",
+        "Cloth1_1",
+        "Cloth1_2",
+        "Cloth1_3",
+        "Cloth1_4",
+        "Cloth1_5",
+        "Cloth2_0",
+        "Cloth2_1",
+        "Cloth2_2",
+        "Cloth2_3",
+        "Cloth2_4",
+        "Cloth2_5",
+        "Cloth3_0",
+        "Cloth3_1",
+        "Cloth3_2",
+        "Cloth3_3",
+        "Cloth3_4",
+        "Cloth3_5",
+        "Swivel"
+      ]
+    },
+    "flutter": {
+      "frames": [
+        0,
+        30
+      ],
+      "fps": 30,
+      "loop": true,
+      "joints": [
+        "Cloth0_0",
+        "Cloth0_1",
+        "Cloth0_2",
+        "Cloth0_3",
+        "Cloth0_4",
+        "Cloth0_5",
+        "Cloth1_0",
+        "Cloth1_1",
+        "Cloth1_2",
+        "Cloth1_3",
+        "Cloth1_4",
+        "Cloth1_5",
+        "Cloth2_0",
+        "Cloth2_1",
+        "Cloth2_2",
+        "Cloth2_3",
+        "Cloth2_4",
+        "Cloth2_5",
+        "Cloth3_0",
+        "Cloth3_1",
+        "Cloth3_2",
+        "Cloth3_3",
+        "Cloth3_4",
+        "Cloth3_5",
+        "Swivel"
+      ]
+    }
+  },
+  "usage": "Standing (at its base or dropped): loop wave. Picked up: play stow (the legs fold, the latch shuts), attach BackMount to the carrier and loop flutter. Dropped: detach, stand it on the ground at GroundMount and play deploy, then loop wave. The cloth animations key only the Swivel and Cloth bones and stow/deploy only the legs and the latch, so they layer.",
+  "material_classifiers": {
+    "M_Bronze_Metallic": "Metallic",
+    "M_Emissive": "Emissive",
+    "M_Flag_Emissive": "Emissive",
+    "M_Frame_Diffuse": "Diffuse",
+    "M_Joint_Metallic": "Metallic",
+    "M_Primary_Metallic": "Metallic",
+    "M_Secondary_Metallic": "Metallic",
+    "M_Titanium_Metallic": "Metallic"
+  }
+}

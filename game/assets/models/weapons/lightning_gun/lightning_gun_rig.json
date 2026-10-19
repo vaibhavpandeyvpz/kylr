@@ -1,0 +1,911 @@
+{
+  "name": "lightning_gun",
+  "space": "Blender coords: +Z up, the muzzle points -Y, the origin is the gun's bottom centre (the pistol grip's pommel plane, midway along the gun). glTF/Godot: (x, z, -y), so the muzzle points +Z (glTF's front). Hinges turn about their bone's local X (degrees), slides move along their bone's local Y (metres).",
+  "rest": "prongs closed, barrel home, rotor at 0, pack in, latch shut, trigger released",
+  "size_m": {
+    "wide": 0.111,
+    "long": 0.748,
+    "high": 0.312,
+    "max_wide_long_high": [
+      0.25,
+      0.75,
+      0.35
+    ],
+    "bore_axis_height": 0.205,
+    "note": "every weapon fits 0.25 x 0.75 x 0.35 m; it fits the item table's and the weapon holder's hatches and the item table's 0.5 m tall-weapon stroke"
+  },
+  "materials": [
+    "M_Primary_Metallic",
+    "M_Secondary_Diffuse",
+    "M_Frame_Metallic",
+    "M_Joint_Metallic",
+    "M_Emissive",
+    "M_Bronze_Metallic",
+    "M_Glass",
+    "M_Metal_Metallic"
+  ],
+  "triangles": {
+    "SK_LightningGun": 4947,
+    "SK_LightningGunAmmo": 1032,
+    "SM_LightningGunAmmo": 1032
+  },
+  "joints": [
+    {
+      "bone": "Root",
+      "parent": null,
+      "type": "fixed",
+      "pivot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": null,
+      "channel": null
+    },
+    {
+      "bone": "Barrel",
+      "parent": "Root",
+      "type": "slide",
+      "pivot": [
+        0.0,
+        -0.12,
+        0.205
+      ],
+      "axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "range": [
+        0,
+        0.01
+      ],
+      "channel": "location_y_m"
+    },
+    {
+      "bone": "Prong1",
+      "parent": "Root",
+      "type": "hinge",
+      "pivot": [
+        0.0,
+        -0.3195,
+        0.237
+      ],
+      "axis": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "range": [
+        0,
+        18
+      ],
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "Prong2",
+      "parent": "Root",
+      "type": "hinge",
+      "pivot": [
+        -0.0277,
+        -0.3195,
+        0.189
+      ],
+      "axis": [
+        0.5,
+        0.0,
+        -0.866
+      ],
+      "range": [
+        0,
+        18
+      ],
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "Prong3",
+      "parent": "Root",
+      "type": "hinge",
+      "pivot": [
+        0.0277,
+        -0.3195,
+        0.189
+      ],
+      "axis": [
+        0.5,
+        0.0,
+        0.866
+      ],
+      "range": [
+        0,
+        18
+      ],
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "Trigger",
+      "parent": "Root",
+      "type": "hinge",
+      "pivot": [
+        0.0,
+        0.0869,
+        0.138
+      ],
+      "axis": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "range": [
+        0,
+        12
+      ],
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "Mag",
+      "parent": "Root",
+      "type": "slide",
+      "pivot": [
+        0.0,
+        -0.0176,
+        0.2631
+      ],
+      "axis": [
+        0.0,
+        0.9925,
+        0.1219
+      ],
+      "range": [
+        0,
+        0.015
+      ],
+      "channel": "location_y_m"
+    },
+    {
+      "bone": "MagLatch",
+      "parent": "Root",
+      "type": "hinge",
+      "pivot": [
+        0.0,
+        -0.1084,
+        0.2973
+      ],
+      "axis": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "range": [
+        0,
+        35
+      ],
+      "channel": "rotation_x_deg"
+    }
+  ],
+  "pistons": [
+    {
+      "name": "Prong1Act",
+      "barrel_bone": "Prong1ActCylinder",
+      "rod_bone": "Prong1ActRod",
+      "barrel_on": "Root",
+      "rod_on": "Prong1",
+      "pin_a": [
+        0.0,
+        -0.283,
+        0.257
+      ],
+      "pin_b": [
+        0.0,
+        -0.3315,
+        0.257
+      ],
+      "radius": 0.0035,
+      "stroke_m": [
+        0.0418,
+        0.0485
+      ]
+    },
+    {
+      "name": "Prong2Act",
+      "barrel_bone": "Prong2ActCylinder",
+      "rod_bone": "Prong2ActRod",
+      "barrel_on": "Root",
+      "rod_on": "Prong2",
+      "pin_a": [
+        -0.045,
+        -0.283,
+        0.179
+      ],
+      "pin_b": [
+        -0.045,
+        -0.3315,
+        0.179
+      ],
+      "radius": 0.0035,
+      "stroke_m": [
+        0.0418,
+        0.0485
+      ]
+    },
+    {
+      "name": "Prong3Act",
+      "barrel_bone": "Prong3ActCylinder",
+      "rod_bone": "Prong3ActRod",
+      "barrel_on": "Root",
+      "rod_on": "Prong3",
+      "pin_a": [
+        0.045,
+        -0.283,
+        0.179
+      ],
+      "pin_b": [
+        0.045,
+        -0.3315,
+        0.179
+      ],
+      "radius": 0.0035,
+      "stroke_m": [
+        0.0418,
+        0.0485
+      ]
+    }
+  ],
+  "pistons_note": "each prong's actuator is baked into the actions (its barrel and rod bones' rotations); in a pose of your own, aim the barrel at the rod's pin and the rod at the barrel's",
+  "animations": {
+    "idle": {
+      "frames": [
+        0,
+        60
+      ],
+      "fps": 30,
+      "loop": true,
+      "joints": [
+        "Prong1",
+        "Prong2",
+        "Prong3"
+      ]
+    },
+    "fire_start": {
+      "frames": [
+        0,
+        8
+      ],
+      "fps": 30,
+      "loop": false,
+      "joints": [
+        "Prong1",
+        "Prong2",
+        "Prong3",
+        "Trigger"
+      ]
+    },
+    "fire": {
+      "frames": [
+        0,
+        30
+      ],
+      "fps": 30,
+      "loop": true,
+      "joints": [
+        "Barrel",
+        "Prong1",
+        "Prong2",
+        "Prong3",
+        "Trigger"
+      ]
+    },
+    "fire_end": {
+      "frames": [
+        0,
+        10
+      ],
+      "fps": 30,
+      "loop": false,
+      "joints": [
+        "Prong1",
+        "Prong2",
+        "Prong3",
+        "Trigger"
+      ]
+    },
+    "fire_orb": {
+      "frames": [
+        0,
+        33
+      ],
+      "fps": 30,
+      "loop": false,
+      "joints": [
+        "Barrel",
+        "Prong1",
+        "Prong2",
+        "Prong3",
+        "Trigger"
+      ]
+    },
+    "mag_release": {
+      "frames": [
+        0,
+        12
+      ],
+      "fps": 30,
+      "loop": false,
+      "joints": [
+        "Mag",
+        "MagLatch"
+      ]
+    },
+    "mag_insert": {
+      "frames": [
+        0,
+        12
+      ],
+      "fps": 30,
+      "loop": false,
+      "joints": [
+        "Mag",
+        "MagLatch"
+      ]
+    }
+  },
+  "fire": {
+    "beam": "primary fire (hold): play fire_start once (8 frames: the trigger pulls, the prongs open 10 deg), then loop fire (30 frames: the prongs flicker +-1.2 deg and the barrel pulses 1 cm back and home once a second, 15 frames back, 15 home), and on release play fire_end (10 frames). Draw the beam from Muzzle (forward = the beam's direction) from fire_start's frame 3 and through fire; arc the ArcTip gizmos to it; heat shimmer at the Vent gizmos.",
+    "orb": "secondary fire: play fire_orb (33 frames, from idle): the prongs snap open 18 deg by frame 3, when the orb leaves: spawn it at Muzzle's transform; the barrel recoils 1 cm and is home by the last frame.",
+    "idle": "loop idle between shots: the prongs breathe 3 deg open and closed over 60 frames. Every prong action starts and ends closed (fire at the beam's opening), so they chain without a jump.",
+    "recoil_m": 0.01,
+    "recoil_frames": [
+      15,
+      15
+    ],
+    "orb_frame": 3
+  },
+  "gizmos": {
+    "convention": "empties: in Blender local +Y is the gizmo's forward and +Z its up; in glTF / Godot -Z is forward and +Y up (Marker3D / Node3D under a BoneAttachment3D, so they follow the animations)",
+    "muzzle": {
+      "name": "Muzzle",
+      "bone": "Barrel",
+      "position": [
+        0.0,
+        -0.366,
+        0.205
+      ],
+      "forward": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "up": [
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    "muzzle_note": "1 cm in front of the emitter's face, on the barrel's bone (it recoils with the barrel): the lightning's origin, the orb's spawn point and where to play the muzzle flash",
+    "arc_tips": [
+      {
+        "name": "ArcTip1",
+        "bone": "Prong1",
+        "position": [
+          0.0,
+          -0.3767,
+          0.2198
+        ],
+        "forward": [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        "up": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      },
+      {
+        "name": "ArcTip2",
+        "bone": "Prong2",
+        "position": [
+          -0.0128,
+          -0.3767,
+          0.1976
+        ],
+        "forward": [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        "up": [
+          -0.866,
+          0.0,
+          -0.5
+        ]
+      },
+      {
+        "name": "ArcTip3",
+        "bone": "Prong3",
+        "position": [
+          0.0128,
+          -0.3767,
+          0.1976
+        ],
+        "forward": [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        "up": [
+          0.866,
+          0.0,
+          -0.5
+        ]
+      }
+    ],
+    "arc_tip_note": "each prong's electrode tip, on the prong's bone (it opens with it): arc them to the muzzle's beam while firing",
+    "vents": [
+      {
+        "name": "VentLeft",
+        "bone": "Root",
+        "position": [
+          0.038,
+          -0.041,
+          0.197
+        ],
+        "forward": [
+          1.0,
+          0.0,
+          0.0
+        ],
+        "up": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      },
+      {
+        "name": "VentRight",
+        "bone": "Root",
+        "position": [
+          -0.038,
+          -0.041,
+          0.197
+        ],
+        "forward": [
+          -1.0,
+          0.0,
+          0.0
+        ],
+        "up": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    ],
+    "vent_note": "the middle of each flank's heat sink, forward out of the flank: heat shimmer or sparks while firing"
+  },
+  "ammo_hand_socket": {
+    "hand_bone": "LeftHand",
+    "bone": "Mag",
+    "grips": "the ammo pack for a reload, a wide grip: palm on its outer end, fingers across it and over its far edge, thumb up its front",
+    "note": "given at the pack's rest; the empty rides the Mag bone. For a reload, put the support hand on it where the pack is (released), carry the pack in that hand (pack = hand_bone_global * socket_in_pack.inverse()) and put it back the same way",
+    "wrist_blender": [
+      0.0665,
+      -0.0265,
+      0.312
+    ],
+    "bone_x_blender": [
+      -0.0,
+      -0.9925,
+      -0.1219
+    ],
+    "bone_y_blender": [
+      -1.0,
+      0.0,
+      0.0
+    ],
+    "bone_z_blender": [
+      -0.0,
+      0.1219,
+      -0.9925
+    ],
+    "wrist_godot": [
+      0.0665,
+      0.312,
+      0.0265
+    ],
+    "bone_x_godot": [
+      -0.0,
+      -0.1219,
+      0.9925
+    ],
+    "bone_y_godot": [
+      -1.0,
+      0.0,
+      -0.0
+    ],
+    "bone_z_godot": [
+      -0.0,
+      -0.9925,
+      -0.1219
+    ],
+    "grip_pose_deg": {
+      "LeftIndexProximal": [
+        45.0,
+        0,
+        0
+      ],
+      "LeftIndexIntermediate": [
+        49.5,
+        0,
+        0
+      ],
+      "LeftIndexDistal": [
+        36.0,
+        0,
+        0
+      ],
+      "LeftMiddleProximal": [
+        50.0,
+        0,
+        0
+      ],
+      "LeftMiddleIntermediate": [
+        55.0,
+        0,
+        0
+      ],
+      "LeftMiddleDistal": [
+        40.0,
+        0,
+        0
+      ],
+      "LeftRingProximal": [
+        50.0,
+        0,
+        0
+      ],
+      "LeftRingIntermediate": [
+        55.0,
+        0,
+        0
+      ],
+      "LeftRingDistal": [
+        40.0,
+        0,
+        0
+      ],
+      "LeftLittleProximal": [
+        45.0,
+        0,
+        0
+      ],
+      "LeftLittleIntermediate": [
+        49.5,
+        0,
+        0
+      ],
+      "LeftLittleDistal": [
+        36.0,
+        0,
+        0
+      ],
+      "LeftThumbMetacarpal": [
+        25,
+        0,
+        40
+      ],
+      "LeftThumbProximal": [
+        15,
+        0,
+        0
+      ],
+      "LeftThumbDistal": [
+        15,
+        0,
+        0
+      ]
+    }
+  },
+  "hand_sockets": {
+    "convention": "origin = the wrist pivot (the head of the character's Hand bone); the socket's glTF / Godot basis IS the Hand bone's basis for that grip (Tensor: X along the knuckle line, the left thumb on -X and the right on +X, Y from the wrist to the knuckles, Z out of the palm). In Godot set the hand bone's global pose to the socket's transform (relative to the skeleton) and solve the arm to reach it; or carry the gun in the right hand with gun = hand_bone_global * RightHandSocket_local.inverse(). In Blender the empties' own axes are (X, -Z, Y) of the bone frame because the exporter converts empties, not bones.",
+    "grip_pose": "grip_pose_deg per socket: Tensor's finger and thumb bone rotations (local XYZ, degrees) that close each hand onto its grip (animations/retarget.py closes Tensor's hands to them); the right index finger curls in to the trigger",
+    "LeftHandSocket": {
+      "hand_bone": "LeftHand",
+      "grips": "the forend, from below, palm up",
+      "wrist_blender": [
+        0.079,
+        0.008,
+        0.1649
+      ],
+      "bone_x_blender": [
+        -0.6259,
+        0.7459,
+        -0.2278
+      ],
+      "bone_y_blender": [
+        -0.7009,
+        -0.6661,
+        -0.2551
+      ],
+      "bone_z_blender": [
+        -0.342,
+        -0.0,
+        0.9397
+      ],
+      "wrist_godot": [
+        0.079,
+        0.1649,
+        -0.008
+      ],
+      "bone_x_godot": [
+        -0.6259,
+        -0.2278,
+        -0.7459
+      ],
+      "bone_y_godot": [
+        -0.7009,
+        -0.2551,
+        0.6661
+      ],
+      "bone_z_godot": [
+        -0.342,
+        0.9397,
+        0.0
+      ],
+      "grip_pose_deg": {
+        "LeftIndexProximal": [
+          10.0,
+          0,
+          0
+        ],
+        "LeftIndexIntermediate": [
+          11.0,
+          0,
+          0
+        ],
+        "LeftIndexDistal": [
+          8.0,
+          0,
+          0
+        ],
+        "LeftMiddleProximal": [
+          19.0,
+          0,
+          0
+        ],
+        "LeftMiddleIntermediate": [
+          20.9,
+          0,
+          0
+        ],
+        "LeftMiddleDistal": [
+          15.2,
+          0,
+          0
+        ],
+        "LeftRingProximal": [
+          24.0,
+          0,
+          0
+        ],
+        "LeftRingIntermediate": [
+          26.4,
+          0,
+          0
+        ],
+        "LeftRingDistal": [
+          19.2,
+          0,
+          0
+        ],
+        "LeftLittleProximal": [
+          27.0,
+          0,
+          0
+        ],
+        "LeftLittleIntermediate": [
+          29.7,
+          0,
+          0
+        ],
+        "LeftLittleDistal": [
+          21.6,
+          0,
+          0
+        ],
+        "LeftThumbMetacarpal": [
+          24,
+          0,
+          25
+        ],
+        "LeftThumbProximal": [
+          16,
+          0,
+          0
+        ],
+        "LeftThumbDistal": [
+          16,
+          0,
+          0
+        ]
+      }
+    },
+    "RightHandSocket": {
+      "hand_bone": "RightHand",
+      "grips": "pistol grip",
+      "wrist_blender": [
+        -0.03,
+        0.214,
+        0.1046
+      ],
+      "bone_x_blender": [
+        0.0,
+        -0.2588,
+        0.9659
+      ],
+      "bone_y_blender": [
+        0.0,
+        -0.9659,
+        -0.2588
+      ],
+      "bone_z_blender": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "wrist_godot": [
+        -0.03,
+        0.1046,
+        -0.214
+      ],
+      "bone_x_godot": [
+        0.0,
+        0.9659,
+        0.2588
+      ],
+      "bone_y_godot": [
+        0.0,
+        -0.2588,
+        0.9659
+      ],
+      "bone_z_godot": [
+        1.0,
+        0.0,
+        -0.0
+      ],
+      "grip_pose_deg": {
+        "RightIndexProximal": [
+          36.0,
+          0,
+          0
+        ],
+        "RightIndexIntermediate": [
+          39.6,
+          0,
+          0
+        ],
+        "RightIndexDistal": [
+          28.8,
+          0,
+          0
+        ],
+        "RightMiddleProximal": [
+          65.0,
+          0,
+          0
+        ],
+        "RightMiddleIntermediate": [
+          71.5,
+          0,
+          0
+        ],
+        "RightMiddleDistal": [
+          52.0,
+          0,
+          0
+        ],
+        "RightRingProximal": [
+          65.0,
+          0,
+          0
+        ],
+        "RightRingIntermediate": [
+          71.5,
+          0,
+          0
+        ],
+        "RightRingDistal": [
+          52.0,
+          0,
+          0
+        ],
+        "RightLittleProximal": [
+          52.0,
+          0,
+          0
+        ],
+        "RightLittleIntermediate": [
+          57.2,
+          0,
+          0
+        ],
+        "RightLittleDistal": [
+          41.6,
+          0,
+          0
+        ],
+        "RightThumbMetacarpal": [
+          42,
+          0,
+          -25
+        ],
+        "RightThumbProximal": [
+          50,
+          0,
+          0
+        ],
+        "RightThumbDistal": [
+          50,
+          0,
+          0
+        ]
+      }
+    }
+  },
+  "ammo": {
+    "mesh": "SM_LightningGunAmmo in lightning_gun_ammo.glb, at the AmmoMount gizmo",
+    "bone": "Mag",
+    "pickup_file": "lightning_gun_ammo.glb",
+    "pickup_mesh": "SM_LightningGunAmmo",
+    "pickup_origin": "its bottom centre, levelled",
+    "cells": 2,
+    "axis": [
+      0.0,
+      0.9925,
+      0.1219
+    ],
+    "pitch_deg": 7,
+    "rails_m": 0.015,
+    "note": "mag_release lifts the latch and runs the pack back and up its axis until its cells' nubs leave their sockets; past MAG_TRAVEL it is free: hide the pack mesh and drop a physics copy of the pickup mesh at the Mag bone's transform (pitched). To reload, put the pack back at the end of its travel and play mag_insert."
+  },
+  "usage": "idle (loop); primary: fire_start, fire (loop), fire_end; secondary: fire_orb; mag_release / mag_insert swap the cell pack.",
+  "ammo_mount": {
+    "gizmo": "AmmoMount",
+    "bone": "Mag",
+    "model": "lightning_gun_ammo.glb",
+    "mesh": "SM_LightningGunAmmo",
+    "position_blender": [
+      -0.0,
+      -0.0176,
+      0.2631
+    ],
+    "rotation_wxyz_blender": [
+      0.9981,
+      0.061,
+      0.0,
+      0.0
+    ],
+    "position_godot": [
+      -0.0,
+      0.2631,
+      0.0176
+    ],
+    "note": "the ammo pack is its own model (<name>_ammo.glb / .fbx / .blend, its origin at its bottom centre, square to its own axes, its real size): parent its mesh to the AmmoMount node unmoved and it rides the Mag bone where the weapon's actions put it (a reload's release and insert); the weapon's own files carry no pack mesh. The same model is the ammo pickup."
+  },
+  "material_classifiers": {
+    "M_Bronze_Metallic": "Metallic",
+    "M_Emissive": "Emissive",
+    "M_Frame_Metallic": "Metallic",
+    "M_Glass": "Glass",
+    "M_Joint_Metallic": "Metallic",
+    "M_Metal_Metallic": "Metallic",
+    "M_Primary_Metallic": "Metallic",
+    "M_Secondary_Diffuse": "Diffuse"
+  }
+}

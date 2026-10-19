@@ -1,0 +1,19 @@
+{
+  "name": "faceoff_scenery",
+  "triangles": 38776,
+  "budget_excluded": true,
+  "gizmos": [],
+  "interior_gravel_stone_count": 386,
+  "maximum_interior_stone_height_m": 0.24,
+  "material_classifiers": {
+    "M_Emissive": "Emissive",
+    "M_Frame_Diffuse": "Diffuse",
+    "M_Glass": "Glass",
+    "M_Joint_Diffuse": "Diffuse",
+    "M_Primary_Diffuse": "Diffuse",
+    "M_Regolith_Diffuse": "Diffuse",
+    "M_RegolithDark_Diffuse": "Diffuse",
+    "M_RegolithLight_Diffuse": "Diffuse",
+    "M_Secondary_Diffuse": "Diffuse"
+  }
+}

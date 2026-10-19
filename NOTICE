@@ -1,0 +1,13 @@
+KYLR
+Copyright 2026 Vaibhav Pandey and contributors.
+
+The project's original game and library code, tools, documentation and original
+assets are licensed under the Apache License, Version 2.0, except where separate
+terms are supplied. See LICENSE.
+
+Godot, bundled dependencies and vendor runtimes retain their respective licenses
+and notices. See engine/LICENSE.txt, engine/COPYRIGHT.txt, game/THIRD_PARTY.md and
+the notices accompanying individual dependencies.
+
+Separately obtained animation and audio data retain their applicable asset
+licenses. See docs/ASSET_SETUP.md. This notice does not relicense those assets.

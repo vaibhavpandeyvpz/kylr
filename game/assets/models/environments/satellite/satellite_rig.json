@@ -1,0 +1,111 @@
+{
+  "name": "satellite",
+  "triangles": 8361,
+  "triangle_budget": 5000,
+  "triangle_budget_scope": "per manufactured render assembly",
+  "meshes": {
+    "SK_Satellite": 4410,
+    "SK_SatelliteReflector": 3951
+  },
+  "bounds_m": {
+    "lo": [
+      -1.2389999628067017,
+      -0.8613333702087402,
+      0.0
+    ],
+    "hi": [
+      1.3939999341964722,
+      0.7200000286102295,
+      3.020064353942871
+    ]
+  },
+  "tensor_height_m": 1.753,
+  "reflector_diameter_m": 2,
+  "reflector_depth_m": 0.3,
+  "focus_y_m": -0.7133333333333334,
+  "materials": [
+    "M_Primary_Metallic",
+    "M_Secondary_Metallic",
+    "M_Frame_Diffuse",
+    "M_Joint_Metallic",
+    "M_Emissive"
+  ],
+  "joints": [
+    {
+      "bone": "Root",
+      "parent": null,
+      "type": "fixed",
+      "pivot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "axis": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "range": null
+    },
+    {
+      "bone": "Elevation",
+      "parent": "Root",
+      "type": "hinge",
+      "pivot": [
+        0.0,
+        0.25999999046325684,
+        2.0
+      ],
+      "axis": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "range": [
+        -35,
+        10
+      ]
+    }
+  ],
+  "animations": {
+    "track": {
+      "frames": [
+        0.0,
+        180.0
+      ],
+      "fps": 30,
+      "loop": true
+    },
+    "service_raise": {
+      "frames": [
+        0.0,
+        120.0
+      ],
+      "fps": 30,
+      "loop": false
+    },
+    "service_return": {
+      "frames": [
+        0.0,
+        120.0
+      ],
+      "fps": 30,
+      "loop": false
+    }
+  },
+  "checks": {
+    "connected_parts": 211,
+    "exact_solid_pairs": 324,
+    "motion_states": 469,
+    "no_solid_intersections": true,
+    "coplanar": true
+  },
+  "placement": "floor centre z=0; front -Y; up +Z; library only",
+  "material_classifiers": {
+    "M_Emissive": "Emissive",
+    "M_Frame_Diffuse": "Diffuse",
+    "M_Joint_Metallic": "Metallic",
+    "M_Primary_Metallic": "Metallic",
+    "M_Secondary_Metallic": "Metallic"
+  }
+}

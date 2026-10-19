@@ -1,0 +1,826 @@
+{
+  "provider": "Epidemic Sound",
+  "mcp_endpoint": "https://www.epidemicsound.com/a/mcp-service/mcp",
+  "sources": {
+    "b5bd7120-2736-4733-8fc3-14fac46922b8": {
+      "title": "Scifi, Machine, Synthetic, Aggressive, Engine Helicopter Low Drone, Loop",
+      "pcm_sha256": "ed26262994f2a05ee693a2fcd958d9e3cc33ced537bf139c64f2749b5959a3a9",
+      "channels": 2,
+      "sample_width": 3,
+      "sample_rate": 96000
+    },
+    "36c7e45b-339f-4510-b790-c16f561532a1": {
+      "title": "Mechanical, Gears, Mechanical Movement, Heavy, Impact, Metallic, Steampunk 03",
+      "pcm_sha256": "18d130d065fa8112645ffc9f02c1ba8acdd5331e3a27fbec91890965773413d6",
+      "channels": 2,
+      "sample_width": 3,
+      "sample_rate": 96000
+    },
+    "82652f82-c77c-43ca-9fb5-27ae579107ce": {
+      "title": "Equipment, Hitech, Item Pick Up, Device, Electronic, Gameplay",
+      "pcm_sha256": "1839da7d0577ab801fbe1dcfac71990f3622930ee962a9fce1f8805c6eb752e8",
+      "channels": 2,
+      "sample_width": 3,
+      "sample_rate": 96000
+    },
+    "677e0125-77f3-49ec-b67e-136a3697791e": {
+      "title": "Scifi, Computer, Futuristic UI, Hub, Hover, Movement 01",
+      "pcm_sha256": "84fcd7d31c37fa33847ab2f41e03cb2bf91d4047db3132634e4b639f90f18ed4",
+      "channels": 2,
+      "sample_width": 3,
+      "sample_rate": 96000
+    },
+    "e9608a98-6ae2-4dc3-a5b1-904d0b642599": {
+      "title": "Scifi, Machine, Power Down, Object",
+      "pcm_sha256": "b7de199ebf81bf09fcbb2ecae73274ba8df74b62be88f37d9dfc19f3403416e8",
+      "channels": 2,
+      "sample_width": 3,
+      "sample_rate": 96000
+    },
+    "bf7f287c-e431-46d7-bc29-ee51ac8ffe2d": {
+      "title": "Scifi, Weapon, Shield, Device, Power Up",
+      "pcm_sha256": "6d95d8ff2b7f4e44077c74c39b46616cb8c4ee466374ea951e915a404cb9e18c",
+      "channels": 2,
+      "sample_width": 3,
+      "sample_rate": 96000
+    },
+    "9e33ba67-b460-464d-9fc6-23c4fc15c85a": {
+      "title": "Machines, Appliance, Fridge, Fan Hum, Light",
+      "pcm_sha256": "d4bdfaf36dd66697636430a3e2f446bc25f9f1b0bb57b14d5912d0e3951f8e86",
+      "channels": 2,
+      "sample_width": 3,
+      "sample_rate": 96000
+    },
+    "2adb7903-24fd-4c88-bdf9-94294e920825": {
+      "title": "Games, Video, Event, Power Up 02",
+      "pcm_sha256": "4b83bea26f536d32d58e49f2eb4cf391ee93538f24a3657a9e764ad92533c1d8",
+      "channels": 2,
+      "sample_width": 3,
+      "sample_rate": 96000
+    },
+    "40ad516a-7f83-45dd-8b83-5e8ac98347c8": {
+      "title": "Electricity, Sparks, Welding, Workshop, Close, Long Impulses 03",
+      "pcm_sha256": "4ec1b0532810099e41157057a0213631065bf46b2f43c66f4bd040babdf59a22",
+      "channels": 2,
+      "sample_width": 3,
+      "sample_rate": 96000
+    },
+    "f300461e-65a0-4c90-aca1-5bf41c53fe7b": {
+      "title": "Footsteps, Human, Grass, Jump, Land 02",
+      "pcm_sha256": "6e13169bd5d8e8e35033adf05fcba3acec2a2344c82241e32419d7c89a9bd59d",
+      "channels": 2,
+      "sample_width": 3,
+      "sample_rate": 96000
+    },
+    "722ff4a0-ec9b-470a-baf2-a86fb741c9de": {
+      "title": "Cartoon, Misc, Anime, Magic Spell, Short, Attack, Cast, Bubbly, Delay, Retro",
+      "pcm_sha256": "33d5b719753a4c70898307f3ca67bbe18768a44aa77147fce98f3fb5bc82101c",
+      "channels": 2,
+      "sample_width": 3,
+      "sample_rate": 192000
+    },
+    "2d4aed30-328c-4bb1-9561-5e8c8a12f442": {
+      "title": "Footsteps, Human, Barefoot, Metal, Resonant, Walk, Close",
+      "pcm_sha256": "44ea5f18d2aa48ce331011ade8f1f6e2948b024aa539178390e26f8af8b3894f",
+      "channels": 2,
+      "sample_width": 3,
+      "sample_rate": 96000
+    },
+    "791730a6-853e-4484-8758-c17d1e82fa64": {
+      "title": "User Interface, Click, GUI, Select",
+      "pcm_sha256": "809640c092e8bba6e5f0c93da416d63df7ae13ceda5cca1ac4b746c7caa0b5f1",
+      "channels": 2,
+      "sample_width": 3,
+      "sample_rate": 96000
+    },
+    "45d4e5ed-7b17-4331-8eca-3e58c3f854c9": {
+      "title": "Scifi, Weapon, Shield, Power On, Impact",
+      "pcm_sha256": "0e6cc6e3c3f6c1a11623ab201b5a08a8e9ac3b95c415147a38f3be8b930d3442",
+      "channels": 2,
+      "sample_width": 3,
+      "sample_rate": 96000
+    },
+    "af703827-c3ad-4e87-b953-1901bcd3651b": {
+      "title": "Fire, Burning, Bonfire, Camp, Burn, Sizzle In Wind",
+      "pcm_sha256": "be6b838e33be80a0a9927f1f900af9ec988b011a73c7c002abbe07bd0b03f3da",
+      "channels": 2,
+      "sample_width": 3,
+      "sample_rate": 96000
+    },
+    "5d78771c-ed7f-4568-8b22-aa386e919109": {
+      "title": "Fire, Whoosh, Fireball, Crispy, Ground Crackling, Thud, Sharp, Intense, Flare, Complex, Fizz",
+      "pcm_sha256": "01e33169fc1c367249f6d73bd8f138f88053d545bdf113751a294a02144634c3",
+      "channels": 2,
+      "sample_width": 3,
+      "sample_rate": 96000
+    },
+    "bcacc783-64a9-4b9e-917a-89fc41dd58fd": {
+      "title": "Electricity, Sparks, Idle, Crackle, Sparks",
+      "pcm_sha256": "1989bf1f243ec1c20ab6f05cc01fe6f90b2f5d895f8afe0b3b5fdaa9635bb5a5",
+      "channels": 2,
+      "sample_width": 3,
+      "sample_rate": 96000
+    },
+    "8234c8a3-d935-45c8-8809-622c559f853c": {
+      "title": "Scifi, Impact, Hit, Fast, Short, Futuristic, Scifi, Cyperpunk, Variations",
+      "pcm_sha256": "6db75bd7dea873c13715ee174057c6038525d9fcce55f2d086ea0c32c95c3d0e",
+      "channels": 2,
+      "sample_width": 3,
+      "sample_rate": 96000
+    },
+    "782a6e06-268a-4e21-9b5c-62bf42b1b515": {
+      "title": "Bullets, Ricochet, Metal, Hit 01",
+      "pcm_sha256": "75e3eca2a3c2ca7a011e0df9fd54ec6f58d58584be53201236cca88393e15f10",
+      "channels": 2,
+      "sample_width": 3,
+      "sample_rate": 96000
+    },
+    "9094eab3-a0c2-4e9e-9305-f3799e78d4d6": {
+      "title": "Bullets, Impact, Hit, Metal 02",
+      "pcm_sha256": "e496a283082d990324c901df86d990ce4645432b359228ad855356eee5bf01c4",
+      "channels": 2,
+      "sample_width": 3,
+      "sample_rate": 96000
+    },
+    "32fe7b2c-42d2-45de-bd30-a3931b0a4765": {
+      "title": "Bullets, Impact, Hit, Metal 01",
+      "pcm_sha256": "85fe914b3257755af9f468030aa9eec36218bfa153d0700c9ec60b4697b3cbc7",
+      "channels": 2,
+      "sample_width": 3,
+      "sample_rate": 96000
+    },
+    "c3c2a541-280a-448c-b320-1cacc7b16bb2": {
+      "title": "Explosions, Designed, Hand Grenade, Frag Grenade",
+      "pcm_sha256": "cb84001e1329ab34fe6b6d31a43272f8c4ac3ed34a9f127d225a9496420d16da",
+      "channels": 2,
+      "sample_width": 3,
+      "sample_rate": 96000
+    },
+    "db521785-9154-4402-ad5d-f74b17a93037": {
+      "title": "Fight, Impact, Kung Fu Style, Arcade Game, Medium Hit 01",
+      "pcm_sha256": "531609eb3b0e6029a4107b8298cf78288248523a1b40f5c3f45c0932b7567081",
+      "channels": 2,
+      "sample_width": 3,
+      "sample_rate": 96000
+    },
+    "740cb432-9322-4582-8a4e-750a608ef025": {
+      "title": "Scifi, Weapon, Scout Rifle, Reload",
+      "pcm_sha256": "313bf88d1987c597c1c839ce7695bfd874677358dbdd8868060b8bb574bf8435",
+      "channels": 2,
+      "sample_width": 3,
+      "sample_rate": 96000
+    },
+    "e7761fdf-787c-451b-9492-ebeaf8c76c94": {
+      "title": "Lasers, Gun, Shot, Fire, Singular, Impact, Scifi 02",
+      "pcm_sha256": "01ccbf15a8d0d035c0b1247a5808dbb1ebecf042ee1607f8e545831aa2f98245",
+      "channels": 2,
+      "sample_width": 3,
+      "sample_rate": 96000
+    },
+    "c3600bef-92eb-4877-941c-a1f7851021a0": {
+      "title": "Fire, Gas, Storm Kitchen, Primus, Steady Gas From Canister 02",
+      "pcm_sha256": "58905a1774049bca8cfa7b45fa437e7ae4a42a1a76ac35ac235e95ab045af1e6",
+      "channels": 2,
+      "sample_width": 3,
+      "sample_rate": 96000
+    },
+    "04829618-83b6-4816-bdcf-6f19f7e68674": {
+      "title": "Fire, Whoosh, Fireball, Big, Distorted 02",
+      "pcm_sha256": "2d281cd58ed04368b7aedb04c53d1b98bdedeec14fcfa626327c6042e58a05d5",
+      "channels": 2,
+      "sample_width": 3,
+      "sample_rate": 96000
+    },
+    "82401c82-25eb-467e-847e-658eb48c29df": {
+      "title": "Electricity, Buzz & Hum, Electric, Sparks, Interference, Loop",
+      "pcm_sha256": "31db46db534bc0d9c4aede7290180adfd30e8c8d3bd6d9365d21abe770998b18",
+      "channels": 2,
+      "sample_width": 3,
+      "sample_rate": 96000
+    },
+    "2b85cc7a-a182-48c9-b896-13348b23f735": {
+      "title": "Lasers, Gun, Shot, Futuristic, Big 10",
+      "pcm_sha256": "22c096165b4595843c271ebfad4634b08750426cdd55049531f685fe47115cda",
+      "channels": 2,
+      "sample_width": 3,
+      "sample_rate": 96000
+    },
+    "e37e3ea9-b9a4-4404-9972-482de8018203": {
+      "title": "Guns, Pistol, Heavy Shots, Clipped, Distorted",
+      "pcm_sha256": "234c8a138bc4c41c04bf225156f986f2870eaee1d55542477caf0c2a30e20298",
+      "channels": 2,
+      "sample_width": 3,
+      "sample_rate": 96000
+    },
+    "3cb7ab13-006c-4fe4-bffe-c375ba3bcecb": {
+      "title": "Guns, Rifle, Shot, Exterior, Open",
+      "pcm_sha256": "efe9365cabd0482d53492e0d74d8088ae689d0b0ba6c1727b19490546a5e5785",
+      "channels": 2,
+      "sample_width": 3,
+      "sample_rate": 96000
+    },
+    "98ca8300-3e48-41b1-8fc3-62fc96ce7448": {
+      "title": "Rocket Launcher, Fire, Shoot, Hiss, No Explosion 06",
+      "pcm_sha256": "0913cec513fda1531d48d89900cbce90ab5d7ffefb38e2a1ff6af63633a7eaa2",
+      "channels": 2,
+      "sample_width": 3,
+      "sample_rate": 96000
+    }
+  },
+  "library": [
+    {
+      "file": "library/sounds/environment/thruster.wav",
+      "source_id": "b5bd7120-2736-4733-8fc3-14fac46922b8",
+      "start_frame": 0,
+      "frames": 722632,
+      "pcm_sha256": "ed26262994f2a05ee693a2fcd958d9e3cc33ced537bf139c64f2749b5959a3a9"
+    },
+    {
+      "file": "library/sounds/gameplay/barricade_close.wav",
+      "source_id": "36c7e45b-339f-4510-b790-c16f561532a1",
+      "start_frame": 0,
+      "frames": 654466,
+      "pcm_sha256": "18d130d065fa8112645ffc9f02c1ba8acdd5331e3a27fbec91890965773413d6"
+    },
+    {
+      "file": "library/sounds/gameplay/barricade_open.wav",
+      "source_id": "36c7e45b-339f-4510-b790-c16f561532a1",
+      "start_frame": 0,
+      "frames": 163008,
+      "pcm_sha256": "e8807ae155690e849cd5fe9f11c3aad75531e5185fb3ea01f994921d720da22d"
+    },
+    {
+      "file": "library/sounds/gameplay/pickup_item.wav",
+      "source_id": "82652f82-c77c-43ca-9fb5-27ae579107ce",
+      "start_frame": 358464,
+      "frames": 145728,
+      "pcm_sha256": "4c900f9c4dd02601e4ba455ed2ac6613484286fd0b0e69aef7706e6af7ca187f"
+    },
+    {
+      "file": "library/sounds/gameplay/portal_enter.wav",
+      "source_id": "677e0125-77f3-49ec-b67e-136a3697791e",
+      "start_frame": 0,
+      "frames": 211296,
+      "pcm_sha256": "dd8b8c569f62531b08562f0995b68d425b5580f7eb06440398e4b5e04d45f0cf"
+    },
+    {
+      "file": "library/sounds/gameplay/portal_exit.wav",
+      "source_id": "677e0125-77f3-49ec-b67e-136a3697791e",
+      "start_frame": 410304,
+      "frames": 154253,
+      "pcm_sha256": "d924d917301235c68b668be351a28fb1b6e359558458a4d014ee5d58b595a176"
+    },
+    {
+      "file": "library/sounds/gameplay/power_down.wav",
+      "source_id": "e9608a98-6ae2-4dc3-a5b1-904d0b642599",
+      "start_frame": 0,
+      "frames": 140968,
+      "pcm_sha256": "b7de199ebf81bf09fcbb2ecae73274ba8df74b62be88f37d9dfc19f3403416e8"
+    },
+    {
+      "file": "library/sounds/gameplay/power_up.wav",
+      "source_id": "bf7f287c-e431-46d7-bc29-ee51ac8ffe2d",
+      "start_frame": 0,
+      "frames": 150646,
+      "pcm_sha256": "6d95d8ff2b7f4e44077c74c39b46616cb8c4ee466374ea951e915a404cb9e18c"
+    },
+    {
+      "file": "library/sounds/gameplay/repair_ready.wav",
+      "source_id": "9e33ba67-b460-464d-9fc6-23c4fc15c85a",
+      "start_frame": 0,
+      "frames": 1294080,
+      "pcm_sha256": "d4bdfaf36dd66697636430a3e2f446bc25f9f1b0bb57b14d5912d0e3951f8e86"
+    },
+    {
+      "file": "library/sounds/gameplay/repair_start_stop.wav",
+      "source_id": "2adb7903-24fd-4c88-bdf9-94294e920825",
+      "start_frame": 10560,
+      "frames": 192000,
+      "pcm_sha256": "383f9438c6e2e458442f12aad498cf782f6816faa9731a2cbdf1842b8debdeb4"
+    },
+    {
+      "file": "library/sounds/gameplay/repair_weld.wav",
+      "source_id": "40ad516a-7f83-45dd-8b83-5e8ac98347c8",
+      "start_frame": 0,
+      "frames": 575632,
+      "pcm_sha256": "4ec1b0532810099e41157057a0213631065bf46b2f43c66f4bd040babdf59a22"
+    },
+    {
+      "file": "library/sounds/locomotion/jump_land.wav",
+      "source_id": "f300461e-65a0-4c90-aca1-5bf41c53fe7b",
+      "start_frame": 0,
+      "frames": 104832,
+      "pcm_sha256": "9e053127621f33e8eab8804533e9f98095eba4e9b222d67c4676b36c5514a348"
+    },
+    {
+      "file": "library/sounds/locomotion/jump_pad_launch.wav",
+      "source_id": "722ff4a0-ec9b-470a-baf2-a86fb741c9de",
+      "start_frame": 0,
+      "frames": 870528,
+      "pcm_sha256": "13f47d553a5944bb7a6345170514f2d9eec26633c5dfaeca1c59cba26e4a3687"
+    },
+    {
+      "file": "library/sounds/locomotion/walk.wav",
+      "source_id": "2d4aed30-328c-4bb1-9561-5e8c8a12f442",
+      "start_frame": 0,
+      "frames": 1334642,
+      "pcm_sha256": "44ea5f18d2aa48ce331011ade8f1f6e2948b024aa539178390e26f8af8b3894f"
+    },
+    {
+      "file": "library/sounds/ui/interface.wav",
+      "source_id": "791730a6-853e-4484-8758-c17d1e82fa64",
+      "start_frame": 0,
+      "frames": 59839,
+      "pcm_sha256": "809640c092e8bba6e5f0c93da416d63df7ae13ceda5cca1ac4b746c7caa0b5f1"
+    },
+    {
+      "file": "library/sounds/weapons/hits/emp_gun.wav",
+      "source_id": "45d4e5ed-7b17-4331-8eca-3e58c3f854c9",
+      "start_frame": 0,
+      "frames": 185147,
+      "pcm_sha256": "0e6cc6e3c3f6c1a11623ab201b5a08a8e9ac3b95c415147a38f3be8b930d3442"
+    },
+    {
+      "file": "library/sounds/weapons/hits/flamethrower_primary.wav",
+      "source_id": "af703827-c3ad-4e87-b953-1901bcd3651b",
+      "start_frame": 0,
+      "frames": 4315612,
+      "pcm_sha256": "be6b838e33be80a0a9927f1f900af9ec988b011a73c7c002abbe07bd0b03f3da"
+    },
+    {
+      "file": "library/sounds/weapons/hits/flamethrower_secondary.wav",
+      "source_id": "5d78771c-ed7f-4568-8b22-aa386e919109",
+      "start_frame": 410304,
+      "frames": 292992,
+      "pcm_sha256": "76fa752f19ae52a0f2c09f5d1da0f014fd67f4f365255d75d213bf298f81760f"
+    },
+    {
+      "file": "library/sounds/weapons/hits/lightning_gun_primary.wav",
+      "source_id": "bcacc783-64a9-4b9e-917a-89fc41dd58fd",
+      "start_frame": 0,
+      "frames": 348348,
+      "pcm_sha256": "1989bf1f243ec1c20ab6f05cc01fe6f90b2f5d895f8afe0b3b5fdaa9635bb5a5"
+    },
+    {
+      "file": "library/sounds/weapons/hits/lightning_gun_secondary.wav",
+      "source_id": "8234c8a3-d935-45c8-8809-622c559f853c",
+      "start_frame": 0,
+      "frames": 94368,
+      "pcm_sha256": "dca1c97d68a1e351c72e5beb0a322878e27277624d375e2cd5796c93523b4698"
+    },
+    {
+      "file": "library/sounds/weapons/hits/minigun.wav",
+      "source_id": "782a6e06-268a-4e21-9b5c-62bf42b1b515",
+      "start_frame": 0,
+      "frames": 145803,
+      "pcm_sha256": "75e3eca2a3c2ca7a011e0df9fd54ec6f58d58584be53201236cca88393e15f10"
+    },
+    {
+      "file": "library/sounds/weapons/hits/pistol.wav",
+      "source_id": "9094eab3-a0c2-4e9e-9305-f3799e78d4d6",
+      "start_frame": 0,
+      "frames": 501028,
+      "pcm_sha256": "e496a283082d990324c901df86d990ce4645432b359228ad855356eee5bf01c4"
+    },
+    {
+      "file": "library/sounds/weapons/hits/rifle.wav",
+      "source_id": "32fe7b2c-42d2-45de-bd30-a3931b0a4765",
+      "start_frame": 0,
+      "frames": 217728,
+      "pcm_sha256": "f6d15de5425f1e82279be988b3b56fe1d475b16e44b5d23694c26685dbd7cc0b"
+    },
+    {
+      "file": "library/sounds/weapons/hits/rocket_launcher.wav",
+      "source_id": "c3c2a541-280a-448c-b320-1cacc7b16bb2",
+      "start_frame": 277632,
+      "frames": 444864,
+      "pcm_sha256": "212aaaa8673e364d770392aed5edcc604ea4eb8b8173e41c4f798ff133fc556d"
+    },
+    {
+      "file": "library/sounds/weapons/hits/shield.wav",
+      "source_id": "db521785-9154-4402-ad5d-f74b17a93037",
+      "start_frame": 0,
+      "frames": 125952,
+      "pcm_sha256": "0476cac5b7d7a9ecff885dff00461b2e0fd425d6bd9ea15a722300c6acdcc77e"
+    },
+    {
+      "file": "library/sounds/weapons/other/pickup_ammo.wav",
+      "source_id": "82652f82-c77c-43ca-9fb5-27ae579107ce",
+      "start_frame": 0,
+      "frames": 162528,
+      "pcm_sha256": "2e037dfd8fe2cb7ebb095754e770fd4a063ae1459ad3408cf25c67e58da56a7f"
+    },
+    {
+      "file": "library/sounds/weapons/other/pickup_weapon.wav",
+      "source_id": "82652f82-c77c-43ca-9fb5-27ae579107ce",
+      "start_frame": 504288,
+      "frames": 101760,
+      "pcm_sha256": "856805aec255b55c1c666855d8c069a0daafd9f6db5001f812bf15fa8c14d52f"
+    },
+    {
+      "file": "library/sounds/weapons/other/reload.wav",
+      "source_id": "740cb432-9322-4582-8a4e-750a608ef025",
+      "start_frame": 0,
+      "frames": 547693,
+      "pcm_sha256": "313bf88d1987c597c1c839ce7695bfd874677358dbdd8868060b8bb574bf8435"
+    },
+    {
+      "file": "library/sounds/weapons/shots/emp_gun.wav",
+      "source_id": "e7761fdf-787c-451b-9492-ebeaf8c76c94",
+      "start_frame": 0,
+      "frames": 72968,
+      "pcm_sha256": "01ccbf15a8d0d035c0b1247a5808dbb1ebecf042ee1607f8e545831aa2f98245"
+    },
+    {
+      "file": "library/sounds/weapons/shots/flamethrower_primary.wav",
+      "source_id": "c3600bef-92eb-4877-941c-a1f7851021a0",
+      "start_frame": 0,
+      "frames": 1456470,
+      "pcm_sha256": "58905a1774049bca8cfa7b45fa437e7ae4a42a1a76ac35ac235e95ab045af1e6"
+    },
+    {
+      "file": "library/sounds/weapons/shots/flamethrower_secondary.wav",
+      "source_id": "04829618-83b6-4816-bdcf-6f19f7e68674",
+      "start_frame": 0,
+      "frames": 150720,
+      "pcm_sha256": "e4eda7c0d7e09474922320f94c25495f85ff97c55e675dcce7fddb0b00f535b4"
+    },
+    {
+      "file": "library/sounds/weapons/shots/lightning_gun_primary.wav",
+      "source_id": "82401c82-25eb-467e-847e-658eb48c29df",
+      "start_frame": 0,
+      "frames": 318226,
+      "pcm_sha256": "31db46db534bc0d9c4aede7290180adfd30e8c8d3bd6d9365d21abe770998b18"
+    },
+    {
+      "file": "library/sounds/weapons/shots/lightning_gun_secondary.wav",
+      "source_id": "2b85cc7a-a182-48c9-b896-13348b23f735",
+      "start_frame": 0,
+      "frames": 170579,
+      "pcm_sha256": "22c096165b4595843c271ebfad4634b08750426cdd55049531f685fe47115cda"
+    },
+    {
+      "file": "library/sounds/weapons/shots/minigun.wav",
+      "source_id": "e37e3ea9-b9a4-4404-9972-482de8018203",
+      "start_frame": 0,
+      "frames": 189120,
+      "pcm_sha256": "ab0a6ac80dcf6776f58b390dae517ddd689e296765c528b5ad5a53020beec8af"
+    },
+    {
+      "file": "library/sounds/weapons/shots/pistol.wav",
+      "source_id": "782a6e06-268a-4e21-9b5c-62bf42b1b515",
+      "start_frame": 0,
+      "frames": 145803,
+      "pcm_sha256": "75e3eca2a3c2ca7a011e0df9fd54ec6f58d58584be53201236cca88393e15f10"
+    },
+    {
+      "file": "library/sounds/weapons/shots/rifle.wav",
+      "source_id": "3cb7ab13-006c-4fe4-bffe-c375ba3bcecb",
+      "start_frame": 0,
+      "frames": 281952,
+      "pcm_sha256": "c72e5041af1205d181c4f95608ea02fffd1ea706f1ae9f7f3cf614b537fc4eed"
+    },
+    {
+      "file": "library/sounds/weapons/shots/rocket_launcher.wav",
+      "source_id": "98ca8300-3e48-41b1-8fc3-62fc96ce7448",
+      "start_frame": 0,
+      "frames": 768000,
+      "pcm_sha256": "0913cec513fda1531d48d89900cbce90ab5d7ffefb38e2a1ff6af63633a7eaa2"
+    }
+  ],
+  "game": [
+    {
+      "file": "game/assets/audio/weapons/hits/emp_gun.wav",
+      "library_file": "library/sounds/weapons/hits/emp_gun.wav",
+      "start_frame": 0,
+      "frames": 80640,
+      "tail_mode": "fade",
+      "tail_frames": 3840,
+      "pcm_sha256": "cadf26045f7e4f15fc9b5a8a6fecda7a9ca6c5e94fc5386ce7f0baa065633553"
+    },
+    {
+      "file": "game/assets/audio/weapons/hits/flamethrower_primary.wav",
+      "library_file": "library/sounds/weapons/hits/flamethrower_primary.wav",
+      "start_frame": 1920,
+      "frames": 2155886,
+      "tail_mode": "loop",
+      "tail_frames": 3840,
+      "pcm_sha256": "927e4a2c8eae5a54fd3bd852b764ba90b2514d74e37d082bdb8a576666c240f4"
+    },
+    {
+      "file": "game/assets/audio/weapons/hits/flamethrower_secondary.wav",
+      "library_file": "library/sounds/weapons/hits/flamethrower_secondary.wav",
+      "start_frame": 25920,
+      "frames": 33120,
+      "tail_mode": "none",
+      "tail_frames": 0,
+      "pcm_sha256": "b47e6c8c26aa26815ad63870c43642d2b593f366d60cf3c9e0a435d712914e47"
+    },
+    {
+      "file": "game/assets/audio/weapons/hits/lightning_gun_primary.wav",
+      "library_file": "library/sounds/weapons/hits/lightning_gun_primary.wav",
+      "start_frame": 1920,
+      "frames": 172254,
+      "tail_mode": "loop",
+      "tail_frames": 3840,
+      "pcm_sha256": "9afbebe17483960928a1bce75affb32b6579c8c8c40e6fda2f3fa138c9e5f67b"
+    },
+    {
+      "file": "game/assets/audio/weapons/hits/lightning_gun_secondary.wav",
+      "library_file": "library/sounds/weapons/hits/lightning_gun_secondary.wav",
+      "start_frame": 0,
+      "frames": 35040,
+      "tail_mode": "none",
+      "tail_frames": 0,
+      "pcm_sha256": "49ab6d76da24e3d5ba25c9e7749491cbb372b49a6081e45fb8147640525073c5"
+    },
+    {
+      "file": "game/assets/audio/weapons/hits/minigun.wav",
+      "library_file": "library/sounds/weapons/hits/minigun.wav",
+      "start_frame": 0,
+      "frames": 27840,
+      "tail_mode": "fade",
+      "tail_frames": 3840,
+      "pcm_sha256": "c28baf28eed869cc4ab35d93b6cf8ee3c03f3b7ffb40d678192bd2c518c43839"
+    },
+    {
+      "file": "game/assets/audio/weapons/hits/pistol_01.wav",
+      "library_file": "library/sounds/weapons/hits/pistol.wav",
+      "start_frame": 4320,
+      "frames": 33120,
+      "tail_mode": "fade",
+      "tail_frames": 3840,
+      "pcm_sha256": "28a9f16ea411636650a863bb4af9452547fccd653d69ee488aef0a68ef8954aa"
+    },
+    {
+      "file": "game/assets/audio/weapons/hits/pistol_02.wav",
+      "library_file": "library/sounds/weapons/hits/pistol.wav",
+      "start_frame": 95520,
+      "frames": 30720,
+      "tail_mode": "fade",
+      "tail_frames": 3840,
+      "pcm_sha256": "5b2dd291798a0463b2738b2f6570e3c038cb693ad146b56313529f16859cf4c6"
+    },
+    {
+      "file": "game/assets/audio/weapons/hits/pistol_03.wav",
+      "library_file": "library/sounds/weapons/hits/pistol.wav",
+      "start_frame": 186720,
+      "frames": 30720,
+      "tail_mode": "fade",
+      "tail_frames": 3840,
+      "pcm_sha256": "58abac90c036e64fe392f5da9237d14e0b112042dd2f55d0e6cb4f1f93041b74"
+    },
+    {
+      "file": "game/assets/audio/weapons/hits/rifle.wav",
+      "library_file": "library/sounds/weapons/hits/rifle.wav",
+      "start_frame": 4320,
+      "frames": 37920,
+      "tail_mode": "fade",
+      "tail_frames": 3840,
+      "pcm_sha256": "d710ccfbc03de91f4a4b14bb874ae0a06a5ace31228c1edc59e7571ffbb3cbf5"
+    },
+    {
+      "file": "game/assets/audio/weapons/hits/rocket_launcher.wav",
+      "library_file": "library/sounds/weapons/hits/rocket_launcher.wav",
+      "start_frame": 4320,
+      "frames": 145920,
+      "tail_mode": "fade",
+      "tail_frames": 3840,
+      "pcm_sha256": "08d5c6f6506a9a2d890bbe833bfc1f726abafc2ad8f838ff982b12d413d17a32"
+    },
+    {
+      "file": "game/assets/audio/weapons/hits/shield.wav",
+      "library_file": "library/sounds/weapons/hits/shield.wav",
+      "start_frame": 0,
+      "frames": 32640,
+      "tail_mode": "fade",
+      "tail_frames": 3840,
+      "pcm_sha256": "e9e5167e9f4fdd086c7e9cd4522a1cf033abe727c00a264d0ee0651fbe973e4a"
+    },
+    {
+      "file": "game/assets/audio/weapons/shots/emp_gun.wav",
+      "library_file": "library/sounds/weapons/shots/emp_gun.wav",
+      "start_frame": 0,
+      "frames": 36484,
+      "tail_mode": "fade",
+      "tail_frames": 3840,
+      "pcm_sha256": "e4ccd5d8a7ca73220dcebb98e59fe6a84dd1d317853b7cd325b2fddb269461df"
+    },
+    {
+      "file": "game/assets/audio/weapons/shots/flamethrower_primary.wav",
+      "library_file": "library/sounds/weapons/shots/flamethrower_primary.wav",
+      "start_frame": 1920,
+      "frames": 726315,
+      "tail_mode": "loop",
+      "tail_frames": 3840,
+      "pcm_sha256": "0ee6267ca20dff4775da1f68a25ff8b937270d6829501fc022b365dffa05c1a2"
+    },
+    {
+      "file": "game/assets/audio/weapons/shots/flamethrower_secondary.wav",
+      "library_file": "library/sounds/weapons/shots/flamethrower_secondary.wav",
+      "start_frame": 6720,
+      "frames": 57120,
+      "tail_mode": "none",
+      "tail_frames": 0,
+      "pcm_sha256": "387369948b0ae32b97df6820144632d12ca7afc4c50d95b46c176192ea43e899"
+    },
+    {
+      "file": "game/assets/audio/weapons/shots/lightning_gun_primary.wav",
+      "library_file": "library/sounds/weapons/shots/lightning_gun_primary.wav",
+      "start_frame": 0,
+      "frames": 159113,
+      "tail_mode": "loop",
+      "tail_frames": 3840,
+      "pcm_sha256": "7ce2d5c0b709ef0c8fc2779e4dfc8c223334b27fea91946fe0102573d8667c68"
+    },
+    {
+      "file": "game/assets/audio/weapons/shots/lightning_gun_secondary.wav",
+      "library_file": "library/sounds/weapons/shots/lightning_gun_secondary.wav",
+      "start_frame": 0,
+      "frames": 39840,
+      "tail_mode": "none",
+      "tail_frames": 0,
+      "pcm_sha256": "4703e88407e11a19eebcc94171cecea89a47b3cbe470e57b9f16c179bb87b5f9"
+    },
+    {
+      "file": "game/assets/audio/weapons/shots/minigun.wav",
+      "library_file": "library/sounds/weapons/shots/minigun.wav",
+      "start_frame": 0,
+      "frames": 23040,
+      "tail_mode": "fade",
+      "tail_frames": 3840,
+      "pcm_sha256": "5b209c0dc015626f5f7516bfbb08d75dd132eee0913fba411d86ddc37481af9f"
+    },
+    {
+      "file": "game/assets/audio/weapons/shots/pistol.wav",
+      "library_file": "library/sounds/weapons/hits/minigun.wav",
+      "start_frame": 0,
+      "frames": 27840,
+      "tail_mode": "fade",
+      "tail_frames": 3840,
+      "pcm_sha256": "c28baf28eed869cc4ab35d93b6cf8ee3c03f3b7ffb40d678192bd2c518c43839"
+    },
+    {
+      "file": "game/assets/audio/weapons/shots/rifle.wav",
+      "library_file": "library/sounds/weapons/shots/rifle.wav",
+      "start_frame": 0,
+      "frames": 63840,
+      "tail_mode": "fade",
+      "tail_frames": 3840,
+      "pcm_sha256": "2ded3cfd0ef93c910ac10b249222a16f3735087e4b4902041b3ae1fac3d1d7eb"
+    },
+    {
+      "file": "game/assets/audio/weapons/shots/rocket_launcher.wav",
+      "library_file": "library/sounds/weapons/shots/rocket_launcher.wav",
+      "start_frame": 0,
+      "frames": 109440,
+      "tail_mode": "fade",
+      "tail_frames": 3840,
+      "pcm_sha256": "ed66c18462c910879dc18a60ecc56c08e7ca0ca83a4642dc4df2791b74480cbc"
+    },
+    {
+      "file": "game/assets/audio/world/barricade_close.wav",
+      "library_file": "library/sounds/gameplay/barricade_close.wav",
+      "start_frame": 0,
+      "frames": 320640,
+      "tail_mode": "fade",
+      "tail_frames": 3840,
+      "pcm_sha256": "0220390ba41efacb782d303dde5472f34b0b53478cb719f51ccc7f75356e926a"
+    },
+    {
+      "file": "game/assets/audio/world/barricade_open.wav",
+      "library_file": "library/sounds/gameplay/barricade_close.wav",
+      "start_frame": 0,
+      "frames": 66240,
+      "tail_mode": "fade",
+      "tail_frames": 3840,
+      "pcm_sha256": "22c951a22e278b8e64ef1e25a26d525c5134087c1130343c5d4842e4c8553355"
+    },
+    {
+      "file": "game/assets/audio/world/interface.wav",
+      "library_file": "library/sounds/ui/interface.wav",
+      "start_frame": 0,
+      "frames": 23040,
+      "tail_mode": "fade",
+      "tail_frames": 3840,
+      "pcm_sha256": "98610474eab873839ab94d15e746f92cbad7eac8d46b12e355768a21e388a7d9"
+    },
+    {
+      "file": "game/assets/audio/world/jump_land.wav",
+      "library_file": "library/sounds/locomotion/jump_land.wav",
+      "start_frame": 0,
+      "frames": 13440,
+      "tail_mode": "fade",
+      "tail_frames": 3360,
+      "pcm_sha256": "7b6fa0fe05fe536f1413438f340968b07074bb266cfc7bbe115cef2574c19425"
+    },
+    {
+      "file": "game/assets/audio/world/jump_pad_launch.wav",
+      "library_file": "library/sounds/locomotion/jump_pad_launch.wav",
+      "start_frame": 0,
+      "frames": 128640,
+      "tail_mode": "fade",
+      "tail_frames": 3840,
+      "pcm_sha256": "37fd9635cc3a25235110bd5cc7aafa580a8e6609fb368e244a6ca3d491256d74"
+    },
+    {
+      "file": "game/assets/audio/world/pickup_ammo.wav",
+      "library_file": "library/sounds/weapons/other/pickup_ammo.wav",
+      "start_frame": 4320,
+      "frames": 25920,
+      "tail_mode": "fade",
+      "tail_frames": 3840,
+      "pcm_sha256": "ba3e14a9141f23dc5570dc78d80a9147865b100f668711c4af585265220283c9"
+    },
+    {
+      "file": "game/assets/audio/world/pickup_item.wav",
+      "library_file": "library/sounds/gameplay/pickup_item.wav",
+      "start_frame": 0,
+      "frames": 32640,
+      "tail_mode": "fade",
+      "tail_frames": 3840,
+      "pcm_sha256": "5c5261d28b23ac6bc5a0d101b6a1013cb94a163b57e12e3c5a5615e75a9faee3"
+    },
+    {
+      "file": "game/assets/audio/world/pickup_weapon.wav",
+      "library_file": "library/sounds/weapons/other/pickup_weapon.wav",
+      "start_frame": 1920,
+      "frames": 25920,
+      "tail_mode": "fade",
+      "tail_frames": 3840,
+      "pcm_sha256": "3dbeadf86cd2686ac7aff62d2bc290984c5aaa531019aa2411120be015c9ef17"
+    },
+    {
+      "file": "game/assets/audio/world/portal_enter.wav",
+      "library_file": "library/sounds/gameplay/portal_enter.wav",
+      "start_frame": 0,
+      "frames": 63840,
+      "tail_mode": "fade",
+      "tail_frames": 3840,
+      "pcm_sha256": "3b4154c94bf557a4054c735f84ad2213f4ce07b04d23ad1d00d4e2c89f57c626"
+    },
+    {
+      "file": "game/assets/audio/world/portal_exit.wav",
+      "library_file": "library/sounds/gameplay/portal_exit.wav",
+      "start_frame": 0,
+      "frames": 66240,
+      "tail_mode": "fade",
+      "tail_frames": 3840,
+      "pcm_sha256": "e7528ee742ac0c484773ba988d87471257186e64350764cb28e68c2ec6fe7b05"
+    },
+    {
+      "file": "game/assets/audio/world/reload.wav",
+      "library_file": "library/sounds/weapons/other/reload.wav",
+      "start_frame": 1920,
+      "frames": 270720,
+      "tail_mode": "fade",
+      "tail_frames": 3840,
+      "pcm_sha256": "0cd9c4266025e7cbc38f05a18a964bed7499565243b3b8f17caa678904249596"
+    },
+    {
+      "file": "game/assets/audio/world/repair_ready.wav",
+      "library_file": "library/sounds/gameplay/repair_ready.wav",
+      "start_frame": 1920,
+      "frames": 645120,
+      "tail_mode": "loop",
+      "tail_frames": 3840,
+      "pcm_sha256": "5c8c70cb42b6aec9723946123eaf7f352401f39eb1951f973bd833193de3fe85"
+    },
+    {
+      "file": "game/assets/audio/world/repair_start_stop.wav",
+      "library_file": "library/sounds/gameplay/repair_start_stop.wav",
+      "start_frame": 0,
+      "frames": 68640,
+      "tail_mode": "fade",
+      "tail_frames": 3840,
+      "pcm_sha256": "deb7ac65c719ea9089fd0da4f6157e5990273e86f7c4b9f39770ca17b951a682"
+    },
+    {
+      "file": "game/assets/audio/world/repair_weld.wav",
+      "library_file": "library/sounds/gameplay/repair_weld.wav",
+      "start_frame": 1920,
+      "frames": 244320,
+      "tail_mode": "loop",
+      "tail_frames": 3840,
+      "pcm_sha256": "f1ccb3db3ae9bb443fd97f5b4f97480c3ec67bb1923dccfed65103ffe74eeee7"
+    },
+    {
+      "file": "game/assets/audio/world/thruster.wav",
+      "library_file": "library/sounds/environment/thruster.wav",
+      "start_frame": 0,
+      "frames": 361316,
+      "tail_mode": "loop",
+      "tail_frames": 3840,
+      "pcm_sha256": "43b117c0e74f1a89ce07a1db3324503979bac07076f995350b54dffb74f925e2"
+    },
+    {
+      "file": "game/assets/audio/world/walk.wav",
+      "library_file": "library/sounds/locomotion/walk.wav",
+      "start_frame": 16320,
+      "frames": 637920,
+      "tail_mode": "loop",
+      "tail_frames": 3840,
+      "pcm_sha256": "065635bcc952325036c89fea66d0a2c5a7a3e4f35e406b669a70f1836e3acf0f"
+    }
+  ]
+}

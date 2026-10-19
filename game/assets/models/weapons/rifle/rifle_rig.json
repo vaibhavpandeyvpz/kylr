@@ -1,0 +1,949 @@
+{
+  "name": "rifle",
+  "space": "Blender coords: +Z up, the muzzle points -Y, the origin is the gun's bottom centre (the magazine's and the grip's bottom plane, midway along the gun). glTF/Godot: (x, z, -y), so the muzzle points +Z (glTF's front). Hinges turn about their bone's local X (degrees), slides move along their bone's local Y (metres).",
+  "rest": "bolt carrier and barrel home, dust cover shut, charging handle forward, trigger forward, selector on auto, the optic's sleeve in, magazine in, catch out",
+  "size_m": {
+    "wide": 0.081,
+    "long": 0.649,
+    "high": 0.319,
+    "max_wide_long_high": [
+      0.25,
+      0.75,
+      0.35
+    ],
+    "bore_axis_height": 0.212,
+    "note": "a designated marksman rifle (assault rifle with a sniper's optic); every weapon fits 0.25 x 0.75 x 0.35 m"
+  },
+  "materials": [
+    "M_Primary_Metallic",
+    "M_Secondary_Diffuse",
+    "M_Frame_Metallic",
+    "M_Joint_Metallic",
+    "M_Emissive",
+    "M_Bronze_Metallic",
+    "M_Glass",
+    "M_Metal_Metallic"
+  ],
+  "triangles": {
+    "SK_Rifle": 4799,
+    "SK_RifleOptic": 678,
+    "SK_RifleAmmo": 1304,
+    "SM_RifleAmmo": 1304
+  },
+  "joints": [
+    {
+      "bone": "Root",
+      "parent": null,
+      "type": "fixed",
+      "pivot": [
+        0.0,
+        0.0535,
+        0.0
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": null,
+      "channel": null
+    },
+    {
+      "bone": "Bolt",
+      "parent": "Root",
+      "type": "slide",
+      "pivot": [
+        0.0,
+        0.0035,
+        0.212
+      ],
+      "axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "range": [
+        0,
+        0.06
+      ],
+      "channel": "location_y_m"
+    },
+    {
+      "bone": "Barrel",
+      "parent": "Root",
+      "type": "slide",
+      "pivot": [
+        0.0,
+        -0.0145,
+        0.212
+      ],
+      "axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "range": [
+        0,
+        0.01
+      ],
+      "channel": "location_y_m"
+    },
+    {
+      "bone": "Charger",
+      "parent": "Root",
+      "type": "slide",
+      "pivot": [
+        0.0235,
+        0.058,
+        0.222
+      ],
+      "axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "range": [
+        0,
+        0.06
+      ],
+      "channel": "location_y_m"
+    },
+    {
+      "bone": "EjectCover",
+      "parent": "Root",
+      "type": "hinge",
+      "pivot": [
+        -0.0333,
+        0.0425,
+        0.2
+      ],
+      "axis": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "range": [
+        0,
+        100
+      ],
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "Trigger",
+      "parent": "Root",
+      "type": "hinge",
+      "pivot": [
+        0.0,
+        0.1404,
+        0.138
+      ],
+      "axis": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "range": [
+        0,
+        12
+      ],
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "Selector",
+      "parent": "Root",
+      "type": "hinge",
+      "pivot": [
+        0.0335,
+        0.1755,
+        0.1795
+      ],
+      "axis": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "range": [
+        0,
+        60
+      ],
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "Optic",
+      "parent": "Root",
+      "type": "slide",
+      "pivot": [
+        0.0,
+        0.0135,
+        0.2525
+      ],
+      "axis": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "range": [
+        -0.04,
+        0.17
+      ],
+      "channel": "location_y_m"
+    },
+    {
+      "bone": "Zoom",
+      "parent": "Optic",
+      "type": "slide",
+      "pivot": [
+        0.0,
+        -0.0125,
+        0.2855
+      ],
+      "axis": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "range": [
+        0,
+        0.016
+      ],
+      "channel": "location_y_m"
+    },
+    {
+      "bone": "Lamp",
+      "parent": "Root",
+      "type": "hinge",
+      "pivot": [
+        0.0,
+        -0.2015,
+        0.1445
+      ],
+      "axis": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "range": [
+        0,
+        20
+      ],
+      "channel": "rotation_x_deg"
+    },
+    {
+      "bone": "Mag",
+      "parent": "Root",
+      "type": "slide",
+      "pivot": [
+        0.0,
+        0.056,
+        0.0
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "range": [
+        0,
+        0.03
+      ],
+      "channel": "location_y_m"
+    },
+    {
+      "bone": "MagCatch",
+      "parent": "Root",
+      "type": "slide",
+      "pivot": [
+        0.0,
+        0.101,
+        0.14
+      ],
+      "axis": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "range": [
+        0,
+        0.0045
+      ],
+      "channel": "location_y_m"
+    }
+  ],
+  "coupled": {
+    "Barrel": "min(Bolt as fired, 0.01): short recoil, the barrel rides the carrier's first centimetre locked to its face, then stops, and the carrier brings it home (not when the carrier is pulled back on the charging handle)",
+    "Bolt": "max(Bolt, Charger): the charging handle pushes the carrier back by its lug; the carrier never drags the handle (baked into every action)"
+  },
+  "animations": {
+    "idle": {
+      "frames": [
+        0,
+        30
+      ],
+      "fps": 30,
+      "loop": true,
+      "joints": [
+        "EjectCover",
+        "Trigger"
+      ]
+    },
+    "fire_start": {
+      "frames": [
+        0,
+        4
+      ],
+      "fps": 30,
+      "loop": false,
+      "joints": [
+        "EjectCover",
+        "Trigger"
+      ]
+    },
+    "fire": {
+      "frames": [
+        0,
+        12
+      ],
+      "fps": 30,
+      "loop": true,
+      "joints": [
+        "Barrel",
+        "Bolt",
+        "EjectCover",
+        "Trigger"
+      ]
+    },
+    "fire_end": {
+      "frames": [
+        0,
+        10
+      ],
+      "fps": 30,
+      "loop": false,
+      "joints": [
+        "EjectCover",
+        "Trigger"
+      ]
+    },
+    "scope_in": {
+      "frames": [
+        0,
+        10
+      ],
+      "fps": 30,
+      "loop": false,
+      "joints": [
+        "Selector",
+        "Zoom"
+      ]
+    },
+    "idle_scoped": {
+      "frames": [
+        0,
+        30
+      ],
+      "fps": 30,
+      "loop": true,
+      "joints": [
+        "Selector",
+        "Zoom"
+      ]
+    },
+    "fire_marksman": {
+      "frames": [
+        0,
+        20
+      ],
+      "fps": 30,
+      "loop": false,
+      "joints": [
+        "Barrel",
+        "Bolt",
+        "EjectCover",
+        "Selector",
+        "Trigger",
+        "Zoom"
+      ]
+    },
+    "scope_out": {
+      "frames": [
+        0,
+        10
+      ],
+      "fps": 30,
+      "loop": false,
+      "joints": [
+        "Selector",
+        "Zoom"
+      ]
+    },
+    "charge": {
+      "frames": [
+        0,
+        18
+      ],
+      "fps": 30,
+      "loop": false,
+      "joints": [
+        "Bolt",
+        "Charger"
+      ]
+    },
+    "mag_release": {
+      "frames": [
+        0,
+        15
+      ],
+      "fps": 30,
+      "loop": false,
+      "joints": [
+        "Mag",
+        "MagCatch"
+      ]
+    },
+    "mag_insert": {
+      "frames": [
+        0,
+        15
+      ],
+      "fps": 30,
+      "loop": false,
+      "joints": [
+        "Mag",
+        "MagCatch"
+      ]
+    }
+  },
+  "fire": {
+    "auto": "fire_start (4 frames: the trigger pulls, the dust cover drops open), then loop fire (12 frames, 4 shots, 600 rounds a minute): a shot on frames [0, 3, 6, 9]: fire the hitscan / spawn the muzzle flash at Muzzle then; the carrier is fully back the frame after each (throw the case from ShellEject, forward = its direction); then fire_end (10 frames: the trigger lets go, the cover closes).",
+    "marksman": "scope_in (10 frames: the selector turns to marksman, the optic's sleeve runs 16 mm out to zoom), loop idle_scoped, and fire_marksman per shot (20 frames: the shot on frame 3, the case out on frame 5, the cover opening and closing round it); scope_out to go back. Put the camera on ScopeEye to look through the optic.",
+    "reload": "mag_release, mag_insert, then charge (the charging handle pulls the carrier back and lets it run home).",
+    "idle": "idle (30 frames, loop) and idle_scoped hold their pose between shots: nothing on the rifle moves at rest; every action starts and ends at rest except the fire loop (from fire_start, into fire_end) and the marksman actions (from scope_in, into scope_out).",
+    "cycle_frames": 3,
+    "shot_frames": [
+      0,
+      3,
+      6,
+      9
+    ],
+    "bolt_travel_m": 0.06,
+    "recoil_m": 0.01,
+    "zoom_travel_m": 0.016
+  },
+  "gizmos": {
+    "convention": "empties: in Blender local +Y is the gizmo's forward and +Z its up; in glTF / Godot -Z is forward and +Y up (Marker3D / Node3D under a BoneAttachment3D, so they follow the animations)",
+    "muzzle": {
+      "name": "Muzzle",
+      "bone": "Barrel",
+      "position": [
+        0.0,
+        -0.3344,
+        0.212
+      ],
+      "forward": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "up": [
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    "muzzle_note": "1 cm in front of the flash hider's face, on the barrel's bone: the hitscan's origin and where to play the muzzle flash (and its light)",
+    "shell_eject": {
+      "name": "ShellEject",
+      "bone": "Root",
+      "position": [
+        -0.031,
+        0.0425,
+        0.215
+      ],
+      "forward": [
+        -0.8437,
+        0.2978,
+        0.4467
+      ],
+      "up": [
+        0.4212,
+        -0.1487,
+        0.8947
+      ]
+    },
+    "shell_eject_note": "on the ejection port in the right flank, forward = out, up and back as a case leaves: spawn the spent case there when the carrier is fully back",
+    "scope_eye": {
+      "name": "ScopeEye",
+      "bone": "Optic",
+      "position": [
+        0.0,
+        0.2385,
+        0.2855
+      ],
+      "forward": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "up": [
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    "scope_eye_note": "the sniper's eye point, 75 mm behind the optic's eyepiece on its axis, looking forward along it, on the Optic bone (it moves with the optic along the rail): move the camera here for the marksman mode",
+    "flashlight": {
+      "name": "Flashlight",
+      "bone": "Lamp",
+      "position": [
+        0.0,
+        -0.255,
+        0.118
+      ],
+      "forward": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "up": [
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    "flashlight_note": "on the lamp's lens, on the Lamp bone, forward = the beam: put the spotlight here and toggle it; tilt the lamp (Lamp, 0 to LAMP_TILT deg down) to aim the beam lower"
+  },
+  "ammo_hand_socket": {
+    "hand_bone": "LeftHand",
+    "bone": "Mag",
+    "grips": "the ammo pack for a reload, a wide grip: palm on its outer end, fingers across it and over its far edge, thumb up its front",
+    "note": "given at the pack's rest; the empty rides the Mag bone. For a reload, put the support hand on it where the pack is (released), carry the pack in that hand (pack = hand_bone_global * socket_in_pack.inverse()) and put it back the same way",
+    "wrist_blender": [
+      0.0795,
+      0.056,
+      -0.016
+    ],
+    "bone_x_blender": [
+      0.0,
+      1.0,
+      0.0
+    ],
+    "bone_y_blender": [
+      -1.0,
+      0.0,
+      0.0
+    ],
+    "bone_z_blender": [
+      -0.0,
+      -0.0,
+      1.0
+    ],
+    "wrist_godot": [
+      0.0795,
+      -0.016,
+      -0.056
+    ],
+    "bone_x_godot": [
+      0.0,
+      0.0,
+      -1.0
+    ],
+    "bone_y_godot": [
+      -1.0,
+      0.0,
+      -0.0
+    ],
+    "bone_z_godot": [
+      -0.0,
+      1.0,
+      0.0
+    ],
+    "grip_pose_deg": {
+      "LeftIndexProximal": [
+        45.0,
+        0,
+        0
+      ],
+      "LeftIndexIntermediate": [
+        49.5,
+        0,
+        0
+      ],
+      "LeftIndexDistal": [
+        36.0,
+        0,
+        0
+      ],
+      "LeftMiddleProximal": [
+        50.0,
+        0,
+        0
+      ],
+      "LeftMiddleIntermediate": [
+        55.0,
+        0,
+        0
+      ],
+      "LeftMiddleDistal": [
+        40.0,
+        0,
+        0
+      ],
+      "LeftRingProximal": [
+        50.0,
+        0,
+        0
+      ],
+      "LeftRingIntermediate": [
+        55.0,
+        0,
+        0
+      ],
+      "LeftRingDistal": [
+        40.0,
+        0,
+        0
+      ],
+      "LeftLittleProximal": [
+        45.0,
+        0,
+        0
+      ],
+      "LeftLittleIntermediate": [
+        49.5,
+        0,
+        0
+      ],
+      "LeftLittleDistal": [
+        36.0,
+        0,
+        0
+      ],
+      "LeftThumbMetacarpal": [
+        25,
+        0,
+        40
+      ],
+      "LeftThumbProximal": [
+        15,
+        0,
+        0
+      ],
+      "LeftThumbDistal": [
+        15,
+        0,
+        0
+      ]
+    }
+  },
+  "hand_sockets": {
+    "convention": "origin = the wrist pivot (the head of the character's Hand bone); the socket's glTF / Godot basis IS the Hand bone's basis for that grip (Tensor: X along the knuckle line, the left thumb on -X and the right on +X, Y from the wrist to the knuckles, Z out of the palm). In Godot set the hand bone's global pose to the socket's transform (relative to the skeleton) and solve the arm to reach it; or carry the gun in the right hand with gun = hand_bone_global * RightHandSocket_local.inverse(). In Blender the empties' own axes are (X, -Z, Y) of the bone frame because the exporter converts empties, not bones.",
+    "grip_pose": "grip_pose_deg per socket: Tensor's finger and thumb bone rotations (local XYZ, degrees) that close each hand onto its grip (animations/retarget.py closes Tensor's hands to them); the right index finger curls in to the trigger",
+    "LeftHandSocket": {
+      "hand_bone": "LeftHand",
+      "grips": "the magwell: the palm on its left, the fingers round its front",
+      "wrist_blender": [
+        0.0498,
+        0.0863,
+        0.155
+      ],
+      "bone_x_blender": [
+        0.0,
+        0.1392,
+        -0.9903
+      ],
+      "bone_y_blender": [
+        0.0,
+        -0.9903,
+        -0.1392
+      ],
+      "bone_z_blender": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "wrist_godot": [
+        0.0498,
+        0.155,
+        -0.0863
+      ],
+      "bone_x_godot": [
+        0.0,
+        -0.9903,
+        -0.1392
+      ],
+      "bone_y_godot": [
+        0.0,
+        -0.1392,
+        0.9903
+      ],
+      "bone_z_godot": [
+        -1.0,
+        0.0,
+        -0.0
+      ],
+      "grip_pose_deg": {
+        "LeftIndexProximal": [
+          45.0,
+          0,
+          0
+        ],
+        "LeftIndexIntermediate": [
+          49.5,
+          0,
+          0
+        ],
+        "LeftIndexDistal": [
+          36.0,
+          0,
+          0
+        ],
+        "LeftMiddleProximal": [
+          50.0,
+          0,
+          0
+        ],
+        "LeftMiddleIntermediate": [
+          55.0,
+          0,
+          0
+        ],
+        "LeftMiddleDistal": [
+          40.0,
+          0,
+          0
+        ],
+        "LeftRingProximal": [
+          52.0,
+          0,
+          0
+        ],
+        "LeftRingIntermediate": [
+          57.2,
+          0,
+          0
+        ],
+        "LeftRingDistal": [
+          41.6,
+          0,
+          0
+        ],
+        "LeftLittleProximal": [
+          48.0,
+          0,
+          0
+        ],
+        "LeftLittleIntermediate": [
+          52.8,
+          0,
+          0
+        ],
+        "LeftLittleDistal": [
+          38.4,
+          0,
+          0
+        ],
+        "LeftThumbMetacarpal": [
+          20,
+          0,
+          30
+        ],
+        "LeftThumbProximal": [
+          20,
+          0,
+          0
+        ],
+        "LeftThumbDistal": [
+          20,
+          0,
+          0
+        ]
+      }
+    },
+    "RightHandSocket": {
+      "hand_bone": "RightHand",
+      "grips": "pistol grip",
+      "wrist_blender": [
+        -0.03,
+        0.2675,
+        0.1046
+      ],
+      "bone_x_blender": [
+        0.0,
+        -0.2588,
+        0.9659
+      ],
+      "bone_y_blender": [
+        0.0,
+        -0.9659,
+        -0.2588
+      ],
+      "bone_z_blender": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "wrist_godot": [
+        -0.03,
+        0.1046,
+        -0.2675
+      ],
+      "bone_x_godot": [
+        0.0,
+        0.9659,
+        0.2588
+      ],
+      "bone_y_godot": [
+        0.0,
+        -0.2588,
+        0.9659
+      ],
+      "bone_z_godot": [
+        1.0,
+        0.0,
+        -0.0
+      ],
+      "grip_pose_deg": {
+        "RightIndexProximal": [
+          36.0,
+          0,
+          0
+        ],
+        "RightIndexIntermediate": [
+          39.6,
+          0,
+          0
+        ],
+        "RightIndexDistal": [
+          28.8,
+          0,
+          0
+        ],
+        "RightMiddleProximal": [
+          65.0,
+          0,
+          0
+        ],
+        "RightMiddleIntermediate": [
+          71.5,
+          0,
+          0
+        ],
+        "RightMiddleDistal": [
+          52.0,
+          0,
+          0
+        ],
+        "RightRingProximal": [
+          65.0,
+          0,
+          0
+        ],
+        "RightRingIntermediate": [
+          71.5,
+          0,
+          0
+        ],
+        "RightRingDistal": [
+          52.0,
+          0,
+          0
+        ],
+        "RightLittleProximal": [
+          52.0,
+          0,
+          0
+        ],
+        "RightLittleIntermediate": [
+          57.2,
+          0,
+          0
+        ],
+        "RightLittleDistal": [
+          41.6,
+          0,
+          0
+        ],
+        "RightThumbMetacarpal": [
+          42,
+          0,
+          -25
+        ],
+        "RightThumbProximal": [
+          50,
+          0,
+          0
+        ],
+        "RightThumbDistal": [
+          50,
+          0,
+          0
+        ]
+      }
+    }
+  },
+  "optic": {
+    "mesh": "SK_RifleOptic",
+    "bone": "Optic",
+    "travel_m": [
+      -0.04,
+      0.17
+    ],
+    "note": "the optic rides the rail on the Optic bone (local Y, forward +): set it anywhere in its travel to put it farther or closer; slid past the front end of its travel it is off the rail: hide SK_RifleOptic (and use the iron-free view), slide it back on to refit it."
+  },
+  "lamp": {
+    "bone": "Lamp",
+    "tilt_deg": [
+      0,
+      20
+    ],
+    "gizmo": "Flashlight"
+  },
+  "ammo": {
+    "mesh": "SM_RifleAmmo in rifle_ammo.glb, at the AmmoMount gizmo",
+    "bone": "Mag",
+    "pickup_file": "rifle_ammo.glb",
+    "pickup_mesh": "SM_RifleAmmo",
+    "pickup_origin": "its bottom centre, upright",
+    "axis": [
+      0,
+      0,
+      -1
+    ],
+    "rails_m": 0.03,
+    "note": "mag_release presses the catch and drops the magazine down the magwell; past MAG_TRAVEL it is free: hide the magazine mesh and drop a physics copy of the pickup mesh at the Mag bone's transform. To reload, put the magazine back at the end of its travel and play mag_insert (the catch snaps into its notch), then charge."
+  },
+  "usage": "idle (loop); auto: fire_start, fire (loop), fire_end; marksman: scope_in, idle_scoped (loop), fire_marksman per shot, scope_out; reload: mag_release, mag_insert, charge.",
+  "ammo_mount": {
+    "gizmo": "AmmoMount",
+    "bone": "Mag",
+    "model": "rifle_ammo.glb",
+    "mesh": "SM_RifleAmmo",
+    "position_blender": [
+      -0.0,
+      0.056,
+      -0.0
+    ],
+    "rotation_wxyz_blender": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "position_godot": [
+      -0.0,
+      -0.0,
+      -0.056
+    ],
+    "note": "the ammo pack is its own model (<name>_ammo.glb / .fbx / .blend, its origin at its bottom centre, square to its own axes, its real size): parent its mesh to the AmmoMount node unmoved and it rides the Mag bone where the weapon's actions put it (a reload's release and insert); the weapon's own files carry no pack mesh. The same model is the ammo pickup."
+  },
+  "material_classifiers": {
+    "M_Bronze_Metallic": "Metallic",
+    "M_Emissive": "Emissive",
+    "M_Frame_Metallic": "Metallic",
+    "M_Glass": "Glass",
+    "M_Joint_Metallic": "Metallic",
+    "M_Metal_Metallic": "Metallic",
+    "M_Primary_Metallic": "Metallic",
+    "M_Secondary_Diffuse": "Diffuse"
+  }
+}

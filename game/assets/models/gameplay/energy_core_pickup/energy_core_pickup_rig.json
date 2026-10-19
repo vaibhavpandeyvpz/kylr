@@ -1,0 +1,47 @@
+{
+  "name": "energy_core_pickup",
+  "outer_shape": "hollow_sphere",
+  "outer_diameter_m": 0.1,
+  "wall_thickness_m": 0.005,
+  "outer_opacity": 0.25,
+  "authored_lwh_m": [
+    0.1,
+    0.1,
+    0.1
+  ],
+  "origin": "centre",
+  "inner_shape": "solid_bolt_symmetric",
+  "bolt_scale": 0.4,
+  "bolt_lwh_m": [
+    0.01456,
+    0.052,
+    0.076
+  ],
+  "symbol_clearance_m": 0.005644716496273509,
+  "bones": [
+    "Outer",
+    "Inner"
+  ],
+  "animations": [
+    "spin"
+  ],
+  "triangles": 2452,
+  "animation_settings": {
+    "spin": {
+      "loop": true,
+      "fps": 24,
+      "frames": [
+        1,
+        121
+      ],
+      "axis": "Blender +Z / Godot +Y",
+      "Outer_degrees": 360,
+      "Inner_degrees": -360
+    }
+  },
+  "collision": "no solid collision companion authored",
+  "material_classifiers": {
+    "M_CoreInner_Emissive": "Emissive",
+    "M_CoreOuter_Glass": "Glass"
+  }
+}

@@ -1,0 +1,754 @@
+{
+  "name": "flak_cannon",
+  "rest": "pair 240/300 degrees at the lower transfer station; trigger released; cassette seated",
+  "space": "metres; Blender +Z up, muzzle -Y; origin bottom plane, centred along length; Godot (x,z,-y)",
+  "materials": [
+    "M_Primary_Metallic",
+    "M_Secondary_Diffuse",
+    "M_Frame_Metallic",
+    "M_Joint_Metallic",
+    "M_Emissive",
+    "M_Bronze_Metallic",
+    "M_Glass",
+    "M_Metal_Metallic",
+    "M_Screen_Emissive"
+  ],
+  "size_m": {
+    "wide": 0.15800000727176666,
+    "long": 0.670199990272522,
+    "high": 0.34619998931884766,
+    "max_wide_long_high": [
+      0.25,
+      0.75,
+      0.35
+    ]
+  },
+  "triangles": {
+    "SK_FlakCannon": 6875,
+    "SM_FlakCannonAmmo": 492
+  },
+  "triangle_budgets": {
+    "SK_FlakCannon": 7500,
+    "SM_FlakCannonAmmo": 1500
+  },
+  "joints": [
+    {
+      "bone": "Root",
+      "parent": null,
+      "type": "fixed",
+      "pivot": [
+        0.0,
+        0.0279,
+        0.0
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": null
+    },
+    {
+      "bone": "LoadRotor",
+      "parent": "Root",
+      "type": "hinge",
+      "pivot": [
+        0.0,
+        -0.0521,
+        0.264105
+      ],
+      "axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "range": [
+        0,
+        120
+      ]
+    },
+    {
+      "bone": "IndexLock",
+      "parent": "Root",
+      "type": "slide",
+      "pivot": [
+        0.0,
+        -0.0661,
+        0.324605
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        0,
+        0.007
+      ]
+    },
+    {
+      "bone": "Barrel1",
+      "parent": "Root",
+      "type": "slide",
+      "pivot": [
+        -0.029,
+        -0.2801,
+        0.24647
+      ],
+      "axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "range": [
+        0,
+        0.01
+      ]
+    },
+    {
+      "bone": "Barrel2",
+      "parent": "Root",
+      "type": "slide",
+      "pivot": [
+        0.029,
+        -0.2801,
+        0.24647
+      ],
+      "axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "range": [
+        0,
+        0.01
+      ]
+    },
+    {
+      "bone": "Trigger",
+      "parent": "Root",
+      "type": "hinge",
+      "pivot": [
+        0.0,
+        0.1148,
+        0.138
+      ],
+      "axis": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "range": [
+        0,
+        12
+      ]
+    },
+    {
+      "bone": "Mag",
+      "parent": "Root",
+      "type": "slide",
+      "pivot": [
+        0.0,
+        0.0429,
+        0.082
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "range": [
+        0,
+        0.020000000000000018
+      ]
+    },
+    {
+      "bone": "MagCatch",
+      "parent": "Root",
+      "type": "slide",
+      "pivot": [
+        0.0,
+        0.0521,
+        0.1548
+      ],
+      "axis": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "range": [
+        0,
+        0.01
+      ]
+    }
+  ],
+  "animations": {
+    "idle": {
+      "frames": [
+        0,
+        30
+      ],
+      "fps": 30,
+      "loop": true,
+      "joints": [
+        "Trigger"
+      ]
+    },
+    "fire": {
+      "frames": [
+        0,
+        20
+      ],
+      "fps": 30,
+      "loop": false,
+      "joints": [
+        "Barrel1",
+        "Barrel2",
+        "IndexLock",
+        "LoadRotor",
+        "Trigger"
+      ]
+    },
+    "mag_release": {
+      "frames": [
+        0,
+        14
+      ],
+      "fps": 30,
+      "loop": false,
+      "joints": [
+        "Mag",
+        "MagCatch"
+      ]
+    },
+    "mag_insert": {
+      "frames": [
+        0,
+        14
+      ],
+      "fps": 30,
+      "loop": false,
+      "joints": [
+        "Mag",
+        "MagCatch"
+      ]
+    }
+  },
+  "pistons": [],
+  "hand_sockets": {
+    "LeftHandSocket": {
+      "hand_bone": "LeftHand",
+      "grips": "EMP-compatible forend",
+      "wrist_blender": [
+        0.077081,
+        -0.016144,
+        0.164205
+      ],
+      "wrist_godot": [
+        0.077081,
+        0.164205,
+        0.016144
+      ],
+      "grip_pose_deg": {
+        "LeftIndexProximal": [
+          10,
+          0,
+          0
+        ],
+        "LeftIndexIntermediate": [
+          11.0,
+          0,
+          0
+        ],
+        "LeftIndexDistal": [
+          8.0,
+          0,
+          0
+        ],
+        "LeftMiddleProximal": [
+          19,
+          0,
+          0
+        ],
+        "LeftMiddleIntermediate": [
+          20.9,
+          0,
+          0
+        ],
+        "LeftMiddleDistal": [
+          15.2,
+          0,
+          0
+        ],
+        "LeftRingProximal": [
+          24,
+          0,
+          0
+        ],
+        "LeftRingIntermediate": [
+          26.4,
+          0,
+          0
+        ],
+        "LeftRingDistal": [
+          19.2,
+          0,
+          0
+        ],
+        "LeftLittleProximal": [
+          27,
+          0,
+          0
+        ],
+        "LeftLittleIntermediate": [
+          29.7,
+          0,
+          0
+        ],
+        "LeftLittleDistal": [
+          21.6,
+          0,
+          0
+        ],
+        "LeftThumbMetacarpal": [
+          24,
+          0,
+          25
+        ],
+        "LeftThumbProximal": [
+          16,
+          0,
+          0
+        ],
+        "LeftThumbDistal": [
+          16,
+          0,
+          0
+        ]
+      },
+      "bone_x_blender": [
+        -0.625887,
+        0.745903,
+        -0.227804
+      ],
+      "bone_x_godot": [
+        -0.625887,
+        -0.227804,
+        -0.745903
+      ],
+      "bone_y_blender": [
+        -0.700919,
+        -0.666055,
+        -0.255114
+      ],
+      "bone_y_godot": [
+        -0.700919,
+        -0.255114,
+        0.666055
+      ],
+      "bone_z_blender": [
+        -0.34202,
+        -0.0,
+        0.939693
+      ],
+      "bone_z_godot": [
+        -0.34202,
+        0.939693,
+        0.0
+      ]
+    },
+    "RightHandSocket": {
+      "hand_bone": "RightHand",
+      "grips": "EMP-compatible pistol grip",
+      "wrist_blender": [
+        -0.03,
+        0.241915,
+        0.104617
+      ],
+      "wrist_godot": [
+        -0.03,
+        0.104617,
+        -0.241915
+      ],
+      "grip_pose_deg": {
+        "RightIndexProximal": [
+          36,
+          0,
+          0
+        ],
+        "RightIndexIntermediate": [
+          39.6,
+          0,
+          0
+        ],
+        "RightIndexDistal": [
+          28.8,
+          0,
+          0
+        ],
+        "RightMiddleProximal": [
+          65,
+          0,
+          0
+        ],
+        "RightMiddleIntermediate": [
+          71.5,
+          0,
+          0
+        ],
+        "RightMiddleDistal": [
+          52.0,
+          0,
+          0
+        ],
+        "RightRingProximal": [
+          65,
+          0,
+          0
+        ],
+        "RightRingIntermediate": [
+          71.5,
+          0,
+          0
+        ],
+        "RightRingDistal": [
+          52.0,
+          0,
+          0
+        ],
+        "RightLittleProximal": [
+          52,
+          0,
+          0
+        ],
+        "RightLittleIntermediate": [
+          57.2,
+          0,
+          0
+        ],
+        "RightLittleDistal": [
+          41.6,
+          0,
+          0
+        ],
+        "RightThumbMetacarpal": [
+          42,
+          0,
+          -25
+        ],
+        "RightThumbProximal": [
+          50,
+          0,
+          0
+        ],
+        "RightThumbDistal": [
+          50,
+          0,
+          0
+        ]
+      },
+      "bone_x_blender": [
+        0.0,
+        -0.258819,
+        0.965926
+      ],
+      "bone_x_godot": [
+        0.0,
+        0.965926,
+        0.258819
+      ],
+      "bone_y_blender": [
+        0.0,
+        -0.965926,
+        -0.258819
+      ],
+      "bone_y_godot": [
+        0.0,
+        -0.258819,
+        0.965926
+      ],
+      "bone_z_blender": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "bone_z_godot": [
+        1.0,
+        0.0,
+        -0.0
+      ]
+    }
+  },
+  "assembly": {
+    "parts": [
+      "orange unibody shroud/receiver",
+      "black upper cover",
+      "recessed chrome blast plate with black bezel",
+      "orange removable window frames",
+      "orange receiver hatches",
+      "rear-slope display console"
+    ],
+    "construction": "separately closed castings; uniform material per casting; flush butt interfaces crossed by full-length fastening shanks",
+    "clamp_cam": {
+      "y_blender": -0.0371,
+      "z_blender": 0.186,
+      "seat": "inset lower service land"
+    }
+  },
+  "ammo_hand_socket": {
+    "hand_bone": "LeftHand",
+    "bone": "Mag",
+    "grips": "the ammo pack for a reload, a wide grip: palm on its outer end, fingers across it and over its far edge, thumb up its front",
+    "note": "given at the pack's rest; the empty rides the Mag bone. For a reload, put the support hand on it where the pack is (released), carry the pack in that hand (pack = hand_bone_global * socket_in_pack.inverse()) and put it back the same way",
+    "wrist_blender": [
+      0.0665,
+      0.0429,
+      0.054
+    ],
+    "bone_x_blender": [
+      0.0,
+      1.0,
+      0.0
+    ],
+    "bone_y_blender": [
+      -1.0,
+      0.0,
+      0.0
+    ],
+    "bone_z_blender": [
+      -0.0,
+      -0.0,
+      1.0
+    ],
+    "wrist_godot": [
+      0.0665,
+      0.054,
+      -0.0429
+    ],
+    "bone_x_godot": [
+      0.0,
+      0.0,
+      -1.0
+    ],
+    "bone_y_godot": [
+      -1.0,
+      0.0,
+      -0.0
+    ],
+    "bone_z_godot": [
+      -0.0,
+      1.0,
+      0.0
+    ],
+    "grip_pose_deg": {
+      "LeftIndexProximal": [
+        45.0,
+        0,
+        0
+      ],
+      "LeftIndexIntermediate": [
+        49.5,
+        0,
+        0
+      ],
+      "LeftIndexDistal": [
+        36.0,
+        0,
+        0
+      ],
+      "LeftMiddleProximal": [
+        50.0,
+        0,
+        0
+      ],
+      "LeftMiddleIntermediate": [
+        55.0,
+        0,
+        0
+      ],
+      "LeftMiddleDistal": [
+        40.0,
+        0,
+        0
+      ],
+      "LeftRingProximal": [
+        50.0,
+        0,
+        0
+      ],
+      "LeftRingIntermediate": [
+        55.0,
+        0,
+        0
+      ],
+      "LeftRingDistal": [
+        40.0,
+        0,
+        0
+      ],
+      "LeftLittleProximal": [
+        45.0,
+        0,
+        0
+      ],
+      "LeftLittleIntermediate": [
+        49.5,
+        0,
+        0
+      ],
+      "LeftLittleDistal": [
+        36.0,
+        0,
+        0
+      ],
+      "LeftThumbMetacarpal": [
+        25,
+        0,
+        40
+      ],
+      "LeftThumbProximal": [
+        15,
+        0,
+        0
+      ],
+      "LeftThumbDistal": [
+        15,
+        0,
+        0
+      ]
+    }
+  },
+  "gizmos": [
+    {
+      "name": "Muzzle1",
+      "bone": "Barrel1",
+      "position": [
+        -0.029,
+        -0.3451,
+        0.24647
+      ],
+      "forward": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "up": [
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "name": "Muzzle2",
+      "bone": "Barrel2",
+      "position": [
+        0.029,
+        -0.3451,
+        0.24647
+      ],
+      "forward": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "up": [
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "name": "LoaderAxis",
+      "bone": "LoadRotor",
+      "position": [
+        0.0,
+        -0.0521,
+        0.264105
+      ],
+      "forward": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "up": [
+        0.0,
+        0.0,
+        1.0
+      ]
+    }
+  ],
+  "mechanism": {
+    "description": "six cartridge loading tubes indexed in three 120-degree steps; a transfer stage presents the indexed lower pair to two separate stationary firing breeches; each cartridge contains multiple flak fragments; paired discharge sends a fragment cluster through each muzzle",
+    "load_path": "rear receiver routes cassette transfer to the upper chamber pair and retains extracted canisters; coaxial index drive turns the carrier on a stationary through-shaft in front/rear bearings",
+    "index_deg": 120,
+    "chambers": 6,
+    "muzzles": 2,
+    "recoil_m": 0.01,
+    "muzzle_height_m": 0.24647001040066652,
+    "front_mass_height_m": [
+      0.175,
+      0.345
+    ],
+    "muzzle_fraction_down_from_top": 0.5795881741137263,
+    "muzzle_centre_spacing_m": 0.057999997973442075,
+    "barrel_mount_plate_clearance_m": 0.01,
+    "barrel_mount_radius_m": 0.023,
+    "index_lock": {
+      "bone": "IndexLock",
+      "travel_m": 0.007,
+      "notches": 12,
+      "notches_per_step": 4,
+      "sequence": "retract locating pin fully, index 120 degrees, seat pin in the next notch"
+    },
+    "note": "mechanical animation concept; internal transfer/extractor internals not detailed; gameplay spread, damage, ammunition count and timing remain undecided"
+  },
+  "ammo": {
+    "bone": "Mag",
+    "pickup_file": "flak_cannon_ammo.glb",
+    "axis": [
+      0,
+      0,
+      -1
+    ],
+    "travel_m": 0.020000000000000018,
+    "mesh": "SM_FlakCannonAmmo in flak_cannon_ammo.glb, at the AmmoMount gizmo"
+  },
+  "validation": {
+    "motion_sweep_states": 60,
+    "hand_reference": "emp_gun hand_frame and GRIP_POSE; no character clips generated"
+  },
+  "ammo_mount": {
+    "gizmo": "AmmoMount",
+    "bone": "Mag",
+    "model": "flak_cannon_ammo.glb",
+    "mesh": "SM_FlakCannonAmmo",
+    "position_blender": [
+      -0.0,
+      0.0429,
+      0.07
+    ],
+    "rotation_wxyz_blender": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "position_godot": [
+      -0.0,
+      0.07,
+      -0.0429
+    ],
+    "note": "the ammo pack is its own model (<name>_ammo.glb / .fbx / .blend, its origin at its bottom centre, square to its own axes, its real size): parent its mesh to the AmmoMount node unmoved and it rides the Mag bone where the weapon's actions put it (a reload's release and insert); the weapon's own files carry no pack mesh. The same model is the ammo pickup."
+  },
+  "material_classifiers": {
+    "M_Bronze_Metallic": "Metallic",
+    "M_Emissive": "Emissive",
+    "M_Frame_Metallic": "Metallic",
+    "M_Glass": "Glass",
+    "M_Joint_Metallic": "Metallic",
+    "M_Metal_Metallic": "Metallic",
+    "M_Primary_Metallic": "Metallic",
+    "M_Screen_Emissive": "Emissive",
+    "M_Secondary_Diffuse": "Diffuse"
+  }
+}

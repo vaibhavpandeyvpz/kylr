@@ -1,0 +1,37 @@
+# Workspace output and local configuration; component rules remain scoped.
+/.ruff_cache/
+# Mixamo downloads and retargeted animation data stay local.
+/library/animations/source/
+/game/assets/animations/**/*.glb
+/game/assets/animations/**/*.glb.import
+# Licensed Epidemic Sound originals and prepared game cues.
+/library/sounds/environment/
+/library/sounds/gameplay/
+/library/sounds/locomotion/
+/library/sounds/ui/
+/library/sounds/weapons/
+/game/assets/audio/weapons/**/*.wav
+/game/assets/audio/weapons/**/*.wav.import
+/game/assets/audio/world/*.wav
+/game/assets/audio/world/*.wav.import
+/build/
+/dist/
+/reports/
+**/.local/
+**/.venv/
+**/__pycache__/
+**/.pytest_cache/
+**/.ruff_cache/
+**/.env
+**/.env.*
+!**/.env.example
+**/.claude/scheduled_tasks.lock
+**/.claude/scheduled_tasks.json
+**/.claude/routines/.state/
+**/.claude/worktrees/
+**/.claude/checkpoints/
+**/.claude/mailbox/
+**/.claude/agent-registry.json
+**/.claude/agent-memory-local
+**/.claude/first-run
+**/.claude/assistant-daemon-state.json

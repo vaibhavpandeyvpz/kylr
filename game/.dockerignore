@@ -1,0 +1,13 @@
+.git
+.godot
+.codex
+.claude
+.env*
+reports
+build/*
+!build/linux/
+build/linux/*
+!build/linux/godot.linuxbsd.editor.x86_64
+services/.venv
+**/__pycache__
+**/*.pyc

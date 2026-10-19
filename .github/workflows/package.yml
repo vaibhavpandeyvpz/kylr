@@ -1,0 +1,167 @@
+name: Build engine, game and release
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  engine:
+    name: Build custom Windows engine
+    runs-on: windows-2025-vs2026
+    timeout-minutes: 240
+    defaults:
+      run:
+        shell: pwsh
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+          lfs: true
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+      - name: Check private asset configuration
+        env:
+          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          R2_ENDPOINT_URL: ${{ vars.R2_ENDPOINT_URL }}
+          R2_ASSET_URI: ${{ vars.R2_ASSET_URI }}
+          PRIVATE_GAME_ASSETS_SHA256: ${{ secrets.PRIVATE_GAME_ASSETS_SHA256 }}
+        run: |
+          foreach ($name in @('R2_ACCESS_KEY_ID','R2_SECRET_ACCESS_KEY','R2_ENDPOINT_URL','R2_ASSET_URI','PRIVATE_GAME_ASSETS_SHA256')) {
+            if (-not [Environment]::GetEnvironmentVariable($name)) {
+              throw "Configure $name before building. See docs/ASSET_SETUP.md."
+            }
+          }
+          Get-Command aws -ErrorAction Stop | Out-Null
+      - name: Install pinned build tools
+        run: python -m pip install -r tools/requirements-build.txt
+      - name: Prepare verified production runtimes
+        run: ./tools/prepare_windows_dependencies.ps1
+      - name: Build editor and release template
+        run: |
+          ./engine/misc/scripts/build_windows.ps1 -Python python -Target editor -Jobs 2
+          ./engine/misc/scripts/build_windows.ps1 -Python python -Target template_release -Jobs 2
+      - name: Upload matching engine and runtime bundle
+        uses: actions/upload-artifact@v7
+        with:
+          name: custom-engine-windows
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 7
+          compression-level: 1
+          path: |
+            engine/bin/godot.windows.editor.x86_64*.exe
+            engine/bin/godot.windows.template_release.x86_64*.exe
+            engine/bin/*.dll
+            engine/.local/streamline-sdk-v2.10.0/license.txt
+            engine/.local/streamline-sdk-v2.10.0/3rd-party-licenses.md
+            engine/.local/streamline-sdk-v2.10.0/bin/x64/*.license.txt
+            engine/.local/msvc-runtime-14.51.36247/*.dll
+            engine/.local/msvc-runtime-14.51.36247/Redist.txt
+
+  game:
+    name: Verify and export Windows game
+    needs: engine
+    runs-on: windows-2025-vs2026
+    timeout-minutes: 45
+    defaults:
+      run:
+        shell: pwsh
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+          lfs: true
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+      - name: Restore separately licensed game assets
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: auto
+          AWS_EC2_METADATA_DISABLED: 'true'
+          AWS_PAGER: ''
+          R2_ENDPOINT_URL: ${{ vars.R2_ENDPOINT_URL }}
+          R2_ASSET_URI: ${{ vars.R2_ASSET_URI }}
+          PRIVATE_GAME_ASSETS_SHA256: ${{ secrets.PRIVATE_GAME_ASSETS_SHA256 }}
+        run: |
+          $bundle = Join-Path $env:RUNNER_TEMP 'KYLR-game-assets.zip'
+          try {
+            & aws s3 cp $env:R2_ASSET_URI $bundle --endpoint-url $env:R2_ENDPOINT_URL --region auto --only-show-errors --no-progress
+            if ($LASTEXITCODE -ne 0) { throw 'Private R2 asset download failed.' }
+            & python tools/install_private_assets.py --archive $bundle
+            if ($LASTEXITCODE -ne 0) { throw 'Private asset verification or installation failed.' }
+          } finally {
+            if (Test-Path -LiteralPath $bundle) { Remove-Item -LiteralPath $bundle -Force }
+          }
+      - uses: actions/download-artifact@v8
+        with:
+          name: custom-engine-windows
+          path: engine
+      - name: Import and verify game
+        run: ./game/tools/verify.ps1
+      - name: Export, inspect and smoke-test package
+        env:
+          BUILD_REF: ${{ github.ref_name }}
+          BUILD_SHA: ${{ github.sha }}
+          IS_RELEASE: ${{ github.event_name == 'push' && github.ref_type == 'tag' }}
+        run: |
+          $version = if ($env:IS_RELEASE -eq 'true') { $env:BUILD_REF } else { 'dev-' + $env:BUILD_SHA.Substring(0,12) }
+          ./game/tools/package_windows.ps1 -Version $version
+      - name: Upload verified package
+        uses: actions/upload-artifact@v7
+        with:
+          name: KYLR-Windows
+          path: |
+            game/build/KYLR-Windows-*.zip
+            game/build/KYLR-Windows-*.zip.sha256
+          if-no-files-found: error
+          retention-days: 14
+          compression-level: 0
+      - name: Upload verification and package logs
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: game-build-logs
+          path: |
+            game/reports/verification/
+            game/reports/packaging/
+          if-no-files-found: ignore
+          retention-days: 14
+
+  release:
+    name: Publish tagged release
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
+    needs: game
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v8
+        with:
+          name: KYLR-Windows
+          path: dist
+      - name: Verify checksums and publish release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: |
+          set -euo pipefail
+          cd dist
+          sha256sum --check ./*.sha256
+          prerelease=()
+          if [[ "$RELEASE_TAG" == *-* ]]; then prerelease=(--prerelease); fi
+          gh release create "$RELEASE_TAG" ./*.zip ./*.sha256 \
+            --verify-tag --generate-notes --title "KYLR $RELEASE_TAG" "${prerelease[@]}"
