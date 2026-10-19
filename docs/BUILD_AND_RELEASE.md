@@ -69,29 +69,34 @@ and `PRIVATE_GAME_ASSETS_SHA256` for the private prepared-asset bundle described
 restores only the paths required by this checkout's catalogs before game import.
 Downloaded asset archives and API credentials are not uploaded as CI artifacts.
 
-[The active root workflow](../.github/workflows/package.yml) has three dependent
-stages: **engine → game → release**. The engine stage runs editor and release
-template builds on separate `windows-2025-vs2026` runners; the game stage waits
-for both and merges their artifacts. Each compiler uses the available runner CPUs.
-Target-specific SCons object caches are restored across runs, keyed by engine
-source and build-tool inputs with a compatible-target fallback. The cache is
-bounded to 3 GiB per target and excludes local SDKs, secrets and game assets.
-Release optimization and runtime checks remain enabled. Game-only edits reuse
-compiled engine objects; engine edits rebuild affected dependencies.
+[The active root workflow](../.github/workflows/package.yml) builds the release
+export template and editor on separate `windows-2025-vs2026` runners in parallel.
+The template job uploads only `godot.windows.template_release.x86_64.exe`, compressed
+and retained for one day. The editor stays on its runner for game import,
+verification, packaging and publication. That runner prepares its own verified
+native runtimes and notices; these do not need transfer artifacts.
+
+The packaging job waits for the template from the same workflow run, fails if its
+build fails, then downloads it into `engine/bin`. A retry can reuse that run's
+existing template artifact; if it has expired, rerun all jobs. Each compiler uses
+available runner CPUs. Separate SCons object caches, bounded to 3 GiB per target,
+are keyed by engine/build-tool inputs with a compatible-target fallback. Game-only
+changes reuse compiled engine objects; engine changes rebuild affected dependencies.
+Local SDKs, secrets and game assets are excluded from these compiler caches.
 
 The first build on an empty cache still compiles the complete engine. Free runner
 CPU allocation, cache eviction and linking prevent a fixed one-hour guarantee;
 check cold and warm hosted timings separately. For local cache reuse, the Windows
-build helper accepts `-CachePath` and `-CacheLimitGiB`. The engine artifact carries the editor, matching release
-template, verified runtimes and SDK notices to the game job. No stock Godot
-installer or component repository checkout is used. Only the release job gets
-`contents: write`; it downloads the verified package, rechecks its checksum and
-publishes an existing `v*` tag. Tags containing a hyphen become prereleases.
-Manual dispatch builds downloadable artifacts without publishing a release.
-Engine transfer artifacts and downloadable game ZIPs expire after one day; build
-logs remain for three days. Shared native runtimes/notices are uploaded only with
-the editor artifact and merged with the template before packaging. Engine uploads
-use ZIP compression; the already-compressed game package is not compressed again.
+build helper accepts `-CachePath` and `-CacheLimitGiB`. Release optimization and
+package validation remain enabled; no stock engine is substituted.
+
+The packaging job checks the package checksum and publishes an existing `v*` tag
+directly to GitHub Releases. Tags containing a hyphen become prereleases. Tagged
+packages are not also uploaded as Actions artifacts. Manual dispatch provides the
+complete playable ZIP and checksum as a one-day downloadable artifact without
+publishing a release. Logs are printed in the workflow output instead of being
+stored as separate artifacts. Only the packaging job has `contents: write`;
+Actions read permission permits the same-run template lookup and download.
 
 If artifact upload reports a storage quota error, compilation may already have
 succeeded. Remove unneeded artifacts from completed runs across the owning account

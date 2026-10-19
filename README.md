@@ -21,6 +21,9 @@ prompt-driven process.[^ai-tools]
 - **Spatial audio:** [Spatio](docs/SPATIO.md) combines positional sound,
   material-aware obstruction, filtered transmission, sound travel delay and
   map-zone reverb.
+- **Full multiplayer matchmaking and authoritative servers:** authenticated
+  accounts, automatic match allocation and dedicated servers for DM, TDM and CTF,
+  powered by [Render](https://render.com/) and [Edgegap](https://edgegap.com/).
 - **Maps designed in Figma:** explore the
   [KYLR map designs](https://www.figma.com/community/file/1693957204725961135/kylr-maps?fuid=962370705244141890).
 - **Open source:** KYLR's original game and library work is **Apache 2.0 licensed**.
