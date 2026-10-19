@@ -7,7 +7,8 @@
 A robot arena shooter with fast movement, ten weapons and lunar battlegrounds.
 Gameplay is heavily inspired by the **Unreal Tournament** games and their
 **Secret Level** episode. Instant Action supports Deathmatch, Team Deathmatch
-and Capture the Flag on Skyfall and Faceoff; Online Multiplayer is under development.
+and Capture the Flag on Skyfall and Faceoff. Online Multiplayer uses authenticated
+accounts and authoritative dedicated servers for the same match types.
 
 **100% prompt / vibe coded.** Development started with **Claude**, then moved to
 **ChatGPT / Codex** to bring image generation into the asset creation workflow.
@@ -81,6 +82,15 @@ The [release workflow](.github/workflows/package.yml) builds the custom engine
 first, then verifies and exports the game. A pushed `v*` tag publishes the
 verified Windows package and checksums as a GitHub release. Manual runs build
 artifacts without publishing. See [build and release](docs/BUILD_AND_RELEASE.md).
+
+## Host multiplayer
+
+Run the account API on Render, store accounts in MongoDB Atlas and host private
+dedicated-server images on Edgegap. The [multiplayer workflow](.github/workflows/multiplayer.yml)
+verifies the backend and builds the custom Linux engine/server image; optional
+publication registers an immutable Edgegap app version. Configure the public
+API origin in client builds. See [hosting setup](docs/CLOUD_HOSTING.md) for secrets,
+network access, free-tier capacity limits and live connectivity checks.
 
 ## Contributing
 

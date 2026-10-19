@@ -11,6 +11,7 @@
 - [Modelling and asset production](library/MODELLING.md)
 - [Playtesting and benchmarks](PLAYTESTING.md), [rendering](RENDERING.md)
 - [Online services](ONLINE.md), [online protocol](ONLINE_PROTOCOL.md), [Spatio](SPATIO.md)
+- [Render, Atlas and Edgegap hosting](CLOUD_HOSTING.md)
 - [Package operations](RELEASE.md)
 - [In-game cinematic gallery](CINEMATICS.md)
 

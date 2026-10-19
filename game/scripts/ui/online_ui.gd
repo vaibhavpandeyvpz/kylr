@@ -47,21 +47,29 @@ func login(register := false):
 	ui.clear_page("online_account")
 	var col := ui.column(64,45,440,660)
 	ui.label(col,"CREATE ACCOUNT" if register else "SIGN IN",36)
-	ui.label(col,"Local online service",16,ui.MUTED)
+	ui.label(col,"KYLR account / server may take a moment to wake",16,ui.MUTED)
 	var username := field(col,"Username / 3–24 letters, digits, . or _")
 	username.max_length = 24
 	var display: LineEdit
 	if register: display = field(col,"Display name / 1–20 letters, digits, . or _"); display.max_length = 20
 	var password := field(col,"Password / at least 12 characters",true)
 	password.max_length = 256
+	var confirmation: LineEdit
+	if register:
+		confirmation = field(col,"Confirm password",true)
+		confirmation.max_length = 256
 	status = ui.label(col,"",17,ui.ACTION)
 	var submit: Button = ui.button(col,"REGISTER" if register else "SIGN IN",func():
 		if busy: return
+		if register and password.text != confirmation.text:
+			status.text = "The passwords must match."
+			return
 		busy = true
 		var current := operation
 		status.text = "Creating account…" if register else "Signing in…"
 		var response := await api.sign_in(username.text,password.text,display.text if register else "",register)
 		if is_instance_valid(password): password.clear()
+		if is_instance_valid(confirmation): confirmation.clear()
 		busy = false
 		if current != operation: return
 		if response.has("error"): status.text = response.error.message
@@ -101,7 +109,7 @@ func searching(text: String):
 	var col := ui.column(64,100,430,430)
 	ui.label(col,selected_type+" / ONLINE",32)
 	status = ui.label(col,text,24,ui.ACTION)
-	ui.label(col,"Finding an available local server.\nYou can cancel before or during admission.",18,ui.MUTED)
+	ui.label(col,"Finding a game server. First startup can take a few minutes.\nYou can cancel before or during admission.",18,ui.MUTED)
 	ui.button(col,"CANCEL",cancel)
 
 func search():
@@ -116,7 +124,8 @@ func search():
 	if current != operation: return
 	if response.has("error"): problem(response.error.message); return
 	request_id = response.request_id
-	var deadline := Time.get_ticks_msec()+50000
+	var startup_seconds := clampi(int(ceil(float(response.get("timeout_seconds",180)))),1,600)
+	var deadline := Time.get_ticks_msec()+startup_seconds*1000+15000
 	while current == operation and Time.get_ticks_msec() < deadline:
 		var result := await api.request("/v1/matches/"+request_id)
 		if current != operation: return
@@ -124,7 +133,7 @@ func search():
 		status.text = result.state
 		if result.state == "Ready": connect_game(result.assignment); return
 		if result.state == "Canceled": lobby(); return
-		await get_tree().create_timer(0.5).timeout
+		await get_tree().create_timer(1.0).timeout
 	if current == operation: await cancel_request(); problem("Matchmaking timed out. Retry for a fresh ticket.")
 
 func connect_game(assignment: Dictionary):

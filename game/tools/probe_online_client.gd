@@ -50,6 +50,8 @@ func run():
 			moved = moved or transport.game.local_robot.position.distance_to(first_position) > 1
 			for robot in transport.game.robots: damaged = damaged or robot.ah < 99 or robot.deaths > 0
 			finished = finished or transport.game.phase == "Finished"
+			if OS.get_environment("KYLR_PROBE_EXPECT_CONTINUATION") == "1" and generations.size() >= 2 and max_roster >= 3 and finished:
+				break
 	var result := {"network_only":network_only,"joined":joined,"generations":generations.size(),"max_roster":max_roster,"moved":moved,"damaged":damaged,"finished":finished,"error":error,"shots":max_shots,"canceled":canceled,"ack":transport.last_ack,"snapshot":transport.last_snapshot,"pending":transport.unacked.size()}
 	var output := FileAccess.open(OS.get_environment("KYLR_PROBE_REPORT"),FileAccess.WRITE)
 	output.store_string(JSON.stringify(result))

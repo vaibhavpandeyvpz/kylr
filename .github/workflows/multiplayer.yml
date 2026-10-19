@@ -1,0 +1,137 @@
+name: Verify multiplayer and build dedicated server
+
+on:
+  workflow_dispatch:
+    inputs:
+      publish:
+        description: Push the server image to the private Edgegap registry
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: multiplayer-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  api:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    services:
+      mongo:
+        image: mongo:8.0
+        ports: ['27017:27017']
+        options: >-
+          --health-cmd "mongosh --quiet --eval 'db.adminCommand({ping:1}).ok'"
+          --health-interval 5s --health-timeout 5s --health-retries 12
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+      - name: Validate publication configuration
+        if: inputs.publish
+        env:
+          EDGEGAP_API_KEY: ${{ secrets.EDGEGAP_API_KEY }}
+          EDGEGAP_APPLICATION: ${{ vars.EDGEGAP_APPLICATION }}
+          EDGEGAP_IMAGE: ${{ vars.EDGEGAP_IMAGE }}
+          EDGEGAP_REGISTRY_USERNAME: ${{ secrets.EDGEGAP_REGISTRY_USERNAME }}
+          EDGEGAP_REGISTRY_TOKEN: ${{ secrets.EDGEGAP_REGISTRY_TOKEN }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          for name in EDGEGAP_API_KEY EDGEGAP_APPLICATION EDGEGAP_IMAGE EDGEGAP_REGISTRY_USERNAME EDGEGAP_REGISTRY_TOKEN; do
+            [[ -n "${!name}" ]] || { echo "Configure $name before publishing."; exit 1; }
+          done
+      - run: python -m pip install -r game/services/requirements-dev.txt
+      - name: Verify API and cloud lifecycle
+        working-directory: game
+        env:
+          MONGO_TEST_URI: mongodb://127.0.0.1:27017
+        run: python -m pytest services/tests -q
+      - name: Verify client configuration and private publication tooling
+        run: |
+          python -m unittest discover -s tools/tests -p test_online_configuration.py
+          python -m unittest discover -s tools/tests -p test_edgegap_publication.py
+      - name: Build backend image
+        run: docker build -f game/services/deploy/Dockerfile.api -t kylr-api:test game
+
+  server:
+    needs: api
+    runs-on: ubuntu-24.04
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+          lfs: true
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+      - name: Restore licensed runtime assets
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: auto
+          AWS_EC2_METADATA_DISABLED: 'true'
+          R2_ENDPOINT_URL: ${{ vars.R2_ENDPOINT_URL }}
+          R2_ASSET_URI: ${{ vars.R2_ASSET_URI }}
+          PRIVATE_GAME_ASSETS_SHA256: ${{ secrets.PRIVATE_GAME_ASSETS_SHA256 }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          : "${R2_ENDPOINT_URL:?Configure R2_ENDPOINT_URL}"
+          : "${R2_ASSET_URI:?Configure R2_ASSET_URI}"
+          : "${PRIVATE_GAME_ASSETS_SHA256:?Configure PRIVATE_GAME_ASSETS_SHA256}"
+          bundle="$RUNNER_TEMP/KYLR-game-assets.zip"
+          trap 'rm -f "$bundle"' EXIT
+          aws s3 cp "$R2_ASSET_URI" "$bundle" --endpoint-url "$R2_ENDPOINT_URL" --only-show-errors --no-progress
+          python tools/install_private_assets.py --archive "$bundle"
+      - uses: docker/setup-buildx-action@v3
+      - name: Build custom Linux engine and import dedicated server
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: game/services/deploy/Dockerfile.edgegap
+          platforms: linux/amd64
+          tags: kylr-server:test
+          load: true
+          build-args: BUILD_JOBS=4
+          cache-from: type=gha,scope=dedicated-server
+          cache-to: type=gha,scope=dedicated-server,mode=max
+      - name: Verify imported server script
+        run: |
+          docker run --rm --entrypoint godot kylr-server:test --headless --path /game --check-only -s res://scripts/network/server_main.gd
+      - name: Push private immutable image
+        if: inputs.publish
+        env:
+          EDGEGAP_REGISTRY_USERNAME: ${{ secrets.EDGEGAP_REGISTRY_USERNAME }}
+          EDGEGAP_REGISTRY_TOKEN: ${{ secrets.EDGEGAP_REGISTRY_TOKEN }}
+          EDGEGAP_IMAGE: ${{ vars.EDGEGAP_IMAGE }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          : "${EDGEGAP_REGISTRY_USERNAME:?Configure registry username}"
+          : "${EDGEGAP_REGISTRY_TOKEN:?Configure registry token}"
+          : "${EDGEGAP_IMAGE:?Configure the complete private image path}"
+          [[ "$EDGEGAP_IMAGE" == registry.edgegap.com/* ]] || { echo 'Use the private Edgegap registry.'; exit 1; }
+          trap 'docker logout registry.edgegap.com >/dev/null 2>&1' EXIT
+          printf '%s' "$EDGEGAP_REGISTRY_TOKEN" | docker login registry.edgegap.com --username "$EDGEGAP_REGISTRY_USERNAME" --password-stdin
+          docker tag kylr-server:test "$EDGEGAP_IMAGE:$GITHUB_SHA"
+          docker push "$EDGEGAP_IMAGE:$GITHUB_SHA"
+          echo "Set the Edgegap app version to immutable image tag $GITHUB_SHA."
+      - name: Register immutable Edgegap app version
+        if: inputs.publish
+        env:
+          EDGEGAP_API_KEY: ${{ secrets.EDGEGAP_API_KEY }}
+          EDGEGAP_APPLICATION: ${{ vars.EDGEGAP_APPLICATION }}
+          EDGEGAP_IMAGE: ${{ vars.EDGEGAP_IMAGE }}
+          EDGEGAP_REGISTRY_USERNAME: ${{ secrets.EDGEGAP_REGISTRY_USERNAME }}
+          EDGEGAP_REGISTRY_TOKEN: ${{ secrets.EDGEGAP_REGISTRY_TOKEN }}
+        run: |
+          python -m pip install requests==2.34.2
+          python tools/publish_edgegap_version.py

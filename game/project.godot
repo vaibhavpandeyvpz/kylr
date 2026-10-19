@@ -58,3 +58,7 @@ arena_sky_time={
 "type": "float",
 "value": 0.0
 }
+
+[network]
+
+services/api_url="https://kylr-yccl.onrender.com"

@@ -41,7 +41,8 @@ func run():
 				game.combat.trigger(shooter,1.0/60)
 				await physics_frame
 			print("ONLINE_COMBAT target_deaths=",target.deaths," shooter_kills=",shooter.kills)
-		if game.phase == "Active" and game.elapsed > 12 and not forced_finish:
+		# The probe must admit its late third client before it closes admission.
+		if game.phase == "Active" and game.elapsed > 12 and game.robots.size() >= 3 and not forced_finish:
 			forced_finish = true
 			game.finish()
 		if transport.generation != original:
