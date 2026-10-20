@@ -214,6 +214,8 @@ jobs:
           foreach ($folder in @('game/reports/verification','game/reports/packaging')) {
             foreach ($log in Get-ChildItem -LiteralPath $folder -Filter '*.log' -File -ErrorAction SilentlyContinue) {
               Write-Output "::group::$($log.Name)"
+              Select-String -LiteralPath $log.FullName -Pattern 'SCRIPT ERROR:|ERROR:|\[Failed\]|Leaked instance:|instances were leaked' -Context 3,8 |
+                ForEach-Object { Write-Output $_.ToString() }
               Get-Content -LiteralPath $log.FullName -Tail 120
               Write-Output '::endgroup::'
             }
