@@ -42,6 +42,8 @@ Prediction history is bounded to 120 commands. At that limit, the client pauses 
 
 ENet v2 requires matching client/server builds. HTTP remains v1. Automatic peer relay is disabled: authenticated clients communicate only with the authoritative server.
 
+Spawn reload presentation includes its remaining time and duration in robot snapshots. Clients seek the authored pistol reload to that progress, including late joins, without changing the ammunition reload timer or spawn protection.
+
 Complete reliable snapshots use the same bounded compressed representation as periodic snapshots (64 KB compressed / 256 KB decoded). Presentation channel 3 reliably delivers accepted discrete shots, damage feedback, projectile contacts (including the lightning orbÃ¢â‚¬â„¢s discrete `electric` burst), explosions, EMP, world cues and raw callout events. Shot counters deduplicate reports independently of snapshot sequence. Local prediction can suppress its immediately confirmed shot presentation, but cannot award a hit. Streaming contact, grounded movement and stride state travel in snapshots; remote sounds use the listener's actual local robot, rather than the actor's human flag.
 
 Only global critical captions are restored from snapshots. Ordinary captions are filtered per recipient for range, direction and frequency on the receiving client. Flag animation phase, repair occupants, corpses and machinery are restored before control. Remote deaths extinguish authored emission; respawn restores it. Client/server crouch capsules both use 1.18 m height.

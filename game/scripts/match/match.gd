@@ -303,6 +303,7 @@ func spawn_robot(robot):
 	robot.position = robot.spawn_fixture.mount.global_position
 	robot.spawn_remaining = robot.spawn_fixture.get("duration", 104.0 / 30.0)
 	robot.spawn_started = false
+	robot.spawn_reload_remaining = 0.0
 	robot.slow_remaining = 0.0
 	robot.slow_multiplier = 1.0
 	for status in robot.get_children():

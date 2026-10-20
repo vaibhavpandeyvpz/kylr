@@ -65,6 +65,13 @@ Holding **Crouch (C by default)** lowers the robot's collision capsule and eye h
 
 ### Spawn invulnerability
 
+When a pistol-equipped robot finishes deploying, play its authored pistol reload
+animation once during protection. This is cosmetic: it spends no ammunition or
+reserve pack and does not start an ammunition reload. Fit the animation into
+the remaining opening countdown, or use two seconds during active-play respawn
+protection. Protected walking retains its leg animation. Gun Game keeps its
+assigned weapon and does not substitute a pistol for this presentation.
+
 Every robot enters a **five-second invulnerable state** when it spawns, including respawns. For the initial roster, protection is contained in the five-second movement-locked opening countdown and ends when control begins. A respawn during active play starts its timer immediately. During active-play respawn protection, show the local player a third-person spawn cinematic that follows their robot and permits **walking only** as a gameplay action: no running, sprinting, jumping, firing either weapon, collecting pickups or flags, activating pressure plates or jump platforms, or entering portals. The camera switch is unavailable during this cinematic and does not overwrite the saved view preference. Hits against the robot deal **no damage**. Bots must ignore it as a target or opponent while the state lasts. When the timer ends, return to the player's last chosen FPV or TPV view and normal play **at the position reached while walking**, without returning to the spawn marker.
 
 The match controller chooses a **random valid spawn point each time**. DM draws from the whole map; TDM and CTF draw only from the robot's assigned team zone. The same selection rule applies to match start, late joins, respawns, and a protected robot returned from a fall boundary. [ARENAS.md](gameplay/ARENAS.md) defines safety filtering and simultaneous-spawn handling.
