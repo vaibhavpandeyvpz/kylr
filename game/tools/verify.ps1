@@ -11,6 +11,12 @@ function Invoke-Check([string]$Name, [string[]]$Arguments) {
     $engineExit = $LASTEXITCODE
     $failures = Select-String -LiteralPath $log -Pattern 'SCRIPT ERROR:|ERROR:|\[Failed\]|Leaked instance:|instances were leaked'
     if ($engineExit -ne 0 -or $failures) {
+        Write-Host "$Name engine exit code: $engineExit"
+        if ($failures) {
+            Write-Host 'Errors found in the complete log:'
+            Select-String -LiteralPath $log -Pattern 'SCRIPT ERROR:|ERROR:|\[Failed\]|Leaked instance:|instances were leaked' -Context 3,8 |
+                ForEach-Object { Write-Output $_.ToString() }
+        }
         Get-Content -LiteralPath $log -Tail 40
         throw "$Name failed. See $log"
     }

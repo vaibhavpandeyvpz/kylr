@@ -104,7 +104,10 @@ directly to GitHub Releases. Tags containing a hyphen become prereleases. Tagged
 packages are not also uploaded as Actions artifacts. Manual dispatch provides the
 complete playable ZIP and checksum as a one-day downloadable artifact without
 publishing a release. Logs are printed in the workflow output instead of being
-stored as separate artifacts. Only the packaging job has `contents: write`;
+stored as separate artifacts. Verification failures print the engine exit code
+and every error match with surrounding lines from the complete log before its
+tail, so early import errors remain visible after long asset-import progress.
+Only the packaging job has `contents: write`;
 Actions read permission permits the same-run template lookup and download.
 
 If artifact upload reports a storage quota error, compilation may already have
