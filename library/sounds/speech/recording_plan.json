@@ -97,10 +97,33 @@
     "robot": {
       "armor_hit": "Armor hit.",
       "pickup": "Got it.",
-      "repair_complete": "Repair complete. Ready to move.",
-      "power_low": "Power below fifty percent. Find an Energy Core.",
-      "power_critical": "Critical power. Find an Energy Core now."
+      "repair_complete": "Let's go!",
+      "power_low": "Finding energy core.",
+      "power_critical": "Emergency!",
+      "eat_that": "Eat that!",
+      "say_no_more": "Say no more.",
+      "rot_in_hell": "Rot in hell.",
+      "goodbye_fella": "Goodbye fella.",
+      "loser": "Loser.",
+      "you_suck": "You suck!",
+      "anyone_else": "Anyone else wants some?",
+      "next": "Next!",
+      "yeehaw": "Yeehaw!",
+      "step_aside": "Step aside.",
+      "boom_baby": "Boom baby!",
+      "headshot": "Headshot!"
     }
   },
-  "accolade_direction": "Loud, emphatic robotic arena announcer; short dry exclamations. Retro Robot voice, ElevenLabs eleven_v4."
+  "accolade_direction": "Loud, emphatic robotic arena announcer; short dry exclamations. Retro Robot voice, ElevenLabs eleven_v4.",
+  "kill_quip_rules": {
+    "boom_baby": [
+      "rocket_launcher",
+      "grenade_launcher"
+    ],
+    "headshot": [
+      "rifle_headshot"
+    ],
+    "other_lines": "Any credited enemy kill by a living speaker; no immediate repeat."
+  },
+  "kill_quip_direction": "Match each existing robot voice and eleven_multilingual_v2 recordings; short dry dialogue, no music bed."
 }

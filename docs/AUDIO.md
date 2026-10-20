@@ -99,11 +99,11 @@ Short speech gives robots character and useful information. Bots may say lines l
 |---|---|
 | Significant AH hit or shield break | The affected robot may react; an ally hears only if within voice range or if a team-radio line is explicitly designated. |
 | Pickup/reload/low EP | Usually local acknowledgement. “Got it” applies only after successful pickup, never after a rejected contact. |
-| Enemy eliminated | Killer may deliver a brief taunt; priority below objective and damage warnings. No taunt on uncredited fall or EP death. |
+| Enemy eliminated | A living killer delivers one random brief quip, below objective and damage warnings. No speech for suicides, friendly kills, uncredited falls, EP deaths or posthumous kills. |
 | Flag take/drop/return/capture; arena event | Team or all-player announcer line with the exact authoritative state. Distinguish home and dropped flags. |
 | Match point, time warning, victory/draw/cancellation | Announcer line aligned to the same state and time as HUD/scoreboard. |
 
-Cap ordinary robot barks to **one per robot per 8 seconds** and **two per team per 5 seconds**; critical objective and announcer lines bypass the robot cap but replace lower-priority queued lines. Do not repeat the same line twice consecutively for one robot. Limit speech to one announcer line and two robot lines at a time, with a short queue and expiry so stale callouts never play after state changes. Use distinct subtitles with speaker, team, and direction where relevant. Provide separate volume sliders for music, effects, interface, announcer, and robot voices; subtitles and voice-callout frequency are Settings options.
+Cap ordinary robot barks to **one per robot per 8 seconds** and **two per team per 5 seconds**; critical objective and announcer lines bypass the robot cap but replace lower-priority queued lines. Do not repeat the same line twice consecutively for one robot. Limit ordinary speech to one announcer line and two robot lines at a time; replace stale speech instead of queuing it. Contextual repair/energy lines and kill quips use the per-speaker rule below. Use distinct subtitles with speaker, team, and direction where relevant. Provide separate volume sliders for music, effects, interface, announcer, and robot voices; subtitles and voice-callout frequency are Settings options.
 
 ## Production and accessibility
 
@@ -129,15 +129,42 @@ Build a cue registry keyed by gameplay event and asset animation event, with var
 
 Bundled ElevenLabs recordings supply robot speech and announcer lines through the same accepted-event delivery path as captions.
 
+Each accepted enemy kill selects one quip on the authority, using a cosmetic RNG
+and excluding that killer's previous quip. All listeners receive the same line
+and voice identity. Generic lines are available for every weapon; **Boom baby!**
+is available only for rocket-launcher or grenade-launcher credit, including a
+fall credited to either weapon. **Headshot!** is available only for a rifle
+headshot finishing hit. Gun Game uses the finishing weapon before switching.
+Every `robot_00`–`robot_09` bank contains all twelve quips in its existing voice,
+using ElevenLabs `eleven_multilingual_v2`, the same source processing, pitch,
+Voices bus, -14 dB cue gain and shared playback lift as its other speech.
+
+Repair completion says **Let's go!**; low EP says **Finding energy core.**;
+critical EP says **Emergency!** in all ten banks. These contextual lines trigger
+for human and AI robots and use the same moving spatial source and killfeed
+delivery as quips. Resource readouts retain the exact EP state, and the local
+low-energy warning cue remains separate.
+
+These lines are spatial even for the local speaker. Their source follows the
+robot's current head height and position until playback finishes; distance
+attenuation and geometry occlusion use that moving source. Releasing or reusing
+a pooled voice clears its emitter reference. These lines bypass ordinary robot
+and team timing caps; the next line replaces that speaker's unfinished line
+rather than building a stale queue. They remain bounded by the world voice pool
+and below critical cues. Callouts Off suppresses them and the 25 m listener
+range applies. Matching sentences appear in the killfeed with the usual
+speaker/team styling, expiry and subtitle preference. They are live events and
+are not replayed on late join.
+
 ## Authored playback integration
 
 `data/audio/music.json` registers lobby, assembly, active, pressure, victory, draw and canceled beds plus capture/result stingers. `ArenaMusic` crossfades beds over one second and raises pressure near the time/score limit, on a contested CTF flag, or during an arena warning. The existing Music bus and volume/ducking controls own playback. `data/audio/speech.json` maps accepted announcer/robot text to authored recordings; playback follows the same listener filtering as captions. Critical speech replaces the prior announcer line; ordinary speech has a two-voice cap. Online servers publish cues without playing duplicate speech.
 
-Both manifests now use ElevenLabs recordings: 50 robot clips across ten distinct voices, fourteen announcer clips and eleven instrumental music cues. Original MP3 sources and generation/voice IDs are retained in the library. `tools/prepare_speech_audio.py` trims and peak-normalizes 48 kHz mono PCM16; `tools/prepare_music_audio.py` prepares stereo Vorbis at -18 LUFS with headroom and smooth boundaries. `tools/sync_authored_audio_catalog.py` rejects incomplete banks. The curated walk loop still lacks material-specific variants; ten-player headphone/speaker audition remains a review gate.
+Both manifests now use ElevenLabs recordings: 170 robot clips across ten distinct voices, fifteen announcer clips and eleven instrumental music cues. Original MP3 sources and generation/voice IDs are retained in the library. `tools/prepare_speech_audio.py` trims and peak-normalizes 48 kHz mono PCM16; `tools/prepare_music_audio.py` prepares stereo Vorbis at -18 LUFS with headroom and smooth boundaries. `tools/sync_authored_audio_catalog.py` rejects incomplete banks. The curated walk loop still lacks material-specific variants; ten-player headphone/speaker audition remains a review gate.
 
 ### Authored speech production
 
-The selected recording provider is ElevenLabs. `library/sounds/speech/recording_plan.json` owns the spoken lines and ten original robot voice directions. `data/audio/speech.json` maps stable event keys to recording IDs under `assets/audio/`, with exactly ten robot banks. Robot ID modulo ten selects the same bank on every listener; caption names remain account names. Dynamic pickup, flag and winner text resolves to a fixed generic spoken line while the caption retains the full authoritative detail. Distinct provider voices are preferred; a per-bank bounded pitch scale supports the approved fallback. All five robot event lines and fourteen announcer event lines have recordings; unknown event keys stay silent. Music is ducked under announcer and robot speech for the actual recording duration.
+The selected recording provider is ElevenLabs. `library/sounds/speech/recording_plan.json` owns the spoken lines and ten original robot voice directions. `data/audio/speech.json` maps stable event keys to recording IDs under `assets/audio/`, with exactly ten robot banks. At match admission, the authority assigns each robot a random voice from a shuffled ten-voice deck, including human and AI robots. The first ten assignments are distinct. That assignment persists through respawns and is replicated in actor snapshots and speech events, so every listener hears the same voice; caption names remain account names. Dynamic pickup, flag and winner text resolves to a fixed generic spoken line while the caption retains the full authoritative detail. Distinct provider voices are preferred; a per-bank bounded pitch scale supports the approved fallback. All seventeen robot event lines and fifteen announcer event lines have recordings; unknown event keys stay silent. Music is ducked under announcer and robot speech for the actual recording duration.
 
 Flamethrower and lightning gun use the renamed `_primary` shot/contact recordings for their retained continuous loops. Their `_secondary` shot and impact recordings play once per accepted fireball/orb launch or collision, including world hits, with no primary contact loop on those impacts. Secondary muzzle audio follows shot prediction/replication; impact audio follows authoritative discrete audio events. `prepare_weapon_audio.py --only flamethrower_primary flamethrower_secondary lightning_gun_primary lightning_gun_secondary` prepares just these eight source recordings: trim edge silence, retain 10 ms attack / 80 ms release padding and convert to 48 kHz mono PCM16. The four primary loops blend their final 80 ms into the opening for smooth loop seams. The four secondary recordings receive no added fades or crossfades; their audible samples are preserved after format conversion. Original library sources remain intact.
 
@@ -175,4 +202,4 @@ announcement is private to the eliminated player. Result speech says **You won
 the match** only for the local winning robot or winning team member; a draw
 says **Match ended in draw** to every participant. Retained source clips,
 provider IDs, text and checksums live in the speech source manifest. The
-runtime speech bank contains 65 recordings, including the five kill accolades.
+runtime speech bank contains 185 recordings, including the five kill accolades.

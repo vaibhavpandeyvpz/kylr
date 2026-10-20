@@ -25,8 +25,9 @@ func test_bundled_recordings_cover_all_ten_distinct_voice_banks_and_music_states
 	var voice_ids: Dictionary = {}
 	for robot in bank.robots:
 		voice_ids[robot.voice_id] = true
-		for key in ["armor_hit","pickup","repair_complete","power_low","power_critical"]:
+		for key in ["armor_hit","pickup","repair_complete","power_low","power_critical"] + ArenaSpeech.KILL_QUIPS.keys():
 			assert_true(ResourceLoader.exists("res://assets/audio/"+str(robot.lines[key])+".wav"),robot.id+" / "+key)
+			assert_eq(ArenaSpeech.recording(bank,ArenaSpeech.KILL_QUIPS.get(key,key),false,bank.robots.find(robot)).asset,robot.lines[key])
 	assert_eq(voice_ids.size(),10)
 	for key in bank.announcer:
 		assert_true(ResourceLoader.exists("res://assets/audio/"+str(bank.announcer[key])+".wav"),"announcer / "+key)

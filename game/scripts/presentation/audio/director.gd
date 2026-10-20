@@ -45,6 +45,11 @@ func cue(id: String,point := Vector3.ZERO,local := false,emitter: Node3D = null)
 	last[key]=clock
 	return play_cue(id,point,local,profile)
 
+func cue_following(id: String, point: Vector3, emitter: Node3D) -> bool:
+	if not is_instance_valid(emitter) or not cue(id,point,false,emitter): return false
+	last_started_voice.follow(emitter,point)
+	return true
+
 func play_cue(id: String,point: Vector3,local: bool,profile: Dictionary,key := "") -> bool:
 	var distance := listener_position().distance_to(point)
 	if not local and distance>=float(profile.far): metrics.culled+=1; return false
@@ -142,6 +147,7 @@ func _physics_process(dt):
 	var listener := listener_position()
 	for voice in voices:
 		if not voice.active: continue
+		voice.update_emitter()
 		var distance := listener.distance_to(voice.point)
 		voice.priority=AudioCues.importance(voice.profile,distance,voice.local)
 		if not voice.local and distance>=float(voice.profile.far):

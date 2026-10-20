@@ -11,6 +11,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('selections',type=Path)
     parser.add_argument('--library',type=Path,default=Path('../library/sounds'))
+    parser.add_argument('--replace',action='store_true',help='Replace only the selected existing recordings')
     args = parser.parse_args()
     for kind in ['speech','music']:
         base = args.library/kind
@@ -22,7 +23,7 @@ def main():
             for key in ['bank','key']:
                 if not re.fullmatch(r'[a-z0-9_]+',job[key]): raise ValueError('Invalid recording key')
             identity = (job['bank'],job['key'])
-            if identity in recordings: continue
+            if identity in recordings and not args.replace: continue
             source = Path('source')/job['bank']/(job['key']+'.mp3')
             target = base/source
             response = requests.get(job['url'],timeout=45)
@@ -31,7 +32,7 @@ def main():
             target.parent.mkdir(parents=True,exist_ok=True)
             target.write_bytes(response.content)
             clip = {k:job[k] for k in ['bank','key','prompt','node_id','generation_id','duration_secs','candidate_ids'] if k in job}
-            for key in ['voice_id','voice_name','duration']:
+            for key in ['voice_id','voice_name','duration','model_id','flow_id']:
                 if key in job: clip[key]=job[key]
             clip.update(source=source.as_posix(),sha256=hashlib.sha256(response.content).hexdigest())
             recordings[identity]=clip

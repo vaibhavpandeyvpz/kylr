@@ -831,7 +831,7 @@ func tick_repair(f: Dictionary,dt: float):
 		game.audio.cue("repair_start_stop",f.point)
 	if f.elapsed >= 7:
 		release_repair(f)
-		if r == game.local_robot or game.online: game.notice("Repair complete / Exit station",r)
+		game.notice("Let's go!",r)
 	update_repair_status(f)
 	update_repair_audio(f)
 

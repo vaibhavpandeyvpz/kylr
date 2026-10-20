@@ -10,6 +10,9 @@ var loop_key := ""
 var profile: Dictionary
 var priority := 0.0
 var point := Vector3.ZERO
+var emitter: WeakRef
+var emitter_offset := Vector3.ZERO
+
 var age := 0.0
 var delay := 0.0
 var pending := false
@@ -23,6 +26,18 @@ var target_low_transmission := 1.0
 var target_high_transmission := 1.0
 var filter: AudioEffectLowPassFilter
 var bus_name := ""
+
+func follow(source: Node3D, origin: Vector3):
+	emitter = weakref(source)
+	emitter_offset = source.to_local(origin)
+
+func update_emitter():
+	if emitter == null: return
+	var source = emitter.get_ref()
+	if is_instance_valid(source) and source.is_inside_tree():
+		point = source.eye() if source is ArenaRobot else source.to_global(emitter_offset)
+	else:
+		emitter = null
 
 func configure(index: int,near_field: bool,ambient_field := false):
 	local=near_field
@@ -100,6 +115,7 @@ func level_db(distance: float, duck: float) -> float:
 	return float(profile.gain)+float(profile.get("playback_gain",AudioCues.PLAYBACK_GAIN_DB))+distance_db+linear_to_db(maxf(low_transmission,0.01))+linear_to_db(maxf(envelope,0.001))+duck
 
 func stop():
+	emitter=null
 	active=false
 	pending=false
 	loop_key=""

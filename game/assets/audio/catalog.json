@@ -268,22 +268,22 @@
   "speech/robot_00/repair_complete": {
     "provider": "ElevenLabs",
     "file": "res://assets/audio/speech/robot_00/repair_complete.wav",
-    "generation_id": "Q9EkF1I3RCSzznwHWZ5l",
-    "source_sha256": "bcfd8a5eb73a673e8e3808c4479d542ba810be1bf638826dca14faa36309ff65",
+    "generation_id": "NMmvoJ4P6TPUShZ8gyqd",
+    "source_sha256": "2b2ab41ba62e4e3129afea03c309738535ecf4e6a78d9f4a6e0a5eeeb9f821b2",
     "voice_id": "nPczCjzI2devNBz1zQrb"
   },
   "speech/robot_00/power_low": {
     "provider": "ElevenLabs",
     "file": "res://assets/audio/speech/robot_00/power_low.wav",
-    "generation_id": "9yogvAlGeO6cdKxQl13l",
-    "source_sha256": "0ee23c4b455948b231db30f5d224614c9a98ccd9b50ee455739cbbaf812f19ae",
+    "generation_id": "Uti4D1q3BIFG8M1knXsB",
+    "source_sha256": "11d48286a06e88e4abb205e40a9c25a6684fd036bb9bc45dcf2486713275d5f1",
     "voice_id": "nPczCjzI2devNBz1zQrb"
   },
   "speech/robot_00/power_critical": {
     "provider": "ElevenLabs",
     "file": "res://assets/audio/speech/robot_00/power_critical.wav",
-    "generation_id": "mmPf6L9MhVKGdwJZT85c",
-    "source_sha256": "fee21edc4e173d53a4a116553202f6a5b18e63c5aee4caf2f1b21081b52a1ee2",
+    "generation_id": "hA2w5tJI7Dnjcr0S7pvd",
+    "source_sha256": "4cc3b2c1e198a79e692a9e34bc58a4f7b13878f7b9d1a5e8090461966148545e",
     "voice_id": "nPczCjzI2devNBz1zQrb"
   },
   "speech/robot_01/armor_hit": {
@@ -303,22 +303,22 @@
   "speech/robot_01/repair_complete": {
     "provider": "ElevenLabs",
     "file": "res://assets/audio/speech/robot_01/repair_complete.wav",
-    "generation_id": "I21TU55kiocO4YEzXWwx",
-    "source_sha256": "f55f3d7ca33294fd00ab47bb81b6e2e66ccece8fe005804fc1c9576f6a844ec5",
+    "generation_id": "Kyhcu4pYIvaMU80s1mkx",
+    "source_sha256": "42d1691072c1861207fe4f0abc6e46774aa6ceb360abdec57603d391fd948b1f",
     "voice_id": "hpp4J3VqNfWAUOO0d1Us"
   },
   "speech/robot_01/power_low": {
     "provider": "ElevenLabs",
     "file": "res://assets/audio/speech/robot_01/power_low.wav",
-    "generation_id": "P8OAAcXBUUHPnjlVElfZ",
-    "source_sha256": "449ad6b842c3686a4caefd094e5e766144c90e3ee0e68284263332378ec9e8bf",
+    "generation_id": "QhlUDtcN4n4hySsWWTFi",
+    "source_sha256": "6443c60c34a87b4fae4698752266194f5936088b28d21c9d1b79d31f97d36706",
     "voice_id": "hpp4J3VqNfWAUOO0d1Us"
   },
   "speech/robot_01/power_critical": {
     "provider": "ElevenLabs",
     "file": "res://assets/audio/speech/robot_01/power_critical.wav",
-    "generation_id": "Qdq8DSAwjUQqTvlzvyO8",
-    "source_sha256": "bb67b56667d06e71ca4c5a42a1f6bd5511bdf09bc140565c552bd7926f559a74",
+    "generation_id": "6l0j7pzkIkSDWX3fRTZP",
+    "source_sha256": "ab642437951f4e5ae32d3f04aec165ed532828bdd762a96a650a8fdbd54bf91a",
     "voice_id": "hpp4J3VqNfWAUOO0d1Us"
   },
   "speech/robot_02/armor_hit": {
@@ -338,22 +338,22 @@
   "speech/robot_02/repair_complete": {
     "provider": "ElevenLabs",
     "file": "res://assets/audio/speech/robot_02/repair_complete.wav",
-    "generation_id": "K24K4htSAsgtcTkfRgRZ",
-    "source_sha256": "e557058bdcfe1602862e94e1e6f16008596e4c2062fd88438d93f31dbcb64034",
+    "generation_id": "STalOCDMJSkeIWPfCLX5",
+    "source_sha256": "7db80b39ba8d15786ea13c03e5d619023c4ff27b4290ea894e384704e966166e",
     "voice_id": "cjVigY5qzO86Huf0OWal"
   },
   "speech/robot_02/power_low": {
     "provider": "ElevenLabs",
     "file": "res://assets/audio/speech/robot_02/power_low.wav",
-    "generation_id": "FU8TjHifDF5oYANPiKc2",
-    "source_sha256": "d5fa10e8fe426e4a884b248c53346acd899cb5dea01555ecd82bd7fefa4bd036",
+    "generation_id": "j7JzhHENpTAlnGPeoFtb",
+    "source_sha256": "bdd024a440590e7e4608ad9fbdb212f88c464ae53b48a1d47812d8a7c320cf62",
     "voice_id": "cjVigY5qzO86Huf0OWal"
   },
   "speech/robot_02/power_critical": {
     "provider": "ElevenLabs",
     "file": "res://assets/audio/speech/robot_02/power_critical.wav",
-    "generation_id": "evJyT3jETzdhecVWxQze",
-    "source_sha256": "33cbf2e2f68f32139724535672b6d05223d2cae5afd302e88f753ccd8e012064",
+    "generation_id": "xiDC4FCuz5pPCzumgvVg",
+    "source_sha256": "24b040985a02393be03b57e818273770c227bfd95ade5cfdeb98bac93aee876d",
     "voice_id": "cjVigY5qzO86Huf0OWal"
   },
   "speech/robot_03/armor_hit": {
@@ -373,22 +373,22 @@
   "speech/robot_03/repair_complete": {
     "provider": "ElevenLabs",
     "file": "res://assets/audio/speech/robot_03/repair_complete.wav",
-    "generation_id": "FXak4hOeRdznQA65v6Es",
-    "source_sha256": "4d31441b4687014238ce6ea8c9602ed20f11bbc18a67d89572de2fbbe3cb86e2",
+    "generation_id": "UewZCmc1pLcwlWrsOxFc",
+    "source_sha256": "ccbe5e3eef8d97a53fec1da7add6cd1215f5058727e61c8f3c9439f959eaa796",
     "voice_id": "N2lVS1w4EtoT3dr4eOWO"
   },
   "speech/robot_03/power_low": {
     "provider": "ElevenLabs",
     "file": "res://assets/audio/speech/robot_03/power_low.wav",
-    "generation_id": "7pHk0PA4mo08DxGq2t5Z",
-    "source_sha256": "1ff92e1df041491b3a7866dc2dde0f6af2c707e83c4ccdcf51f2f19dbb67ec21",
+    "generation_id": "P1l8YqEyPWVfbKz01n9r",
+    "source_sha256": "d6a57c14106ccbccf42a7fba7e7efdc37f6ff6712e9d09aeb173dfc7ad66a1b6",
     "voice_id": "N2lVS1w4EtoT3dr4eOWO"
   },
   "speech/robot_03/power_critical": {
     "provider": "ElevenLabs",
     "file": "res://assets/audio/speech/robot_03/power_critical.wav",
-    "generation_id": "wq4IifUrXLyAm87THrrW",
-    "source_sha256": "e63e8e35f176cb345389f96ab4f6077349e21e593e97eba07a7665028e30d346",
+    "generation_id": "kl3cHroDpa3suZDHiGEU",
+    "source_sha256": "b996226a5560a232193249ae768127f03d3c41eed5ff1deefae17e4eb6de81d1",
     "voice_id": "N2lVS1w4EtoT3dr4eOWO"
   },
   "speech/robot_04/armor_hit": {
@@ -408,22 +408,22 @@
   "speech/robot_04/repair_complete": {
     "provider": "ElevenLabs",
     "file": "res://assets/audio/speech/robot_04/repair_complete.wav",
-    "generation_id": "Ctq2gm1LzhLKRm4qPNaP",
-    "source_sha256": "ce696bc0b8fd199ebed098264f8fe4cc6fe22a3420a143f1efe1da3591bf1a9b",
+    "generation_id": "iCar5GVB1pMhScNUanZt",
+    "source_sha256": "2e65b3c15dc8aa7c5eeee50c7941c07066e2f21affb669fd1ac8a57bd78b276c",
     "voice_id": "FGY2WhTYpPnrIDTdsKH5"
   },
   "speech/robot_04/power_low": {
     "provider": "ElevenLabs",
     "file": "res://assets/audio/speech/robot_04/power_low.wav",
-    "generation_id": "S5s0ci5lJLfYtz78tZcv",
-    "source_sha256": "7756dd54d0629ece652db74cbeb61f8dbfb89ddd71a4ace7582fa022b70da5e9",
+    "generation_id": "93M0f01OKcEmjIwann4G",
+    "source_sha256": "867a8a695b58618f52e00a31692ae3fe3f5456ee2d5e9961a4a7a569073f7295",
     "voice_id": "FGY2WhTYpPnrIDTdsKH5"
   },
   "speech/robot_04/power_critical": {
     "provider": "ElevenLabs",
     "file": "res://assets/audio/speech/robot_04/power_critical.wav",
-    "generation_id": "K84R8NWcZLeg66IgVUSe",
-    "source_sha256": "4ea7dbb9941546aed3b2f828a23fd17a1b2c4701f9f7659e444add3be825f1bf",
+    "generation_id": "Ffpa72rtbO0c2Uf5AcXc",
+    "source_sha256": "8727bcee5d02d9b7d3760e1fee62c4f35d0ca4c349fbe20f554b75b6b4f64b0a",
     "voice_id": "FGY2WhTYpPnrIDTdsKH5"
   },
   "speech/robot_05/armor_hit": {
@@ -443,22 +443,22 @@
   "speech/robot_05/repair_complete": {
     "provider": "ElevenLabs",
     "file": "res://assets/audio/speech/robot_05/repair_complete.wav",
-    "generation_id": "KHpJfzPOTzUrVl567Mdd",
-    "source_sha256": "ced82fb4b60d4b4fc786b528fd8bb411555855cd4507e6e219e2ff2402bfde0b",
+    "generation_id": "DhxIsR8ascc6hC2HNOh6",
+    "source_sha256": "98eb9624afbf6165a0b902996954f3d46c40ec2b4c7cbbaa84294da80813ca7b",
     "voice_id": "JBFqnCBsd6RMkjVDRZzb"
   },
   "speech/robot_05/power_low": {
     "provider": "ElevenLabs",
     "file": "res://assets/audio/speech/robot_05/power_low.wav",
-    "generation_id": "CYRWZKg4OxFZN9Fafzy3",
-    "source_sha256": "fcd3a6e68cfcabd8db1a104ba98e5c70d4821b46aa169cc995d6acec1b8fa7f9",
+    "generation_id": "teHkVd38fB1uDTlqDBIw",
+    "source_sha256": "5d1e56f693741280e5aa083a9ca0015646fcf4d0fa013526c5b09f036eb02d66",
     "voice_id": "JBFqnCBsd6RMkjVDRZzb"
   },
   "speech/robot_05/power_critical": {
     "provider": "ElevenLabs",
     "file": "res://assets/audio/speech/robot_05/power_critical.wav",
-    "generation_id": "s4U3O00MYaH4eK36PvIE",
-    "source_sha256": "b4adb18c85827c25471c9597ff475f9c3373e956511f354441f458583c7342ee",
+    "generation_id": "RUfGgOsOBj5jh9DqxSoM",
+    "source_sha256": "7f1fc68ea6b3bbeb8087aaa443c9453134ee8bdc441df7e34a1dfeee06f6dce1",
     "voice_id": "JBFqnCBsd6RMkjVDRZzb"
   },
   "speech/robot_06/armor_hit": {
@@ -478,22 +478,22 @@
   "speech/robot_06/repair_complete": {
     "provider": "ElevenLabs",
     "file": "res://assets/audio/speech/robot_06/repair_complete.wav",
-    "generation_id": "UvbF0WSe3OBb7MTBEW1g",
-    "source_sha256": "a1d84cd59947af8aa8d54c8ad3a6fa562bffd59d55905f699c8412064d7736ec",
+    "generation_id": "BaV9qTj8cQgbuR3uZZpU",
+    "source_sha256": "4c41cddcfd0589427c6da4b9ed4a43db1674cb648c9fb1dd61510484fc0bf8fa",
     "voice_id": "Xb7hH8MSUJpSbSDYk0k2"
   },
   "speech/robot_06/power_low": {
     "provider": "ElevenLabs",
     "file": "res://assets/audio/speech/robot_06/power_low.wav",
-    "generation_id": "LfRLRhGbnB79RkgKQbDZ",
-    "source_sha256": "cd962fc655b9a150fded8beb66542dc74c9871053a2f8719858b05c98033a749",
+    "generation_id": "wK4Z9wfLAe1ABduvWPIe",
+    "source_sha256": "fc51cab0cabd2bbf297db92a5f9f46c54df2cb4567e5968e605620e0ed00743d",
     "voice_id": "Xb7hH8MSUJpSbSDYk0k2"
   },
   "speech/robot_06/power_critical": {
     "provider": "ElevenLabs",
     "file": "res://assets/audio/speech/robot_06/power_critical.wav",
-    "generation_id": "bMletPZafEIQlFsfawLP",
-    "source_sha256": "2794cf9bcea232c0a11fc97fff6a212825b1b1ce0ed1209a3b83bf16942da2d4",
+    "generation_id": "bHjdkfgp8ftxr5xreQ7S",
+    "source_sha256": "07febd3cdeb63b67d520aa2f2197043aff1693cb0adace700484003ddbefc394",
     "voice_id": "Xb7hH8MSUJpSbSDYk0k2"
   },
   "speech/robot_07/armor_hit": {
@@ -513,22 +513,22 @@
   "speech/robot_07/repair_complete": {
     "provider": "ElevenLabs",
     "file": "res://assets/audio/speech/robot_07/repair_complete.wav",
-    "generation_id": "hLI9t3CHSsqKDU025Sht",
-    "source_sha256": "3391b03d8532ed874c363029104a99f49730ccf85249551e288600ab093ef195",
+    "generation_id": "3fqHNQEjT5OHQGq3EbcF",
+    "source_sha256": "1558119be7cccdf86949c9a9d61539babd9751739431654dff1407edff6833b3",
     "voice_id": "SOYHLrjzK2X1ezoPC6cr"
   },
   "speech/robot_07/power_low": {
     "provider": "ElevenLabs",
     "file": "res://assets/audio/speech/robot_07/power_low.wav",
-    "generation_id": "yzIcho7eYSo2GDCFJcf1",
-    "source_sha256": "d4eb009b67d67a85ff06728b05bf07a3088470e56a4ee8b90266b550341d80cc",
+    "generation_id": "knA68Acb7h89x7Zhx6of",
+    "source_sha256": "d030930d6f7aa8cf57414b15c429c0fd5d4307272761e325dcb1496cf3580c5f",
     "voice_id": "SOYHLrjzK2X1ezoPC6cr"
   },
   "speech/robot_07/power_critical": {
     "provider": "ElevenLabs",
     "file": "res://assets/audio/speech/robot_07/power_critical.wav",
-    "generation_id": "qcHR2w6xjVaHHqV1lCBd",
-    "source_sha256": "603b11eaf63ff2f06209b6a037ad0594a950dfd6a28a8ed33e0a55d100f5a279",
+    "generation_id": "yGpkEOn5kLxCYxZrJGbm",
+    "source_sha256": "b596ebaa037a7f9a965b0001725b3eeb1254cbe36026555ea72e1e69e1397e81",
     "voice_id": "SOYHLrjzK2X1ezoPC6cr"
   },
   "speech/robot_08/armor_hit": {
@@ -548,22 +548,22 @@
   "speech/robot_08/repair_complete": {
     "provider": "ElevenLabs",
     "file": "res://assets/audio/speech/robot_08/repair_complete.wav",
-    "generation_id": "lolW53lINgi4K9RtHLsV",
-    "source_sha256": "bc80a0e7c9a51d4cb5f41cf198dc20bf7c4ce75a3d9bfbeb004c39e0de7874a1",
+    "generation_id": "HfE9c5q9mlBq3ls92uMQ",
+    "source_sha256": "f0286d5db348fc297db364743f785b35129133cf136c9310b4f6df40d1ad17c5",
     "voice_id": "SAz9YHcvj6GT2YYXdXww"
   },
   "speech/robot_08/power_low": {
     "provider": "ElevenLabs",
     "file": "res://assets/audio/speech/robot_08/power_low.wav",
-    "generation_id": "oRfWHBIrjAxaoXVKMC5m",
-    "source_sha256": "66a0bda5b490c336980fd1c6e156b8b4337006b1470267bf280d2b095144db7f",
+    "generation_id": "G00ymUG3mfQhOQMbrc7p",
+    "source_sha256": "2526f3a30f11366f8a185b8c458794c88c503068fdd9064b73f25c0b087adb4a",
     "voice_id": "SAz9YHcvj6GT2YYXdXww"
   },
   "speech/robot_08/power_critical": {
     "provider": "ElevenLabs",
     "file": "res://assets/audio/speech/robot_08/power_critical.wav",
-    "generation_id": "l7xGeKi5uVKeHpQTACgg",
-    "source_sha256": "0e516d87602778ae2674cf36caf4c544afdb3f4c026cb47d0019c4de490a182e",
+    "generation_id": "AFwJ9O1BsALqVy2kqZUs",
+    "source_sha256": "62387d71c530316f0c03df2c45efc22aa67d9e63fed1e35856518fe12363de1b",
     "voice_id": "SAz9YHcvj6GT2YYXdXww"
   },
   "speech/robot_09/armor_hit": {
@@ -583,22 +583,22 @@
   "speech/robot_09/repair_complete": {
     "provider": "ElevenLabs",
     "file": "res://assets/audio/speech/robot_09/repair_complete.wav",
-    "generation_id": "oA9i146HeGnt2VgDyae3",
-    "source_sha256": "482d8fb01916d6e2b58c67c94f394ca1e2aecabe2823b02af9367ad5f423d65a",
+    "generation_id": "L7KkShMRo4RypQmP2um8",
+    "source_sha256": "c3872af0e4d047558f1dd64b1a8776af665a8b1e6401d49f62ec7660d762393d",
     "voice_id": "TX3LPaxmHKxFdv7VOQHJ"
   },
   "speech/robot_09/power_low": {
     "provider": "ElevenLabs",
     "file": "res://assets/audio/speech/robot_09/power_low.wav",
-    "generation_id": "aiWoWxUsK4gjBQY3Ei9I",
-    "source_sha256": "594b053f4f135c7000de26ad7f617aab821987dd565151cd2d1405c45b528c8d",
+    "generation_id": "z0zZBLe3LfvtuVmsyVBs",
+    "source_sha256": "45147c6903440c99f73298c609bcc19496d57372af590dbcedc0f77b94f7bca4",
     "voice_id": "TX3LPaxmHKxFdv7VOQHJ"
   },
   "speech/robot_09/power_critical": {
     "provider": "ElevenLabs",
     "file": "res://assets/audio/speech/robot_09/power_critical.wav",
-    "generation_id": "GzAKHC80XRMTMAEOnXdW",
-    "source_sha256": "085dc249a32e7183eb469e1756d7e33252ee0bce64c97a01d30c123d2cf2e574",
+    "generation_id": "eFrRqOOK4SRpB4oJhWRm",
+    "source_sha256": "0e0d0a4611805c4a54096d492710e7a124e63f1fb3015c889aadf7e311888084",
     "voice_id": "TX3LPaxmHKxFdv7VOQHJ"
   },
   "speech/announcer/arena_warning": {
@@ -857,5 +857,845 @@
     "title": "Pulse gun shot",
     "file": "res://assets/audio/weapons/pulse_gun_shot.wav",
     "pcm_sha256": "a8ffbd87952f01aa61cf2db7744b19b88e0fc6df4e5e09702c76349da9b7f77e"
+  },
+  "speech/robot_00/eat_that": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_00/eat_that.wav",
+    "generation_id": "QMzt9lJEJ4GmXfs9fxsI",
+    "source_sha256": "6101d9f2ca1ce23cd05d5c59eae770d19a2fb8196cfba9b088a6345b8b1d2ce3",
+    "voice_id": "nPczCjzI2devNBz1zQrb"
+  },
+  "speech/robot_00/say_no_more": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_00/say_no_more.wav",
+    "generation_id": "cxwo5GAAEMYmq4dbPXHE",
+    "source_sha256": "b0df5853dccbbc71b4b663eb7d98a50538dcf4a1f7ad35babb086e1b5ee5747e",
+    "voice_id": "nPczCjzI2devNBz1zQrb"
+  },
+  "speech/robot_00/rot_in_hell": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_00/rot_in_hell.wav",
+    "generation_id": "RaJBTvwBxoAMJsrIGJXl",
+    "source_sha256": "9e42e14ef9d55dd6984437ef333d7eb0db53fafb09745d9362fd655bd8d4e84a",
+    "voice_id": "nPczCjzI2devNBz1zQrb"
+  },
+  "speech/robot_00/goodbye_fella": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_00/goodbye_fella.wav",
+    "generation_id": "YUpE79E8UNcnykBTMVQ6",
+    "source_sha256": "6269fdad72a97f7194c44b56ec261872dacc12e2f52b9377d5c08ca40f8f233f",
+    "voice_id": "nPczCjzI2devNBz1zQrb"
+  },
+  "speech/robot_00/loser": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_00/loser.wav",
+    "generation_id": "wuEI4N8coRJH8BCslqBp",
+    "source_sha256": "94d061258900504eeb04734bbfc97f1b4a59f094b6833baab74c88964060fa95",
+    "voice_id": "nPczCjzI2devNBz1zQrb"
+  },
+  "speech/robot_00/you_suck": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_00/you_suck.wav",
+    "generation_id": "wv301eH1oPb9K7VctCJ6",
+    "source_sha256": "d5cdbf810ec1f6b43d4cd9fcaab02ac3f9b633f2b3dbef20b4c6e840eaf394d6",
+    "voice_id": "nPczCjzI2devNBz1zQrb"
+  },
+  "speech/robot_00/anyone_else": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_00/anyone_else.wav",
+    "generation_id": "LYHQ5Zhfco2vOT63Z5JP",
+    "source_sha256": "1b2ef819d3299365d1be0abcca97ec13b2a05f3e4682ca9c696262a99171f768",
+    "voice_id": "nPczCjzI2devNBz1zQrb"
+  },
+  "speech/robot_00/next": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_00/next.wav",
+    "generation_id": "3dvhkQ3k2gd3OD2ANAs7",
+    "source_sha256": "1e71578405cea816d760735da5ac54df06d1caa40b454356885e45abc8eb8d3e",
+    "voice_id": "nPczCjzI2devNBz1zQrb"
+  },
+  "speech/robot_00/yeehaw": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_00/yeehaw.wav",
+    "generation_id": "OtynZowLuEVnOub0oxWS",
+    "source_sha256": "cd326010613ad35c7d43fe86231a502a31c2d08fa67be407845862f2bf7ea3c1",
+    "voice_id": "nPczCjzI2devNBz1zQrb"
+  },
+  "speech/robot_00/step_aside": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_00/step_aside.wav",
+    "generation_id": "kK3evjnXHdTp1BtP9wd1",
+    "source_sha256": "c1acb186f82df873c96769b7906c7c57f4a637e1c3edc5d66c4bd7e454f0a49c",
+    "voice_id": "nPczCjzI2devNBz1zQrb"
+  },
+  "speech/robot_00/boom_baby": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_00/boom_baby.wav",
+    "generation_id": "RJTjBAfFVAxnO4ZgQzFW",
+    "source_sha256": "f77f1745521556891a7b6e9ef547ee42615d40514c5dd4764f27deeff85b8a12",
+    "voice_id": "nPczCjzI2devNBz1zQrb"
+  },
+  "speech/robot_00/headshot": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_00/headshot.wav",
+    "generation_id": "4H38WQIWD7INctcFMKpp",
+    "source_sha256": "e2bdaccffd58be0230c0c65f748bf681c6469e73dac7a20162bbdedf2d52df52",
+    "voice_id": "nPczCjzI2devNBz1zQrb"
+  },
+  "speech/robot_01/eat_that": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_01/eat_that.wav",
+    "generation_id": "i7f8VqVV7NtVk9UHcP6r",
+    "source_sha256": "631ce9792146cb25b721a1b43766bfa532a089120c71c6dc0567f7e1ff5180e7",
+    "voice_id": "hpp4J3VqNfWAUOO0d1Us"
+  },
+  "speech/robot_01/say_no_more": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_01/say_no_more.wav",
+    "generation_id": "zwdhcRyF1Y46Kdrd9Iij",
+    "source_sha256": "e8ee0c63627e62d0b6a48e8d75da1cb1d99005ae879ff6ef0687210fa36a6c5f",
+    "voice_id": "hpp4J3VqNfWAUOO0d1Us"
+  },
+  "speech/robot_01/rot_in_hell": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_01/rot_in_hell.wav",
+    "generation_id": "LO6C0M9RuHJzdi3RmVSY",
+    "source_sha256": "8b45d8c29511c5e4da1d0804b7cf37cd08f8d0c8f1f47b8898a202a93017ad64",
+    "voice_id": "hpp4J3VqNfWAUOO0d1Us"
+  },
+  "speech/robot_01/goodbye_fella": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_01/goodbye_fella.wav",
+    "generation_id": "1rlknabjbxlsRnHb5s43",
+    "source_sha256": "1f529bf4c7fe26c43db4a79cc29f1b3e27fc192e743bf1e49a3446e565ff7705",
+    "voice_id": "hpp4J3VqNfWAUOO0d1Us"
+  },
+  "speech/robot_01/loser": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_01/loser.wav",
+    "generation_id": "xV9V0e3F2Z3sEXx5tJnc",
+    "source_sha256": "4b1ee928bab880bd0f492c27f02abff5ad74809455444fe02286ff650cad5d1b",
+    "voice_id": "hpp4J3VqNfWAUOO0d1Us"
+  },
+  "speech/robot_01/you_suck": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_01/you_suck.wav",
+    "generation_id": "iw6cRCyE6Vbr0jc1F0lJ",
+    "source_sha256": "9c9d3097e141cfa941fb58cce4b8bbe631abce0fdfd2709ece345b6f89f7e7ca",
+    "voice_id": "hpp4J3VqNfWAUOO0d1Us"
+  },
+  "speech/robot_01/anyone_else": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_01/anyone_else.wav",
+    "generation_id": "IHvuMjH9FOCZuArz5K5S",
+    "source_sha256": "525a0a8f70a5efcf09e8726930e4152b136de229480692fd1082bdbbb1cfd717",
+    "voice_id": "hpp4J3VqNfWAUOO0d1Us"
+  },
+  "speech/robot_01/next": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_01/next.wav",
+    "generation_id": "jg5T7fPsS2Q3JVnIqbW1",
+    "source_sha256": "f69f13c7fcca349fecfdb5b3ffd621bd4973fd022069d3b3eb7dad65de2cbad0",
+    "voice_id": "hpp4J3VqNfWAUOO0d1Us"
+  },
+  "speech/robot_01/yeehaw": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_01/yeehaw.wav",
+    "generation_id": "y5H8UxdaaTzI5hbY4aoK",
+    "source_sha256": "16d6afefa4955c122c398544ee0c7f039192bb34687875efe52152ebfcbc2443",
+    "voice_id": "hpp4J3VqNfWAUOO0d1Us"
+  },
+  "speech/robot_01/step_aside": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_01/step_aside.wav",
+    "generation_id": "brmI6vjHO7SxD8KnVQ6g",
+    "source_sha256": "b65d9fcd60bdcbca8b9a1b36365e6c0808b0b2f88e5ed4e92f9084229cbb3635",
+    "voice_id": "hpp4J3VqNfWAUOO0d1Us"
+  },
+  "speech/robot_01/boom_baby": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_01/boom_baby.wav",
+    "generation_id": "Lowq5G0VN8jlrc5K9Fkr",
+    "source_sha256": "91ae271bc7306e5e36b20ae292b517398af1bf7288e867abc9fea89cfa569596",
+    "voice_id": "hpp4J3VqNfWAUOO0d1Us"
+  },
+  "speech/robot_01/headshot": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_01/headshot.wav",
+    "generation_id": "IEWnO7GbslrMpTvQDekI",
+    "source_sha256": "b35995209d7b07f103ed8f95c714db3c925063de9d85191e43fb512bb891f199",
+    "voice_id": "hpp4J3VqNfWAUOO0d1Us"
+  },
+  "speech/robot_02/eat_that": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_02/eat_that.wav",
+    "generation_id": "GfWMWIXODXWNkXSFjhjk",
+    "source_sha256": "e68c5ee33b5dd0f6c61aa21564edd1d1ba3987fa6fffe3206259d5ab89c95215",
+    "voice_id": "cjVigY5qzO86Huf0OWal"
+  },
+  "speech/robot_02/say_no_more": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_02/say_no_more.wav",
+    "generation_id": "5Xtp5XveT2zLNrjzQzK1",
+    "source_sha256": "8329ce4dfc3a63a2e8517c08f38b8ed7a39244ac04140b1a413dd8e859e0b1cd",
+    "voice_id": "cjVigY5qzO86Huf0OWal"
+  },
+  "speech/robot_02/rot_in_hell": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_02/rot_in_hell.wav",
+    "generation_id": "rXfi0PnKZpCgY41rgVbX",
+    "source_sha256": "df3086a6783ec4b97b15e6fbad4b9dc179f3ccf5ce43b47e2cda4c4ca42af1d0",
+    "voice_id": "cjVigY5qzO86Huf0OWal"
+  },
+  "speech/robot_02/goodbye_fella": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_02/goodbye_fella.wav",
+    "generation_id": "6Q1VB4bqc9Jg4NlSu4ep",
+    "source_sha256": "432a1a51ed23cdc8c5302b915fea707502b3e33cd0cfd7e6b9ed0228b0508e8d",
+    "voice_id": "cjVigY5qzO86Huf0OWal"
+  },
+  "speech/robot_02/loser": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_02/loser.wav",
+    "generation_id": "5owF5NhrFcIbKuKqXsRl",
+    "source_sha256": "ac46961c5d34793f87647edd9d35a9295a9d73310671f99c03305b30f96f471d",
+    "voice_id": "cjVigY5qzO86Huf0OWal"
+  },
+  "speech/robot_02/you_suck": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_02/you_suck.wav",
+    "generation_id": "DTEskJNaqihlgzCfvDds",
+    "source_sha256": "66106141a17b1133d152bb85d0193d4921e4dab55c799f2f2f826fa81863579b",
+    "voice_id": "cjVigY5qzO86Huf0OWal"
+  },
+  "speech/robot_02/anyone_else": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_02/anyone_else.wav",
+    "generation_id": "T3tZ9gkvhhmcZSuiHkFw",
+    "source_sha256": "17ca9de479fa5c9ef1d601bb1e002f67e69028faed81d695677ae13bc7a006e9",
+    "voice_id": "cjVigY5qzO86Huf0OWal"
+  },
+  "speech/robot_02/next": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_02/next.wav",
+    "generation_id": "GCqsZOnKsvOWWxlFm7nD",
+    "source_sha256": "a7b9fcd6a2fa49d92bec35f7b423fb227bb08dd4ab1d8c0030e4fc4b10bf4ae9",
+    "voice_id": "cjVigY5qzO86Huf0OWal"
+  },
+  "speech/robot_02/yeehaw": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_02/yeehaw.wav",
+    "generation_id": "LhYgZ3OJr0VQKWPYQK8T",
+    "source_sha256": "b805924b5ce4deb5662e7b54b29d0d63e061708bd797ff1c5e72a29d4bf5988e",
+    "voice_id": "cjVigY5qzO86Huf0OWal"
+  },
+  "speech/robot_02/step_aside": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_02/step_aside.wav",
+    "generation_id": "XnExxcLRIbnwGVJvoXQl",
+    "source_sha256": "da7b019c8e937d167415247b07a73853f33e453d3027f8df27c1dbe92ebbf32f",
+    "voice_id": "cjVigY5qzO86Huf0OWal"
+  },
+  "speech/robot_02/boom_baby": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_02/boom_baby.wav",
+    "generation_id": "qkgNaRz6a1fcy66WWdDc",
+    "source_sha256": "af0abbc7e236ea022e53168d78410f5ad771623ff4d76f743723e04b05ee4f09",
+    "voice_id": "cjVigY5qzO86Huf0OWal"
+  },
+  "speech/robot_02/headshot": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_02/headshot.wav",
+    "generation_id": "O1TACIRAvDSFdbiSRGD9",
+    "source_sha256": "71c2ce73f6725207c052c795414666d5d44deb46b29fdaf5e335ba1cf8320954",
+    "voice_id": "cjVigY5qzO86Huf0OWal"
+  },
+  "speech/robot_03/eat_that": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_03/eat_that.wav",
+    "generation_id": "V2y46nDinoN6L6pIIEIH",
+    "source_sha256": "811b4d810f0f32dbf5dd2141bbbba6d928b6566aa428aa45dd89a2c25968bff6",
+    "voice_id": "N2lVS1w4EtoT3dr4eOWO"
+  },
+  "speech/robot_03/say_no_more": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_03/say_no_more.wav",
+    "generation_id": "Kza4t7VcqaLz5ShfrZ7K",
+    "source_sha256": "3da15f61cbf50ba7977e062a0aa58512cf5f02158ef5548bf4f94f84e3fd28a6",
+    "voice_id": "N2lVS1w4EtoT3dr4eOWO"
+  },
+  "speech/robot_03/rot_in_hell": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_03/rot_in_hell.wav",
+    "generation_id": "6qsDko5flwmBT2JiHuq8",
+    "source_sha256": "03cb7fc2a658156b173ce921d8107662917dcb71190ab90a873431d859f5ffba",
+    "voice_id": "N2lVS1w4EtoT3dr4eOWO"
+  },
+  "speech/robot_03/goodbye_fella": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_03/goodbye_fella.wav",
+    "generation_id": "XlbG4POAtenGvELmuMPg",
+    "source_sha256": "e565a00915a0a73847a95304e294b5ba8394dbed2cc14f7fe0644a7ab539b28c",
+    "voice_id": "N2lVS1w4EtoT3dr4eOWO"
+  },
+  "speech/robot_03/loser": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_03/loser.wav",
+    "generation_id": "fEUgkrpGXfM2iTi81yMq",
+    "source_sha256": "d12f2bdec1749098b57068f2d3a15cda39c1387a49e4d31ffad6c2c8bdbb9e23",
+    "voice_id": "N2lVS1w4EtoT3dr4eOWO"
+  },
+  "speech/robot_03/you_suck": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_03/you_suck.wav",
+    "generation_id": "w37qSQ7ssoNifVJafnVl",
+    "source_sha256": "07ca4784161751218bee707ccfb5bd8a2879d17b072b5e995fa31079e86e1dcd",
+    "voice_id": "N2lVS1w4EtoT3dr4eOWO"
+  },
+  "speech/robot_03/anyone_else": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_03/anyone_else.wav",
+    "generation_id": "zqALOHNlrva6ZDSpTlar",
+    "source_sha256": "2b8efee7056a1f8d1f7bd30cf039cc8e4dce74d7a4071086856e9341a564808d",
+    "voice_id": "N2lVS1w4EtoT3dr4eOWO"
+  },
+  "speech/robot_03/next": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_03/next.wav",
+    "generation_id": "seqVL7lrpyuJcPyakiwh",
+    "source_sha256": "96ce0606b25a586eb9d394020593ffd1967a1ee764b3117c0ea9bb709e28d4fa",
+    "voice_id": "N2lVS1w4EtoT3dr4eOWO"
+  },
+  "speech/robot_03/yeehaw": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_03/yeehaw.wav",
+    "generation_id": "qn63BnpLjJf64vEbcO6u",
+    "source_sha256": "12e594b139e911373df85b320c83bb8f16f47c030e925a47acd0655300ddef54",
+    "voice_id": "N2lVS1w4EtoT3dr4eOWO"
+  },
+  "speech/robot_03/step_aside": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_03/step_aside.wav",
+    "generation_id": "QYNXIjx34s4Qi0nyck1Z",
+    "source_sha256": "cb57fb8ac76a46862cdbc118fa7e42c39e8abffe2cbf1f93cb2af20e33ba44cd",
+    "voice_id": "N2lVS1w4EtoT3dr4eOWO"
+  },
+  "speech/robot_03/boom_baby": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_03/boom_baby.wav",
+    "generation_id": "MNfXWEnNWUi49MQ9WpGm",
+    "source_sha256": "7e412903b6fd149d1f8d1dfcd7f404aa550b847e6dd1f92296fa31625770b3df",
+    "voice_id": "N2lVS1w4EtoT3dr4eOWO"
+  },
+  "speech/robot_03/headshot": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_03/headshot.wav",
+    "generation_id": "6UrNe5qs8pwj3utOcNfq",
+    "source_sha256": "5fc1187c2b83ed45c2384ffcd2e9ca03c35abd5eeb19fb67a3725ba46a2deb69",
+    "voice_id": "N2lVS1w4EtoT3dr4eOWO"
+  },
+  "speech/robot_04/eat_that": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_04/eat_that.wav",
+    "generation_id": "9xeghCItboMtB278ucsu",
+    "source_sha256": "e9a907c7f8788f90e7c85ff83a8c23e9a43f059a241ef5926bac0e985388cd42",
+    "voice_id": "FGY2WhTYpPnrIDTdsKH5"
+  },
+  "speech/robot_04/say_no_more": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_04/say_no_more.wav",
+    "generation_id": "EgxqEhWU6hidUPSh4TOQ",
+    "source_sha256": "99b6597bc4c5f826d10378fcf9f56126b19677e3243f6dafc1f6498e71041ba3",
+    "voice_id": "FGY2WhTYpPnrIDTdsKH5"
+  },
+  "speech/robot_04/rot_in_hell": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_04/rot_in_hell.wav",
+    "generation_id": "FwLBivsDLi5YaB2bY0IL",
+    "source_sha256": "5fe95d0de43c10e7077a015ec7d701260133997a3ad30086fd92b4ae55ace65a",
+    "voice_id": "FGY2WhTYpPnrIDTdsKH5"
+  },
+  "speech/robot_04/goodbye_fella": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_04/goodbye_fella.wav",
+    "generation_id": "RiAECh9hURs0yH377om6",
+    "source_sha256": "63048b68a9fe9fb2f9545aa3385b4f430b3f8213ca5eef92054e8d3db1966965",
+    "voice_id": "FGY2WhTYpPnrIDTdsKH5"
+  },
+  "speech/robot_04/loser": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_04/loser.wav",
+    "generation_id": "3nerankbDZawFdw1ogzf",
+    "source_sha256": "c332531689f5e83181e06b7ed7f5eb9df4adda2b53e2b1a002652142f5f3b3a4",
+    "voice_id": "FGY2WhTYpPnrIDTdsKH5"
+  },
+  "speech/robot_04/you_suck": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_04/you_suck.wav",
+    "generation_id": "9SX4wRWhH1wWvy2mhh6A",
+    "source_sha256": "cc9f4ee850f804ac7eb3e8110ed614f619192e116956a0da9a2006c9fedffb1e",
+    "voice_id": "FGY2WhTYpPnrIDTdsKH5"
+  },
+  "speech/robot_04/anyone_else": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_04/anyone_else.wav",
+    "generation_id": "AHjG2Fb3M9bDP7ChwaXT",
+    "source_sha256": "3204442036e63aac71548aa5e1eaa982b374143177664331c04936f0ea4d85b3",
+    "voice_id": "FGY2WhTYpPnrIDTdsKH5"
+  },
+  "speech/robot_04/next": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_04/next.wav",
+    "generation_id": "51Ec9ib9hKA664jIYeft",
+    "source_sha256": "b5af2876f6d706e4d78355575243b1425365ba7c7373db8e5fa6920d1fd9cad6",
+    "voice_id": "FGY2WhTYpPnrIDTdsKH5"
+  },
+  "speech/robot_04/yeehaw": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_04/yeehaw.wav",
+    "generation_id": "sIYWGhJOIpnjnQ9mbsTP",
+    "source_sha256": "fff20ee3c7518941508e8c1bbf0aa7494f61029fa81daae5ae79714e319da295",
+    "voice_id": "FGY2WhTYpPnrIDTdsKH5"
+  },
+  "speech/robot_04/step_aside": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_04/step_aside.wav",
+    "generation_id": "F3RrLQyQ5BpUgoHQg9yM",
+    "source_sha256": "4ca31d1607682c41c4321d34363256c88eca680c237b5297a549b8fde3a0883b",
+    "voice_id": "FGY2WhTYpPnrIDTdsKH5"
+  },
+  "speech/robot_04/boom_baby": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_04/boom_baby.wav",
+    "generation_id": "o5yT9D5B8saaTlJGuAV8",
+    "source_sha256": "47197c9b05190e1ef20fc6bde3aa569e7a5516403ea9da354e24f88bb0737741",
+    "voice_id": "FGY2WhTYpPnrIDTdsKH5"
+  },
+  "speech/robot_04/headshot": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_04/headshot.wav",
+    "generation_id": "AFmtn4QZgG0foxWIZHFD",
+    "source_sha256": "4407f78a3d543f40254b2ab3564470bef4d57eeafe89f870fcb75255b95b1087",
+    "voice_id": "FGY2WhTYpPnrIDTdsKH5"
+  },
+  "speech/robot_05/eat_that": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_05/eat_that.wav",
+    "generation_id": "9k3Bjs3CnFyGGJ0drfzn",
+    "source_sha256": "4e8065e9d32573844c04f0e7c3d05f84091f0ba307a44670208314c3dee27d46",
+    "voice_id": "JBFqnCBsd6RMkjVDRZzb"
+  },
+  "speech/robot_05/say_no_more": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_05/say_no_more.wav",
+    "generation_id": "Cw6aVVdbonQ25HRGVLn8",
+    "source_sha256": "946519efe0377cfa61663bc08c4886bfdc87a298d4927cbc8db9d90808e056cd",
+    "voice_id": "JBFqnCBsd6RMkjVDRZzb"
+  },
+  "speech/robot_05/rot_in_hell": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_05/rot_in_hell.wav",
+    "generation_id": "CCgkdxH42XwCllDb7ajB",
+    "source_sha256": "e48a8608ed4f6017d5798f77173e999b9172949b50a1792a80ead1e0e6fbd788",
+    "voice_id": "JBFqnCBsd6RMkjVDRZzb"
+  },
+  "speech/robot_05/goodbye_fella": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_05/goodbye_fella.wav",
+    "generation_id": "KEz9XY0VB9JNzwkAolx4",
+    "source_sha256": "1046b8289c7e7aea5ebbcc5af7e999a047407cf0977838f457353b85c06c4d57",
+    "voice_id": "JBFqnCBsd6RMkjVDRZzb"
+  },
+  "speech/robot_05/loser": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_05/loser.wav",
+    "generation_id": "QyTJgFr8yWCUVtteF7nB",
+    "source_sha256": "d157eac245eea202ca31e545a772ae94e54ff943bf97beccf0eec580ca4d487c",
+    "voice_id": "JBFqnCBsd6RMkjVDRZzb"
+  },
+  "speech/robot_05/you_suck": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_05/you_suck.wav",
+    "generation_id": "INr5UWDk3SHtRs8wRWjV",
+    "source_sha256": "109939bee14e2707c7b6deba7f84fa2c031fa326e8997f54f134febad0e27fda",
+    "voice_id": "JBFqnCBsd6RMkjVDRZzb"
+  },
+  "speech/robot_05/anyone_else": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_05/anyone_else.wav",
+    "generation_id": "cdB79TwO6vT8LTwVTmTf",
+    "source_sha256": "7cb43d537489f887303f8f79577697e7ff7e66e12dc6711497006752d45f379c",
+    "voice_id": "JBFqnCBsd6RMkjVDRZzb"
+  },
+  "speech/robot_05/next": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_05/next.wav",
+    "generation_id": "YAXjfg4IEVGyIvoQRtAl",
+    "source_sha256": "52158d3e209b774742fac2598c60b1fe8b6794a2e1b1cd07c8208fc99d9cec54",
+    "voice_id": "JBFqnCBsd6RMkjVDRZzb"
+  },
+  "speech/robot_05/yeehaw": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_05/yeehaw.wav",
+    "generation_id": "o3xd6FZb7OITbQa8aWny",
+    "source_sha256": "028ec5d99793d36be2770e07f57de402d8c58f8d54a6c5e0fec1a6ba784a9c44",
+    "voice_id": "JBFqnCBsd6RMkjVDRZzb"
+  },
+  "speech/robot_05/step_aside": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_05/step_aside.wav",
+    "generation_id": "59PcUtwpcvt3ho0iWugZ",
+    "source_sha256": "35c0eb171eb5a22daa7991243c4c3d48cd99c524d0cfb2955edb5b2dcca6e4c0",
+    "voice_id": "JBFqnCBsd6RMkjVDRZzb"
+  },
+  "speech/robot_05/boom_baby": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_05/boom_baby.wav",
+    "generation_id": "uyBuXs756ebs1gecDdXo",
+    "source_sha256": "4058e8f800c875514d58b58ae24ae54507cb9976515efc7dccb0ba33b198d07f",
+    "voice_id": "JBFqnCBsd6RMkjVDRZzb"
+  },
+  "speech/robot_05/headshot": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_05/headshot.wav",
+    "generation_id": "2lXWCPUvEeULyj388IC2",
+    "source_sha256": "4dfbda284c0478fe5658b7d1e4eeb4ed6e294a2141c0c92057946d6b502ef2d3",
+    "voice_id": "JBFqnCBsd6RMkjVDRZzb"
+  },
+  "speech/robot_06/eat_that": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_06/eat_that.wav",
+    "generation_id": "rgsemcTcj8JGLHLv6J4B",
+    "source_sha256": "d1b93785b7c38d300d3597b4677399eeb9632220cfe7c979e5c7adbe58603fc0",
+    "voice_id": "Xb7hH8MSUJpSbSDYk0k2"
+  },
+  "speech/robot_06/say_no_more": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_06/say_no_more.wav",
+    "generation_id": "i3AdADSOup7nLe4TDhGP",
+    "source_sha256": "ae54702f323883107a19c1e11b79fe2bab3d15370db38d35c840b7ea07e3d732",
+    "voice_id": "Xb7hH8MSUJpSbSDYk0k2"
+  },
+  "speech/robot_06/rot_in_hell": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_06/rot_in_hell.wav",
+    "generation_id": "FTyxZjSn5PiicQgCt8Ii",
+    "source_sha256": "ac6efa3d177898a40a100712ee9e3e540bb02d4d65a11de8923b7439e02171a2",
+    "voice_id": "Xb7hH8MSUJpSbSDYk0k2"
+  },
+  "speech/robot_06/goodbye_fella": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_06/goodbye_fella.wav",
+    "generation_id": "fvHdOTlhppKCl66JaD0V",
+    "source_sha256": "e0ca22b8e6661a2311c8a57a203bb67c589efcabdb6229f329294f21b4843b69",
+    "voice_id": "Xb7hH8MSUJpSbSDYk0k2"
+  },
+  "speech/robot_06/loser": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_06/loser.wav",
+    "generation_id": "e8Nv9xc5qK3IH6qw7RPQ",
+    "source_sha256": "ad1fd4bd3007775b217f391c9bdd0983fc03c20dbba979b24d80ff6323889ccb",
+    "voice_id": "Xb7hH8MSUJpSbSDYk0k2"
+  },
+  "speech/robot_06/you_suck": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_06/you_suck.wav",
+    "generation_id": "zpkteg2RQ1ETvrqKd9eI",
+    "source_sha256": "b43d5f90f874db96674541c278101a7ef21bb04167846aa362d5befd9eb82481",
+    "voice_id": "Xb7hH8MSUJpSbSDYk0k2"
+  },
+  "speech/robot_06/anyone_else": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_06/anyone_else.wav",
+    "generation_id": "ZeqcPq2J43x3PVcSnlQd",
+    "source_sha256": "0eed0c199cad60633ea95204f4e31def1b90fac5e79b2657a65784cdf7bc615d",
+    "voice_id": "Xb7hH8MSUJpSbSDYk0k2"
+  },
+  "speech/robot_06/next": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_06/next.wav",
+    "generation_id": "06mLS86cvsjzw6BnpHgs",
+    "source_sha256": "12c246d4be65355c7636da306d2a20e67c9287ff15da840068eebcbb35d6ce57",
+    "voice_id": "Xb7hH8MSUJpSbSDYk0k2"
+  },
+  "speech/robot_06/yeehaw": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_06/yeehaw.wav",
+    "generation_id": "k8WdPps63uRhs30To6dA",
+    "source_sha256": "adc430fa606812e820ba3fb90115553bcaf1b02831b1d5f3a2e9e28ef996333a",
+    "voice_id": "Xb7hH8MSUJpSbSDYk0k2"
+  },
+  "speech/robot_06/step_aside": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_06/step_aside.wav",
+    "generation_id": "pPe3Mim0uIMkkLHVCEyW",
+    "source_sha256": "954b365075c42071f78538fcfb4a2c58f12c2705171bf5279c730236212202a4",
+    "voice_id": "Xb7hH8MSUJpSbSDYk0k2"
+  },
+  "speech/robot_06/boom_baby": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_06/boom_baby.wav",
+    "generation_id": "Crm6y4iVCILxy7NSe60j",
+    "source_sha256": "3821a392ca3b6ffe967ef16fb503004f2a3ef1b28676ec8b347979fa6dec56ae",
+    "voice_id": "Xb7hH8MSUJpSbSDYk0k2"
+  },
+  "speech/robot_06/headshot": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_06/headshot.wav",
+    "generation_id": "jFJvJwSB7ikNIe8ho1zL",
+    "source_sha256": "5d272ad8d61d5b204420d712eadaa2cd9da5a2b29e650922e8d6e28e2b3b3f73",
+    "voice_id": "Xb7hH8MSUJpSbSDYk0k2"
+  },
+  "speech/robot_07/eat_that": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_07/eat_that.wav",
+    "generation_id": "658BAJWu34EfQgMTLzhd",
+    "source_sha256": "03e6035f3c6b22f6b27256344c653f9e06804bf08692b84d6cf668acb6a44183",
+    "voice_id": "SOYHLrjzK2X1ezoPC6cr"
+  },
+  "speech/robot_07/say_no_more": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_07/say_no_more.wav",
+    "generation_id": "bp7mBDNnDVJK7g80OF23",
+    "source_sha256": "ce050c0e2ec2823ee50ce228e6286ce1137579740de718c0967c82b093d1f702",
+    "voice_id": "SOYHLrjzK2X1ezoPC6cr"
+  },
+  "speech/robot_07/rot_in_hell": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_07/rot_in_hell.wav",
+    "generation_id": "WNnvReCYZmi9XOI3PTib",
+    "source_sha256": "90e3f598bd73f6b7b08c56f562897562277599e7a36392c0d80a74bd3ef5f395",
+    "voice_id": "SOYHLrjzK2X1ezoPC6cr"
+  },
+  "speech/robot_07/goodbye_fella": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_07/goodbye_fella.wav",
+    "generation_id": "RitEeDfyWMWVrIr9VQFD",
+    "source_sha256": "c9a91c00b3d08d4375e29cfe51e2079df861e01c6b1e907a980f599e904646be",
+    "voice_id": "SOYHLrjzK2X1ezoPC6cr"
+  },
+  "speech/robot_07/loser": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_07/loser.wav",
+    "generation_id": "8vxpVvYHT8x3fHdjsLOx",
+    "source_sha256": "e980600dd979b54f4663c9e9f9c735a75c50e56e3613d9d12c8661004ad3a64b",
+    "voice_id": "SOYHLrjzK2X1ezoPC6cr"
+  },
+  "speech/robot_07/you_suck": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_07/you_suck.wav",
+    "generation_id": "OpSEkSJhmE25ZUkc3Ooc",
+    "source_sha256": "549f9adfef27b02680732328be28dcc71f24689c7652ef5a297e53c122c28614",
+    "voice_id": "SOYHLrjzK2X1ezoPC6cr"
+  },
+  "speech/robot_07/anyone_else": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_07/anyone_else.wav",
+    "generation_id": "5QimbwdG3X3Yf0zlmadZ",
+    "source_sha256": "fe2bdf2040e184147ffc3d4ee7340e1e34d86d5a62cdcaa9c68ce76dfd2ab74b",
+    "voice_id": "SOYHLrjzK2X1ezoPC6cr"
+  },
+  "speech/robot_07/next": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_07/next.wav",
+    "generation_id": "cFeMZwxdc0jPAqbQHEzm",
+    "source_sha256": "eab9c74fbdab7e34eb0a8a15d949c946bf701d3e76550dd29aa13b0c0b93bfd3",
+    "voice_id": "SOYHLrjzK2X1ezoPC6cr"
+  },
+  "speech/robot_07/yeehaw": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_07/yeehaw.wav",
+    "generation_id": "OcJ3j2AdygaLyvg8J73z",
+    "source_sha256": "8b8f4e88f170053bf5a774a3f25def807368494c2c32f8fcd7128c1b273e4017",
+    "voice_id": "SOYHLrjzK2X1ezoPC6cr"
+  },
+  "speech/robot_07/step_aside": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_07/step_aside.wav",
+    "generation_id": "e2YTlSxf90l17QPGtF07",
+    "source_sha256": "34784c24407b06369f01549cb330f4f27e4d667a48cffd39a402e2522e981e8c",
+    "voice_id": "SOYHLrjzK2X1ezoPC6cr"
+  },
+  "speech/robot_07/boom_baby": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_07/boom_baby.wav",
+    "generation_id": "SfYYGAN9BruuaimGQrzb",
+    "source_sha256": "2e4c045740a528cbad0af5e2a93087165cebdf06ce168ed8a5027a3481d5c550",
+    "voice_id": "SOYHLrjzK2X1ezoPC6cr"
+  },
+  "speech/robot_07/headshot": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_07/headshot.wav",
+    "generation_id": "E8ruoKfDvyIFOyjXF1r4",
+    "source_sha256": "004200dd62765958d98950cfe2b739a60c526ff6881c5ba7562acd00f446fb0c",
+    "voice_id": "SOYHLrjzK2X1ezoPC6cr"
+  },
+  "speech/robot_08/eat_that": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_08/eat_that.wav",
+    "generation_id": "ImlUP7vZPep5n1I0CTTi",
+    "source_sha256": "3da75d4d8907aac25fce33baefd8ec2d48be6425759e18fd22a7487a438b211b",
+    "voice_id": "SAz9YHcvj6GT2YYXdXww"
+  },
+  "speech/robot_08/say_no_more": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_08/say_no_more.wav",
+    "generation_id": "ZwsPHgOysH63WJq9VIDk",
+    "source_sha256": "0746f4c56443642c8adf8a8985c524e541f8b459c3e82eba08af36398ee5d567",
+    "voice_id": "SAz9YHcvj6GT2YYXdXww"
+  },
+  "speech/robot_08/rot_in_hell": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_08/rot_in_hell.wav",
+    "generation_id": "mBpCPyqdxfPU9n1Z25xw",
+    "source_sha256": "2e86de83f0dbc3c16ecfd65a8f3970354a5ed82180190b1a0c65f9230f175007",
+    "voice_id": "SAz9YHcvj6GT2YYXdXww"
+  },
+  "speech/robot_08/goodbye_fella": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_08/goodbye_fella.wav",
+    "generation_id": "oCnPBKMZoaklNlo2hBIA",
+    "source_sha256": "a13e918fe974f8582948c1a415a1cf1371044942467516aed75ee20f06c49d10",
+    "voice_id": "SAz9YHcvj6GT2YYXdXww"
+  },
+  "speech/robot_08/loser": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_08/loser.wav",
+    "generation_id": "ecoei3e59OziknRlMa9Y",
+    "source_sha256": "28a1c52b667e3eb6638d3652f76a36db3e2ba2eacd8f14f01086d7693701c7e3",
+    "voice_id": "SAz9YHcvj6GT2YYXdXww"
+  },
+  "speech/robot_08/you_suck": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_08/you_suck.wav",
+    "generation_id": "5ahnoK4QcXqirW9yC4DW",
+    "source_sha256": "54bbf76d0715705186d0240a9ef3b820f4159223005cef6a432993dd88e63827",
+    "voice_id": "SAz9YHcvj6GT2YYXdXww"
+  },
+  "speech/robot_08/anyone_else": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_08/anyone_else.wav",
+    "generation_id": "DzRwJTX3aI8zAgMsfNob",
+    "source_sha256": "a3dc016c27415462475cfd80eb5b25fae6cbbd54520cb85db3b914ec519e5dac",
+    "voice_id": "SAz9YHcvj6GT2YYXdXww"
+  },
+  "speech/robot_08/next": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_08/next.wav",
+    "generation_id": "G4fumxZjpxnIjI9oXUBd",
+    "source_sha256": "2584c425ebbbcd2fea8256d83768a6173779ee14e3987a479b912b333c4faac2",
+    "voice_id": "SAz9YHcvj6GT2YYXdXww"
+  },
+  "speech/robot_08/yeehaw": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_08/yeehaw.wav",
+    "generation_id": "bp7EKFBlSRfrIyhyCgii",
+    "source_sha256": "0e15f36d29d30973567ede61cd154884fb634d71acd66dcee494f8b1d6797020",
+    "voice_id": "SAz9YHcvj6GT2YYXdXww"
+  },
+  "speech/robot_08/step_aside": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_08/step_aside.wav",
+    "generation_id": "882d1okJQxzKWyq8PYII",
+    "source_sha256": "6573631da22320527de3d02b607abecbaadac32552ad9aa76cb8b89beed4627a",
+    "voice_id": "SAz9YHcvj6GT2YYXdXww"
+  },
+  "speech/robot_08/boom_baby": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_08/boom_baby.wav",
+    "generation_id": "EsexxhXNtHfL5Lrkm1f1",
+    "source_sha256": "1dfa4cbacf0c1ba542c8edcb7e45153b7bb4d29c0310119b79fb49bb3f8114a2",
+    "voice_id": "SAz9YHcvj6GT2YYXdXww"
+  },
+  "speech/robot_08/headshot": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_08/headshot.wav",
+    "generation_id": "FxeNwrKTFBgJWWqR2sSv",
+    "source_sha256": "2754836c4aad6da60cd649a583eb1cb3f147e30bca41788d6d2adb4a792103f3",
+    "voice_id": "SAz9YHcvj6GT2YYXdXww"
+  },
+  "speech/robot_09/eat_that": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_09/eat_that.wav",
+    "generation_id": "jNj3vJUPxf06bDEdY8iw",
+    "source_sha256": "18d4f4955a43c3a7f91330183e442f05de59a5a51fb47c06d2012df0f2b9a700",
+    "voice_id": "TX3LPaxmHKxFdv7VOQHJ"
+  },
+  "speech/robot_09/say_no_more": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_09/say_no_more.wav",
+    "generation_id": "CogJesdGhjLRfYrVOwSO",
+    "source_sha256": "ffc9e6b3de6c7c2cfc77ba4de214f80a2b8cae504399659123335a4e5118751d",
+    "voice_id": "TX3LPaxmHKxFdv7VOQHJ"
+  },
+  "speech/robot_09/rot_in_hell": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_09/rot_in_hell.wav",
+    "generation_id": "LEeWDsD3QnOSVkNYsymC",
+    "source_sha256": "52717efa5654df8aaed5421364a624f9234a71dbedaf3a7530069e7c8db03cc5",
+    "voice_id": "TX3LPaxmHKxFdv7VOQHJ"
+  },
+  "speech/robot_09/goodbye_fella": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_09/goodbye_fella.wav",
+    "generation_id": "zlHP4696SGGaB9ZN2xFv",
+    "source_sha256": "ea7b662c7294f26e7176e955c53977e062739cbec9d1b184316bbcac1633583d",
+    "voice_id": "TX3LPaxmHKxFdv7VOQHJ"
+  },
+  "speech/robot_09/loser": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_09/loser.wav",
+    "generation_id": "jeOi321gVA1ztg2JJxhD",
+    "source_sha256": "9843626af734c712d976d5f8d2d9e0b9ceeab337c20dfb408fd90e20bc34b7b8",
+    "voice_id": "TX3LPaxmHKxFdv7VOQHJ"
+  },
+  "speech/robot_09/you_suck": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_09/you_suck.wav",
+    "generation_id": "fH0O7G8iIRQoCWPOZqs8",
+    "source_sha256": "c2dd90f51e17924834909ae9d39b38b9d77f3af3242558f650c558dfcfd03e31",
+    "voice_id": "TX3LPaxmHKxFdv7VOQHJ"
+  },
+  "speech/robot_09/anyone_else": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_09/anyone_else.wav",
+    "generation_id": "4DCI59Q3iPwMRz7A7Ji3",
+    "source_sha256": "c6cf9f28e6a7b4a54a87b5a7a5268082472d7fb120493f23d8dc118521e9086b",
+    "voice_id": "TX3LPaxmHKxFdv7VOQHJ"
+  },
+  "speech/robot_09/next": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_09/next.wav",
+    "generation_id": "vxtbm6YwdeRKtiKDrn9g",
+    "source_sha256": "adc0d05087eb7cf847da61b1afac6ef853c58cd57eb18dc392c9e2a07d14aee1",
+    "voice_id": "TX3LPaxmHKxFdv7VOQHJ"
+  },
+  "speech/robot_09/yeehaw": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_09/yeehaw.wav",
+    "generation_id": "JLzTtMx7r15DcKd8zttD",
+    "source_sha256": "55e3ec693b0da956a167f034c1a0bd9948e1478028b28d1895612734564ab6bd",
+    "voice_id": "TX3LPaxmHKxFdv7VOQHJ"
+  },
+  "speech/robot_09/step_aside": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_09/step_aside.wav",
+    "generation_id": "WRyuL1rK487vSdrcEf7D",
+    "source_sha256": "82d286dabbcd76349b17a35ebc7accb793250ede3e2eec7a47828200f8df708b",
+    "voice_id": "TX3LPaxmHKxFdv7VOQHJ"
+  },
+  "speech/robot_09/boom_baby": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_09/boom_baby.wav",
+    "generation_id": "wLvSHDY0ERHWrTT7a5Zh",
+    "source_sha256": "0b68174a232f0820e67433c9abf803a8d9e612cf9b8fff6cf24a60894bd7a05e",
+    "voice_id": "TX3LPaxmHKxFdv7VOQHJ"
+  },
+  "speech/robot_09/headshot": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/robot_09/headshot.wav",
+    "generation_id": "4rSEnKvWWmwS8URCiwwf",
+    "source_sha256": "4aa1880cdeac6cc466979cf4a15e4b0f721ec1cc05b11d068a36f3024c972a85",
+    "voice_id": "TX3LPaxmHKxFdv7VOQHJ"
   }
 }
