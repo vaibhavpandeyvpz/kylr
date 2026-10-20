@@ -1105,6 +1105,66 @@
       "source": "source/announcer/canceled.mp3",
       "sha256": "ac2f5370e4387dc1e114588b302e704e29ab7d0155e57d36d73ed4e1e805f7f7",
       "model_id": "eleven_multilingual_v2"
+    },
+    {
+      "bank": "announcer",
+      "key": "double_kill",
+      "prompt": "[shouts] Double kill!",
+      "voice_id": "ZEcx3Wdpj4EvM8PltzHY",
+      "voice_name": "Retro Robot",
+      "generation_id": "QNmbVfph74ist6vcRu7d",
+      "flow_id": "slgUbRvqxQNkQuoy3Wkq",
+      "source": "source/announcer/double_kill.mp3",
+      "sha256": "4d6025718c1ca1ae8cb6378af807766c07bb354910b6f5838e6e19766f209bc6",
+      "model_id": "eleven_v4"
+    },
+    {
+      "bank": "announcer",
+      "key": "triple_kill",
+      "prompt": "[shouts] Triple kill!",
+      "voice_id": "ZEcx3Wdpj4EvM8PltzHY",
+      "voice_name": "Retro Robot",
+      "generation_id": "W8HeVDzRQTi9YEVuErpE",
+      "flow_id": "slgUbRvqxQNkQuoy3Wkq",
+      "source": "source/announcer/triple_kill.mp3",
+      "sha256": "40c871ebea4c0e0d29dc07486806e41e62348cc9eb603421d5a49e6482d38542",
+      "model_id": "eleven_v4"
+    },
+    {
+      "bank": "announcer",
+      "key": "mega_kill",
+      "prompt": "[shouts] Mega kill!",
+      "voice_id": "ZEcx3Wdpj4EvM8PltzHY",
+      "voice_name": "Retro Robot",
+      "generation_id": "fSGDGnGWIM8zoyL2N2LX",
+      "flow_id": "slgUbRvqxQNkQuoy3Wkq",
+      "source": "source/announcer/mega_kill.mp3",
+      "sha256": "5b26fc3ee4f1690b0a62c19a4672841de9cc7b774ca876427d9ea20973461aa4",
+      "model_id": "eleven_v4"
+    },
+    {
+      "bank": "announcer",
+      "key": "champion",
+      "prompt": "[shouts] Champion!",
+      "voice_id": "ZEcx3Wdpj4EvM8PltzHY",
+      "voice_name": "Retro Robot",
+      "generation_id": "aBsRKrXds0BFo6F3lxxU",
+      "flow_id": "slgUbRvqxQNkQuoy3Wkq",
+      "source": "source/announcer/champion.mp3",
+      "sha256": "7554c899d4145b9bfbb32787f464123860a08ea0860c17a42fa965ad7fa6739e",
+      "model_id": "eleven_v4"
+    },
+    {
+      "bank": "announcer",
+      "key": "death_bringer",
+      "prompt": "[shouts] Death bringer!",
+      "voice_id": "ZEcx3Wdpj4EvM8PltzHY",
+      "voice_name": "Retro Robot",
+      "generation_id": "O502cBIRrfASTJTom1VO",
+      "flow_id": "slgUbRvqxQNkQuoy3Wkq",
+      "source": "source/announcer/death_bringer.mp3",
+      "sha256": "ed28ecefbbcfa2e361ed744fa7b187c757de03a14d110db5ba9a55533d4b7698",
+      "model_id": "eleven_v4"
     }
   ]
 }

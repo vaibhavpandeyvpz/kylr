@@ -3,6 +3,11 @@ extends Node3D
 signal message(text: String)
 signal completed
 signal damage_taken(source: Vector3, amount: float)
+signal local_elimination(event: Dictionary)
+
+const KILL_CHAIN_WINDOW := 10.0
+const KILL_ACCOLADES := {2:"Double Kill",3:"Triple Kill",4:"Mega Kill",5:"Champion",6:"Death Bringer"}
+var kill_chains: Dictionary = {}
 var match_type := "DM"
 var map_id := "skyfall"
 var gravity_multiplier_override := 0.0
@@ -447,6 +452,7 @@ func _process(dt):
 func eliminate(victim,killer,cause: String):
 	if not victim.alive or phase != "Active": return
 	victim.alive = false
+	kill_chains.erase(victim.robot_id)
 	map.abort_repair_for_robot(victim,"death")
 	victim.deaths += 1
 	victim.collision_layer = 0
@@ -514,6 +520,7 @@ func eliminate(victim,killer,cause: String):
 		push_feed({"kind":"kill", "killer":killer.display_name, "killer_team":killer.team,
 			"victim":victim.display_name, "victim_team":victim.team,
 			"weapon":Arsenal.WEAPONS[cause].title if Arsenal.WEAPONS.has(cause) else cause.replace("_", " ").capitalize()})
+		if killer != victim and killer.enemy(victim): record_elimination(killer,victim.display_name)
 	else:
 		push_feed({"kind":"death", "victim":victim.display_name, "victim_team":victim.team,
 			"cause":cause})
@@ -644,6 +651,21 @@ func notice(text: String, robot = null):
 		var speaker = robot if robot != null else local_robot
 		var robot_voice := speaker != null and (not critical or text.begins_with("POWER /"))
 		callouts.publish(text,speaker.display_name if robot_voice else "Announcer",speaker.team if robot_voice else -1,critical,speaker.global_position if robot_voice else Vector3.INF,robot.robot_id if robot != null else -1,speaker.robot_id if robot_voice else -1)
+
+func record_elimination(killer: ArenaRobot, victim_name: String) -> void:
+	var chain: Dictionary = kill_chains.get(killer.robot_id,{"count":0,"time":-INF})
+	var count: int = int(chain.count)+1 if elapsed-float(chain.time)<=KILL_CHAIN_WINDOW else 1
+	if killer.alive: kill_chains[killer.robot_id]={"count":count,"time":elapsed}
+	else: count=1
+	var event := {"kind":"elimination","recipient":killer.robot_id,"victim":victim_name,"count":count,"accolade":KILL_ACCOLADES.get(count,"")}
+	if replicating and authority: present(event)
+	else: receive_elimination(event)
+
+func receive_elimination(event: Dictionary) -> void:
+	if local_robot == null or int(event.recipient) != local_robot.robot_id: return
+	local_elimination.emit(event)
+	if not String(event.accolade).is_empty() and callouts:
+		callouts.play_recording(String(event.accolade),true,Vector3.INF)
 
 func push_feed(event: Dictionary) -> void:
 	event["time"] = elapsed

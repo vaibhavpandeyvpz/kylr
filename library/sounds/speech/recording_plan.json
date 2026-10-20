@@ -86,7 +86,12 @@
       "flag_captured": "Flag captured.",
       "match_won": "Match complete. Victory.",
       "draw": "Match complete. Draw.",
-      "canceled": "Match canceled."
+      "canceled": "Match canceled.",
+      "double_kill": "Double kill!",
+      "triple_kill": "Triple kill!",
+      "mega_kill": "Mega kill!",
+      "champion": "Champion!",
+      "death_bringer": "Death bringer!"
     },
     "robot": {
       "armor_hit": "Armor hit.",
@@ -95,5 +100,6 @@
       "power_low": "Power below fifty percent. Find an Energy Core.",
       "power_critical": "Critical power. Find an Energy Core now."
     }
-  }
+  },
+  "accolade_direction": "Loud, emphatic robotic arena announcer; short dry exclamations. Retro Robot voice, ElevenLabs eleven_v4."
 }

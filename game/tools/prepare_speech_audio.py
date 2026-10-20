@@ -13,9 +13,12 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--source', type=Path, default=Path('../library/sounds/speech'))
     parser.add_argument('--output', type=Path, default=Path('assets/audio/speech'))
+    parser.add_argument('--only', nargs='+', help='Prepare only these stable recording keys')
     args = parser.parse_args()
     manifest = json.loads((args.source/'source_manifest.json').read_text(encoding='utf-8'))
     for clip in manifest['recordings']:
+        if args.only and clip['key'] not in args.only:
+            continue
         source = args.source/clip['source']
         if hashlib.sha256(source.read_bytes()).hexdigest() != clip['sha256']:
             raise ValueError('Source recording checksum mismatch: '+str(source))

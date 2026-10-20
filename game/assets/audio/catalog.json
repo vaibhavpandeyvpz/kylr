@@ -761,5 +761,40 @@
     "epidemic_ids": [
       "8234c8a3-d935-45c8-8809-622c559f853c"
     ]
+  },
+  "speech/announcer/double_kill": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/announcer/double_kill.wav",
+    "generation_id": "QNmbVfph74ist6vcRu7d",
+    "source_sha256": "4d6025718c1ca1ae8cb6378af807766c07bb354910b6f5838e6e19766f209bc6",
+    "voice_id": "ZEcx3Wdpj4EvM8PltzHY"
+  },
+  "speech/announcer/triple_kill": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/announcer/triple_kill.wav",
+    "generation_id": "W8HeVDzRQTi9YEVuErpE",
+    "source_sha256": "40c871ebea4c0e0d29dc07486806e41e62348cc9eb603421d5a49e6482d38542",
+    "voice_id": "ZEcx3Wdpj4EvM8PltzHY"
+  },
+  "speech/announcer/mega_kill": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/announcer/mega_kill.wav",
+    "generation_id": "fSGDGnGWIM8zoyL2N2LX",
+    "source_sha256": "5b26fc3ee4f1690b0a62c19a4672841de9cc7b774ca876427d9ea20973461aa4",
+    "voice_id": "ZEcx3Wdpj4EvM8PltzHY"
+  },
+  "speech/announcer/champion": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/announcer/champion.wav",
+    "generation_id": "aBsRKrXds0BFo6F3lxxU",
+    "source_sha256": "7554c899d4145b9bfbb32787f464123860a08ea0860c17a42fa965ad7fa6739e",
+    "voice_id": "ZEcx3Wdpj4EvM8PltzHY"
+  },
+  "speech/announcer/death_bringer": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/announcer/death_bringer.wav",
+    "generation_id": "O502cBIRrfASTJTom1VO",
+    "source_sha256": "ed28ecefbbcfa2e361ed744fa7b187c757de03a14d110db5ba9a55533d4b7698",
+    "voice_id": "ZEcx3Wdpj4EvM8PltzHY"
   }
 }
