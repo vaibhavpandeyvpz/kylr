@@ -9,6 +9,13 @@ assert rig['recess_clearance_per_side_m']==.001
 assert rig['level_surface_z_m']==dict(common=0,lower=22,higher=26,roof=30)
 jumbo=next(m for m in rig['markers'] if m['role']=='jumbotron')
 assert jumbo['position_godot']==[0,35,0], 'Jumbotron must be 5 m above the rooftop level'
+spawns=[m for m in rig['markers'] if m['role']=='spawn']
+assert len(spawns)==10,'Ten island-facing spawns required'
+for spawn in spawns:
+    native_forward=Vector((0,1 if spawn['asset']=='spawn_point' else -1,0))
+    forward=Euler(spawn['rotation_blender']).to_matrix()@native_forward
+    toward_island=Vector((-1 if spawn['position_blender'][0]>0 else 1,0,0))
+    assert forward.dot(toward_island)>.9999,(spawn['name'],'spawn must face the island side')
 helper_counts={};bottoms={}
 for marker in rig['markers']:
     if marker['role']!='platform':continue

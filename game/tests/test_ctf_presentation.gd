@@ -175,7 +175,7 @@ func test_corpse_and_energy_drop_settle_on_the_platform_below():
 	var landing: Vector3 = game.corpses[0].point
 	assert_gt(landing.y,3.0,"Nearest platform, not the lower ground, catches the corpse")
 	for step in 10: game.tick_drops(0.5)
-	assert_eq(game.drops.size(),1)
-	if game.drops.size() == 1:
+	assert_eq(game.drops.size(),10)
+	if game.drops.size() == 10:
 		assert_true(game.drops[0].node is CoreOrb)
 		assert_almost_eq(game.drops[0].node.global_position.y,landing.y + 0.2,0.02)

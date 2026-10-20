@@ -1,4 +1,4 @@
-"""10 cm hollow spherical pickup, reusing the authored energy bolt and finish."""
+"""25 cm hollow spherical pickup, reusing the authored energy bolt and finish."""
 import sys
 import json
 import math
@@ -11,9 +11,9 @@ sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'energy_core'))
 import cube
 common=cube.common
 STEM='energy_core_pickup'
-RADIUS=.05
-WALL=.005
-BOLT_SCALE=.4
+RADIUS=.125
+WALL=.0125
+BOLT_SCALE=1.0
 
 
 def build(directory):
@@ -56,10 +56,10 @@ def build(directory):
     for track in rig.animation_data.nla_tracks:track.mute=True
     for bone in rig.pose.bones:bone.rotation_euler=(0,0,0)
     scene.frame_set(1)
-    metadata=dict(name=STEM,outer_shape='hollow_sphere',outer_diameter_m=.1,
-                  wall_thickness_m=WALL,outer_opacity=.25,authored_lwh_m=[.1]*3,
+    metadata=dict(name=STEM,outer_shape='hollow_sphere',outer_diameter_m=RADIUS*2,
+                  wall_thickness_m=WALL,outer_opacity=.25,authored_lwh_m=[RADIUS*2]*3,
                   origin='centre',inner_shape='solid_bolt_symmetric',bolt_scale=BOLT_SCALE,
-                  bolt_lwh_m=[.01456,.052,.076],symbol_clearance_m=clearance,
+                  bolt_lwh_m=[dimension*BOLT_SCALE for dimension in (.0364,.13,.19)],symbol_clearance_m=clearance,
                   bones=['Outer','Inner'],animations=['spin'],triangles=tris,
                   animation_settings={'spin':{'loop':True,'fps':24,'frames':[1,121],
                   'axis':'Blender +Z / Godot +Y','Outer_degrees':360,'Inner_degrees':-360}},
@@ -73,14 +73,14 @@ def build(directory):
 def preview(directory,render=True):
     cube.preview(directory,render=False,stem=STEM)
     scene=bpy.context.scene
-    scene.camera.data.ortho_scale=.16
+    scene.camera.data.ortho_scale=RADIUS*3.2
     if render:
         for suffix in ('front_left','preview'):
             scene.render.filepath=str(directory/f'{STEM}_{suffix}.png')
             bpy.ops.render.render(write_still=True)
         scene.camera.location=(0,-.72,0)
         scene.camera.rotation_euler=(-scene.camera.location).to_track_quat('-Z','Y').to_euler()
-        scene.camera.data.ortho_scale=.13
+        scene.camera.data.ortho_scale=RADIUS*2.6
         scene.render.filepath=str(directory/f'{STEM}_front.png')
         bpy.ops.render.render(write_still=True)
 
@@ -112,9 +112,9 @@ def validate(directory):
         symbol=next(o for o in meshes if 'Bolt' in o.name)
         radii=[(shell.matrix_world@v.co).length for v in shell.data.vertices]
         assert all(min(abs(r-RADIUS),abs(r-(RADIUS-WALL)))<1e-6 for r in radii),'Nonuniform shell'
-        assert abs(max(radii)-min(radii)-WALL)<1e-6,'5 mm radial wall'
+        assert abs(max(radii)-min(radii)-WALL)<1e-6,'Authored radial wall'
         points=[o.matrix_world@v.co for o in meshes for v in o.data.vertices]
-        assert all(abs(max(p[i] for p in points)-min(p[i] for p in points)-.1)<1e-6 for i in range(3))
+        assert all(abs(max(p[i] for p in points)-min(p[i] for p in points)-RADIUS*2)<1e-6 for i in range(3))
         assert max((symbol.matrix_world@v.co).length for v in symbol.data.vertices)<RADIUS-WALL-.005
         tris=0
         for obj in meshes:
@@ -127,7 +127,7 @@ def validate(directory):
             assert all(e.is_manifold for e in bm.edges),'Open surface'
             assert bm.calc_volume()>0,'Inverted shell'
             if obj==shell:
-                assert all((v.co.normalized().dot(f.normal)>0 if v.co.length>.0475 else v.co.normalized().dot(f.normal)<0)
+                assert all((v.co.normalized().dot(f.normal)>0 if v.co.length>RADIUS-WALL/2 else v.co.normalized().dot(f.normal)<0)
                            for f in bm.faces for v in f.verts),'Shell normal orientation'
             bm.free()
             tris+=sum(len(p.vertices)-2 for p in obj.data.polygons)
@@ -148,4 +148,4 @@ def validate(directory):
             assert (delta@Vector((0,0,1))-Vector((0,0,1))).length<1e-4
             assert abs(delta[1][0]-direction)<1e-4
             assert max(abs(frames[0][bone][i][j]-frames[2][bone][i][j]) for i in range(3) for j in range(3))<1e-4
-        print(STEM,ext,'PASS: exact 10 cm bounds, 5 mm hollow walls, UVs, rigid skin, spin;',tris,'triangles')
+        print(STEM,ext,'PASS: exact 25 cm bounds, 12.5 mm hollow walls, UVs, rigid skin, spin;',tris,'triangles')

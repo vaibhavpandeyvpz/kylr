@@ -15,6 +15,8 @@ roof matches the cistern, with recessed access covers. Integral column end
 flanges seat on horizontal load rings. Parallel inner/outer chamfers retain
 283 mm upper corner wall thickness. Front service panels clear the entry rim;
 rear lower panels have plain faces without grey inspection inserts.
+Service inspection recesses follow the covers' chamfered outlines with a
+uniform 10 mm perimeter clearance, including the diagonal corner edges.
 
 The fixed building fits a **15 × 15 m** placement envelope. It has a regular
 integral floor and grounded footings, with no surrounding metal platform.
@@ -26,7 +28,7 @@ rising to 2.6968 m centrally. The integral entrance approach rises 0.2553 m over
 0.60 m. The entrance is 2.00 m wide with 2.10 m central headroom.
 
 The render budget was revised by the user to **15,000 triangles** on
-2026-10-06. The current total is **13,067 triangles**, including optional
+2026-10-06. The current total is **13,082 triangles**, including optional
 regolith, across six meshes. Every mesh retains the 5,000-triangle maximum.
 UV painting layouts are unique per material at 2048 px; GLB is the primary
 export and FBX is the fallback.

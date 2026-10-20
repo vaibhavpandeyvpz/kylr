@@ -7,6 +7,10 @@ Native architecture, fixtures, weapons, ammo, lights and lunar scenery are
 separate assets imported at named map gizmos with identity local transforms.
 Each ammo pack has its own gizmo; pair origins are 20 cm apart. Held payloads
 attach to the holder/table's live rotating-bone socket.
+All eight floor spawn-pit gizmos face the front of their Bastion or Laboratory
+host. Their PlayerMount axis is opposite to the stasis chamber's axis; the two
+upper-floor stasis chambers retain their door-facing orientation. Spawn rotations
+do not change the positions or the symmetric square recesses.
 Both Bastion and Laboratory derive their two storage-rack gizmo rotations from
 the host building frame: native +Y backs face the building's +X wall, with
 the open shelves facing the room. Validate all four exported gizmos after regeneration. The habitat pod retains
@@ -44,7 +48,7 @@ Godot. Validation covers placement axes and visual/collision GLB/FBX recesses.
 
 Faceoff has a 75 x 75 m playable boundary, implemented by four invisible perimeter walls at +/-37.5 m, extending from -2 m to 100 m to contain jump-pad and charged-jump routes. The lunar surface remains continuous through these walls into the surrounding dunes. Skyfall has no perimeter walls and lunar contact is lethal.
 
-Current map-owned geometry is 7,855 machining triangles against the 25,000 default; imported architecture/scenery/props remain excluded. The habitat pod has bidirectional normal-jump routes through its native doorway, with crouching only after takeoff and a waypoint clearing the cradle. Occupied cradles match their native closed pose and attach payload axes directly to ItemMount.
+Current map-owned geometry is 7,769 machining triangles against the 25,000 default; imported architecture/scenery/props remain excluded. The habitat pod has bidirectional normal-jump routes through its native doorway, with crouching only after takeoff and a waypoint clearing the cradle. Occupied cradles match their native closed pose and attach payload axes directly to ItemMount.
 
 ## Shared builders and lunar crater
 
@@ -65,6 +69,8 @@ intersecting sheets; GLB/FBX visible-surface overlap checks pass.
 ## Jumbotron placement
 
 The central jumbotron placement gizmo is 10 m above ground in the game. The temporary arena benchmark alone raises its instance to 20 m.
+All four pole-light gizmos face outward from the lunar centre, illuminating
+the surrounding play area while the jumbotron lights the centre.
 
 First-floor flamethrower pickups in Bastion and Laboratory use native item
 cradles, per Figma nodes 2004:106 and 2001:34 (143:891, checked 2026-10-15).

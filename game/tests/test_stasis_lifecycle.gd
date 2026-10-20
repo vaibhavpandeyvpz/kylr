@@ -77,6 +77,43 @@ func test_all_chambers_keep_initial_and_respawn_facing_until_deployment_finishes
 					checked+=1
 	assert_eq(checked,48,"Eight chambers, three modes, initial spawn and respawn")
 
+func test_all_skyfall_spawns_face_the_islands_on_admission_and_respawn():
+	var game:=ArenaMatch.new();game.online=true;game.authority=false
+	add_child_autofree(game)
+	await wait_physics_frames(3)
+	game.map.start_map_assembly();game.map.assembly.seek(5,true);game.map.assembly.pause();game.map.start_loadout()
+	var spawns:Array=game.map.spawns.duplicate()
+	assert_eq(spawns.size(),10)
+	var robot:=game.add_robot(96,"IslandFacing",0,true,"projector") as ArenaRobot
+	robot.set_physics_process(false);robot.set_process(false)
+	for spawn in spawns:
+		game.map.spawns=[spawn]
+		var toward_island:=Vector3(-signf(spawn.point.x),0,0)
+		for life in 2:
+			game.phase="Countdown" if life==0 else "Active"
+			game.spawn_robot(robot)
+			assert_gt(robot.aim_direction().dot(toward_island),0.9999,spawn.id+" faces the islands")
+
+func test_faceoff_spawn_pits_face_the_building_front_on_admission_and_respawn():
+	var game:=ArenaMatch.new()
+	game.map_id="faceoff";game.online=true;game.authority=false
+	add_child_autofree(game)
+	await wait_physics_frames(3)
+	game.map.start_map_assembly();game.map.assembly.seek(5,true);game.map.assembly.pause();game.map.start_loadout()
+	var spawns:=game.map.spawns.filter(func(spawn):return not spawn.get("stasis",false))
+	assert_eq(spawns.size(),8)
+	var robot:=game.add_robot(95,"FrontFacing",0,true,"projector") as ArenaRobot
+	robot.set_physics_process(false);robot.set_process(false)
+	for spawn in spawns:
+		game.map.spawns=[spawn]
+		robot.team=spawn.team
+		var toward_front:=Vector3(-signf(spawn.point.x),0,-signf(spawn.point.z)).normalized()
+		for life in 2:
+			game.phase="Countdown" if life==0 else "Active"
+			game.spawn_robot(robot)
+			assert_gt(robot.aim_direction().dot(toward_front),0.9999,spawn.id+" view faces the building front")
+			assert_gt(robot.body.global_basis.z.normalized().dot(toward_front),0.9999,spawn.id+" body faces the building front")
+
 func test_local_mouse_look_is_ignored_only_during_stasis_deployment_and_countdown():
 	if DisplayServer.get_name()=="headless":
 		pending("Mouse capture requires a windowed display server")

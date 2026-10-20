@@ -1,13 +1,13 @@
 {
   "name": "faceoff_architecture_laboratory",
-  "triangles": 13162,
-  "triangle_budget": 15189,
+  "triangles": 13289,
+  "triangle_budget": 15207,
   "meshes": {
-    "SK_LaboratoryShell": 1388,
-    "SK_LaboratoryFrameFront": 3319,
-    "SK_LaboratoryFrameRear": 2351,
-    "SK_LaboratoryServices": 3831,
-    "SK_LaboratoryMechanisms": 2081,
+    "SK_LaboratoryShell": 1478,
+    "SK_LaboratoryFrameFront": 3302,
+    "SK_LaboratoryFrameRear": 2403,
+    "SK_LaboratoryServices": 3829,
+    "SK_LaboratoryMechanisms": 2085,
     "SK_ArchitectureRegolith": 192
   },
   "bounds_m": {
@@ -622,20 +622,20 @@
       ],
       "mount_normal": [
         1.0,
-        -1.3195617931671677e-08,
+        -1.3022168232623699e-08,
         0.0
       ],
       "attachment": "sconce_light",
       "matrix_world": [
         [
-          1.3195617931671677e-08,
+          1.3022168232623699e-08,
           -1.0,
           0.0,
           -6.499999523162842
         ],
         [
           1.0,
-          1.3195617931671677e-08,
+          1.3022168232623699e-08,
           0.0,
           0.0
         ],
@@ -698,26 +698,26 @@
       "name": "SconceLightMountUpperRight",
       "bone": "Root",
       "origin": [
-        -6.499999523162842,
+        -6.500000476837158,
         0.0,
         5.265957355499268
       ],
       "mount_normal": [
         1.0,
-        -1.3195617931671677e-08,
+        -1.3022168232623699e-08,
         0.0
       ],
       "attachment": "sconce_light",
       "matrix_world": [
         [
-          1.3195617931671677e-08,
+          1.3022168232623699e-08,
           -1.0,
           0.0,
-          -6.499999523162842
+          -6.500000476837158
         ],
         [
           1.0,
-          1.3195617931671677e-08,
+          1.3022168232623699e-08,
           0.0,
           0.0
         ],
@@ -860,7 +860,7 @@
     "M_RegolithLight_Diffuse": "Diffuse",
     "M_Secondary_Diffuse": "Diffuse"
   },
-  "map_owned_boolean_triangles": 189,
+  "map_owned_boolean_triangles": 207,
   "native_triangle_budget": 15000,
   "source_asset": "laboratory",
   "source_category": "architecture",

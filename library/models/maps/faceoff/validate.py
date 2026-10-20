@@ -10,6 +10,19 @@ assert len(upper_weapons)==2 and all(m['asset']=='item_cradle' for m in upper_we
 assert not any(h['marker'] in {m['name'] for m in upper_weapons} for h in holes), 'Freestanding cradles must not cut holder pits'
 jumbo=next(m for m in markers if m['role']=='jumbotron')
 assert abs(jumbo['position_godot'][1]-10)<1e-6, 'Jumbotron must be 10 m above ground'
+floor_spawns=[m for m in markers if m['asset']=='spawn_point']
+assert len(floor_spawns)==8,'Eight front-facing floor spawn pits required'
+for spawn in floor_spawns:
+    host=next(m for m in markers if m.get('source_asset',m['asset'])==spawn['building'] and m['role']=='prop')
+    forward=Euler(spawn['rotation_blender']).to_matrix()@Vector((0,1,0))
+    front=Euler(host['rotation_blender']).to_matrix()@Vector((0,-1,0))
+    assert forward.dot(front)>.9999,(spawn['name'],'spawn pit must face the building front')
+pole_lights=[m for m in markers if m['asset']=='pole_light']
+assert len(pole_lights)==4,'Four outward-facing pole lights required'
+for marker in pole_lights:
+    outward=Vector(marker['position_blender']).normalized()
+    facing=Euler(marker['rotation_blender']).to_matrix()@Vector((0,-1,0))
+    assert facing.dot(outward)>.9999,(marker['name'],'pole light must face away from the centre')
 assert report['recess_clearance_per_side_m']==.001
 assert report['total_map_triangles']<=report['triangle_budget']
 for building in ('bastion','laboratory'):

@@ -1,13 +1,13 @@
 {
   "name": "laboratory",
-  "triangles": 12973,
+  "triangles": 13082,
   "triangle_budget": 15000,
   "meshes": {
-    "SK_LaboratoryShell": 1388,
-    "SK_LaboratoryFrameFront": 3337,
-    "SK_LaboratoryFrameRear": 2144,
-    "SK_LaboratoryServices": 3831,
-    "SK_LaboratoryMechanisms": 2081,
+    "SK_LaboratoryShell": 1478,
+    "SK_LaboratoryFrameFront": 3319,
+    "SK_LaboratoryFrameRear": 2179,
+    "SK_LaboratoryServices": 3829,
+    "SK_LaboratoryMechanisms": 2085,
     "SK_ArchitectureRegolith": 192
   },
   "bounds_m": {
@@ -622,20 +622,20 @@
       ],
       "mount_normal": [
         1.0,
-        -1.3195617931671677e-08,
+        -1.3022168232623699e-08,
         0.0
       ],
       "attachment": "sconce_light",
       "matrix_world": [
         [
-          1.3195617931671677e-08,
+          1.3022168232623699e-08,
           -1.0,
           0.0,
           -6.499999523162842
         ],
         [
           1.0,
-          1.3195617931671677e-08,
+          1.3022168232623699e-08,
           0.0,
           0.0
         ],
@@ -698,26 +698,26 @@
       "name": "SconceLightMountUpperRight",
       "bone": "Root",
       "origin": [
-        -6.499999523162842,
+        -6.500000476837158,
         0.0,
         5.265957355499268
       ],
       "mount_normal": [
         1.0,
-        -1.3195617931671677e-08,
+        -1.3022168232623699e-08,
         0.0
       ],
       "attachment": "sconce_light",
       "matrix_world": [
         [
-          1.3195617931671677e-08,
+          1.3022168232623699e-08,
           -1.0,
           0.0,
-          -6.499999523162842
+          -6.500000476837158
         ],
         [
           1.0,
-          1.3195617931671677e-08,
+          1.3022168232623699e-08,
           0.0,
           0.0
         ],

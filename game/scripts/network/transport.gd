@@ -739,7 +739,10 @@ func apply_presentation(event: Dictionary):
 			if event.victim == local_id: game.damage_taken.emit(event.source,event.amount)
 		"audio":
 			var local: bool = event.near and (event.emitter == local_id or event.emitter == -1)
-			game.audio.cue(event.cue,event.point,local,game.robot_by_id(event.emitter))
+			if event.get("individual",false) and event.cue == "pickup_item":
+				game.audio.energy_core_pickup(event.point,local,game.robot_by_id(event.emitter))
+			else:
+				game.audio.cue(event.cue,event.point,local,game.robot_by_id(event.emitter))
 		"impact": game.effects.impact(event.point,event.normal,event.energy,null,event.robot)
 		"explosion": game.effects.explosion(event.point,event.normal,event.size,event.incoming)
 		"grenade_explosion": game.effects.grenade_explosion(event.point,event.normal)
