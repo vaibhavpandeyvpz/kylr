@@ -88,6 +88,8 @@ var lift_from_pad := false
 var last_safe := Vector3.ZERO
 var carrying := -1
 var contributors: Dictionary = {}
+var last_hit_robot_id := -1
+var last_hit_weapon := ""
 var body: Node3D
 var skeleton: Skeleton3D
 var animator: AnimationPlayer
@@ -755,6 +757,8 @@ func tick_repair_motion(dt: float) -> void:
 
 func hit(amount: float, attacker, cause: String, impulse := Vector3.ZERO) -> bool:
 	if amount <= 0 or not can_take_damage(attacker): return false
+	last_hit_robot_id=attacker.robot_id if attacker!=null else -1
+	last_hit_weapon=cause
 	if attacker != null and not attacker.human: amount *= BotDifficulty.profile(arena_match.difficulty).damage
 	if attacker != null and attacker != self:
 		if not contributors.has(attacker.robot_id): contributors[attacker.robot_id] = []

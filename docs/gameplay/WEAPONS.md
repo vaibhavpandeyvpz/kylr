@@ -121,6 +121,13 @@ blocks both splash damage and knockback, and protected/friendly rejected hits
 receive neither. Self-splash uses the same outward impulse and damage rules.
 Grenade impacts use the shared collision-based knockback controller and caps.
 
+An accepted direct or splash hit from the grenade launcher, rocket launcher or
+EMP gun can credit a subsequent fall death to its shooter. Use the victim's
+last accepted damage event of the current life; a later ineligible hit removes
+eligibility. Respawn clears it. Self-hits never award an opponent a kill.
+Fall animation, lethal lunar contact and the no-drop rule remain unchanged.
+[RULES.md](../RULES.md) owns scoring, assists and posthumous credit.
+
 After the first ricochet, a flak fragment travels half its pre-impact distance before curving downward under 19.6 m/s² gravity scaled by match gravity. Each subsequent bounce resets the travelled distance and halves the previous allowance: a 20 m initial flight gives 10 m, then 5 m, then 2.5 m. Initial flight, three-bounce limit, restitution, damage and lifetime remain unchanged.
 
 ## Projectile and beam collision volumes

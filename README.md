@@ -6,9 +6,10 @@
 
 A robot arena shooter with fast movement, ten weapons and lunar battlegrounds.
 Gameplay is heavily inspired by the **Unreal Tournament** games and their
-**Secret Level** episode. Instant Action supports Deathmatch, Team Deathmatch
-and Capture the Flag on Skyfall and Faceoff. Online Multiplayer uses authenticated
-accounts and authoritative dedicated servers for the same match types.
+**Secret Level** episode. Instant Action supports Deathmatch, Team Deathmatch,
+Capture the Flag, five-life Elimination, and Gun Game on Skyfall and Faceoff.
+Online Multiplayer uses authenticated accounts and authoritative dedicated
+servers for the same match types.
 
 **100% prompt / vibe coded.** Development started with **Claude**, then moved to
 **ChatGPT / Codex** to bring image generation into the asset creation workflow.
@@ -25,6 +26,9 @@ prompt-driven process.[^ai-tools]
   accounts, automatic match allocation and dedicated servers for DM, TDM, CTF,
   Elimination and Gun Game,
   powered by [Render](https://render.com/) and [Edgegap](https://edgegap.com/).
+- **Combat feedback:** local kill confirmations, rapid-kill accolades and voiced
+  match announcements. Grenade, rocket and EMP hits can earn credit for a later
+  fall when they are the victim's last accepted hit that life.
 - **Player customisation:** five head variants, 12 primary and 12 secondary armor
   colors, and victory emotes. Preview your robot in 3D and save your online
   loadout to your account.

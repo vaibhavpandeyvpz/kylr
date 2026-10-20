@@ -94,6 +94,10 @@ static func format_event(event: Dictionary, mode: String, colors: Array[Color]) 
 			if event.get("announcement",false): return "[b]Announcement:[/b] " + safe(sentence(event.text))
 			return "%s said: %s%s" % [person(event.actor,int(event.team),mode,colors),safe(sentence(event.text)),safe(event.get("direction",""))]
 		"kill":
+			if event.get("cause","")=="Fall off map":
+				return "%s knocked %s out of the arena with [b]%s[/b]."%[
+					person(event.killer,int(event.killer_team),mode,colors),
+					person(event.victim,int(event.victim_team),mode,colors),safe(event.weapon)]
 			return "%s killed %s with [b]%s[/b]." % [
 				person(event.killer, int(event.killer_team), mode, colors),
 				person(event.victim, int(event.victim_team), mode, colors), safe(event.weapon)]

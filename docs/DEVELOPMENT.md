@@ -31,8 +31,8 @@ Read the [library guidelines](guidelines/library.md) and
 
 The [game guidelines](guidelines/game.md) route each subsystem to its owning
 contract. Update that contract when changing rules. Game modes are Instant Action
-and Online Multiplayer; match types are DM, TDM and CTF. A robot is a player
-character; a bot is an AI-controlled robot. Bot, traversal, map collision,
+and Online Multiplayer; match types are DM, TDM, CTF, Elimination and Gun Game.
+A robot is a player character; a bot is an AI-controlled robot. Bot, traversal, map collision,
 objective or movement-performance changes require the roster matrix and profiling
 in [playtesting](PLAYTESTING.md). Headless tests do not establish visual or audible quality.
 
