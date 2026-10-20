@@ -1,5 +1,28 @@
 extends GutTest
 
+class MusicApp extends Node:
+	var match_node: ArenaMatch
+
+func test_normalized_music_plays_audibly_and_crossfades_without_changing_user_volume():
+	var app:=MusicApp.new()
+	add_child_autofree(app)
+	var music:=ArenaMusic.new()
+	music.app=app
+	add_child_autofree(music)
+	var bus:=AudioServer.get_bus_index("Music")
+	var user_gain:=AudioServer.get_bus_volume_db(bus)
+	music._process(1.0)
+	assert_true(music.beds[music.active].playing)
+	assert_eq(music.state,"lobby")
+	assert_eq(music.beds[music.active].volume_db,0.0,"Normalized music needs no extra -18 dB cut")
+	music.transition("assembly")
+	music._process(0.0)
+	assert_lt(music.fade,1.0)
+	music.accent("capture_stinger")
+	assert_true(music.stinger.playing)
+	assert_eq(music.stinger.volume_db,0.0)
+	assert_eq(AudioServer.get_bus_volume_db(bus),user_gain,"Playback gain must preserve the Music slider")
+
 func test_tutorial_uses_saved_controls_pauses_and_persists_completion():
 	var game := ArenaMatch.new()
 	game.online = true

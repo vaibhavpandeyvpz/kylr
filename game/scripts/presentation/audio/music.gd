@@ -1,5 +1,9 @@
 class_name ArenaMusic
 extends Node
+# Music sources are already normalized to -18 LUFS with -3 dBTP headroom.
+const BED_GAIN_DB := 0.0
+const PRESSURE_GAIN_DB := -6.0
+const STINGER_GAIN_DB := 0.0
 var app
 var catalog: Dictionary = {}
 var beds: Array[AudioStreamPlayer] = []
@@ -78,7 +82,7 @@ func accent(key: String):
 	if recording == null: return
 	stinger.stop()
 	stinger.stream = recording
-	stinger.volume_db = -12
+	stinger.volume_db = STINGER_GAIN_DB
 	stinger.play()
 
 func _process(dt: float):
@@ -92,10 +96,10 @@ func _process(dt: float):
 	if game != null and round_id != game.get_instance_id(): round_id = game.get_instance_id(); score = -1
 	if next != state: transition(next)
 	fade = minf(1,fade+dt)
-	beds[active].volume_db = -18+linear_to_db(maxf(fade,0.001))
-	beds[1-active].volume_db = -18+linear_to_db(maxf(1-fade,0.001))
+	beds[active].volume_db = BED_GAIN_DB+linear_to_db(maxf(fade,0.001))
+	beds[1-active].volume_db = BED_GAIN_DB+linear_to_db(maxf(1-fade,0.001))
 	if fade >= 1: beds[1-active].stop()
-	pressure.volume_db = -20+linear_to_db(maxf(intensity(game),0.001))
+	pressure.volume_db = PRESSURE_GAIN_DB+linear_to_db(maxf(intensity(game),0.001))
 	if game != null and next == "active":
 		var total: int = game.team_scores[0]+game.team_scores[1]
 		if game.match_type == "CTF" and score >= 0 and total > score: accent("capture_stinger")

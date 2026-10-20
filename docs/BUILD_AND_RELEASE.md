@@ -61,6 +61,10 @@ Windows builds are unsigned. Headless checks do not qualify rendered appearance,
 audio, hardware compatibility or frame rates; [rendering contract](RENDERING.md)
 and [playtesting](PLAYTESTING.md) remain separate requirements.
 
+Exclude ProtonScatter's editor-only `presets/` scenes from exported packages.
+They reference upstream demo assets that are not vendored. Runtime scatter
+scripts, modifiers and their licenses remain included.
+
 ## GitHub workflow
 
 Configure bucket-scoped R2 credentials, the endpoint/object repository variables

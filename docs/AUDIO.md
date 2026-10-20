@@ -91,6 +91,12 @@ Continuous prop audio follows the corresponding animation state: a thruster's ex
 
 Use one musical identity across menu, lobby, assembly, live combat, and results. The lobby theme is spacious and mechanical, leaving room for idle robot sounds. The five-second opening countdown accompanies robot emergence on the already assembled map. The active match uses intensity layers driven by **objective pressure**, not raw kill count alone: close score, low time, contested flag, or major arena event may raise intensity. A capture, lead change, match point, victory, draw, or cancellation gets a short stinger that resolves back to the appropriate layer. Music never masks low-EP or flag warnings. Instant Action pause freezes musical timing; online Settings/menu overlays do not pause the match audio world.
 
+Music sources are normalized to -18 LUFS with -3 dBTP headroom. Main beds and
+stingers play at 0 dB authored gain; the pressure layer peaks at -6 dB relative
+to its source. One-second crossfades, the user's Music volume, critical/speech
+ducking and master limiter still apply. Music does not use the combat playback
+boost. The default 60% Music setting is an additional user-level attenuation.
+
 ## Robot voice and callout rules
 
 Short speech gives robots character and useful information. Bots may say lines like **“I'm hit,” “Got it,” “Cover me,” “Flag down,” “Returning it,”** or a restrained taunt such as **“You like that?”** only at the event that supports it. A callout is **not** a secret sensor: bots never announce an unseen enemy's exact position or a hidden flag carrier. The local human robot may play equivalent automatic pain, pickup, and objective barks, using the equipped robot voice set. Victory emotes can include an authored voice line on the results stage, never as a gameplay advantage.
