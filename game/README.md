@@ -1,6 +1,11 @@
 # KYLR
 
-A Godot robot arena game. The current playable mode is **Instant Action**, with DM, TDM, and CTF on Skyfall and Faceoff using the Tensor character. Online Multiplayer is still under development.
+A Godot robot arena shooter with **Instant Action** and **Online Multiplayer**.
+Both offer DM, TDM, CTF, five-life Elimination and Gun Game on Skyfall and Faceoff
+using the Tensor character. Online play uses authenticated accounts, matchmaking,
+and dedicated authoritative servers hosted through Render and Edgegap.
+Instant Action offers map, bot difficulty, robot count, goal score and time-limit
+controls for every match type. See the [match rules](../docs/RULES.md).
 
 ## Requirements
 
@@ -31,7 +36,7 @@ $Godot = (Resolve-Path '../engine/bin/godot.windows.editor.x86_64.console.exe').
 & $Godot --headless --path . --editor --import --quit
 ```
 
-The clone command uses GitHub SSH authentication. Build the engine using the [root setup instructions](../README.md#build-and-run-on-windows) before importing a fresh clone. If you already have a checkout, open PowerShell in its `game` directory instead of cloning again. All subsequent commands assume the current directory contains `project.godot` and `$Godot` points to the sibling custom engine console executable. Set that variable again in each new terminal session.
+The clone command uses GitHub HTTPS. Build the engine using the [root setup instructions](../README.md#build-and-run-on-windows) before importing a fresh clone. If you already have a checkout, open PowerShell in its `game` directory instead of cloning again. All subsequent commands assume the current directory contains `project.godot` and `$Godot` points to the sibling custom engine console executable. Set that variable again in each new terminal session.
 
 The initial import generates the ignored `.godot/` cache and registers script classes and native extensions. Repeat the import after pulling changes to assets or addons, before running tests directly. The full verification script also performs this step.
 
@@ -69,7 +74,7 @@ Open the editor:
 & $Godot --path . --editor
 ```
 
-Choose **Instant Action** to configure a match. Use **F6** in the editor to run the current scene or **F5** to run the project. The main scene is `main.tscn`.
+Choose **Instant Action** to configure a match, or **Online Multiplayer** to sign in and request a dedicated server. Use **F6** in the editor to run the current scene or **F5** to run the project. The main scene is `main.tscn`.
 
 Default movement controls:
 
@@ -127,7 +132,7 @@ Run the complete automated verification:
 pwsh -File .\tools\verify.ps1 -Godot $Godot
 ```
 
-This imports the project, runs GUT, exercises DM/TDM/CTF with bots, and checks the transition to match results. It fails on engine/script errors, test failures, detected instance leaks, or missing expected match phases. Logs are written to `reports/verification/`, with a separate log per check.
+This imports the project, runs GUT, exercises DM/TDM/CTF/Elimination/Gun Game with bots, and checks the transition to match results. It fails on engine/script errors, test failures, detected instance leaks, or missing expected match phases. Logs are written to `reports/verification/`, with a separate log per check.
 
 Run only GUT after importing:
 
@@ -152,7 +157,7 @@ Game arguments belong **after** the standalone `--` separator:
 | Argument | Meaning |
 | --- | --- |
 | `--smoke` | Automatically start a local match, print diagnostics, then quit. |
-| `--type=DM` | Match type: `DM`, `TDM`, or `CTF` (case-sensitive; default `DM`). |
+| `--type=DM` | Match type: `DM`, `TDM`, `CTF`, `ELIMINATION`, or `GUNGAME` (case-sensitive; default `DM`). |
 | `--robots=10` | Total robots including the human-controlled slot; use 2–10. Default 10. |
 | `--duration=40` | Simulation seconds before diagnostics and exit; default 32. Includes the opening sequence. |
 | `--limit-seconds=5` | Override the active match time limit during a smoke run. |

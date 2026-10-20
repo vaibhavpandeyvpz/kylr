@@ -343,6 +343,8 @@ func spawn_robot(robot):
 	robot.reset_inventory()
 	robot.carrying = -1
 	robot.contributors.clear()
+	robot.last_hit_robot_id=-1
+	robot.last_hit_weapon=""
 	if match_type=="GUNGAME":
 		if robot.gun_game_weapon.is_empty(): advance_gun_game(robot)
 		else: equip_gun_game(robot)
@@ -465,8 +467,15 @@ func _process(dt):
 	camera_rig.set_gameplay(view,Transform3D(basis,target),smooth_fov,camera_snap)
 	camera_snap = false
 
+func fall_killer(victim: ArenaRobot) -> ArenaRobot:
+	if victim.last_hit_weapon not in ["grenade_launcher","rocket_launcher","emp_gun"]: return null
+	var attacker: ArenaRobot=robot_by_id(victim.last_hit_robot_id)
+	return attacker if attacker!=null and attacker!=victim and attacker.enemy(victim) else null
+
 func eliminate(victim,killer,cause: String):
 	if not victim.alive or phase != "Active": return
+	if cause=="Fall off map": killer=fall_killer(victim)
+	var credited_weapon: String=victim.last_hit_weapon if cause=="Fall off map" and killer!=null else cause
 	victim.alive = false
 	kill_chains.erase(victim.robot_id)
 	map.abort_repair_for_robot(victim,"death")
@@ -535,7 +544,7 @@ func eliminate(victim,killer,cause: String):
 			if total >= 20 and helper: helper.assists += 1
 		push_feed({"kind":"kill", "killer":killer.display_name, "killer_team":killer.team,
 			"victim":victim.display_name, "victim_team":victim.team,
-			"weapon":Arsenal.WEAPONS[cause].title if Arsenal.WEAPONS.has(cause) else cause.replace("_", " ").capitalize()})
+			"weapon":Arsenal.WEAPONS[credited_weapon].title if Arsenal.WEAPONS.has(credited_weapon) else credited_weapon.replace("_", " ").capitalize(),"cause":cause})
 		if killer != victim and killer.enemy(victim):
 			record_elimination(killer,victim.display_name)
 			if match_type=="GUNGAME": advance_gun_game(killer,true)
