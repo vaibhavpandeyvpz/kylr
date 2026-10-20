@@ -53,6 +53,9 @@ resolution and package hashes; never interpret a fixed-rate capture as FPS.
 
 The ten [cinematic scenes](cinematics/README.md) stage five compositions per map
 with the actual arena renderer, actors and gameplay effects.
+`capture_map_previews.gd` refreshes the player-free arena photographs.
+`capture_map_selection.gd -- --output=res://reports/<fresh-name>` captures both
+real setup screens at native 1920×1080 Ultra using isolated preferences.
 
 `capture_script_profile.gd` is the loopback debugger receiver. Start it before
 `profile_rendered_combat.gd` with `--remote-debug tcp://127.0.0.1:6018` and

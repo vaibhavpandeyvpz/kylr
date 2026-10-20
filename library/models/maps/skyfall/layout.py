@@ -157,6 +157,12 @@ def data():
             continue
         if m['deck'] not in decks:continue
         decks[m['deck']]['holes'].append(dict(center=center,size=[w,h],depth=p['depth'],yaw=angle))
+    # Floor pads export PlayerMount with the opposite forward axis to chambers.
+    # Reverse those placements after their symmetric square wells are authored.
+    for m in markers:
+        if m['asset']=='spawn_point':
+            m['rotation_blender'][2]+=math.pi
+            m['placement_yaw_offset_deg']=m.get('placement_yaw_offset_deg',0)+180
     jumbo=dict(name='common-jumbotron',role='jumbotron',asset='jumbotron',category='environments',weapon=None,
         zone='common',deck='common',level='common',position_blender=[0,0,HEIGHTS['roof']+5],position_godot=[0,HEIGHTS['roof']+5,0],rotation_blender=[0,0,0],
         figma_node='131:182',label='Jumbotron',wall_mounted=False,cutout_m=[0,0])

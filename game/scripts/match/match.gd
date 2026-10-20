@@ -562,6 +562,19 @@ func eliminate(victim,killer,cause: String):
 		elif callouts:
 			callouts.publish("Eliminated","Announcer",-1,true,Vector3.INF,victim.robot_id)
 
+func spawn_energy_drops(point: Vector3, energy: float, killer_id: int) -> void:
+	var scatter := EnergyCoreScatter.new()
+	effects.add_child(scatter)
+	var placements: Array[Vector3] = await scatter.positions(point+Vector3.UP*0.2,ceili(energy/ArenaTuning.DROPPED_CORE_EP),rng.randi())
+	scatter.free()
+	for position in placements:
+		var amount := minf(ArenaTuning.DROPPED_CORE_EP,energy)
+		var node := CoreOrb.new("energy",true)
+		effects.add_child(node)
+		node.global_position = position
+		drops.append({"node":node,"time":30.0,"ep":amount,"killer":killer_id,"claim":-1})
+		energy -= amount
+
 func tick_drops(dt: float):
 	for corpse in corpses.duplicate():
 		if corpse.falling_out or corpse.node.global_position.y > corpse.point.y + 0.01:
@@ -575,24 +588,23 @@ func tick_drops(dt: float):
 			corpse.node.queue_free()
 			corpses.erase(corpse)
 			if corpse.ep > 0:
-				var node := CoreOrb.new("energy",true)
-				effects.add_child(node)
-				node.global_position = corpse.point + Vector3.UP * 0.2
-				drops.append({"node":node,"time":30.0,"ep":corpse.ep,"killer":corpse.killer,"claim":-1})
+				spawn_energy_drops(corpse.point,corpse.ep,corpse.killer)
 	for drop in drops.duplicate():
 		drop.time -= dt
 		var killer = robot_by_id(drop.killer)
 		var collector = null
-		if killer != null and killer.can_act() and killer.global_position.distance_to(drop.node.global_position) <= 10:
+		if killer != null and killer.can_act() and killer.ep < ArenaTuning.MAX_EP and killer.global_position.distance_to(drop.node.global_position) <= 10:
 			drop.claim = killer.robot_id
-			drop.node.global_position = drop.node.global_position.move_toward(killer.global_position + Vector3.UP * 0.5,12 * dt)
-			if drop.node.global_position.distance_to(killer.global_position + Vector3.UP * 0.5) < 0.5: collector = killer
+			var target: Vector3 = killer.body_shape.global_position
+			drop.node.global_position = drop.node.global_position.move_toward(target,ArenaTuning.DROPPED_CORE_SPEED * dt)
+			if drop.node.global_position.distance_to(target) < 0.5: collector = killer
 		else:
 			drop.claim = -1
 			for robot in robots:
-				if robot.can_act() and robot.global_position.distance_to(drop.node.global_position) < 0.8: collector = robot; break
+				if robot.can_act() and robot.ep < ArenaTuning.MAX_EP and robot.global_position.distance_to(drop.node.global_position) < 0.8: collector = robot; break
 		if collector != null:
 			collector.ep = minf(ArenaTuning.MAX_EP,collector.ep + drop.ep)
+			audio.energy_core_pickup(collector.body_shape.global_position,collector == local_robot or online,collector)
 		if collector != null or drop.time <= 0:
 			drop.node.queue_free()
 			drops.erase(drop)

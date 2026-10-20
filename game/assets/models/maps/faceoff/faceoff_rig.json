@@ -2094,7 +2094,7 @@
       "rotation_blender": [
         0,
         0,
-        1.5711809421605467
+        4.71277359575034
       ],
       "figma_node": "143:1821",
       "label": "Pole Light 4",
@@ -2127,7 +2127,7 @@
       "rotation_blender": [
         0,
         0,
-        -1.5711812382462493
+        1.5704114153435438
       ],
       "figma_node": "143:1822",
       "label": "Pole Light 3",
@@ -2160,7 +2160,7 @@
       "rotation_blender": [
         0,
         0,
-        0.00038491145135272943
+        3.1419775650411457
       ],
       "figma_node": "143:1823",
       "label": "Pole Light 2",
@@ -2193,7 +2193,7 @@
       "rotation_blender": [
         0,
         0,
-        3.141208038224143
+        6.282800691813936
       ],
       "figma_node": "143:1824",
       "label": "Pole Light 1",
@@ -2625,7 +2625,7 @@
       "rotation_blender": [
         0,
         0,
-        2.356194490192345
+        5.497787143782138
       ],
       "figma_node": "2004:97",
       "label": "Spawn Point 4",
@@ -2658,7 +2658,7 @@
       "rotation_blender": [
         0,
         0,
-        2.356194490192345
+        5.497787143782138
       ],
       "figma_node": "2004:98",
       "label": "Spawn Point 3",
@@ -2691,7 +2691,7 @@
       "rotation_blender": [
         0,
         0,
-        2.356194490192345
+        5.497787143782138
       ],
       "figma_node": "2004:99",
       "label": "Spawn Point 2",
@@ -2724,7 +2724,7 @@
       "rotation_blender": [
         0,
         0,
-        2.356194490192345
+        5.497787143782138
       ],
       "figma_node": "2004:100",
       "label": "Spawn Point 1",
@@ -3289,7 +3289,7 @@
       "rotation_blender": [
         0,
         0,
-        -0.7853981633974483
+        2.356194490192345
       ],
       "figma_node": "2001:49",
       "label": "Spawn Point 4",
@@ -3322,7 +3322,7 @@
       "rotation_blender": [
         0,
         0,
-        -0.7853981633974483
+        2.356194490192345
       ],
       "figma_node": "2001:47",
       "label": "Spawn Point 3",
@@ -3355,7 +3355,7 @@
       "rotation_blender": [
         0,
         0,
-        -0.7853981633974483
+        2.356194490192345
       ],
       "figma_node": "2001:40",
       "label": "Spawn Point 2",
@@ -3388,7 +3388,7 @@
       "rotation_blender": [
         0,
         0,
-        -0.7853981633974483
+        2.356194490192345
       ],
       "figma_node": "2001:41",
       "label": "Spawn Point 1",

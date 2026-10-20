@@ -97,7 +97,17 @@ The library contains detachable ammo-pack models that can represent the matching
 
 Elimination should clearly identify the attacker, affected robot, and weapon or hazard where known. On death, play the death animation and **turn off all emissive parts on the robot**, including visible equipped gear; restore their normal emissive state only when that robot respawns. Hold the completed animation for one second, then remove the corpse and respawn. Falling robots leave no drops. Apply emissive state to both first-person and third-person presentation. Give the player immediate feedback for hits, damage taken, low resources, reload state, and death.
 
-The dead robot's corpse disappears **one second after its death animation finishes**. If AH caused an ordinary death and the robot still had EP at that exact moment, a **dropped Energy Core** appears on the ground where the corpse disappeared. A fall death leaves no Core. A dropped Core contains exactly that remaining EP and lasts **30 seconds**. Any living robot can run into it to add that amount to its own EP, up to the normal 100-point maximum. If the credited killer is within **10 m** while the Core exists, it automatically flies to that killer and grants the same EP on collection. This dropped Core differs from a map Energy Core: map Cores refill to 100, while dropped Cores transfer a stored amount. The dropped Core retains its native 10 cm rounded mesh, glass and spin animation. It shares the square Energy Core’s exact finished glass and emissive materials in every graphics preset; pickup models and shared finishes are prepared before matches.
+The dead robot's corpse disappears **one second after its death animation finishes**. If AH caused an ordinary death and the robot still had EP at that exact moment, **dropped Energy Cores** appear on the ground where the corpse
+disappeared. Split the stored EP into chunks of **at most 5 EP**, with the final Core holding the remainder.
+ProtonScatter's runtime modifier stack generates random positions within 2 m and projects them onto solid map colliders.
+Select supported positions with neighboring Core centers **25–35 cm** apart, checking solid clearance and support beneath the
+25 cm footprint. Keep them on the same floor; on a cramped ledge, supported positions take priority over spacing.
+If no supported footprint exists within 2 m of the landing point, do not spawn Cores over void.
+A fall death leaves no Cores. Each Core lasts **30 seconds** from appearance. Only living, actionable robots
+with EP below 100 can collect them, adding their stored EP up to 100. If the credited killer is eligible and
+within **10 m**, each Core independently flies toward that killer's body centre at **1 m/s**, following the
+standing or crouched collision capsule. Otherwise eligible robots collect by contact. Stop collection when full.
+This dropped Core differs from a map Energy Core: map Cores refill to 100, while dropped Cores transfer a stored amount. The dropped Core retains its native 25 cm rounded mesh, glass and spin animation. It shares the square Energy Core’s exact finished glass and emissive materials in every graphics preset; pickup models and shared finishes are prepared before matches.
 
 ### Galaxy-derived projectile weapons
 

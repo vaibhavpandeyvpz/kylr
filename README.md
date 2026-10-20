@@ -115,6 +115,17 @@ experience or problem they improve, and include relevant test results and
 screenshots or clips for visual changes. Use the custom engine for validation
 and keep separately licensed assets and local credentials out of your PR.
 
+## Godot addon credits
+
+| Addon | Role |
+| --- | --- |
+| [LimboAI](https://github.com/limbonaut/limboai) | Drives bot behavior trees. |
+| [Phantom Camera](https://github.com/ramokz/phantom-camera) | Controls menu and gameplay cameras. |
+| [ProtonScatter](https://github.com/HungryProton/scatter) | Generates and projects dropped Energy Core positions. |
+| [GUT](https://github.com/bitwes/Gut) | Runs automated gameplay and integration tests. |
+
+Licenses and dependency details are in [third-party notices](game/THIRD_PARTY.md).
+
 ## License
 
 KYLR's original game and library code, tools, documentation and original assets

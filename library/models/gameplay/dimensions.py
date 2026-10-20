@@ -15,7 +15,7 @@ TARGET_LWH = {
     'barricade': (2, 4, 1.5),
     'speed_ramp': (1, 1.5, .75),
     'energy_core': (.26, .26, .26),
-    'energy_core_pickup': (.1, .1, .1),
+    'energy_core_pickup': (.25, .25, .25),
     'shield_core': (.26, .26, .26),
     'stasis_chamber': (1.5, 1.25, 2.679),
 }

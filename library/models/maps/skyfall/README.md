@@ -1,5 +1,9 @@
 # Skyfall
 
+All ten spawn views face toward their zone's islands. Floor spawn-pad gizmos
+include a 180-degree facing correction for their native PlayerMount axis;
+stasis chambers retain their island-facing door orientation.
+
 Figma source, inspected 2026-10-15.
 Both zones use actual node IDs and transforms recorded in figma_inspection.json.
 tools/read_skyfall_snapshot.py converts the audit to figma_layout.json.

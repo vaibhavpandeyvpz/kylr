@@ -72,6 +72,13 @@ Every fired weapon has two spatial events when it connects: its report or sustai
 
 ## World and movement
 
+Every collected dropped Energy Core uses the same `world/pickup_item` recording
+as an item-table Energy Core. Homing and contact collections each emit one cue
+per Core; full-EP contacts emit none. Cluster arrival sounds are queued 80 ms
+apart so cue cooldown does not merge them. Online authority publishes each
+collection reliably; the collector hears the local mix and other listeners
+hear the positional cue at the robot's body centre.
+
 Repair uses the three recordings from `library/sounds/gameplay`: `repair_ready.wav` is the spatial ready hum, `repair_weld.wav` loops only during welding (seconds 1–6), and `repair_start_stop.wav` plays on activation and again when deactivation begins at six seconds or an earlier interruption stops repair. There is no separate completion chime or recharge sound. Ready and welding loops stop on finish, cancellation and shutdown. `tools/prepare_world_audio.py --source ../library/sounds --repair-only` trims leading/trailing silence, converts to 48 kHz mono 16-bit PCM and smooths loop seams. Recharging remains silent; no synthetic fallback audio is generated.
 
 The runtime footstep loop and its cadence follow measured horizontal displacement while grounded, including slowing against collision. Requested input speed does not keep steps playing when the robot is blocked, and airborne motion stops the loop.

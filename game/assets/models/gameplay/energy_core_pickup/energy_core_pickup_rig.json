@@ -1,23 +1,23 @@
 {
   "name": "energy_core_pickup",
   "outer_shape": "hollow_sphere",
-  "outer_diameter_m": 0.1,
-  "wall_thickness_m": 0.005,
+  "outer_diameter_m": 0.25,
+  "wall_thickness_m": 0.0125,
   "outer_opacity": 0.25,
   "authored_lwh_m": [
-    0.1,
-    0.1,
-    0.1
+    0.25,
+    0.25,
+    0.25
   ],
   "origin": "centre",
   "inner_shape": "solid_bolt_symmetric",
-  "bolt_scale": 0.4,
+  "bolt_scale": 1.0,
   "bolt_lwh_m": [
-    0.01456,
-    0.052,
-    0.076
+    0.0364,
+    0.13,
+    0.19
   ],
-  "symbol_clearance_m": 0.005644716496273509,
+  "symbol_clearance_m": 0.01411178913768743,
   "bones": [
     "Outer",
     "Inner"

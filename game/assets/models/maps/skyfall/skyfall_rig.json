@@ -2852,7 +2852,7 @@
       "rotation_blender": [
         0,
         0,
-        4.71238898038469
+        7.853981633974483
       ],
       "figma_node": "2011:290",
       "mirrored_from": null,
@@ -2862,7 +2862,7 @@
         2,
         2
       ],
-      "placement_yaw_offset_deg": 90
+      "placement_yaw_offset_deg": 270
     },
     {
       "name": "B-spawn_point-71",
@@ -2886,7 +2886,7 @@
       "rotation_blender": [
         0,
         0,
-        4.71238898038469
+        7.853981633974483
       ],
       "figma_node": "2011:291",
       "mirrored_from": null,
@@ -2896,7 +2896,7 @@
         2,
         2
       ],
-      "placement_yaw_offset_deg": 90
+      "placement_yaw_offset_deg": 270
     },
     {
       "name": "B-portal_gate-72",
@@ -7091,7 +7091,7 @@
       "rotation_blender": [
         0,
         0,
-        1.5707963267948966
+        4.71238898038469
       ],
       "figma_node": "2011:463",
       "mirrored_from": null,
@@ -7101,7 +7101,7 @@
         2,
         2
       ],
-      "placement_yaw_offset_deg": 90
+      "placement_yaw_offset_deg": 270
     },
     {
       "name": "A-spawn_point-181",
@@ -7125,7 +7125,7 @@
       "rotation_blender": [
         0,
         0,
-        1.5707963267948966
+        4.71238898038469
       ],
       "figma_node": "2011:464",
       "mirrored_from": null,
@@ -7135,7 +7135,7 @@
         2,
         2
       ],
-      "placement_yaw_offset_deg": 90
+      "placement_yaw_offset_deg": 270
     },
     {
       "name": "A-portal_gate-182",

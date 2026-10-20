@@ -74,7 +74,7 @@ foreach ($notice in $sdkManifest.notices) {
     if((Get-FileHash -LiteralPath $source).Hash.ToLowerInvariant() -ne $notice.sha256){throw "Streamline notice differs: $($notice.name)"}
     Copy-Item -LiteralPath $source -Destination (Join-Path $noticeDirectory $notice.name)
 }
-$notices = @('addons/limboai/LICENSE.md','addons/limboai/LOGO_LICENSE.md','addons/phantom_camera/LICENSE')
+$notices = @('addons/limboai/LICENSE.md','addons/limboai/LOGO_LICENSE.md','addons/phantom_camera/LICENSE','addons/proton_scatter/LICENSE','addons/proton_scatter/LICENSE.md')
 $notices += Get-ChildItem -LiteralPath (Join-Path $projectRoot 'assets') -Recurse -File |
     Where-Object { $_.Name -match '(?i)license' -and $_.Extension -ne '.import' } |
     ForEach-Object { [IO.Path]::GetRelativePath($projectRoot,$_.FullName) }

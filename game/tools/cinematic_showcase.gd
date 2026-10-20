@@ -144,7 +144,7 @@ func plan_encounter(shot: String) -> void:
 			encounter_center=Vector3(1,.078,-2) if map_id=="faceoff" else Vector3(30,22,22.5)
 			loadout=["lightning_gun","emp_gun"]
 		"aftermath":
-			encounter_center=Vector3(10,0,0) if map_id=="faceoff" else Vector3(25.5,30.1,27)
+			encounter_center=Vector3(17,0,0) if map_id=="faceoff" else Vector3(25.5,30.1,27)
 			loadout=["minigun","pistol","grenade_launcher"]
 			observer.attributes.exposure_multiplier=1.15 if map_id=="faceoff" else 1.6
 		"launch":

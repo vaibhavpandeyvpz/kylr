@@ -1,5 +1,8 @@
 * text=auto eol=lf
 
+# Preserve the pinned addon source's upstream whitespace.
+game/addons/proton_scatter/** -whitespace
+
 # Binary assets and bundled runtimes use Git LFS. Ignore rules still apply.
 *.fbx filter=lfs diff=lfs merge=lfs -text
 *.glb filter=lfs diff=lfs merge=lfs -text

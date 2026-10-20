@@ -84,11 +84,16 @@ def data():
         if item['asset']=='storage_rack' and item['building'] in ('bastion','laboratory'):
             item['rotation_blender'][2]=buildings[item['building']]['rotation_blender'][2]-math.pi/2
         if ((item['category']=='architecture') or (item['zone']=='common' and not item['building'] and item['role']!='jumbotron')) and math.hypot(x,y)>1e-6:item['rotation_blender'][2]=math.atan2(-x,y)
+        if item['asset']=='pole_light':item['rotation_blender'][2]+=math.pi
         if item['asset'] not in ('spawn_point','weapon_holder','item_table','jump_pad'):continue
         meta=json.loads((MODELS/'gameplay'/item['asset']/(item['asset']+'_rig.json')).read_text());cut=meta['cutout_m']
         w,h=(2,2) if item['asset']=='spawn_point' else (1,1);item['cutout_m']=[w,h]
         offset=sum(cut.get('y',[0,0]))/2;a=item['rotation_blender'][2]
         holes.append(dict(marker=item['name'],building=item['building'],center=[x-math.sin(a)*offset,y+math.cos(a)*offset,z],size=[w,h],depth=cut['depth'],yaw=a))
+    # Floor pads use the opposite PlayerMount axis to stasis chambers.
+    # Reverse their gizmos after recording the unchanged symmetric square wells.
+    for item in markers:
+        if item['asset']=='spawn_point':item['rotation_blender'][2]+=math.pi
     expanded=[]
     for item in markers:
         if item['role']!='ammo':expanded.append(item);continue

@@ -1,4 +1,4 @@
-"""Build the 10 cm spherical Energy Core pickup."""
+"""Build the 25 cm spherical Energy Core pickup."""
 
 # Authored runtime material classifiers; colours and geometry are unchanged.
 MATERIAL_CLASSIFIERS = {
