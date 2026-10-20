@@ -31,8 +31,20 @@ def audio_files():
 
 def required_files():
     manifest = json.loads((GAME / "animations/manifest.json").read_text(encoding="utf-8"))
+    weapons = json.loads((GAME.parent / 'data/weapons/catalog.json').read_text(encoding='utf-8'))['weapons']
+    for weapon in weapons.values():
+        family = weapon['animation_family']
+        for pose in ['idle','hit_reaction','aim_level','aim_up30','aim_down30']:
+            if f'{family}/{pose}' not in manifest:
+                raise ValueError(f'Animation manifest omits required runtime pose: {family}/{pose}')
+    licensed_audio = set(audio_files())
+    cues = json.loads((GAME.parent / 'data/audio/cues.json').read_text(encoding='utf-8'))
+    for cue in cues.values():
+        asset = cue.get('asset','')
+        if asset.startswith('weapons/') and f'audio/{asset}.wav' not in licensed_audio:
+            raise ValueError(f'Audio catalog omits required runtime weapon cue: {asset}')
     return (["animations/manifest.json"] + ["animations/" + name for name in clip_files(manifest)] +
-            audio_files())
+            sorted(licensed_audio))
 
 
 def install(source):
@@ -55,9 +67,17 @@ def install(source):
 
 
 def check():
+    required_files()
     prepare(GAME / "animations")
     recipe = json.loads((ROOT / "library/sounds/epidemic_manifest.json").read_text(encoding="utf-8"))
     hashes = {entry["file"].removeprefix("game/assets/"):entry["pcm_sha256"] for entry in recipe["game"]}
+    catalog = json.loads((GAME / "audio/catalog.json").read_text(encoding="utf-8"))
+    for item in catalog.values():
+        if item.get('provider','').startswith('User-supplied'):
+            digest = item.get('pcm_sha256','')
+            if not re.fullmatch(r'[0-9a-f]{64}',digest):
+                raise ValueError('User-supplied audio requires a pinned PCM checksum')
+            hashes[item['file'].removeprefix('res://assets/')] = digest
     for name in audio_files():
         path = GAME / name
         if not path.is_file():

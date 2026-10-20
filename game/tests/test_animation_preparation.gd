@@ -1,12 +1,12 @@
 extends GutTest
 const Preparation=preload("res://scripts/core/resource_preparation.gd")
 
-func test_preparation_covers_runtime_aliases_missing_from_authoring_manifest():
+func test_preparation_covers_manifest_listed_projectile_weapon_clips():
 	var ids: Array[String]=["bio_rifle/crouch_walk_backward_right","flak_cannon/crouch_walk_backward_right","grenade_launcher/sprint_forward"]
 	var manifest: Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://assets/animations/manifest.json"))
 	var paths := Preparation.character_animation_paths()
 	for id in ids:
-		assert_false(manifest.has(id),"Regression fixture must exercise an unlisted runtime alias")
+		assert_true(manifest.has(id),"Runtime weapon clips must be available to clean CI installations")
 		assert_has(paths,"res://assets/animations/tensor/"+id+".glb")
 		Preparation.prepared_animations.erase("tensor/"+id)
 		Assets.animations.erase("tensor/"+id)

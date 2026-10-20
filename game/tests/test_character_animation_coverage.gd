@@ -9,7 +9,9 @@ func test_common_character_clips_do_not_keep_a_weapon_in_hand():
 func test_character_clip_selection_covers_every_available_gameplay_context():
 	var manifest: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://assets/animations/manifest.json"))
 	var used := {}
-	for family in ["pistol", "rifle", "minigun", "rocket_launcher", "lightning_gun", "flamethrower", "emp_gun"]:
+	var families := {}
+	for weapon in Arsenal.WEAPONS.values(): families[String(weapon.animation_family)]=true
+	for family in families:
 		for crouched in [false, true]:
 			for aiming in [false, true]: used[family + "/" + RobotClips.idle(crouched, aiming)] = true
 		used[family + "/" + RobotClips.idle(true, false, family, true)] = true

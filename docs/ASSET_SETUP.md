@@ -94,7 +94,7 @@ Return to the repository root, then install the completed output:
 & engine/.local/build-venv/Scripts/python.exe tools/install_animations.py --check
 ```
 
-The installer validates the required GLB inputs before copying the 408 clips
+The installer validates the required GLB inputs before copying the 567 clips
 selected by the checked-in game manifest. Extra retarget output is not installed,
 and the curated game manifest is not replaced.
 Both downloaded FBX/ZIP files and retargeted GLBs stay local. The repository keeps
@@ -152,11 +152,26 @@ After installing local assets, import with the custom engine:
 
 For an authorized build runner, prepare a private ZIP whose root contains
 `animations/` and `audio/`, with the same layout as `game/assets/`.
-Include `animations/manifest.json`, the complete manifest-listed animation GLBs,
-and the catalog-listed Epidemic WAV cues. Keep this
+Include `animations/manifest.json`, all 1,110 manifest-listed animation GLBs,
+and all 46 separately licensed catalog-listed WAV cues. This includes the
+bio rifle, grenade launcher and flak cannon animation families, plus the nine
+user-supplied projectile-weapon sounds. Prepared WAVs are mono, 16-bit, 48 kHz;
+the catalog pins the additional sounds' PCM hashes. Keep this
 bundle in access-controlled storage available only to authorized project users.
 Do not put it in a public release or upload the raw bundle as a GitHub artifact.
 The compiled game package has separate distribution/license requirements.
+
+Create the archive from a validated local installation rather than selecting
+files manually. The bundler includes only the installer's allowlisted paths:
+
+```powershell
+& engine/.local/build-venv/Scripts/python.exe tools/bundle_private_assets.py --output engine/.local/private-assets/KYLR-game-assets.zip
+```
+
+It writes a `.sha256` sidecar. The installer checks that every runtime weapon
+family has aim/hit poses and every weapon cue belongs to the audio catalog.
+Windows CI restores and validates the archive before compiling the editor.
+Package inspection also checks every catalog-listed animation and audio resource.
 
 The workflow downloads the ZIP directly from private R2 storage with the AWS CLI.
 Create a bucket-scoped **Object Read only** R2 token. Configure these GitHub

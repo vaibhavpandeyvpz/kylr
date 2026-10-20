@@ -22,6 +22,42 @@ from install_epidemic_audio import destination, render_cue, wav_bytes, write_cli
 
 
 class AssetSetupTests(unittest.TestCase):
+    def test_preflight_rejects_uncatalogued_weapon_assets_before_install(self):
+        with tempfile.TemporaryDirectory() as scratch:
+            root=Path(scratch)
+            assets=root/'assets'
+            for folder in ['assets/animations','assets/audio','data/weapons','data/audio']:
+                (root/folder).mkdir(parents=True)
+            (assets/'animations/manifest.json').write_text('{}')
+            (assets/'audio/catalog.json').write_text('{}')
+            (root/'data/audio/cues.json').write_text('{}')
+            (root/'data/weapons/catalog.json').write_text(json.dumps({'weapons':{'bio_rifle':{'animation_family':'bio_rifle'}}}))
+            with patch.object(install_private_assets,'GAME',assets):
+                with self.assertRaisesRegex(ValueError,'bio_rifle/idle'):
+                    install_private_assets.required_files()
+                (root/'data/weapons/catalog.json').write_text('{"weapons":{}}')
+                (root/'data/audio/cues.json').write_text('{"pulse_gun":{"asset":"weapons/pulse_gun_shot"}}')
+                with self.assertRaisesRegex(ValueError,'pulse_gun_shot'):
+                    install_private_assets.required_files()
+
+    def test_runtime_weapon_assets_are_in_the_installation_catalogs(self):
+        root=Path(__file__).resolve().parents[2]
+        manifest=json.loads((root/'game/assets/animations/manifest.json').read_text(encoding='utf-8'))
+        weapons=json.loads((root/'game/data/weapons/catalog.json').read_text(encoding='utf-8'))['weapons']
+        for weapon in weapons.values():
+            family=weapon['animation_family']
+            for clip in ['idle','hit_reaction','aim_level','aim_up30','aim_down30']:
+                self.assertIn(f'{family}/{clip}',manifest)
+        catalog=json.loads((root/'game/assets/audio/catalog.json').read_text(encoding='utf-8'))
+        cues=json.loads((root/'game/data/audio/cues.json').read_text(encoding='utf-8'))
+        required=set(install_private_assets.audio_files())
+        for cue in cues.values():
+            asset=cue.get('asset','')
+            if not asset.startswith('weapons/'):continue
+            path='res://assets/audio/'+asset+'.wav'
+            self.assertTrue(any(path==entry.get('file') or path in entry.get('files',[]) for entry in catalog.values()),asset)
+            self.assertIn(path.removeprefix('res://assets/'),required)
+
     def test_sse_keepalive_and_notifications_before_result(self):
         response = io.BytesIO(b'data: \nid: 0\nretry: 3000\n\n'
                               b'data: {"jsonrpc":"2.0","method":"notifications/progress"}\n\n'

@@ -13,12 +13,23 @@ func _initialize():
 	inspect("res://")
 	for path in ["res://data/audio/speech.json","res://data/audio/music.json","res://assets/audio/music/lobby.ogg","res://assets/audio/speech/robot_09/power_critical.wav"]:
 		if not ResourceLoader.exists(path): reject("Missing packaged resource: "+path)
+	var animations: Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://assets/animations/manifest.json"))
+	for entry in animations.values():
+		for field in ["file","weapon_file"]:
+			if entry.has(field): require_resource("res://assets/animations/"+String(entry[field]))
+	var audio: Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://assets/audio/catalog.json"))
+	for entry in audio.values():
+		if entry.has("file"): require_resource(String(entry.file))
+		for path in entry.get("files",[]): require_resource(String(path))
 	print("PACKAGE_INSPECTION files=",files," safe=",not failed)
 	quit(1 if failed else 0)
 
 func reject(message: String):
 	failed = true
 	push_error(message)
+
+func require_resource(path: String) -> void:
+	if not ResourceLoader.exists(path): reject("Missing catalog resource: "+path)
 
 func inspect(path: String):
 	var folder := DirAccess.open(path)
