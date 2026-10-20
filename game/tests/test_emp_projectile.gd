@@ -37,8 +37,7 @@ class World extends Node3D:
 	var combat := Trace.new()
 	var effects := Contacts.new()
 
-func test_fireball_and_lightning_orb_share_travel_gravity_expiry_and_direct_damage():
-	var trajectories: Array = []
+func test_fireball_and_lightning_orb_use_configured_speed_range_and_direct_damage():
 	for weapon in ["lightning_gun", "flamethrower"]:
 		var world := World.new()
 		add_child_autofree(world)
@@ -46,19 +45,18 @@ func test_fireball_and_lightning_orb_share_travel_gravity_expiry_and_direct_dama
 		world.add_child(shooter)
 		var shot := ArenaProjectile.new()
 		shot.weapon = weapon
-		shot.speed = Arsenal.ORB_SPEED
+		shot.speed = Arsenal.mode_value(weapon,"projectile_speed",true)
 		shot.game = world
 		shot.shooter = shooter
 		world.add_child(shot)
 		shot.set_physics_process(false)
-		shot._physics_process(5.0)
-		assert_eq(shot.global_position, Vector3(0, 0, -50))
+		shot._physics_process(40.0/shot.speed)
+		assert_eq(shot.global_position, Vector3(0, 0, -40))
 		assert_eq(shot.fall, 0.0)
 		shot._physics_process(0.1)
-		assert_eq(shot.fall, 0.0, "Gravity begins after 50 m")
+		assert_eq(shot.fall, 0.0, "Gravity begins after 40 m")
 		shot._physics_process(0.1)
 		assert_gt(shot.fall, 0.0)
-		trajectories.append(shot.global_position)
 		shot.age = 20.0
 		shot._physics_process(0.01)
 		assert_true(shot.is_queued_for_deletion())
@@ -71,7 +69,7 @@ func test_fireball_and_lightning_orb_share_travel_gravity_expiry_and_direct_dama
 		world.combat.hit_at = 55.0
 		var contact := ArenaProjectile.new()
 		contact.weapon = weapon
-		contact.speed = Arsenal.ORB_SPEED
+		contact.speed = Arsenal.mode_value(weapon,"projectile_speed",true)
 		contact.game = world
 		contact.shooter = shooter
 		world.add_child(contact)
@@ -79,11 +77,10 @@ func test_fireball_and_lightning_orb_share_travel_gravity_expiry_and_direct_dama
 		contact.distance = 54.0
 		contact.position.z = -54.0
 		contact._physics_process(0.2)
-		assert_eq(target.damage_taken, 10.0, "No distance falloff beyond 50 m")
+		assert_eq(target.damage_taken, 25.0, "No distance falloff beyond 40 m")
 		assert_eq(nearby.damage_taken, 0.0, "Orbs have no splash")
 		assert_eq(world.effects.count, 1)
 		assert_true(contact.is_queued_for_deletion())
-	assert_eq(trajectories[0], trajectories[1])
 
 func test_emp_hits_only_first_direct_target_and_uses_exact_contact_distance():
 	for hit_at in [5.0, 20.0, 22.5, 24.0]:

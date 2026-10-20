@@ -89,7 +89,7 @@ func configure_presentation() -> void:
 	if not game is ArenaMatch or not is_instance_valid(shooter): return
 	if shooter != game.local_robot or not game.uses_first_person(): return
 	var origin: Vector3 = shooter.weapon_vfx.origin()
-	var target: Vector3 = game.combat.aim_target(shooter, Arsenal.ORB_GRAVITY_RANGE if Arsenal.orb_secondary(weapon) else Arsenal.WEAPONS[weapon].range)
+	var target: Vector3 = game.combat.aim_target(shooter, Arsenal.projectile_range(weapon))
 	set_presentation_launch(origin, target)
 
 func set_presentation_launch(origin: Vector3, target: Vector3) -> void:
@@ -127,7 +127,7 @@ func _physics_process(dt):
 	if game.phase != "Active": retire(); return
 	age += dt
 	if age > Arsenal.PROJECTILE_LIFETIME: retire(); return
-	var gravity_range := Arsenal.ORB_GRAVITY_RANGE if Arsenal.orb_secondary(weapon) else 100.0
+	var gravity_range := Arsenal.projectile_range(weapon)
 	var guided := weapon == "rocket_launcher" and steer_homing(dt)
 	if distance > gravity_range and not guided: fall += game.gravity * dt
 	var next: Vector3 = global_position + direction * speed * dt - Vector3.UP * fall * dt
@@ -142,7 +142,7 @@ func _physics_process(dt):
 	if not hit.is_empty():
 		var shielded: bool = hit.collider is ArenaRobot and (hit.collider.sh > 0 or hit.collider.protection > 0)
 		if hit.collider is ArenaRobot:
-			var damage := 50.0 if weapon == "rocket_launcher" else Arsenal.emp_damage(distance) if weapon == "emp_gun" else Arsenal.ORB_DAMAGE
+			var damage := Arsenal.emp_damage(distance) if weapon == "emp_gun" else Arsenal.mode_value(weapon,"damage",Arsenal.orb_secondary(weapon))
 			var impulse := Knockback.rocket(direction) if weapon == "rocket_launcher" else Knockback.emp(direction) if weapon == "emp_gun" else Vector3.ZERO
 			hit.collider.hit(damage, shooter, weapon, impulse)
 		if weapon == "rocket_launcher":

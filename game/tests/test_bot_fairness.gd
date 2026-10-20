@@ -158,6 +158,8 @@ func test_beam_tracks_observed_body_without_projectile_lead():
 	actor.brain.target = victim
 	actor.pickup_weapon = "lightning_gun"
 	actor.equipped = "lightning_gun"
+	actor.brain.equipment.last_pickup="lightning_gun"
+	actor.brain.equipment.switch_time=100.0
 	actor.loaded = 10
 	actor.brain.tick(1.0)
 	assert_almost_eq(actor.bot_aim.x,0.0,0.001,"Hitscan beams cannot aim ahead of a moving target")
@@ -169,7 +171,7 @@ func test_beam_tracks_observed_body_without_projectile_lead():
 	victim.position.z = -4.0
 	actor.brain.reset_aim()
 	actor.brain.tick(1.0)
-	assert_almost_eq(actor.bot_aim.x,1.2/sqrt(1.2*1.2+16),.001,"EMP lead uses its actual 20 m/s projectile speed")
+	assert_almost_eq(actor.bot_aim.x,0.96/sqrt(0.96*0.96+16),.001,"EMP lead uses its actual 25 m/s projectile speed")
 
 func test_rifle_shot_cooldown_blocks_both_inputs_and_survives_target_changes():
 	for level in 4:
@@ -183,6 +185,8 @@ func test_rifle_shot_cooldown_blocks_both_inputs_and_survives_target_changes():
 		actor.brain.target = victim
 		actor.pickup_weapon = "rifle"
 		actor.equipped = "rifle"
+		actor.brain.equipment.last_pickup="rifle"
+		actor.brain.equipment.switch_time=100.0
 		actor.loaded = 10
 		actor.brain.tick(1.0)
 		assert_true(actor.wants_fire)
@@ -272,7 +276,7 @@ func test_flame_damage_volume_and_visual_endpoint_share_the_cached_error():
 	assert_eq(victim.damage_received,0.0,"Failed flame accuracy offsets the damage volume")
 	victim.position = direction*8.0
 	combat.flame(shooter)
-	assert_eq(victim.damage_received,2.0,"Direct flame damage is still resolved normally")
+	assert_eq(victim.damage_received,1.5,"Direct flame damage is still resolved normally")
 	assert_almost_eq(combat.flame_endpoint(shooter,shooter.muzzle()),victim.eye(),Vector3.ONE*0.0001)
 	assert_eq(combat.rolls,0,"Contact/presentation queries cannot consume rolls")
 

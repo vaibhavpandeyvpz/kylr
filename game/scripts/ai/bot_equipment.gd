@@ -91,8 +91,7 @@ func reach(weapon: String,distance: float) -> float:
 		var profile: Dictionary=Arsenal.WEAPONS[weapon]
 		return minf(profile.range,profile.projectile_speed*profile.projectile_speed/(profile.projectile_gravity*brain.robot.arena_match.gravity/ArenaTuning.GRAVITY))
 	if weapon == "rocket_launcher": return float(Arsenal.WEAPONS[weapon].range)
-	if scoped(weapon,distance): return 90.0
-	if secondary(weapon,distance): return 50.0
+	if scoped(weapon,distance) or secondary(weapon,distance): return Arsenal.mode_value(weapon,"range",true)
 	return float(Arsenal.WEAPONS[weapon].range)
 
 func utility(weapon: String,distance: float) -> float:
@@ -103,11 +102,12 @@ func utility(weapon: String,distance: float) -> float:
 	if weapon=="rifle":
 		rate = 1.0/maxf(float(profile.interval),float(brain.tuning.precision_interval))
 		if scoped(weapon,distance):
-			damage=25.0
+			damage=float(profile.scoped_damage)
+			rate=1.0/maxf(float(profile.scoped_interval),float(brain.tuning.precision_interval))
 			if brain.target!=null and brain.target.velocity.length()<=float(brain.tuning.headshot_max_speed) and exposed_head(brain.target)!=Vector3.ZERO:
 				damage+=75.0*float(brain.tuning.headshot_chance)*0.5/(1.0+brain.target.velocity.length())
 	elif Arsenal.orb_secondary(weapon):
-		if secondary(weapon,distance): rate=1.0/float(profile.secondary_interval); damage=10.0*1.8
+		if secondary(weapon,distance): rate=1.0/float(profile.secondary_interval); damage=float(profile.secondary_damage)*1.8
 		else: rate=1.0; damage*=1.5 if weapon=="lightning_gun" else 1.2
 	elif weapon=="emp_gun": damage=Arsenal.emp_damage(distance)*1.25
 	elif weapon=="rocket_launcher":
@@ -117,7 +117,7 @@ func utility(weapon: String,distance: float) -> float:
 			if not brain.robot.arena_match.combat.ray(brain.robot.muzzle(),brain.robot.muzzle()+direction*5.0,[brain.robot.get_rid()]).is_empty(): return 0
 		damage*=clampf(1.0-(distance-15.0)*0.025,0.35,1.0)
 	if weapon in ["rocket_launcher","emp_gun"] or (Arsenal.orb_secondary(weapon) and secondary(weapon,distance)):
-		var flight := distance/ArenaProjectile.DEFAULT_SPEED
+		var flight := distance/Arsenal.mode_value(weapon,"projectile_speed",secondary(weapon,distance))
 		var uncertainty: float = brain.observed_velocity.length()*(flight*(1.0-float(brain.tuning.projectile_lead))+maxf(0,flight-1.0))*0.25
 		damage/=1.0+uncertainty
 	var duty: float = float(brain.tuning.fire_burst)/(float(brain.tuning.fire_burst)+float(brain.tuning.fire_pause))

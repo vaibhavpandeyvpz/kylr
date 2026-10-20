@@ -1,5 +1,17 @@
 extends GutTest
 
+var production_weapons: Dictionary
+func before_each():
+	# Policy fixtures require a strict upgrade order independent of live balance ties.
+	production_weapons=Arsenal.WEAPONS
+	Arsenal.WEAPONS=production_weapons.duplicate(true)
+	Arsenal.WEAPONS.pistol.damage=1.0
+	Arsenal.WEAPONS.emp_gun.damage=1.0
+
+func after_each():
+	Arsenal.WEAPONS=production_weapons
+
+
 class Actor extends ArenaRobot:
 	func _ready():
 		set_process(false)
@@ -186,7 +198,7 @@ func test_scoped_rifle_can_fire_past_primary_range_and_orbs_use_projectile_lead(
 	actor.brain.tick(1.0)
 	assert_true(actor.wants_secondary)
 	assert_gt(actor.bot_aim.x,0.05)
-	assert_eq(actor.brain.equipment.reach("lightning_gun",35),50.0)
+	assert_eq(actor.brain.equipment.reach("lightning_gun",35),40.0)
 
 func test_fireball_and_lightning_orb_are_used_beyond_stream_range():
 	for weapon in ["flamethrower","lightning_gun"]:

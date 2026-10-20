@@ -46,8 +46,10 @@ func fixture(weapon: String) -> Dictionary:
 
 class CapturedLaunch extends ArenaCombat:
 	var locked_id := -99
-	func launch(_robot, _weapon: String, _voice: ArenaVoice = null, target_id := -1):
+	var scoped := false
+	func launch(_robot, _weapon: String, _voice: ArenaVoice = null, target_id := -1, scoped_shot := false):
 		locked_id = target_id
+		scoped = scoped_shot
 
 func test_rocket_captures_completed_lock_at_trigger_not_delayed_launch():
 	var setup := fixture("rocket_launcher")
@@ -66,11 +68,13 @@ func test_rocket_captures_completed_lock_at_trigger_not_delayed_launch():
 	robot.rocket_lock_progress = 0.0
 	robot.wants_secondary = false
 	robot.weapon_vfx.pending[0].action.call()
+	assert_true(combat.scoped,"Scoped launch speed is captured at trigger time")
 	assert_eq(combat.locked_id, 4, "Changing aim during the muzzle delay cannot redirect a funded shot")
 	robot.weapon_vfx.pending.clear()
 	robot.cooldown = 0.0
 	combat.trigger(robot, 0.01)
 	robot.weapon_vfx.pending[0].action.call()
+	assert_false(combat.scoped)
 	assert_eq(combat.locked_id, -1, "Hip fire remains unguided")
 	robot.weapon_vfx.pending.clear()
 
@@ -83,7 +87,7 @@ func projectiles(world: Node) -> Array:
 			result.append(child)
 	return result
 
-func test_both_orb_secondaries_launch_immediately_and_wait_three_quarters_of_a_second():
+func test_both_orb_secondaries_launch_immediately_and_wait_one_quarter_of_a_second():
 	for weapon in ["lightning_gun", "flamethrower"]:
 		for primary_held in [false, true]:
 			var setup := fixture(weapon)
@@ -93,18 +97,18 @@ func test_both_orb_secondaries_launch_immediately_and_wait_three_quarters_of_a_s
 			setup.combat.trigger(robot, 0.01)
 			assert_false(robot.streaming, "Orb takes precedence when both controls are held")
 			assert_eq(robot.loaded, 49)
-			assert_eq(robot.cooldown, 0.75)
+			assert_eq(robot.cooldown, 0.25)
 			assert_eq(robot.recoil, 1.0)
 			var orbs := projectiles(setup.world)
 			assert_eq(orbs.size(), 1)
 			assert_eq(orbs[0].weapon, weapon)
 			assert_eq(setup.world.audio.cues, [weapon + "_secondary"])
-			robot.cooldown -= 0.5
-			setup.combat.trigger(robot, 0.5)
-			assert_eq(robot.loaded, 49, "Beam's half-second interval cannot launch another orb")
+			robot.cooldown -= 0.1
+			setup.combat.trigger(robot, 0.1)
+			assert_eq(robot.loaded, 49, "An orb cannot launch before its quarter-second interval")
 			assert_eq(projectiles(setup.world).size(), 1)
-			robot.cooldown -= 0.25
-			setup.combat.trigger(robot, 0.25)
+			robot.cooldown -= 0.15
+			setup.combat.trigger(robot, 0.15)
 			assert_eq(robot.loaded, 48)
 			assert_eq(projectiles(setup.world).size(), 2)
 
@@ -163,3 +167,27 @@ func test_grenade_launch_has_no_firing_knockback():
 	assert_eq(count,1)
 	assert_eq(setup.robot.knockback_velocity,Vector3.ZERO)
 	assert_eq(setup.robot.velocity,Vector3.ZERO)
+
+class CapturedTrace extends ArenaCombat:
+	var reach := 0.0
+	var damage := 0.0
+	func trace(_robot, distance: float, amount: float, _color: Color, _scoped: bool) -> void:
+		reach=distance
+		damage=amount
+
+func test_rifle_uses_separate_scoped_cadence_range_and_damage():
+	for scoped in [false,true]:
+		var setup:=fixture("rifle")
+		var combat:=CapturedTrace.new(setup.world)
+		setup.robot.wants_fire=true
+		setup.robot.wants_secondary=scoped
+		combat.trigger(setup.robot,0.01)
+		assert_eq(setup.robot.cooldown,0.5 if scoped else 0.25)
+		assert_eq(combat.reach,75.0 if scoped else 50.0)
+		assert_eq(combat.damage,25.0 if scoped else 10.0)
+
+func test_projectiles_use_independent_launch_speeds():
+	for entry in [["lightning_gun",false,25.0],["flamethrower",false,10.0],["emp_gun",false,25.0],["rocket_launcher",false,15.0],["rocket_launcher",true,20.0]]:
+		var setup:=fixture(entry[0])
+		setup.combat.launch(setup.robot,entry[0],null,-1,entry[1])
+		assert_eq(projectiles(setup.world)[0].speed,entry[2])
