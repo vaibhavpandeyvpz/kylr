@@ -52,7 +52,7 @@ pwsh -File game/tools/verify.ps1 -Godot $Godot
 pwsh -File game/tools/package_windows.ps1 -Godot $Godot -Version dev-local
 ```
 
-The verifier imports, runs GUT, exercises DM/TDM/CTF and checks the results
+The verifier imports, runs GUT, exercises all five match types and checks the results
 flow. Packaging uses the custom release template, verifies native dependencies,
 copies licenses, inspects PCK contents, smoke-tests the exported executable and
 writes a manifest and SHA-256 checksum. Artifacts are in `game/build/`; logs
@@ -68,6 +68,11 @@ and `PRIVATE_GAME_ASSETS_SHA256` for the private prepared-asset bundle described
 [asset setup](ASSET_SETUP.md). The workflow verifies the bundle's checksum and
 restores only the paths required by this checkout's catalogs before game import.
 Downloaded asset archives and API credentials are not uploaded as CI artifacts.
+The editor job restores and validates private assets before compilation. The
+private installer requires every runtime weapon animation family and sound cue;
+package inspection checks that all catalog resources survived export. Build a
+replacement private ZIP with `tools/bundle_private_assets.py` and update both
+the R2 object variable and checksum secret when its contents change.
 
 [The active root workflow](../.github/workflows/package.yml) builds the release
 export template and editor on separate `windows-2025-vs2026` runners in parallel.

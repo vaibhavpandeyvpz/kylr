@@ -803,5 +803,59 @@
     "generation_id": "Oo8zIodY0IZfhWvptkQR",
     "source_sha256": "9d7baee6ac46f78d0262500ed88b1393ba84d844e90bd0c5de54d00ba93f6149",
     "voice_id": "XrExE9yKIg1WjnnlVkGX"
+  },
+  "weapons/bio_rifle_hit": {
+    "provider": "User-supplied projectile weapon effects",
+    "title": "Bio rifle hit",
+    "file": "res://assets/audio/weapons/bio_rifle_hit.wav",
+    "pcm_sha256": "88d8e841c86989483ecc2eb3f9e620172cbdfa815034f62f05246d4cd032b66d"
+  },
+  "weapons/bio_rifle_shot": {
+    "provider": "User-supplied projectile weapon effects",
+    "title": "Bio rifle shot",
+    "file": "res://assets/audio/weapons/bio_rifle_shot.wav",
+    "pcm_sha256": "201b7afd70f73d49473fa3c4a57853cde7cbb7afcccbe78115c1f2a643087589"
+  },
+  "weapons/flak_cannon_bounce": {
+    "provider": "User-supplied projectile weapon effects",
+    "title": "Flak cannon bounce",
+    "file": "res://assets/audio/weapons/flak_cannon_bounce.wav",
+    "pcm_sha256": "e9eb013b597b7e12f1a4842ccd8533d2828bdf6fd2f0a33ec9b9e121c0601b64"
+  },
+  "weapons/flak_cannon_hit": {
+    "provider": "User-supplied projectile weapon effects",
+    "title": "Flak cannon hit",
+    "file": "res://assets/audio/weapons/flak_cannon_hit.wav",
+    "pcm_sha256": "34f01a415c5065ad6e6fbb7f5b5a9a052d21a94fcbafe2315a44dd478105097d"
+  },
+  "weapons/flak_cannon_shot": {
+    "provider": "User-supplied projectile weapon effects",
+    "title": "Flak cannon shot",
+    "file": "res://assets/audio/weapons/flak_cannon_shot.wav",
+    "pcm_sha256": "a9c705f2178f7ddb9fee13e69410d5eff345ab36c0ada1519cf74f3250c8b0a9"
+  },
+  "weapons/grenade_launcher_hit": {
+    "provider": "User-supplied projectile weapon effects",
+    "title": "Grenade launcher hit",
+    "file": "res://assets/audio/weapons/grenade_launcher_hit.wav",
+    "pcm_sha256": "8efb7b0b7631c84d97d0e4fc5c3cec9d13c3edb9e3edf6b805ccdd4fbba47a28"
+  },
+  "weapons/grenade_launcher_shot": {
+    "provider": "User-supplied projectile weapon effects",
+    "title": "Grenade launcher shot",
+    "file": "res://assets/audio/weapons/grenade_launcher_shot.wav",
+    "pcm_sha256": "f4d2a34533f3f0eb9aec03342e90acc572c3e680ada733a429a0e65b5a3666f8"
+  },
+  "weapons/pulse_gun_hit": {
+    "provider": "User-supplied projectile weapon effects",
+    "title": "Pulse gun hit",
+    "file": "res://assets/audio/weapons/pulse_gun_hit.wav",
+    "pcm_sha256": "63eab78308fd8b44423fd38caf91912ac1a2f76e60bf397688612b92222220ca"
+  },
+  "weapons/pulse_gun_shot": {
+    "provider": "User-supplied projectile weapon effects",
+    "title": "Pulse gun shot",
+    "file": "res://assets/audio/weapons/pulse_gun_shot.wav",
+    "pcm_sha256": "a8ffbd87952f01aa61cf2db7744b19b88e0fc6df4e5e09702c76349da9b7f77e"
   }
 }

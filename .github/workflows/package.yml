@@ -106,6 +106,26 @@ jobs:
             }
           }
           Get-Command aws -ErrorAction Stop | Out-Null
+      - name: Restore separately licensed game assets
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: auto
+          AWS_EC2_METADATA_DISABLED: 'true'
+          AWS_PAGER: ''
+          R2_ENDPOINT_URL: ${{ vars.R2_ENDPOINT_URL }}
+          R2_ASSET_URI: ${{ vars.R2_ASSET_URI }}
+          PRIVATE_GAME_ASSETS_SHA256: ${{ secrets.PRIVATE_GAME_ASSETS_SHA256 }}
+        run: |
+          $bundle = Join-Path $env:RUNNER_TEMP 'KYLR-game-assets.zip'
+          try {
+            & aws s3 cp $env:R2_ASSET_URI $bundle --endpoint-url $env:R2_ENDPOINT_URL --region auto --only-show-errors --no-progress
+            if ($LASTEXITCODE -ne 0) { throw 'Private R2 asset download failed.' }
+            & python tools/install_private_assets.py --archive $bundle
+            if ($LASTEXITCODE -ne 0) { throw 'Private asset verification or installation failed.' }
+          } finally {
+            if (Test-Path -LiteralPath $bundle) { Remove-Item -LiteralPath $bundle -Force }
+          }
       - name: Install pinned build tools
         run: python -m pip install -r tools/requirements-build.txt
       - name: Prepare verified production runtimes
@@ -128,26 +148,6 @@ jobs:
           KYLR_PUBLIC_API_URL: ${{ vars.KYLR_PUBLIC_API_URL }}
         run: |
           if ($env:KYLR_PUBLIC_API_URL) { python tools/configure_online.py }
-      - name: Restore separately licensed game assets
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
-          AWS_DEFAULT_REGION: auto
-          AWS_EC2_METADATA_DISABLED: 'true'
-          AWS_PAGER: ''
-          R2_ENDPOINT_URL: ${{ vars.R2_ENDPOINT_URL }}
-          R2_ASSET_URI: ${{ vars.R2_ASSET_URI }}
-          PRIVATE_GAME_ASSETS_SHA256: ${{ secrets.PRIVATE_GAME_ASSETS_SHA256 }}
-        run: |
-          $bundle = Join-Path $env:RUNNER_TEMP 'KYLR-game-assets.zip'
-          try {
-            & aws s3 cp $env:R2_ASSET_URI $bundle --endpoint-url $env:R2_ENDPOINT_URL --region auto --only-show-errors --no-progress
-            if ($LASTEXITCODE -ne 0) { throw 'Private R2 asset download failed.' }
-            & python tools/install_private_assets.py --archive $bundle
-            if ($LASTEXITCODE -ne 0) { throw 'Private asset verification or installation failed.' }
-          } finally {
-            if (Test-Path -LiteralPath $bundle) { Remove-Item -LiteralPath $bundle -Force }
-          }
       - name: Wait for matching release template
         env:
           GH_TOKEN: ${{ github.token }}
