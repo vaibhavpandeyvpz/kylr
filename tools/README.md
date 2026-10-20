@@ -13,6 +13,7 @@ Run these scripts from the repository root with PowerShell 7:
 - `requirements-audio.txt`: Python 3.12 PCM preparation dependency.
 - `install_private_assets.py`: verify and restore a private ZIP downloaded by the AWS CLI or validate local assets.
 - `requirements-assets.txt`: original texture-generation dependencies.
+- `install_customisation_thumbnails.py`: compress authored Blender head, emote and torso portraits into 192 px WebP tiles (requires Pillow).
 - `configure_online.py`: set the public HTTPS account-service origin in a client build.
 - `publish_edgegap_version.py`: register a private immutable server image after CI publication.
 

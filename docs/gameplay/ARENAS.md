@@ -295,3 +295,5 @@ item_cradle models on their authored floor gizmos. Attach each weapon to the
 cradle's ItemMount, preserve the native close/deploy behavior and four claw
 colliders, and do not machine recessed weapon-holder pits beneath them.
 The source placements follow Figma nodes 2004:106 and 2001:34.
+
+Stasis-chamber spawns face the chamber’s front opening, using the imported PlayerMount +Z axis projected onto the floor. Initial spawns and respawns reset body, view and aim to that frame. Local mouse input and online look commands cannot change facing during chamber deployment or the opening countdown. Normal aiming resumes once the chamber deployment and countdown are complete; ordinary active-play protection does not lock aiming.

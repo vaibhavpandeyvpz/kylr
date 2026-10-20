@@ -12,12 +12,14 @@ jumbo=next(m for m in markers if m['role']=='jumbotron')
 assert abs(jumbo['position_godot'][1]-10)<1e-6, 'Jumbotron must be 10 m above ground'
 assert report['recess_clearance_per_side_m']==.001
 assert report['total_map_triangles']<=report['triangle_budget']
-lab=next(m for m in markers if m.get('source_asset')=='laboratory')
-lab_frame=Euler(lab['rotation_blender']).to_matrix()
-for marker in markers:
-    if marker['asset']=='storage_rack' and marker['building']=='laboratory':
+for building in ('bastion','laboratory'):
+    host=next(m for m in markers if m.get('source_asset')==building)
+    frame=Euler(host['rotation_blender']).to_matrix()
+    racks=[m for m in markers if m['asset']=='storage_rack' and m['building']==building]
+    assert len(racks)==2,(building,'two wall racks required')
+    for marker in racks:
         back=Euler(marker['rotation_blender']).to_matrix()@Vector((0,1,0))
-        assert back.dot(lab_frame@Vector((1,0,0)))>.999,(marker['name'],'rack back must face the lab right wall')
+        assert back.dot(frame@Vector((1,0,0)))>.9999,(marker['name'],'rack back must face the building right wall')
 for marker in markers:
     if marker['asset']=='item_cradle' and marker['building'] in ('container','container_long'):
         asset=marker['building']

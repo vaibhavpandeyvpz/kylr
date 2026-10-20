@@ -321,7 +321,7 @@ func make_fixture(marker: Dictionary):
 			var player_mount := Assets.socket(prop,"PlayerMount")
 			assert(player_mount != null,"Spawn asset must export PlayerMount: " + asset)
 			spawns.append({"id":id,"point":player_mount.global_position,"team":0 if id.begins_with("A") else 1,"node":prop,"mount":player_mount,
-				"duration":1.5 if asset == "stasis_chamber" else 104.0/30.0,"reveal_after":0.6 if asset == "stasis_chamber" else 42.0/30.0,"action":"open" if asset == "stasis_chamber" else "deploy"})
+				"stasis":asset == "stasis_chamber","duration":1.5 if asset == "stasis_chamber" else 104.0/30.0,"reveal_after":0.6 if asset == "stasis_chamber" else 42.0/30.0,"action":"open" if asset == "stasis_chamber" else "deploy"})
 			Assets.play(prop,"close")
 			if asset=="stasis_chamber":
 				fixture["stasis"]=true;fixture["open"]=false;fixture["close_pending"]=false

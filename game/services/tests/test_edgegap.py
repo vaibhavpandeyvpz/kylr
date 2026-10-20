@@ -91,6 +91,27 @@ def test_restart_recovers_mapping_and_stale_deployment_is_stopped(cloud,monkeypa
     assert pulse(store,record)['retire'], 'A stopped server cannot resurrect its readiness'
 
 
+@pytest.mark.parametrize("expired", [True, False])
+def test_already_terminated_instance_does_not_block_the_next_match(cloud,monkeypatch,expired):
+    store,scheduler,calls = cloud
+    scheduler.ensure('DM')
+    record = store.db.servers.find_one()
+    if expired:
+        store.db.servers.update_one({'_id':record['_id']},{'$set':{'lease_until':0}})
+    original = scheduler.call
+    def terminated(method,route,payload=None,missing_ok=False):
+        if method == 'GET' and '/status/' in route:
+            return {'current_status':'Status.TERMINATED','running':False}
+        if method == 'DELETE':
+            pytest.fail('Provider rejects stopping an already terminated instance')
+        return original(method,route,payload,missing_ok)
+    monkeypatch.setattr(scheduler,'call',terminated)
+    scheduler.next_poll = 0
+    scheduler.ensure('TDM')
+    assert store.server(record['_id'])['stopped']
+    assert store.db.servers.count_documents({'stopped':False,'type':'TDM'}) == 1
+
+
 @pytest.mark.parametrize('field,value', [('public_ip','127.0.0.1'),('public_ip','attacker.invalid')])
 def test_invalid_provider_endpoint_is_never_assigned(cloud,monkeypatch,field,value):
     store,scheduler,calls = cloud

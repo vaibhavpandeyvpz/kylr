@@ -7,8 +7,9 @@ Native architecture, fixtures, weapons, ammo, lights and lunar scenery are
 separate assets imported at named map gizmos with identity local transforms.
 Each ammo pack has its own gizmo; pair origins are 20 cm apart. Held payloads
 attach to the holder/table's live rotating-bone socket.
-The laboratory's two storage-rack gizmos turn 90 degrees from their Figma
-footprint axes so their native +Y backs face its +X wall. The habitat pod retains
+Both Bastion and Laboratory derive their two storage-rack gizmo rotations from
+the host building frame: native +Y backs face the building's +X wall, with
+the open shelves facing the room. Validate all four exported gizmos after regeneration. The habitat pod retains
 its native ceiling batten and has no rear sconce mount.
 
 The habitat pod faces the lunar centre. Its Figma footprint uses the reverse

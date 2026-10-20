@@ -215,6 +215,7 @@ func apply_rendering(target: Node):
 		active_match.fixture_shadows_enabled=bool(values.shadows)
 	if is_instance_valid(active_match) and not target.is_ancestor_of(active_match): apply_rendering(active_match)
 	var rt_enabled := bool(values.ray_tracing) and ray_tracing_unavailable_reason(int(values.rt_denoiser)).is_empty()
+	if target.get_meta("menu_studio_host",false) and not is_instance_valid(active_match): rt_enabled=false
 	_apply_viewport_rendering(target.get_viewport(),rt_enabled)
 	for effect in target.find_children("*","Node3D",true,false):
 		if effect is OriginalEffect: effect.set_detail(int(values.quality))

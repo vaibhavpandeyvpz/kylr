@@ -41,7 +41,7 @@ Use mostly opaque panels where text sits. Subtle translucency can reveal a lobby
 ## Shape, grid, and depth
 
 - Base layout on an **8-unit spacing grid**. Use 8 for close label/value spacing, 16 for related controls, 24–32 for panel interiors, and larger gaps between primary regions. At 1080p, keep a roughly 32 px safe margin; scale with viewport rather than pinning elements to raw screenshot coordinates.
-- Build the signature panel from a **straight-edged armor plate** with one or two small cut corners, a thin seam, and a darker inset readout. Use this shape for lobby cards, Settings groups, results summaries, and HUD score/resource backing. Do not give every panel a different contour.
+- Menu plates, buttons, fields, tabs and selectable cards share an 8 px corner radius, 1 px seam and the same surface colors. Focus uses a transparent 2 px outline; selected cards retain a raised surface and action seam. These controls have no drop shadow. Dialogs sit above the page through opaque surfaces and a dimmed backdrop. Combat readouts retain their compact open rails.
 - Use **three depth levels**: world/art backdrop, primary plate, and raised active control. Tooltips and dialogs sit above them. Depth should make click targets and hierarchy clear; it is not a stack of translucent boxes.
 - Buttons have a solid silhouette and a comfortable hit area. Primary actions are visually dominant; secondary actions are outlined or quieter. A selected card and a focused card must be distinguishable from each other.
 - Avoid copying a 3D prop's detailed bolts and pistons into small UI components. Borrow its bevel/assembly rhythm, then simplify until labels and icons remain clean at HUD size.
@@ -91,7 +91,7 @@ Sound follows the same logic: quiet mechanical ticks for focus and selection, a 
 | **Instant Action setup** | The same selected cards and readout rows as the online lobby; map choice and configurable options use compact inset controls. Bot difficulty is labelled as an Instant Action setting. |
 | **Login / Create Account** | Centered plate and clean form fields. Validation appears at its field; the primary action follows the shared button states. Display-name rules are visible without crowding the form. |
 | **Online lobby** | Robot remains the hero. DM/TDM/CTF cards use the panel shape, selected marker, and team-neutral action accent. Play is the largest control at bottom right. Search/connection states use the shared busy/status treatment. |
-| **Customise** | The lobby robot expands into an interactive preview stage. Head/emote silhouette tiles, color swatches, selection markers, and Save/Revert actions use the same plate geometry and semantic states; neutral lighting keeps armor colors honest. |
+| **Customise** | The lobby robot expands into an interactive preview stage. Blender-rendered head/emote portrait tiles, torso finish previews, selection markers, and Save/Revert actions use the same plate geometry and semantic states; neutral lighting keeps armor colors honest. |
 | **Settings** | Same plates, tabs, readouts, focus marker, and action bar, at a higher information density. The contextual help pane is an inset technical readout, not a separate visual theme. |
 | **In-match HUD** | Open, holographic rails with only small dark translucent backings where bright scenery would obscure numbers. The top score, available resources, owned weapon silhouettes, leaderboard, and event feed inherit typography, icon rules, semantic colors, and brief animated feedback in both FPV and TPV. Hide unowned or inactive elements. Keep the center aim area clear; only the world-view robot/weapon presentation changes with camera mode. |
 | **Scoreboard / results** | Expand HUD elements into larger cards and timelines. Use team colors only for team identity, distinguish winner/draw/cancellation with text and form, and keep Return to Main Menu/Lobby in the same CTA language. |
@@ -122,3 +122,7 @@ Robot and announcer speech share the kill/event feed as short sentences with
 bold robot names or a bold “Announcement:” prefix. Only robot names take team colors in TDM/CTF. No separate
 lower-center subtitle block; preserve the Subtitles preference and readable
 Settings transcript.
+
+`MenuSkin` owns menu color tokens, corner radius, seams, padding and every button state. Main Menu, Instant Action, Settings, online screens, results actions and loading recovery controls consume it. Primary actions retain dark labels across hover, focus and press; disabled actions use muted labels. Selected cards use a raised plate with an action seam, distinct from the transparent focus outline.
+
+Boolean rows use `SettingsToggle` with explicit On/Off text and a switch indicator. Normal and checked rows share their plate; hover and checked-hover share a brighter plate. Every state is supplied explicitly for CheckButton, including disabled and focus, so native fallback styles cannot replace the shared geometry. HUD text and semantic accents consume the same palette as menus; opacity and density remain appropriate for combat.

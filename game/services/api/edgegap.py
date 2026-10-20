@@ -125,7 +125,12 @@ class EdgegapScheduler(Scheduler):
                     if not deployment:
                         continue
                 if expired:
-                    self.call('DELETE', '/v1/stop/'+deployment, missing_ok=True)
+                    status = self.call('GET', '/v1/status/'+deployment, missing_ok=True)
+                    # Expired instances can already have exited or reached their
+                    # provider duration limit. Do not stop a terminated instance
+                    # again: the provider can reject that request with HTTP 400.
+                    if status is not None and status.get('current_status') != 'Status.TERMINATED':
+                        self.call('DELETE', '/v1/stop/'+deployment, missing_ok=True)
                     self.stopped(record['_id'])
                     continue
                 if record.get('endpoint_ready'):
@@ -134,7 +139,8 @@ class EdgegapScheduler(Scheduler):
                 if status is None:
                     continue  # Allow eventual visibility until the startup deadline.
                 if status.get('error') or status.get('current_status') in ('Status.TERMINATED', 'Status.ERROR'):
-                    self.call('DELETE', '/v1/stop/'+deployment, missing_ok=True)
+                    if status.get('current_status') != 'Status.TERMINATED':
+                        self.call('DELETE', '/v1/stop/'+deployment, missing_ok=True)
                     self.stopped(record['_id'])
                     continue
                 if not status.get('running') or status.get('current_status') != 'Status.READY':

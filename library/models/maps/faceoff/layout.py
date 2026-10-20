@@ -78,8 +78,11 @@ def data():
         if asset in ('container','container_long'):host['open_actions']=['rear_open'] if asset=='container' else ['front_open','rear_open']
     for item in markers:
         x,y,z=item['position_blender'];item['position_godot']=[x,z,-y]
-        # Native racks face -Y; their +Y backs belong against the lab's +X wall.
-        if item['asset']=='storage_rack' and item['building']=='laboratory':item['rotation_blender'][2]+=math.pi/2
+        # Native racks face -Y; both buildings seat their +Y backs at the +X wall.
+        # Derive the frame from the host so mirrored footprint axes cannot turn
+        # a rack sideways or apply the quarter-turn twice.
+        if item['asset']=='storage_rack' and item['building'] in ('bastion','laboratory'):
+            item['rotation_blender'][2]=buildings[item['building']]['rotation_blender'][2]-math.pi/2
         if ((item['category']=='architecture') or (item['zone']=='common' and not item['building'] and item['role']!='jumbotron')) and math.hypot(x,y)>1e-6:item['rotation_blender'][2]=math.atan2(-x,y)
         if item['asset'] not in ('spawn_point','weapon_holder','item_table','jump_pad'):continue
         meta=json.loads((MODELS/'gameplay'/item['asset']/(item['asset']+'_rig.json')).read_text());cut=meta['cutout_m']

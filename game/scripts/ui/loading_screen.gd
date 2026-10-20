@@ -13,14 +13,15 @@ class Spinner extends Control:
 	var phase := 0.0
 	func _draw() -> void:
 		var center := size*0.5
-		draw_arc(center,18,0,TAU,64,Color("243341"),3,true)
-		draw_arc(center,18,phase,phase+PI*1.4,48,Color("6fe5ea"),3,true)
+		draw_arc(center,18,0,TAU,64,MenuSkin.RAISED,3,true)
+		draw_arc(center,18,phase,phase+PI*1.4,48,MenuSkin.ACTION,3,true)
 
 func _ready() -> void:
 	layer=1000
 	process_mode=Node.PROCESS_MODE_ALWAYS
 	canvas=ColorRect.new()
-	canvas.color=Color("0b1119")
+	canvas.theme=MenuSkin.make_theme()
+	canvas.color=MenuSkin.CANVAS
 	canvas.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	canvas.mouse_filter=Control.MOUSE_FILTER_STOP
 	add_child(canvas)
@@ -32,7 +33,7 @@ func _ready() -> void:
 	caption=Label.new()
 	caption.text="Loading…"
 	caption.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER
-	caption.add_theme_color_override("font_color",Color("b9c9d1"))
+	caption.add_theme_color_override("font_color",MenuSkin.MUTED)
 	caption.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
 	caption.position=Vector2(-160,42)
 	caption.size=Vector2(320,32)
@@ -58,11 +59,7 @@ func offer_raster() -> void:
 	button.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
 	button.position=Vector2(-180,88)
 	button.size=Vector2(360,44)
-	var style := StyleBoxFlat.new()
-	style.bg_color=Color("243341")
-	style.border_color=Color("6fe5ea")
-	style.set_border_width_all(1)
-	button.add_theme_stylebox_override("normal",style)
+	MenuSkin.apply_button(button)
 	canvas.add_child(button)
 	button.pressed.connect(func(): raster_requested.emit())
 	button.grab_focus()

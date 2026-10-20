@@ -203,6 +203,20 @@ func begin_powered_jump(height: float, speed: float, from_pad := false) -> void:
 func can_act() -> bool:
 	return alive and protection <= 0 and spawn_remaining <= 0 and repair == null and arena_match.phase == "Active"
 
+func spawn_look_locked() -> bool:
+	return alive and spawn_fixture.get("stasis",false) and (spawn_remaining>0.0 or arena_match.phase=="Countdown")
+
+func align_spawn_facing() -> void:
+	var forward: Vector3=spawn_fixture.mount.global_basis.z
+	forward.y=0.0
+	forward=forward.normalized()
+	yaw=atan2(-forward.x,-forward.z)
+	previous_yaw=yaw
+	pitch=0.0
+	bot_aim=forward
+	body.rotation.y=yaw+character.forward_yaw
+	if human: listener.basis=Basis(Vector3.UP,yaw)
+
 func enemy(other) -> bool:
 	return other != self and (arena_match.match_type == "DM" or other.team != team)
 
@@ -433,6 +447,7 @@ static func profile_stage(stage: String, started: int) -> int:
 
 func _physics_process(dt: float) -> void:
 	if arena_match == null or not arena_match.authority: return
+	if spawn_look_locked(): align_spawn_facing()
 	if not can_act() or equipped != "rocket_launcher" or not wants_secondary or reload_time > 0:
 		rocket_lock_target = -1
 		rocket_lock_progress = 0.0

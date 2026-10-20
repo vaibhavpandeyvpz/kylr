@@ -86,3 +86,5 @@ Local reports, screenshots, diagnostic PCKs and stale package archives may be
 removed when no process uses them. Retain a useful latest baseline rather than
 keeping every tuning iteration. Never purge source assets, notices, prompts,
 SDKs, stock engine tests or build dependencies as diagnostic clutter.
+
+`capture_map_previews.gd` reads camera frames from `data/maps/previews.json` and captures five player-free views per map at native 1920×1080, Ultra lighting with DLSS Ray Reconstruction and no upscaling. Run with the custom editor using `--path . -s res://tools/capture_map_previews.gd`; PNGs go to ignored `reports/map-previews/`. Run the root `tools/install_map_previews.py` with the library Python environment to compress them into 1280×720 WebP at the manifest paths before game import. Optional `--map=faceoff` and `--shot=5` arguments select individual captures.

@@ -312,11 +312,7 @@ func spawn_robot(robot):
 	robot.movement_pose.reset()
 	robot.local_motion=Vector2.ZERO
 	robot.measured_speed=0
-	var spawn_forward: Vector3 = robot.spawn_fixture.node.global_basis.z.normalized()
-	robot.yaw = atan2(-spawn_forward.x,-spawn_forward.z)
-	robot.previous_yaw = robot.yaw
-	robot.body.rotation.y = robot.yaw + robot.character.forward_yaw
-	robot.pitch = 0
+	robot.align_spawn_facing()
 	robot.ah = 100
 	robot.ep = ArenaTuning.MAX_EP
 	robot.sh = 0
