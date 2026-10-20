@@ -121,6 +121,8 @@ var character_id := "tensor"
 var character: Dictionary
 var spawn_fixture: Dictionary = {}
 var spawn_remaining := 0.0
+var spawn_reload_remaining := 0.0
+var spawn_reload_duration := 2.0
 var slow_remaining := 0.0
 var slow_multiplier := 1.0
 var spawn_started := false
@@ -409,13 +411,15 @@ func update_aim_pose(dt: float, record_costs := false) -> void:
 	aim_pose.restore(skeleton)
 	hit_pose.restore(skeleton)
 	if record_costs: stage_started=profile_stage("pose_restore",stage_started)
+	if spawn_reload_remaining > 0 and anim_state == "pistol/reload":
+		animator.speed_scale = animator.current_animation_length / spawn_reload_duration
 	animator.advance(dt)
 	if record_costs: stage_started=profile_stage("pose_animation",stage_started)
 	if alive and spawn_remaining<=0 and repair==null and arena_match.phase=="Active": movement_pose.apply(dt)
 	if record_costs: stage_started=profile_stage("pose_locomotion",stage_started)
 	if alive and spawn_remaining<=0 and repair==null and arena_match.phase=="Active": hit_pose.apply(self)
 	if record_costs: stage_started=profile_stage("pose_hit",stage_started)
-	if alive and arena_match.phase == "Active" and reload_time <= 0 and repair == null:
+	if alive and arena_match.phase == "Active" and reload_time <= 0 and spawn_reload_remaining <= 0 and repair == null:
 		var direction := pose_aim_direction()
 		aim_pose.apply(self, asin(clampf(direction.y, -1, 1)))
 	if record_costs: stage_started=profile_stage("pose_aim",stage_started)
@@ -456,6 +460,21 @@ static func profile_stage(stage: String, started: int) -> int:
 	stage_usec[stage] = int(stage_usec.get(stage,0)) + now-started
 	return now
 
+func begin_spawn_reload() -> void:
+	if equipped != "pistol": return
+	spawn_reload_duration = 2.0
+	if arena_match.phase == "Countdown":
+		spawn_reload_duration = minf(2.0,maxf(0.001,ArenaMatch.OPENING_SECONDS-arena_match.countdown))
+	spawn_reload_remaining = spawn_reload_duration
+	pose("reload")
+	animator.speed_scale = animator.current_animation_length / spawn_reload_duration
+
+func tick_spawn_reload(dt: float) -> void:
+	if spawn_reload_remaining <= 0: return
+	spawn_reload_remaining = maxf(0,spawn_reload_remaining-dt)
+	if not alive or equipped != "pistol" or protection <= 0: spawn_reload_remaining = 0
+	if spawn_reload_remaining == 0 and anim_state == "pistol/reload": pose("idle")
+
 func _physics_process(dt: float) -> void:
 	if arena_match == null or not arena_match.authority: return
 	if spawn_look_locked(): align_spawn_facing()
@@ -489,7 +508,9 @@ func _physics_process(dt: float) -> void:
 		protection=5.0
 		if spawn_remaining==0:
 			last_safe=global_position
+			begin_spawn_reload()
 		return
+	tick_spawn_reload(dt)
 	if arena_match.phase != "Active":
 		arena_match.audio.set_loop("walk_" + str(robot_id), "walk", global_position, false)
 		return
@@ -640,8 +661,9 @@ func simulate_movement(dt: float, predicted := false, replaying := false) -> voi
 	previous_yaw = yaw
 	var family: String = Arsenal.WEAPONS[equipped].animation_family
 	crouch_idle_time = crouch_idle_time + dt if crouched and move_input.length() <= 0.1 else 0.0
-	var upper_busy := reload_time>0 or (animation_lock>0 and anim_state.ends_with("/fire"))
-	if jumped and not upper_busy: play_event(RobotClips.takeoff(family, measured_speed > 0.1, charged), 0.22)
+	var upper_busy := reload_time>0 or spawn_reload_remaining>0 or (animation_lock>0 and anim_state.ends_with("/fire"))
+	if spawn_reload_remaining > 0: pose("reload")
+	elif jumped and not upper_busy: play_event(RobotClips.takeoff(family, measured_speed > 0.1, charged), 0.22)
 	elif not grounded and is_on_floor():
 		if not upper_busy: play_event(RobotClips.landing(falling_speed < -6.0 or time_airborne > 0.5), 0.28)
 		airborne_from_jump = false
@@ -813,6 +835,8 @@ func network_state() -> Dictionary:
 	state["knockback"] = knockback_velocity
 	state["applied"] = applied_knockback
 	state["spawn"] = spawn_remaining
+	state["spawn_reload"] = spawn_reload_remaining
+	state["spawn_reload_duration"] = spawn_reload_duration
 	state["slow_remaining"] = slow_remaining
 	state["slow_multiplier"] = slow_multiplier
 	state["spawn_id"] = spawn_fixture.get("id", "")
@@ -839,6 +863,8 @@ func restore_network(state: Dictionary, local := false) -> void:
 	applied_knockback = state.applied
 	for key in ["yaw","pitch","ah","ep","sh","protection","alive","kills","assists","deaths","captures","reached"]: set(key,state[key])
 	spawn_remaining = state.spawn
+	spawn_reload_remaining = float(state.get("spawn_reload",0))
+	spawn_reload_duration = float(state.get("spawn_reload_duration",2.0))
 	slow_remaining = float(state.get("slow_remaining",0))
 	slow_multiplier = float(state.get("slow_multiplier",1))
 	spawn_fixture = {}
@@ -887,3 +913,6 @@ func restore_network(state: Dictionary, local := false) -> void:
 	visible = state.visible
 	collision_layer = 2 if alive else 0
 	if not local or not can_act(): pose(state.pose)
+	if spawn_reload_remaining > 0 and anim_state == "pistol/reload":
+		animator.speed_scale = animator.current_animation_length / spawn_reload_duration
+		animator.seek((spawn_reload_duration-spawn_reload_remaining)*animator.speed_scale,true)
