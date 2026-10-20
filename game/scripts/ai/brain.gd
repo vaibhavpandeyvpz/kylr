@@ -168,7 +168,7 @@ func tick(dt: float):
 			var distance: float = robot.eye().distance_to(aim)
 			var secondary := equipment.secondary(robot.equipped,distance)
 			if robot.equipped not in ["pistol","rifle","minigun"] and (not Arsenal.orb_secondary(robot.equipped) or secondary):
-				var speed: float=Arsenal.WEAPONS[robot.equipped].get("projectile_speed",20.0 if robot.equipped=="emp_gun" else 15.0 if robot.equipped=="rocket_launcher" else Arsenal.ORB_SPEED)
+				var speed := Arsenal.mode_value(robot.equipped,"projectile_speed",secondary)
 				aim += observed_velocity * minf(1.0, distance / speed) * float(tuning.projectile_lead)
 			firing_point=aim
 			var desired: Vector3 = (aim - robot.eye()).normalized()

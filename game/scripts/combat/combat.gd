@@ -232,7 +232,7 @@ func trigger(robot, dt: float) -> void:
 			robot.stream_accuracy_time += 1.0
 			roll_stream_accuracy(robot)
 		if weapon == "lightning_gun":
-			trace(robot, 25.0, profile.damage * dt, Color("82baff"), false)
+			trace(robot, profile.range, profile.damage * dt, Color("82baff"), false)
 		else:
 			while robot.flame_time <= 0:
 				robot.flame_time += profile.get("damage_tick", 0.1)
@@ -247,7 +247,7 @@ func trigger(robot, dt: float) -> void:
 	if weapon != "pistol" and robot.loaded <= 0:
 		robot.handle_empty_weapon()
 		return
-	robot.cooldown += profile.secondary_interval if orb else profile.interval
+	robot.cooldown += Arsenal.mode_value(weapon,"interval",robot.wants_secondary)
 	if weapon != "pistol": robot.loaded -= 1
 	var scoped: bool = weapon == "rifle" and robot.wants_secondary
 	robot.weapon_vfx.begin_shot()
@@ -255,12 +255,13 @@ func trigger(robot, dt: float) -> void:
 	if game.audio.cue(Arsenal.shot_cue(weapon, orb), robot.muzzle(), robot == game.local_robot, robot):
 		report_voice = game.audio.last_started_voice
 	if weapon in ["pistol", "rifle", "minigun"]:
-		trace(robot, 90.0 if scoped else profile.range, 25.0 if scoped else profile.damage, Color("ffd295"), scoped)
+		trace(robot, Arsenal.mode_value(weapon,"range",scoped), Arsenal.mode_value(weapon,"damage",scoped), Color("ffd295"), scoped)
 	else:
 		if weapon == "rocket_launcher":
 			# Capture the authoritative lock at trigger time, not at the delayed muzzle event.
 			var locked_id: int = robot.rocket_lock_target if robot.wants_secondary and robot.rocket_lock_progress >= 1.0 else -1
-			robot.weapon_vfx.schedule(1.0 / 30.0, func(): launch(robot, weapon, report_voice, locked_id))
+			var scoped_shot: bool = robot.wants_secondary
+			robot.weapon_vfx.schedule(1.0 / 30.0, func(): launch(robot, weapon, report_voice, locked_id, scoped_shot))
 		else: launch(robot, weapon)
 	robot.apply_recoil(1.0 if scoped else profile.recoil)
 	robot.weapon_vfx.shot()
@@ -271,7 +272,7 @@ func trigger(robot, dt: float) -> void:
 		if other.brain and other != robot and other.position.distance_to(robot.position) < 28:
 			other.brain.hear(robot.position)
 
-func launch(robot, weapon: String, report_voice: ArenaVoice = null, locked_id := -1):
+func launch(robot, weapon: String, report_voice: ArenaVoice = null, locked_id := -1, scoped_shot := false):
 	if weapon in ["flak_cannon","bio_rifle","grenade_launcher"]:
 		var profile: Dictionary = Arsenal.WEAPONS[weapon]
 		var direction := shot_direction(robot)
@@ -297,8 +298,8 @@ func launch(robot, weapon: String, report_voice: ArenaVoice = null, locked_id :=
 	if weapon == "rocket_launcher" and report_voice != null:
 		projectile.launch_voice = weakref(report_voice)
 		projectile.launch_voice_serial = report_voice.serial
-	projectile.direction = shot_direction(robot, Arsenal.ORB_GRAVITY_RANGE if Arsenal.orb_secondary(weapon) else -1.0)
-	projectile.speed = 20.0 if weapon == "emp_gun" else 15.0 if weapon == "rocket_launcher" else Arsenal.ORB_SPEED
+	projectile.direction = shot_direction(robot, Arsenal.projectile_range(weapon))
+	projectile.speed = Arsenal.mode_value(weapon,"projectile_speed",Arsenal.orb_secondary(weapon) or scoped_shot)
 	game.add_child(projectile)
 	projectile.global_position = robot.muzzle()
 	projectile.orient_to_flight(projectile.direction)
@@ -351,8 +352,7 @@ func damageable_target(robot) -> ArenaRobot:
 	if not robot.can_act() or robot.reload_time > 0: return null
 	if robot.equipped != "pistol" and robot.loaded <= 0: return null
 	var reach: float = Arsenal.WEAPONS[robot.equipped].range
-	if robot.equipped == "rifle" and robot.wants_secondary: reach = 90.0
-	if Arsenal.orb_secondary(robot.equipped) and robot.wants_secondary: reach = Arsenal.ORB_GRAVITY_RANGE
+	if robot.wants_secondary: reach = Arsenal.mode_value(robot.equipped,"range",true)
 	var origin: Vector3 = robot.muzzle()
 	var direction: Vector3 = (aim_target(robot, reach) - origin).normalized()
 	var hit := attack_hit(robot,origin,direction,reach)
@@ -378,7 +378,7 @@ func trace(robot, reach: float, damage: float, color: Color, scoped: bool) -> vo
 		if hit.collider is ArenaRobot:
 			var victim = hit.collider
 			var headshot: bool = scoped and hit.get("hit_region", "body") == "head"
-			if headshot: damage = 100.0
+			if headshot: damage = float(Arsenal.WEAPONS.rifle.headshot_damage)
 			victim.hit(damage, robot, "rifle_headshot" if headshot else robot.equipped)
 		if robot.equipped != "lightning_gun":
 			game.effects.impact(target, hit.normal, shielded, null if hit.collider is ArenaRobot else hit.collider, hit.collider is ArenaRobot)
@@ -432,13 +432,14 @@ func flame(robot) -> void:
 		direct.append(victim)
 		var distance := origin.distance_to(hit.position)
 		var tick_damage: float = Arsenal.WEAPONS.flamethrower.damage * Arsenal.WEAPONS.flamethrower.get("damage_tick", 0.1)
-		amounts[victim] = tick_damage * clampf((15.0-distance)/5.0,0.0,1.0)
+		var falloff_width: float = Arsenal.WEAPONS.flamethrower.range-Arsenal.WEAPONS.flamethrower.full_damage_range
+		amounts[victim] = tick_damage * clampf((Arsenal.WEAPONS.flamethrower.range-distance)/falloff_width,0.0,1.0)
 	for victim in direct:
 		for other in game.robots:
 			if other in direct or other == robot or origin.distance_to(other.eye()) > 15: continue
 			var distance: float = victim.position.distance_to(other.position)
 			if distance <= 5 and clear(victim.eye(), other.eye()):
-				var splash_tick: float = Arsenal.WEAPONS.flamethrower.damage * Arsenal.WEAPONS.flamethrower.get("damage_tick", 0.1) * 0.5
+				var splash_tick: float = Arsenal.WEAPONS.flamethrower.splash_damage
 				amounts[other] = maxf(amounts.get(other, 0), splash_tick * clampf((6.0 - distance) / 5.0, 0.0, 1.0))
 	for victim in amounts:
 		victim.hit(amounts[victim], robot, "flamethrower")

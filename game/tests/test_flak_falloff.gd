@@ -26,11 +26,11 @@ func test_bounces_halve_initial_travel_allowance_and_then_curve_down():
 	var shard := BallisticProjectile.launch(world,null,"flak_cannon",Vector3.ZERO,Vector3.RIGHT,Arsenal.WEAPONS.flak_cannon)
 	shard.set_physics_process(false)
 	world.combat.next_hit={"position":Vector3(20,0,0),"normal":Vector3.LEFT,"collider":wall}
-	shard._physics_process(0.5)
+	shard._physics_process(20.0/shard.velocity.length()+0.01)
 	assert_almost_eq(shard.bounce_falloff,10.0,0.0001)
-	shard._physics_process(0.4) # 9 m at half the 45 m/s launch speed.
+	shard._physics_process(9.0/shard.velocity.length()) # Stop just short of the 10 m allowance.
 	assert_eq(shard.velocity.y,0.0)
-	shard._physics_process(0.05)
+	shard._physics_process(1.1/shard.velocity.length())
 	shard._physics_process(0.1)
 	assert_lt(shard.velocity.y,0.0,"The ricochet gains downward velocity after its allowance")
 	world.combat.next_hit={"position":shard.position+Vector3.LEFT,"normal":Vector3.RIGHT,"collider":wall}

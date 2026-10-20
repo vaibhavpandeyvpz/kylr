@@ -92,14 +92,15 @@ func test_walk_route_starts_on_the_reachable_side_of_an_interior_wall():
 func test_grenade_low_arc_clears_a_low_obstacle_and_rejects_a_ceiling():
 	var game := world();var shooter := actor(game,Vector3.ZERO);shooter.equipped="grenade_launcher"
 	var origin := Vector3(0,1,0);var target := Vector3(0,1,-15)
-	var direction := BallisticProjectile.launch_direction(origin,target,15,9)
-	var time := 15.0/(-direction.z*15)
-	var endpoint := origin+direction*15*time-Vector3.UP*9*time*time*.5
+	var speed: float=Arsenal.WEAPONS.grenade_launcher.projectile_speed
+	var direction := BallisticProjectile.launch_direction(origin,target,speed,9)
+	var time := 15.0/(-direction.z*speed)
+	var endpoint := origin+direction*speed*time-Vector3.UP*9*time*time*.5
 	assert_almost_eq(endpoint,target,Vector3.ONE*.001)
-	assert_eq(BallisticProjectile.launch_direction(origin,Vector3(0,1,-30),15,9),Vector3.ZERO,"Reject an unreachable flat-floor shot")
+	assert_eq(BallisticProjectile.launch_direction(origin,Vector3(0,1,-50),speed,9),Vector3.ZERO,"Reject an unreachable flat-floor shot")
 	wall(game,Vector3(0,.7,-7.5),Vector3(3,1.4,.2))
 	await wait_physics_frames(2)
 	assert_true(game.combat.firing_lane(shooter,target,false,origin),"A valid lob may clear low cover")
-	wall(game,Vector3(0,2,-7.5),Vector3(3,.2,4))
+	wall(game,Vector3(0,1.65,-7.5),Vector3(3,.2,4))
 	await wait_physics_frames(2)
 	assert_false(game.combat.firing_lane(shooter,target,false,origin),"The same lob cannot pass through a roof")

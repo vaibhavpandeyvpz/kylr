@@ -496,10 +496,10 @@
         }
       ],
       "pulse_gun": {
-        "range": 20,
-        "damage": 10,
+        "range": 20.0,
+        "damage": 10.0,
         "interval": 1.0,
-        "speed": 45,
+        "speed": 15.0,
         "slow_multiplier": 0.25,
         "slow_duration": 0.5,
         "enabled_match_types": [
@@ -947,10 +947,10 @@
       "bake_navigation": true,
       "barricade_links": {},
       "pulse_gun": {
-        "range": 20,
-        "damage": 50,
+        "range": 20.0,
+        "damage": 10.0,
         "interval": 1.0,
-        "speed": 45,
+        "speed": 15.0,
         "slow_multiplier": 0.25,
         "slow_duration": 0.5,
         "enabled_match_types": [

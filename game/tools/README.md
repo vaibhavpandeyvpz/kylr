@@ -11,6 +11,7 @@ Generated reports/packages belong in ignored `reports/` and `build/`.
 | Purpose | Entry point |
 | --- | --- |
 | Import, GUT, DM/TDM/CTF and results flow | `verify.ps1` |
+| Apply reviewed weapon damage, cadence, range and speed values | `apply_weapon_balance.py` |
 | Physical 15-case roster acceptance, one map | `run_roster_validation.ps1` |
 | Difficulty/duration sweeps and charged jumps | `run_bot_matrix.ps1` |
 | Ten-weapon combat-deck comparisons | `run_arena_stress.ps1` |
