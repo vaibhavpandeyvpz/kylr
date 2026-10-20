@@ -14,8 +14,8 @@ Menu and lobby previews alternate common idle with the selected victory animatio
 Preview environments keep the dark menu background and omit distance fog; the
 background does not replace the reflection sky. All views consume the same
 classified authored materials and retain their chosen primary/secondary colours.
-Head/emote selection silhouettes remain intentionally unshaded icons.
-When supported ray tracing and fixture illumination are both active, all views
+Head and emote choices use compact Blender-rendered portraits in the selected primary finish; armor tiles crop the chest, waist and upper arms.
+During matches, when supported ray tracing and fixture illumination are both active, world views
 disable raster sky reflections and the artificial chrome reflection panorama.
 Ray-traced rays retain the visible authored sky and real scene reflections.
 Turning off either option restores the authored reflection settings, including
@@ -225,14 +225,14 @@ The first three tabs implement the already specified Settings categories in [GAM
 
 ## Online Customise screen
 
-Enter from a **Customise** action in the Online Multiplayer lobby's top bar. The screen uses the shared arena-control visual system in [DESIGN_LANGUAGE.md](DESIGN_LANGUAGE.md) and returns to the same lobby, preserving its selected DM/TDM/CTF card. Customisation is available only for an authenticated online account and does not call matchmaking.
+Enter from a **Customise** action in the Online Multiplayer lobby's action footer. The screen uses the shared arena-control visual system in [DESIGN_LANGUAGE.md](DESIGN_LANGUAGE.md) and returns to the same lobby, preserving its selected DM/TDM/CTF card. Customisation is available only for an authenticated online account and does not call matchmaking.
 
 | Region | Content and behavior |
 |---|---|
-| **Top bar** | **Customise Robot** title, authenticated display name, and Back. Use the same identity treatment as the lobby. |
-| **Category rail** | Three labelled choices: **Head**, **Armor Colors**, and **Victory Emote**. Keep the active category and pending-edit state visible without relying on color alone. |
-| **Choice pane** | For Heads, show **five silhouette thumbnails** in a fixed grid, each named and with previewed/equipped states. Add a sixth only when its actual mesh and thumbnail are available. For Emotes, show silhouette pose thumbnails with names in a compact grid or strip. For Armor Colors, show separate **Primary** and **Secondary** swatches/controls with the current color values. Do not require search/filter UI for this small head catalog. |
-| **Center/right stage** | One large, full-body Tensor model on a simple turntable stage. Drag or use controls to rotate it; provide a reset-to-front view. Head changes swap the preview mesh; color changes affect only the primary and secondary armor material slots; emote selection plays that emote once, then returns to idle. Keep the whole robot visible with an optional closer head view while browsing heads. |
+| **Top bar** | **Customise** title and authenticated display name. Use the same identity treatment as the lobby. |
+| **Category tabs** | Three labelled choices: **Head**, **Armor Colors**, and **Victory Emote**. Keep the active category and pending-edit state visible without relying on color alone. |
+| **Choice pane** | For Heads, show five named, square Blender-rendered front-left close-ups in the selected primary color, with persistent selection/equipped states. Emotes use full-body posed portraits in the same primary color. Armor Colors has Primary/Secondary channel tabs and named torso portrait tiles: each tile shows its proposed finish together with the other currently selected channel. Crop closely to the chest, waist and upper arms; omit the head and legs. Keep selection text separate from the tile name. Do not require search/filter UI for this small head catalog. |
+| **Character stage** | One large, full-body Tensor model on a simple turntable stage. Drag or use controls to rotate it; provide a reset-to-front view. Head changes swap the preview mesh; color changes affect only the primary and secondary armor material slots; emote selection plays that emote once, then returns to idle. Keep the whole robot visible with an optional closer head view while browsing heads. |
 | **Fixed footer** | **Save**, **Revert**, and **Back**. Show Unsaved changes when preview differs from the saved account loadout. Save commits the full loadout; Revert restores the last saved preview; Back with edits offers Save, Discard, or Stay. |
 
 ### Choices and visual feedback
@@ -300,3 +300,34 @@ Unsupported hardware or runtime disables the RT controls with an explanation
 and uses raster rendering. Turning upscaling off retains native-resolution Ray
 Reconstruction. Separate
 rendering remains an independent option, off by default in every preset.
+
+### Online presentation and responsive layout
+
+Online screens use anchored margins, a scrollable content region and a fixed action
+footer. Back/Revert stay at the left; Play/Save stay at the right. The preview stage
+and choices share wide screens; smaller layouts reduce grid columns and stack
+regions where needed. Footers remain reachable without scrolling the content.
+Only one online preview is visible, with its own World3D, camera, studio lighting
+and regolith turntable. Main-menu geometry is hidden while online previews are
+shown and retired before joining the match. Returning to the menu resumes its
+single preview. Platforms rotate with their robot; dragging rotates the online stage.
+
+A connected player awaiting the minimum roster sees a Server Ready waiting screen,
+not a combat HUD over the unassembled map. Joining and map continuation keep the
+loading cover until the client world and selected renderer are ready. Portal
+fields appear only when both linked gates are usable during active play.
+
+Portrait generators: `library/tools/render_customisation.py`, followed by
+`tools/install_customisation_thumbnails.py`. Runtime tiles are 192×192 WebP; the
+264-image set covers five heads and five emotes in twelve primary colors, plus
+all 144 armor finish combinations. PNG intermediates remain in ignored library build output.
+
+Joining and waiting use the same Match staging layout, shared menu plates and fixed footer actions. Three labeled milestones show server discovery, secure admission and gathering players. Status follows backend and transport events without estimated percentages. Waiting shows the authoritative connected roster and the two-player start threshold; the world remains covered until countdown and renderer preparation finish.
+
+Main-menu and online portrait studios share `MenuStudio`, which owns a separate raster-rendered viewport outside the gameplay scene. Its neutral lighting and authored PBR materials remain stable when gameplay switches ray tracing, DLSS or quality presets. The studio is retired explicitly on shutdown and rendered only on screens that display it.
+
+Boolean settings use full-width switch rows with an explicit On/Off readout beside the switch. The whole row responds to mouse activation and native keyboard/controller input. The plate retains its geometry in every state; hover only raises the surface, focus adds an outline and the switch indicator alone conveys the value. Disabled rows keep a muted readable state and their dependency explanation. Changes remain pending until Apply.
+
+Main Menu and online portraits use the same ambient fill, rectangular key/fill/rim lights, reflection recipe, tone mapping, native-resolution rendering and 4× MSAA. Gameplay quality and ray-tracing choices do not relight menu robots or pedestals. Main Menu uses its full-screen camera composition; online screens frame the robot within their preview column. Pause and results preserve the live match environment rather than adding studio lights.
+
+Instant Action setup shows the selected map’s short overview and description above five player-free native-rendered photographs: a cinematic overview and four route, objective or fixture views. Images include the assembled map loadout, pickups, fixture lighting, shadows and environmental effects. The preview advances every two seconds and resets on map selection; numbered controls select a view directly. Reduced decorative motion stops automatic cycling. Gameplay energy rules remain in the first-life hints rather than repeated in setup. Setup keeps Back and Start Match in a fixed footer and scrolls its two content columns on smaller windows.

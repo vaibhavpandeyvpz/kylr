@@ -2,9 +2,9 @@ extends Control
 ## Finished-match presentation; the authoritative result remains read-only.
 signal return_requested
 signal exit_requested
-const TEXT=Color("f3f6f7")
-const MUTED=Color("b9c9d1")
-const ACCENT=Color("6fe5ea")
+const TEXT=MenuSkin.TEXT
+const MUTED=MenuSkin.MUTED
+const ACCENT=MenuSkin.ACTION
 const DISPLAY=preload("res://assets/ui/fonts/Rajdhani-SemiBold.ttf")
 var result: Dictionary
 var map_title := ""
@@ -80,7 +80,7 @@ func _ready() -> void:
 			text(details,String(team.name).to_upper(),14,TEXT)
 			text(details,"%s  /  reached %.2f s"%["Captures" if result.match_type=="CTF" else "Kills",team.time],14,MUTED)
 	var separator := HSeparator.new()
-	separator.modulate=Color("415464")
+	separator.modulate=MenuSkin.LINE
 	content.add_child(separator)
 	var table_caption := HBoxContainer.new()
 	content.add_child(table_caption)
@@ -131,6 +131,7 @@ func _ready() -> void:
 	exit_button=action("EXIT GAME",false)
 	exit_button.name="ExitGame"
 	exit_button.pressed.connect(func(): exit_requested.emit())
+	actions.move_child(exit_button,0)
 	resized.connect(reflow)
 	reflow()
 	return_button.grab_focus.call_deferred()
@@ -147,8 +148,9 @@ func text(parent: Node,value: String,font_size: int,color: Color,display := fals
 
 func row(values: Array,header := false,local := false,index := 0) -> void:
 	var backing := PanelContainer.new()
-	var style := StyleBoxFlat.new()
-	style.bg_color=Color(0.43,0.9,0.92,0.09) if local else Color(0.09,0.14,0.18,0.96) if index%2==0 and not header else Color(0.06,0.09,0.12,0.96)
+	var style := MenuSkin.surface(local)
+	style.bg_color=MenuSkin.RAISED if local else MenuSkin.PLATE if index%2==0 and not header else MenuSkin.CANVAS
+	style.set_border_width_all(1 if local else 0)
 	style.content_margin_left=16
 	style.content_margin_right=16
 	style.content_margin_top=8
@@ -176,16 +178,7 @@ func action(value: String,primary: bool) -> Button:
 	button.text=value
 	button.size_flags_horizontal=Control.SIZE_FILL
 	button.alignment=HORIZONTAL_ALIGNMENT_CENTER
-	for state in ["normal","hover","pressed","focus"]:
-		var style := StyleBoxFlat.new()
-		style.bg_color=(ACCENT if state=="normal" else Color("a9f5f4")) if primary else Color("17222d") if state=="normal" else Color("243341")
-		style.set_content_margin_all(16)
-		if state=="focus":
-			style.set_border_width_all(2)
-			style.border_color=TEXT
-		button.add_theme_stylebox_override(state,style)
-		button.add_theme_color_override("font_"+state+"_color",Color("0b1119") if primary else TEXT)
-	button.add_theme_color_override("font_color",Color("0b1119") if primary else TEXT)
+	MenuSkin.apply_button(button,primary)
 	actions.add_child(button)
 	return button
 

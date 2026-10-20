@@ -49,3 +49,25 @@ func test_faceoff_native_corner_walls_block_robot_capsules_both_ways():
 						await get_tree().physics_frame
 						var hit := body.move_and_collide(direction * (-4.0 if entering else 4.0))
 						assert_not_null(hit, "%s corner %s/%s entering=%s step=%s must block a full robot capsule" % [asset, sx, sz, entering, step_lift])
+
+func test_faceoff_rack_gizmos_face_into_both_rooms():
+	var map := Assets.model("maps","faceoff")
+	add_child_autofree(map)
+	var metadata: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://assets/models/maps/faceoff/faceoff_rig.json"))
+	var count := 0
+	for building in ["bastion","laboratory"]:
+		var host: Node3D
+		for marker in metadata.markers:
+			if marker.get("source_asset","") == building:
+				host = Assets.socket(map,"Gizmo_"+String(marker.name).replace("-","_"))
+		assert_not_null(host)
+		if host == null: continue
+		for marker in metadata.markers:
+			if marker.asset != "storage_rack" or marker.building != building: continue
+			var rack := Assets.socket(map,"Gizmo_"+String(marker.name).replace("-","_"))
+			assert_not_null(rack)
+			if rack == null: continue
+			count += 1
+			var back := -rack.global_basis.z.normalized()
+			assert_gt(back.dot(host.global_basis.x.normalized()),0.9999,building+" rack back faces its wall; shelves face the room")
+	assert_eq(count,4,"Both racks in both buildings retain their exported wall orientation")

@@ -1,0 +1,156 @@
+{
+  "faceoff": [
+    {
+      "title": "Crater outpost",
+      "image": "res://assets/ui/maps/faceoff/01.webp",
+      "position": [
+        58,
+        34,
+        58
+      ],
+      "target": [
+        0,
+        1,
+        0
+      ],
+      "fov": 55
+    },
+    {
+      "title": "Laboratory approach",
+      "image": "res://assets/ui/maps/faceoff/02.webp",
+      "position": [
+        14,
+        3,
+        -12
+      ],
+      "target": [
+        24,
+        2,
+        -24
+      ],
+      "fov": 58
+    },
+    {
+      "title": "Bastion upper routes",
+      "image": "res://assets/ui/maps/faceoff/03.webp",
+      "position": [
+        -12,
+        8,
+        13
+      ],
+      "target": [
+        -24,
+        3.5,
+        24
+      ],
+      "fov": 58
+    },
+    {
+      "title": "Cistern portal",
+      "image": "res://assets/ui/maps/faceoff/04.webp",
+      "position": [
+        4.6,
+        1.5,
+        1.2
+      ],
+      "target": [
+        -1.5,
+        1,
+        -1.8
+      ],
+      "fov": 62
+    },
+    {
+      "title": "Jump-pad courtyard",
+      "image": "res://assets/ui/maps/faceoff/05.webp",
+      "position": [
+        -11,
+        4,
+        17
+      ],
+      "target": [
+        -15.5,
+        1,
+        11
+      ],
+      "fov": 62
+    }
+  ],
+  "skyfall": [
+    {
+      "title": "Floating battlefield",
+      "image": "res://assets/ui/maps/skyfall/01.webp",
+      "position": [
+        69,
+        56,
+        72
+      ],
+      "target": [
+        0,
+        25,
+        0
+      ],
+      "fov": 55
+    },
+    {
+      "title": "Bridge crossing",
+      "image": "res://assets/ui/maps/skyfall/02.webp",
+      "position": [
+        1,
+        25,
+        -14.5
+      ],
+      "target": [
+        -1,
+        23,
+        -22.5
+      ],
+      "fov": 60
+    },
+    {
+      "title": "Lower portal",
+      "image": "res://assets/ui/maps/skyfall/03.webp",
+      "position": [
+        37.5,
+        24.1,
+        29
+      ],
+      "target": [
+        30,
+        23,
+        22.5
+      ],
+      "fov": 58
+    },
+    {
+      "title": "Upper objective",
+      "image": "res://assets/ui/maps/skyfall/04.webp",
+      "position": [
+        19.5,
+        33,
+        33
+      ],
+      "target": [
+        25.5,
+        31,
+        27
+      ],
+      "fov": 60
+    },
+    {
+      "title": "Jump-deck routes",
+      "image": "res://assets/ui/maps/skyfall/05.webp",
+      "position": [
+        21,
+        24.4,
+        8.5
+      ],
+      "target": [
+        21,
+        23,
+        16.5
+      ],
+      "fov": 62
+    }
+  ]
+}

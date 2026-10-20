@@ -10,6 +10,8 @@ var prefs: Preferences
 var ui: ArenaUI
 var match_node: ArenaMatch
 var preview: Node3D
+var preview_viewport: SubViewport
+var preview_surface: TextureRect
 var preview_turntable: Node3D
 var preview_robot: Node3D
 var preview_camera: Camera3D
@@ -22,6 +24,7 @@ var closing := false
 var leaving := false
 
 func _ready():
+	set_meta("menu_studio_host",true)
 	get_tree().auto_accept_quit=false
 	loading_screen=get_meta("startup_loading_screen") if has_meta("startup_loading_screen") else null
 	if loading_screen==null:
@@ -34,6 +37,7 @@ func _ready():
 	ui=ArenaUI.new()
 	ui.app=self
 	add_child(ui)
+	ui.root.resized.connect(resize_preview)
 	api = OnlineClient.new()
 	add_child(api)
 	api.changed.connect(func(): preview_victory_id = preview_victory(api.player.get("loadout",{}).get("emote","")))
@@ -105,9 +109,7 @@ func request_quit():
 		if match_node.online: online_ui.dispose_transport()
 		else: match_node.free()
 		match_node=null
-	if preview:
-		preview.free()
-		preview=null
+	retire_preview()
 	# Allow the audio mixer to release stopped voices before engine teardown.
 	var deadline := Time.get_ticks_msec()+100
 	while Time.get_ticks_msec()<deadline:
@@ -120,8 +122,24 @@ func argument(key: String, fallback: String) -> String:
 	return fallback
 
 func make_preview():
+	if is_instance_valid(preview): return
+	preview_viewport=MenuStudio.create(get_tree(),Vector2i(get_viewport().get_visible_rect().size))
+	preview_surface=TextureRect.new()
+	preview_surface.name="MainMenuPortrait"
+	preview_surface.texture=preview_viewport.get_texture()
+	preview_surface.expand_mode=TextureRect.EXPAND_IGNORE_SIZE
+	preview_surface.mouse_filter=Control.MOUSE_FILTER_IGNORE
+	ui.root.add_child(preview_surface)
+	ui.root.move_child(preview_surface,0)
+	preview_surface.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	var canvas := ColorRect.new()
+	canvas.color=MenuSkin.CANVAS
+	canvas.show_behind_parent=true
+	canvas.mouse_filter=Control.MOUSE_FILTER_IGNORE
+	preview_surface.add_child(canvas)
+	canvas.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	preview=Node3D.new()
-	add_child(preview)
+	preview_viewport.add_child(preview)
 	preview_turntable=Node3D.new()
 	preview_turntable.name="PreviewTurntable"
 	preview.add_child(preview_turntable)
@@ -135,6 +153,7 @@ func make_preview():
 	var library:=AnimationLibrary.new()
 	var idle := Assets.animation("common/idle")
 	if idle:
+		idle = idle.duplicate()
 		idle.loop_mode = Animation.LOOP_NONE
 		library.add_animation("common_idle",idle)
 	animator.add_animation_library("",library)
@@ -172,9 +191,28 @@ func make_preview():
 	preview_pcam.camera_3d_resource = preview_lens
 	preview.add_child(preview_pcam)
 	preview_pcam.priority = 10
-	ArenaLighting.install(preview,true)
 	prefs.apply_rendering(self)
 	call_deferred("benchmark_quality")
+
+func resize_preview():
+	if is_instance_valid(preview_viewport): preview_viewport.size=Vector2i(ui.root.size).max(Vector2i.ONE)
+
+func retire_preview():
+	if is_instance_valid(preview_surface):
+		preview_surface.hide()
+		preview_surface.texture=null
+		preview_surface.queue_free()
+	if is_instance_valid(preview_viewport):
+		preview_viewport.render_target_update_mode=SubViewport.UPDATE_DISABLED
+		preview_viewport.queue_free()
+	preview_surface=null
+	preview_viewport=null
+	if is_instance_valid(preview): preview.free()
+	preview = null
+	preview_robot = null
+	preview_turntable = null
+	preview_camera = null
+	preview_animator = null
 
 func benchmark_quality():
 	if prefs.values.quality_benchmarked or DisplayServer.get_name() == "headless" or "--smoke" in OS.get_cmdline_user_args() or "--capture" in OS.get_cmdline_user_args(): return
@@ -199,11 +237,11 @@ func benchmark_quality():
 	prefs.save()
 
 func prepare_rendering() -> Dictionary:
-	var rt_requested := bool(prefs.values.ray_tracing) and Preferences.ray_tracing_unavailable_reason(int(prefs.values.rt_denoiser)).is_empty()
+	var rt_requested := is_instance_valid(match_node) and bool(prefs.values.ray_tracing) and Preferences.ray_tracing_unavailable_reason(int(prefs.values.rt_denoiser)).is_empty()
 	var ready: Dictionary=await ResourcePreparation.wait_for_rendering(get_tree(),get_viewport(),rt_requested)
 	if ready.ready:
 		print("RENDERER_ACTIVE ",Preferences.active_renderer_label(self))
-		if bool(prefs.values.ray_tracing) and not rt_requested:
+		if is_instance_valid(match_node) and bool(prefs.values.ray_tracing) and not rt_requested:
 			print("RENDERER_RT_UNAVAILABLE ",Preferences.ray_tracing_unavailable_reason(int(prefs.values.rt_denoiser)))
 	if not ready.ready:
 		push_warning("Rendering preparation failed: "+JSON.stringify(ready))
@@ -236,7 +274,7 @@ func start_match():
 	loading_screen.begin("Preparing match…")
 	await loading_screen.paint()
 	await ResourcePreparation.match_resources(get_tree(),String(prefs.values.map))
-	if preview: preview.free(); preview=null
+	retire_preview()
 	# The new camera can render during asynchronous scene assembly, before its
 	# environment receives the selected denoiser. Do not inherit the menu's
 	# temporal upscaler during that interval; on_ready restores the full preset.
@@ -299,7 +337,10 @@ func leave_match():
 func _process(dt):
 	if match_node: match_node.reduced_motion=prefs.values.reduced_motion
 	if match_node and match_node.callouts: match_node.callouts.frequency = int(prefs.values.callouts)
-	if preview and not prefs.values.reduced_motion: preview_turntable.rotation.y+=dt*0.15
+	if is_instance_valid(preview_viewport):
+		var visible := is_instance_valid(preview_surface) and preview_surface.is_visible_in_tree()
+		preview_viewport.render_target_update_mode=SubViewport.UPDATE_ALWAYS if visible else SubViewport.UPDATE_DISABLED
+		if visible and not prefs.values.reduced_motion: preview_turntable.rotation.y+=dt*0.15
 	if get_meta("automated_profile",false): return
 	if starting_match or not startup_complete: return
 	if match_node and match_node.local_robot and ui.screen=="match":
@@ -333,7 +374,7 @@ func _unhandled_input(event):
 	if not match_node or not match_node.local_robot or ui.screen!="match": return
 	var r: ArenaRobot = match_node.local_robot
 	var slot_index := numbered_slot(event)
-	if event is InputEventMouseMotion and Input.mouse_mode==Input.MOUSE_MODE_CAPTURED:
+	if event is InputEventMouseMotion and Input.mouse_mode==Input.MOUSE_MODE_CAPTURED and not r.spawn_look_locked():
 		r.yaw-=event.relative.x*prefs.values.sensitivity
 		r.pitch=clampf(r.pitch-event.relative.y*prefs.values.sensitivity*(-1 if prefs.values.invert else 1),-PI/4,PI/4)
 	if match_node.online and is_instance_valid(online_ui) and is_instance_valid(online_ui.transport):

@@ -1,15 +1,15 @@
 class_name HudSkin
 extends RefCounted
 
-const INK := Color("09151e")
-const SURFACE := Color(0.035, 0.085, 0.12, 0.79)
-const EDGE := Color(0.32, 0.64, 0.72, 0.34)
-const WHITE := Color("f4fbff")
-const SOFT := Color("a9c2ce")
-const CYAN := Color("6fe5ea")
-const AMBER := Color("ffc36a")
-const DANGER := Color("ff7275")
-const GREEN := Color("8bdead")
+const INK := MenuSkin.CANVAS
+const SURFACE := Color(MenuSkin.PLATE,0.79)
+const EDGE := Color(MenuSkin.ACTION,0.34)
+const WHITE := MenuSkin.TEXT
+const SOFT := MenuSkin.MUTED
+const CYAN := MenuSkin.ACTION
+const AMBER := MenuSkin.CAUTION
+const DANGER := MenuSkin.DANGER
+const GREEN := MenuSkin.SUCCESS
 const DISPLAY_FONT := preload("res://assets/ui/fonts/Rajdhani-SemiBold.ttf")
 const BOLD_FONT := preload("res://assets/ui/fonts/Rajdhani-Bold.ttf")
 const BODY_FONT := preload("res://assets/ui/fonts/Inter.ttf")
@@ -35,7 +35,7 @@ static func fade_backdrop(canvas: CanvasItem, rect: Rect2, opacity: float) -> vo
 	for step in 8:
 		var slice := rect.size.x / 8.0
 		var alpha := opacity * (1.0 - float(step) / 8.0 * 0.62)
-		canvas.draw_rect(Rect2(rect.position.x + slice * step, rect.position.y, slice + 0.5, rect.size.y), Color(0.02, 0.065, 0.09, alpha))
+		canvas.draw_rect(Rect2(rect.position.x + slice * step, rect.position.y, slice + 0.5, rect.size.y), Color(INK,alpha))
 
 static func label(canvas: CanvasItem, value: String, position: Vector2, size: int, color: Color = WHITE, width := -1.0, display := false, alignment := HORIZONTAL_ALIGNMENT_LEFT, bold := false) -> void:
 	var outline := Color(0, 0, 0, 0.78)

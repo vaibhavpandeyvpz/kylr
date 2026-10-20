@@ -19,8 +19,10 @@ static func valid(command: Dictionary, generation: String, previous: int) -> boo
 
 static func apply(robot: ArenaRobot, command: Dictionary, predicted := false) -> void:
 	robot.move_input = command.move
-	robot.yaw = command.yaw
-	robot.pitch = command.pitch
+	if robot.spawn_look_locked(): robot.align_spawn_facing()
+	else:
+		robot.yaw = command.yaw
+		robot.pitch = command.pitch
 	robot.wants_walk = command.walk
 	robot.wants_sprint = command.sprint and not command.walk
 	robot.wants_crouch = command.crouch

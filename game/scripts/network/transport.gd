@@ -600,7 +600,7 @@ func apply_snapshot(state: Dictionary, first := false):
 			for command in unacked.slice(maxi(0,unacked.size()-15)):
 				OnlineInput.apply(robot,command,true)
 				if robot.alive and robot.spawn_remaining <= 0 and robot.repair == null and game.phase == "Active": robot.simulate_movement(1.0/60.0,true,true)
-			if not first and robot.spawn_remaining <= 0: robot.yaw = aim.x; robot.pitch = aim.y
+			if not first and robot.spawn_remaining <= 0 and not robot.spawn_look_locked(): robot.yaw = aim.x; robot.pitch = aim.y
 			robot.move_input = move
 		else:
 			var previous := robot.position

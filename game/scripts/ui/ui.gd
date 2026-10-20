@@ -1,8 +1,8 @@
 class_name ArenaUI
 extends CanvasLayer
-const TEXT = Color("f3f6f7")
-const MUTED = Color("b9c9d1")
-const ACTION = Color("6fe5ea")
+const TEXT = MenuSkin.TEXT
+const MUTED = MenuSkin.MUTED
+const ACTION = MenuSkin.ACTION
 var app
 var root: Control
 var page: Control
@@ -72,24 +72,7 @@ func _ready():
 	root.resized.connect(responsive_layout)
 
 func make_theme() -> Theme:
-	var theme := Theme.new()
-	theme.default_font=load("res://assets/ui/fonts/Inter.ttf")
-	theme.default_font_size = 18
-	for type in ["Label","Button","LineEdit","OptionButton","CheckButton","SpinBox"]:
-		theme.set_color("font_color",type,TEXT)
-	for state in ["normal","hover","pressed","focus","disabled"]:
-		var box := StyleBoxFlat.new()
-		box.bg_color = Color("17222d") if state == "normal" else Color("243341")
-		box.border_color = ACTION if state in ["focus","pressed"] else Color("415464")
-		box.set_border_width_all(2 if state == "focus" else 1)
-		box.content_margin_left = 20
-		box.content_margin_right = 20
-		box.content_margin_top = 14
-		box.content_margin_bottom = 14
-		box.corner_radius_top_left = 2
-		box.corner_radius_bottom_right = 8
-		for type in ["Button","OptionButton","LineEdit"]: theme.set_stylebox(state,type,box)
-	return theme
+	return MenuSkin.make_theme()
 
 func retire_control(control: Control):
 	if not is_instance_valid(control): return
@@ -110,14 +93,19 @@ func close_page():
 
 func clear_page(id: String):
 	screen = id
-	var model = app.get("preview_robot")
-	if is_instance_valid(model): model.visible = id not in ["online_lobby","customise"]
+	var stage = app.get("preview")
+	if id == "main" and not is_instance_valid(stage) and app.has_method("make_preview"):
+		app.make_preview()
+		stage = app.get("preview")
+	if is_instance_valid(stage): stage.visible = id not in ["setup","online_lobby","customise","online_search","online_loading","online_waiting"]
+	var surface = app.get("preview_surface")
+	if is_instance_valid(surface): surface.visible = is_instance_valid(stage) and stage.visible
 	close_page()
 	page = Control.new()
 	root.add_child(page)
 	page.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	var shade := ColorRect.new()
-	shade.color = Color(0.025,0.045,0.065,0.26 if id in ["main","online_lobby","customise"] else 0.84)
+	shade.color = MenuSkin.CANVAS if id in ["setup","online_lobby","customise","online_search","online_waiting"] else Color(MenuSkin.CANVAS,0.0 if id == "main" else 0.84)
 	shade.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	page.add_child(shade)
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
@@ -138,15 +126,7 @@ func button(parent: Node,text: String,action: Callable,primary := false) -> Butt
 	node.custom_minimum_size.y = 52
 	node.alignment = HORIZONTAL_ALIGNMENT_LEFT
 	parent.add_child(node)
-	if primary:
-		var box := StyleBoxFlat.new()
-		box.bg_color = ACTION
-		box.content_margin_left = 20
-		box.content_margin_right = 20
-		box.content_margin_top = 14
-		box.content_margin_bottom = 14
-		node.add_theme_stylebox_override("normal",box)
-		node.add_theme_color_override("font_color",Color("0b1119"))
+	MenuSkin.apply_button(node,primary)
 	node.pressed.connect(action)
 	return node
 
@@ -193,8 +173,8 @@ func save_setup_choice(key: String, value):
 func setup():
 	clear_page("setup")
 	app.prefs.values.mode = "Instant Action"
-	var col := column(64,40,440)
-	label(col,"INSTANT ACTION",32)
+	var view := OnlineLayout.frame(self,"Instant Action","Choose an arena and configure your match","INSTANT ACTION")
+	var col := OnlineLayout.column(view.body,1.0)
 	var name_field: LineEdit
 	if not Preferences.valid_name(str(app.prefs.values.name)):
 		label(col,"Your robot's call sign",16,MUTED)
@@ -226,13 +206,16 @@ func setup():
 		group.add_child(spin)
 		spin.value_changed.connect(func(value): save_setup_choice(entry[3],int(value)))
 	status = label(col,"",15,Color("ffc36a"))
-	button(col,"START MATCH",func():
+	OnlineLayout.action(self,view.footer,"START MATCH",func():
 		if name_field != null:
 			if not Preferences.valid_name(name_field.text): status.text="Enter a valid call sign."; return
 			save_setup_choice("name",name_field.text)
 		app.start_match(),true)
-	button(col,"BACK",main_menu)
-	var brief := column(620,90,520)
+	var back := OnlineLayout.action(self,view.footer,"BACK",main_menu)
+	view.footer.move_child(back,0)
+	var gap := OnlineLayout.spacer(view.footer)
+	view.footer.move_child(gap,1)
+	var brief := OnlineLayout.column(view.body,1.0)
 	var maps := MapCatalog.all()
 	var map_titles: Array=[]
 	var selected:=0
@@ -250,13 +233,15 @@ func setup():
 	app.prefs.setup_notices.clear()
 	app.prefs.save()
 	choice(brief,"Arena",map_titles,selected,func(i): save_setup_choice("map",maps[i].id); setup())
-	label(brief,maps[selected].title.to_upper(),42)
-	var subtitle:=label(brief,maps[selected].subtitle,27)
+	var subtitle := label(brief,maps[selected].subtitle,24)
 	subtitle.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
-	var description:=label(brief,maps[selected].description,19,MUTED)
+	var description := label(brief,maps[selected].description,16,MUTED)
 	description.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
-	label(brief,"POWER IS TIME",20,ACTION)
-	label(brief,"100 EP lasts 100 seconds. Find a Core before\nyour robot shuts down. At 50% EP, sprinting\nand charged jumps become unavailable.",18,MUTED)
+	var preview := MapPreview.new()
+	preview.map_id=maps[selected].id
+	preview.reduced_motion=bool(app.prefs.values.reduced_motion)
+	brief.add_child(preview)
+	OnlineLayout.layout(self)
 
 func settings(back: Callable):
 	settings_return = back
@@ -267,6 +252,9 @@ func settings(back: Callable):
 func responsive_layout():
 	if screen=="results": return
 	if not is_instance_valid(page): return
+	if page.has_meta("online_body"):
+		OnlineLayout.layout(self)
+		return
 	if screen == "settings":
 		if is_instance_valid(settings_body):
 			settings_body.vertical = root.size.x < 1050
@@ -350,7 +338,8 @@ func settings_tab(tab: String):
 	for name in ["Controls","Audio","Graphics","HUD"]:
 		var title: String = "HUD & Accessibility" if name == "HUD" else name
 		var active: bool = name == tab
-		var b := button(tabs,title,func(): settings_tab(name),active)
+		var b := button(tabs,title,func(): settings_tab(name))
+		MenuSkin.apply_button(b,false,active)
 		b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		b.alignment = HORIZONTAL_ALIGNMENT_CENTER
 		b.add_theme_font_size_override("font_size",16)
@@ -466,7 +455,8 @@ func settings_tab(tab: String):
 		if tab == "Graphics": pending.resolution=Preferences.resolutions().back()
 		if tab == "Controls": pending_bindings=Preferences.DEFAULT_BINDINGS.duplicate()
 		settings_tab(tab))
-	button(footer,"APPLY",apply_settings,true)
+	OnlineLayout.spacer(footer)
+	OnlineLayout.action(self,footer,"Apply",apply_settings,true)
 	responsive_layout()
 
 func setting_choice(parent: Node, title: String, key: String, options: Array) -> OptionButton:
@@ -571,7 +561,7 @@ func slider(parent,title: String,key: String,low: float,high: float,step: float)
 	setting_help(control,key,title)
 
 func toggle(parent,title: String,key: String) -> CheckButton:
-	var node := CheckButton.new()
+	var node := SettingsToggle.new()
 	node.text=title
 	node.button_pressed=pending[key]
 	parent.add_child(node)
@@ -636,9 +626,8 @@ func hud_readout(anchor: Vector2, offset: Vector2, dimensions: Vector2, font_siz
 	node.add_theme_color_override("font_shadow_color",Color(0,0,0,0.85))
 	node.add_theme_constant_override("shadow_offset_y",1)
 	if backed:
-		var panel := StyleBoxFlat.new()
-		panel.bg_color=Color(0.043,0.067,0.098,0.94)
-		panel.border_color=Color("415464")
+		var panel := MenuSkin.surface()
+		panel.bg_color=Color(MenuSkin.CANVAS,0.94)
 		panel.set_border_width_all(1)
 		panel.content_margin_left=16
 		panel.content_margin_right=16

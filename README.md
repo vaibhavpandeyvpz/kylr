@@ -24,6 +24,9 @@ prompt-driven process.[^ai-tools]
 - **Full multiplayer matchmaking and authoritative servers:** authenticated
   accounts, automatic match allocation and dedicated servers for DM, TDM and CTF,
   powered by [Render](https://render.com/) and [Edgegap](https://edgegap.com/).
+- **Player customisation:** five head variants, 12 primary and 12 secondary armor
+  colors, and victory emotes. Preview your robot in 3D and save your online
+  loadout to your account.
 - **Maps designed in Figma:** explore the
   [KYLR map designs](https://www.figma.com/community/file/1693957204725961135/kylr-maps?fuid=962370705244141890).
 - **Open source:** KYLR's original game and library work is **Apache 2.0 licensed**.
