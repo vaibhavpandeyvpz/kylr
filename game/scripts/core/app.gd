@@ -79,7 +79,7 @@ func _ready():
 	if OS.has_feature("debug") and "--smoke" in OS.get_cmdline_user_args():
 		prefs.values.name="TestPilot"
 		prefs.values.count=int(argument("robots","10"))
-		prefs.values.type=["DM","TDM","CTF"].find(argument("type","DM"))
+		prefs.values.type=MatchTypes.ALL.find(argument("type","DM"))
 		if argument("view", "") in ["fpv", "tpv"]: prefs.values.third_person=argument("view", "") == "tpv"
 		start_match()
 		get_tree().create_timer(float(argument("duration","32"))).timeout.connect(func():
@@ -286,7 +286,7 @@ func start_match():
 	if has_meta("profile_roster_seed"):
 		match_node.set_meta("profile_roster_seed",get_meta("profile_roster_seed"))
 	match_node.map_id=prefs.values.map
-	match_node.match_type=["DM","TDM","CTF"][prefs.values.type]
+	match_node.match_type=MatchTypes.ALL[prefs.values.type]
 	match_node.difficulty=prefs.values.difficulty
 	match_node.count=prefs.values.count
 	match_node.goal=prefs.values.goal

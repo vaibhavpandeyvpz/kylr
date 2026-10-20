@@ -22,7 +22,8 @@ prompt-driven process.[^ai-tools]
   material-aware obstruction, filtered transmission, sound travel delay and
   map-zone reverb.
 - **Full multiplayer matchmaking and authoritative servers:** authenticated
-  accounts, automatic match allocation and dedicated servers for DM, TDM and CTF,
+  accounts, automatic match allocation and dedicated servers for DM, TDM, CTF,
+  Elimination and Gun Game,
   powered by [Render](https://render.com/) and [Edgegap](https://edgegap.com/).
 - **Player customisation:** five head variants, 12 primary and 12 secondary armor
   colors, and victory emotes. Preview your robot in 3D and save your online

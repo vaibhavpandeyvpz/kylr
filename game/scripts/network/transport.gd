@@ -169,7 +169,7 @@ func join(match_id: String, ticket: String):
 	if not multiplayer.get_peers().has(peer):
 		if accepted.has("reservation_id"): private_request("release",{"reservation_id":accepted.reservation_id})
 		return
-	if accepted.is_empty() or peers.size() >= 10 or game.phase == "Finished" or generation != match_id:
+	if accepted.is_empty() or peers.size() >= 10 or game.phase == "Finished" or (game.match_type=="ELIMINATION" and game.phase=="Active") or generation != match_id:
 		if accepted.has("reservation_id"): private_request("release",{"reservation_id":accepted.reservation_id})
 		reject_peer(peer,"Join ticket expired or was already used. Retry for a fresh ticket."); return
 	for item in peers.values():
@@ -196,8 +196,8 @@ func add_player(peer: int, player: Dictionary):
 		else: b += 1
 	var team := randi_range(0,1) if a == b else 0 if a < b else 1
 	var robot: ArenaRobot = game.add_robot(peers[peer].id,player.display_name,team,true,player.loadout.head)
-	robot.tint = Color(PALETTE[player.loadout.primary]) if game.match_type == "DM" else game.team_colors[team]
-	robot.armor_secondary = Color(PALETTE[player.loadout.secondary]) if game.match_type == "DM" else Assets.robot_accent(robot.body,robot.tint,robot.character.model)
+	robot.tint = Color(PALETTE[player.loadout.primary]) if MatchTypes.individual(game.match_type) else game.team_colors[team]
+	robot.armor_secondary = Color(PALETTE[player.loadout.secondary]) if MatchTypes.individual(game.match_type) else Assets.robot_accent(robot.body,robot.tint,robot.character.model)
 	robot.account_emote = player.loadout.emote
 	Assets.paint(robot.body,robot.tint,robot.armor_secondary,robot.head)
 	robot.hide()
@@ -749,7 +749,7 @@ func apply_presentation(event: Dictionary):
 		"emp": game.effects.emp_contact(event.point,event.normal)
 		"electric": game.effects.electric_contact(event.point,event.normal)
 		"fire_orb": game.effects.fire_contact(event.point,event.normal)
-		"caption": game.callouts.publish(event.text,event.speaker,event.team,event.critical,event.point,-1,int(event.get("robot_id",-1)))
+		"caption": game.callouts.publish(event.text,event.speaker,event.team,event.critical,event.point,-1,int(event.get("robot_id",-1)),event.get("winner_ids",[]))
 
 func _process(dt):
 	if server or not round_ready or building or closed: return
@@ -773,7 +773,7 @@ func disconnected(peer: int):
 	peers.erase(peer)
 	game.remove_robot(record.id)
 	private_request("release",{"reservation_id":record.reservation})
-	if game.phase == "Countdown" and not game.roster_valid(): game.finish(true,"The roster no longer has both teams." if game.match_type != "DM" else "Fewer than two players remain.")
+	if game.phase == "Countdown" and not game.roster_valid(): game.finish(true,"The roster no longer has both teams." if not MatchTypes.individual(game.match_type) else "Fewer than two players remain.")
 	heartbeat_clock = 5
 
 func close():

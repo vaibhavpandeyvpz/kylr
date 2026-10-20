@@ -46,6 +46,9 @@ func tick(dt: float) -> void:
 		last_pickup = robot.pickup_weapon
 		switch_time = 0
 	if not robot.can_act() or robot.reload_time>0: return
+	if robot.arena_match.match_type=="GUNGAME":
+		if robot.loaded<=0: robot.start_reload()
+		return
 	# Shared combat finishes the funded shot/stream, then reloads the equipped gun.
 	if robot.equipped!="pistol" and robot.loaded<=0 and robot.packs>0: return
 	var distance := engagement_distance()

@@ -14,12 +14,13 @@ func _process(dt: float):
 	clock += dt
 	captions = captions.filter(func(line): return line.expires > clock)
 
-func publish(text: String, speaker := "Announcer", team := -1, critical := true, point := Vector3.INF, recipient := -1, robot_id := -1) -> bool:
+func publish(text: String, speaker := "Announcer", team := -1, critical := true, point := Vector3.INF, recipient := -1, robot_id := -1, winner_ids: Array = []) -> bool:
 	if game is ArenaMatch and game.replicating and game.authority:
-		game.present({"kind":"caption","text":text,"speaker":speaker,"team":team,"critical":critical,"point":point,"recipient":recipient,"robot_id":robot_id})
+		game.present({"kind":"caption","text":text,"speaker":speaker,"team":team,"critical":critical,"point":point,"recipient":recipient,"robot_id":robot_id,"winner_ids":game.result.get("winner_ids",[]) if ArenaSpeech.line_key(text)=="match_won" else []})
 		# Only global critical state belongs in a late-join snapshot. Live robot
 		# captions are filtered by each listener's distance and preferences.
 		if not critical or recipient >= 0: return true
+	if recipient>=0 and (game.local_robot==null or game.local_robot.robot_id!=recipient): return false
 	if not critical:
 		if frequency == 2: return false
 		if is_instance_valid(game) and is_instance_valid(game.local_robot) and point != Vector3.INF:
@@ -48,11 +49,14 @@ func publish(text: String, speaker := "Announcer", team := -1, critical := true,
 			if captions[i].critical: captions.remove_at(i)
 	captions.append({"text":identity + ": " + text,"critical":critical,"expires":clock+4.0,"robot_feed":not critical or robot_id>=0,"speaker":speaker if not critical else identity.get_slice(" / ",0),"team":team,"utterance":text,"direction":direction})
 	while captions.size() > 3: captions.pop_front()
-	play_recording(text,critical,point,robot_id)
+	play_recording(text,critical,point,robot_id,winner_ids)
 	return true
 
-func play_recording(text: String, critical: bool, point: Vector3, robot_id := -1):
+func play_recording(text: String, critical: bool, point: Vector3, robot_id := -1, winner_ids: Array = []):
 	if game is ArenaMatch and game.replicating and game.authority: return
+	if game is ArenaMatch and ArenaSpeech.line_key(text)=="match_won":
+		var winners: Array=winner_ids if not winner_ids.is_empty() else game.result.get("winner_ids",[])
+		if game.local_robot==null or game.local_robot.robot_id not in winners: return
 	if speech.is_empty(): speech = JSON.parse_string(FileAccess.get_file_as_string("res://data/audio/speech.json"))
 	var recording := ArenaSpeech.recording(speech,text,critical,robot_id)
 	if recording.is_empty() or game == null: return

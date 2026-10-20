@@ -1,6 +1,6 @@
 # KYLR — Instant Action
 
-Instant Action is the local game mode: one human-controlled robot and AI bots in every remaining slot. It offers DM, TDM, and CTF match types under [RULES.md](../RULES.md); bot behavior is specified in [BOTS.md](BOTS.md). It does not require an account or a network service.
+Instant Action is the local game mode: one human-controlled robot and AI bots in every remaining slot. It offers DM, TDM, CTF, Elimination, and Gun Game match types under [RULES.md](../RULES.md); bot behavior is specified in [BOTS.md](BOTS.md). It does not require an account or a network service.
 
 ## Setup and start
 
@@ -15,11 +15,11 @@ Instant Action is the local game mode: one human-controlled robot and AI bots in
 | Goal | Integer 1–999 | 25 |
 | Time limit | Whole minutes 5–60 | 15 |
 
-The goal counts individual kills in DM, team kills in TDM, and captures in CTF. Use the same score/time end conditions as online. The human has unmodified damage and aim. Difficulty affects every bot through the table and behavior in [BOTS.md](BOTS.md), without changing weapons or scoring.
+The goal counts individual kills in DM, Elimination and Gun Game, team kills in TDM, and captures in CTF. Use the same score/time end conditions as online. The human has unmodified damage and aim. Difficulty affects every bot through the table and behavior in [BOTS.md](BOTS.md), without changing weapons or scoring.
 
 ## Roster and appearance
 
-Use the five Tensor heads in the character catalog. Assign heads randomly at match start. In TDM/CTF, enforce unique heads **within each team**; across opposite teams a head may repeat. Team colors are two distinct random choices from yellow, green, blue, red; the primary armor shows the assigned team color and the secondary uses its library-authored contrasting accent. DM retains the authored neutral secondary. Distribute team/zone membership evenly, with difference at most one when an odd roster occurs through a future variant. Randomize which team receives the extra participant in an odd roster. Do not reroll a robot's head or team on respawn.
+Use the five Tensor heads in the character catalog. Assign heads randomly at match start. In TDM/CTF, enforce unique heads **within each team**; across opposite teams a head may repeat. Team colors are two distinct random choices from yellow, green, blue, red; the primary armor shows the assigned team color and the secondary uses its library-authored contrasting accent. Free-for-all types retain the authored neutral secondary. Distribute team/zone membership evenly, with difference at most one when an odd roster occurs through a future variant. Randomize which team receives the extra participant in an odd roster. Do not reroll a robot's head or team on respawn.
 
 ## Local flow and practice
 
@@ -27,6 +27,8 @@ The setup can display a short, nonblocking map briefing: layout sketch, flag bas
 
 Pause freezes the entire local simulation, including timers, bot logic, projectile motion, pickups, and music transition clock. Resume restores the same state. Leaving an Instant Action match returns to Main Menu without counting a winner. A completed match holds its scoreboard until **Return to Main Menu**; no automatic rematch starts.
 
-When the human-controlled robot dies, show its death in third person, hold the finished animation for one second, then respawn. Bots and the local simulation continue at normal time during this view; pause suspends the whole local simulation.
+In Elimination, the fifth local death ends Instant Action immediately. All match types retain the same configurable goal score and time-limit controls.
+
+When the human-controlled robot dies before exhausting Elimination lives, show its death in third person, hold the finished animation for one second, then respawn. Bots and the local simulation continue at normal time during this view; pause suspends the whole local simulation.
 
 Valid setup choices are saved immediately, including a valid newly entered call sign, without waiting for Start Match. Subsequent visits display the saved call sign without prompting again. Saved odd robot counts round up to the next supported even count, bounded to 2–10, with an explanatory setup notice. Removed saved arenas reset to the first available arena, save that replacement, and explain the reset before a match can start.

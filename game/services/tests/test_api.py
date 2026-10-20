@@ -42,6 +42,41 @@ def ready_server(app):
         'lease_until':time.time()+100,'last_occupied':time.time()})
     return store
 
+
+@pytest.mark.parametrize('kind', ['ELIMINATION', 'GUNGAME'])
+def test_new_match_types_are_accepted_and_reserved(app, kind):
+    client=app.test_client()
+    session=register(client)
+    store=ready_server(app)
+    store.db.servers.update_one({'_id':'test-server'},{'$set':{'type':kind,'phase':'Waiting'}})
+    request=client.post('/v1/matches',json={'type':kind},headers=headers(session))
+    assert request.status_code==202
+    worker=app.extensions['match_workers'][-1]
+    worker.join(timeout=2)
+    record=store.db.match_requests.find_one({'_id':request.json['request_id']})
+    assert record['state']=='Ready'
+
+
+def test_elimination_closes_admission_on_active_and_reopens_next_round(app):
+    from services.api.contracts import ApiError
+    store=ready_server(app)
+    session=register(app.test_client())
+    account=session['player']['id']
+    sid=store.db.sessions.find_one({'account':account})['_id']
+    store.db.servers.update_one({'_id':'test-server'},{'$set':{'type':'ELIMINATION','phase':'Countdown'}})
+    ticket=store.reserve(account,sid,'ELIMINATION')
+    assert ticket is not None
+    # Reject even during the heartbeat race when ready is still True.
+    store.db.servers.update_one({'_id':'test-server'},{'$set':{'phase':'Active'}})
+    assert store.reserve('other','other','ELIMINATION') is None
+    with pytest.raises(ApiError):
+        store.consume(ticket['server_id'],ticket['match_id'],ticket['ticket'])
+    store.heartbeat('test-server',{'match_id':'generation-1','phase':'Active','accounts':[]})
+    assert not store.server('test-server')['ready']
+    store.heartbeat('test-server',{'match_id':'generation-2','phase':'Waiting','accounts':[]})
+    assert store.server('test-server')['ready']
+    assert store.reserve(account,sid,'ELIMINATION') is not None
+
 def test_registration_names_password_hashing_and_case_insensitive_uniqueness(app):
     client=app.test_client()
     session=register(client)

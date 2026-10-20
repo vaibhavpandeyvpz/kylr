@@ -646,15 +646,15 @@
   "speech/announcer/match_won": {
     "provider": "ElevenLabs",
     "file": "res://assets/audio/speech/announcer/match_won.wav",
-    "generation_id": "tyZxOSR1HRCNWa4LSnhO",
-    "source_sha256": "356a3f89aed32e7b822fd4bb741507b3045d559fe37ee0b4fe77e705cc162ffe",
+    "generation_id": "SSZ980tFZSURQQLrXXmy",
+    "source_sha256": "b1514cd2e000f0dca59278d43e3ebab0018591acf638c03034470a71d3daa1eb",
     "voice_id": "XrExE9yKIg1WjnnlVkGX"
   },
   "speech/announcer/draw": {
     "provider": "ElevenLabs",
     "file": "res://assets/audio/speech/announcer/draw.wav",
-    "generation_id": "6YQzUeDwKyBTmwDJrTIV",
-    "source_sha256": "a1ea49a3cf0194c2661591732377e0925cf8563ccff7a2b5058f5545b2b803d4",
+    "generation_id": "wcFwmguMZQ0813YHU81U",
+    "source_sha256": "7192cb8a456fae256348a491011c86a831b319af2bad8f1d68bff3dcdbde4920",
     "voice_id": "XrExE9yKIg1WjnnlVkGX"
   },
   "speech/announcer/canceled": {
@@ -796,5 +796,12 @@
     "generation_id": "O502cBIRrfASTJTom1VO",
     "source_sha256": "ed28ecefbbcfa2e361ed744fa7b187c757de03a14d110db5ba9a55533d4b7698",
     "voice_id": "ZEcx3Wdpj4EvM8PltzHY"
+  },
+  "speech/announcer/eliminated": {
+    "provider": "ElevenLabs",
+    "file": "res://assets/audio/speech/announcer/eliminated.wav",
+    "generation_id": "Oo8zIodY0IZfhWvptkQR",
+    "source_sha256": "9d7baee6ac46f78d0262500ed88b1393ba84d844e90bd0c5de54d00ba93f6149",
+    "voice_id": "XrExE9yKIg1WjnnlVkGX"
   }
 }

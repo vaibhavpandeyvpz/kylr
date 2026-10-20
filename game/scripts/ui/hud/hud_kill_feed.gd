@@ -85,7 +85,7 @@ static func safe(value: String) -> String:
 
 static func person(name: String, team: int, mode: String, colors: Array[Color]) -> String:
 	var color := HudSkin.WHITE
-	if mode != "DM" and team >= 0 and team < colors.size(): color = colors[team]
+	if not MatchTypes.individual(mode) and team >= 0 and team < colors.size(): color = colors[team]
 	return "[b][color=#%s]%s[/color][/b]" % [color.to_html(false), safe(name)]
 
 static func format_event(event: Dictionary, mode: String, colors: Array[Color]) -> String:

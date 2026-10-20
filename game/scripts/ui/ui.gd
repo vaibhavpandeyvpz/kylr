@@ -189,7 +189,7 @@ func setup():
 			if Preferences.valid_name(value): save_setup_choice("name",value))
 	else:
 		label(col,"CALL SIGN / " + app.prefs.values.name,18,ACTION)
-	choice(col,"Match type",["DM / Every robot for itself","TDM / Team eliminations","CTF / Capture the flag"],app.prefs.values.type,func(i): save_setup_choice("type",i))
+	choice(col,"Match type",["DM / Every robot for itself","TDM / Team eliminations","CTF / Capture the flag","Elimination / Five lives","Gun Game / New weapon per kill"],app.prefs.values.type,func(i): save_setup_choice("type",i))
 	choice(col,"Bot difficulty",["Noob","Hobbyist","Skilled","Impossible"],app.prefs.values.difficulty,func(i): save_setup_choice("difficulty",i))
 	choice(col,"Total robots",Preferences.OFFLINE_COUNTS,Preferences.OFFLINE_COUNTS.find(int(app.prefs.values.count)),func(i): save_setup_choice("count",Preferences.OFFLINE_COUNTS[i]))
 	var row := HBoxContainer.new()
@@ -764,6 +764,7 @@ func _process(dt):
 	if game.phase=="Countdown":
 		var step := "GET READY"
 		match_frame.phase_text="%s   ·   CONTROL IN %02d" % [step,ceili(maxf(0.0,ArenaMatch.OPENING_SECONDS-game.countdown))]
+	elif r.eliminated(): match_frame.phase_text="ELIMINATED / SPECTATING"
 	elif not r.alive: match_frame.phase_text="SYSTEM OFFLINE / REBOOTING"
 	elif r.spawn_remaining>0: match_frame.phase_text="DEPLOYING / LIFT ACTIVE"
 	elif r.protection>0: match_frame.phase_text="INVULNERABLE / WALK ONLY  %.1fs" % r.protection
@@ -781,7 +782,8 @@ func _process(dt):
 		var sorted: Array=game.robots.duplicate()
 		sorted.sort_custom(func(a,b): return a.kills>b.kills)
 		board.text="ROBOT                K / A / D / C\n"
-		for robot in sorted: board.text+="%-20s %d / %d / %d / %d\n" % [robot.display_name,robot.kills,robot.assists,robot.deaths,robot.captures]
+		if game.match_type=="ELIMINATION": board.text="ROBOT                K / A / D / LIVES\n"
+		for robot in sorted: board.text+="%-20s %d / %d / %d / %d\n" % [robot.display_name,robot.kills,robot.assists,robot.deaths,robot.lives_remaining() if game.match_type=="ELIMINATION" else robot.captures]
 	reticle.visible=game.phase=="Active" and r.alive
 
 func pause_menu():

@@ -418,6 +418,16 @@ func weapon_id(id: String) -> String:
 
 func pickup_fixture(marker: Dictionary, mount: Node3D, kind: String, weapon: String):
 	if fixture_by_id(marker.name + String(mount.name)) != null: return
+	if kind=="weapon" and game.match_type=="GUNGAME":
+		if marker.get("asset","weapon_holder")=="item_cradle": return
+		if mount.has_node("DisabledWeaponHolder"): return
+		var holder:=Assets.model("gameplay","weapon_holder")
+		holder.name="DisabledWeaponHolder"
+		mount.add_child(holder)
+		CollisionRig.install(holder,"gameplay","weapon_holder")
+		var motion:=motion_for(holder)
+		motion.play("retract",false,"",false,"main",motion.channels.main.player.get_animation("retract").length)
+		return
 	var prop: Node3D
 	var payload: Node3D
 	var trigger: Area3D

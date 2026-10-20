@@ -1,6 +1,6 @@
 # KYLR — online services and identity
 
-This document is the shared contract for accounts, matchmaking, server admission, and container deployment. [GAMEPLAY.md](GAMEPLAY.md) defines the player experience and [RULES.md](RULES.md) defines match flow, scoring, and roster limits. **Online Multiplayer** is a game mode; **DM**, **TDM**, and **CTF** are match types. A human-controlled match character is a **robot**, not a bot.
+This document is the shared contract for accounts, matchmaking, server admission, and container deployment. [GAMEPLAY.md](GAMEPLAY.md) defines the player experience and [RULES.md](RULES.md) defines match flow, scoring, and roster limits. **Online Multiplayer** is a game mode; **DM**, **TDM**, **CTF**, **Elimination**, and **Gun Game** are match types. A human-controlled match character is a **robot**, not a bot.
 
 ## Runtime components
 
@@ -12,6 +12,12 @@ This document is the shared contract for accounts, matchmaking, server admission
 | Game server | Runs an authoritative online match of a selected type, admits only valid ticket holders, maintains the roster and match rules, and returns authoritative player info to clients. |
 
 Package the **game server** and **Python/Flask API** as separate Docker images. Public hosting uses Render for the API, MongoDB Atlas for account data and Edgegap for UDP game servers; [cloud hosting](CLOUD_HOSTING.md) owns setup and capacity limits. Local development supports Dockerized or native MongoDB. Provide API/database, authenticated API/game-server control and client/game-server connectivity. Do not embed database credentials, password material or signing secrets in the client.
+
+Match-type IDs are `DM`, `TDM`, `CTF`, `ELIMINATION` and `GUNGAME`.
+Elimination closes reservations and ticket consumption at Active, including
+the interval before its next heartbeat. Its server also rejects late admission.
+The scheduler treats a closed active round as occupied capacity, not a pending
+launch, so another instance can start within the configured capacity limit.
 
 ## Names and accounts
 
@@ -51,7 +57,7 @@ Define versioned API schemas and machine-readable error codes before implementat
 
 # Runtime deployment
 
-The local Flask/MongoDB service, scheduler and Godot ENet client/server now live in `services/` and `scripts/network/`. The in-game Online entry restores an account session, offers login/registration, opens the authenticated DM/TDM/CTF lobby and runs matchmaking through admission. Customise persists the five authored head/emote choices and independent primary/secondary palette IDs to the account API. Windows refresh credentials use CurrentUser DPAPI; unsupported platforms retain sessions in memory.
+The local Flask/MongoDB service, scheduler and Godot ENet client/server now live in `services/` and `scripts/network/`. The in-game Online entry restores an account session, offers login/registration, opens the authenticated DM/TDM/CTF/Elimination/Gun Game lobby and runs matchmaking through admission. Customise persists the five authored head/emote choices and independent primary/secondary palette IDs to the account API. Windows refresh credentials use CurrentUser DPAPI; unsupported platforms retain sessions in memory.
 
 See [ONLINE_PROTOCOL.md](ONLINE_PROTOCOL.md) for exact endpoints, ownership boundaries, packet validation/snapshot behavior, launch commands and repeatable verification. `tools/start_online.ps1 -Build` is the local Docker entry point; MongoDB and API bind to loopback, and the API launches/leases individual match containers. Public hosting uses [Render, Atlas and Edgegap](CLOUD_HOSTING.md), where live internet and latency qualification must be performed against the deployed service.
 

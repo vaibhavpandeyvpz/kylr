@@ -10,7 +10,9 @@
       "match_types": [
         "DM",
         "TDM",
-        "CTF"
+        "CTF",
+        "ELIMINATION",
+        "GUNGAME"
       ],
       "metadata": "res://assets/models/maps/skyfall/skyfall_rig.json",
       "gravity_multiplier": 0.8,
@@ -517,7 +519,9 @@
       "match_types": [
         "DM",
         "TDM",
-        "CTF"
+        "CTF",
+        "ELIMINATION",
+        "GUNGAME"
       ],
       "metadata": "res://assets/models/maps/faceoff/faceoff_rig.json",
       "gravity_multiplier": 1.2,

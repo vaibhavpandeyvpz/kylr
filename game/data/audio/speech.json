@@ -14,7 +14,8 @@
     "triple_kill": "speech/announcer/triple_kill",
     "mega_kill": "speech/announcer/mega_kill",
     "champion": "speech/announcer/champion",
-    "death_bringer": "speech/announcer/death_bringer"
+    "death_bringer": "speech/announcer/death_bringer",
+    "eliminated": "speech/announcer/eliminated"
   },
   "robots": [
     {

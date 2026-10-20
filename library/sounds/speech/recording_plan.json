@@ -84,14 +84,15 @@
       "flag_dropped": "Flag dropped.",
       "flag_returned": "Flag returned home.",
       "flag_captured": "Flag captured.",
-      "match_won": "Match complete. Victory.",
-      "draw": "Match complete. Draw.",
+      "match_won": "You won the match.",
+      "draw": "Match ended in draw.",
       "canceled": "Match canceled.",
       "double_kill": "Double kill!",
       "triple_kill": "Triple kill!",
       "mega_kill": "Mega kill!",
       "champion": "Champion!",
-      "death_bringer": "Death bringer!"
+      "death_bringer": "Death bringer!",
+      "eliminated": "Eliminated."
     },
     "robot": {
       "armor_hit": "Armor hit.",

@@ -21,6 +21,22 @@ class AppProbe extends Node:
 var app: AppProbe
 var ui: ArenaUI
 
+func test_new_free_for_all_types_keep_configurable_score_and_time():
+	for type in [3,4]:
+		app.prefs.values.type=type
+		ui.setup()
+		var choices:=ui.page.find_children("*","OptionButton",true,false)
+		var match_choice: OptionButton=choices[0]
+		assert_eq(match_choice.item_count,5)
+		assert_eq(match_choice.selected,type)
+		var fields:=ui.page.find_children("*","SpinBox",true,false)
+		assert_eq(fields.size(),2)
+		fields[0].value=37
+		fields[1].value=12
+		assert_eq(app.prefs.values.goal,37)
+		assert_eq(app.prefs.values.minutes,12)
+		await wait_process_frames(2)
+
 func before_each():
 	app = AppProbe.new()
 	add_child_autofree(app)

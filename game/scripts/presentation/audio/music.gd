@@ -43,7 +43,7 @@ static func intensity(game: ArenaMatch) -> float:
 		for flag in game.flags:
 			if flag.state != "home": pressure = maxf(pressure,0.75)
 	var top := 0
-	if game.match_type == "DM":
+	if MatchTypes.individual(game.match_type):
 		for robot in game.robots: top = maxi(top,robot.kills)
 	else: top = maxi(game.team_scores[0],game.team_scores[1])
 	if game.goal-top <= 2: pressure = maxf(pressure,0.6)

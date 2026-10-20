@@ -47,7 +47,7 @@ func _init(path := "user://preferences.cfg"):
 	var previous_count := int(values.count)
 	values.count = clampi(int(ceil(previous_count / 2.0)) * 2,2,10)
 	if previous_count != values.count: setup_notices.append("Saved robot count reset to %d." % values.count)
-	for option in [["goal",1,999],["minutes",5,60],["difficulty",0,3],["type",0,2]]:
+	for option in [["goal",1,999],["minutes",5,60],["difficulty",0,3],["type",0,4],["online_type",0,4]]:
 		var key: String = option[0]
 		var previous := int(values[key])
 		values[key] = clampi(previous,option[1],option[2])

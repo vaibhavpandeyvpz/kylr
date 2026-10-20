@@ -46,11 +46,11 @@ func _draw_score() -> void:
 	_draw_timer_mark(Vector2(x + 212, 32))
 	HudSkin.label(self, arena_match.clock_text(), Vector2(x + 205, 39), 17, HudSkin.WHITE, 79, true, HORIZONTAL_ALIGNMENT_CENTER)
 	HudSkin.label(self, "GOAL %d" % arena_match.goal, Vector2(x + 319, 39), 13, HudSkin.SOFT, 135, true, HORIZONTAL_ALIGNMENT_CENTER)
-	if arena_match.match_type == "DM":
+	if MatchTypes.individual(arena_match.match_type):
 		HudSkin.label(self, "YOUR KILLS", Vector2(x + 16, 55), 13, HudSkin.CYAN, 135, true, HORIZONTAL_ALIGNMENT_CENTER)
-		HudSkin.label(self, "TARGET", Vector2(x + 319, 55), 13, HudSkin.SOFT, 135, true, HORIZONTAL_ALIGNMENT_CENTER)
+		HudSkin.label(self, "LIVES" if arena_match.match_type=="ELIMINATION" else "TARGET", Vector2(x + 319, 55), 13, HudSkin.SOFT, 135, true, HORIZONTAL_ALIGNMENT_CENTER)
 		HudSkin.label(self, "%02d" % viewer.kills, Vector2(x + 16, 84), 31, HudSkin.WHITE, 135, true, HORIZONTAL_ALIGNMENT_CENTER)
-		HudSkin.label(self, "%02d" % arena_match.goal, Vector2(x + 319, 84), 31, HudSkin.WHITE, 135, true, HORIZONTAL_ALIGNMENT_CENTER)
+		HudSkin.label(self, "%02d" % (viewer.lives_remaining() if arena_match.match_type=="ELIMINATION" else arena_match.goal), Vector2(x + 319, 84), 31, HudSkin.WHITE, 135, true, HORIZONTAL_ALIGNMENT_CENTER)
 		HudSkin.label(self, "ELIMINATIONS", Vector2(x + 165, 80), 12, HudSkin.SOFT, 140, true, HORIZONTAL_ALIGNMENT_CENTER)
 	else:
 		var left_color: Color = arena_match.team_colors[0]
@@ -80,7 +80,7 @@ func _draw_leaders() -> void:
 		var robot = ranked[index]
 		var row_y := y + 36.0 + index * 28.0
 		var local: bool = robot == viewer
-		var color := arena_match.team_colors[robot.team] if arena_match.match_type != "DM" else HudSkin.CYAN if local else HudSkin.SOFT
+		var color := arena_match.team_colors[robot.team] if not MatchTypes.individual(arena_match.match_type) else HudSkin.CYAN if local else HudSkin.SOFT
 		if local: draw_rect(Rect2(x, row_y - 15, 238, 25), Color(color.r, color.g, color.b, 0.18))
 		draw_line(Vector2(x, row_y - 13), Vector2(x, row_y + 9), color, 2, true)
 		HudSkin.label(self, "%02d" % (index + 1), Vector2(x + 10, row_y + 3), 15, color, -1, true)

@@ -80,6 +80,7 @@ func profile() -> void:
 		robot.protection = 0.0
 		robot.collision_layer = 2
 		robot.bot_aim = Vector3.FORWARD
+		if mode=="GUNGAME": game.advance_gun_game(robot)
 		if upper_floor_case:
 			var lifts: Array=game.map.fixtures.filter(func(item): return item.has("lift_controller"))
 			if id<lifts.size():

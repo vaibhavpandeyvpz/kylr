@@ -160,3 +160,12 @@ reveal. This silence applies only to automated benchmark preparation, and does
 not change live match mixing, priorities, acoustics or normal menu music.
 
 Local kill accolades use five emphatic Retro Robot recordings generated with ElevenLabs eleven_v4. Double Kill, Triple Kill, Mega Kill, Champion and Death Bringer accompany chain kills two through six. They play nonspatially on Announcer only for the credited local player, at -8 dB cue gain with the shared playback boost, source headroom, music ducking, limiter and user volume controls. Higher accolades replace the preceding announcer playback rather than accumulating a queue. Kill confirmations have no separate sound or spoken victim name.
+
+## Match result announcements
+
+Elimination uses the flag announcer's Matilda voice for **Eliminated**. The
+announcement is private to the eliminated player. Result speech says **You won
+the match** only for the local winning robot or winning team member; a draw
+says **Match ended in draw** to every participant. Retained source clips,
+provider IDs, text and checksums live in the speech source manifest. The
+runtime speech bank contains 65 recordings, including the five kill accolades.

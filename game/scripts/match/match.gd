@@ -247,7 +247,7 @@ func add_robot(id: int,nick: String,team: int,human: bool,head: String):
 	robot.team = team
 	robot.human = human
 	robot.head = head
-	robot.tint = team_colors[team] if match_type != "DM" else Color.from_hsv(fmod(id * 0.17,1.0),0.45,0.65)
+	robot.tint = team_colors[team] if not MatchTypes.individual(match_type) else Color.from_hsv(fmod(id * 0.17,1.0),0.45,0.65)
 	add_child(robot)
 	robots.append(robot)
 	return robot
@@ -286,9 +286,10 @@ func _finish_countdown() -> void:
 func zone_spawn_time(_team: int) -> float:
 	return 0.0
 func spawn_robot(robot):
+	if robot.eliminated(): return
 	var valid: Array = []
 	for spawn in map.spawns:
-		if match_type != "DM" and spawn.team != robot.team: continue
+		if not MatchTypes.individual(match_type) and spawn.team != robot.team: continue
 		if not spawn_geometry_safe(spawn): continue
 		var blocked := false
 		for other in robots:
@@ -342,7 +343,10 @@ func spawn_robot(robot):
 	robot.reset_inventory()
 	robot.carrying = -1
 	robot.contributors.clear()
-	robot.equip("pistol")
+	if match_type=="GUNGAME":
+		if robot.gun_game_weapon.is_empty(): advance_gun_game(robot)
+		else: equip_gun_game(robot)
+	else: robot.equip("pistol")
 	robot.pose("idle_crouching")
 	robot.hide()
 	robot.body.show()
@@ -387,10 +391,12 @@ func _physics_process(dt):
 		if local_robot and not local_robot.alive:
 			death_view_remaining = maxf(0.0, death_view_remaining - dt)
 		var top := 0
-		if match_type == "DM":
+		if MatchTypes.individual(match_type):
 			for r in robots: top = maxi(top,r.kills)
 		else: top = maxi(team_scores[0],team_scores[1])
-		if top >= goal or elapsed >= time_limit: finish()
+		if match_type=="ELIMINATION":
+			if top>=goal or robots.filter(func(robot): return not robot.eliminated()).size()<=1 or elapsed>=time_limit: finish()
+		elif top >= goal or elapsed >= time_limit: finish()
 	else: map.tick(dt)
 
 func uses_first_person() -> bool:
@@ -405,6 +411,8 @@ func update_view_models():
 
 func _process(dt):
 	if async_scene_loading and not initialization_complete: return
+	if not authority and local_robot!=null and not local_robot.alive:
+		death_view_remaining=maxf(0.0,death_view_remaining-dt)
 	for team in flags.size():
 		flags[team].base_effect.configure(team_colors[team], reduced_motion)
 	update_view_models()
@@ -423,6 +431,14 @@ func _process(dt):
 			camera_rig.set_cinematic("opening",point,focus,fov)
 		return
 	var r = local_robot
+	if r.eliminated() and phase=="Active" and death_view_remaining<=0:
+		var survivors: Array=robots.filter(func(robot): return robot.alive and not robot.eliminated())
+		if not survivors.is_empty():
+			var focus: Vector3=survivors[0].eye()
+			var desired: Vector3=focus+Basis(Vector3.UP,survivors[0].yaw)*Vector3(0.6,1.0,3.0)
+			var obstruction:=combat.ray(focus,desired,[],1)
+			camera_rig.set_cinematic("spectating",obstruction.position+obstruction.normal*0.18 if not obstruction.is_empty() else desired,focus,fov)
+			return
 	if not r.alive and death_view_remaining > 0 and is_instance_valid(local_death_corpse):
 		var focus: Vector3 = local_death_corpse.global_position + Vector3.UP * 0.95
 		var desired := focus + Basis(Vector3.UP, r.yaw) * Vector3(1.5, 1.0, -3.2)
@@ -520,7 +536,9 @@ func eliminate(victim,killer,cause: String):
 		push_feed({"kind":"kill", "killer":killer.display_name, "killer_team":killer.team,
 			"victim":victim.display_name, "victim_team":victim.team,
 			"weapon":Arsenal.WEAPONS[cause].title if Arsenal.WEAPONS.has(cause) else cause.replace("_", " ").capitalize()})
-		if killer != victim and killer.enemy(victim): record_elimination(killer,victim.display_name)
+		if killer != victim and killer.enemy(victim):
+			record_elimination(killer,victim.display_name)
+			if match_type=="GUNGAME": advance_gun_game(killer,true)
 	else:
 		push_feed({"kind":"death", "victim":victim.display_name, "victim_team":victim.team,
 			"cause":cause})
@@ -529,6 +547,11 @@ func eliminate(victim,killer,cause: String):
 		death_view_remaining = death_duration + 1.0
 		local_fall_death = falling_out
 		fall_camera_stop = Vector3.INF
+	if victim.eliminated():
+		if not online and victim==local_robot:
+			finish(false,"You lost all five lives.",true)
+		elif callouts:
+			callouts.publish("Eliminated","Announcer",-1,true,Vector3.INF,victim.robot_id)
 
 func tick_drops(dt: float):
 	for corpse in corpses.duplicate():
@@ -613,7 +636,7 @@ func tick_flags(dt: float):
 					push_feed({"kind":"flag", "actor":r.display_name, "team":r.team, "action":"took the flag"})
 					break
 
-func finish(canceled := false, reason := ""):
+func finish(canceled := false, reason := "", local_eliminated := false):
 	if phase == "Finished": return
 	audio.cue("objective",Vector3.ZERO,true)
 	phase = "Finished"
@@ -622,19 +645,24 @@ func finish(canceled := false, reason := ""):
 	for robot in robots: entries.append(robot.snapshot())
 	var teams := [{"name":"Team A","score":team_scores[0],"time":team_reached[0]},{"name":"Team B","score":team_scores[1],"time":team_reached[1]}]
 	var winners: Array
-	if match_type == "DM": winners = Arsenal.winners(entries,"kills","reached")
+	if match_type=="ELIMINATION" and not entries.any(func(entry): return entry.kills>=goal): winners=MatchTypes.elimination_winners(entries)
+	elif MatchTypes.individual(match_type): winners = Arsenal.winners(entries,"kills","reached")
 	else:
 		winners = Arsenal.winners(teams,"score","time")
 	var mvps := Arsenal.winners(entries,"kills","reached")
 	var mvp_names: Array[String] = []
 	for mvp in mvps: mvp_names.append(mvp.name)
-	result = {"match_type":match_type,"teams":teams,"title":"Canceled" if canceled else "Draw" if winners.size() != 1 else winners[0].name + " wins", "mvp":"" if canceled else ", ".join(mvp_names),"entries":entries,"elapsed":elapsed,"canceled":canceled}
+	result = {"match_type":match_type,"teams":teams,"title":"Canceled" if canceled else "Eliminated" if local_eliminated else "Draw" if winners.size() != 1 else winners[0].name + " wins", "mvp":"" if canceled else ", ".join(mvp_names),"entries":entries,"elapsed":elapsed,"canceled":canceled,"early_exit":local_eliminated,"winner_ids":[]}
+	if not canceled and not local_eliminated and winners.size()==1:
+		for robot in robots:
+			if (MatchTypes.individual(match_type) and robot.robot_id==int(winners[0].id)) or (not MatchTypes.individual(match_type) and robot.team==(0 if winners[0].name=="Team A" else 1)): result.winner_ids.append(robot.robot_id)
 	result["reason"] = reason if reason != "" else "Not enough players to continue." if canceled else ""
+	result["goal"] = goal
 	var winning_team := -1
-	if not canceled and winners.size() == 1 and match_type != "DM": winning_team = 0 if winners[0].name == "Team A" else 1
+	if not canceled and winners.size() == 1 and not MatchTypes.individual(match_type): winning_team = 0 if winners[0].name == "Team A" else 1
 	for robot in robots:
 		if not robot.alive: continue
-		if canceled or winners.size() != 1: robot.pose("common/idle")
+		if canceled or local_eliminated or winners.size() != 1: robot.pose("common/idle")
 		elif robot.display_name == winners[0].name or robot.team == winning_team and winning_team >= 0:
 			robot.pose("common/"+robot.account_emote if online and robot.account_emote != "" else RobotClips.victory(robot.robot_id, int(elapsed)))
 		else: robot.pose("defeated")
@@ -643,6 +671,34 @@ func finish(canceled := false, reason := ""):
 	for r in robots: r.carrying = -1
 	notice(result.title)
 	completed.emit()
+
+func local_won() -> bool:
+	return local_robot != null and local_robot.robot_id in result.get("winner_ids",[])
+
+func advance_gun_game(robot: ArenaRobot, deferred := false) -> void:
+	if robot.gun_game_cycle.is_empty():
+		var cycle: Array=Arsenal.WEAPONS.keys()
+		shuffle_roster(cycle,rng)
+		if cycle.size()>1 and cycle[0]==robot.gun_game_weapon:
+			var first=cycle[0];cycle[0]=cycle[1];cycle[1]=first
+		robot.gun_game_cycle.assign(cycle)
+	robot.gun_game_weapon=robot.gun_game_cycle.pop_front()
+	if robot.alive:
+		if deferred: equip_gun_game.call_deferred(robot)
+		else: equip_gun_game(robot)
+
+func equip_gun_game(robot: ArenaRobot) -> void:
+	if phase=="Finished" or not is_instance_valid(robot) or not robot.alive or robot.gun_game_weapon.is_empty(): return
+	var id: String=robot.gun_game_weapon
+	robot.owned_weapons.assign([id])
+	robot.pickup_weapon="" if id=="pistol" else id
+	robot.queued_weapon=""
+	robot.reload_time=0.0
+	if id!="pistol":
+		var ammo:=robot.ammo_entry(id)
+		ammo.loaded=int(Arsenal.WEAPONS[id].capacity)
+		ammo.packs=mini(int(ammo.packs),3)
+	robot.equip(id)
 
 func notice(text: String, robot = null):
 	message.emit(text)
@@ -695,16 +751,20 @@ func remove_robot(id: int) -> void:
 	if robot == local_robot: local_robot = null
 	robot.queue_free()
 	if online and phase == "Active":
+		if match_type=="ELIMINATION" and not robots.is_empty():
+			if robots.filter(func(r): return not r.eliminated()).size()<=1: finish()
+			return
 		goal = 2 * robots.size()
 		var team_a := robots.any(func(r): return r.team == 0)
 		var team_b := robots.any(func(r): return r.team == 1)
-		if robots.size() < 2 or (match_type != "DM" and (not team_a or not team_b)): finish(true,"A team is empty." if match_type != "DM" and (not team_a or not team_b) else "Fewer than two players remain.")
+		if robots.size() < 2 or (not MatchTypes.individual(match_type) and (not team_a or not team_b)): finish(true,"A team is empty." if not MatchTypes.individual(match_type) and (not team_a or not team_b) else "Fewer than two players remain.")
 
 func roster_valid() -> bool:
-	return robots.size() >= 2 and (match_type == "DM" or (robots.any(func(r): return r.team == 0) and robots.any(func(r): return r.team == 1)))
+	return robots.size() >= 2 and (MatchTypes.individual(match_type) or (robots.any(func(r): return r.team == 0) and robots.any(func(r): return r.team == 1)))
 
 func score_text() -> String:
-	if match_type == "DM": return "%d / %d" % [local_robot.kills if local_robot else 0,goal]
+	if match_type=="ELIMINATION": return "%d / %d lives" % [local_robot.lives_remaining() if local_robot else 0,MatchTypes.LIVES]
+	if MatchTypes.individual(match_type): return "%d / %d" % [local_robot.kills if local_robot else 0,goal]
 	return "A %d  :  %d B  /  %d" % [team_scores[0],team_scores[1],goal]
 
 func clock_text() -> String:

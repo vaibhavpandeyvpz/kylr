@@ -12,7 +12,7 @@ def main():
     catalog=json.loads(catalog_path.read_text(encoding='utf-8'))
     for kind in ['speech','music']:
         manifest=json.loads(Path(f'../library/sounds/{kind}/source_manifest.json').read_text(encoding='utf-8'))
-        expected=64 if kind=='speech' else 11
+        expected=65 if kind=='speech' else 11
         if len(manifest['recordings'])!=expected: raise ValueError(f'{kind}: incomplete source bank')
         for clip in manifest['recordings']:
             asset=f"speech/{clip['bank']}/{clip['key']}" if kind=='speech' else f"music/{clip['key']}"
@@ -30,7 +30,7 @@ def main():
                 robot['lines'][clip['key']]=asset
     for path,content in [(speech_path,speech),(music_path,music),(catalog_path,catalog)]:
         path.write_text(json.dumps(content,indent=2)+'\n',encoding='utf-8')
-    print('Published 64 speech recordings, ten distinct robot banks and 11 musical cues')
+    print('Published 65 speech recordings, ten distinct robot banks and 11 musical cues')
 
 
 if __name__=='__main__': main()

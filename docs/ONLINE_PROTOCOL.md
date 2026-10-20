@@ -10,7 +10,7 @@ All public API paths start `/v1`; JSON errors carry `{error: {code, message}}`. 
 | DELETE `/sessions` | Bearer JWT | revoked |
 | GET `/me` | Bearer JWT | player |
 | PUT `/me/loadout` | head, emote, primary, secondary stable IDs | server-validated player |
-| POST `/matches` | type: DM/TDM/CTF; Bearer JWT | request_id, state, timeout_seconds |
+| POST `/matches` | type: DM/TDM/CTF/ELIMINATION/GUNGAME; Bearer JWT | request_id, state, timeout_seconds |
 | GET `/matches/{request_id}` | owning session JWT | Searching / Starting server / Ready / Failed, connection assignment when Ready |
 | DELETE `/matches/{request_id}` | owning session JWT | cancellation and reservation release |
 
