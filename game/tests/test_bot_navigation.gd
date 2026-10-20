@@ -272,6 +272,44 @@ func test_barricade_closure_updates_navigation_and_reopening_restores_it():
 	for id in local_points:
 		assert_false(game.map.traversal.graph.is_point_disabled(id))
 
+func test_every_skyfall_pad_route_physically_launches_and_lands():
+	var game := make_match()
+	await prepare_map(game)
+	game.phase = "Active"
+	game.goal = 1000
+	game.time_limit = 10000
+	var robot := game.add_robot(0,"Pad Route Probe",0,false,"projector") as ArenaRobot
+	robot.brain = ArenaBrain.new(robot)
+	var nav: TraversalGraph = game.map.traversal
+	for jump in game.map.config.jump_links:
+		var entry: Vector3 = game.map.world_point(jump.from)
+		var destination: Vector3 = game.map.world_point(jump.to)
+		var source: Vector3 = nav.graph.get_point_position(nav.graph.get_closest_point(entry))
+		robot.brain.reset()
+		robot.position = source + Vector3.UP * 0.02
+		robot.velocity = Vector3.ZERO
+		robot.lift_target = -INF
+		robot.lift_from_pad = false
+		robot.ep = 100
+		robot.protection = 0
+		robot.spawn_remaining = 0
+		robot.brain.decision = 999
+		robot.brain.retarget = 999
+		robot.brain.goal = destination
+		robot.brain.goal_kind = "probe"
+		robot.brain.path = nav.route(source,destination,false)
+		var launched := false
+		var landed := false
+		for frame in 420:
+			await wait_physics_frames(1)
+			if robot.lift_from_pad: launched = true
+			if launched and robot.is_on_floor() and robot.position.distance_to(destination) < 2:
+				landed = true
+				break
+		assert_true(launched,"Pad %s activates through normal movement" % entry)
+		assert_true(landed,"Pad %s reaches its supported landing" % entry)
+	game.phase = "Finished"
+
 func test_jump_pad_launch_supersedes_a_short_jump_into_its_trigger():
 	var game := make_match()
 	await prepare_map(game)
