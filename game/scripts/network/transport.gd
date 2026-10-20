@@ -712,6 +712,7 @@ func presentation(match_id: String, events: Array):
 
 func apply_presentation(event: Dictionary):
 	match event.kind:
+		"elimination": game.receive_elimination(event)
 		"shot":
 			var robot: ArenaRobot = game.robot_by_id(event.robot)
 			if robot == null or event.number <= robot.network_presented_shot: return

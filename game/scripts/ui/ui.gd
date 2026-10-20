@@ -12,6 +12,7 @@ var status: Label
 var results_status: Label
 var match_frame: MatchHudFrame
 var kill_feed: HudKillFeed
+var kill_accolade: KillAccolade
 var resources: ResourceReadout
 var weapon: WeaponReadout
 var reticle: WeaponCrosshair
@@ -664,6 +665,10 @@ func start_hud():
 	hud.add_child(kill_feed)
 	hud_place(kill_feed,Vector2(1,0),Vector2(-360,106),Vector2(336,204))
 	kill_feed.arena_match=app.match_node as ArenaMatch
+	kill_accolade=KillAccolade.new()
+	hud.add_child(kill_accolade)
+	kill_accolade.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	if app.match_node is ArenaMatch: app.match_node.local_elimination.connect(kill_accolade.announce)
 	resources=ResourceReadout.new()
 	hud.add_child(resources)
 	hud_place(resources,Vector2(1,1),Vector2(-324,-172),Vector2(300,148))
@@ -714,6 +719,8 @@ func _process(dt):
 	hud.size=root.size/hud_scale
 	notification_time=maxf(0,notification_time-dt)
 	kill_feed.show_callouts=app.prefs.values.subtitles
+	kill_accolade.reduced_motion=app.prefs.values.reduced_motion
+	kill_accolade.high_contrast=app.prefs.values.contrast
 	match_frame.viewer=r
 	match_frame.notice_remaining=notification_time
 	match_frame.reduced_motion=app.prefs.values.reduced_motion

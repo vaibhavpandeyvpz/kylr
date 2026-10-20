@@ -4,6 +4,7 @@ extends RefCounted
 const ROBOT_VOICES := 10
 
 static func line_key(text: String) -> String:
+	if text in ["Double Kill","Triple Kill","Mega Kill","Champion","Death Bringer"]: return text.to_lower().replace(" ","_")
 	if text in ["Armor hit","Armor hit."]: return "armor_hit"
 	if text.ends_with(" acquired"): return "pickup"
 	if text.begins_with("Repair complete"): return "repair_complete"
@@ -30,4 +31,4 @@ static func recording(bank: Dictionary, text: String, critical: bool, robot_id: 
 		return {} if asset.is_empty() else {"asset":asset,"pitch_scale":clampf(float(voice.get("pitch_scale",1.0)),0.75,1.3),"bus":"Voices"}
 	var entries: Dictionary = bank.get("announcer" if critical else "robot",{})
 	var asset := str(entries.get(key,entries.get(text,"")))
-	return {} if asset.is_empty() else {"asset":asset,"pitch_scale":1.0,"bus":"Announcer" if critical else "Voices"}
+	return {} if asset.is_empty() else {"asset":asset,"pitch_scale":1.0,"bus":"Announcer" if critical else "Voices","gain":-8.0 if key in ["double_kill","triple_kill","mega_kill","champion","death_bringer"] else -14.0}

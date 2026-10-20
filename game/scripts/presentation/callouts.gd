@@ -65,7 +65,7 @@ func play_recording(text: String, critical: bool, point: Vector3, robot_id := -1
 	# Entries are audio-catalog asset IDs, matched only after listener filtering.
 	var cue := "speech/"+str(recording.asset)
 	AudioCues.profile(cue)
-	AudioCues.profiles[cue] = {"asset":recording.asset,"bus":recording.bus,"priority":95 if critical else 70,"limit":1 if critical else 2,"near":5,"far":25,"pitch":0.0,"pitch_scale":recording.pitch_scale}
+	AudioCues.profiles[cue] = {"asset":recording.asset,"bus":recording.bus,"gain":recording.get("gain",-14.0),"priority":95 if critical else 70,"limit":1 if critical else 2,"near":5,"far":25,"pitch":0.0,"pitch_scale":recording.pitch_scale}
 	game.audio.cue(cue,Vector3.ZERO if point == Vector3.INF else point,critical or (game.local_robot != null and robot_id == game.local_robot.robot_id))
 
 func caption_text() -> String:
