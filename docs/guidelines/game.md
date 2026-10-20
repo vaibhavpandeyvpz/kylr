@@ -2,7 +2,7 @@
 
 Before changing gameplay code, scenes, UI, or maps, read [docs/GAMEPLAY.md](../GAMEPLAY.md), [docs/RULES.md](../RULES.md), and the relevant focused guide from [docs/gameplay/README.md](../gameplay/README.md). Before changing weapon presentation, effects, animation sync, or camera attachments, also read [docs/WEAPON_EFFECTS.md](../WEAPON_EFFECTS.md). Before changing any menu, lobby, HUD, or screen UI, also read [docs/DESIGN_LANGUAGE.md](../DESIGN_LANGUAGE.md) and [docs/SCREENS.md](../SCREENS.md). Before changing audio, read [docs/AUDIO.md](../AUDIO.md). Before changing online login, accounts, matchmaking, server joins, or deployment, also read [docs/ONLINE.md](../ONLINE.md). [docs/PLAYTESTING.md](../PLAYTESTING.md) owns verification procedures.
 
-For bot AI, traversal, map collision or fixtures, match objectives, and movement-performance changes, also follow [docs/PLAYTESTING.md](../PLAYTESTING.md): profile DM, TDM and CTF at 2, 4, 6, 8 and 10 combatants, run every CTF case for at least 120 simulated seconds, and inspect physical route use and objective progress before calling the work done.
+For bot AI, traversal, map collision or fixtures, match objectives, and movement-performance changes, also follow [docs/PLAYTESTING.md](../PLAYTESTING.md): profile DM, TDM, CTF, Elimination and Gun Game at 2, 4, 6, 8 and 10 combatants, run every CTF case for at least 120 simulated seconds, and inspect physical route use and objective progress before calling the work done.
 
 - `docs/GAMEPLAY.md` describes the player experience and links to detailed contracts.
 - `docs/RULES.md` defines match states, match-type objectives, scoring, and edge cases.
@@ -16,7 +16,7 @@ For bot AI, traversal, map collision or fixtures, match objectives, and movement
 - `docs/DESIGN_LANGUAGE.md` defines the shared visual theme, semantic tokens, typography, component states, and motion used by every screen and HUD element.
 - `docs/WEAPON_EFFECTS.md` maps each weapon's exported gizmos and animation events to Godot effects in FPV and TPV.
 - `docs/AUDIO.md` defines weapon, movement, environment, music and robot/announcer voice cues.
-- **Game modes** are Instant Action and Online Multiplayer. **Match types** are DM, TDM, and CTF. Preserve this distinction in menus, data, and code.
+- **Game modes** are Instant Action and Online Multiplayer. **Match types** are DM, TDM, CTF, Elimination, and Gun Game. Preserve this distinction in menus, data, and code.
 - A **robot** is any player/character in the match. A **bot** is specifically an AI-controlled robot; a human controls a robot in either game mode. Instant Action fills the other slots with bots. Do not use “bot” for every robot. Keep match-type rules in one place so the HUD and match controller cannot disagree.
 - When changing a rule or mechanic, update the relevant document in the same change. Keep map-specific data in map resources rather than hard-coding it into shared rules.
 

@@ -33,6 +33,8 @@ var assists := 0
 var reached := 0.0
 const MAX_WEAPON_SLOTS := 10
 var owned_weapons: Array[String] = ["pistol"]
+var gun_game_cycle: Array[String] = []
+var gun_game_weapon := ""
 var ammo_inventory: Dictionary = {}
 var previous_weapon := "pistol"
 var queued_weapon := ""
@@ -218,7 +220,13 @@ func align_spawn_facing() -> void:
 	if human: listener.basis=Basis(Vector3.UP,yaw)
 
 func enemy(other) -> bool:
-	return other != self and (arena_match.match_type == "DM" or other.team != team)
+	return other != self and (MatchTypes.individual(arena_match.match_type) or other.team != team)
+
+func lives_remaining() -> int:
+	return maxi(0,MatchTypes.LIVES-deaths)
+
+func eliminated() -> bool:
+	return arena_match != null and arena_match.match_type=="ELIMINATION" and lives_remaining()==0
 
 func aim_direction() -> Vector3:
 	if human: return Basis(Vector3.UP, yaw) * Basis(Vector3.RIGHT, pitch) * Vector3.FORWARD
@@ -275,6 +283,7 @@ func has_ammo(id: String) -> bool:
 	return id == "pistol" or (id in owned_weapons and int(ammo_for(id).loaded)+int(ammo_for(id).packs)>0)
 
 func can_pickup_weapon(id: String) -> bool:
+	if arena_match != null and arena_match.match_type=="GUNGAME": return false
 	if id == "pistol" or not Arsenal.WEAPONS.has(id): return false
 	return owned_weapons.size()<MAX_WEAPON_SLOTS if id not in owned_weapons else int(ammo_for(id).loaded)<int(Arsenal.WEAPONS[id].capacity)
 
@@ -493,6 +502,7 @@ func _physics_process(dt: float) -> void:
 	hit_flash = maxf(0, hit_flash - dt)
 	if not alive:
 		arena_match.audio.set_loop("walk_" + str(robot_id), "walk", global_position, false)
+		if eliminated(): return
 		respawn_time -= dt
 		if respawn_time <= 0: arena_match.spawn_robot(self)
 		return
@@ -707,6 +717,7 @@ func start_reload() -> void:
 func handle_empty_weapon() -> void:
 	if equipped == "pistol" or loaded > 0: return
 	start_reload()
+	if arena_match.match_type=="GUNGAME": return
 	if reload_time <= 0.0:
 		var fallback := previous_weapon if previous_weapon != equipped and has_ammo(previous_weapon) else "pistol"
 		equip(fallback)

@@ -43,6 +43,17 @@ def pulse(store, record):
     return store.heartbeat(record['_id'],{'match_id':record['match_id'],'phase':'Waiting','accounts':[]})
 
 
+def test_active_closed_elimination_round_does_not_block_another_launch(cloud):
+    store,scheduler,calls=cloud
+    scheduler.maximum=2
+    scheduler.ensure('ELIMINATION')
+    record=store.db.servers.find_one()
+    store.db.servers.update_one({'_id':record['_id']},{'$set':{
+        'phase':'Active','ready':False,'endpoint_ready':True,'port':31234,'host':'8.8.8.8'}})
+    scheduler.ensure('ELIMINATION')
+    assert store.db.servers.count_documents({'type':'ELIMINATION'})==2
+
+
 def test_deployment_uses_v2_hidden_scoped_control_and_public_udp_mapping(cloud):
     store,scheduler,calls = cloud
     scheduler.ensure('DM')

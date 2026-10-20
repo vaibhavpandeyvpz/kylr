@@ -10,7 +10,7 @@ PALETTE = {'graphite':'333f48', 'silver':'aab5bd', 'white':'edf2f4', 'yellow':'e
            'orange':'d97b32', 'red':'b74740', 'magenta':'be438e', 'violet':'855ab5',
            'blue':'3878b4', 'cyan':'46bac8', 'teal':'398c82', 'green':'689649'}
 DEFAULT_LOADOUT = {'head':'projector', 'emote':EMOTES[0], 'primary':'silver', 'secondary':'white'}
-TYPES = ('DM', 'TDM', 'CTF')
+TYPES = ('DM', 'TDM', 'CTF', 'ELIMINATION', 'GUNGAME')
 ADMIT_PHASES = ('Waiting', 'Countdown', 'Active')
 
 class ApiError(Exception):

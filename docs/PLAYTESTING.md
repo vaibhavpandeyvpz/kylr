@@ -8,7 +8,7 @@ Keep generated measurements in ignored reports; document verification procedures
 ## Functional verification
 
 Run `pwsh -File tools/verify.ps1 -Godot $Godot` after integration changes. It
-imports resources, runs GUT, exercises DM/TDM/CTF and checks the results flow.
+imports resources, runs GUT, exercises DM/TDM/CTF/Elimination/Gun Game and checks the results flow.
 Inspect warnings as well as failures. Headless checks cannot establish rendered
 appearance, audio quality or real-time FPS.
 

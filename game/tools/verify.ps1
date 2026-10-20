@@ -19,7 +19,7 @@ function Invoke-Check([string]$Name, [string[]]$Arguments) {
 
 Invoke-Check 'import' @('--editor','--import','--quit')
 Invoke-Check 'tests' @('-s','addons/gut/gut_cmdln.gd','-gdir=res://tests','-gexit')
-foreach ($mode in @('DM','TDM','CTF')) {
+foreach ($mode in @('DM','TDM','CTF','ELIMINATION','GUNGAME')) {
     $robots = if ($mode -eq 'CTF') { '9' } else { '10' }
     $duration = if ($mode -eq 'CTF') { '120' } else { '40' }
     Invoke-Check "smoke-$mode" @('--fixed-fps','60','--','--smoke',"--type=$mode","--robots=$robots","--duration=$duration")

@@ -21,7 +21,7 @@ Ray-traced rays retain the visible authored sky and real scene reflections.
 Turning off either option restores the authored reflection settings, including
 Custom quality; unavailable RT leaves the raster recipe intact.
 
-This document defines the screen flow, **Online Multiplayer lobby**, **Customise screen**, **in-match HUD**, and **Settings screen** for KYLR, including remembered selections and the FPV/TPV presentation. [DESIGN_LANGUAGE.md](DESIGN_LANGUAGE.md) is the shared visual and interaction theme for all these surfaces. [GAMEPLAY.md](GAMEPLAY.md) defines the game modes and player experience, [RULES.md](RULES.md) defines match rules, and [ONLINE.md](ONLINE.md) defines login, matchmaking, and server admission. Here, **Online Multiplayer** is a game mode; **DM**, **TDM**, and **CTF** are match types. A **robot** is the player's character. A **bot** is an AI-controlled robot in Instant Action.
+This document defines the screen flow, **Online Multiplayer lobby**, **Customise screen**, **in-match HUD**, and **Settings screen** for KYLR, including remembered selections and the FPV/TPV presentation. [DESIGN_LANGUAGE.md](DESIGN_LANGUAGE.md) is the shared visual and interaction theme for all these surfaces. [GAMEPLAY.md](GAMEPLAY.md) defines the game modes and player experience, [RULES.md](RULES.md) defines match rules, and [ONLINE.md](ONLINE.md) defines login, matchmaking, and server admission. Here, **Online Multiplayer** is a game mode; **DM**, **TDM**, **CTF**, **Elimination**, and **Gun Game** are match types. A **robot** is the player's character. A **bot** is an AI-controlled robot in Instant Action.
 
 ## Screen route
 
@@ -45,8 +45,8 @@ Keep local convenience preferences distinct from account data and authoritative 
 | Choice | Restore behavior |
 |---|---|
 | **Last game mode** | Focus/highlight the last chosen **Instant Action** or **Online Multiplayer** entry on the Main Menu at startup. The player still chooses to enter it. |
-| **Instant Action setup** | Preselect the last map, DM/TDM/CTF match type, bot difficulty, robot count, goal score, and time limit. Keep this match type independent of the online card. An existing local display name remains saved. |
-| **Online lobby** | Reopen with the last selected DM/TDM/CTF card. Continue to require a valid online session and an explicit Play press; the server still chooses map, goal, time, and roster. |
+| **Instant Action setup** | Preselect the last map, DM/TDM/CTF/Elimination/Gun Game match type, bot difficulty, robot count, goal score, and time limit. Keep this match type independent of the online card. An existing local display name remains saved. |
+| **Online lobby** | Reopen with the last selected DM/TDM/CTF/Elimination/Gun Game card. Continue to require a valid online session and an explicit Play press; the server still chooses map, goal, time, and roster. |
 | **View and Settings** | Restore the most recently used **FPV/TPV** view for either mode and the saved controls, audio, graphics, and HUD preferences. FPV is the first-run view. |
 | **Online robot appearance** | Load the saved account head, emote, and armor colors from the backend after authentication; local preview data is not the source of truth. |
 
@@ -59,7 +59,7 @@ The layout is for a landscape display and scales with the viewport. Preserve the
 | Area | Content and behavior |
 |---|---|
 | Top edge | KYLR identity; clear **Online Multiplayer** label; compact **Main Menu**, **Customise**, **Settings**, and account/profile access. Show the authenticated display name in the account area. Keep this bar subordinate to the match choice and Play action. |
-| Left column | Three vertically arranged **DM**, **TDM**, and **CTF** cards. Each has its full match-type name, a short objective, and an explicit selected state. Selection changes only the requested match type. |
+| Left column | Three vertically arranged **DM**, **TDM**, **CTF**, **Elimination**, and **Gun Game** cards. Each has its full match-type name, a short objective, and an explicit selected state. Selection changes only the requested match type. |
 | Center stage | One large full-body Tensor robot preview, readable against the background. Keep an unhurried turntable presentation and alternate common idle with the selected victory animation (the default catalog victory when none is selected). Show the authenticated display name close to the robot. Use a grounded display platform or stage treatment if suitable assets exist. |
 | Right/lower-right action area | Compact selected-match summary, then the largest interactive control: **Play** at the **bottom right**. Include concise fixed online-rule context if useful: server-selected map, 30-minute limit, and goal score of 2 × current roster. Do not present these as editable fields. |
 | Background and peripheral space | Show KYLR's floating arena pieces and thruster mood without obscuring the robot or text. Keep decorative motion gentle. Leave room for status/error messaging near the Play area, without inventing shop, party, or progression panels. |
@@ -91,7 +91,7 @@ The matchmaker receives the selected **match type** and stored **JWT** when Play
 
 - **Login:** Username and password fields, Login action, and **Create Account** path. Keep account errors near the relevant form. A successful login enters the Online Multiplayer lobby with the backend's account display name.
 - **Create Account:** Username, password, password confirmation, and display-name fields. Display name accepts **1–20 ASCII letters, digits, dots, or underscores** (`[A-Za-z0-9._]{1,20}`). The field may start blank, but submission stops and asks for it if still blank. Show an actionable error if the backend reports the name is already taken. Never create an account with an empty display name.
-- **Instant Action setup:** This is a separate flow. It asks for a local display name only if absent, then preselects the remembered map, DM/TDM/CTF type, bot difficulty, participant count, goal, and time choices defined in [GAMEPLAY.md](GAMEPLAY.md). These controls do not appear in the Online Multiplayer lobby.
+- **Instant Action setup:** This is a separate flow. It asks for a local display name only if absent, then preselects the remembered map, DM/TDM/CTF/Elimination/Gun Game type, bot difficulty, participant count, goal, and time choices defined in [GAMEPLAY.md](GAMEPLAY.md). These controls do not appear in the Online Multiplayer lobby.
 - **Online results:** Show the authoritative scoreboard and **Return to Lobby** during the 15-second next-map countdown. Returning lands on the same three-card Online Multiplayer lobby. If the countdown completes, the server starts a new match on its randomly chosen map.
 - **Customise:** Accessible from the authenticated Online Multiplayer lobby. It edits the account's robot appearance and victory emote, then returns to the lobby. Its detailed screen contract appears below.
 - **Settings:** Accessible from Main Menu, Online Multiplayer lobby, and the in-match pause overlay for local controls, audio, graphics, and HUD presentation. Settings do not change online match rules. An online match keeps running while Settings is open.
@@ -225,7 +225,7 @@ The first three tabs implement the already specified Settings categories in [GAM
 
 ## Online Customise screen
 
-Enter from a **Customise** action in the Online Multiplayer lobby's action footer. The screen uses the shared arena-control visual system in [DESIGN_LANGUAGE.md](DESIGN_LANGUAGE.md) and returns to the same lobby, preserving its selected DM/TDM/CTF card. Customisation is available only for an authenticated online account and does not call matchmaking.
+Enter from a **Customise** action in the Online Multiplayer lobby's action footer. The screen uses the shared arena-control visual system in [DESIGN_LANGUAGE.md](DESIGN_LANGUAGE.md) and returns to the same lobby, preserving its selected DM/TDM/CTF/Elimination/Gun Game card. Customisation is available only for an authenticated online account and does not call matchmaking.
 
 | Region | Content and behavior |
 |---|---|
@@ -333,3 +333,14 @@ Main Menu and online portraits use the same ambient fill, rectangular key/fill/r
 Instant Action setup shows the selected map’s short overview and description above five player-free native-rendered photographs: a cinematic overview and four route, objective or fixture views. Images include the assembled map loadout, pickups, fixture lighting, shadows and environmental effects. The preview advances every two seconds and resets on map selection; numbered controls select a view directly. Reduced decorative motion stops automatic cycling. Gameplay energy rules remain in the first-life hints rather than repeated in setup. Setup keeps Back and Start Match in a fixed footer and scrolls its two content columns on smaller windows.
 
 A credited local elimination displays “You killed XYZ” above the crosshair for 2.6 seconds. A chain accolade appears in a larger bold line beneath it, still above the aiming area. Rajdhani Bold, a dark outline and cyan accents preserve the shared HUD styling; Champion and Death Bringer use amber. A 0.22-second scale settle leads into a 0.4-second fade; Reduced Motion removes the scale animation. The next elimination replaces the current caption immediately. Names remain literal text, the component ignores pointer input and it follows HUD scaling. These gameplay confirmations remain available with Subtitles off; ordinary speech captions retain their existing controls.
+
+## Elimination and Gun Game presentation
+
+Both match types appear in Instant Action and Online Multiplayer. Instant
+Action retains the same goal, minutes, difficulty, count and map controls as DM.
+Elimination's HUD shows kills, remaining lives, kill goal and clock; the held
+scoreboard and results include lives. An online eliminated player sees
+**Eliminated / Spectating**. Instant Action immediately shows **Eliminated**
+results with the standings at elimination and its reason, rather than naming
+an unfinished bot contest's winner. Gun Game's weapon tray always describes
+the currently assigned gun and its ammo.

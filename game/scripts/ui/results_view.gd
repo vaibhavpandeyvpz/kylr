@@ -32,7 +32,8 @@ var column_header: PanelContainer
 
 func _ready() -> void:
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	visible_columns.assign([0,2,3,4,6] if result.match_type=="DM" else [0,1,2,3,4,6] if result.match_type=="TDM" else [0,1,2,3,4,5,6])
+	visible_columns.assign([0,2,3,4,6] if MatchTypes.individual(result.match_type) else [0,1,2,3,4,6] if result.match_type=="TDM" else [0,1,2,3,4,5,6])
+	if result.match_type=="ELIMINATION": visible_columns.insert(1,7)
 	padding=MarginContainer.new()
 	padding.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	add_child(padding)
@@ -49,14 +50,14 @@ func _ready() -> void:
 	text(winner,"%s  /  %s"%[map_title.to_upper(),String(result.match_type)],16,MUTED)
 	summary=VBoxContainer.new()
 	heading.add_child(summary)
-	if not result.get("canceled",false):
+	if not result.get("canceled",false) and not result.get("early_exit",false):
 		text(summary,"MOST VALUABLE PLAYER",12,ACCENT)
 		mvp_label=text(summary,String(result.mvp),26,TEXT,true)
 		mvp_label.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
 	else:
 		var reason := text(summary,String(result.get("reason","Match canceled")),16,MUTED)
 		reason.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
-	if result.match_type!="DM":
+	if not MatchTypes.individual(result.match_type):
 		teams=BoxContainer.new()
 		content.add_child(teams)
 		for index in result.teams.size():
@@ -84,7 +85,7 @@ func _ready() -> void:
 	content.add_child(separator)
 	var table_caption := HBoxContainer.new()
 	content.add_child(table_caption)
-	var caption := text(table_caption,"FINAL STANDINGS",14,MUTED)
+	var caption := text(table_caption,"STANDINGS AT ELIMINATION" if result.get("early_exit",false) else "FINAL STANDINGS",14,MUTED)
 	caption.size_flags_horizontal=Control.SIZE_EXPAND_FILL
 	text(table_caption,"%d ROBOTS"%result.entries.size(),14,MUTED)
 	var ranking := VBoxContainer.new()
@@ -103,21 +104,24 @@ func _ready() -> void:
 	table.size_flags_horizontal=Control.SIZE_EXPAND_FILL
 	table.add_theme_constant_override("separation",2)
 	standings.add_child(table)
-	row(["ROBOT","TEAM","KILLS","ASSISTS","DEATHS","CAPTURES","KILL TIME"],true)
+	row(["ROBOT","TEAM","KILLS","ASSISTS","DEATHS","CAPTURES","KILL TIME","LIVES"],true)
 	var entries: Array=result.entries.duplicate()
+	var rank_lives: bool=result.match_type=="ELIMINATION" and not entries.any(func(entry): return entry.kills>=int(result.get("goal",999)))
 	entries.sort_custom(func(a,b):
+		if rank_lives and a.deaths!=b.deaths: return a.deaths<b.deaths
 		if a.kills!=b.kills: return a.kills>b.kills
 		if a.reached!=b.reached: return a.reached<b.reached
 		return String(a.name).naturalnocasecmp_to(String(b.name))<0)
 	var place := 1
 	for index in entries.size():
 		var entry: Dictionary=entries[index]
-		if index>0 and (entry.kills!=entries[index-1].kills or entry.reached!=entries[index-1].reached): place=index+1
+		if index>0 and ((rank_lives and entry.deaths!=entries[index-1].deaths) or entry.kills!=entries[index-1].kills or entry.reached!=entries[index-1].reached): place=index+1
 		var local := int(entry.get("id",-2))==local_id
 		var name_text := "%02d   %s%s"%[place,entry.name,"  / YOU" if local else ""]
-		var values := [name_text,"—" if result.match_type=="DM" else "A" if entry.team==0 else "B",str(entry.kills),str(entry.assists),str(entry.deaths),str(entry.captures),"%.2f s"%entry.reached]
+		var values := [name_text,"—" if MatchTypes.individual(result.match_type) else "A" if entry.team==0 else "B",str(entry.kills),str(entry.assists),str(entry.deaths),str(entry.captures),"%.2f s"%entry.reached]
+		values.append(str(maxi(0,MatchTypes.LIVES-int(entry.deaths))))
 		row(values,false,local,index)
-	var note := text(content,"Kill time is elapsed match time at the final kill. It resolves tied kill scores.",13,MUTED)
+	var note := text(content,"Remaining lives rank first unless the kill goal is reached. Ties use kills, then kill time." if result.match_type=="ELIMINATION" else "Kill time is elapsed match time at the final kill. It resolves tied kill scores.",13,MUTED)
 	note.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
 	status=text(content,"",14,ACCENT)
 	status.name="ResultsStatus"
@@ -200,7 +204,7 @@ func reflow() -> void:
 		teams.add_theme_constant_override("separation",int(24*scale))
 	for label in sized_labels: label.add_theme_font_size_override("font_size",maxi(12,int(label.get_meta("base_size")*scale)))
 	if size.y<700: title.add_theme_font_size_override("font_size",32)
-	var widths := [240,64,64,80,80,96,110]
+	var widths := [240,64,64,80,80,96,110,64]
 	header_clip.custom_minimum_size.y=32*scale
 	for cells in table_rows:
 		cells.add_theme_constant_override("separation",int(16*scale))

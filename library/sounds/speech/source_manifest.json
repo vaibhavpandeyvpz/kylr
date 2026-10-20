@@ -1051,44 +1051,6 @@
     },
     {
       "bank": "announcer",
-      "key": "match_won",
-      "prompt": "Match complete. Victory.",
-      "node_id": "rUIx4trl1Tl2iN1Lwjgp",
-      "generation_id": "tyZxOSR1HRCNWa4LSnhO",
-      "duration_secs": 1.76,
-      "candidate_ids": [
-        "LQ1tMl4t89ADB2psMcfm",
-        "3QpSKpbdiW6Z7KQqQOTR",
-        "tyZxOSR1HRCNWa4LSnhO",
-        "1cGLR84or0hTkiQqKLRG"
-      ],
-      "voice_id": "XrExE9yKIg1WjnnlVkGX",
-      "voice_name": "Matilda - Knowledgable, Professional",
-      "source": "source/announcer/match_won.mp3",
-      "sha256": "356a3f89aed32e7b822fd4bb741507b3045d559fe37ee0b4fe77e705cc162ffe",
-      "model_id": "eleven_multilingual_v2"
-    },
-    {
-      "bank": "announcer",
-      "key": "draw",
-      "prompt": "Match complete. Draw.",
-      "node_id": "9FOJrjrOUxVdSUqVCBxB",
-      "generation_id": "6YQzUeDwKyBTmwDJrTIV",
-      "duration_secs": 1.76,
-      "candidate_ids": [
-        "6YQzUeDwKyBTmwDJrTIV",
-        "5mxYGOsg8J8BcXZjCd2P",
-        "gPdaQWNaxGEm9ZoIaLMX",
-        "tNOUHxZftbMj1Zm1CzID"
-      ],
-      "voice_id": "XrExE9yKIg1WjnnlVkGX",
-      "voice_name": "Matilda - Knowledgable, Professional",
-      "source": "source/announcer/draw.mp3",
-      "sha256": "a1ea49a3cf0194c2661591732377e0925cf8563ccff7a2b5058f5545b2b803d4",
-      "model_id": "eleven_multilingual_v2"
-    },
-    {
-      "bank": "announcer",
       "key": "canceled",
       "prompt": "Match canceled.",
       "node_id": "Jy2HliNzhXF1TYhMktzR",
@@ -1165,6 +1127,45 @@
       "source": "source/announcer/death_bringer.mp3",
       "sha256": "ed28ecefbbcfa2e361ed744fa7b187c757de03a14d110db5ba9a55533d4b7698",
       "model_id": "eleven_v4"
+    },
+    {
+      "bank": "announcer",
+      "key": "eliminated",
+      "prompt": "Eliminated.",
+      "voice_id": "XrExE9yKIg1WjnnlVkGX",
+      "voice_name": "Matilda - Knowledgable, Professional",
+      "node_id": "NUUt652ocQA0oq86fdp9",
+      "generation_id": "Oo8zIodY0IZfhWvptkQR",
+      "flow_id": "UnDjKHiNls5xDW0in8g0",
+      "source": "source/announcer/eliminated.mp3",
+      "sha256": "9d7baee6ac46f78d0262500ed88b1393ba84d844e90bd0c5de54d00ba93f6149",
+      "model_id": "eleven_multilingual_v2"
+    },
+    {
+      "bank": "announcer",
+      "key": "match_won",
+      "prompt": "You won the match.",
+      "voice_id": "XrExE9yKIg1WjnnlVkGX",
+      "voice_name": "Matilda - Knowledgable, Professional",
+      "node_id": "haab1fSAhHcCpR9UQmnk",
+      "generation_id": "SSZ980tFZSURQQLrXXmy",
+      "flow_id": "ojO2cHIkKTG1N7eWBant",
+      "source": "source/announcer/match_won.mp3",
+      "sha256": "b1514cd2e000f0dca59278d43e3ebab0018591acf638c03034470a71d3daa1eb",
+      "model_id": "eleven_multilingual_v2"
+    },
+    {
+      "bank": "announcer",
+      "key": "draw",
+      "prompt": "Match ended in draw.",
+      "voice_id": "XrExE9yKIg1WjnnlVkGX",
+      "voice_name": "Matilda - Knowledgable, Professional",
+      "node_id": "iQoVQXYHJke1zEUdg8Ty",
+      "generation_id": "wcFwmguMZQ0813YHU81U",
+      "flow_id": "yWIOMeFe6jvKyu7dVKVL",
+      "source": "source/announcer/draw.mp3",
+      "sha256": "7192cb8a456fae256348a491011c86a831b319af2bad8f1d68bff3dcdbde4920",
+      "model_id": "eleven_multilingual_v2"
     }
   ]
 }

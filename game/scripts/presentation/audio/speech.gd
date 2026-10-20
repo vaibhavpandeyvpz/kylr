@@ -16,6 +16,7 @@ static func line_key(text: String) -> String:
 	if text.contains("took the flag"): return "flag_taken"
 	if text.contains("returned the flag") or text.begins_with("Flag returned"): return "flag_returned"
 	if text == "Flag dropped.": return "flag_dropped"
+	if text == "Eliminated": return "eliminated"
 	if text == "Draw": return "draw"
 	if text == "Canceled": return "canceled"
 	if text.ends_with(" wins"): return "match_won"

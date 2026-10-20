@@ -276,7 +276,7 @@ def create_app(database=None, configuration=None, scheduler=None, clock=time.tim
     def matchmaking():
         rate('play',20)
         data = body(('type',),('type',))
-        if data['type'] not in TYPES: raise ApiError('INVALID_MATCH_TYPE','Choose DM, TDM or CTF.')
+        if data['type'] not in TYPES: raise ApiError('INVALID_MATCH_TYPE','Choose a supported match type.')
         pending = database.match_requests.find_one({'account':g.account['_id'], 'session':g.session['_id'],
             'state':{'$in':['Searching','Starting server']}, 'deadline':{'$gt':clock()}})
         if pending:

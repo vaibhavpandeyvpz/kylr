@@ -67,7 +67,7 @@ class EdgegapScheduler(Scheduler):
             return
         try:
             live = list(self.store.db.servers.find({'provider': 'edgegap', 'stopped': {'$ne': True}}))
-            if any(row['type'] == match_type and (not row.get('endpoint_ready') or not row.get('ready')) for row in live):
+            if any(row['type'] == match_type and (not row.get('endpoint_ready') or (not row.get('ready') and row['phase'] in ('Waiting','Countdown'))) for row in live):
                 return
             # Another worker may have reserved the last slot since the caller checked.
             if any(row['type'] == match_type and row.get('ready') and row['phase'] in ('Waiting', 'Countdown', 'Active') and len(row['slots']) < 10 for row in live):

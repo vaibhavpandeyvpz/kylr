@@ -98,22 +98,22 @@ func login(register := false):
 func lobby():
 	ui.clear_page("online_lobby")
 	request_id = ""
-	selected_type = ["DM","TDM","CTF"][int(app.prefs.values.online_type)]
+	selected_type = MatchTypes.ALL[int(app.prefs.values.online_type)]
 	var view := OnlineLayout.frame(ui,"Deploy",api.player.display_name+" / Ready to play")
 	var choices := OnlineLayout.column(view.body,0.85)
 	ui.label(choices,"SELECT MATCH TYPE",16,ui.MUTED)
 	if lobby_notice != "": ui.label(choices,lobby_notice,16,ui.ACTION)
-	for type in ["DM","TDM","CTF"]:
-		var title: String = {"DM":"Deathmatch","TDM":"Team Deathmatch","CTF":"Capture the Flag"}[type]
-		var detail: String = {"DM":"Every robot for itself.","TDM":"Two teams. One shared kill score.","CTF":"Steal the enemy flag and defend your base."}[type]
-		var card := ui.button(choices,"",func(): app.prefs.values.online_type = ["DM","TDM","CTF"].find(type); app.prefs.save(); lobby())
-		card.custom_minimum_size.y = 104
+	for type in MatchTypes.ALL:
+		var title: String = {"DM":"Deathmatch","TDM":"Team Deathmatch","CTF":"Capture the Flag","ELIMINATION":"Elimination","GUNGAME":"Gun Game"}[type]
+		var detail: String = {"DM":"Every robot for itself.","TDM":"Two teams. One shared kill score.","CTF":"Steal the enemy flag and defend your base.","ELIMINATION":"Five lives. Survive or reach the kill goal.","GUNGAME":"Every kill assigns a new random weapon."}[type]
+		var card := ui.button(choices,"",func(): app.prefs.values.online_type = MatchTypes.ALL.find(type); app.prefs.save(); lobby())
+		card.custom_minimum_size.y = 88
 		MenuSkin.apply_button(card,false,type == selected_type)
 		var inside := VBoxContainer.new()
 		inside.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		card.add_child(inside)
 		inside.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-		inside.offset_left = 24; inside.offset_right = -24; inside.offset_top = 16; inside.offset_bottom = -12
+		inside.offset_left = 24; inside.offset_right = -24; inside.offset_top = 10; inside.offset_bottom = -12
 		ui.label(inside,type+"  /  "+title,26)
 		ui.label(inside,detail,16,ui.MUTED)
 	ui.label(choices,"2–10 PLAYERS   /   HUMAN-ONLY MATCHES",14,ui.ACTION)

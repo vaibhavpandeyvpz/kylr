@@ -266,7 +266,7 @@ func run() -> void:
 		root.size_changed.connect(func():
 			if measuring: display_changed_during_sample = true)
 	app.prefs.values.map = options.get("map","skyfall")
-	app.prefs.values.type = ["DM","TDM","CTF"].find(options.get("mode","TDM"))
+	app.prefs.values.type = MatchTypes.ALL.find(options.get("mode","TDM"))
 	app.prefs.values.count = int(options.get("robots",10))
 	app.prefs.values.difficulty = clampi(int(options.get("difficulty",1)),0,3)
 	app.prefs.values.goal = 999

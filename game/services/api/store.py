@@ -39,7 +39,7 @@ class Store:
         slot = {'id':identifier(), 'account':account_id, 'session':session_id, 'ticket_hash':digest(token),
                 'state':'reserved', 'expires':self.clock()+30.0}
         server = self.db.servers.find_one_and_update(
-            {'type':match_type, 'ready':True, 'phase':{'$in':ADMIT_PHASES},
+            {'type':match_type, 'ready':True, 'phase':{'$in':('Waiting','Countdown') if match_type=='ELIMINATION' else ADMIT_PHASES},
              'lease_until':{'$gt':self.clock()}, 'slots.account':{'$ne':account_id},
              '$expr':{'$lt':[{'$size':'$slots'},10]}},
             {'$push':{'slots':slot}}, return_document=ReturnDocument.AFTER)
@@ -54,7 +54,7 @@ class Store:
         slot_filter = {'ticket_hash':digest(ticket),'state':'reserved','expires':{'$gt':now}}
         before = self.db.servers.find_one_and_update(
             {'_id':server_id,'match_id':match_id,'ready':True,'phase':{'$in':ADMIT_PHASES},
-             'lease_until':{'$gt':now}, 'slots':{'$elemMatch':slot_filter}},
+             'lease_until':{'$gt':now}, '$or':[{'type':{'$ne':'ELIMINATION'}},{'phase':{'$in':['Waiting','Countdown']}}], 'slots':{'$elemMatch':slot_filter}},
             {'$set':{'slots.$.state':'admitted','slots.$.claimed_at':now}},
             return_document=ReturnDocument.BEFORE)
         if not before: raise ApiError('INVALID_TICKET','Ticket expired, was used, or belongs to another match.',403)
@@ -91,7 +91,7 @@ class Store:
         if server['match_id']!=body['match_id']:
             self.db.servers.update_one({'_id':server_id},{'$pull':{'slots':{'state':'reserved'}}})
         self.db.servers.update_one({'_id':server_id}, {'$set':{
-            'ready':body['phase'] in ADMIT_PHASES and server.get('endpoint_ready',True),'phase':body['phase'],'match_id':body['match_id'],
+            'ready':body['phase'] in ADMIT_PHASES and not (server['type']=='ELIMINATION' and body['phase']=='Active') and server.get('endpoint_ready',True),'phase':body['phase'],'match_id':body['match_id'],
             'lease_until':max(now+15,server.get('startup_until',0) if not server.get('endpoint_ready',True) else 0),
             'heartbeat_at':now,'last_occupied':last_occupied}})
         if server.get('provider') != 'edgegap':

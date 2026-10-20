@@ -61,7 +61,7 @@ func _init(owner):
 	behavior=BTPlayer.new()
 	behavior.name="TacticalBehavior"
 	behavior.update_mode=BTPlayer.MANUAL
-	behavior.behavior_tree=load("res://data/ai/trees/"+robot.arena_match.match_type.to_lower()+".tres")
+	behavior.behavior_tree=load("res://data/ai/trees/"+("dm" if MatchTypes.individual(robot.arena_match.match_type) else robot.arena_match.match_type.to_lower())+".tres")
 	behavior.set_scene_root_hint(robot.arena_match)
 	robot.add_child(behavior)
 
@@ -352,7 +352,7 @@ func plan_intent(intent: String) -> bool:
 			if robot.protection<=0: return false
 			return commit_goal(game.map.zone_exit(robot.team,robot.position),"egress")
 		"emergency":
-			if game.match_type == "DM": return dm_survival()
+			if MatchTypes.individual(game.match_type): return dm_survival()
 			if game.match_type!="CTF": return false
 			var own: Dictionary=game.flags[robot.team]
 			if robot.carrying>=0:
@@ -418,7 +418,7 @@ func plan_intent(intent: String) -> bool:
 					if ally.brain.target!=null and robot.position.distance_to(ally.position)<18 and signf(ally.position.z)==signf(enemy_home.z) and absf(ally.position.z)>10 and ally.position.distance_to(enemy_home)<robot.position.distance_to(enemy_home):
 						return commit_goal(ally.position+Vector3(strafe*3,0,0),"support")
 				return commit_goal(attack_point,"assault")
-			if game.match_type=="DM":
+			if MatchTypes.individual(game.match_type):
 				var opposite := -signf(robot.spawn_fixture.point.z) if not robot.spawn_fixture.is_empty() else -signf(robot.position.z)
 				return commit_goal(Vector3(strafe*6.0,0,opposite*22.0),"hunt")
 			return false

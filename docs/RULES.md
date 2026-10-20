@@ -1,12 +1,12 @@
 # KYLR — match rules
 
-This document is the single contract for match flow, scoring, and objectives. [GAMEPLAY.md](GAMEPLAY.md) covers controls, combat feel, equipment, and map design. **Instant Action** and **Online Multiplayer** are game modes; **DM**, **TDM**, and **CTF** are match types. A participant's character is a **robot**. A **bot** is specifically an AI-controlled robot in Instant Action; human-controlled robots and bots follow the same match-type rules except for the stated difficulty modifiers. **EP** means **Energy Points**; **Energy Core** remains the pickup's name.
+This document is the single contract for match flow, scoring, and objectives. [GAMEPLAY.md](GAMEPLAY.md) covers controls, combat feel, equipment, and map design. **Instant Action** and **Online Multiplayer** are game modes; **DM**, **TDM**, **CTF**, **Elimination**, and **Gun Game** are match types. A participant's character is a **robot**. A **bot** is specifically an AI-controlled robot in Instant Action; human-controlled robots and bots follow the same match-type rules except for the stated difficulty modifiers. **EP** means **Energy Points**; **Energy Core** remains the pickup's name.
 
 The main-menu **Settings** option changes local controls, audio, and graphics preferences as described in [GAMEPLAY.md](GAMEPLAY.md). These preferences apply in either game mode but do not modify match type, map selection, roster limits, scoring, weapon statistics, or server rules.
 
 FPV/TPV is a local camera choice available in either game mode. Switching it does not change the robot's match identity, collision, hit detection, aim authority, damage, scoring, or any other match rule. Remember the last view and restore it when the five-second third-person spawn cinematic ends or the robot exits repair. Saved menu/setup selections prefill screens only; they never start or alter a match without the player's explicit action. [SCREENS.md](SCREENS.md) defines the remembered UI choices.
 
-Choosing **Online Multiplayer** requires account login, then opens its lobby before joining a match. The lobby's left-side cards select a **match type** (DM, TDM, or CTF); a prominent central robot preview alternates common idle with its selected or default victory animation; the **bottom-right Play** button sends the stored login JWT and selected match type to matchmaking. On success, join the assigned server using its player-specific authenticatable ticket and follow its Waiting/Countdown/Active flow. The server chooses the map and match settings. [ONLINE.md](ONLINE.md) defines identity, matchmaking, ticket, and recoverable failure responsibilities.
+Choosing **Online Multiplayer** requires account login, then opens its lobby before joining a match. The lobby's left-side cards select a **match type** (DM, TDM, CTF, Elimination, or Gun Game); a prominent central robot preview alternates common idle with its selected or default victory animation; the **bottom-right Play** button sends the stored login JWT and selected match type to matchmaking. On success, join the assigned server using its player-specific authenticatable ticket and follow its Waiting/Countdown/Active flow. The server chooses the map and match settings. [ONLINE.md](ONLINE.md) defines identity, matchmaking, ticket, and recoverable failure responsibilities.
 
 ## Shared match state
 
@@ -14,7 +14,7 @@ Choosing **Online Multiplayer** requires account login, then opens its lobby bef
 
 The map and fixtures load fully assembled before a five-second countdown. Resource and renderer preparation behind the loading cover freezes this countdown; loading time never consumes the player's visible opening sequence. The local Phantom Camera holds a front-left view of the player spawn, with movement and gameplay actions locked. At five seconds, enable the saved gameplay view, normal actions, clock and scoring; initial invulnerability ends with the countdown. Active-play respawns retain their separate five-second protection flow.
 
-A match has **2–10 robots**, including odd counts. In Instant Action, this total includes the human-controlled robot and all bots; its setup menu currently offers 2, 4, 6, 8, or 10. Do not start the countdown outside the 2–10 range. Tensor currently has **five available head variants**; a sixth is planned for Customise after its asset exists. In **Instant Action**, randomly assign a head to each robot. DM heads may repeat; TDM/CTF heads are unique **within each team**, with the same head permitted once on each opposing team. In **Online Multiplayer**, use each account's selected head in DM/TDM/CTF and allow duplicates even within a team. Keep the resulting head for the entire match, including respawns.
+A match has **2–10 robots**, including odd counts. In Instant Action, this total includes the human-controlled robot and all bots; its setup menu currently offers 2, 4, 6, 8, or 10. Do not start the countdown outside the 2–10 range. Tensor currently has **five available head variants**; a sixth is planned for Customise after its asset exists. In **Instant Action**, randomly assign a head to each robot. Free-for-all heads may repeat; TDM/CTF heads are unique **within each team**, with the same head permitted once on each opposing team. In **Online Multiplayer**, use each account's selected head in DM/TDM/CTF/Elimination/Gun Game and allow duplicates even within a team. Keep the resulting head for the entire match, including respawns.
 
 For TDM and CTF, randomly select **two distinct** colors from yellow, green, blue, and red, then assign one color to each team. Balance robots between the two teams: their counts may differ by at most one. With an odd count, randomly choose which team gets the extra robot; the next joining robot goes to the smaller team. Each team has at most five robots. In **Instant Action**, assign a joining robot an unused head on its team. In **Online Multiplayer**, preserve the joining account's chosen head even if a teammate has the same one. For an online team match, apply the assigned team color to primary armor and its library-authored contrasting accent to secondary armor, overriding both saved custom colors for that match; keep the chosen victory emote. Team color and existing members' team assignments remain fixed through respawns. A new match makes fresh random team-color selections.
 
@@ -40,7 +40,7 @@ Show the completed map's scoreboard at match end with the winner or draw, MVP re
 
 In an **active Online Multiplayer** match, immediately end with a **Canceled** outcome if the roster drops below **two human-controlled robots** in DM, or if either team has **no human-controlled robot** in TDM/CTF. A canceled match has **no winner or MVP**, and its scores are not treated as a completed result. The normal 15-second next-map countdown does not run after cancellation. Show the reason, then return remaining players to the Online Multiplayer lobby with their last match card selected; matchmaking does not restart until they press Play.
 
-The in-match HUD uses authoritative match events: the kill feed names killer, victim, and weapon for credited eliminations; reports uncredited **fall-off-map** deaths by victim and cause; announces **who joined or left** an online match; and announces the winning robot/team, a **draw**, or **cancellation** at finish. Online names in the lobby and kill feed come from the game server's player info, bound to the authenticated account; clients cannot supply a different match name. A disconnect counts as leaving for the feed. The top-five kills leaderboard ranks **individual robots by kill count only** in DM, TDM, and CTF; captures, deaths, assists, and team totals do not affect that ranking. The top-center score is the controlled robot's individual kills in DM or the **two team scores** in TDM/CTF. Show the goal and remaining match time alongside it. The bottom-left weapon tray uses the loaded-ammo and spare-pack state from the weapon inventory.
+The in-match HUD uses authoritative match events: the kill feed names killer, victim, and weapon for credited eliminations; reports uncredited **fall-off-map** deaths by victim and cause; announces **who joined or left** an online match; and announces the winning robot/team, a **draw**, or **cancellation** at finish. Online names in the lobby and kill feed come from the game server's player info, bound to the authenticated account; clients cannot supply a different match name. A disconnect counts as leaving for the feed. The top-five kills leaderboard ranks **individual robots by kill count only** in DM, TDM, CTF, Elimination, and Gun Game; captures, deaths, assists, and team totals do not affect that ranking. The top-center score is the controlled robot's individual kills in free-for-all types, plus remaining lives in Elimination, or the **two team scores** in TDM/CTF. Show the goal and remaining match time alongside it. The bottom-left weapon tray uses the loaded-ammo and spare-pack state from the weapon inventory.
 
 ## Movement rules
 
@@ -65,7 +65,7 @@ The in-match HUD uses authoritative match events: the kill feed names killer, vi
 
 During repair use the robot's unarmed common idle pose and hide its equipped weapon, ammo model, and weapon collision. Retain its weapon slot, loaded ammunition and spare packs, then restore the same equipment when released into active play. The activation phase blocks voluntary movement while preserving physical impact push; leaving the bay interrupts the use. Welding and deactivation block damage and impact push.
 
-- Each zone has **one 2 m × 2 m repair station**. It is a reusable arena fixture, **not** a pickup and not the robot's personal Shield Core. It is neutral in DM/TDM/CTF: any eligible team may use either station. Only one robot can occupy a station for repair at a time.
+- Each zone has **one 2 m × 2 m repair station**. It is a reusable arena fixture, **not** a pickup and not the robot's personal Shield Core. It is neutral in DM/TDM/CTF/Elimination/Gun Game: any eligible team may use either station. Only one robot can occupy a station for repair at a time.
 - An active, alive, non-spawn-invulnerable robot is eligible when its **AH is 50 or less** and the station is ready. It must enter the marked bay and stop moving to claim it. The server atomically assigns the occupant and starts a **seven-second** use: **one second Shield Activating → five seconds Welding → one second Shield Deactivating**. The station is occupied throughout; its separate **60-second** recharge begins only when this use ends. A rejected entry grants no protection or refill.
 - During the entire use the occupant remains in the match roster but is immobilized and cannot fire, reload, switch weapons, collect pickups/flags, interact with plates/portals/jump platforms, or score a capture. Cancel any reload in progress on activation without consuming its spare pack. The barrier becomes protective **after the first second**, when activation completes; before then the robot can still take damage and impact push, and a death aborts the use. Once protective, it prevents **all incoming damage and impact push** to the occupant, including direct hits, splash, flame, EMP, and projectile impacts, until deactivation completes at seven seconds. It protects **only its assigned occupant**, not robots standing beside the bay, and is absent while the station is merely ready or recharging. It is independent of personal SH and does not spend or replenish SH. Pause the occupant's ordinary **1 EP/s drain** for the entire seven-second use. Existing personal SH duration continues normally.
 - At **six seconds**, when welding finishes, atomically set the occupant to **100 AH and 100 EP** and stop welding effects. Animate barrier deactivation for the final second, keeping the occupant protected and immobilized. At **seven seconds**, remove the barrier, release movement control, and let the robot walk out. The station then enters **Recharging for 60 seconds from the end of deactivation** and is unusable by every robot until that timer ends. No personal SH is added or refreshed. Do not grant a second refill while the same robot remains on the station; it must leave the bay and the station must finish recharging before a later use.
@@ -98,6 +98,44 @@ During repair use the robot's unarmed common idle pose and hide its equipped wea
 - A capture occurs when an eligible carrier contacts their own base's round capture trigger **while their own flag is at home**. The trigger is 2 m in diameter and 10 cm high above the ground, inside the authored 2 m × 2 m flag spot. It detects the carrier's body without blocking movement or shots. Award one capture point to the carrier's team, return the captured flag home, and emit one capture event. A flag touch cannot score twice. The team-colored ground energy ring remains visible throughout CTF even while the home flag is carried or dropped.
 - Reaching the configured capture goal ends the match; otherwise it ends at the time limit. The team with the most final captures wins, using the earliest-to-score tie break when needed. Eliminations do not add to the CTF team score, though they remain visible as statistics and determine MVP.
 - The flags return home and carriers clear when a match ends or resets. Eligible flag take, handoff, and own-flag return use contact. A carrier may fire, use portals and jump platforms, and trigger plates, but cannot collect a second flag. A flag cannot be captured while its team's own flag is away.
+
+## Elimination
+
+Elimination is free-for-all with five lives per robot. It uses DM's map,
+difficulty, robot count, kill-goal and time-limit settings in Instant Action.
+Every death consumes one life, including falls and power depletion. Respawn
+normally after the first four deaths; the fifth death permanently removes the
+robot from play. Eliminated robots cannot move, fire, take damage or respawn.
+The local player hears **Eliminated** in the flag announcer's voice.
+
+The match ends at the configured kill goal, when only one robot has lives
+remaining, or at the time limit. A reached kill goal uses DM's kill/time ranking.
+Otherwise rank remaining lives, then kills, then earliest final-kill time;
+an exact tie is a draw. If no lives remain, the result is a draw.
+
+In Instant Action, the local player's fifth death ends play immediately and
+shows **Eliminated**, with standings at that moment and no declared bot winner.
+Online eliminated players watch a surviving robot until results. Active online
+Elimination rounds accept no new joins; admission reopens in the next round's
+Waiting/Countdown phase. The active round retains its starting kill goal after
+departures; the final remaining participant wins by survival.
+
+## Gun Game
+
+Gun Game uses DM's free-for-all scoring, spawns, goal and time-limit options.
+Each robot starts with one randomly assigned weapon. Every credited opponent
+kill assigns a new random weapon from that robot's remaining cycle. All ten
+weapons appear once per cycle; shuffle a new cycle after exhausting it and
+avoid repeating the previous weapon at the cycle boundary. Uncredited deaths
+do not advance the cycle. Respawning retains the assigned weapon and cycle.
+
+Only the assigned weapon is owned. A new assignment or respawn fills its loaded
+ammo pack; respawns clear reserve banks as usual. Weapon-holder hatches stay
+closed with no payload or pickup trigger, and weapon item cradles are absent.
+Ammo pickups remain at their authored locations, including precollection for
+future weapons. Energy/shield pickups, repairs and map events work normally.
+An empty assigned gun must reload from collected reserves; it cannot switch
+to an unassigned pistol.
 
 ## Cross-match-type consistency
 
