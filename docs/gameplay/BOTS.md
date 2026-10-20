@@ -131,6 +131,10 @@ These are configurable execution heuristics, not changes to shared weapon statis
 
 ### Walkable ground detail
 
+Launch routes retain the authored pad centre as their entry target, independently
+of the nearest navigation grid sample. Bots enter the activation radius before
+waiting for powered lift and use that same centre for vertical departure.
+
 Small stones and gravel use native terrain collision, with visible interior
 peaks at most 0.24 m. Fixture seating and approaches are kept clear. Walk-route
 clearance tests the robot motor's supported step height and the whole raised

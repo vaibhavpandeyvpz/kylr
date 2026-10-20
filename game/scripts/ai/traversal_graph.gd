@@ -209,7 +209,9 @@ func _build_links() -> void:
 	for ramp in arena.config.get("walk_routes",[]): add_walk_route(ramp)
 	for spawn in arena.spawns:
 		if spawn.action=="open":add_spawn_exit(spawn)
-	for jump in arena.config.jump_links: link(arena.world_point(jump.from),arena.world_point(jump.to),"launch",false)
+	for jump in arena.config.jump_links:
+		var entry: Vector3=arena.world_point(jump.from)
+		link(entry,arena.world_point(jump.to),"launch",false,entry)
 	for jump in arena.config.get("normal_jump_links",[]):
 		var from: Vector3=arena.world_point(jump.from);var to: Vector3=arena.world_point(jump.to)
 		for endpoint in [0,1]:

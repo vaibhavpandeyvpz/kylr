@@ -697,6 +697,9 @@ func steer(dt):
 					destination=path[path_index].entry if path[path_index].entry!=Vector3.INF else source
 				elif robot.is_on_floor() and robot.position.distance_to(destination)<2.0:finish_transition()
 			"launch":
+				# The closest grid sample may sit outside the pad's trigger.
+				# Approach and rise from its authored centre, not that sample.
+				if path[path_index].entry != Vector3.INF: source=path[path_index].entry
 				if robot.lift_target>robot.position.y+0.5 or not robot.is_on_floor():
 					transition_launched=true
 					airborne_goal=destination
