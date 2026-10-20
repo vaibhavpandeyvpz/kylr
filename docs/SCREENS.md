@@ -344,3 +344,20 @@ scoreboard and results include lives. An online eliminated player sees
 results with the standings at elimination and its reason, rather than naming
 an unfinished bot contest's winner. Gun Game's weapon tray always describes
 the currently assigned gun and its ammo.
+
+Settings → Controls includes an editable **Callsign**. Edits
+remain pending until Apply and must contain 1–20 letters, digits, dots or
+underscores. Apply updates the current local Instant Action robot as well as
+future matches. Online Multiplayer keeps the account display name.
+
+The killfeed shows natural event sentences and speaker/team colours without
+left/right suffixes or internal tags. Ordering uses stable event timestamps;
+announcements do not clear unexpired robot dialogue.
+
+Local Windows storage uses `%APPDATA%\Godot\app_userdata\KYLR\`:
+`preferences.cfg` stores local preferences, bindings and the Instant Action
+callsign; `renderer.cfg` stores early renderer startup settings;
+`online-session.bin` stores the refresh token and endpoint protected with
+Windows DPAPI for the current user. The access token remains in memory and
+passwords are not saved locally. Online account/display-name/loadout data is
+owned by the backend, rather than these local settings files.

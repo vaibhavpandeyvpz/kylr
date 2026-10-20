@@ -78,6 +78,33 @@ func fixture(actor: Actor,kind: String,weapon: String,point: Vector3) -> Diction
 	actor.arena_match.map.fixtures.append(entry)
 	return entry
 
+func test_production_balance_accepts_a_first_minigun_even_when_pistol_damage_ties():
+	Arsenal.WEAPONS=production_weapons.duplicate(true)
+	var actor:=setup_case()
+	var available:=fixture(actor,"weapon","minigun",Vector3.RIGHT*2)
+	assert_true(actor.brain.equipment.plan(true))
+	assert_eq(actor.brain.goal,available.point)
+	actor.pickup_weapon="minigun"
+	actor.equipped="minigun"
+	actor.loaded=100
+	actor.brain.equipment.tick(0.1)
+	assert_eq(actor.equipped,"minigun","A freshly collected equal-DPS weapon is retained")
+
+func test_visible_threat_changes_pickup_score_without_rejecting_a_short_detour():
+	Arsenal.WEAPONS=production_weapons.duplicate(true)
+	var actor:=setup_case(3)
+	opponent(actor,4)
+	var available:=fixture(actor,"weapon","minigun",Vector3.RIGHT*2)
+	assert_gt(actor.brain.resource_cost(available.point),6.0,"Exposure alone exceeds the old combat detour ceiling")
+	assert_true(actor.brain.equipment.plan(true))
+	assert_eq(actor.brain.goal,available.point)
+
+func test_production_flak_scores_the_whole_close_range_pellet_volley():
+	Arsenal.WEAPONS=production_weapons.duplicate(true)
+	var actor:=setup_case()
+	assert_gt(actor.brain.equipment.utility("flak_cannon",2),actor.brain.equipment.utility("pistol",2))
+	assert_lt(actor.brain.equipment.utility("flak_cannon",35),actor.brain.equipment.utility("flak_cannon",2))
+
 func test_switches_to_pistol_for_range_and_back_when_pickup_is_suitable():
 	var actor := setup_case()
 	var victim := opponent(actor,55)

@@ -55,7 +55,7 @@ const SETTING_HELP = {
  "antialiasing":"Smooths jagged raster edges. Higher sample counts cost more GPU time. This selection applies when ray tracing is off.",
  "sprint_blur":"Blurs only the screen edges during actual sprint movement. Zero turns it off; the center aim area and HUD stay clear.",
  "speed_lines":"Adds faint lines at the screen edges while sprinting. Reduced motion suppresses both sprint effects.",
- "callouts":"Full allows ordinary captions/callouts once per robot per 8 seconds, Reduced uses 16 seconds, Off suppresses them. Critical objective and power warnings remain available.",
+ "callouts":"Full allows ordinary reactions once per robot per 8 seconds; Reduced uses 16 seconds. Kill quips and repair/energy dialogue play per event. Off suppresses robot dialogue. Objective announcements and the low-energy warning tone remain available.",
  "subtitles":"Shows speaker-labeled captions for accepted objective, power, arena and optional robot callout events, including while online Settings is open. Volume does not affect captions.",
  "reduced_audio_range":"Brings quieter effects forward for comfortable listening without changing hearing range or gameplay.",
  "hud_scale":"Scales the combat readouts while keeping their screen anchors.",
@@ -299,6 +299,7 @@ func responsive_layout():
 func setting_help(control: Control, key: String, title: String):
 	var explanation: String = SETTING_HELP.get(key,"Adjusts the " + title.to_lower() + " channel. Audio volume does not change captions or gameplay.")
 	if key == "tutorial_hints": explanation = "Shows five first-life hints with your current controls. They pause during spawn, repair, death and results, then turn off automatically. Enable this to repeat them next match."
+	if key == "name": explanation = "Your robot's callsign in Instant Action. Use 1–20 letters, digits, dots or underscores. Online Multiplayer uses your account display name."
 	if key == "separate_rendering_thread": explanation = "Runs rendering on a separate thread. Experimental; it may improve performance or cause instability. Off uses Safe mode. Requires a game restart and is independent of visual quality."
 	if key == "rt_upscaling": explanation = "Available only with DLSS. On reconstructs half-size internal rendering to the output resolution; Off keeps native-resolution Ray Reconstruction. Interface text stays at output resolution."
 	if key in pending_bindings: explanation = "Choose a keyboard key or mouse button for " + title.to_lower() + ". Escape cancels capture. A conflict offers Swap or Cancel, keeping both actions usable."
@@ -370,6 +371,17 @@ func settings_tab(tab: String):
 	settings_help.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	match tab:
 		"Controls":
+			label(rows,"PLAYER",20,ACTION)
+			label(rows,"Callsign",17)
+			var callsign := LineEdit.new()
+			callsign.name="InstantActionCallsign"
+			callsign.text=str(pending.name)
+			callsign.placeholder_text="1–20 letters, digits, dots or underscores"
+			callsign.max_length=20
+			callsign.size_flags_horizontal=Control.SIZE_EXPAND_FILL
+			rows.add_child(callsign)
+			setting_help(callsign,"name","Callsign")
+			callsign.text_changed.connect(func(value): pending.name=value; settings_dirty())
 			label(rows,"MOUSE & AIM",20,ACTION)
 			slider(rows,"Look sensitivity","sensitivity",0.0005,0.006,0.0001)
 			toggle(rows,"Invert vertical look","invert")
@@ -476,6 +488,9 @@ func setting_choice(parent: Node, title: String, key: String, options: Array) ->
 
 func apply_settings():
 	if not display_before.is_empty(): return
+	if pending.name!=app.prefs.values.name and not Preferences.valid_name(str(pending.name)):
+		status.text="Callsign must use 1–20 letters, digits, dots or underscores."
+		return
 	if (pending.display_mode != app.prefs.values.display_mode or pending.resolution != app.prefs.values.resolution) and DisplayServer.get_name() != "headless":
 		begin_display_preview()
 	else: commit_settings()
@@ -541,6 +556,8 @@ func commit_settings():
 	if Preferences.render_thread_restart_required(bool(pending.separate_rendering_thread)):
 		status.text += " — restart the game to change the rendering thread."
 	if app.match_node:
+		if not app.match_node.online and is_instance_valid(app.match_node.local_robot) and Preferences.valid_name(str(pending.name)):
+			app.match_node.local_robot.display_name=str(pending.name)
 		app.match_node.fov=pending.fov
 		app.match_node.third_person=pending.third_person
 	if return_after_apply:

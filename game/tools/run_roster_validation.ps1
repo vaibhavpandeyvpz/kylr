@@ -15,9 +15,11 @@ $binaryHash = (Get-FileHash -LiteralPath $binary).Hash
 $probeHash = (Get-FileHash -LiteralPath $probe).Hash
 $brain = Join-Path $project 'scripts/ai/brain.gd'
 $brainHash = (Get-FileHash -LiteralPath $brain).Hash
+$equipment = Join-Path $project 'scripts/ai/bot_equipment.gd'
+$equipmentHash = (Get-FileHash -LiteralPath $equipment).Hash
 $wrapperHash = (Get-FileHash -LiteralPath $PSCommandPath).Hash
 $rows = @()
-foreach ($mode in @('DM','TDM','CTF')) {
+foreach ($mode in @('DM','TDM','CTF','ELIMINATION','GUNGAME')) {
     foreach ($count in @(2,4,6,8,10)) {
         $seconds = if ($mode -eq 'CTF') { 120 } else { 30 }
         $stem = $mode.ToLowerInvariant() + '-' + $count
@@ -47,9 +49,9 @@ foreach ($mode in @('DM','TDM','CTF')) {
     }
 }
 if ($binaryHash -ne (Get-FileHash -LiteralPath $binary).Hash -or $probeHash -ne (Get-FileHash -LiteralPath $probe).Hash) { throw 'Engine or probe changed during roster validation.' }
-if($brainHash -ne (Get-FileHash -LiteralPath $brain).Hash -or $wrapperHash -ne (Get-FileHash -LiteralPath $PSCommandPath).Hash){throw 'Decision scheduler or wrapper changed during roster validation.'}
-@{passed=$true; cases=$rows; engine_sha256=$binaryHash; probe_sha256=$probeHash; brain_sha256=$brainHash; wrapper_sha256=$wrapperHash; decision_phases_requested=$DecisionPhases; map=$Map;
+if($brainHash -ne (Get-FileHash -LiteralPath $brain).Hash -or $equipmentHash -ne (Get-FileHash -LiteralPath $equipment).Hash -or $wrapperHash -ne (Get-FileHash -LiteralPath $PSCommandPath).Hash){throw 'Decision scheduler, equipment policy or wrapper changed during roster validation.'}
+@{passed=$true; cases=$rows; engine_sha256=$binaryHash; probe_sha256=$probeHash; brain_sha256=$brainHash; equipment_sha256=$equipmentHash; wrapper_sha256=$wrapperHash; decision_phases_requested=$DecisionPhases; map=$Map;
   functional_roster_acceptance=$true; performance_acceptance=$false;
   note='Headless functional matrix; inspect physical routes and objectives separately. Not an isolated performance measurement.'} |
     ConvertTo-Json -Depth 6 | Set-Content -LiteralPath (Join-Path $directory 'manifest.json') -Encoding utf8
-Write-Output 'PASS roster matrix: 15 cases. This is not rendered FPS qualification.'
+Write-Output 'PASS roster matrix: 25 cases. This is not rendered FPS qualification.'

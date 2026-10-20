@@ -38,14 +38,14 @@ func kill_and_wait_for_drop(game: ArenaMatch) -> void:
 	game.tick_drops(float(game.corpses[0].time)-0.001)
 	assert_eq(game.drops.size(),0,"Drop waits for the corpse's final-pose hold")
 	game.tick_drops(0.002)
-	assert_eq(game.drops.size(),13,"Remaining energy splits into 5 EP cores and a remainder")
+	assert_eq(game.drops.size(),7,"Remaining energy splits into 10 EP cores and a remainder")
 
 func test_bot_armor_death_drops_the_remaining_energy_on_the_floor():
 	var game := await make_drop_world()
 	kill_and_wait_for_drop(game)
 	if game.drops.is_empty():return
 	var drop: Dictionary=game.drops[0]
-	assert_eq(drop.ep,5.0)
+	assert_eq(drop.ep,10.0)
 	assert_eq(game.drops[-1].ep,3.5)
 	var total := 0.0
 	for core in game.drops: total += core.ep
@@ -55,7 +55,7 @@ func test_bot_armor_death_drops_the_remaining_energy_on_the_floor():
 	assert_not_null(drop.node.visual.find_child("SK_CoreSphereShell",true,false))
 	assert_not_null(drop.node.visual.find_child("SK_CoreBoltShroud",true,false))
 	game.tick_drops(29.99)
-	assert_eq(game.drops.size(),13,"Lifetime starts at appearance, not death")
+	assert_eq(game.drops.size(),7,"Lifetime starts at appearance, not death")
 	game.tick_drops(0.02)
 	assert_eq(game.drops.size(),0)
 
@@ -103,7 +103,7 @@ func test_uncredited_armor_death_leaves_a_contact_collectible_core():
 	victim.ep=42.0
 	assert_true(victim.hit(1000,null,"pistol"))
 	game.tick_drops(float(game.corpses[0].time)+0.001)
-	assert_eq(game.drops.size(),9)
+	assert_eq(game.drops.size(),5)
 	if game.drops.is_empty():return
 	assert_eq(game.drops[0].claim,-1)
 	var collector: ArenaRobot=game.robots[0]
@@ -170,12 +170,12 @@ func test_scattered_chunks_are_supported_and_spaced_on_a_platform_edge():
 	var game := await make_drop_world()
 	game.rng.seed=42
 	game.spawn_energy_drops(Vector3(203.99,100,0),100.0,-1)
-	assert_eq(game.drops.size(),20)
+	assert_eq(game.drops.size(),10)
 	for index in game.drops.size():
 		var point: Vector3=game.drops[index].node.global_position
 		assert_lte(point.x+0.125,204.001,"Entire core stays over the platform")
 		assert_almost_eq(point.y,100.2,0.001)
-		assert_eq(game.drops[index].ep,5.0)
+		assert_eq(game.drops[index].ep,10.0)
 		if index==0: continue
 		var nearest := INF
 		for previous in index:
@@ -189,7 +189,7 @@ func test_full_killer_leaves_cores_for_eligible_contact_collector():
 	killer.ep=100
 	killer.global_position=game.drops[0].node.global_position-Vector3.UP*0.2
 	game.tick_drops(0.1)
-	assert_eq(game.drops.size(),13,"Full killer neither attracts nor consumes cores")
+	assert_eq(game.drops.size(),7,"Full killer neither attracts nor consumes cores")
 	for drop in game.drops: assert_eq(drop.claim,-1)
 	var other: ArenaRobot=game.add_robot(2,"Collector",1,false,"projector")
 	other.set_physics_process(false)
@@ -199,7 +199,7 @@ func test_full_killer_leaves_cores_for_eligible_contact_collector():
 	other.global_position=killer.global_position
 	game.tick_drops(0.001)
 	assert_eq(other.ep,100.0)
-	assert_eq(game.drops.size(),12,"Collector stops as soon as EP is full")
+	assert_eq(game.drops.size(),6,"Collector stops as soon as EP is full")
 	assert_eq(killer.ep,100.0)
 
 func test_no_core_is_placed_over_void_without_supported_ground():
@@ -217,10 +217,10 @@ func test_each_collected_core_plays_the_item_table_pickup_sound():
 	killer.global_position=Vector3(205,100,0)
 	for step in 90: game.tick_drops(0.1)
 	assert_eq(game.drops.size(),0)
-	assert_eq(game.audio.energy_pickups.size(),13,"Each core queues its own pickup transient")
+	assert_eq(game.audio.energy_pickups.size(),7,"Each core queues its own pickup transient")
 	for step in 150: game.audio._physics_process(1.0/60.0)
 	var cues: Array=game.audio.events.filter(func(event):return event.get("id","")=="pickup_item")
-	assert_eq(cues.size(),13,"Cluster arrivals are not swallowed by cue cooldown")
+	assert_eq(cues.size(),7,"Cluster arrivals are not swallowed by cue cooldown")
 	for cue in cues: assert_eq(cue.asset,"world/pickup_item")
 	game.tick_drops(0.1)
 	assert_true(game.audio.energy_pickups.is_empty(),"Consumed cores never replay")
@@ -236,7 +236,7 @@ func test_each_online_core_collection_publishes_one_reliable_pickup_cue():
 	killer.global_position=Vector3(205,100,0)
 	for step in 90: game.tick_drops(0.1)
 	var cues: Array=game.presentation_events.filter(func(event):return event.kind=="audio" and event.cue=="pickup_item")
-	assert_eq(cues.size(),13)
+	assert_eq(cues.size(),7)
 	for cue in cues:
 		assert_true(cue.individual)
 		assert_eq(cue.emitter,killer.robot_id)
@@ -246,4 +246,4 @@ func test_each_online_core_collection_publishes_one_reliable_pickup_cue():
 	transport.game=game
 	transport.local_id=killer.robot_id
 	for cue in cues: transport.apply_presentation(cue)
-	assert_eq(game.audio.energy_pickups.size(),13,"Recipient queues every replicated core cue")
+	assert_eq(game.audio.energy_pickups.size(),7,"Recipient queues every replicated core cue")
