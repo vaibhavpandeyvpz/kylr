@@ -57,3 +57,11 @@ input prediction and use a bounded 90-second loading deadline rather than the
 normal eight-second snapshot-silence deadline. The server continues authenticated
 heartbeats in a non-admitting phase while asynchronously populating the next map.
 Human-only online rounds skip bot traversal-graph generation.
+
+Robot snapshots include the authority-assigned `voice_variant` (0–9). Speech
+presentation events carry that same assignment with the speaker robot ID and
+selected text; clients use it directly and attach contextual/kill speech to the
+live speaker's head. Voice identity persists through respawns and late joins.
+Random assignment and quip selection use a cosmetic RNG, independent of combat
+and spawn randomness. Late joins receive actor voice identity without replaying
+expired robot dialogue.

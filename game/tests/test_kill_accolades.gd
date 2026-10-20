@@ -71,8 +71,10 @@ func test_death_resets_chain_and_posthumous_kills_do_not_build_one():
 	assert_eq(get_signal_parameters(game,"local_elimination",0)[0].accolade,"Double Kill")
 	var announcements: Array=game.audio.events.filter(func(event): return event.get("asset","")=="speech/announcer/double_kill")
 	assert_eq(announcements.size(),1,"An accepted award starts its actual recording once")
-	assert_true(game.audio.last_started_voice.local,"Accolades are not world-positioned speech")
-	assert_eq(game.audio.last_started_voice.profile.bus,"Announcer")
+	var award_voices := game.audio.voices.filter(func(voice): return voice.active and voice.cue_id=="speech/speech/announcer/double_kill")
+	assert_eq(award_voices.size(),1)
+	assert_true(award_voices[0].local,"Accolades are not world-positioned speech")
+	assert_eq(award_voices[0].profile.bus,"Announcer")
 	game.local_robot=victim
 	game.record_elimination(victim,"Posthumous target")
 	game.record_elimination(victim,"Another posthumous target")

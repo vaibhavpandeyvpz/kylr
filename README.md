@@ -27,7 +27,8 @@ prompt-driven process.[^ai-tools]
   Elimination and Gun Game,
   powered by [Render](https://render.com/) and [Edgegap](https://edgegap.com/).
 - **Combat feedback:** local kill confirmations, rapid-kill accolades and voiced
-  match announcements. Grenade, rocket and EMP hits can earn credit for a later
+  match announcements, plus spatial kill quips in ten robot voices with matching
+  killfeed dialogue. Grenade, rocket and EMP hits can earn credit for a later
   fall when they are the victim's last accepted hit that life.
 - **Player customisation:** five head variants, 12 primary and 12 secondary armor
   colors, and victory emotes. Preview your robot in 3D and save your online

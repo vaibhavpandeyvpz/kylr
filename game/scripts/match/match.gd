@@ -243,6 +243,7 @@ func add_robot(id: int,nick: String,team: int,human: bool,head: String):
 	var robot := ArenaRobot.new()
 	robot.arena_match = self
 	robot.robot_id = id
+	if callouts and (not replicating or authority): callouts.assign_voice(robot)
 	robot.display_name = nick
 	robot.team = team
 	robot.human = human
@@ -548,6 +549,7 @@ func eliminate(victim,killer,cause: String):
 			"weapon":Arsenal.WEAPONS[credited_weapon].title if Arsenal.WEAPONS.has(credited_weapon) else credited_weapon.replace("_", " ").capitalize(),"cause":cause})
 		if killer != victim and killer.enemy(victim):
 			record_elimination(killer,victim.display_name)
+			if callouts: callouts.kill_quip(killer,credited_weapon)
 			if match_type=="GUNGAME": advance_gun_game(killer,true)
 	else:
 		push_feed({"kind":"death", "victim":victim.display_name, "victim_team":victim.team,
@@ -725,6 +727,9 @@ func equip_gun_game(robot: ArenaRobot) -> void:
 func notice(text: String, robot = null):
 	message.emit(text)
 	if callouts:
+		if robot != null and ArenaSpeech.follows_speaker(text):
+			callouts.publish(text,robot.display_name,robot.team,false,robot.eye(),-1,robot.robot_id)
+			return
 		var critical := text.begins_with("ARENA /") or text.begins_with("POWER /") or phase == "Finished"
 		var speaker = robot if robot != null else local_robot
 		var robot_voice := speaker != null and (not critical or text.begins_with("POWER /"))

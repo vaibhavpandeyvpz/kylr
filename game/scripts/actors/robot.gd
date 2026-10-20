@@ -3,6 +3,7 @@ extends CharacterBody3D
 
 var arena_match
 var robot_id := 0
+var voice_variant := -1
 var display_name := "Tensor"
 var team := 0
 var head := "projector"
@@ -539,10 +540,10 @@ func _physics_process(dt: float) -> void:
 		return
 	var previous_ep := ep
 	ep = maxf(0, ep - ArenaTuning.EP_DRAIN_PER_SECOND * dt)
-	if human and ((previous_ep>ArenaTuning.HALF_EP and ep<=ArenaTuning.HALF_EP) or (previous_ep>=ArenaTuning.CRITICAL_EP and ep<ArenaTuning.CRITICAL_EP)):
-		arena_match.audio.cue("low_energy",eye(),true,self)
-		if previous_ep>ArenaTuning.HALF_EP: arena_match.notice("POWER / Below 50% EP: find an Energy Core",self)
-		else: arena_match.notice("POWER / Critical EP: find an Energy Core",self)
+	if (previous_ep>ArenaTuning.HALF_EP and ep<=ArenaTuning.HALF_EP) or (previous_ep>=ArenaTuning.CRITICAL_EP and ep<ArenaTuning.CRITICAL_EP):
+		if self==arena_match.local_robot or (arena_match.replicating and human): arena_match.audio.cue("low_energy",eye(),true,self)
+		if previous_ep>ArenaTuning.HALF_EP: arena_match.notice("Finding energy core.",self)
+		else: arena_match.notice("Emergency!",self)
 	if ep <= 0:
 		arena_match.eliminate(self, null, "Power depleted")
 		return
@@ -820,6 +821,7 @@ func snapshot() -> Dictionary:
 
 func network_state() -> Dictionary:
 	var state := snapshot()
+	state["voice_variant"] = voice_variant
 	state["secondary"] = armor_secondary.to_html()
 	state["emote"] = account_emote
 	state["v"] = velocity
@@ -854,6 +856,7 @@ func network_state() -> Dictionary:
 	return state
 
 func restore_network(state: Dictionary, local := false) -> void:
+	voice_variant=int(state.get("voice_variant",voice_variant))
 	var life_changed: bool = alive != state.alive
 	var shot_changed: bool = network_shots != state.shots
 	var hurt: bool = state.ah < ah or state.sh < sh

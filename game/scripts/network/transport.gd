@@ -752,7 +752,7 @@ func apply_presentation(event: Dictionary):
 		"emp": game.effects.emp_contact(event.point,event.normal)
 		"electric": game.effects.electric_contact(event.point,event.normal)
 		"fire_orb": game.effects.fire_contact(event.point,event.normal)
-		"caption": game.callouts.publish(event.text,event.speaker,event.team,event.critical,event.point,-1,int(event.get("robot_id",-1)),event.get("winner_ids",[]))
+		"caption": game.callouts.publish(event.text,event.speaker,event.team,event.critical,event.point,-1,int(event.get("robot_id",-1)),event.get("winner_ids",[]),int(event.get("voice_variant",-1)))
 
 func _process(dt):
 	if server or not round_ready or building or closed: return
