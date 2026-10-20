@@ -199,7 +199,7 @@ func select_weapon(index: int) -> void:
 	local_robot.cooldown = 0
 	local_robot.reload_time = 0
 	local_robot.stream_time = 0
-	local_robot.flame_time = 0
+	local_robot.stream_damage_time = 0
 
 func _unhandled_input(event: InputEvent) -> void:
 	if automated: return

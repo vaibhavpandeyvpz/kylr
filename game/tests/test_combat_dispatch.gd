@@ -175,6 +175,56 @@ class CapturedTrace extends ArenaCombat:
 		reach=distance
 		damage=amount
 
+class CapturedStream extends ArenaCombat:
+	var ticks: Array[float] = []
+	func trace(_robot, _reach: float, amount: float, _color: Color, _scoped: bool) -> void:
+		if amount > 0: ticks.append(amount)
+	func flame(_robot) -> void:
+		ticks.append(Arsenal.WEAPONS.flamethrower.damage * Arsenal.WEAPONS.flamethrower.damage_tick)
+	func update_flame_contact(_robot) -> void: pass
+
+func test_primary_streams_deal_two_damage_every_100_ms_and_twenty_per_second():
+	for weapon in ["lightning_gun", "flamethrower"]:
+		var setup := fixture(weapon)
+		var robot: ArenaRobot = setup.robot
+		var combat := CapturedStream.new(setup.world)
+		robot.wants_fire = true
+		combat.trigger(robot, 0.01)
+		assert_eq(combat.ticks, [2.0], weapon + " starts with a full tick")
+		for frame in 99:
+			if robot.stream_damage_time > 0: robot.stream_damage_time -= 0.01
+			combat.trigger(robot, 0.01)
+		assert_eq(combat.ticks.size(), 10, weapon + " has ten ticks in [0, 1) seconds")
+		var total := 0.0
+		for amount in combat.ticks:
+			assert_eq(amount, 2.0)
+			total += amount
+		assert_eq(total, 20.0)
+		robot.stream_damage_time = -0.2
+		var previous_ticks := combat.ticks.size()
+		combat.trigger(robot, 0.01)
+		assert_eq(combat.ticks.size() - previous_ticks, 3, "A delayed update catches up discrete ticks")
+		for amount in combat.ticks: assert_eq(amount, 2.0, "Catch-up never combines ticks into a larger hit")
+
+func test_restarting_or_switching_streams_cannot_bypass_damage_tick_cooldown():
+	var setup := fixture("lightning_gun")
+	var robot: ArenaRobot = setup.robot
+	var combat := CapturedStream.new(setup.world)
+	robot.wants_fire = true
+	combat.trigger(robot, 0.01)
+	robot.wants_fire = false
+	combat.trigger(robot, 0.01)
+	robot.stream_damage_time -= 0.05
+	robot.wants_fire = true
+	combat.trigger(robot, 0.01)
+	assert_eq(combat.ticks, [2.0], "Rapid trigger presses cannot grant extra ticks")
+	robot.equipped = "flamethrower"
+	combat.trigger(robot, 0.01)
+	assert_eq(combat.ticks, [2.0], "Switching streams retains the damage cooldown")
+	robot.stream_damage_time = 0.0
+	combat.trigger(robot, 0.01)
+	assert_eq(combat.ticks, [2.0, 2.0])
+
 func test_rifle_uses_separate_scoped_cadence_range_and_damage():
 	for scoped in [false,true]:
 		var setup:=fixture("rifle")

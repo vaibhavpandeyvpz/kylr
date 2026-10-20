@@ -55,7 +55,7 @@ var packs: int:
 var reload_time := 0.0
 var cooldown := 0.0
 var stream_time := 0.0
-var flame_time := 0.0
+var stream_damage_time := 0.0
 var streaming := false
 var stream_accuracy_error := Vector2.ZERO
 var stream_accuracy_valid := false
@@ -521,7 +521,7 @@ func _physics_process(dt: float) -> void:
 		equip(next_weapon)
 	var held_discrete_fire := (wants_fire and equipped not in ["lightning_gun", "flamethrower"]) or (Arsenal.orb_secondary(equipped) and wants_secondary)
 	cooldown = cooldown - dt if held_discrete_fire and cooldown > 0 else maxf(0, cooldown - dt)
-	if flame_time > 0: flame_time -= dt
+	if stream_damage_time > 0: stream_damage_time -= dt
 	portal_lock = maxf(0, portal_lock - dt)
 	hit_flash = maxf(0, hit_flash - dt)
 	if not alive:

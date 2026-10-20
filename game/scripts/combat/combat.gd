@@ -231,12 +231,17 @@ func trigger(robot, dt: float) -> void:
 		if robot.stream_accuracy_time <= 0:
 			robot.stream_accuracy_time += 1.0
 			roll_stream_accuracy(robot)
-		if weapon == "lightning_gun":
-			trace(robot, profile.range, profile.damage * dt, Color("82baff"), false)
-		else:
-			while robot.flame_time <= 0:
-				robot.flame_time += profile.get("damage_tick", 0.1)
+		var damage_ticked := false
+		while robot.stream_damage_time <= 0:
+			damage_ticked = true
+			robot.stream_damage_time += profile.damage_tick
+			if weapon == "lightning_gun":
+				trace(robot, profile.range, profile.damage * profile.damage_tick, Color("82baff"), false)
+			else:
 				flame(robot)
+		if weapon == "lightning_gun":
+			if not damage_ticked: trace(robot, profile.range, 0.0, Color("82baff"), false)
+		else:
 			update_flame_contact(robot)
 		return
 	# Complete the last shot's scheduled launch/casing before changing its rig.
@@ -375,7 +380,7 @@ func trace(robot, reach: float, damage: float, color: Color, scoped: bool) -> vo
 	if not hit.is_empty():
 		target = hit.position
 		var shielded: bool = hit.collider is ArenaRobot and (hit.collider.sh > 0 or hit.collider.protection > 0)
-		if hit.collider is ArenaRobot:
+		if hit.collider is ArenaRobot and damage > 0:
 			var victim = hit.collider
 			var headshot: bool = scoped and hit.get("hit_region", "body") == "head"
 			if headshot: damage = float(Arsenal.WEAPONS.rifle.headshot_damage)
