@@ -98,7 +98,7 @@ The library contains detachable ammo-pack models that can represent the matching
 Elimination should clearly identify the attacker, affected robot, and weapon or hazard where known. On death, play the death animation and **turn off all emissive parts on the robot**, including visible equipped gear; restore their normal emissive state only when that robot respawns. Hold the completed animation for one second, then remove the corpse and respawn. Falling robots leave no drops. Apply emissive state to both first-person and third-person presentation. Give the player immediate feedback for hits, damage taken, low resources, reload state, and death.
 
 The dead robot's corpse disappears **one second after its death animation finishes**. If AH caused an ordinary death and the robot still had EP at that exact moment, **dropped Energy Cores** appear on the ground where the corpse
-disappeared. Split the stored EP into chunks of **at most 5 EP**, with the final Core holding the remainder.
+disappeared. Split the stored EP into chunks of **at most 10 EP**, with the final Core holding the remainder.
 ProtonScatter's runtime modifier stack generates random positions within 2 m and projects them onto solid map colliders.
 Select supported positions with neighboring Core centers **25–35 cm** apart, checking solid clearance and support beneath the
 25 cm footprint. Keep them on the same floor; on a cramped ledge, supported positions take priority over spacing.

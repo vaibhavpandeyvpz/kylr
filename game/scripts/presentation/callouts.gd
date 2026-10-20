@@ -63,20 +63,12 @@ func publish(text: String, speaker := "Announcer", team := -1, critical := true,
 			team_last[team] = times
 			robot_last[speaker] = clock
 			recent_line[speaker] = text
-	else:
-		# Replace lower-priority captions rather than queue stale objective news.
-		captions = captions.filter(func(line): return line.critical)
-	var direction := ""
-	if not critical and point != Vector3.INF and is_instance_valid(game) and is_instance_valid(game.local_robot):
-		var delta: Vector3 = point-game.local_robot.global_position
-		var local: Vector3 = delta.rotated(Vector3.UP,-game.local_robot.yaw)
-		if delta.length() > 2: direction = " / " + ("right" if local.x>0 else "left")
-	var identity := speaker + (" / Team " + ("A" if team == 0 else "B") if team >= 0 else "") + direction
+	var identity := speaker
 	if critical: speaker = "Announcer"
 	if critical:
 		for i in range(captions.size()-1,-1,-1):
 			if captions[i].critical: captions.remove_at(i)
-	captions.append({"text":identity + ": " + text,"critical":critical,"expires":clock+4.0,"robot_feed":not critical or robot_id>=0,"speaker":speaker if not critical else identity.get_slice(" / ",0),"team":team,"utterance":text,"direction":direction})
+	captions.append({"text":identity + ": " + text,"critical":critical,"expires":clock+4.0,"feed_time":game.elapsed if game is ArenaMatch else clock,"robot_feed":not critical or robot_id>=0,"speaker":speaker if not critical else identity,"team":team,"utterance":text})
 	while captions.size() > 3: captions.pop_front()
 	play_recording(text,critical,point,robot_id,winner_ids,voice_variant)
 	return true
@@ -90,19 +82,21 @@ func play_recording(text: String, critical: bool, point: Vector3, robot_id := -1
 	var recording := ArenaSpeech.recording(speech,text,critical,voice_variant if voice_variant>=0 else robot_id)
 	if recording.is_empty() or game == null: return
 	var quip := ArenaSpeech.follows_speaker(text)
+	var robot_speech: bool = robot_id>=0 and recording.bus=="Voices"
+	var own_speech: bool = is_instance_valid(game.local_robot) and robot_id==game.local_robot.robot_id
 	var active_speech := 0
 	for voice in game.audio.voices:
 		if not voice.active: continue
 		if critical and voice.profile.bus == recording.bus: voice.stop()
-		elif quip and voice.profile.get("kill_quip",false) and voice.profile.get("speaker_id",-1)==robot_id: voice.stop()
+		elif robot_speech and voice.profile.get("speaker_id",-1)==robot_id: voice.stop()
 		elif not critical and voice.profile.bus == "Voices" and not voice.profile.get("kill_quip",false): active_speech += 1
-	if not critical and not quip and active_speech >= 2: return
+	if not critical and not quip and not own_speech and active_speech >= 2: return
 	# Entries are audio-catalog asset IDs, matched only after listener filtering.
 	var cue := "speech/"+str(recording.asset)
 	AudioCues.profile(cue)
 	AudioCues.profiles[cue] = {"asset":recording.asset,"bus":recording.bus,"gain":recording.get("gain",-14.0),"priority":95 if critical else 70,"limit":1 if critical else 2,"near":5,"far":25,"pitch":0.0,"pitch_scale":recording.pitch_scale}
-	if quip:
-		AudioCues.profiles[cue].merge({"kill_quip":true,"speaker_id":robot_id,"cooldown":0.0})
+	if robot_speech:
+		AudioCues.profiles[cue].merge({"kill_quip":quip,"speaker_id":robot_id,"cooldown":0.0})
 		var speaker = game.robot_by_id(robot_id) if game is ArenaMatch else null
 		if is_instance_valid(speaker): game.audio.cue_following(cue,speaker.eye(),speaker)
 		return

@@ -49,7 +49,7 @@ func test_client_speech_follows_the_speaker_and_respects_listener_preferences():
 	var first_serial := first.serial
 	assert_false(first.local,"Even the local speaker uses a moving 3D source")
 	assert_eq(first.profile.bus,"Voices")
-	assert_eq(first.profile.gain,-14.0,"Match the other robot recordings' cue gain")
+	assert_eq(first.profile.gain,-8.0,"Robot dialogue has clear headroom above the music bed")
 	var feed := HudKillFeed.active_events(game,true)
 	assert_eq(feed[0].text,"Eat that!")
 	assert_eq(feed[0].actor,"Killer")

@@ -1,5 +1,27 @@
 extends GutTest
 
+func test_killfeed_order_is_stable_when_simulation_and_caption_clocks_drift():
+	var game:=ArenaMatch.new()
+	autofree(game)
+	var calls:=ArenaCallouts.new()
+	game.add_child(calls)
+	game.callouts=calls
+	game.elapsed=20.0
+	calls.clock=game.elapsed
+	game.feed_events=[{"kind":"leave","actor":"Earlier","team":0,"time":20.0}]
+	assert_true(calls.publish("Next!","Pilot",0,false))
+	var events:=HudKillFeed.active_events(game,true)
+	assert_eq(events[0].kind,"callout")
+	game.elapsed+=0.03
+	calls._process(0.04)
+	assert_eq(HudKillFeed.active_events(game,true)[0].kind,"callout","Clock drift cannot reorder accepted events")
+	var event:Dictionary=events[0].merged({"direction":" / right"},true)
+	var text:=HudKillFeed.format_event(event,"DM",[])
+	assert_false(text.contains("/ right"),"Legacy network metadata never appears in dialogue")
+	assert_false(calls.caption_text().contains(" / "))
+	assert_true(calls.publish("Flag captured.","Announcer",1,true))
+	assert_eq(calls.captions.size(),2,"An announcement does not erase unexpired dialogue")
+
 func test_kill_feed_is_a_sentence_with_bold_team_colored_people_and_weapon():
 	var colors: Array[Color] = [Color("e84a43"), Color("4ab77a")]
 	var event := {"kind":"kill", "killer":"ABC", "killer_team":0,
@@ -30,6 +52,7 @@ func test_robot_callouts_share_the_feed_with_safe_bold_team_names_and_expire():
 	game.add_child(calls)
 	game.callouts=calls
 	game.elapsed=20.0
+	calls.clock=game.elapsed
 	game.feed_events=[{"kind":"leave","actor":"Other","team":1,"time":19.5}]
 	assert_true(calls.publish("Cover [b]me[/b]", "ABC", 0, false))
 	assert_false(calls.publish("Spam", "ABC", 0, false))

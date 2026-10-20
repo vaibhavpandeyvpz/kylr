@@ -56,7 +56,7 @@ static func recording(bank: Dictionary, text: String, critical: bool, robot_id: 
 		if variants.size() != ROBOT_VOICES: return {}
 		var voice: Dictionary = variants[posmod(robot_id,ROBOT_VOICES)]
 		var asset := str(voice.get("lines",{}).get(key,""))
-		return {} if asset.is_empty() else {"asset":asset,"pitch_scale":clampf(float(voice.get("pitch_scale",1.0)),0.75,1.3),"bus":"Voices"}
+		return {} if asset.is_empty() else {"asset":asset,"pitch_scale":clampf(float(voice.get("pitch_scale",1.0)),0.75,1.3),"bus":"Voices","gain":-8.0}
 	var entries: Dictionary = bank.get("announcer" if critical else "robot",{})
 	var asset := str(entries.get(key,entries.get(text,"")))
 	return {} if asset.is_empty() else {"asset":asset,"pitch_scale":1.0,"bus":"Announcer" if critical else "Voices","gain":-8.0 if key in ["double_kill","triple_kill","mega_kill","champion","death_bringer"] else -14.0}

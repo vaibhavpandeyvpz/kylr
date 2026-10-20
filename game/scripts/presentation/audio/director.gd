@@ -3,6 +3,7 @@ extends Node
 const WORLD_LIMIT := 24
 const LOCAL_LIMIT := 8
 const AMBIENCE_LIMIT := 9
+const SPEECH_LIMIT := 10
 static var profile_ticks := false
 static var tick_costs: Dictionary = {}
 static var profile_callbacks := 0
@@ -54,7 +55,7 @@ func play_cue(id: String,point: Vector3,local: bool,profile: Dictionary,key := "
 	var distance := listener_position().distance_to(point)
 	if not local and distance>=float(profile.far): metrics.culled+=1; return false
 	var importance := AudioCues.importance(profile,distance,local)
-	var voice := acquire(local,id,int(profile.limit),importance,profile.bus=="Ambience")
+	var voice := acquire(local,id,int(profile.limit),importance,profile.bus=="Ambience",profile.bus=="Voices")
 	if voice==null: metrics.culled+=1; return false
 	var asset: String=profile.get("loop_asset",profile.asset) if key!="" else profile.asset
 	if key=="" and profile.has("variants"):
@@ -72,21 +73,21 @@ func play_cue(id: String,point: Vector3,local: bool,profile: Dictionary,key := "
 	events.append({"kind":"start","time":clock,"id":id,"asset":asset,"point":point,"distance":distance,"gain":profile.gain,"loop_key":key})
 	return true
 
-func acquire(local: bool,id: String,limit: int,importance: float,ambience := false) -> ArenaVoice:
+func acquire(local: bool,id: String,limit: int,importance: float,ambience := false,speech := false) -> ArenaVoice:
 	var matching: Array[ArenaVoice]=[]
 	var candidates: Array[ArenaVoice]=[]
 	var free: ArenaVoice
 	for voice in voices:
-		if voice.local!=local or (not local and voice.ambience!=ambience): continue
+		if voice.local!=local or voice.speech!=speech or (not local and voice.ambience!=ambience): continue
 		candidates.append(voice)
 		if not voice.active: free=voice
 		elif voice.cue_id==id: matching.append(voice)
 	if matching.size()>=limit: candidates=matching; free=null
 	elif free!=null: return free
-	elif candidates.size()<(LOCAL_LIMIT if local else AMBIENCE_LIMIT if ambience else WORLD_LIMIT):
+	elif candidates.size()<(SPEECH_LIMIT if speech else LOCAL_LIMIT if local else AMBIENCE_LIMIT if ambience else WORLD_LIMIT):
 		var voice := ArenaVoice.new()
 		add_child(voice)
-		voice.configure(voices.size(),local,ambience)
+		voice.configure(voices.size(),local,ambience,speech)
 		voices.append(voice)
 		return voice
 	var weakest: ArenaVoice

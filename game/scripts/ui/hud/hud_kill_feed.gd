@@ -57,20 +57,27 @@ func _draw() -> void:
 
 static func active_events(game: ArenaMatch, include_callouts: bool) -> Array[Dictionary]:
 	var active: Array[Dictionary] = []
+	var rank := 0
 	for source in game.feed_events:
 		var age := game.elapsed - float(source.time)
 		if age >= 5.0: continue
 		var event: Dictionary = source.duplicate()
 		event["age"] = age
 		event["remaining"] = 5.0-age
+		event["sort_time"] = float(source.time)
+		event["sort_rank"] = -rank
+		rank += 1
 		active.append(event)
 	if include_callouts and game.callouts:
+		rank = 1
 		for line in game.callouts.captions:
 			var remaining: float = float(line.expires)-game.callouts.clock
 			if remaining<=0: continue
 			active.append({"kind":"callout","actor":line.get("speaker","Announcer"),"team":line.get("team",-1) if line.get("robot_feed",false) else -1,
-				"announcement":not line.get("robot_feed",false),"text":line.get("utterance",line.text),"direction":line.get("direction",""),"age":4.0-remaining,"remaining":remaining})
-	active.sort_custom(func(a,b): return a.age<b.age)
+				"announcement":not line.get("robot_feed",false),"text":line.get("utterance",line.text),"age":4.0-remaining,"remaining":remaining,
+				"sort_time":float(line.get("feed_time",game.elapsed-(4.0-remaining))),"sort_rank":rank})
+			rank += 1
+	active.sort_custom(func(a,b): return a.sort_rank>b.sort_rank if a.sort_time==b.sort_time else a.sort_time>b.sort_time)
 	return active.slice(0,4)
 
 static func sentence(value: String) -> String:
@@ -92,7 +99,7 @@ static func format_event(event: Dictionary, mode: String, colors: Array[Color]) 
 	match String(event.kind):
 		"callout":
 			if event.get("announcement",false): return "[b]Announcement:[/b] " + safe(sentence(event.text))
-			return "%s said: %s%s" % [person(event.actor,int(event.team),mode,colors),safe(sentence(event.text)),safe(event.get("direction",""))]
+			return "%s said: %s" % [person(event.actor,int(event.team),mode,colors),safe(sentence(event.text))]
 		"kill":
 			if event.get("cause","")=="Fall off map":
 				return "%s knocked %s out of the arena with [b]%s[/b]."%[

@@ -34,6 +34,21 @@ func after_each():
 	get_tree().paused=false
 	Input.mouse_mode=Input.MOUSE_MODE_VISIBLE
 
+func test_instant_action_callsign_is_editable_validated_and_applied():
+	var callsign:=ui.page.find_child("InstantActionCallsign",true,false) as LineEdit
+	assert_not_null(callsign)
+	callsign.text="New.Pilot"
+	callsign.text_changed.emit(callsign.text)
+	assert_ne(app.prefs.values.name,"New.Pilot","Typing remains pending until Apply")
+	ui.apply_settings()
+	assert_eq(app.prefs.values.name,"New.Pilot")
+	assert_eq(app.prefs.saves,1)
+	ui.pending.name="Invalid call sign!"
+	ui.apply_settings()
+	assert_eq(app.prefs.saves,1)
+	assert_eq(app.prefs.values.name,"New.Pilot")
+	assert_true(ui.status.text.contains("Callsign"))
+
 func test_ultra_preset_selects_full_fixture_lighting_and_custom_keeps_individual_choice():
 	ui.settings_tab("Graphics")
 	var quality: OptionButton
@@ -250,7 +265,7 @@ func test_callout_frequency_caps_repetition_but_preserves_critical_captions():
 	calls.frequency=2
 	assert_false(calls.publish("Pickup acquired.","Other",1,false))
 	assert_true(calls.publish("Flag captured.","Announcer",1,true))
-	assert_true(calls.caption_text().contains("Announcer / Team B: Flag captured."))
+	assert_true(calls.caption_text().contains("Announcer: Flag captured."))
 	calls._process(5.0)
 	assert_eq(calls.caption_text(),"")
 func test_sprint_effects_use_real_motion_and_reduced_motion_overrides_toggles():

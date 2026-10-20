@@ -14,8 +14,16 @@ appearance, audio quality or real-time FPS.
 
 ## Bot and traversal matrix
 
+Behavior-tree, equipment-policy and resource-targeting changes also require a
+baseline/current CPU comparison with the same custom engine, map, seed,
+difficulty and ten-robot roster. Warm the simulation, run repeated serial trials
+without concurrent builds or matrix jobs, and report average, p95, p99 and
+maximum decision CPU time per physics frame alongside whole-frame costs.
+Inspect spikes as well as the mean. Headless CPU diagnostics do not establish
+rendered FPS or qualify the 16.67 ms rendering target.
+
 Changes to AI, traversal, map collision/fixtures, objectives or movement cost
-require DM, TDM and CTF at **2, 4, 6, 8 and 10 robots on both maps**. Use the
+require DM, TDM, CTF, Elimination and Gun Game at **2, 4, 6, 8 and 10 robots on both maps**. Use the
 physical match controller, not teleports in place of traversal. Every CTF case
 runs for at least **120 simulated seconds**. Repeat chance-dependent results
 with additional seeds and inspect objective progress, not just exit codes.

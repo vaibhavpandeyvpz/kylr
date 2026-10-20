@@ -109,7 +109,7 @@ Short speech gives robots character and useful information. Bots may say lines l
 | Flag take/drop/return/capture; arena event | Team or all-player announcer line with the exact authoritative state. Distinguish home and dropped flags. |
 | Match point, time warning, victory/draw/cancellation | Announcer line aligned to the same state and time as HUD/scoreboard. |
 
-Cap ordinary robot barks to **one per robot per 8 seconds** and **two per team per 5 seconds**; critical objective and announcer lines bypass the robot cap but replace lower-priority queued lines. Do not repeat the same line twice consecutively for one robot. Limit ordinary speech to one announcer line and two robot lines at a time; replace stale speech instead of queuing it. Contextual repair/energy lines and kill quips use the per-speaker rule below. Use distinct subtitles with speaker, team, and direction where relevant. Provide separate volume sliders for music, effects, interface, announcer, and robot voices; subtitles and voice-callout frequency are Settings options.
+Cap ordinary robot barks to **one per robot per 8 seconds** and **two per team per 5 seconds**; critical objective and announcer lines bypass the robot cap and replace preceding announcer audio. Do not repeat the same line twice consecutively for one robot. Limit ordinary speech to one announcer line and two robot lines at a time; replace stale speech instead of queuing it. Contextual repair/energy lines and kill quips use the per-speaker rule below. Use speaker-labeled subtitles and team colours. Provide separate volume sliders for music, effects, interface, announcer, and robot voices; subtitles and voice-callout frequency are Settings options.
 
 ## Production and accessibility
 
@@ -117,7 +117,7 @@ Cap ordinary robot barks to **one per robot per 8 seconds** and **two per team p
 
 The native Godot audio director is split into `scripts/presentation/audio/{director,voice,mix,cues}.gd`, with event profiles in `data/audio/cues.json`. The registry specifies gain, near/far range, priority, per-cue voice limit, emitter cooldown, pitch variation, bus, and optional dedicated loop asset. The curated weapon and world audio is bundled under `assets/audio/weapons/{shots,hits}/` and `assets/audio/world/` as trimmed 48 kHz mono PCM16; the continuous shot and contact loops have end-to-start joins. The authoring scripts `tools/prepare_weapon_audio.py` and `tools/prepare_world_audio.py` reproduce those game assets from supplied source WAVs. Their provenance is recorded in `assets/audio/catalog.json`.
 
-The pool reserves **24 world voices, 9 ambience voices, and 8 near-field voices**. Machinery beds use the separate ambience pool so combat cannot repeatedly steal and restart them. A higher-priority audible cue can steal a lower-priority voice within its pool; distant sources are culled. Cooldowns are keyed by emitter, so one robot's shot cannot suppress another's merely because they share a weapon. World one-shots use a bounded sound-travel delay at 343 m/s. Continuous beams, flame, thrusters, and welding have persistent keyed emitters with 60 ms gain ramps.
+The pool reserves **24 world voices, 9 ambience voices, 10 reserved spatial robot-voice slots, and 8 near-field voices**. Machinery beds use the separate ambience pool so combat cannot repeatedly steal and restart them. A higher-priority audible cue can steal a lower-priority voice within its pool; distant sources are culled. Cooldowns are keyed by emitter, so one robot's shot cannot suppress another's merely because they share a weapon. World one-shots use a bounded sound-travel delay at 343 m/s. Continuous beams, flame, thrusters, and welding have persistent keyed emitters with 60 ms gain ramps.
 
 Spatio is the game's acoustic propagation layer in `scripts/presentation/audio/spatio.gd`. It samples three narrow paths between the robot's head and each active emitter, with a global budget of fifteen physics rays per 50 ms acoustic tick. The path stops just short of the emitter to avoid treating its own surface as cover. Hit geometry has `spatio_material` metadata: concrete, metal, glass, grate, fabric, and open have distinct low/high frequency transmission. Imported collision meshes receive a material based on their authored mesh name; maps default to concrete and fixtures default to metal. Acoustic coefficients and the listening result blend over time so opening a barricade does not cause a sudden volume jump. Authors may set `spatio_material` on a collision body to override the inferred material. Spatio uses gameplay collision, so moving geometry automatically affects propagation. It does not simulate full multi-bounce reverb or use OpenAL Soft; Godot's 3D player handles positioning and panning. Faceoff's basement acoustic zones smoothly increase shared world reverb; no sound is transmitted through portals. Critical cues duck world voices and sidechain the music bus. A master limiter preserves headroom, and the Effects compressor adds 6 dB of makeup gain in reduced-dynamic-range mode. Effects, music, interface, announcer, and robot-voice controls remain separate.
 
@@ -131,7 +131,7 @@ Build a cue registry keyed by gameplay event and asset animation event, with var
 
 ## Caption and callout delivery
 
-`ArenaCallouts` receives accepted flag take/drop/return/capture, arena warning, low/critical EP, repair/pickup, significant surviving armor-hit, and match-finish events. Speaker/team captions expire after four seconds and never infer hidden enemy or flag-carrier positions. Nearby ordinary robot captions may include left/right direction relative to the listener's robot and are limited to 25 m. Full frequency permits one ordinary line per robot per eight seconds and two per team per five seconds; Reduced uses sixteen seconds and one per team per five seconds; Off suppresses ordinary lines. Consecutive repeated robot lines are suppressed. Critical lines bypass those caps, replace earlier announcer/ordinary captions, and remain independent of volume settings. Caption visibility is controlled by the shared caption preference; objective feed and resource readouts remain available when captions are off.
+`ArenaCallouts` receives accepted flag take/drop/return/capture, arena warning, low/critical EP, repair/pickup, significant surviving armor-hit, and match-finish events. Speaker/team captions expire after four seconds and never infer hidden enemy or flag-carrier positions. Nearby ordinary robot captions are limited to 25 m. The feed shows natural dialogue with speaker names and team colours; it omits direction suffixes, internal ARENA/POWER tags and textual team/debug labels. Full frequency permits one ordinary line per robot per eight seconds and two per team per five seconds; Reduced uses sixteen seconds and one per team per five seconds; Off suppresses ordinary lines. Consecutive repeated robot lines are suppressed. Critical lines bypass those caps, replace earlier announcer captions while retaining unexpired robot dialogue, and remain independent of volume settings. Caption visibility is controlled by the shared caption preference; objective feed and resource readouts remain available when captions are off.
 
 Bundled ElevenLabs recordings supply robot speech and announcer lines through the same accepted-event delivery path as captions.
 
@@ -143,7 +143,7 @@ fall credited to either weapon. **Headshot!** is available only for a rifle
 headshot finishing hit. Gun Game uses the finishing weapon before switching.
 Every `robot_00`–`robot_09` bank contains all twelve quips in its existing voice,
 using ElevenLabs `eleven_multilingual_v2`, the same source processing, pitch,
-Voices bus, -14 dB cue gain and shared playback lift as its other speech.
+Voices bus, -8 dB cue gain and shared playback lift as its other speech.
 
 Repair completion says **Let's go!**; low EP says **Finding energy core.**;
 critical EP says **Emergency!** in all ten banks. These contextual lines trigger
@@ -164,7 +164,7 @@ are not replayed on late join.
 
 ## Authored playback integration
 
-`data/audio/music.json` registers lobby, assembly, active, pressure, victory, draw and canceled beds plus capture/result stingers. `ArenaMusic` crossfades beds over one second and raises pressure near the time/score limit, on a contested CTF flag, or during an arena warning. The existing Music bus and volume/ducking controls own playback. `data/audio/speech.json` maps accepted announcer/robot text to authored recordings; playback follows the same listener filtering as captions. Critical speech replaces the prior announcer line; ordinary speech has a two-voice cap. Online servers publish cues without playing duplicate speech.
+`data/audio/music.json` registers lobby, assembly, active, pressure, victory, draw and canceled beds plus capture/result stingers. `ArenaMusic` crossfades beds over one second and raises pressure near the time/score limit, on a contested CTF flag, or during an arena warning. The existing Music bus and volume/ducking controls own playback. `data/audio/speech.json` maps accepted announcer/robot text to authored recordings; playback follows the same listener filtering as captions. Critical speech replaces the prior announcer line; ordinary remote speech has a two-voice cap. Online servers publish cues without playing duplicate speech.
 
 Both manifests now use ElevenLabs recordings: 170 robot clips across ten distinct voices, fifteen announcer clips and eleven instrumental music cues. Original MP3 sources and generation/voice IDs are retained in the library. `tools/prepare_speech_audio.py` trims and peak-normalizes 48 kHz mono PCM16; `tools/prepare_music_audio.py` prepares stereo Vorbis at -18 LUFS with headroom and smooth boundaries. `tools/sync_authored_audio_catalog.py` rejects incomplete banks. The curated walk loop still lacks material-specific variants; ten-player headphone/speaker audition remains a review gate.
 
@@ -178,7 +178,7 @@ All weapon shot and hit/impact cues, including primary contact loops, secondary 
 
 Speech captions use the upper-right event feed's body font and fading rows
 rather than a separate panel in the lower center. Preserve
-speaker/team labels and the existing listener, priority and subtitle controls.
+speaker names, team colours and the existing listener, priority and subtitle controls.
 Pickup captions distinguish a weapon from its ammunition; both retain the
 shared generic pickup recording through the stable `acquired` event suffix.
 
@@ -209,3 +209,16 @@ the match** only for the local winning robot or winning team member; a draw
 says **Match ended in draw** to every participant. Retained source clips,
 provider IDs, text and checksums live in the speech source manifest. The
 runtime speech bank contains 185 recordings, including the five kill accolades.
+
+Robot recordings use -8 dB cue gain with the shared playback lift and the user's
+Voices slider. All robot dialogue follows the speaker's head, including the
+local robot. Its ten reserved spatial voice slots cannot be stolen or occupied
+by combat or machinery. A speaker has one current line; new dialogue replaces
+that speaker's unfinished line. The local speaker also bypasses the ordinary
+simultaneous remote-speech cap. Range, callout frequency and subtitle preferences
+still apply; objective announcements retain their separate channel.
+
+Feed entries are ordered by immutable event timestamps in match time, with
+stable ties. Caption expiry uses its own clock without changing row order.
+New announcements preserve unexpired robot dialogue. Rows keep their existing
+bounded lifetimes and final fade; no direction metadata is rendered.

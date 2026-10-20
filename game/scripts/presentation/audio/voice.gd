@@ -3,6 +3,7 @@ extends Node
 var player
 var local := false
 var ambience := false
+var speech := false
 var active := false
 var cue_id := ""
 var serial := 0
@@ -39,9 +40,10 @@ func update_emitter():
 	else:
 		emitter = null
 
-func configure(index: int,near_field: bool,ambient_field := false):
+func configure(index: int,near_field: bool,ambient_field := false,speech_field := false):
 	local=near_field
 	ambience=ambient_field
+	speech=speech_field
 	player=AudioStreamPlayer.new() if local else AudioStreamPlayer3D.new()
 	add_child(player)
 	player.finished.connect(stop)

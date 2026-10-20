@@ -1,6 +1,22 @@
 extends GutTest
 var audio: ArenaAudio
 
+func test_combat_pool_cannot_suppress_or_steal_robot_dialogue():
+	var combat:=AudioCues.profile("rifle")
+	combat.priority=200
+	combat.limit=32
+	for index in SpatialAudioDirector.WORLD_LIMIT:
+		assert_true(audio.play_cue("combat_"+str(index),Vector3(0,0,-2),false,combat))
+	var spoken:=AudioCues.profile("voice_probe")
+	spoken.merge({"asset":"speech/robot_00/next","bus":"Voices","priority":70,"limit":10,"gain":-8.0},true)
+	assert_true(audio.play_cue("voice_probe",Vector3.ZERO,false,spoken),"Dialogue has reserved capacity even when every world slot is louder combat")
+	var voice:=audio.last_started_voice
+	var serial:=voice.serial
+	assert_true(voice.speech)
+	assert_true(audio.play_cue("extra_combat",Vector3(0,0,-2),false,combat))
+	assert_true(voice.active)
+	assert_eq(voice.serial,serial,"A later shot cannot take the dialogue's slot")
+
 class ListenerFixture extends Node3D:
 	var listener := Node3D.new()
 	func _ready(): add_child(listener)

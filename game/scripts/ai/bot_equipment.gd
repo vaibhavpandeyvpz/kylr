@@ -113,6 +113,10 @@ func utility(weapon: String,distance: float) -> float:
 		if secondary(weapon,distance): rate=1.0/float(profile.secondary_interval); damage=float(profile.secondary_damage)*1.8
 		else: rate=1.0; damage*=1.5 if weapon=="lightning_gun" else 1.2
 	elif weapon=="emp_gun": damage=Arsenal.emp_damage(distance)*1.25
+	elif int(profile.get("pellets",1))>1:
+		var width := 2.0*distance*tan(deg_to_rad(float(profile.get("spread_degrees",0.0))))
+		var hit_fraction := clampf(0.6/maxf(0.6,width),1.0/float(profile.pellets),1.0)
+		damage*=float(profile.pellets)*hit_fraction
 	elif weapon=="rocket_launcher":
 		if distance<5.0: return 0 # Do not deliberately blast our own feet.
 		if brain.target!=null:
@@ -158,7 +162,8 @@ func plan(urgent: bool) -> bool:
 	for fixture in robot.arena_match.map.fixtures:
 		if fixture.kind not in ["ammo","weapon","shield"] or not robot.arena_match.map.can_collect(fixture,robot): continue
 		var travel: float = brain.resource_cost(fixture.point)
-		if travel>limit: continue
+		var straight_distance: float = robot.position.distance_to(fixture.point)
+		if straight_distance>limit: continue
 		var value := 0.0
 		if fixture.kind=="ammo":
 			if fixture.weapon not in robot.owned_weapons: continue
@@ -168,15 +173,20 @@ func plan(urgent: bool) -> bool:
 		elif fixture.kind=="shield":
 			if not urgent and not committed and brain.target==null and robot.sh<=25: value=1.0
 		elif not committed:
-			var improvement: float = utility(fixture.weapon,distance)/maxf(1,current)
-			var threshold: float = 1.05 if robot.pickup_weapon=="" else float(brain.tuning.weapon_upgrade_ratio)
-			if improvement<threshold: continue
-			value=improvement
+			var usefulness := utility(fixture.weapon,distance)
+			if usefulness<=0: continue
+			var improvement: float = usefulness/maxf(1,current)
+			# A first weapon expands the bot's inventory even when its immediate
+			# damage rate ties the infinite-ammo pistol. Upgrade margins apply
+			# only after it has acquired a pickup weapon.
+			if robot.pickup_weapon!="" and improvement<float(brain.tuning.weapon_upgrade_ratio): continue
+			value=1.0+improvement if robot.pickup_weapon=="" else improvement
 		if value>0: candidates.append({"fixture":fixture,"score":value/(1.0+travel/8.0)})
 	candidates.sort_custom(func(a,b): return a.score>b.score)
 	for index in mini(int(BotDifficulty.data.tactics.resource_candidates),candidates.size()):
 		var fixture: Dictionary = candidates[index].fixture
-		if brain.equipment_travel(fixture.point)>limit: continue
+		var exposure: float = maxf(0.0,brain.resource_cost(fixture.point)-robot.position.distance_to(fixture.point))
+		if brain.equipment_travel(fixture.point)-exposure>limit: continue
 		if brain.commit_goal(fixture.point,fixture.kind):
 			BotDifficulty.trace("equipment_goal",{"robot":robot.robot_id,"kind":fixture.kind,"fixture":fixture.id,"ammo_seconds":ammo_seconds(),"urgent":urgent})
 			return true
