@@ -206,7 +206,8 @@ func tint_flag_cloth(flag: Node3D, color: Color) -> void:
 			var source := mesh.get_active_material(surface) as StandardMaterial3D
 			if source == null or Assets.material_role(source.resource_name) != "M_Flag": continue
 			var cloth := source.duplicate() as StandardMaterial3D
-			cloth.albedo_color = color
+			cloth.albedo_color = Color(color,0.75)
+			cloth.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
 			cloth.emission_enabled = true
 			cloth.emission = color
 			mesh.set_surface_override_material(surface,cloth)

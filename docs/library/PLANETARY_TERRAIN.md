@@ -12,6 +12,9 @@ geological material weights. Faceoff has graded cover banks, shallow channels,
 excavated building seats and a broken impact rim. Native architecture, doors,
 lift approaches, spawn mechanisms and pickup footprints retain their placement
 datum. Foundation masks come from the source layout and native footprint metadata.
+The lander's complete deployed footprint, including its four pads and ladder
+shoes, has a level seat with a grid-diagonal margin so interpolated terrain
+triangles meet the feet at their native ground plane.
 Bot sampling includes the full playable height range, with physical checks for
 continuous slopes up to 40 degrees; larger steps and gaps remain separate traversal
 actions. These checks run during graph construction, not every frame.
@@ -41,6 +44,11 @@ removes boundary discontinuities and broad illumination drift. Height and normal
 are conservative image-derived microrelief approximations, not scan measurements. Normal-map compression is
 disabled to preserve the packed roughness channel. Imports use mipmapped HQ VRAM
 compression. Two RGB control maps per arena store the six geological weights.
+Dust, exposed basalt, bedrock bands and loose rubble form metre-scale patches
+with dominant interiors and irregular blended edges. Compacted regolith marks
+Faceoff's disturbed fixture ground; localized scorch marks lander exhaust and
+Skyfall's impact pit. The controls preserve material contrast rather than mixing
+small amounts of every layer across the entire surface.
 
 `game/shaders/original/planetary_terrain.gdshader` blends weights with layer height,
 projects steep faces along their dominant axis and performs no vertex displacement.
@@ -60,6 +68,12 @@ blender --background --factory-startup --python-exit-code 1 --python models/maps
 blender --background --factory-startup --python-exit-code 1 --python models/maps/faceoff/validate.py
 blender --background --factory-startup --python-exit-code 1 --python models/maps/faceoff/preview.py
 ```
+
+For blend-control changes alone, run
+`.venv/Scripts/python.exe tools/build_planetary_terrain.py all --materials-only`.
+This path rejects height changes against the runtime manifest and leaves meshes
+and collision untouched. Import and inspect both maps in the custom engine after
+changing the controls; refresh map-selection captures to match the runtime material.
 
 Prepare native dependencies and architecture/platform variants as specified by
 each map's README before rebuilding its map model. Repeat the four Blender stages
