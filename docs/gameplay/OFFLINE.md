@@ -21,6 +21,11 @@ The goal counts individual kills in DM, Elimination and Gun Game, team kills in 
 
 Use the five Tensor heads in the character catalog. Assign heads randomly at match start. In TDM/CTF, enforce unique heads **within each team**; across opposite teams a head may repeat. Team colors are two distinct random choices from yellow, green, blue, red; the primary armor shows the assigned team color and the secondary uses its library-authored contrasting accent. Free-for-all types retain the authored neutral secondary. Distribute team/zone membership evenly, with difference at most one when an odd roster occurs through a future variant. Randomize which team receives the extra participant in an odd roster. Do not reroll a robot's head or team on respawn.
 
+Bots receive upper bodies from a shuffled deck of all six Tensor assemblies at
+match start, cycling through the deck for larger rosters. Each assembly appears
+before any repeats. The human-controlled robot uses Default. Upper bodies are
+assigned independently of heads and teams and stay fixed through respawns.
+
 ## Local flow and practice
 
 The setup can display a short, nonblocking map briefing: layout sketch, flag bases, portal/jump links, and the map's special event. The first local match may show dismissible control hints during the opening sequence and first life. These hints never pause the match, award resources, or obscure the reticle. The player can turn them off in Settings. Use Instant Action as the safe place to learn the game's EP cycle and dynamic arena before online play, without adding a third game mode.
