@@ -53,17 +53,19 @@ func _ready() -> void:
 
 
 func _request_request_completed(result: int, response_code: int, headers: PackedStringArray, body: PackedByteArray) -> void:
-	if result != HTTPRequest.RESULT_SUCCESS: return
+	if result != HTTPRequest.RESULT_SUCCESS or response_code != 200: return
+
+	# Error responses can be JSON objects; validate before assigning an Array.
+	var response: Variant = JSON.parse_string(body.get_string_from_utf8())
+	if not response is Array: return
 
 	if not editor_plugin: return
 	var current_version: String = editor_plugin.get_version()
 
 	# Work out the next version from the releases information on GitHub
-	var response: Array = JSON.parse_string(body.get_string_from_utf8())
-	if typeof(response) != TYPE_ARRAY: return
-
 	# GitHub releases are in order of creation, not order of version
 	var versions: Array = response.filter(func(release):
+		if not release is Dictionary or not release.get("tag_name") is String: return false
 		var version: String = release.tag_name.substr(1)
 		return version_to_number(version) > version_to_number(current_version)
 	)
@@ -170,6 +172,8 @@ func version_to_number(version: String) -> int:
 
 
 func check_for_update() -> void:
+	# KYLR: unattended imports must not depend on GitHub's update API.
+	if DisplayServer.get_name() == "headless": return
 	if ProjectSettings.get_setting(UPDATER_CONSTANTS.setting_updater_mode) == 0:  return
 
 	http_request.request(REMOTE_RELEASE_URL)

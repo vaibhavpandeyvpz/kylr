@@ -65,6 +65,11 @@ Exclude ProtonScatter's editor-only `presets/` scenes from exported packages.
 They reference upstream demo assets that are not vendored. Runtime scatter
 scripts, modifiers and their licenses remain included.
 
+Phantom Camera's vendored editor updater skips network checks with the headless
+display driver. Its response handler accepts only successful HTTP 200 array
+responses and validates release tags before reading them. Preserve these local
+guards when updating the addon so API error responses cannot break imports.
+
 ## GitHub workflow
 
 Configure bucket-scoped R2 credentials, the endpoint/object repository variables
