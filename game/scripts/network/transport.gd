@@ -733,9 +733,9 @@ func apply_presentation(event: Dictionary):
 		"damage":
 			var victim: ArenaRobot = game.robot_by_id(event.victim)
 			if victim != null:
-				var incoming := victim.shield_mesh.to_local(event.source)-Vector3(0,0.95,0)
-				victim.shield_mesh.material_override.set_shader_parameter("hit_direction",incoming.normalized())
+				victim.last_hit_weapon=str(event.get("weapon",""))
 				victim.hit_flash = 0.2
+				EnergySurface.update(victim)
 			if event.attacker == local_id: game.hit_marker = 0.24
 			if event.victim == local_id: game.damage_taken.emit(event.source,event.amount)
 		"audio":

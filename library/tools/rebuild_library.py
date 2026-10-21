@@ -93,14 +93,10 @@ def main():
             # Keep a source rebuild free of hidden GPU jobs unless requested.
             options = ["--no-render"] if not args.previews and "--no-render" in collision.read_text(encoding="utf8") else []
             jobs.append((collision, options))
-        if folder.name == "tensor":
-            jobs.extend([(model, ["--shield-only"]), (model, ["--shield-roundtrip"])])
         if (folder / "validate.py").exists():
             jobs.append((folder / "validate.py", []))
         if args.previews and (folder / "preview.py").exists():
             jobs.append((folder / "preview.py", []))
-            if folder.name == "tensor":
-                jobs.append((folder / "preview.py", ["--shield-preview"]))
         if args.showcases and (folder / "animate.py").exists():
             jobs.append((folder / "animate.py", []))
         rerun_downstream = False

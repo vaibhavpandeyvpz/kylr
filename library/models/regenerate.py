@@ -46,10 +46,6 @@ def main():
             with log.open('w',encoding='utf8') as stream:
                 process=subprocess.run(command,cwd=ROOT,stdout=stream,stderr=subprocess.STDOUT,
                     creationflags=getattr(subprocess,'CREATE_NO_WINDOW',0))
-                if process.returncode == 0 and stage == 'previews' and folder.name == 'tensor':
-                    process=subprocess.run(command+['--shield-preview'],cwd=ROOT,
-                        stdout=stream,stderr=subprocess.STDOUT,
-                        creationflags=getattr(subprocess,'CREATE_NO_WINDOW',0))
             output=log.read_text(encoding='utf8',errors='replace')
             ok=process.returncode==0 and 'Traceback' not in output and 'Error:' not in output
             records.append(dict(asset=folder.name,stage=stage,ok=ok,seconds=round(time.time()-started,1),log=str(log)))

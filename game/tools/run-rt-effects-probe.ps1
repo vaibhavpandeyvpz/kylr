@@ -97,7 +97,7 @@ foreach ($mode in $modes) {
         }
     }
     $armor=@($report|Where-Object case -eq 'armor-hit')
-    if(-not $FlameOnly -and ($armor.Count -ne 1 -or -not $armor[0].hit_accepted -or $armor[0].armor_overlay_meshes -le 0 -or $armor[0].armor_strength -ne .5 -or $armor[0].armor_shader -ne 'res://shaders/combat/armor_hit.gdshader')){throw 'Missing actual armor damage-overlay coverage.'}
+    if(-not $FlameOnly -and ($armor.Count -ne 1 -or -not $armor[0].hit_accepted -or $armor[0].armor_overlay_meshes -le 0 -or $armor[0].armor_strength -ne .5 -or $armor[0].armor_shader -ne 'res://shaders/combat/energy_surface.gdshader')){throw 'Missing actual armor damage-overlay coverage.'}
     $core=@($report|Where-Object case -eq 'dropped-energy-core')
     if(-not $FlameOnly -and ($core.Count -ne 1 -or $core[0].first_frames -ne 2 -or $core[0].visible_emissive_pixels -lt 3)){throw 'Missing immediate dropped-core visibility coverage.'}
     $unshadedFlatness=$null

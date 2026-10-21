@@ -12,7 +12,7 @@ func run():
 		if argument.begins_with("--prefix="):prefix=argument.get_slice("=",1)
 		if argument.begins_with("--variant="):variant=argument.get_slice("=",1)
 	if mode not in ["raster","dlss"]:quit(2);return
-	if variant not in ["authored","no-depth","grow-10mm","double-sided"]:quit(2);return
+	if variant not in ["authored","no-depth","offset-10mm","double-sided"]:quit(2);return
 	var requested:=Preferences.DENOISER_DLSS
 	if mode!="raster" and not Preferences.ray_tracing_unavailable_reason(requested).is_empty():
 		push_error(Preferences.ray_tracing_unavailable_reason(requested));quit(2);return
@@ -40,19 +40,19 @@ func run():
 	for frame in 64:await RenderingServer.frame_post_draw
 	root.get_texture().get_image().save_png(directory.path_join("base.png"))
 	var flash:=ShaderMaterial.new()
-	var authored_shader:=preload("res://shaders/combat/armor_hit.gdshader")
+	var authored_shader:=preload("res://shaders/combat/energy_surface.gdshader")
 	var code:=authored_shader.code
 	match variant:
-		"no-depth":code=code.replace("depth_draw_never;","depth_draw_never, depth_test_disabled;")
-		"grow-10mm":code=code.replace("NORMAL * 0.001","NORMAL * 0.01")
-		"double-sided":code=code.replace("depth_draw_never;","depth_draw_never, cull_disabled;")
+		"no-depth":code=code.replace("depth_draw_never, cull_back;","depth_draw_never, depth_test_disabled, cull_back;")
+		"offset-10mm":code=code.replace("NORMAL*surface_offset","NORMAL*0.01")
+		"double-sided":code=code.replace("cull_back;","cull_disabled;")
 	if variant=="authored":flash.shader=authored_shader
 	else:
 		# Deliberately invalid visibility variants are diagnostic controls only.
 		# Never mutate the shared production shader or qualify these for release.
 		if code==authored_shader.code:push_error("Diagnostic variant did not change shader");quit(4);return
 		flash.shader=Shader.new();flash.shader.code=code
-	flash.set_shader_parameter("strength",.8)
+	flash.set_shader_parameter("hit_strength",.8)
 	for mesh in body.find_children("*","MeshInstance3D",true,false):mesh.material_overlay=flash
 	for frame in 64:await RenderingServer.frame_post_draw
 	root.get_texture().get_image().save_png(directory.path_join("flash.png"))

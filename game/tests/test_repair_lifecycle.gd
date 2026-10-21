@@ -47,15 +47,23 @@ func assert_released(refilled: bool, cooldown: float) -> void:
 	assert_false(station.weld_fx.light.visible)
 	assert_false(game.audio.loops.has("welding_"+station.id))
 
-func test_phases_have_their_own_countdowns_and_barrier_uses_robot_shader():
+func test_phases_have_their_own_countdowns_and_dedicated_green_barrier():
 	game.map.update_repair_status(station)
 	game.map.update_repair_audio(station)
 	assert_eq(game.map.repair_feedback(station).state,"ready")
 	assert_true(game.audio.loops.has("repair_ready_"+station.id))
 	assert_gt(station.barrier_meshes.size(),0)
 	for mesh in station.barrier_meshes:
-		assert_eq(mesh.material_override.shader,patient.shield_mesh.material_override.shader)
+		assert_eq(mesh.material_override.shader,RepairBarrier.SHADER)
+		assert_ne(mesh.material_override.shader,patient.surface_material.shader)
+		assert_eq(mesh.material_override.get_shader_parameter("tint"),Color("60ef98"))
 		assert_false(mesh.visible)
+	game.reduced_motion=true
+	game.map.update_repair_status(station)
+	for mesh in station.barrier_meshes:assert_eq(mesh.material_override.get_shader_parameter("motion_enabled"),false)
+	game.reduced_motion=false
+	game.map.update_repair_status(station)
+	for mesh in station.barrier_meshes:assert_eq(mesh.material_override.get_shader_parameter("motion_enabled"),true)
 	claim()
 	assert_false(game.audio.loops.has("repair_ready_"+station.id))
 	assert_eq(game.map.repair_feedback(station).seconds,1.0)

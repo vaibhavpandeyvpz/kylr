@@ -34,7 +34,6 @@ MATERIAL_CLASSIFIERS = {
     'M_Joint': 'Metallic',
     'M_Primary': 'Metallic',
     'M_Secondary': 'Metallic',
-    'M_ShieldShroud': 'Diffuse',
     'M_Titanium': 'Metallic',
     'M_Wire': 'Metallic',
 }
@@ -2658,151 +2657,8 @@ def main():
     print(f"[{NAME}] exported {BODY_STEM}.glb/.fbx, {RIG_JSON_PATH.name}")
 
 
-def build_shield():
-    """Visual-only unified wrapper, derived from the scripted fitted proxy, never a collider.
-
-    Run after collision.py with -- --shield-only. Five alternative complete shells share
-    the original rig; the game displays only the selected head's shell (one draw call).
-    A 5.5 cm inflation compensates voxel relaxation to give nominal 5 cm clearance.
-    """
-    from mathutils.kdtree import KDTree
-    bpy.ops.wm.open_mainfile(filepath=str(HERE / "tensor_col.blend"))
-    rig = bpy.data.objects["RIG_Tensor"]
-    for bone in rig.pose.bones:
-        bone.matrix_basis = Matrix.Identity(4)
-    bpy.context.view_layer.update()
-    original = list(bpy.data.objects)
-    body = bpy.data.objects["SK_TensorCol"]
-    shells, report = [], {}
-    material = bpy.data.materials.new("M_ShieldShroud")
-    material.diffuse_color = (0.12, 0.55, 0.8, 1.0)
-    for variant in HEAD_VARIANTS:
-        head = bpy.data.objects[head_mesh_name(variant) + "Col"]
-        sources = [body, head]
-        samples = []
-        for source in sources:
-            names = {group.index: group.name for group in source.vertex_groups}
-            for vertex in source.data.vertices:
-                weights = {names[g.group]: g.weight for g in vertex.groups if g.weight > 0}
-                samples.append((vertex.co.copy(), weights))
-        tree = KDTree(len(samples))
-        for i, (point, _) in enumerate(samples): tree.insert(point, i)
-        tree.balance()
-        copies = []
-        for source in sources:
-            obj = source.copy()
-            obj.data = source.data.copy()
-            bpy.context.collection.objects.link(obj)
-            obj.hide_set(False)
-            obj.hide_render = False
-            obj.parent = None
-            obj.modifiers.clear()
-            select_only([obj])
-            inflate = obj.modifiers.new("Clearance", "DISPLACE")
-            inflate.strength, inflate.mid_level = 0.055, 0.0
-            bpy.ops.object.modifier_apply(modifier=inflate.name)
-            copies.append(obj)
-        select_only(copies)
-        bpy.ops.object.join()
-        shell = copies[0]
-        shell.name = f"SK_TensorShield{variant.capitalize()}"
-        shell.vertex_groups.clear()
-        remesh = shell.modifiers.new("FuseWrapper", "REMESH")
-        remesh.mode = "VOXEL"
-        remesh.voxel_size = 0.018
-        remesh.use_smooth_shade = True
-        bpy.ops.object.modifier_apply(modifier=remesh.name)
-        smooth = shell.modifiers.new("LoftRelax", "SMOOTH")
-        smooth.factor, smooth.iterations = 0.6, 3
-        bpy.ops.object.modifier_apply(modifier=smooth.name)
-        decimate = shell.modifiers.new("SilhouetteBudget", "DECIMATE")
-        decimate.ratio = min(1.0, 1600 / triangles(shell))
-        bpy.ops.object.modifier_apply(modifier=decimate.name)
-        bm = bmesh.new()
-        bm.from_mesh(shell.data)
-        bmesh.ops.triangulate(bm, faces=list(bm.faces))
-        bmesh.ops.recalc_face_normals(bm, faces=list(bm.faces))
-        assert all(edge.is_manifold for edge in bm.edges), f"{variant}: open wrapper"
-        remaining = set(bm.verts)
-        islands = 0
-        while remaining:
-            islands += 1
-            pending = [remaining.pop()]
-            while pending:
-                vertex = pending.pop()
-                for edge in vertex.link_edges:
-                    other = edge.other_vert(vertex)
-                    if other in remaining: remaining.remove(other); pending.append(other)
-        bm.to_mesh(shell.data)
-        bm.free()
-        assert islands == 1, f"{variant}: {islands} disconnected wrapper islands"
-        count = triangles(shell)
-        assert count <= 2500, f"{variant}: {count} triangles exceeds 2500"
-        surface_v, surface_f = [], []
-        for source in [bpy.data.objects["SK_Tensor"], bpy.data.objects[head_mesh_name(variant)]]:
-            offset = len(surface_v)
-            surface_v.extend(v.co.copy() for v in source.data.vertices)
-            surface_f.extend(tuple(i + offset for i in p.vertices) for p in source.data.polygons)
-        surface = BVHTree.FromPolygons(surface_v, surface_f)
-        # Keep the low-poly envelope clear of protruding hardware even where proxy
-        # simplification or relaxation moved it close to an omitted small detail.
-        for _ in range(4):
-            for vertex in shell.data.vertices:
-                point, normal, _, distance = surface.find_nearest(vertex.co)
-                if distance < 0.02: vertex.co = point + normal * 0.022
-        shell.data.update()
-        groups = {}
-        for vertex in shell.data.vertices:
-            totals = {}
-            for _, index, distance in tree.find_n(vertex.co, 12):
-                influence = 1.0 / max(0.008, distance) ** 4
-                for bone, weight in samples[index][1].items():
-                    totals[bone] = totals.get(bone, 0) + weight * influence
-            weights = sorted(totals.items(), key=lambda x: -x[1])[:4]
-            total = sum(value for _, value in weights)
-            assert total > 0, "Unweighted shield vertex"
-            for bone, value in weights:
-                if bone not in groups: groups[bone] = shell.vertex_groups.new(name=bone)
-                groups[bone].add([vertex.index], value / total, "REPLACE")
-        for polygon in shell.data.polygons: polygon.use_smooth = True
-        shell.data.materials.clear()
-        shell.data.materials.append(material)
-        skin(shell, rig)
-        shells.append(shell)
-        distances = sorted(surface.find_nearest(v.co)[3] for v in shell.data.vertices)
-        assert distances[0] >= 0.018, f"{variant}: insufficient hardware clearance"
-        report[variant] = {"triangles": count, "connected_islands": islands, "max_influences": 4,
-                           "surface_clearance_median_m": distances[len(distances)//2],
-                           "surface_clearance_min_m": distances[0], "surface_clearance_max_m": distances[-1]}
-        print(f"[shield] {variant}: {count} triangles, {islands} closed connected shell", flush=True)
-    export([rig, *shells], "tensor_shield")
-    for obj in original:
-        if obj != rig and obj.type != "ARMATURE": obj.hide_render = True; obj.hide_set(True)
-    for obj in shells:
-        obj.hide_render = not obj.name.lower().endswith(DEFAULT_HEAD)
-        obj.hide_set(obj.hide_render)
-    bpy.context.scene["preview_variants"] = "{}"
-    bpy.context.scene["preview_team_colors"] = "{}"
-    bpy.context.preferences.filepaths.save_version = 0
-    bpy.ops.wm.save_as_mainfile(filepath=str(HERE / "tensor_shield.blend"), compress=True)
-    (HERE / "tensor_shield_report.json").write_text(json.dumps(report, indent=2))
-
-
-def check_shield_fbx():
-    reset_scene()
-    bpy.ops.import_scene.fbx(filepath=str(HERE / "tensor_shield.fbx"))
-    meshes = [o for o in bpy.context.scene.objects if o.type == "MESH"]
-    assert len(meshes) == len(HEAD_VARIANTS)
-    for obj in meshes:
-        assert triangles(obj) <= 2500 and 1.7 < obj.dimensions.z < 2.0, (obj.name, obj.dimensions[:])
-        assert all(0 < len(v.groups) <= 4 and abs(sum(g.weight for g in v.groups)-1) < 0.001 for v in obj.data.vertices)
-    print("[shield] FBX round-trip passed: five skinned metre-scale shells", flush=True)
-
-
 if __name__ == "__main__":
     if "--uv-only" in sys.argv:
         from material_uv import refresh_asset
         refresh_asset(HERE)
-    elif "--shield-roundtrip" in sys.argv: check_shield_fbx()
-    elif "--shield-only" in sys.argv: build_shield()
     else: main()

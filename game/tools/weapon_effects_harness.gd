@@ -319,7 +319,7 @@ func smoke() -> void:
 	select_weapon(0)
 	local_robot.wants_fire = true
 	for frame in 35: await get_tree().physics_frame
-	assert(target.shield_mesh.visible)
+	assert(target.surface_active)
 	shield_target = false
 	local_robot.wants_fire = false
 	local_robot.move_input = Vector2(1, 0)

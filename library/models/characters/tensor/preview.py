@@ -328,23 +328,8 @@ def render_views():
 
 
 def main():
-    global NAME, BLEND_PATH
-    if "--shield-preview" in sys.argv:
-        NAME = "tensor_shield"
-        BLEND_PATH = HERE / "tensor_shield.blend"
     open_model()
     setup_render()
-    if "--shield-preview" in sys.argv:
-        for name in VIEWS:
-            direction, projection, _ = VIEWS[name]
-            VIEWS[name] = (direction, projection, (800, 800))
-        for rig in [o for o in bpy.context.scene.objects if o.type == "ARMATURE"]:
-            poses = json.loads(rig.get("preview_poses", "{}"))
-            rig["preview_poses"] = json.dumps({k: v for k, v in poses.items() if k in ["crouch", "wide"]})
-        cam, lights = create_camera(), create_lights()
-        for view in ["front_left", "right"]: render_view(cam, lights, view)
-        render_poses(cam, lights)
-        return
     render_views()
 
 

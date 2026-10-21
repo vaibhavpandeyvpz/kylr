@@ -2,7 +2,7 @@ param(
  [ValidateSet('raster','dlss')][string]$Mode='dlss',
  [ValidatePattern('^[a-zA-Z0-9_-]+$')][string]$Prefix=('armor-overlay-'+(Get-Date -Format 'yyyyMMdd-HHmmss')),
  [switch]$Validation,
- [ValidateSet('authored','no-depth','grow-10mm','double-sided')][string]$Variant='authored',
+ [ValidateSet('authored','no-depth','offset-10mm','double-sided')][string]$Variant='authored',
  [switch]$SMAA,
  [string]$Godot=(Join-Path $PSScriptRoot '../../engine/bin/godot.windows.editor.x86_64.console.exe')
 )
@@ -11,7 +11,7 @@ $project=[IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))
 $output=Join-Path $project "reports/performance/$Prefix-$Mode"
 if (Test-Path -LiteralPath $output) {throw 'Choose a fresh capture prefix.'}
 $paths=@((Join-Path (Split-Path $Godot) 'godot.windows.editor.x86_64.exe'),
- (Join-Path $project 'tools/probe_armor_overlay.gd'),(Join-Path $project 'shaders/combat/armor_hit.gdshader'))
+ (Join-Path $project 'tools/probe_armor_overlay.gd'),(Join-Path $project 'shaders/combat/energy_surface.gdshader'))
 $hashes=@($paths | ForEach-Object {(Get-FileHash -LiteralPath $_).Hash})
 $saved=@{}
 foreach ($name in @('VK_LAYER_PATH','VK_INSTANCE_LAYERS','VK_VALIDATION_VALIDATE_SYNC')) {

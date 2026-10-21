@@ -304,9 +304,7 @@ func make_fixture(marker: Dictionary):
 			for surface in mesh.mesh.get_surface_count():
 				var source := mesh.get_active_material(surface) as StandardMaterial3D
 				if source != null and Assets.material_role(source.resource_name) == "M_Shield":
-					var barrier := ShaderMaterial.new()
-					barrier.shader = preload("res://shaders/shield.gdshader")
-					barrier.set_shader_parameter("tint", Color("6fe5ea"))
+					var barrier := RepairBarrier.material()
 					mesh.material_override = barrier
 					mesh.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 					mesh.hide()
@@ -547,7 +545,9 @@ func update_repair_status(fixture: Dictionary) -> void:
 			indicator.emission = color
 			indicator.emission_energy_multiplier = 6.0
 	for mesh in fixture.get("barrier_meshes", []):
-		if is_instance_valid(mesh): mesh.visible = repair_feedback(fixture).barrier
+		if is_instance_valid(mesh):
+			mesh.visible = repair_feedback(fixture).barrier
+			RepairBarrier.set_reduced_motion(mesh.material_override,game.reduced_motion)
 	if is_instance_valid(fixture.get("status_label")):
 		var state := repair_feedback(fixture)
 		fixture.status_label.text = "REPAIR STATION / " + state.label.to_upper()

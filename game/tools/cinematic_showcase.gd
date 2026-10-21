@@ -76,8 +76,8 @@ func _process(_dt: float) -> void:
 func suppress_hit_overlay() -> void:
 	# Presentation-only override. Retain hit_flash for native reaction poses.
 	for robot in selected_actors:
-		robot.armor_flash.set_shader_parameter("strength",0.0)
-		for mesh in robot.armor_meshes: mesh.material_overlay=null
+		robot.surface_material.set_shader_parameter("hit_strength",0.0)
+		for mesh in robot.surface_meshes: mesh.material_overlay=null
 	for corpse in corpses:
 		for mesh in corpse.node.find_children("*","MeshInstance3D",true,false): mesh.material_overlay=null
 
@@ -234,7 +234,7 @@ func run() -> void:
 		get_tree().paused=true
 		suppress_hit_overlay()
 		for robot in selected_actors:
-			for mesh in robot.armor_meshes: assert(mesh.material_overlay==null)
+			for mesh in robot.surface_meshes: assert(mesh.material_overlay==null)
 		assert(is_equal_approx(get_viewport().scaling_3d_scale,1.0))
 		await RenderingServer.frame_post_draw
 		var captured := get_viewport().get_texture().get_image()
