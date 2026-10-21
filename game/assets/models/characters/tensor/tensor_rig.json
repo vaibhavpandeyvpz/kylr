@@ -87,12 +87,18 @@
     "note": "Unique 0..1 layouts shared by body and head variants; each original material has its own atlas. Source finishes and emission are unchanged."
   },
   "triangles": {
-    "body": 14451,
+    "body": 11717,
     "head_projector": 826,
     "head_sentinel": 828,
     "head_porthole": 801,
     "head_raptor": 266,
-    "head_arachne": 580
+    "head_arachne": 580,
+    "upper_body_default": 2776,
+    "upper_body_aegis": 1718,
+    "upper_body_lamellar": 2320,
+    "upper_body_vesper": 2392,
+    "upper_body_conduit": 2096,
+    "upper_body_reactor": 1854
   },
   "head_variants": {
     "default": "projector",
@@ -103,6 +109,18 @@
       "porthole": "SK_TensorHeadPorthole",
       "raptor": "SK_TensorHeadRaptor",
       "arachne": "SK_TensorHeadArachne"
+    }
+  },
+  "upper_body_variants": {
+    "default": "default",
+    "note": "show one upper body; shared pelvis, limbs, neck and rig",
+    "meshes": {
+      "default": "SK_TensorUpperBodyDefault",
+      "aegis": "SK_TensorUpperBodyAegis",
+      "lamellar": "SK_TensorUpperBodyLamellar",
+      "vesper": "SK_TensorUpperBodyVesper",
+      "conduit": "SK_TensorUpperBodyConduit",
+      "reactor": "SK_TensorUpperBodyReactor"
     }
   },
   "bones": [

@@ -60,3 +60,24 @@ def _heads():
 
 
 CUSTOM = _heads()
+
+
+def upper_body(rig, mesh):
+    """Fit each interchangeable assembly separately so alternatives cannot occlude it."""
+    mapping = collision_bones(rig)
+    _, poses = engine.bone_motion(rig, [mesh])
+    # Reserve 1,596 triangles for the shared body and 72 for the largest head.
+    # The equipped assembly, rather than every hidden alternative, owns the budget.
+    global TRI_MAX
+    shared_limit = TRI_MAX
+    TRI_MAX = min(shared_limit, 632)
+    try:
+        pieces, _, _ = engine.make_collider([mesh], engine.cover_poses(rig, mapping, poses),
+                                          mesh.name + "Col", mapping, rig.matrix_world.inverted())
+    finally:
+        TRI_MAX = shared_limit
+    return pieces
+
+
+CUSTOM.update({f"SK_TensorUpperBody{v}": upper_body
+               for v in ("Default", "Aegis", "Lamellar", "Vesper", "Conduit", "Reactor")})

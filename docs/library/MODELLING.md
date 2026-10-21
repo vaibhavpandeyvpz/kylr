@@ -75,7 +75,7 @@ animations/
 Every rendered model, including the Energy and Shield Cores, retains its native
 material assignments and finishes. `models/material_uv.py` unwraps and packs one
 unique 0..1 layout per used material at 2048px, across all parts in an exported
-asset. Ammo packs and the rocket get their own layouts. Tensor's body and five
+asset. Ammo packs and the rocket get their own layouts. Tensor's shared body, six upper bodies and five
 head variants share its eleven original material atlases. Emission, transparency, geometry, normals,
 rigs, skinning and existing actions remain unchanged by UV preparation.
 
@@ -236,7 +236,7 @@ combined into `M_Other`, and no baked finish textures are required.
 `model.py` calls the shared `models/material_uv.py` to mark construction seams, open curved patches,
 unwrap, equalise island scale, and pack one independent unique 0..1 layout per
 material, including emissive. Each layout spans the body and all alternative
-heads without overlapping one another. Packing uses a 0.004 UV margin (about
+heads and upper bodies without overlapping one another. Packing uses a 0.004 UV margin (about
 eight pixels at 2048px). Emissive colour and strength stay unchanged.
 Generated `tensor_uv_<material>.png` and
 `tensor_uv_<material>_wireframe.png` files show all eleven 2048px layouts for
@@ -315,7 +315,7 @@ It also renders these extra images, from the `front_left` camera, when model.py 
 - `armature["preview_pose_views"]` (JSON `{pose: [view, ...]}`) renders that pose from each listed view as `<name>_pose_<pose>_<view>.png`. The straddle is standard from `front`, `back`, `front_left` and `rear_right`. A pose entry may also carry `"scale": [x, y, z]` (the repair station's shield grows by its bone's scale).
 - `armature["preview_pose_show"]` (JSON `{pose: [object, ...]}`, the props' preview.py) shows those objects, hidden from every other render, in that pose's renders: the repair station's stand-in Tensor and its shield. The props' `animate.py` shows the objects in `scene["preview_show"]` in the showcase.
 - `scene["preview_team_colors"]` (JSON `{team: {material: [r,g,b]}}`) produces `<name>_team_<team>.png`.
-- `scene["preview_variants"]` (JSON `{slot: {"default", "objects": {variant: mesh}}}`) renders each variant of a swappable slot on its own: `<name>_<slot>_<variant>.png` (a 3/4 close-up framed on it), `_side.png` (profile) and `_full.png` (the whole character). For Tensor that is the six heads.
+- `scene["preview_variants"]` (JSON `{slot: {"default", "objects": {variant: mesh}}}`) renders each variant of a swappable slot on its own: `<name>_<slot>_<variant>.png` (a 3/4 close-up framed on it), `_side.png` (profile) and `_full.png` (the whole character). Tensor has five heads and six upper bodies.
 - `scene["preview_frame"]` (JSON `{"lo": [x,y,z], "hi": [x,y,z]}`) frames every view on that box instead of on all renderable meshes. Props set into a floor or wall use it to frame the part the player sees, with the preview-only floor or wall slab around them.
 - `scene["preview_solo"]` (JSON `{tag: {"objects": [mesh, ...], "pose": {bone: {"rot": ...}}, "views": [...]}}`, the weapons' preview.py) renders those meshes alone, every other mesh hidden and their armature posed, as `<name>_<tag>_<view>.png`. A projectile is hidden from the other renders (`hide_render`) and shown this way, folded and deployed.
 
@@ -1041,3 +1041,41 @@ Cradle payload origins and all axes align to the native `ItemMount` gizmo, paren
 Native mechanical architecture placements: use `pillar_platform` only below the pillar, and sample the native ram extension to meet the next floor underside. Use `weapon_holder_wall` for raised holder placements; its native `WeaponHolderMount` owns the holder aperture and axes. These are separate gizmo imports in populated previews/runtime, excluded from map-owned triangles.
 
 Material classifiers are explicit per-model MATERIAL_CLASSIFIERS declarations using _Metallic, _Glass, _Emissive and _Diffuse suffixes. Export preparation applies those names while preserving colours, textures, geometry and animation. Only _Metallic and _Glass receive environment reflections in the game; _Glass selects the purchased glass shader with authored tint and opacity. Architecture and map castings are diffuse except their explicitly authored glass/emissive surfaces. All core outer glass surfaces use 25% opacity. Material-only regeneration reuses validated geometry and performs GLB/FBX delivery round trips without preview renders.
+
+## Tensor upper-body assemblies
+
+The Tensor generator exports six interchangeable `SK_TensorUpperBody<Variant>`
+meshes: `default`, `aegis`, `lamellar`, `vesper`, `conduit` and `reactor`.
+Show exactly one together with `SK_Tensor` and one head mesh. The shared mesh
+contains the pelvis, limbs, neck and actuators. Each upper-body mesh contains
+rigidly weighted Spine, Chest and UpperChest parts, retaining the native joint
+frames, shoulder sockets, neck bearing and FlagMount interface. Existing animation
+clips drive every assembly without retargeting.
+
+Default has its raised collar, paired lamps and frontal protective bar. Aegis
+uses a continuous breast casting and recessed status strip. Lamellar has four
+relieved breast courses and twin finned rear radiator banks. Vesper has split
+pectoral cartridges, a recessed sternum bus and paired rear canisters. Conduit
+exposes its collector pipes and supported wiring through inspection windows.
+Reactor has a recessed radial heat exchanger and a rear power cassette protected
+by painted rails. All retain the original metallic, primary-paint and
+secondary-paint material roles.
+
+Service covers are clipped from the actual loft facets and seated in matching
+pockets with 0.7 mm perimeter clearance. Their mating floor is 3 mm below the
+shell; their exposed faces stand 2.5 mm proud and retain the shell's contour
+breaks. Vesper's vent openings cut through those covers into deeper backing
+cavities. Fasteners use the supporting facet normal. Rear radiator castings and
+protective rails retain the back's facets; cooling grooves are machined into
+continuous castings. Vesper's canisters have bored cradles and annular clamps.
+Default retains its native cage and adds retaining fasteners to its service plate.
+
+Run `models/characters/tensor/validate.py` in headless Blender after export. It
+ray-tests the delivered GLB for shell breakthrough through Vesper's covers,
+accent leakage beyond Aegis's physical panel and stray cuts below Reactor's core.
+
+Each upper body is limited to 4,500 render triangles; shared body plus the selected
+assembly must remain within the 15,000 body budget. Every head is checked against
+every assembly, alongside piston, rigid connectivity, arm, clavicle and waist
+clearance checks. Collider generation fits assemblies independently and exports
+one collider mesh per choice. Preview metadata exposes the upper-body slot.

@@ -43,7 +43,8 @@ def color(value):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--proof', action='store_true')
-    parser.add_argument('--section', choices=['all','heads','emotes','armor'], default='all')
+    parser.add_argument('--resolution', type=int, default=256)
+    parser.add_argument('--section', choices=['all','heads','upper_bodies','emotes','armor'], default='all')
     args = parser.parse_args(sys.argv[sys.argv.index('--')+1:] if '--' in sys.argv else [])
     palette = json.loads((ROOT/'game/data/online_palette.json').read_text(encoding='utf-8'))
     bpy.ops.wm.open_mainfile(filepath=str(LIB/'models/characters/tensor/tensor.blend'))
@@ -55,14 +56,14 @@ def main():
             bpy.data.objects.remove(o, do_unlink=True)
     scene.render.engine = 'BLENDER_EEVEE'
     scene.eevee.taa_render_samples = 24
-    scene.render.resolution_x = scene.render.resolution_y = 256
+    scene.render.resolution_x = scene.render.resolution_y = args.resolution
     scene.render.resolution_percentage = 100
     scene.render.image_settings.file_format = 'PNG'
     scene.render.image_settings.color_mode = 'RGBA'
     scene.render.film_transparent = True
     scene.view_settings.view_transform = 'AgX'
     scene.world = bpy.data.worlds.new('Portrait studio')
-    scene.world.use_nodes = True
+    if scene.world.node_tree is None: scene.world.use_nodes = True
     scene.world.node_tree.nodes['Background'].inputs[0].default_value = (.24,.28,.32,1)
     scene.world.node_tree.nodes['Background'].inputs[1].default_value = .6
     cameras = bpy.data.collections.new('COL_Cameras')
@@ -84,7 +85,10 @@ def main():
 
     def head(value, only=False):
         for obj in meshes:
-            obj.hide_render = (not obj.name.startswith('SK_TensorHead'+value.capitalize()) if obj.name.startswith('SK_TensorHead') else only)
+            if obj.name.startswith('SK_TensorUpperBody'):
+                obj.hide_render = only or obj.name != 'SK_TensorUpperBodyDefault'
+            else:
+                obj.hide_render = (not obj.name.startswith('SK_TensorHead'+value.capitalize()) if obj.name.startswith('SK_TensorHead') else only)
 
     def frame(center, scale):
         center = Vector(center)
@@ -118,6 +122,14 @@ def main():
         for primary in colors:
             paint(primary);render('emotes/'+emote+'/'+primary)
         if args.proof: break
+    for variant in (['default','aegis','lamellar','vesper','conduit','reactor'] if args.section in ('all','upper_bodies') else []):
+        head('projector');sample_pose(rig,'common/idle',12);frame((0,-.015,1.31),.46)
+        for obj in meshes:
+            if obj.name.startswith('SK_TensorHead'): obj.hide_render = True
+            elif obj.name.startswith('SK_TensorUpperBody'):
+                obj.hide_render = obj.name != 'SK_TensorUpperBody'+variant.capitalize()
+        for primary in colors:
+            paint(primary);render('upper_bodies/'+variant+'/'+primary)
     head('projector');sample_pose(rig,'common/idle',12);frame((0,-.03,1.24),.58)
     for obj in meshes:
         if obj.name.startswith('SK_TensorHead'): obj.hide_render = True

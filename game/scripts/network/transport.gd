@@ -195,11 +195,11 @@ func add_player(peer: int, player: Dictionary):
 		if robot.team == 0: a += 1
 		else: b += 1
 	var team := randi_range(0,1) if a == b else 0 if a < b else 1
-	var robot: ArenaRobot = game.add_robot(peers[peer].id,player.display_name,team,true,player.loadout.head)
+	var robot: ArenaRobot = game.add_robot(peers[peer].id,player.display_name,team,true,player.loadout.head,player.loadout.get("upper_body","default"))
 	robot.tint = Color(PALETTE[player.loadout.primary]) if MatchTypes.individual(game.match_type) else game.team_colors[team]
 	robot.armor_secondary = Color(PALETTE[player.loadout.secondary]) if MatchTypes.individual(game.match_type) else Assets.robot_accent(robot.body,robot.tint,robot.character.model)
 	robot.account_emote = player.loadout.emote
-	Assets.paint(robot.body,robot.tint,robot.armor_secondary,robot.head)
+	Assets.paint(robot.body,robot.tint,robot.armor_secondary,robot.head,false,robot.upper_body)
 	robot.hide()
 	robot.collision_layer = 0
 	if game.phase == "Active" or game.spawn_reveal_started: game.spawn_robot(robot)
@@ -577,11 +577,11 @@ func apply_snapshot(state: Dictionary, first := false):
 		present.append(actor.id)
 		var robot: ArenaRobot = game.robot_by_id(actor.id)
 		if robot == null:
-			robot = game.add_robot(actor.id,actor.name,actor.team,true,actor.head)
+			robot = game.add_robot(actor.id,actor.name,actor.team,true,actor.head,actor.get("upper_body","default"))
 			robot.tint = Color(actor.tint)
 			robot.armor_secondary = Color(actor.secondary)
 			robot.account_emote = actor.emote
-			Assets.paint(robot.body,robot.tint,robot.armor_secondary,robot.head)
+			Assets.paint(robot.body,robot.tint,robot.armor_secondary,robot.head,false,robot.upper_body)
 			if actor.id == local_id:
 				game.local_robot = robot
 				robot.listener.make_current()
@@ -685,7 +685,7 @@ func apply_snapshot(state: Dictionary, first := false):
 			if robot == null: continue
 			if value.animation.begins_with("common_"): robot.pose("common/"+value.animation.trim_prefix("common_"))
 			var corpse := robot.body.duplicate() as Node3D
-			Assets.paint(corpse,robot.tint,robot.armor_secondary,robot.head,true)
+			Assets.paint(corpse,robot.tint,robot.armor_secondary,robot.head,true,robot.upper_body)
 			game.add_child(corpse)
 			corpse.show()
 			for collider in corpse.find_children("*","CollisionObject3D",true,false): collider.collision_layer = 0

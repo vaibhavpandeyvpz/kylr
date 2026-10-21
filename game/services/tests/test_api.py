@@ -124,12 +124,31 @@ def test_loadout_catalog_is_validated_and_saved(app):
     session=register(client)
     value={'head':'raptor','emote':'victory_gangnam_style','primary':'red','secondary':'cyan'}
     response=client.put('/v1/me/loadout',json=value,headers=headers(session))
+    value['upper_body']='default'
     assert response.json['player']['loadout']==value
+    for upper_body in ('aegis','lamellar','vesper','conduit','reactor'):
+        value['upper_body']=upper_body
+        response=client.put('/v1/me/loadout',json=value,headers=headers(session))
+        assert response.status_code==200
+        assert response.json['player']['loadout']==value
+    value['upper_body']='invented-upper-body'
+    assert client.put('/v1/me/loadout',json=value,headers=headers(session)).status_code==400
+    value['upper_body']='default'
     value['head']='invented-head'
     assert client.put('/v1/me/loadout',json=value,headers=headers(session)).status_code==400
     value['head']='raptor'
     value['primary']=[]
     assert client.put('/v1/me/loadout',json=value,headers=headers(session)).status_code==400
+
+def test_existing_accounts_receive_default_upper_body_without_losing_their_loadout(app):
+    client=app.test_client()
+    session=register(client)
+    accounts=app.extensions['store'].db.accounts
+    accounts.update_many({}, {'$unset':{'loadout.upper_body':''}, '$set':{'loadout.head':'raptor'}})
+    response=client.get('/v1/me',headers=headers(session))
+    assert response.status_code==200
+    assert response.json['player']['loadout']['upper_body']=='default'
+    assert response.json['player']['loadout']['head']=='raptor'
 
 def test_heartbeat_revokes_departed_sessions_and_clears_old_generation_tickets(app):
     store=ready_server(app)

@@ -1346,10 +1346,11 @@ def octo(hu, v0, v1, cb, ct):
 
 
 def carve(k, bm, bone, mat, cuts=(), boxes=(), subtract=(), intersect=(), inner=FRM, paint=None, mirror=True,
-          solid=True, union=()):
+          solid=True, union=(), difference=()):
     """A closed shell with exact boolean cuts: `union` closed bmeshes fused into it first (fairings: one
     unibody), then `cuts` (p0, p1, r[, sides]) cylinders, `boxes` (center, size) blocks, `subtract` /
-    `intersect` (points, normal, thickness) prisms. Faces on the uncut surface take `mat` (or paint(face)
+    `intersect` (points, normal, thickness) prisms; `difference` accepts closed lofted cutters.
+    Faces on the uncut surface take `mat` (or paint(face)
     when given); faces the cuts make take `inner`."""
     verts, polys = [], []
     for b in (bm, *union):
@@ -1395,7 +1396,7 @@ def carve(k, bm, bone, mat, cuts=(), boxes=(), subtract=(), intersect=(), inner=
             v.co = Vector(center) + Vector((v.co.x * size[0], v.co.y * size[1], v.co.z * size[2]))
         return temp(b, "_block")
 
-    if cuts or boxes or subtract or intersect or union:
+    if cuts or boxes or subtract or intersect or union or difference:
         base = temp(bm, "_solid")
         fused = [temp(b, "_fuse") for b in union]
         for body in fused:
@@ -1405,7 +1406,8 @@ def carve(k, bm, bone, mat, cuts=(), boxes=(), subtract=(), intersect=(), inner=
         for shaper in shapers:
             mod = base.modifiers.new("shape", "BOOLEAN")
             mod.operation, mod.solver, mod.object = "INTERSECT", "EXACT", shaper
-        cutters = [rod(*c) for c in cuts] + [block(*b) for b in boxes] + [slab(*s) for s in subtract]
+        cutters = ([rod(*c) for c in cuts] + [block(*b) for b in boxes] + [slab(*s) for s in subtract]
+                   + [temp(b, "_profile_cut") for b in difference])
         for cutter in cutters:
             mod = base.modifiers.new("cut", "BOOLEAN")
             mod.operation, mod.solver, mod.object = "DIFFERENCE", "EXACT", cutter
@@ -1537,7 +1539,7 @@ PELVIS = ((0.978, 0.134, -0.08, 0.078), (1.02, 0.1458, -0.0918, 0.08), (1.035, 0
           (1.074, 0.13, -0.084, 0.056))  # the back chamfered from 1.02, clear of the struts
 
 
-def build_torso(k):
+def build_pelvis(k):
     hip = H
     slot = STRUT_EYE_HALF + 0.0025 + 0.0003  # a strut fork's slot: clears the bearing ball
 
@@ -1557,6 +1559,7 @@ def build_torso(k):
     strut_lug(k, Vector(STRUT_A), "Hips", 0.074, az - 0.015, az + 0.015)
     k.cyl((ax - 0.02, ay, az), (ax + 0.02, ay, az), 0.004, "Hips", JNT, solid=False)  # cross pin
 
+def build_upper_body(k, variant="default"):
     # Spine: a ball in the girdle's socket, a stainless steel column with titanium vertebra discs, and a
     # second ball under the abdomen block.
     k.sphere((0, 0, 1.055), 0.036, "Spine", JNT, mirror=False)
@@ -1575,6 +1578,10 @@ def build_torso(k):
     bx, by, bz = STRUT_B
     strut_lug(k, Vector(STRUT_B), "Chest", 0.068, 1.177, 1.193, r=0.013)  # the upper clevis, on the abdomen's back flat
     k.cyl((bx - 0.02, by, bz), (bx + 0.02, by, bz), 0.004, "Chest", JNT, solid=False)
+
+    if variant != "default":
+        build_upper_shell(k, variant)
+        return
 
     # Chest shield: a keeled, faceted shell from the narrow waist to the shoulders. Round sockets in
     # its flanks seat the shoulder motors, a well in its top the neck's turntable; a hexagonal intake
@@ -1613,6 +1620,8 @@ def build_torso(k):
         k.cyl((lx, LAMP[1] - 0.005, lz), (lx, LAMP[1] - 0.006, lz), LAMP[2] - 0.004, "UpperChest", EMI, segs=12,
               mirror=False)
     k.box((0, -0.1235, 1.418), (0.062, 0.006, 0.028), "UpperChest", SEC, mirror=False)  # unit number plate
+    for sx in (1,-1):
+        bolt(k,(sx*.024,-.1265,1.418),FWD,"UpperChest",r=.0025,head=.0012,mirror=False)
     for ix in range(4):  # louvres across the intake, slanted down
         z = 1.302 + ix * 0.011
         k.obox((-0.03, -0.108, z), (0.03, -0.108, z), 0.012, 0.0025, (0, 0.6, 0.8), "UpperChest", FRM, mirror=False)
@@ -1661,6 +1670,296 @@ def build_torso(k):
         w, yf, yb = chest_at(1.488)
         (za, _, _, ya), (zc, _, _, yc) = CHEST[-2], CHEST[-1]
         hose(k, (x, 0.132, pack[-1][0]), UP, (x, yb, 1.488), (0, zc - za, ya - yc), r, "UpperChest", mat, reach=0.016)
+
+
+UPPER_BODY_VARIANTS = ("default", "aegis", "lamellar", "vesper", "conduit", "reactor")
+UPPER_BODY_BUDGET = 4_500
+
+
+def upper_body_mesh_name(variant):
+    return f"SK_{NAME.capitalize()}UpperBody{variant.capitalize()}"
+
+
+def build_torso(k, variant="default"):
+    build_pelvis(k)
+    build_upper_body(k, variant)
+
+
+def offset_outline(outline, margin):
+    """Offset a convex CCW XZ footprint by an exact perpendicular margin."""
+    result = []
+    for i, point in enumerate(outline):
+        p, a, b = Vector(point), Vector(outline[i-1]), Vector(outline[(i+1) % len(outline)])
+        u, v = (p-a).normalized(), (b-p).normalized()
+        n, m = Vector((u.y, -u.x)), Vector((v.y, -v.x))
+        result.append(tuple(p + (n+m) * (margin / (1+n.dot(m)))))
+    return result
+
+
+def shell_patch(surface, outline, outer=0.0025, inner=-0.003, outward=-1):
+    """A closed cover or pocket that retains every underlying loft facet.
+
+    Clip the actual shell triangles in XZ, then offset their two skins in Y.
+    The mating floor is identical to the cover's back; a separate expanded
+    footprint defines the perimeter clearance. No flat plate crosses the shell.
+    """
+    patch = bmesh.new()
+    for face in surface.faces:
+        if face.normal.y * outward < 0.05:
+            continue
+        polygon = [v.co.copy() for v in face.verts]
+        for a, b in zip(outline, outline[1:]+outline[:1]):
+            def signed(p):
+                return (b[0]-a[0])*(p.z-a[1]) - (b[1]-a[1])*(p.x-a[0])
+            clipped = []
+            for p, q in zip(polygon, polygon[1:]+polygon[:1]):
+                dp, dq = signed(p), signed(q)
+                if dp >= -1e-10: clipped.append(p)
+                if (dp >= -1e-10) != (dq >= -1e-10):
+                    clipped.append(p.lerp(q, dp/(dp-dq)))
+            polygon = clipped
+            if len(polygon) < 3: break
+        if len(polygon) >= 3:
+            verts = [patch.verts.new(p) for p in polygon]
+            patch.faces.new(verts)
+    if not patch.faces:
+        raise ValueError("Service cover has no supporting shell surface")
+    bmesh.ops.remove_doubles(patch, verts=patch.verts[:], dist=1e-6)
+    bmesh.ops.dissolve_degenerate(patch, edges=patch.edges[:], dist=1e-6)
+    slivers = [f for f in patch.faces if f.calc_area()<1e-9]
+    if slivers: bmesh.ops.delete(patch, geom=slivers, context="FACES")
+    loose = [e for e in patch.edges if not e.link_faces]
+    if loose: bmesh.ops.delete(patch, geom=loose, context="EDGES")
+    patch.verts.index_update()
+    boundary = [(e.verts[0].index,e.verts[1].index) for e in patch.edges if len(e.link_faces)==1]
+    result = bmesh.new()
+    front, back = [], []
+    for v in patch.verts:
+        front.append(result.verts.new(v.co + Vector((0,outward*outer,0))))
+        back.append(result.verts.new(v.co + Vector((0,outward*inner,0))))
+    for f in patch.faces:
+        result.faces.new([front[v.index] for v in f.verts])
+        result.faces.new([back[v.index] for v in reversed(f.verts)])
+    for a,b in boundary:
+        result.faces.new((front[a],front[b],back[b],back[a]))
+    patch.free()
+    bmesh.ops.recalc_face_normals(result, faces=result.faces[:])
+    if any(len(e.link_faces)!=2 for e in result.edges):
+        raise ValueError("Fitted panel is not a closed two-manifold solid")
+    return result
+
+
+def shell_point(surface, x, z, outward=-1):
+    """Point and true facet normal for a fastener wholly inside its mounting land."""
+    hits = []
+    for f in surface.faces:
+        if f.normal.y*outward < 0.05: continue
+        p = Vector((x,0,z))
+        p.y = -f.normal.dot(p-f.verts[0].co)/f.normal.y
+        # Barycentric inclusion, independent of the front/back triangle winding.
+        a,b,c = [v.co for v in f.verts]
+        u,v,w = b-a,c-a,p-a
+        uu,uv,vv,wu,wv = u.dot(u),u.dot(v),v.dot(v),w.dot(u),w.dot(v)
+        det = uu*vv-uv*uv
+        if abs(det)<1e-18: continue
+        s,t = (wu*vv-wv*uv)/det,(wv*uu-wu*uv)/det
+        if s>=-1e-7 and t>=-1e-7 and s+t<=1+1e-7:
+            hits.append((p,f.normal.copy()))
+    if not hits: raise ValueError(f"Fastener has no mounting facet at {(x,z)}")
+    return max(hits,key=lambda hit:hit[0].y*outward)
+
+
+def build_upper_shell(k, variant):
+    """Interchangeable castings on the native waist cup, shoulder drives and neck bearing.
+
+    All service equipment stays on UpperChest. The exposed Spine and Chest retain
+    their own rigid weights; hoses never bridge moving bones.
+    """
+    bone = "UpperChest"
+    sockets = [((sx * 0.074, 0, S.z), (sx * 0.25, 0, S.z), 0.076, 20) for sx in (1, -1)]
+    cuts = sockets + [((0, 0, 1.425), (0, 0, 1.52), 0.082, 20),
+                      ((0, 0, 1.21), (0, 0, 1.262), 0.058, 16)]
+    boxes = []
+    profile = chest_half
+    # Broad planar faces are deliberate mounting lands; the outer shoulder and
+    # neck stations retain the validated joint envelope.
+    stations = list(CHEST)
+    if variant == "aegis":
+        stations[1:4] = [(1.28, 0.094, -0.116, 0.094), (1.35, 0.126, -0.138, 0.108),
+                         (1.435, 0.154, -0.136, 0.110)]
+    elif variant == "lamellar":
+        stations[1:3] = [(1.28, 0.082, -0.116, 0.094), (1.35, 0.111, -0.138, 0.108)]
+        # Machined horizontal reliefs leave a continuous rear shear wall and
+        # central load spine. Four overlapping breast courses read as ribs.
+        for z, width in ((1.277, 0.13), (1.315, 0.17), (1.353, 0.20), (1.391, 0.21)):
+            boxes.append(((0, -0.119, z), (width, 0.078, 0.012)))
+    elif variant == "vesper":
+        stations[1:4] = [(1.28, 0.094, -0.116, 0.094), (1.35, 0.126, -0.138, 0.108),
+                         (1.435, 0.154, -0.136, 0.110)]
+        boxes = [((0, -0.132, 1.34), (0.041, 0.124, 0.17))]
+        cuts += [((sx*.065,.14,1.275),(sx*.065,.14,1.46),.0343,10) for sx in (1,-1)]
+        # Two sculpted pectoral lobes with a recessed centre channel, rather
+        # than a single shield carrying decorative pads.
+        def profile(w, yf, yb):
+            return [(0,yf+0.070),(0.22*w,yf+0.070),(0.42*w,yf+0.014),
+                    (0.74*w,yf+0.034),(w,yf+0.076),(w,yb-0.045),(w-0.045,yb),(0,yb)]
+    elif variant == "conduit":
+        stations[1:3] = [(1.28, 0.078, -0.116, 0.094), (1.35, 0.103, -0.138, 0.108)]
+        # Two deep inspection windows expose the bolted power manifold. A
+        # clavicular yoke, central keel and side rails carry the shoulder loads.
+        boxes = [((sx * 0.062, -0.055, 1.335), (0.057, 0.24, 0.139)) for sx in (1, -1)]
+    elif variant == "reactor":
+        stations[3] = (1.435, 0.128, -0.136, 0.110)
+        cuts.append(((0, -0.20, 1.355), (0, -0.063, 1.355), 0.066, 20))
+
+    shell = zloft(stations, profile)
+    surface = shell.copy()
+    bmesh.ops.triangulate(surface, faces=surface.faces[:])
+    surface.normal_update()
+    covers = []
+    if variant == "aegis":
+        covers.append(([( -.042,1.434),(.042,1.434),(.059,1.455),(.047,1.474),
+                         (-.047,1.474),(-.059,1.455)], [(-.034,1.455),(.034,1.455)], [], -1))
+        covers.append(([(-.010,1.313),(.010,1.313),(.017,1.32),(.017,1.40),
+                        (.010,1.407),(-.010,1.407),(-.017,1.40),(-.017,1.32)],
+                       [(.008,1.322),(-.008,1.399)], [], -1))
+    elif variant == "lamellar":
+        covers.append(([(-.006,1.29),(.006,1.29),(.012,1.30),(.015,1.421),
+                        (.009,1.445),(-.009,1.445),(-.015,1.421),(-.012,1.30)],
+                       [(.006,1.31),(-.006,1.43)], [], -1))
+        covers.append(([(-.012,1.284),(.012,1.284),(.013,1.44),(-.013,1.44)],
+                       [(.006,1.30),(-.006,1.432)], [], 1))
+    elif variant == "conduit":
+        covers.append(([(-.009,1.274),(.009,1.274),(.018,1.287),(.019,1.41),
+                        (.012,1.431),(-.012,1.431),(-.019,1.41),(-.018,1.287)],
+                       [(.008,1.286),(-.009,1.354),(.008,1.418)], [], -1))
+        covers.append(([(-.013,1.29),(.013,1.29),(.019,1.44),(-.019,1.44)],
+                       [(.007,1.30),(-.008,1.43)], [], 1))
+    elif variant == "vesper":
+        covers.append(([(-.010,1.275),(.010,1.275),(.012,1.402),(-.012,1.402)],
+                       [(.005,1.287),(-.005,1.39)], [], -1))
+        def width(z):
+            for (za,wa,*_), (zb,wb,*_) in zip(stations,stations[1:]):
+                if za <= z <= zb: return wa+(wb-wa)*(z-za)/(zb-za)
+            raise ValueError(z)
+        outline = [(width(z)*fraction+offset,z) for z,fraction,offset in
+                   ((1.345,.42,.004),(1.345,.74,-.004),(1.42,.74,-.004),(1.42,.42,.004))]
+        slots = [[(width(z)*fraction,z) for z,fraction in
+                  ((center-.0025,.49),(center-.0025,.67),(center+.0025,.67),(center+.0025,.49))]
+                 for center in (1.37,1.385,1.40)]
+        for sx in (1,-1):
+            def side(points):
+                p = [(sx*x,z) for x,z in points]
+                return p if sx==1 else p[::-1]
+            covers.append((side(outline), [(sx*width(z)*.58,z) for z in (1.354,1.413)],
+                           [side(slot) for slot in slots], -1))
+    pockets = []
+    for outline, fasteners, slots, outward in covers:
+        pockets.append(shell_patch(surface,offset_outline(outline,.0007),outer=.018,inner=-.003,outward=outward))
+        for slot in slots:
+            pockets.append(shell_patch(surface,slot,outer=.018,inner=-.012,outward=outward))
+    carve(k, shell, bone, PRI, mirror=False, cuts=cuts, boxes=boxes, difference=pockets)
+    for index,(outline, fasteners, slots, outward) in enumerate(covers):
+        cover = shell_patch(surface,outline,outward=outward)
+        openings = [shell_patch(surface,slot,outer=.015,inner=-.008,outward=outward) for slot in slots]
+        mat = FRM if variant=="aegis" and index==1 else SEC
+        carve(k,cover,bone,mat,mirror=False,difference=openings)
+        for x,z in fasteners:
+            point,normal = shell_point(surface,x,z,outward)
+            point.y += outward*.0025
+            bolt(k,point,normal,bone,r=.0023,head=.0013,mirror=False)
+    k.cyl((0, 0, J["neck"].z - 0.02), (0, 0, J["neck"].z), 0.048, bone, TIT, segs=14, mirror=False)
+
+    def mirrored_outline(points, sx):
+        return [(sx*x,z) for x,z in (points if sx==1 else points[::-1])]
+
+    def back_module(outline, depth, mat=PRI, grooves=(), bores=(), fasteners=()):
+        """A casting seated on the shell's actual back, with integral machined fins."""
+        module = shell_patch(surface,outline,outer=depth,inner=0,outward=1)
+        channels = [shell_patch(surface,slot,outer=depth+.01,inner=depth-.009,outward=1)
+                    for slot in grooves]
+        carve(k,module,bone,mat,mirror=False,difference=channels,cuts=bores,inner=TIT)
+        for x,z in fasteners:
+            point,normal = shell_point(surface,x,z,1)
+            point.y += depth
+            bolt(k,point,normal,bone,r=.0026,head=.0015,mirror=False)
+
+    if variant == "aegis":
+        # Status windows share the keel's facets and sit on their fitted bezel.
+        for z in (1.335, 1.352, 1.369, 1.386):
+            window = [(-.008,z-.002),(.008,z-.002),(.008,z+.002),(-.008,z+.002)]
+            carve(k,shell_patch(surface,window,outer=.0035,inner=.0025),bone,EMI,mirror=False)
+        footprint = [(-.065,1.28),(.065,1.28),(.093,1.31),(.093,1.44),(.065,1.475),(-.065,1.475),(-.093,1.44),(-.093,1.31)]
+        grooves = [[(-.057,z-.003),(.057,z-.003),(.057,z+.003),(-.057,z+.003)] for z in (1.32,1.337,1.354)]
+        back_module(footprint,.057,grooves=grooves,fasteners=[(-.056,1.418),(.056,1.418)])
+    elif variant == "lamellar":
+        for z in (1.30, 1.338, 1.376):
+            for sx in (1, -1):
+                w = next(wa+(wb-wa)*(z-za)/(zb-za) for (za,wa,*_), (zb,wb,*_) in zip(stations,stations[1:]) if za<=z<=zb)
+                point,normal = shell_point(surface,sx*w*.58,z)
+                bolt(k,point,normal,bone,r=.003,mirror=False)
+        # Radiator castings follow the taper of the back. Cooling channels are
+        # machined into the castings, leaving a continuous supported root.
+        for sx in (1, -1):
+            footprint = mirrored_outline([(.035,1.28),(.09,1.28),(.102,1.35),(.09,1.45),(.035,1.45)],sx)
+            grooves = [mirrored_outline([(.043,z-.0035),(.087,z-.0035),(.087,z+.0035),(.043,z+.0035)],sx)
+                       for z in (1.31,1.33,1.35,1.37,1.39,1.41,1.43)]
+            back_module(footprint,.055,grooves=grooves,fasteners=[(sx*.062,1.291),(sx*.062,1.442)])
+    elif variant == "vesper":
+        # Two large removable pectoral cartridges flank a recessed sternum bus.
+        for sx in (1,-1):
+            # Shaped saddles have a bored seat for the two annular clamp bands.
+            footprint = mirrored_outline([(.033,1.294),(.086,1.294),(.099,1.35),(.096,1.442),(.033,1.442)],sx)
+            back_module(footprint,.035,bores=[((sx*.065,.14,1.28),(sx*.065,.14,1.455),.037,10)])
+            k.cyl((sx*0.065,0.14,1.285),(sx*0.065,0.14,1.447),0.034,bone,PRI,segs=10,mirror=False)
+            for z in (1.306,1.418):
+                band = loft([ring_xy(sx*.065,.14,.037,zz,n=10) for zz in (z,z+.012)])
+                carve(k,band,bone,SEC,mirror=False,inner=SEC,
+                      cuts=[((sx*.065,.14,z-.001),(sx*.065,.14,z+.013),.034,10)])
+    elif variant == "conduit":
+        # Exposed vertical collector pipes terminate in manifold blocks inside
+        # the windows. Short wire loops route around the replaceable modules.
+        for sx in (1,-1):
+            for z in (1.28,1.40):
+                block = loft([[(sx*x,y,zz) for x,y in ((0.025,-0.091),(0.094,-0.091),
+                                (0.094,-0.013),(0.025,-0.013))] for zz in (z-0.013,z+0.013)])
+                carve(k,block,bone,TIT,mirror=False,cuts=sockets)
+            for x in (0.041,0.058):
+                k.cyl((sx*x,-0.058,1.285),(sx*x,-0.058,1.395),0.0065,bone,BRZ,segs=8,mirror=False)
+            hose(k,(sx*0.058,-0.091,1.40),FWD,(sx*0.058,-0.091,1.28),FWD,
+                 0.005,bone,WIRE,reach=0.028,bulge=(sx*0.008,0,0),mirror=False)
+            footprint = mirrored_outline([(.071,1.29),(.087,1.29),(.101,1.35),(.099,1.445),(.071,1.445)],sx)
+            back_module(footprint,.035,fasteners=[(sx*.084,z) for z in (1.31,1.35,1.39,1.43)])
+    elif variant == "reactor":
+        # A recessed radial heat exchanger: dark socket, steel rotor plate,
+        # discrete luminous coolant passages and a painted bolted hub.
+        k.cyl((0,-0.061,1.355),(0,-0.078,1.355),0.063,bone,FRM,segs=20,mirror=False)
+        k.cyl((0,-0.078,1.355),(0,-0.084,1.355),0.049,bone,TIT,segs=20,mirror=False)
+        for i in range(12):
+            a = i*math.tau/12
+            p = Vector((0.024*math.cos(a),-0.086,1.355+0.024*math.sin(a)))
+            q = Vector((0.044*math.cos(a),-0.086,1.355+0.044*math.sin(a)))
+            k.obox(p,q,0.004,0.004,(0,1,0),bone,EMI,mirror=False)
+        k.cyl((0,-0.083,1.355),(0,-0.095,1.355),0.019,bone,SEC,segs=12,mirror=False)
+        bolt(k,(0,-0.096,1.355),FWD,bone,r=0.007,mirror=False)
+        # Rear cassette and protective rails retain the back's native facets.
+        footprint = [(-.05,1.285),(.05,1.285),(.067,1.35),(.06,1.445),(-.06,1.445),(-.067,1.35)]
+        grooves = [[(-.044,z-.0035),(.044,z-.0035),(.044,z+.0035),(-.044,z+.0035)]
+                   for z in (1.31,1.334,1.358,1.382,1.406,1.43)]
+        back_module(footprint,.07,grooves=grooves)
+        for sx in (1,-1):
+            rail = mirrored_outline([(.071,1.29),(.087,1.29),(.096,1.35),(.091,1.455),(.071,1.455)],sx)
+            back_module(rail,.05,SEC,fasteners=[(sx*.08,1.303),(sx*.08,1.44)])
+
+    # Native carried-flag interface on a bolted saddle, common to every pack.
+    saddle = loft([[(-.07,.084,z),(.07,.084,z),(.07,.19,z),(-.07,.19,z)] for z in (1.3715,1.4085)])
+    clearance = ([((sx*.065,.14,1.36),(sx*.065,.14,1.42),.0343,10) for sx in (1,-1)]
+                 if variant=="vesper" else [])
+    carve(k,saddle,bone,FRM,mirror=False,inner=FRM,cuts=clearance)
+    hx, (_, hy, hz) = GRAB_HANDLE[0], FLAG_MOUNT
+    k.tube([(hx,0.19,hz),(hx,hy,hz),(-hx,hy,hz),(-hx,0.19,hz)],
+           GRAB_HANDLE[1],bone,SEC,mirror=False)
+    surface.free()
 
 
 GRAB_HANDLE = (0.06, 0.008)            # the power pack's grab handle: its bar's half-length and radius
@@ -2534,6 +2833,8 @@ def write_rig_json(bones, pistons, tris):
         "triangles": tris,
         "head_variants": {"default": DEFAULT_HEAD, "note": "one mesh per head, skinned to Head; show one, hide the rest",
                           "meshes": {v: head_mesh_name(v) for v in HEAD_VARIANTS}},
+        "upper_body_variants": {"default": "default", "note": "show one upper body; shared pelvis, limbs, neck and rig",
+                                "meshes": {v: upper_body_mesh_name(v) for v in UPPER_BODY_VARIANTS}},
         "bones": [{"name": b.name, "parent": b.parent, "head": vec(b.head), "tail": vec(b.tail),
                    "flex_axis": vec(b.hinge_axis), "limits_deg": b.limits, "euler_order": rot_order(b.name),
                    **({"limit_envelopes_deg": [[list(r) if b.name.startswith("Left") else [-r[1], -r[0]] if i else list(r)
@@ -2601,8 +2902,34 @@ def main():
         check_joint_alignment(vk, bones, only={"Neck", "Head"})
         print(f"[{NAME}] head '{variant}' passed its checks")
 
+    for variant in UPPER_BODY_VARIANTS[1:]:
+        vk = Kit(detail=1.0)
+        build_torso(vk, variant)
+        build_neck(vk)
+        build_arm(vk)
+        build_hand(vk, bones)
+        build_leg(vk)
+        build_pistons(vk, pistons, bones)
+        # Test every head against every upper casting, including its hydraulics.
+        for head in HEAD_VARIANTS:
+            hk = Kit(detail=1.0)
+            build_head(hk, head)
+            vk.parts.extend(hk.parts)
+            check_motion_clearance(vk, bones)
+            del vk.parts[-len(hk.parts):]
+            hk.bm.free()
+        build_head(vk, DEFAULT_HEAD)
+        check_piston_clearance(pistons, bones, vk.solids, vk.parts)
+        check_bar_clearance(bones, vk.solids, vk.tubes)
+        check_connectivity(vk, bones, pistons)
+        check_waist_clearance(vk, bones)
+        check_clavicle_clearance(vk, bones)
+        check_joint_alignment(vk, bones, only={"Neck"})
+        vk.bm.free()
+        print(f"[{NAME}] upper body '{variant}' passed its checks")
+
     body_kit = Kit(detail=1.0)
-    build_torso(body_kit)
+    build_pelvis(body_kit)
     build_neck(body_kit)
     build_arm(body_kit)
     build_hand(body_kit, bones)
@@ -2610,22 +2937,31 @@ def main():
     build_pistons(body_kit, pistons, bones)
     joints = [j for j in rotary_joints(bones) if j[0] != "LeftThumbMetacarpal"]  # pure single-axis only
     body = body_kit.to_object(f"SK_{NAME.capitalize()}", joints=joints)
+    uppers = {}
+    for variant in UPPER_BODY_VARIANTS:
+        uk = Kit(detail=1.0)
+        build_upper_body(uk, variant)
+        uppers[variant] = uk.to_object(upper_body_mesh_name(variant))
     heads = {}
     for variant in HEAD_VARIANTS:
         hk = Kit(detail=1.0)
         build_head(hk, variant)
         heads[variant] = hk.to_object(head_mesh_name(variant))
 
-    for obj in (body, *heads.values()):
+    for obj in (body, *heads.values(), *uppers.values()):
         skin(obj, rig)
 
     # Every original material keeps its faces and finish, with its own UV atlas.
-    prepare_export([body, *heads.values()], HERE, NAME)
+    prepare_export([body, *heads.values(), *uppers.values()], HERE, NAME)
 
     tris = {"body": triangles(body)}
     budgets = {"body": TRI_BUDGET}
     for variant, obj in heads.items():
         tris[f"head_{variant}"], budgets[f"head_{variant}"] = triangles(obj), HEAD_BUDGET
+    for variant, obj in uppers.items():
+        tris[f"upper_body_{variant}"], budgets[f"upper_body_{variant}"] = triangles(obj), UPPER_BODY_BUDGET
+        if triangles(body) + triangles(obj) > TRI_BUDGET:
+            raise SystemExit(f"[{NAME}] assembled body '{variant}' exceeds {TRI_BUDGET} triangles")
     for part, count in tris.items():
         print(f"[{NAME}] {part}: {count} tris (budget {budgets[part]})")
     over = {k: v for k, v in tris.items() if v > budgets[k]}
@@ -2637,7 +2973,7 @@ def main():
                   f"barrel/rod {p.cyl_len:.3f} m, min overlap {p.overlap:.3f} m")
 
     flag_mount = build_flag_mount(rig)
-    export([rig, body, *heads.values(), flag_mount], BODY_STEM)
+    export([rig, body, *heads.values(), *uppers.values(), flag_mount], BODY_STEM)
     write_rig_json(bones, pistons, tris)
 
     # Preview metadata, read generically by preview.py.
@@ -2645,7 +2981,12 @@ def main():
     rig["preview_pose_views"] = json.dumps(POSE_VIEWS)
     bpy.context.scene["preview_team_colors"] = json.dumps(TEAM_COLORS)
     bpy.context.scene["preview_variants"] = json.dumps(
-        {"head": {"default": DEFAULT_HEAD, "objects": {v: o.name for v, o in heads.items()}}})
+        {"head": {"default": DEFAULT_HEAD, "objects": {v: o.name for v, o in heads.items()}},
+         "upper_body": {"default": "default", "objects": {v: o.name for v, o in uppers.items()}}})
+    for variant, obj in uppers.items():
+        if variant != "default":
+            obj.hide_render = True
+            obj.hide_set(True)
     for variant, obj in heads.items():  # renders show the default head; the engine swaps the others in
         if variant != DEFAULT_HEAD:
             obj.hide_render = True

@@ -412,7 +412,7 @@ func open_online():
 
 func preview_loadout(loadout: Dictionary):
 	if not preview: make_preview()
-	Assets.paint(preview_robot,Color(OnlineTransport.PALETTE[loadout.primary]),Color(OnlineTransport.PALETTE[loadout.secondary]),loadout.head)
+	Assets.paint(preview_robot,Color(OnlineTransport.PALETTE[loadout.primary]),Color(OnlineTransport.PALETTE[loadout.secondary]),loadout.head,false,loadout.get("upper_body","default"))
 	preview_victory_id = preview_victory(loadout.get("emote",""))
 
 func preview_victory(id: String = "") -> String:

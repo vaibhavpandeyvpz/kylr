@@ -9,7 +9,7 @@ TARGET = ROOT/'game/assets/ui/customisation'
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--section',choices=['all','heads','emotes','armor'],default='all')
+    parser.add_argument('--section',choices=['all','heads','upper_bodies','emotes','armor'],default='all')
     args = parser.parse_args()
     count = 0
     total = 0
