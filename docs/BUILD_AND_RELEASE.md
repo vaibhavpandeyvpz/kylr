@@ -139,3 +139,11 @@ reuse the engine layer; engine source changes require recompilation. The image
 is loaded locally for validation before optional publication. Set `KYLR_PUBLIC_API_URL` as a repository variable to
 configure the Windows client endpoint during packaging. The backend and game
 server never share their hosting credentials with clients.
+
+## Terrain authoring assets
+
+Terrain3D is used only by the [planetary terrain source pipeline](library/PLANETARY_TERRAIN.md).
+Game/server builds consume the checked-in static map meshes and packed PBR textures;
+no Terrain3D native runtime library is required. Asset and package inspections check
+the terrain manifest resources. Windows packages include its authoring SDK MIT
+notice under `licenses/terrain3d/LICENSE.txt`.

@@ -1,0 +1,74 @@
+{
+  "resolution": 2048,
+  "tile_metres": 4.0,
+  "layers": [
+    "dust",
+    "basalt",
+    "bedrock",
+    "rubble",
+    "compacted",
+    "scorch"
+  ],
+  "source_sha256": {
+    "dust": "1daddda7a13628ce90b890c01fc30add8a573dbeb689540ff5f47d24aa1ec845",
+    "basalt": "2d117649789729c67484b588432ca9e46ca61d93ffcd123a174f5cfcfac6543a",
+    "bedrock": "4d81361c6f7e6b920e008123a80b33d86657e00ba19bebe562c19069aca0364b",
+    "rubble": "340fe23f404ec6bc04ae92a959ded506d7e01e7b5338edbf4a72e8f9e35ac544",
+    "compacted": "8e670343f76c12c676af0f1d861aed200ba804a20106d07f2a1257465a6c66d4",
+    "scorch": "369ff615640f9d6985f7c149c0712cc59611eaaa100139b1f9b67ab2a57d4b7c"
+  },
+  "files": {
+    "dust_albedo_height.png": "416ef0faba66db32d00fbc09e84c841dc4f41d1e5a220013aa722abb67307bf6",
+    "dust_normal_roughness.png": "922b94aa241c9605410b28ffee15d4150ed460204bac189877aac797f97d58d7",
+    "basalt_albedo_height.png": "37562afcec4a5c51c67dab59d6b77df01708fa5da0d814034539c12c3d0f0499",
+    "basalt_normal_roughness.png": "4bf0393066f7555e7ce0ed2b6d666f2e422185ff0b60915164e4d47eab874d0e",
+    "bedrock_albedo_height.png": "352b8749bb4bc546e165605f0cecb9f2f4388d28fe461f5ec718cef953324363",
+    "bedrock_normal_roughness.png": "741a9acf185f982a8d703dc4bb59b508a717aa509661083de4864353f742f3a0",
+    "rubble_albedo_height.png": "0b6a999e78854d23fb2be7f3052c81b439183af17f5f290abe1b66747fcaf044",
+    "rubble_normal_roughness.png": "6dfd1e3060771ad221091885ebcbc03648f3f42eaf17605210b2a6f03cc3a6cf",
+    "compacted_albedo_height.png": "4160d10547ae9c7c475ed083e1341e8ae5daea00552663e1182476184a3a05ce",
+    "compacted_normal_roughness.png": "b5bb4c9cd7fd310f8e3341687eb8c41aea16b9441d9fc01d6964f992098865c2",
+    "scorch_albedo_height.png": "86d6773bea62431122a89cf90b58cb17d43af8151b35423c2fbdd8e17bea8b4c",
+    "scorch_normal_roughness.png": "c2d7027bfaa0ade7e21cc8506ce5912a3cb28f5a22e221b11d34a09da54e48d9",
+    "faceoff_weights0.png": "35ce4f8ad82a58e27d0f08d73b58523dd38c05bd694aa9ca6f448200f706428a",
+    "faceoff_weights1.png": "9e0b3b8dacaa6e8190a6b2afd8ace41b331dc4ce089514d8fc503da661b64528",
+    "skyfall_weights0.png": "3da05c13a46ec15f078c5a0edcc7d5ad572dc17f05391572f5b0b304b8757bb6",
+    "skyfall_weights1.png": "9e3f1abdc4e430ab3771daba3b081a191190d348a77bd38591edfa9820c892a4"
+  },
+  "maps": {
+    "faceoff": {
+      "min_height_m": -1.2000395059585571,
+      "max_height_m": 31.965116500854492,
+      "height_sha256": "4d197f11d202beb3b23c08e529103163918500e8f5d847396c99cd9f3b31cd56",
+      "qa_points": [
+        [
+          14,
+          -1.2000395059585571,
+          23
+        ],
+        [
+          4,
+          3.138981580734253,
+          19
+        ]
+      ]
+    },
+    "skyfall": {
+      "min_height_m": -8.5374755859375,
+      "max_height_m": 32.19511032104492,
+      "height_sha256": "131398d0240e316d7dbdc0487ab507618fe2a7183e2a79c2f7efe302ea47dc07",
+      "qa_points": [
+        [
+          -8,
+          -8.5374755859375,
+          4
+        ],
+        [
+          -30,
+          -1.5246833562850952,
+          30
+        ]
+      ]
+    }
+  }
+}

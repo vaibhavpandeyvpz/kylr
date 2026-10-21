@@ -163,21 +163,22 @@ func restore_snapshot(data: Dictionary) -> void:
 func _sample_column(level: float,x: int,bounds: Dictionary) -> void:
 	for z in range(bounds.min_z,bounds.max_z+1):
 		var point:=Vector3(x,level,z)
-		var surface: Dictionary=arena.game.combat.ray(point+Vector3.UP*0.4,point-Vector3.UP*0.45,[],1)
-		if surface.is_empty() or surface.normal.y<0.65:continue
-		point.y=surface.position.y+0.015
-		# Quantize the supporting surface, not the 15 mm foot clearance. That
-		# offset sits on a half-centimetre boundary: floating-point noise can
-		# split level platforms into different rows and hide valid gap jumps.
-		var cell:=Vector3i(x,roundi(float(surface.position.y)*100),z)
-		if cells.has(cell):continue
-		if not supported(point): continue
-		if not standing_clear(point): continue
-		if not arena.game.combat.clear(point+Vector3.UP*0.4,point+Vector3.UP*1.7): continue
-		var id:=graph.get_available_point_id()
-		graph.add_point(id,point)
-		basic_graph.add_point(id,point)
-		cells[cell]=id
+		_sample_surface(point,level+0.4,level-0.45)
+		if is_zero_approx(level) and bounds.has("terrain_scan"):
+			_sample_surface(point,float(bounds.terrain_scan[1]),float(bounds.terrain_scan[0]))
+
+func _sample_surface(point: Vector3,top: float,bottom: float) -> void:
+	var surface: Dictionary=arena.game.combat.ray(Vector3(point.x,top,point.z),Vector3(point.x,bottom,point.z),[],1)
+	if surface.is_empty() or surface.normal.y<0.65:return
+	point.y=surface.position.y+0.015
+	# Quantize support rather than the half-centimetre-boundary foot clearance.
+	var cell:=Vector3i(roundi(point.x),roundi(float(surface.position.y)*100),roundi(point.z))
+	if cells.has(cell) or not supported(point) or not standing_clear(point):return
+	if not arena.game.combat.clear(point+Vector3.UP*0.4,point+Vector3.UP*1.7):return
+	var id:=graph.get_available_point_id()
+	graph.add_point(id,point)
+	basic_graph.add_point(id,point)
+	cells[cell]=id
 
 func _collect_columns() -> Dictionary:
 	var columns: Dictionary={}
@@ -194,10 +195,22 @@ func _connect_cell(cell: Vector3i,columns: Dictionary) -> void:
 			var a: int=cells[cell]
 			var start:=graph.get_point_position(a)
 			var finish:=graph.get_point_position(b)
-			if absf(start.y-finish.y)>0.25:continue
+			if absf(start.y-finish.y)>0.25 and not continuous_grade(start,finish):continue
 			if supported(start.lerp(finish,0.5)) and not crosses_portal(start,finish) and movement_clear(start,finish):
 				graph.connect_points(a,b)
 				basic_graph.connect_points(a,b)
+
+func continuous_grade(start: Vector3,finish: Vector3) -> bool:
+	# Larger height differences are walkable only along supported slopes, never
+	# by treating a tall stair, ledge or gap as a shallow step.
+	if not arena.config.navigation.has("terrain_scan"):return false
+	var horizontal:=Vector2(finish.x-start.x,finish.z-start.z).length()
+	if horizontal<0.001 or absf(finish.y-start.y)>horizontal*tan(deg_to_rad(40.0)):return false
+	for sample in range(9):
+		var point:=start.lerp(finish,float(sample)/8.0)
+		var hit: Dictionary=arena.game.combat.ray(point+Vector3.UP*.2,point-Vector3.UP*.2,[],1)
+		if hit.is_empty() or hit.normal.y<cos(deg_to_rad(40.0)) or absf(hit.position.y-point.y)>.12:return false
+	return true
 
 func _build_links() -> void:
 	for pair in arena.config.portal_pairs:

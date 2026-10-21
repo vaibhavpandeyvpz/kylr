@@ -666,6 +666,9 @@ func finish_lunar_surface(root: Node) -> void:
 	for mesh in root.find_children("*", "MeshInstance3D", true, false):
 		for surface in mesh.mesh.get_surface_count():
 			var source := mesh.get_active_material(surface) as StandardMaterial3D
+			if source!=null and Assets.material_role(source.resource_name)=="M_Planetary"+game.map_id.capitalize():
+				mesh.set_surface_override_material(surface,PlanetaryTerrain.material(game.map_id))
+				continue
 			if source == null or Assets.material_role(source.resource_name) not in ["M_Regolith", "M_RegolithLight", "M_RegolithDark"]: continue
 			mesh.set_surface_override_material(surface, Assets.regolith_material(source))
 
@@ -1108,6 +1111,10 @@ func bake_navigation():
 	mesh.agent_max_slope = 40
 	mesh.cell_size = 0.25
 	mesh.cell_height = 0.25
+	# Bake the playable footprint, excluding distant geological scenery beyond
+	# the authored route bounds and Faceoff's perimeter walls.
+	var area: Dictionary=config.navigation
+	mesh.filter_baking_aabb=AABB(Vector3(area.min_x-1.5,-2.0,area.min_z-1.5),Vector3(area.max_x-area.min_x+3.0,102.0,area.max_z-area.min_z+3.0))
 	var geometry := NavigationMeshSourceGeometryData3D.new()
 	for collision in model.find_children("*","CollisionShape3D",true,false):
 		if collision.get_parent().get_meta("lethal_surface",false):continue

@@ -35,6 +35,8 @@ prompt-driven process.[^ai-tools]
   loadout to your account.
 - **Maps designed in Figma:** explore the
   [KYLR map designs](https://www.figma.com/community/file/1693957204725961135/kylr-maps?fuid=962370705244141890).
+- **Planetary terrain:** crater basins, fractured bedrock shelves and graded
+  combat routes, with six original blended PBR surfaces authored through Terrain3D.
 - **Open source:** KYLR's original game and library work is **Apache 2.0 licensed**.
   The engine, bundled dependencies and separately licensed assets retain their
   applicable licenses.
@@ -123,6 +125,7 @@ and keep separately licensed assets and local credentials out of your PR.
 | [LimboAI](https://github.com/limbonaut/limboai) | Drives bot behavior trees. |
 | [Phantom Camera](https://github.com/ramokz/phantom-camera) | Controls menu and gameplay cameras. |
 | [Shaker](https://github.com/Eneskp3441/Shaker) | Adds local explosion and EMP impact shake. |
+| [Terrain3D](https://github.com/TokisanGames/Terrain3D) | Bakes authored planetary terrain. |
 | [ProtonScatter](https://github.com/HungryProton/scatter) | Generates and projects dropped Energy Core positions. |
 | [GUT](https://github.com/bitwes/Gut) | Runs automated gameplay and integration tests. |
 

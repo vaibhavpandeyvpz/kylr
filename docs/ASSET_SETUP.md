@@ -9,9 +9,13 @@ Run the following commands from the repository root unless stated otherwise.
 
 ## Original lunar textures
 
-The original regolith PBR set is included in the repository. No texture download
+The original regolith PBR set and six planetary terrain PBR layers are included in the repository. No texture download
 or external texture license is needed. Its source, generator and channel contract
 are documented in [the lunar material source](../library/textures/lunar_surface/README.md).
+
+Terrain3D is an authoring-only dependency; playing, importing and packaging the
+game do not require its SDK. See the [terrain rebuild contract](library/PLANETARY_TERRAIN.md)
+for the pinned authoring setup, procedural textures and static mesh handoff.
 
 Create a Python environment for the setup tools:
 

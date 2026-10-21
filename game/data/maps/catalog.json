@@ -70,7 +70,7 @@
           0
         ]
       ],
-      "fall_boundary": -8,
+      "fall_boundary": -20,
       "lunar_surface_lethal": true,
       "zone_bounds": [
         {
@@ -546,6 +546,7 @@
         "SK_FaceoffFlagCaptureTrigger_B"
       ],
       "navigation": {
+        "terrain_scan": [-1.5, 3.5],
         "min_x": -36,
         "max_x": 36,
         "min_z": -36,

@@ -140,6 +140,9 @@ for marker in rig['markers']:
             if pack:instance('weapons',marker['weapon'],'_ammo',pack)
         else:instance('gameplay',marker['role']+'_core','',attachment)
 lunar_preview()
+sys.path.insert(0,str(HERE.parent/'common'))
+from planetary_surface import preview as planetary_preview
+planetary_preview()
 view((70,-95,88),(0,0,5),125);scene.render.filepath=str(HERE/'skyfall_preview_models.png');bpy.ops.render.render(write_still=True)
 view((0,0,130),(0,0,0),90);scene.render.filepath=str(HERE/'skyfall_preview_top.png');bpy.ops.render.render(write_still=True)
 view((44,-46,42),(23,-22,25),42);scene.render.filepath=str(HERE/'skyfall_preview_layers.png');bpy.ops.render.render(write_still=True)

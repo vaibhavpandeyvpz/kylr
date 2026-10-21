@@ -11,6 +11,7 @@ MATERIAL_CLASSIFIERS = {
     'M_RegolithDark': 'Diffuse',
     'M_RegolithLight': 'Diffuse',
     'M_Secondary': 'Diffuse',
+    'M_PlanetaryFaceoff': 'Diffuse',
 }
 import bpy,json,math,sys
 from pathlib import Path
@@ -38,25 +39,14 @@ def main():
         return
     bpy.ops.object.select_all(action='SELECT');bpy.ops.object.delete(use_global=False)
     scene=bpy.context.scene;scene.unit_settings.system='METRIC';scene.render.fps=24;scene.frame_start=1;scene.frame_end=73
-    from lunar_surface import build as lunar_surface
     markers,holes=data()
-    protected=[]
-    for marker in markers:
-        if marker['position_blender'][2]>.6 and marker.get('source_category')!='architecture':continue
-        x,y,_=marker['position_blender']
-        radius=1.5
-        asset=marker.get('source_asset',marker['asset'])
-        if marker.get('source_category')=='architecture':
-            meta=json.loads((MODELS/'architecture'/asset/(asset+'_rig.json')).read_text())
-            bounds=meta['bounds_m']
-            radius=math.hypot(max(abs(bounds['lo'][0]),abs(bounds['hi'][0])),max(abs(bounds['lo'][1]),abs(bounds['hi'][1])))+.35
-        protected.append((x,y,radius))
-    ground=lunar_surface('SK_FaceoffLunarGround',flat_radius=60,protected=protected)
+    from planetary_surface import build as planetary_surface
+    ground=planetary_surface('faceoff','SK_FaceoffLunarGround')
     ground_baseline_triangles=sum(len(p.vertices)-2 for p in ground.data.polygons)
     for hole in holes:
         if hole['center'][2]-hole['depth']<0:cutter(ground,hole['center'],recess_size(hole['size']),hole['depth'],hole['yaw'])
-    from lunar_surface import apply_materials
-    apply_materials(ground)
+    from planetary_surface import apply_materials
+    apply_materials(ground,'faceoff')
     arm_data=bpy.data.armatures.new('RIG_Faceoff');rig=bpy.data.objects.new('RIG_Faceoff',arm_data);scene.collection.objects.link(rig)
     bpy.context.view_layer.objects.active=rig;rig.select_set(True);bpy.ops.object.mode_set(mode='EDIT')
     root=arm_data.edit_bones.new('Root');root.head=(0,0,0);root.tail=(0,0,1);bpy.ops.object.mode_set(mode='OBJECT')
@@ -71,8 +61,10 @@ def main():
     for frame in (1,73):rig.pose.bones['Root'].keyframe_insert('location',frame=frame)
     sys.path.insert(0,str(MODELS));from material_uv import prepare_export
     from platform_common import split_large
-    ground_details=dict(interior_gravel_stone_count=ground['interior_gravel_stone_count'],maximum_interior_stone_height_m=.24)
+    ground_details=dict(terrain_authoring='Terrain3D 1.0.2',interior_gravel_stone_count=0,maximum_interior_stone_height_m=0.0)
     scenery=split_large(ground,rig,'FaceoffLunarGround')
+    from planetary_surface import validate_atlas
+    validate_atlas(scenery,HERE,NAME)
     prepare_export(scenery,HERE,NAME)
     scenery_count=sum(sum(len(p.vertices)-2 for p in ob.data.polygons) for ob in scenery)
     export([rig,*scenery],HERE,'faceoff_scenery',animated=True)
@@ -86,6 +78,8 @@ def main():
         skeleton='RIG_Faceoff',assembly_seconds=3,actions=[dict(name='assemble',frames=[1,73],fps=24)],geometry='playable lunar terrain and fixture wells; native architecture/props imported at gizmos',native_architecture_variants=[m['source_asset'] for m in markers if m.get('source_asset')])
     (HERE/'faceoff_rig.json').write_text(json.dumps(report,indent=2)+'\n')
     for ob in scenery:bpy.data.objects.remove(ob,do_unlink=True)
+    from planetary_surface import clean_authoring_defaults
+    clean_authoring_defaults()
     scene.frame_set(73);bpy.ops.wm.save_as_mainfile(filepath=str(HERE/'faceoff.blend'),compress=True)
     export([rig,*empties],HERE,NAME,animated=True)
     print('FACEOFF',count,'triangles',len(markers),'gizmos',flush=True)

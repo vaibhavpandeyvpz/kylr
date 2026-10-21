@@ -1,0 +1,36 @@
+{
+  "generator": "OpenAI Imagegen (built-in tool)",
+  "third_party_image_inputs": false,
+  "sources": [
+    {
+      "name": "dust",
+      "file": "sources/dust_albedo.png",
+      "prompt": "Use case: photorealistic-natural. Asset type: production PBR base-color texture for a lunar arena game. Generate ONE square 2048x2048 seamless repeating material tile, strictly orthographic straight-down view, the surface fills every pixel edge to edge. Subject: Very fine loose lunar regolith: powdery pale neutral grey mineral dust, densely packed tiny angular grains, subtle ash-grey mineral mottling, occasional embedded 1–2 cm dark grains. An approximately four metre square patch; fine granular texture dominates, no large stones. Photographic mineral realism with rich fine detail, physically plausible restrained grey mineral colors. Flat diffuse cross-polarized scan-like albedo: NO directional lighting, NO cast shadows, NO highlights, NO ambient occlusion, NO perspective, NO depth of field. All four edges must tile continuously without borders; evenly distributed detail with no central subject. No plants, water, metal, buildings, text, logos, labels, grid or panels. Opaque image. This is a single base-color map, not a PBR contact sheet or a rendered material sphere."
+    },
+    {
+      "name": "basalt",
+      "file": "sources/basalt_albedo.png",
+      "prompt": "Use case: photorealistic-natural. Asset type: production PBR base-color texture for a lunar arena game. Generate ONE square 2048x2048 seamless repeating material tile, strictly orthographic straight-down view, the surface fills every pixel edge to edge. Subject: Dense dark lunar basalt outcrop: fractured charcoal-grey volcanic rock, sharply angular mineral grains, shallow small fissures, subtle blue-grey mineral variation, sporadic dusty seams, dry and weathered. Approximately four metres square, rock features 10–40 cm. Photographic mineral realism with rich fine detail, physically plausible restrained grey mineral colors. Flat diffuse cross-polarized scan-like albedo: NO directional lighting, NO cast shadows, NO highlights, NO ambient occlusion, NO perspective, NO depth of field. All four edges must tile continuously without borders; evenly distributed detail with no central subject. No plants, water, metal, buildings, text, logos, labels, grid or panels. Opaque image. This is a single base-color map, not a PBR contact sheet or a rendered material sphere."
+    },
+    {
+      "name": "bedrock",
+      "file": "sources/bedrock_albedo.png",
+      "prompt": "Use case: photorealistic-natural. Asset type: production PBR base-color texture for a lunar arena game. Generate ONE square 2048x2048 seamless repeating material tile, strictly orthographic straight-down view, the surface fills every pixel edge to edge. Subject: Exposed ancient lunar bedrock: broad interlocking fractured grey stone plates, pale warm-grey feldspar inclusions, dark hairline cracks and angular mineral detail, sparse regolith trapped in crevices. Approximately four metres square, plates 20–60 cm, low relief. Photographic mineral realism with rich fine detail, physically plausible restrained grey mineral colors. Flat diffuse cross-polarized scan-like albedo: NO directional lighting, NO cast shadows, NO highlights, NO ambient occlusion, NO perspective, NO depth of field. All four edges must tile continuously without borders; evenly distributed detail with no central subject. No plants, water, metal, buildings, text, logos, labels, grid or panels. Opaque image. This is a single base-color map, not a PBR contact sheet or a rendered material sphere."
+    },
+    {
+      "name": "rubble",
+      "file": "sources/rubble_albedo.png",
+      "prompt": "Use case: photorealistic-natural. Asset type: production PBR base-color texture for a lunar arena game. Generate ONE square 2048x2048 seamless repeating material tile, strictly orthographic straight-down view, the surface fills every pixel edge to edge. Subject: Lunar impact breccia and rubble: irregular angular grey basalt fragments and lighter mineral chips embedded in fine regolith, natural distribution and varied sizes 2–15 cm, dense surface with small stone clusters and dusty gaps. Approximately four metres square, all stones lie close to the surface. Photographic mineral realism with rich fine detail, physically plausible restrained grey mineral colors. Flat diffuse cross-polarized scan-like albedo: NO directional lighting, NO cast shadows, NO highlights, NO ambient occlusion, NO perspective, NO depth of field. All four edges must tile continuously without borders; evenly distributed detail with no central subject. No plants, water, metal, buildings, text, logos, labels, grid or panels. Opaque image. This is a single base-color map, not a PBR contact sheet or a rendered material sphere."
+    },
+    {
+      "name": "compacted",
+      "file": "sources/compacted_albedo.png",
+      "prompt": "Use case: photorealistic-natural. Asset type: production PBR base-color texture for a lunar arena game. Generate ONE square 2048x2048 seamless repeating material tile, strictly orthographic straight-down view, the surface fills every pixel edge to edge. Subject: Compacted lunar regolith around a working outpost: dense flat grey mineral soil, crushed fine gravel and dry dusty areas, understated overlapping compression scuffs, faint irregular shallow drag traces with no strongly directional repeating pattern, no boot or tire imprints. Approximately four metres square. Photographic mineral realism with rich fine detail, physically plausible restrained grey mineral colors. Flat diffuse cross-polarized scan-like albedo: NO directional lighting, NO cast shadows, NO highlights, NO ambient occlusion, NO perspective, NO depth of field. All four edges must tile continuously without borders; evenly distributed detail with no central subject. No plants, water, metal, buildings, text, logos, labels, grid or panels. Opaque image. This is a single base-color map, not a PBR contact sheet or a rendered material sphere."
+    },
+    {
+      "name": "scorch",
+      "file": "sources/scorch_albedo.png",
+      "prompt": "Use case: photorealistic-natural. Asset type: production PBR base-color texture for a lunar arena game. Generate ONE square 2048x2048 seamless repeating material tile, strictly orthographic straight-down view, the surface fills every pixel edge to edge. Subject: Heat-altered lunar regolith: dry charcoal-grey and dark ash-grey scorched mineral grit, subtle fused basalt speckles and irregular shallow fractured crust, softly mottled mineral patches with occasional lighter grey grains. Approximately four metres square; naturally distributed soot-darkened material, no crater or burn outline. Photographic mineral realism with rich fine detail, physically plausible restrained grey mineral colors. Flat diffuse cross-polarized scan-like albedo: NO directional lighting, NO cast shadows, NO highlights, NO ambient occlusion, NO perspective, NO depth of field. All four edges must tile continuously without borders; evenly distributed detail with no central subject. No plants, water, metal, buildings, text, logos, labels, grid or panels. Opaque image. This is a single base-color map, not a PBR contact sheet or a rendered material sphere."
+    }
+  ]
+}

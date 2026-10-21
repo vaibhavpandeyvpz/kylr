@@ -143,7 +143,7 @@ if __name__=='__main__':
     for path in sorted((GAME/'assets/models').rglob('*.glb')):
         result=handoff(path)
         if result:pending.append((path,*result))
-    assert len(pending)==32,('Unexpected regolith export coverage',len(pending))
+    assert len(pending)==28,('Unexpected regolith export coverage',len(pending))
     for path,data,report in pending:
         temporary=path.with_suffix('.glb.tmp');temporary.write_bytes(data);temporary.replace(path)
         print('LUNAR_HANDOFF',report['path'],'geometry preserved',flush=True)

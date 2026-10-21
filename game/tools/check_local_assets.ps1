@@ -5,6 +5,10 @@ $required = [Collections.Generic.HashSet[string]]::new()
 foreach ($role in @('albedo','normal','orm')) {
     $null = $required.Add("game/assets/textures/lunar_surface/regolith_$role.png")
 }
+$planetary = Get-Content -LiteralPath (Join-Path $assetsRoot 'textures/planetary/manifest.json') -Raw | ConvertFrom-Json
+foreach ($file in $planetary.files.PSObject.Properties.Name) {
+    $null = $required.Add("game/assets/textures/planetary/$file")
+}
 $animations = Get-Content -LiteralPath (Join-Path $assetsRoot 'animations/manifest.json') -Raw | ConvertFrom-Json
 foreach ($clip in $animations.PSObject.Properties.Value) {
     foreach ($field in @('file','weapon_file')) {

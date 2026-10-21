@@ -46,9 +46,9 @@ collision.py, validate.py, preview.py, animate.py. Then run
 tools/prepare_faceoff_runtime.py with the library Python venv and reimport in
 Godot. Validation covers placement axes and visual/collision GLB/FBX recesses.
 
-Faceoff has a 75 x 75 m playable boundary, implemented by four invisible perimeter walls at +/-37.5 m, extending from -2 m to 100 m to contain jump-pad and charged-jump routes. The lunar surface remains continuous through these walls into the surrounding dunes. Skyfall has no perimeter walls and lunar contact is lethal.
+Faceoff has a 75 x 75 m playable boundary, implemented by four invisible perimeter walls at +/-37.5 m, extending from -2 m to 100 m to contain jump-pad and charged-jump routes. The lunar surface remains continuous through these walls into the surrounding geological rim. Skyfall has no perimeter walls and lunar contact is lethal.
 
-Current map-owned geometry is 7,769 machining triangles against the 25,000 default; imported architecture/scenery/props remain excluded. The habitat pod has bidirectional normal-jump routes through its native doorway, with crouching only after takeoff and a waypoint clearing the cradle. Occupied cradles match their native closed pose and attach payload axes directly to ItemMount.
+Current map-owned geometry is 3,259 machining triangles against the 25,000 default; imported architecture/scenery/props remain excluded. The habitat pod has bidirectional normal-jump routes through its native doorway, with crouching only after takeoff and a waypoint clearing the cradle. Occupied cradles match their native closed pose and attach payload axes directly to ItemMount.
 
 ## Shared builders and lunar crater
 
@@ -56,15 +56,17 @@ Shared scripts live in `models/maps/common/platform/` and `models/maps/common/br
 The single dimensional platform builder unions proposed extensions before laying
 out its perimeter, adds the optional 1.5 m underbody and surface regolith, then
 applies placement cuts. Standalone lip and size-specific helpers are retired.
-Both maps use a continuous lunar crater with an irregular raised rim and shallow,
-walkable faceted stones. Faceoff retains its play boundary; Skyfall lunar contact
-remains lethal. Imported scenery and props are excluded from map geometry totals.
+Faceoff uses graded terrain banks, shallow channels, level native building seats
+and a broken impact rim. Six original PBR layers describe dust, basalt, exposed
+bedrock, rubble, compacted ground and scorch. Skyfall's deeper basin remains
+lethal. Terrain is separate scenery, excluded from map machining totals.
 
-The crater scenery contains 389 distinct closed gravel/stone pieces,
-with interior peaks at most 24 cm and protected fixture approaches. The
-M_Regolith/M_RegolithLight/M_RegolithDark UV partitions share a continuous lunar
-surface texture and uniform base paint. Platform dressing uses unioned closed deposits rather than
-intersecting sheets; GLB/FBX visible-surface overlap checks pass.
+Before rebuilding map geometry, generate textures and run
+`tools/build_planetary_terrain.py faceoff` with the library Python environment.
+After native model/collision/round-trip validation, use
+`tools/handoff_planetary_terrain.py` for geometry-preserving runtime delivery.
+See [the terrain contract](../../../../docs/library/PLANETARY_TERRAIN.md) for
+SDK setup, source ownership, UVs, packed channels and required validation.
 
 ## Jumbotron placement
 

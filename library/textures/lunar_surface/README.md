@@ -1,7 +1,7 @@
 # Lunar regolith PBR
 
-This original shared surface covers lunar terrain inside and outside the crater,
-platform deposits, architecture aprons and the menu platform. The original
+This original shared surface covers platform deposits, architecture aprons and
+the menu platform. Map landscapes use the [planetary PBR layers](../planetary/README.md). The original
 albedo source was generated with OpenAI Imagegen without third-party image inputs.
 The source image, generation prompt and deterministic PBR builder are included.
 These textures are included project assets; no external texture download is required.

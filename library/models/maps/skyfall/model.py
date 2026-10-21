@@ -9,6 +9,7 @@ MATERIAL_CLASSIFIERS = {
     'M_RegolithDark': 'Diffuse',
     'M_RegolithLight': 'Diffuse',
     'M_Secondary': 'Diffuse',
+    'M_PlanetarySkyfall': 'Diffuse',
 }
 import bpy,json,math,sys,bmesh
 from pathlib import Path
@@ -56,10 +57,9 @@ def build():
     scene=bpy.context.scene;scene.unit_settings.system='METRIC';scene.render.fps=24;scene.frame_start=1;scene.frame_end=73
     deck_data,markers=data()
     parts=[];ownership={}
-    from lunar_surface import build as lunar_surface
-    ground=lunar_surface('SK_SkyfallLunar_LethalSurface')
-    from lunar_surface import apply_materials
-    apply_materials(ground)
+    from planetary_surface import build as planetary_surface,apply_materials
+    ground=planetary_surface('skyfall','SK_SkyfallLunar_LethalSurface')
+    apply_materials(ground,'skyfall')
     parts.append(ground);ownership[ground.name]='Root'
     # Platforms and mechanical support/wall props are native gizmo imports.
     arm_data=bpy.data.armatures.new('RIG_Skyfall');arm=bpy.data.objects.new('RIG_Skyfall',arm_data);bpy.context.collection.objects.link(arm)
@@ -103,8 +103,10 @@ def build():
     scene.frame_set(73);bpy.context.view_layer.update()
     sys.path.insert(0,str(HERE.parents[1]));from material_uv import prepare_export
     from platform_common import split_large
-    ground_details=dict(interior_gravel_stone_count=ground['interior_gravel_stone_count'],maximum_interior_stone_height_m=.24)
+    ground_details=dict(terrain_authoring='Terrain3D 1.0.2',interior_gravel_stone_count=0,maximum_interior_stone_height_m=0.0)
     scenery=split_large(ground,arm,'SkyfallLunarLethalSurface')
+    from planetary_surface import validate_atlas
+    validate_atlas(scenery,HERE,NAME)
     parts=scenery
     prepare_export(parts,HERE,NAME)
     scenery_tris=sum(sum(len(p.vertices)-2 for p in o.data.polygons) for o in scenery)
@@ -120,6 +122,8 @@ def build():
         actions=[dict(name='assemble',frames=[1,73],fps=24)],recess_clearance_per_side_m=RECESS_CLEARANCE_M,recess_authoring='final-union cuts using native prop footprint plus 1 mm per side and pit depth',budget_scope='platforms, bridges, lips and machined wells only; imported props and lunar scenery excluded')
     (HERE/'skyfall_rig.json').write_text(json.dumps(rig,indent=2)+'\n')
     for ob in scenery:bpy.data.objects.remove(ob,do_unlink=True)
+    from planetary_surface import clean_authoring_defaults
+    clean_authoring_defaults()
     bpy.ops.wm.save_as_mainfile(filepath=str(HERE/'skyfall.blend'),compress=True)
     save_export([arm,*parts,*sockets],'')
     print('SKYFALL',tris,'triangles',len(markers),'gizmos',len(deck_data),'deck sections')
