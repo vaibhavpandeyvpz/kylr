@@ -11572,7 +11572,7 @@
     "playable": false,
     "boundary": false
   },
-  "scenery_triangles": 36308,
+  "scenery_triangles": 108368,
   "geometry": "placement rig; native floors, pillar platforms and weapon-holder walls imported on gizmos",
   "budget_approval": "2026-10-13: restore all native geometry and raise map-owned geometry limit to measured total; separately imported props excluded",
   "actions": [
@@ -11595,6 +11595,7 @@
     "M_Regolith_Diffuse": "Diffuse",
     "M_RegolithDark_Diffuse": "Diffuse",
     "M_RegolithLight_Diffuse": "Diffuse",
-    "M_Secondary_Diffuse": "Diffuse"
+    "M_Secondary_Diffuse": "Diffuse",
+    "M_PlanetarySkyfall_Diffuse": "Diffuse"
   }
 }

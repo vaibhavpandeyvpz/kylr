@@ -109,6 +109,11 @@ Use flat paint/metal finishes on these surfaces. Keep
 intentional image textures such as the canonical regolith PBR set and screens.
 UV painting layouts, glass, emission and material classifiers remain intact.
 
+Map landscapes use the [planetary terrain pipeline](PLANETARY_TERRAIN.md):
+Terrain3D bakes source height fields before Blender machining, closed-volume
+collision export and painting UV validation. Runtime landscape materials blend
+six original packed PBR layers; platforms and architecture retain canonical regolith.
+
 Every exported regolith apron uses `architecture/lunar_material.py`, including
 the bunker and shelter, which construct their perimeter meshes directly. A
 preview-only procedural dust shader is insufficient for the delivered GLB.

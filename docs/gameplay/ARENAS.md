@@ -27,8 +27,8 @@ convey animation loops again after each launch clip.
 ## Arena design and interactions
 
 Skyfall is a 75 × 75 m lunar map. Its floating lower decks are at 22 m, higher decks at
-26 m and rooftops at 30 m. The lunar surface at 0 m and surrounding irregular
-dunes are lethal scenery. There is no playable common ground or perimeter wall. Floating floors instance the library's shared map
+26 m and rooftops at 30 m. The depressed lunar impact basin, fissures and
+surrounding fractured rim are lethal scenery. There is no playable common ground or perimeter wall. Floating floors instance the library's shared map
 platform and bridge builders on authored gizmos, with native collision companions.
 Stacked decks omit optional underbodies.
 
@@ -56,7 +56,14 @@ Floating deck carriers retain their assembled relative heights during a rigid
 rise. Imported architecture and fixture rigs inherit their source gizmos.
 There is no separate hatch foundation, MapMount lift or service pit.
 
-The arena sits on shared lunar PBR terrain under the original dark starfield and slowly drifting grey wisps in `shaders/original/lunar_sky.gdshader`. Reduced Motion freezes drift. Regolith uses untinted sRGB albedo, OpenGL normal and linear packed AO/roughness/metallic (R/G/B, metallic zero), with world triplanar repeat 0.24 per metre and normal strength 0.55. Low/Medium fixtures are emissive-only; High/Ultra enable illumination and shadow casting by default. Effect lights remain disabled. Cool moonlight (energy 0.28, pitch -48 degrees/yaw -32 degrees) casts shadows; ambient fill 0.26 retains sheltered visibility. Raster reflection fill uses the shared industrial panorama at strength 0.45 only on authored metallic/glass materials. When RT and fixture lighting are enabled, raster reflection maps are disabled; ambient/raster GI policy remains enabled in every preset. Diffuse architecture has no specular response. Glass uses the original thin-dielectric shader with authored tint and opacity, including 25% core shells. Static metadata enables shared unskinned geometry for declared-static props while preserving native mounts and parent motion. Preserve readable robot silhouettes and pickups against the dark sky.
+Faceoff has graded cover banks and shallow channels around level native building
+and fixture seats; its 75 × 75 m play boundary is unchanged. Skyfall overlooks a
+deeper impact basin. Both static landscapes use six height-blended original PBR
+layers, baked through Terrain3D and machined in Blender, with matching collision.
+Navigation bakes only the catalog route footprint, excluding distant scenery.
+See [planetary terrain](../library/PLANETARY_TERRAIN.md) for source ownership and rebuilds.
+
+The arena sits on lunar terrain under the original dark starfield and slowly drifting grey wisps in `shaders/original/lunar_sky.gdshader`. Reduced Motion freezes drift. Regolith uses untinted sRGB albedo, OpenGL normal and linear packed AO/roughness/metallic (R/G/B, metallic zero), with world triplanar repeat 0.24 per metre and normal strength 0.55. Low/Medium fixtures are emissive-only; High/Ultra enable illumination and shadow casting by default. Effect lights remain disabled. Cool moonlight (energy 0.28, pitch -48 degrees/yaw -32 degrees) casts shadows; ambient fill 0.26 retains sheltered visibility. Raster reflection fill uses the shared industrial panorama at strength 0.45 only on authored metallic/glass materials. When RT and fixture lighting are enabled, raster reflection maps are disabled; ambient/raster GI policy remains enabled in every preset. Diffuse architecture has no specular response. Glass uses the original thin-dielectric shader with authored tint and opacity, including 25% core shells. Static metadata enables shared unskinned geometry for declared-static props while preserving native mounts and parent motion. Preserve readable robot silhouettes and pickups against the dark sky.
 
 Thruster presentation uses `NozzleExhaust` at the animated `ExhaustOrigin` gizmo along local Godot -Z. Original flame envelopes and vortex membranes fit within a 5.5 m length and 0.75 m radius budget, with emission 0.65 and no point light. Rocket exhaust shares this thermal family within 15 cm length and 5 cm diameter. The native `SK_ThrusterExhaust` bore receives the original warm thermal surface without vertex displacement. `NozzleExit` remains the physical exit anchor. Thrusters have no collision model or gameplay collision.
 
@@ -186,7 +193,7 @@ Flag capture pads use the original circular field shader on the two-metre librar
 ### Map surface materials
 
 Imported architecture platforms retain their native finish, materials and
-painted UVs. Lunar scenery and dunes use regolith. Integral pickup walls
+painted UVs. Lunar landscapes use six blended planetary PBR layers; platform regolith retains its canonical material. Integral pickup walls
 and pillar mounting pads share the map floor finish on every face. Runtime
 lighting remains dynamic. Collider companions have no rendered material role.
 
@@ -228,9 +235,9 @@ these colliders from corpse, core and flag landing selection.
 
 ### Native-map geometry
 
-Skyfall owns 75,388 triangles (16 integral platform castings and four native bridge halves, including required machining); its geometry budget is 75,388 triangles. Faceoff owns 7,855 additional machining triangles under its 25,000 default. Separate authored props and lunar scenery are excluded and imported on authoritative native gizmos. Platform underbodies extend 1.5 m below the 0.8 m deck, making the lowest Skyfall belly 19.7 m above lunar ground. Platform/lip cutters use 1 mm clearance per side and extend 0.5 m above the surface, clearing regolith before its separate export. Lunar scenery is continuous with irregular dunes, without a square cut. Empty stasis chambers are closed; spawning opens them and full clearance of the native swinging door closes them once.
+Skyfall owns 75,228 triangles (16 integral platform castings and four native bridge halves, including required machining); its geometry budget is 75,388 triangles. Faceoff owns 3,259 additional machining triangles under its 25,000 default. Separate authored props and lunar scenery are excluded and imported on authoritative native gizmos. Platform underbodies extend 1.5 m below the 0.8 m deck, making the lowest Skyfall belly 19.7 m above the nominal zero datum. Platform/lip cutters use 1 mm clearance per side and extend 0.5 m above the surface, clearing regolith before its separate export. The stitched planetary scenery is a closed volume with an irregular rim and circular outer footprint. Empty stasis chambers are closed; spawning opens them and full clearance of the native swinging door closes them once.
 
-Faceoff keeps a bounded 75 x 75 m playable lunar area: invisible perimeter walls at +/-37.5 m extend from -2 m to 100 m, containing airborne routes as well as walking. Its continuous terrain blends into exterior dunes. Skyfall has no play-area perimeter and lunar contact is lethal.
+Faceoff keeps a bounded 75 x 75 m playable lunar area: invisible perimeter walls at +/-37.5 m extend from -2 m to 100 m, containing airborne routes as well as walking. Its graded playable terrain blends into the exterior impact rim. Skyfall has no play-area perimeter and lunar contact is lethal.
 
 Cradle payload origins and all axes align to the native `ItemMount` gizmo, parented to `ItemSocket`, with identity local transforms. Occupied cradles hold the native `close` pose; empty cradles use `open`. On respawn, close the claws before showing the payload. Previews and showcases use the same occupied pose.
 

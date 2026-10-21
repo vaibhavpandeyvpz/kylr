@@ -107,12 +107,13 @@ func set_vista() -> void:
 	observer.look_at(Vector3(0,1,0) if map_id=="faceoff" else Vector3(0,25,0))
 
 func clear_ground(robot: ArenaRobot, desired: Vector3) -> Vector3:
+	var terrain := map_id=="faceoff" and current_shot!="portal"
 	for offset in [Vector3.ZERO,Vector3(1,0,0),Vector3(-1,0,0),Vector3(0,0,1),Vector3(0,0,-1),Vector3(1,0,1),Vector3(-1,0,-1)]:
 		var candidate: Vector3 = desired+offset
-		var ray := PhysicsRayQueryParameters3D.create(candidate+Vector3.UP*1.2,candidate-Vector3.UP*2,1)
+		var ray := PhysicsRayQueryParameters3D.create(candidate+Vector3.UP*(4.0 if terrain else 1.2),candidate-Vector3.UP*2,1)
 		var hit := get_world_3d().direct_space_state.intersect_ray(ray)
-		if hit.is_empty() or hit.normal.y<.9 or absf(hit.position.y-desired.y)>.4: continue
-		candidate=hit.position+Vector3.UP*.03
+		if hit.is_empty() or hit.normal.y<(.8 if terrain else .9) or absf(hit.position.y-desired.y)>(4.0 if terrain else .4): continue
+		candidate=hit.position+Vector3.UP*(.1 if terrain else .03)
 		var query := PhysicsShapeQueryParameters3D.new()
 		query.shape=robot.body_capsule
 		query.transform=Transform3D(Basis.IDENTITY,candidate+Vector3.UP*.86)
@@ -184,6 +185,9 @@ func plan_encounter(shot: String) -> void:
 		selected_actors.append(robot)
 	assert(selected_actors.size()>=2,"Encounter needs two clear actor placements")
 	if shot=="aftermath": selected_actors[1].ah=30
+	if map_id=="faceoff" and shot!="portal":
+		encounter_center.y=0
+		for robot in selected_actors:encounter_center.y+=robot.position.y/selected_actors.size()
 	camera_focus=encounter_center+Vector3.UP*.95
 	if shot=="portal" and map_id=="faceoff": camera_focus=Vector3(-1.5,1.0,-1.8)
 	if map_id=="faceoff":

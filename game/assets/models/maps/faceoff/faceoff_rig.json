@@ -6,8 +6,8 @@
     75
   ],
   "triangles": 0,
-  "total_map_triangles": 7769,
-  "scenery_triangles": 38776,
+  "total_map_triangles": 3259,
+  "scenery_triangles": 109036,
   "triangle_budget": 25000,
   "markers": [
     {
@@ -3993,6 +3993,7 @@
     "M_Regolith_Diffuse": "Diffuse",
     "M_RegolithDark_Diffuse": "Diffuse",
     "M_RegolithLight_Diffuse": "Diffuse",
-    "M_Secondary_Diffuse": "Diffuse"
+    "M_Secondary_Diffuse": "Diffuse",
+    "M_PlanetaryFaceoff_Diffuse": "Diffuse"
   }
 }

@@ -15,10 +15,10 @@ pressure plate in both zones, beside the repair stations. Their native wells
 are filled in both render and collision exports. The Mainland 1 lower-ground
 and Mainland 2 higher-ground barricades and their controls remain as authored.
 
-Common ground and its fixtures are removed. Continuous lunar terrain and
-irregular dunes are lethal scenery with matching collision. There are no
+Common ground and its fixtures are removed. The depressed impact basin, fissures and
+fractured outer rim are lethal scenery with matching collision. There are no
 invisible perimeter walls or playable lunar navigation cells. Deck tops remain
-22/26/30 m, with the lowest tapered underbody at 19.7 m above lunar ground.
+22/26/30 m, with the lowest tapered underbody at 19.7 m above the nominal zero datum; the basin floor varies below it.
 
 All 34 remaining floor openings use measured geometry, including 6 x 3 m mainland apertures
 and 3 x 3 m island/rooftop holes. Layer names do not override actual dimensions.
@@ -50,7 +50,7 @@ handoffs use `tools/prepare_skyfall_runtime.py --portal-pairs-only` from the
 library root; geometry and weapon profiles are left intact. Lower-mainland pads use
 a 5 m lift through the higher-floor openings and steer onto solid rims below
 the roof; other pads retain 15 m travel. Drop routes never land on lunar ground.
-Lunar contact is an environmental fall death; protected robots respawn safely,
+The void boundary is -20 m, beneath the depressed basin. Lunar contact is an environmental fall death; protected robots respawn safely,
 carried flags return home, and lunar colliders are excluded from drop surfaces.
 
 The two speed-ramp gizmos import native ramp triggers and launch lips. Runtime
@@ -61,7 +61,9 @@ for low-EP routes. Directional cyan chevrons use the native belt slope; their
 
 ## Pipeline
 
-Run headless Blender 5.2 from library, in order:
+First generate the planetary textures and run `tools/build_planetary_terrain.py skyfall`
+with the library Python environment. See [the terrain contract](../../../../docs/library/PLANETARY_TERRAIN.md).
+Then run headless Blender 5.2 from library, in order:
 
 1. platform_variants.py
 2. model.py
@@ -77,7 +79,7 @@ are separate. The 13-second showcase combines three-second assembly with a
 continuous drone route through a rooftop opening and jump-pad ascent. Native
 prop idle loops run throughout.
 
-Platform and lip recess cutters extend 0.5 m above the floor to clear overlapping regolith before its separate export. Underbodies extend uniformly 1.5 m below the 0.8 m deck underside (2.3 m total), putting the lowest platform belly at 19.7 m. Lunar scenery is one seamless mesh with irregular dunes, imported on its own gizmo. Empty stasis chambers stay closed; only spawn admission opens them, and they close once the robot clears the native door sweep.
+Platform and lip recess cutters extend 0.5 m above the floor to clear overlapping regolith before its separate export. Underbodies extend uniformly 1.5 m below the 0.8 m deck underside (2.3 m total), putting the lowest platform belly at 19.7 m. Lunar scenery is a stitched, closed Terrain3D bake with six blended PBR layers, imported on its own gizmo. Deliver it using `tools/handoff_planetary_terrain.py` after native validation. Empty stasis chambers stay closed; only spawn admission opens them, and they close once the robot clears the native door sweep.
 
 Shared platform/lip tops are continuous within a perimeter border, with no internal checker grid. Fascia lamps and service recesses share a symmetric spacing plan with at least 40 cm housing-to-recess clearance. Sconce geometry remains a separate native import; gizmo-only previews hide it.
 
@@ -104,15 +106,12 @@ Shared scripts live in `models/maps/common/platform/` and `models/maps/common/br
 The single dimensional platform builder unions proposed extensions before laying
 out its perimeter, adds the optional 1.5 m underbody and surface regolith, then
 applies placement cuts. Standalone lip and size-specific helpers are retired.
-Both maps use a continuous lunar crater with an irregular raised rim and shallow,
-walkable faceted stones. Faceoff retains its play boundary; Skyfall lunar contact
-remains lethal. Imported scenery and props are excluded from map geometry totals.
-
-The crater scenery contains 510 distinct closed gravel/stone pieces,
-with interior peaks at most 24 cm and protected fixture approaches. The
-M_Regolith/M_RegolithLight/M_RegolithDark UV partitions share a continuous lunar
-surface texture and uniform base paint. Platform dressing uses unioned closed deposits rather than
-intersecting sheets; GLB/FBX visible-surface overlap checks pass.
+The static lunar landscape uses a Terrain3D bake with a depressed basin,
+fissures, secondary impacts and a fractured raised rim. Six original packed PBR
+layers blend from source geological masks. Lunar contact is lethal and the ground
+is excluded from navigation. Imported scenery and props are excluded from map
+geometry totals. Platform regolith remains a separate canonical material, with
+unioned closed deposits and validated visual/collision exports.
 
 2026-10-14: Figma nodes 2011:242 and 2011:415 on the Mainland 2 rooftops specify freestanding item cradles for the flak cannon. Their former holder wells are omitted; both native roof modules and map/collision deliveries must be regenerated together.
 

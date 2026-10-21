@@ -36,7 +36,7 @@ For a **fall-off-map** death, credit the last robot that dealt an accepted hit i
 
 A credited fall adds the ordinary kill, applicable TDM team point, assists and local kill feedback, and advances Gun Game normally. In CTF it remains a kill statistic rather than a capture point. The kill feed names the attacker, victim and qualifying weapon while retaining the fall cause.
 
-Crossing the map's fall boundary or contacting Skyfall's lethal lunar surface or dunes reduces AH to zero and preserves the fall hazard. A void-fall corpse continues falling at its actual location. On lethal lunar contact, it slams onto the contacted surface and remains there through its death animation. Neither leaves a pickup, including credited falls. A spawn-invulnerable robot crossing the boundary returns to a safe spawn with fresh five-second protection, with no death, kill or dropped Core.
+Crossing the map's fall boundary or contacting Skyfall's lethal lunar terrain reduces AH to zero and preserves the fall hazard. A void-fall corpse continues falling at its actual location. On lethal lunar contact, it slams onto the contacted surface and remains there through its death animation. Neither leaves a pickup, including credited falls. A spawn-invulnerable robot crossing the boundary returns to a safe spawn with fresh five-second protection, with no death, kill or dropped Core.
 
 An **assist** is an informational statistic for a robot whose accepted pre-shield-split damage to the victim totaled at least **20 points** in the preceding **10 seconds**, provided it did not receive the kill. Assists add no match score or MVP kills.
 

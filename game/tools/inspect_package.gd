@@ -13,6 +13,8 @@ func _initialize():
 	inspect("res://")
 	for path in ["res://data/audio/speech.json","res://data/audio/music.json","res://assets/audio/music/lobby.ogg","res://assets/audio/speech/robot_09/power_critical.wav"]:
 		if not ResourceLoader.exists(path): reject("Missing packaged resource: "+path)
+	var terrain: Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://assets/textures/planetary/manifest.json"))
+	for file in terrain.files: require_resource("res://assets/textures/planetary/"+file)
 	var animations: Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://assets/animations/manifest.json"))
 	for entry in animations.values():
 		for field in ["file","weapon_file"]:
