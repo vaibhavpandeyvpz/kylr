@@ -86,6 +86,28 @@ func reverse_up() -> void:
 func request_floor(height: float) -> void:
 	requested=lower if absf(height-lower)<absf(height-upper) else upper
 
+func boarding_ready(height: float) -> bool:
+	return not traveling and absf(surface.global_position.y-height)<0.15
+
+func waiting_point(robot: ArenaRobot, height: float) -> Vector3:
+	var bounds: AABB=surface.global_transform*platform_bounds
+	# Wait on the room side of the native platform, clear of its swept footprint.
+	var forward: Vector3=fixture.node.global_basis*Vector3.BACK
+	forward.y=0
+	forward=forward.normalized()
+	var extent := absf(forward.x)*bounds.size.x*0.5+absf(forward.z)*bounds.size.z*0.5
+	var point := bounds.get_center()+forward*(extent+robot.body_capsule.radius+0.65)
+	point.y=height
+	return point
+
+func needs_clearance(robot: ArenaRobot, point: Vector3) -> bool:
+	var floor_y := lower if absf(point.y-lower)<absf(point.y-upper) else upper
+	if absf(point.y-floor_y)>0.6 or boarding_ready(floor_y): return false
+	# A rider on the actual deck must remain aboard while it moves.
+	if absf(robot.global_position.y-surface.global_position.y)<0.2: return false
+	var bounds: AABB=(surface.global_transform*platform_bounds).grow(robot.body_capsule.radius+0.25)
+	return point.x>bounds.position.x and point.x<bounds.end.x and point.z>bounds.position.z and point.z<bounds.end.z
+
 func _physics_process(dt: float) -> void:
 	if game.phase!="Active":return
 	if not game.authority:

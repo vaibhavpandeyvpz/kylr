@@ -18,6 +18,7 @@ var game
 var model: Node3D
 var markers: Array = []
 var fixtures: Array = []
+var cargo_lifts: Array[ArchitectureLift] = []
 var fixture_indices: Dictionary = {}
 const INTERACTION_KINDS := ["portal","jump_pad","speed_ramp","pressure_plate","repair_station"]
 var spawns: Array = []
@@ -244,6 +245,7 @@ func make_fixture(marker: Dictionary):
 			var native_meta: Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://assets/models/maps/%s/%s%s_rig.json"%[config.model,config.model,suffix]))
 			if native_meta.has("cargo_lift_m"):
 				var lift:=ArchitectureLift.new();lift.install(game,placement,native_meta);placement["lift_controller"]=lift
+				cargo_lifts.append(lift)
 		return
 	if role.begins_with("weapon_") and role != "weapon_wall":
 		pickup_fixture(marker,mount,"weapon",weapon_id(role.trim_prefix("weapon_")))
