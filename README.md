@@ -1,6 +1,6 @@
 # KYLR
 
-![Five Tensor variants with authored weapons and combat effects in a lunar outpost](docs/media/hero-showcase.png)
+![Five Tensor head and upper-body configurations with authored weapons and combat effects in a lunar outpost](docs/media/hero-showcase.png)
 
 *Authored game assets posed and rendered in Blender.*
 
@@ -30,7 +30,7 @@ prompt-driven process.[^ai-tools]
   match announcements, plus spatial kill quips in ten robot voices with matching
   killfeed dialogue. Grenade, rocket and EMP hits can earn credit for a later
   fall when they are the victim's last accepted hit that life.
-- **Player customisation:** five head variants, 12 primary and 12 secondary armor
+- **Player customisation:** five head variants, six upper-body assemblies, 12 primary and 12 secondary armor
   colors, and victory emotes. Preview your robot in 3D and save your online
   loadout to your account.
 - **Maps designed in Figma:** explore the
@@ -42,6 +42,12 @@ prompt-driven process.[^ai-tools]
   applicable licenses.
 
 See the [in-game cinematic gallery](docs/CINEMATICS.md) for five scenes on each map.
+
+![Tensor upper bodies: Default, Aegis, Lamellar, Vesper, Conduit and Reactor](docs/media/tensor-upper-bodies.webp)
+
+*Six interchangeable chest and back assemblies, with independent heads and two
+paint channels. Covers, vents, radiator castings and canister clamps follow each
+assembly's machined surfaces and share Tensor's rigid mechanical rig.*
 
 This is a single repository on `main`:
 

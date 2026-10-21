@@ -76,7 +76,7 @@ def sample_pose(rig, clip, frame, kind='tensor'):
     bpy.context.scene.frame_set(0)
 
 
-def character(label, weapon, head, clip, frame, position, yaw, color):
+def character(label, weapon, head, clip, frame, position, yaw, color, upper_body="Default"):
     col = collection('CAST / ' + label, CAST)
     root, objects = append_asset('characters', 'tensor', col, position, yaw)
     root.name = label
@@ -86,6 +86,9 @@ def character(label, weapon, head, clip, frame, position, yaw, color):
             continue
         if obj.name.startswith('SK_TensorHead'):
             obj.hide_render = not obj.name.startswith('SK_TensorHead' + head)
+            obj.hide_viewport = obj.hide_render
+        if obj.name.startswith('SK_TensorUpperBody'):
+            obj.hide_render = not obj.name.startswith('SK_TensorUpperBody' + upper_body)
             obj.hide_viewport = obj.hide_render
         for slot in obj.material_slots:
             if slot.material and slot.material.name.startswith('M_Primary_Metallic'):
@@ -129,7 +132,7 @@ def character(label, weapon, head, clip, frame, position, yaw, color):
                   for v in o.evaluated_get(deps).data.vertices)
     root.location.z += position[2] - minimum
     bpy.context.view_layer.update()
-    records.append({'character': label, 'head': head, 'weapon': weapon,
+    records.append({'character': label, 'head': head, 'upper_body': upper_body.lower(), 'weapon': weapon,
                     'clip': clip, 'sample_frame': frame})
     return next((o for o in obs if o.name.split('.')[0] in ('Muzzle', 'Muzzle1')), None)
 
@@ -154,7 +157,8 @@ def point(name, pos, power, color, radius):
 
 def emission(name, color, strength):
     mat = bpy.data.materials.new(name)
-    mat.use_nodes = True
+    if mat.node_tree is None:
+        mat.use_nodes = True
     nodes = mat.node_tree.nodes
     nodes.clear()
     out = nodes.new('ShaderNodeOutputMaterial')
@@ -183,7 +187,8 @@ def effect_piece(name, location, scale, material, rotation=None):
 
 def atlas_burst(location, size, frame):
     mat = bpy.data.materials.new('M_CombustionFlipbook')
-    mat.use_nodes = True
+    if mat.node_tree is None:
+        mat.use_nodes = True
     n, links = mat.node_tree.nodes, mat.node_tree.links
     n.clear()
     out, mix = n.new('ShaderNodeOutputMaterial'), n.new('ShaderNodeMixShader')
@@ -272,15 +277,15 @@ scene.camera = CAM
 
 # Five silhouettes, distinct heads, and a sampled authored stance for each.
 character('01 / Vanguard', 'rifle', 'Projector', 'common/idle', 30,
-                   (19.2, 11.0, 0), -15, (.07, .19, .23))
+                   (19.2, 11.0, 0), -15, (.07, .19, .23), 'Aegis')
 muzzle = character('02 / Breacher', 'flak_cannon', 'Raptor', 'flak_cannon/idle_crouching_aiming', 18,
-          (17.9, 10.8, 0), -30, (.29, .13, .065))
+          (17.9, 10.8, 0), -30, (.29, .13, .065), 'Lamellar')
 character('03 / Heavy', 'rocket_launcher', 'Sentinel', 'rocket_launcher/reload', 60,
-          (21.5, 12.5, 0), 35, (.25, .29, .32))
+          (21.5, 12.5, 0), 35, (.25, .29, .32), 'Reactor')
 character('04 / Runner', 'bio_rifle', 'Porthole', 'bio_rifle/run_forward', 5,
-          (18, 15.3, 0), -45, (.17, .24, .09))
+          (18, 15.3, 0), -45, (.17, .24, .09), 'Conduit')
 character('05 / Flanker', 'pistol', 'Arachne', 'pistol/idle_aiming', 13,
-          (20.9, 14.5, 0), 15, (.29, .12, .13))
+          (20.9, 14.5, 0), 15, (.29, .12, .13), 'Vesper')
 
 # The environment is the populated Faceoff scene at its authored transforms.
 for lamp in bpy.context.scene.objects:
@@ -293,7 +298,7 @@ for lamp in bpy.context.scene.objects:
 
 world = bpy.data.worlds.new('WLD_LunarNight')
 scene.world = world
-world.use_nodes = True
+if world.node_tree is None: world.use_nodes = True
 world.node_tree.nodes['Background'].inputs['Color'].default_value = (.055, .075, .105, 1)
 world.node_tree.nodes['Background'].inputs['Strength'].default_value = .28
 # Hard solar key, broad fixture spill and a restrained warm detonation rim.

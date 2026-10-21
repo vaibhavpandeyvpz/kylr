@@ -7,6 +7,7 @@ static func install(visual: Node3D, category: String, id: String, owner_robot = 
 	var target_skeleton := Assets.find(visual, "Skeleton3D") as Skeleton3D
 	var source_skeleton := Assets.find(source, "Skeleton3D") as Skeleton3D
 	for mesh_node in source.find_children("*", "MeshInstance3D", true, false):
+		if owner_robot != null and String(mesh_node.name).begins_with("SK_TensorUpperBody") and not String(mesh_node.name).trim_suffix("Col").to_lower().ends_with(owner_robot.upper_body): continue
 		if owner_robot != null and String(mesh_node.name).begins_with("SK_TensorHead") and not String(mesh_node.name).to_lower().contains(owner_robot.head): continue
 		if String(mesh_node.name).contains("Trigger") or String(mesh_node.name).contains("Shield"): continue
 		var hit_region := "head" if owner_robot != null and String(mesh_node.name).begins_with("SK_TensorHead") else "body"
@@ -242,4 +243,3 @@ static func split_hulls(mesh_node: MeshInstance3D,source_skeleton: Skeleton3D) -
 			shape.points=points
 			result.append({"bone":bone_names[seed],"shape":shape})
 	return result
-

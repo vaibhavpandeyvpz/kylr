@@ -253,7 +253,7 @@ func drop_carried_flag(flag: Dictionary, position: Vector3, outside_play: bool) 
 	flag.node.global_basis = Basis.IDENTITY
 	if callouts: callouts.publish("Flag dropped.","Announcer",flags.find(flag),true)
 
-func add_robot(id: int,nick: String,team: int,human: bool,head: String):
+func add_robot(id: int,nick: String,team: int,human: bool,head: String,upper_body := "default"):
 	var robot := ArenaRobot.new()
 	robot.arena_match = self
 	robot.robot_id = id
@@ -262,6 +262,7 @@ func add_robot(id: int,nick: String,team: int,human: bool,head: String):
 	robot.team = team
 	robot.human = human
 	robot.head = head
+	robot.upper_body = upper_body
 	robot.tint = team_colors[team] if not MatchTypes.individual(match_type) else Color.from_hsv(fmod(id * 0.17,1.0),0.45,0.65)
 	add_child(robot)
 	robots.append(robot)
@@ -369,7 +370,7 @@ func spawn_robot(robot):
 	robot.hide()
 	robot.body.show()
 	robot.collision_layer = 2
-	Assets.paint(robot.body,robot.tint,robot.armor_secondary,robot.head)
+	Assets.paint(robot.body,robot.tint,robot.armor_secondary,robot.head,false,robot.upper_body)
 	if robot == local_robot: camera_snap = true
 
 func spawn_geometry_safe(spawn: Dictionary) -> bool:
@@ -515,8 +516,8 @@ func eliminate(victim,killer,cause: String):
 	var death_animation: Animation = victim.animator.get_animation_library("").get_animation("common_" + death_clip)
 	var falling_out := fall_death and lunar_impact.is_empty()
 	var death_duration := 3.0 if falling_out else death_animation.length if death_animation != null else 104.0 / 30.0
-	Assets.paint(victim.body,victim.tint,victim.armor_secondary,victim.head,true)
-	Assets.paint(victim.gun,victim.tint,victim.armor_secondary,victim.head,true)
+	Assets.paint(victim.body,victim.tint,victim.armor_secondary,victim.head,true,victim.upper_body)
+	Assets.paint(victim.gun,victim.tint,victim.armor_secondary,victim.head,true,victim.upper_body)
 	var corpse = victim.body.duplicate()
 	for mesh in corpse.find_children("SK_TensorShield*","MeshInstance3D",true,false): mesh.hide()
 	add_child(corpse)

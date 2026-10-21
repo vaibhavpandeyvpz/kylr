@@ -2,6 +2,7 @@ extends GutTest
 
 class HitOwner extends RefCounted:
 	var head := "projector"
+	var upper_body := "default"
 	var hit_rids: Array[RID] = []
 
 class RayWorld extends Node3D:

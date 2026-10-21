@@ -7,6 +7,7 @@ var voice_variant := -1
 var display_name := "Tensor"
 var team := 0
 var head := "projector"
+var upper_body := "default"
 var tint := Color("6fe5ea")
 var armor_secondary := Color("6fe5ea")
 var account_emote := ""
@@ -168,7 +169,7 @@ func _ready() -> void:
 	animator.root_node = NodePath("..")
 	animator.add_animation_library("", AnimationLibrary.new())
 	armor_secondary = Assets.robot_accent(body, tint, character.model)
-	Assets.paint(body, tint, armor_secondary, head)
+	Assets.paint(body, tint, armor_secondary, head, false, upper_body)
 	CollisionRig.install(body,"characters",character.model,self)
 	opponent_marker = OpponentMarker.new()
 	opponent_marker.robot = self
@@ -795,7 +796,7 @@ func hit(amount: float, attacker, cause: String, impulse := Vector3.ZERO) -> boo
 	return true
 
 func snapshot() -> Dictionary:
-	return {"id":robot_id,"name":display_name,"team":team,"head":head,"tint":tint.to_html(),"human":human,
+	return {"id":robot_id,"name":display_name,"team":team,"head":head,"upper_body":upper_body,"tint":tint.to_html(),"human":human,
 		"p":[position.x,position.y,position.z],"yaw":yaw,"pitch":pitch,"ah":ah,"ep":ep,"sh":sh,
 		"protection":protection,"alive":alive,"kills":kills,"assists":assists,"deaths":deaths,"captures":captures,
 		"reached":reached,"weapon":equipped,"pickup":pickup_weapon,"loaded":loaded,"packs":packs,"reload":reload_time,"owned_weapons":owned_weapons.duplicate(),
@@ -890,8 +891,8 @@ func restore_network(state: Dictionary, local := false) -> void:
 	last_hit_weapon=str(state.get("hit_weapon",last_hit_weapon))
 	EnergySurface.update(self)
 	if life_changed:
-		Assets.paint(body,tint,armor_secondary,head,not alive)
-		Assets.paint(gun,tint,armor_secondary,head,not alive)
+		Assets.paint(body,tint,armor_secondary,head,not alive,upper_body)
+		Assets.paint(gun,tint,armor_secondary,head,not alive,upper_body)
 	body_capsule.height = 1.18 if crouched else 1.72
 	body_shape.position.y = body_capsule.height * 0.5
 	body.rotation.y = yaw + character.forward_yaw

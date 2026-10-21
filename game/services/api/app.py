@@ -232,7 +232,7 @@ def create_app(database=None, configuration=None, scheduler=None, clock=time.tim
     @app.put('/v1/me/loadout')
     @authenticated
     def save_loadout():
-        value = loadout(body(DEFAULT_LOADOUT,DEFAULT_LOADOUT))
+        value = loadout(body(DEFAULT_LOADOUT,set(DEFAULT_LOADOUT) - {'upper_body'}))
         database.accounts.update_one({'_id':g.account['_id']},{'$set':{'loadout':value}})
         g.account['loadout']=value
         return {'player':profile(g.account)}

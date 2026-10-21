@@ -332,17 +332,19 @@ func customise():
 	var view := OnlineLayout.frame(ui,"Customise",api.player.display_name+" / Tensor platform")
 	portrait(OnlineLayout.column(view.body,1.0),draft)
 	var choices := OnlineLayout.column(view.body,1.15)
-	var tabs := HBoxContainer.new()
-	tabs.add_theme_constant_override("separation",8)
+	var tabs := HFlowContainer.new()
+	tabs.add_theme_constant_override("h_separation",8)
+	tabs.add_theme_constant_override("v_separation",8)
 	choices.add_child(tabs)
-	for value in ["Heads","Emotes","Armor Colors"]:
+	for value in ["Heads","Upper Body","Emotes","Armor Colors"]:
 		var tab := ui.button(tabs,value,func(): category = value; customise())
 		tab.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		tab.alignment = HORIZONTAL_ALIGNMENT_CENTER
 		tab.add_theme_font_size_override("font_size",16)
 		MenuSkin.apply_button(tab,false,category == value)
-	var key := "head" if category == "Heads" else "emote"
-	var items: Array = ContentRegistry.character("tensor").heads if key == "head" else ContentRegistry.character("tensor").emotes
+	var key := "head" if category == "Heads" else "upper_body" if category == "Upper Body" else "emote"
+	var character: Dictionary = ContentRegistry.character("tensor")
+	var items: Array = character.heads if key == "head" else character.upper_bodies if key == "upper_body" else character.emotes
 	if category == "Armor Colors":
 		var channels := HBoxContainer.new()
 		choices.add_child(channels)
@@ -353,7 +355,7 @@ func customise():
 			MenuSkin.apply_button(choose,false,armor_channel == channel)
 		key = armor_channel
 		items = OnlineTransport.PALETTE.keys()
-	ui.label(choices,"Choose your "+("armor finish" if category == "Armor Colors" else "head" if key == "head" else "victory animation"),18,ui.MUTED)
+	ui.label(choices,"Choose your "+("armor finish" if category == "Armor Colors" else "head" if key == "head" else "upper body" if key == "upper_body" else "victory animation"),18,ui.MUTED)
 	var grid := GridContainer.new()
 	grid.name = "ChoicesGrid"
 	grid.columns = 3
@@ -412,6 +414,7 @@ func choice_tile(grid: GridContainer, id: String, key: String):
 	content.add_child(image)
 	var path: String
 	if key == "head": path = "heads/"+id+"/"+draft.primary
+	elif key == "upper_body": path = "upper_bodies/"+id+"/"+draft.primary
 	elif key == "emote": path = "emotes/"+id+"/"+draft.primary
 	else: path = "armor/"+(id if key == "primary" else String(draft.primary))+"/"+(id if key == "secondary" else String(draft.secondary))
 	image.texture = load("res://assets/ui/customisation/"+path+".webp")
@@ -470,7 +473,7 @@ func portrait(parent: Node, loadout: Dictionary):
 		camera.look_at(Vector3(0,0.86,0))
 		camera.fov = 34
 		camera.current = true
-	Assets.paint(portrait_robot,Color(OnlineTransport.PALETTE[loadout.primary]),Color(OnlineTransport.PALETTE[loadout.secondary]),loadout.head)
+	Assets.paint(portrait_robot,Color(OnlineTransport.PALETTE[loadout.primary]),Color(OnlineTransport.PALETTE[loadout.secondary]),loadout.head,false,loadout.get("upper_body","default"))
 	portrait_victory = app.preview_victory(loadout.get("emote",""))
 	portrait_viewport.process_mode = Node.PROCESS_MODE_INHERIT
 	portrait_viewport.render_target_update_mode = SubViewport.UPDATE_ALWAYS

@@ -238,10 +238,12 @@ static func robot_accent(root: Node, primary: Color, model: String) -> Color:
 			if material != null and material_role(material.resource_name) == "M_Secondary": return material.albedo_color
 	return Color("707073")
 
-static func paint(root: Node, primary: Color, secondary: Color, head := "projector", dark := false) -> void:
+static func paint(root: Node, primary: Color, secondary: Color, head := "projector", dark := false, upper_body := "default") -> void:
 	if root is MeshInstance3D:
 		if String(root.name).begins_with("SK_TensorHead"):
 			root.visible = String(root.name).to_lower().ends_with(head)
+		if String(root.name).begins_with("SK_TensorUpperBody"):
+			root.visible = String(root.name).to_lower().ends_with(upper_body)
 		for i in root.mesh.get_surface_count():
 			var source = root.get_active_material(i)
 			if source is StandardMaterial3D:
@@ -254,7 +256,7 @@ static func paint(root: Node, primary: Color, secondary: Color, head := "project
 				if material_role(source.resource_name) == "M_Secondary": mat.albedo_color = secondary
 				root.set_surface_override_material(i, mat)
 	for child in root.get_children():
-		paint(child, primary, secondary, head, dark)
+		paint(child, primary, secondary, head, dark, upper_body)
 
 static func material(color: Color, emission := 0.0) -> StandardMaterial3D:
 	var mat := StandardMaterial3D.new()
