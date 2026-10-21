@@ -165,11 +165,14 @@ func _ready():
 		var heads_b := Arsenal.HEADS.duplicate()
 		shuffle_roster(heads_a,setup_rng)
 		shuffle_roster(heads_b,setup_rng)
+		var upper_bodies: Array = ContentRegistry.character("tensor").upper_bodies.duplicate()
+		shuffle_roster(upper_bodies,setup_rng)
 		var names := [local_name,"Kestrel","Relay","Vector","Sable","Flux","Torque","Cipher","Helix","Rook"]
 		var teams := local_roster_teams(count)
 		for i in count:
 			var team: int = teams[i]
-			var robot = add_robot(i,names[i],team,i == 0,heads_a[i / 2] if team == 0 else heads_b[i / 2])
+			var upper_body: String = "default" if i == 0 else upper_bodies[(i-1) % upper_bodies.size()]
+			var robot = add_robot(i,names[i],team,i == 0,heads_a[i / 2] if team == 0 else heads_b[i / 2],upper_body)
 			robot.hide()
 			robot.collision_layer = 0
 			if i == 0:
