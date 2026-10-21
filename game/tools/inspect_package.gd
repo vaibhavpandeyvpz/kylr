@@ -36,7 +36,7 @@ func inspect(path: String):
 	if folder == null: reject("Unreadable package folder: "+path); return
 	for child in folder.get_directories():
 		var next := path.path_join(child)
-		if next in ["res://services","res://reports","res://tests","res://tools","res://docs","res://.codex","res://.claude","res://addons/gut","res://scripts/debug"]: reject("Excluded source directory packaged: "+next)
+		if next in ["res://services","res://reports","res://tests","res://tools","res://docs","res://.codex","res://.claude","res://addons/gut","res://scripts/debug","res://addons/shaker/data/resources"]: reject("Excluded source directory packaged: "+next)
 		inspect(next)
 	for child in folder.get_files():
 		files += 1

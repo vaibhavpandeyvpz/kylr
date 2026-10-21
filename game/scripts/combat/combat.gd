@@ -344,8 +344,10 @@ func aim_target(robot, reach: float) -> Vector3:
 	var direction: Vector3 = robot.aim_direction()
 	# The local crosshair is the camera's center ray, including the shoulder offset.
 	if robot.human and robot == game.local_robot and is_instance_valid(game.camera):
-		origin = game.camera.global_position
-		direction = -game.camera.global_basis.z.normalized()
+		var rig = game.get("camera_rig")
+		var pose: Transform3D=rig.aim_transform() if rig!=null and rig.camera==game.camera else game.camera.global_transform
+		origin = pose.origin
+		direction = -pose.basis.z.normalized()
 	var target := origin + direction * (reach + origin.distance_to(robot.eye()))
 	var sight := ray(origin, target, [robot.get_rid()])
 	return sight.position if not sight.is_empty() else target

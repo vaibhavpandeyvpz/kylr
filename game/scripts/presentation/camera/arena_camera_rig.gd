@@ -9,8 +9,14 @@ var cameras: Dictionary = {}
 var follow_anchors: Dictionary = {}
 var focus_anchors: Dictionary = {}
 var active_view := ""
+var impact_shake := ImpactShake.new()
+var shake_enabled := true
+var unshaken_pose := Transform3D.IDENTITY
+var shake_applied := false
 
 func _ready() -> void:
+	# Phantom Camera writes the base pose at priority 300.
+	process_priority=301
 	camera = Camera3D.new()
 	camera.name = "RenderCamera"
 	camera.near = 0.04
@@ -52,6 +58,20 @@ func _ready() -> void:
 		cameras[view] = pcam
 	select("opening")
 
+func _process(dt: float) -> void:
+	unshaken_pose=camera.global_transform
+	shake_applied=false
+	if not shake_enabled or active_view not in ["fpv","tpv"]:
+		impact_shake.clear()
+		return
+	var offset := impact_shake.sample(dt)
+	if offset!=Transform3D.IDENTITY:
+		camera.global_transform=unshaken_pose*offset
+		shake_applied=true
+
+func aim_transform() -> Transform3D:
+	return unshaken_pose if shake_applied else camera.global_transform
+
 func select(view: String) -> void:
 	if active_view == view: return
 	active_view = view
@@ -81,6 +101,9 @@ func set_lens(pcam: PhantomCamera3D, target_fov: float) -> void:
 		pcam.fov = target_fov
 
 func freeze_for_capture(pose: Transform3D) -> void:
+	set_process(false)
+	impact_shake.clear()
+	shake_applied=false
 	host.set_process(false)
 	host.set_physics_process(false)
 	camera.global_transform = pose

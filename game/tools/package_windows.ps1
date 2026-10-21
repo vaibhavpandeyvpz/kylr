@@ -75,6 +75,7 @@ foreach ($notice in $sdkManifest.notices) {
     Copy-Item -LiteralPath $source -Destination (Join-Path $noticeDirectory $notice.name)
 }
 $notices = @('addons/limboai/LICENSE.md','addons/limboai/LOGO_LICENSE.md','addons/phantom_camera/LICENSE','addons/proton_scatter/LICENSE','addons/proton_scatter/LICENSE.md')
+$notices += 'addons/shaker/LICENSE'
 $notices += Get-ChildItem -LiteralPath (Join-Path $projectRoot 'assets') -Recurse -File |
     Where-Object { $_.Name -match '(?i)license' -and $_.Extension -ne '.import' } |
     ForEach-Object { [IO.Path]::GetRelativePath($projectRoot,$_.FullName) }

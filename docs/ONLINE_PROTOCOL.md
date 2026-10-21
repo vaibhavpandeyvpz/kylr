@@ -44,6 +44,16 @@ ENet v2 requires matching client/server builds. HTTP remains v1. Automatic peer 
 
 Spawn reload presentation includes its remaining time and duration in robot snapshots. Clients seek the authored pistol reload to that progress, including late joins, without changing the ammunition reload timer or spawn protection.
 
+Accepted rocket, grenade and EMP hits send an `impact_shake` presentation event
+containing victim ID, cause and normalized strength. The server computes explosion
+strength from the full 3D distance between the blast point and robot body center,
+falling linearly to zero at the blast radius. EMP uses a fixed 0.65 strength for
+the directly hit target only. Clients use this strength without resampling a
+delayed robot position. Only the affected client's local
+view responds; self-blasts are included. This event is independent of directional
+damage-indicator throttling and is never generated from client proximity guesses.
+Reduced decorative motion suppresses the local effect without changing damage.
+
 Complete reliable snapshots use the same bounded compressed representation as periodic snapshots (64 KB compressed / 256 KB decoded). Presentation channel 3 reliably delivers accepted discrete shots, damage feedback, projectile contacts (including the lightning orbÃ¢â‚¬â„¢s discrete `electric` burst), explosions, EMP, world cues and raw callout events. Shot counters deduplicate reports independently of snapshot sequence. Local prediction can suppress its immediately confirmed shot presentation, but cannot award a hit. Streaming contact, grounded movement and stride state travel in snapshots; remote sounds use the listener's actual local robot, rather than the actor's human flag.
 
 Only global critical captions are restored from snapshots. Ordinary captions are filtered per recipient for range, direction and frequency on the receiving client. Flag animation phase, repair occupants, corpses and machinery are restored before control. Remote deaths extinguish authored emission; respawn restores it. Client/server crouch capsules both use 1.18 m height.

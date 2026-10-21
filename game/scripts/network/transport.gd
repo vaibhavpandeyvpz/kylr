@@ -712,6 +712,7 @@ func presentation(match_id: String, events: Array):
 
 func apply_presentation(event: Dictionary):
 	match event.kind:
+		"impact_shake": game.impact_feedback(int(event.victim),str(event.cause),float(event.strength),true)
 		"elimination": game.receive_elimination(event)
 		"shot":
 			var robot: ArenaRobot = game.robot_by_id(event.robot)

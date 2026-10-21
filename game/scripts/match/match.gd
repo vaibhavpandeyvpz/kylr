@@ -92,6 +92,19 @@ func present(event: Dictionary):
 	presentation_events.append(event)
 	if presentation_events.size() > 512: presentation_events.pop_front()
 
+## Called only after an authoritative projectile contact accepts damage.
+func impact_at(victim: ArenaRobot, cause: String, point: Vector3, radius := 0.0) -> void:
+	if cause not in ["rocket_launcher","grenade_launcher","emp_gun"]: return
+	var strength := 0.65 if cause=="emp_gun" else ImpactShake.blast_strength(point,victim.body_shape.global_position,radius)
+	impact_feedback(victim.robot_id,cause,strength)
+
+func impact_feedback(victim_id: int, cause: String, strength: float, replicated := false) -> void:
+	if not is_finite(strength) or strength<=0: return
+	strength=minf(strength,1.0)
+	if not replicated: present({"kind":"impact_shake","victim":victim_id,"cause":cause,"strength":strength})
+	if local_robot==null or local_robot.robot_id!=victim_id or camera_rig==null or reduced_motion or phase!="Active": return
+	camera_rig.impact_shake.trigger(cause,strength)
+
 static func shuffle_roster(values: Array, setup_rng: RandomNumberGenerator = null) -> void:
 	if setup_rng == null:
 		values.shuffle()
@@ -414,6 +427,7 @@ func update_view_models():
 	if is_instance_valid(first_person): first_person.visible = fp
 
 func _process(dt):
+	if camera_rig!=null: camera_rig.shake_enabled=not reduced_motion and phase=="Active"
 	if async_scene_loading and not initialization_complete: return
 	if not authority and local_robot!=null and not local_robot.alive:
 		death_view_remaining=maxf(0.0,death_view_remaining-dt)
