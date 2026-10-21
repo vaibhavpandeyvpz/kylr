@@ -15,6 +15,8 @@ var strafe := 1.0
 var stuck := 0.0
 var previous := Vector3.ZERO
 var airborne_goal:=Vector3.INF
+var lift_clearance_time := 0.0
+var lift_clearance_origin := Vector3.INF
 var transition_index := -1
 var transition_launched := false
 var transition_via_reached := false
@@ -574,6 +576,7 @@ func commit_goal(destination: Vector3,kind: String) -> bool:
 func steer(dt):
 	combat_paused = false
 	var map = robot.arena_match.map
+	if clear_empty_lift(dt): return
 	# An entry trigger may fire before the approach waypoint is consumed.
 	# Recognise that transfer once and replan from the real exit position.
 	if robot.portal_lock>0:
@@ -602,6 +605,10 @@ func steer(dt):
 	var action: String="walk"
 	if not path.is_empty():
 		while path_index < path.size() - 1 and path[path_index].action == "walk" and robot.position.distance_to(path[path_index].point) < 0.65: path_index += 1
+		# The last walk sample can be inside the shaft. Start the lift approach
+		# from outside so waiting does not require occupying that sample first.
+		if path_index<path.size()-1 and path[path_index].action=="walk" and path[path_index+1].action=="lift" and robot.position.distance_to(path[path_index+1].from)<5.0:
+			path_index+=1
 		destination = path[path_index].point
 		action=path[path_index].action
 	else:
@@ -684,7 +691,7 @@ func steer(dt):
 					if absf(controller.surface.global_position.y-source.y)<.15 and not controller.traveling:
 						destination=controller.surface.global_position
 						if controller.trigger.overlaps_body(robot):transition_launched=true
-					else:destination=source
+					else:destination=controller.waiting_point(robot,source.y)
 				if transition_launched:
 					controller.request_floor(path[path_index].point.y)
 					if absf(controller.surface.global_position.y-path[path_index].point.y)>.15:airborne_goal=controller.surface.global_position
@@ -775,6 +782,36 @@ func recover_stuck(action: String) -> void:
 		robot.jump_held=false
 		goal_kind="reposition"
 		decision=0
+
+func clear_empty_lift(dt: float) -> bool:
+	var lifts = robot.arena_match.map.get("cargo_lifts")
+	if lifts == null: return false
+	for controller: ArchitectureLift in lifts:
+		if not controller.needs_clearance(robot,robot.global_position): continue
+		var floor_y := controller.lower if absf(robot.position.y-controller.lower)<absf(robot.position.y-controller.upper) else controller.upper
+		var delta: Vector3=controller.waiting_point(robot,floor_y)-robot.global_position
+		delta.y=0
+		var direction := avoid_obstacles(delta.normalized(),"lift")
+		var local: Vector3=Basis(Vector3.UP,robot.yaw).inverse()*direction
+		robot.move_input=Vector2(local.x,local.z)
+		robot.wants_walk=true
+		robot.wants_sprint=false
+		robot.jump_held=false
+		# A robot already beneath the absent deck may be below the room's lip.
+		# Escape with an ordinary jump if walking/stepping makes no progress.
+		lift_clearance_time-=dt
+		if lift_clearance_time<=0:
+			var moved := Vector2(robot.position.x-lift_clearance_origin.x,robot.position.z-lift_clearance_origin.z).length()
+			if moved<0.15 and robot.is_on_floor() and robot.can_act() and robot.protection<=0:
+				robot.jump_buffer=ArenaTuning.JUMP_BUFFER
+			lift_clearance_origin=robot.position
+			lift_clearance_time=0.4
+		stuck=0
+		previous=robot.position
+		return true
+	lift_clearance_origin=Vector3.INF
+	lift_clearance_time=0
+	return false
 
 func finish_transition() -> void:
 	path=robot.arena_match.map.traversal.route(robot.position,goal,robot.ep>ArenaTuning.HALF_EP,robot.is_on_floor())
