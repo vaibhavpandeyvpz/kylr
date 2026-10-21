@@ -52,7 +52,8 @@ func test_flag_uses_ground_mount_cloth_tint_and_authored_loops():
 			for surface in mesh.mesh.get_surface_count():
 				var material := mesh.get_active_material(surface) as StandardMaterial3D
 				if material != null and Assets.material_role(material.resource_name) == "M_Flag":
-					assert_true(material.albedo_color.is_equal_approx(game.team_colors[team]))
+					assert_true(material.albedo_color.is_equal_approx(Color(game.team_colors[team],0.75)))
+					assert_eq(material.transparency,BaseMaterial3D.TRANSPARENCY_ALPHA)
 					tinted = true
 				elif material != null and Assets.material_role(material.resource_name) in ["M_Primary","M_Secondary"]:
 					assert_false(material.albedo_color.is_equal_approx(game.team_colors[team]),"Flag hardware retains its authored finish")

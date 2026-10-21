@@ -15,8 +15,7 @@ sys.path.insert(0,str(ROOT/'models/maps/common'))
 from planetary_field import generate
 
 
-def build(map_id,godot=None):
-    sdk=install()
+def build(map_id,godot=None,materials_only=False):
     output=ROOT/'.local/planetary'
     # Layout.py remains the placement source; generated GLBs are never queried.
     folder=ROOT/'models/maps'/map_id
@@ -27,14 +26,21 @@ def build(map_id,godot=None):
     record=generate(map_id,markers,output)
     destination=ROOT.parent/'game/assets/textures/planetary'
     destination.mkdir(parents=True,exist_ok=True)
-    for index in range(2):shutil.copyfile(output/f'{map_id}_weights{index}.png',destination/f'{map_id}_weights{index}.png')
     manifest_path=destination/'manifest.json'
     manifest=json.loads(manifest_path.read_text(encoding='utf-8'))
+    height_hash=hashlib.sha256((output/(map_id+'.rf')).read_bytes()).hexdigest()
+    if materials_only:
+        assert height_hash==manifest['maps'][map_id]['height_sha256'],'Height field changed; run the full bake and mesh/collision pipeline'
+    for index in range(2):shutil.copyfile(output/f'{map_id}_weights{index}.png',destination/f'{map_id}_weights{index}.png')
     for index in range(2):
         name=f'{map_id}_weights{index}.png'
         manifest['files'][name]=hashlib.sha256((destination/name).read_bytes()).hexdigest()
-    manifest.setdefault('maps',{})[map_id]={'min_height_m':record['min_height'],'max_height_m':record['max_height'],'height_sha256':hashlib.sha256((output/(map_id+'.rf')).read_bytes()).hexdigest(),'qa_points':record['qa_points']}
+    manifest.setdefault('maps',{})[map_id]={'min_height_m':record['min_height'],'max_height_m':record['max_height'],'height_sha256':height_hash,'qa_points':record['qa_points']}
     manifest_path.write_text(json.dumps(manifest,indent=2)+'\n',encoding='utf-8')
+    if materials_only:
+        print('PLANETARY_MATERIALS',map_id,'unchanged height field',height_hash,flush=True)
+        return
+    sdk=install()
     (sdk/'project.godot').write_text('config_version=5\n[application]\nconfig/name="Planetary terrain authoring"\n',encoding='utf-8')
     shutil.copyfile(ROOT/'tools/bake_planetary_terrain.gd',sdk/'bake.gd')
     engine=Path(godot or os.environ.get('GODOT_EXECUTABLE') or ROOT.parent/'engine/bin/godot.windows.editor.x86_64.console.exe')
@@ -47,5 +53,6 @@ def build(map_id,godot=None):
 if __name__=='__main__':
     parser=argparse.ArgumentParser();parser.add_argument('map',choices=['faceoff','skyfall','all'])
     parser.add_argument('--godot',help='Custom engine executable; defaults to GODOT_EXECUTABLE or the workspace engine')
+    parser.add_argument('--materials-only',action='store_true',help='Regenerate blend controls only; reject height changes against the runtime manifest')
     args=parser.parse_args()
-    for map_id in (['faceoff','skyfall'] if args.map=='all' else [args.map]): build(map_id,args.godot)
+    for map_id in (['faceoff','skyfall'] if args.map=='all' else [args.map]): build(map_id,args.godot,args.materials_only)

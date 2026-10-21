@@ -18,18 +18,23 @@ def foundations(markers):
     """Native rotated footprints and fixture approaches keep their zero plane."""
     result = []
     for marker in markers:
+        asset = marker.get('source_asset', marker['asset'])
         architecture = marker.get('source_category', marker['category']) == 'architecture'
         if marker['position_blender'][2] > .6 and not architecture:
             continue
         if marker['role'] == 'jumbotron':
             continue
         x, y, _ = marker['position_blender']
-        if architecture:
-            asset = marker.get('source_asset', marker['asset'])
-            metadata = json.loads((ROOT/'models/architecture'/asset/(asset+'_rig.json')).read_text(encoding='utf-8'))
+        if architecture or asset == 'lunar_lander':
+            category = 'architecture' if architecture else 'environments'
+            metadata = json.loads((ROOT/'models'/category/asset/(asset+'_rig.json')).read_text(encoding='utf-8'))
             bounds = metadata['bounds_m']
             lo, hi = bounds['lo'], bounds['hi']
-            result.append(dict(x=x,z=-y,yaw=marker['rotation_blender'][2],lo=lo[:2],hi=hi[:2],margin=1.0))
+            # The complete deployed lander footprint includes all four pads
+            # and ladder shoes. A cell-diagonal margin keeps interpolation
+            # level at the outer feet even when the prop is rotated.
+            margin = 1.5 if asset == 'lunar_lander' else 1.0
+            result.append(dict(x=x,z=-y,yaw=marker['rotation_blender'][2],lo=lo[:2],hi=hi[:2],margin=margin))
         else:
             result.append(dict(x=x,z=-y,radius=1.8 if marker['role'] in ('spawn','repair_station','portal','jump_pad') else 1.0))
     return result
@@ -86,17 +91,23 @@ def field(map_id, x, z, seats=()):
     shelves*=smooth((np.maximum(np.abs(x),np.abs(z))-39)/6) if map_id=='faceoff' else smooth((radius-60)/10)
     height+=shelves
     height*=smooth((245-radius)/20)
-    # Six height/slope-aware PBR weights; no lighting painted into albedo.
+    # Geological patches have dominant interiors and soft, irregular edges.
+    # Scores describe deposits, not a uniform low-strength mix of every layer.
     slope=np.hypot(*np.gradient(height)) if height.ndim==2 and min(height.shape)>1 else np.zeros_like(height)
     exposure=smooth((slope-.12)/.5)
-    basalt=np.clip(np.abs(broad)*.25+exposure*1.6+smooth((height-2)/8)*.35,0,2)
-    bedrock=np.clip(np.abs(np.sin(x*.057+z*.091))*.3+smooth(shelves/6)*.9,0,1.2)
-    rubble=np.clip(np.exp(-((radius-crest+12)/10)**2)*.55+np.maximum(-height,0)*.06,0,.65)
-    compacted=disturbance*.65
-    scorch=np.exp(-((x+8)**2+(z-5)**2)/90)*(.38 if map_id=='skyfall' else .08)
+    basalt=.12+exposure*.75+smooth((broad-.05)/.8)*.85
+    strata=np.sin(x*.14+1.8*np.sin(z*.07))
+    bedrock=.08+smooth((strata-.05)/.7)*(.75+exposure*.35)+smooth(shelves/6)*.5
+    debris=np.sin(x*.17-z*.115+.8*np.sin(z*.19))
+    rubble=.08+smooth((debris-.15)/.7)*(.8+smooth((-height-.5)/4)*.3)
+    traffic=smooth((np.sin(x*.09+z*.13)+.2)/.8)
+    compacted=disturbance*(.15+traffic*1.15)
+    # Exhaust stays local to the lander; impact melt marks Skyfall's deep pit.
+    scorch=np.exp(-((x)**2+(z+32.5)**2)/18)*1.8 if map_id=='faceoff' else np.exp(-((x+8)**2+(z-5)**2)/35)*1.8
     others=np.stack([basalt,bedrock,rubble,compacted,scorch],axis=-1)
-    dust=.8*(1-exposure*.8)
+    dust=(.6+.16*np.sin(x*.065-z*.08))*(1-exposure*.65)
     weights=np.concatenate([dust[...,None],others],axis=-1)
+    weights=weights**4
     weights/=weights.sum(axis=-1,keepdims=True)
     return height.astype('<f4'),weights.astype('float32')
 

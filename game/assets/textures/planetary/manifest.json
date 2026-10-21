@@ -30,16 +30,16 @@
     "compacted_normal_roughness.png": "b5bb4c9cd7fd310f8e3341687eb8c41aea16b9441d9fc01d6964f992098865c2",
     "scorch_albedo_height.png": "86d6773bea62431122a89cf90b58cb17d43af8151b35423c2fbdd8e17bea8b4c",
     "scorch_normal_roughness.png": "c2d7027bfaa0ade7e21cc8506ce5912a3cb28f5a22e221b11d34a09da54e48d9",
-    "faceoff_weights0.png": "35ce4f8ad82a58e27d0f08d73b58523dd38c05bd694aa9ca6f448200f706428a",
-    "faceoff_weights1.png": "9e0b3b8dacaa6e8190a6b2afd8ace41b331dc4ce089514d8fc503da661b64528",
-    "skyfall_weights0.png": "3da05c13a46ec15f078c5a0edcc7d5ad572dc17f05391572f5b0b304b8757bb6",
-    "skyfall_weights1.png": "9e3f1abdc4e430ab3771daba3b081a191190d348a77bd38591edfa9820c892a4"
+    "faceoff_weights0.png": "b4fcd69ba37929a80cccdd5a31b83fc2f31b4a78081d71b10a30546f07354e6e",
+    "faceoff_weights1.png": "14fbe43894970b34d0380b0e6fa76d7ef5f68b01f112b31995733e984e659a5e",
+    "skyfall_weights0.png": "b20dd6ff7f8c71db087ad9089326cbbb757f23cede137f32d1c01528d6d26952",
+    "skyfall_weights1.png": "1c8cb032166c7b4da2aa6a49efe822e4409bfa4918df4f498b4ff53dbcdb7c19"
   },
   "maps": {
     "faceoff": {
       "min_height_m": -1.2000395059585571,
       "max_height_m": 31.965116500854492,
-      "height_sha256": "4d197f11d202beb3b23c08e529103163918500e8f5d847396c99cd9f3b31cd56",
+      "height_sha256": "b733127b1cb40a628e9da240c08bcc11da33e7f6dc82a0f2cfbb743342ca6a86",
       "qa_points": [
         [
           14,
