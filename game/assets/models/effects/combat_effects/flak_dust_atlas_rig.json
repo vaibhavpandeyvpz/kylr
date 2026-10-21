@@ -1,5 +1,5 @@
 {
-  "source": "source/grenade_atlas.png",
+  "source": "source/flak_dust_atlas.png",
   "generator": "OpenAI built-in imagegen",
   "preparation": "export_fireball.py; pixel-preserving validation and copy",
   "atlas_size": [

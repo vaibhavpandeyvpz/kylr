@@ -2,10 +2,12 @@ extends GutTest
 
 class Target extends ArenaRobot:
 	var damage_taken := 0.0
+	var contact: Dictionary = {}
 	func _ready():
 		set_process(false)
 		set_physics_process(false)
-	func hit(amount: float, _attacker, _cause: String, _impulse := Vector3.ZERO) -> bool:
+	func hit(amount: float, _attacker, _cause: String, _impulse := Vector3.ZERO, hit_contact: Dictionary = {}) -> bool:
+		contact = hit_contact
 		damage_taken += amount
 		return amount > 0
 
@@ -105,6 +107,9 @@ func test_emp_hits_only_first_direct_target_and_uses_exact_contact_distance():
 		shot.set_physics_process(false)
 		shot._physics_process(2.0)
 		assert_almost_eq(target.damage_taken, Arsenal.emp_damage(hit_at), 0.0001)
+		assert_eq(target.contact.point, Vector3(0,0,-hit_at), "Death presentation receives the actual swept contact")
+		assert_eq(target.contact.direction, Vector3.FORWARD)
+		assert_false(target.contact.radial, "EMP breakup follows direct flight")
 		assert_eq(nearby.damage_taken, 0.0, "Nearby robots are outside a direct shot")
 		assert_almost_eq(shot.distance, hit_at, 0.0001, "Damage uses the contact, not the tick endpoint")
 		assert_eq(world.combat.masks, [5], "Ray includes robot hit colliders and walls")

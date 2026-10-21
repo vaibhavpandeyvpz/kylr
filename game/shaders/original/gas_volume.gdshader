@@ -5,7 +5,7 @@ uniform sampler2D volume_atlas : source_color, filter_linear_mipmap, repeat_disa
 uniform float effect_opacity = 1.0;
 uniform float effect_emission = 1.0;
 uniform float emission = 2.6;
-uniform int event_profile = 0; // rocket combustion, brief detonation, fuel flare
+uniform int event_profile = 0; // rocket, abrasion dust, fuel flare, grenade combustion
 uniform bool particle_volume = false;
 uniform bool projected_jet = false;
 uniform bool surface_aligned = false;
@@ -61,6 +61,14 @@ void fragment() {
 	if (gas.a < 0.01) discard;
 	float heat = (1.0-smoothstep(0.15,0.55,gas_progress))*clamp((gas.r-gas.b)*2.0,0.0,1.0);
 	if (event_profile == 1) heat = (1.0-smoothstep(0.0,0.18,gas_progress))*pow(max(gas.r,max(gas.g,gas.b)),4.0);
+	if (event_profile == 3) {
+		// A brief burning core followed by neutral regolith dust. Bright grey
+		// smoke must not become emissive merely because it has high luminance.
+		float flame = clamp((gas.r-gas.b)*2.0,0.0,1.0);
+		float flash = (1.0-smoothstep(0.0,0.035,gas_progress))*pow(max(gas.r,max(gas.g,gas.b)),4.0);
+		heat = max(flash,0.35*(1.0-smoothstep(0.06,0.2,gas_progress))*flame);
+		gas.rgb *= mix(vec3(0.64,0.67,0.7),vec3(1.0),flame);
+	}
 	if (event_profile == 2) heat = (1.0-smoothstep(0.45,0.95,gas_progress))*clamp((gas.r-gas.b)*2.0,0.0,1.0);
 	float fade = 1.0-smoothstep(0.65,1.0,gas_progress);
 	if (particle_volume) fade *= smoothstep(0.0,projected_jet ? 0.035 : 0.1,gas_progress);

@@ -7,6 +7,6 @@ The game imports the 408 Tensor clips listed in `assets/animations/manifest.json
 | Idle and aim | Weapon-specific standing and crouched idle, aimed variants, pistol kneeling idle after a sustained stationary crouch, and seven additive vertical aim poses. |
 | Movement | Eight directions of walk, run, sprint and crouch walk. Pistol walk/run arcs respond to turning while moving forward or backward. |
 | Transitions and actions | Pistol stand/kneel transitions; standing/crouched left/right turns; takeoff, airborne, falling and landing; fire, reload and nonlethal hit reaction. |
-| Death and results | Front, back, right, flying, and headshot death variants; defeated pose; all 13 victory dances selected across match results. |
+| Death and results | Front, back, right and headshot death variants; procedural `death_explode` for rocket, grenade and EMP kills; defeated pose; all 13 victory dances selected across match results. |
 
 Scoped rifle headshots are identified by a ray hit on the equipped Tensor head collision mesh (`SK_TensorHead*Col`). Body collision hits remain ordinary hits. This keeps the damage rule tied to the animated collision rig rather than a world-height estimate.

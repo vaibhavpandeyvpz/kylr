@@ -40,7 +40,7 @@ class RobotProbe extends ArenaRobot:
 		character = {"eye_height":1.55}
 	func muzzle() -> Vector3: return eye()
 	func play_event(_clip: String,_duration: float) -> void: pass
-	func hit(amount: float,_attacker,_cause: String,_impulse := Vector3.ZERO) -> bool:
+	func hit(amount: float,_attacker,_cause: String,_impulse := Vector3.ZERO,_contact: Dictionary = {}) -> bool:
 		damage_received += amount
 		return true
 

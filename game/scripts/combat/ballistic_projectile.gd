@@ -103,7 +103,7 @@ func impact(hit: Dictionary) -> void:
 		if hit.collider is ArenaRobot:
 			var allied_pulse: bool=weapon=="pulse_gun" and hit.collider.team==int(profile.get("owner_team",-1))
 			var impulse := Knockback.grenade(velocity) if weapon=="grenade_launcher" else Vector3.ZERO
-			if not allied_pulse and hit.collider.hit(float(profile.damage),shooter,weapon,impulse):
+			if not allied_pulse and hit.collider.hit(float(profile.damage),shooter,weapon,impulse,{"point":hit.position,"direction":velocity.normalized(),"radial":false}):
 				apply_status(hit.collider)
 				if game is ArenaMatch: game.impact_at(hit.collider,weapon,hit.position,float(profile.get("splash_radius",0)))
 		var radius := float(profile.get("splash_radius",0))
@@ -115,7 +115,7 @@ func impact(hit: Dictionary) -> void:
 					var outward: Vector3=robot.eye()-hit.position
 					if Vector2(outward.x,outward.z).length_squared()<.001: outward=velocity
 					var impulse := Knockback.grenade(outward,distance,radius) if weapon=="grenade_launcher" else Vector3.ZERO
-					if robot.hit(float(profile.get("splash_damage",0))*(1-distance/radius),shooter,weapon,impulse):
+					if robot.hit(float(profile.get("splash_damage",0))*(1-distance/radius),shooter,weapon,impulse,{"point":hit.position,"direction":velocity.normalized(),"radial":true}):
 						apply_status(robot)
 						if game is ArenaMatch: game.impact_at(robot,weapon,hit.position,radius)
 	game.audio.cue("hit_"+weapon,hit.position)

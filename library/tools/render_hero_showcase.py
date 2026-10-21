@@ -76,7 +76,7 @@ def sample_pose(rig, clip, frame, kind='tensor'):
     bpy.context.scene.frame_set(0)
 
 
-def character(label, weapon, head, clip, frame, position, yaw, color, upper_body="Default"):
+def character(label, weapon, head, clip, frame, position, yaw, color, upper_body):
     col = collection('CAST / ' + label, CAST)
     root, objects = append_asset('characters', 'tensor', col, position, yaw)
     root.name = label
@@ -96,6 +96,9 @@ def character(label, weapon, head, clip, frame, position, yaw, color, upper_body
                 mat.name = 'M_Cast_' + label
                 mat.node_tree.nodes.get('Principled BSDF').inputs['Base Color'].default_value = (*color, 1)
                 slot.material = mat
+    visible_uppers = [obj for obj in objects if obj.type == 'MESH'
+                      and obj.name.startswith('SK_TensorUpperBody') and not obj.hide_render]
+    assert len(visible_uppers) == 1 and visible_uppers[0].name.startswith('SK_TensorUpperBody' + upper_body), label
     sample_pose(rig, clip, frame)
     weapon_root, obs = append_asset('weapons', weapon, col)
     body = next(o for o in obs if o.type == 'MESH' and not o.hide_render and o.parent and o.parent.type == 'ARMATURE')

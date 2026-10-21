@@ -213,7 +213,7 @@ Rocket secondary uses the scope reticle and hides the FPV model. The authoritati
 
 Core-ray particles share immutable process materials, gradient textures and draw materials keyed by their complete settings. Each projectile retains its own GPUParticles3D simulation, emission and playback state. Different sizes, speeds, colours and emission strengths must resolve to distinct recipes where those values affect the resource. The projectile-resource regression suite covers same-recipe reuse and variant isolation.
 
-Rocket and grenade contacts have distinct original compositions. Rockets combine a 1.45-second rolling orange combustion/soot flipbook, a short axial blast jet, tapered streaks and sparks, oriented back along incoming flight. Grenades combine a 0.9-second white detonation/pale dust flipbook, fast sparks and small metal casing chips, without sustained orange fuel. Each has its own reusable 16-burst pool. Grenades align +Y to the contact normal. Discrete presentation events replicate; damage, splash, bounce, collision and effect-light policy are unchanged.
+Rocket and grenade contacts have distinct original compositions. Rockets use the dedicated `rocket_explosion_atlas.png`: a 1.45-second asymmetric rolling orange warhead fireball with a dark soot mantle, a short axial blast jet, tapered streaks and sparks, oriented back along incoming flight. Grenades use `grenade_combustion_atlas.png`: a 0.9-second neutral grey lunar-dust puff, with a small central ignition confined to its opening frames, fast sparks and small metal casing chips. Its shader emits briefly from the tiny hot core; grey dust stays non-emissive with a cool regolith tint. Flak uses the independent `flak_dust_atlas.png` for compact abrasion dust. The projected flamethrower flame/fume particles retain `fireball_atlas.png`; explosion contacts do not share it. Each contact has its own reusable 16-burst pool. Grenades align +Y to the contact normal. Discrete presentation events replicate; damage, splash, bounce, collision and effect-light policy are unchanged.
 
 Pulse contacts use a brief cyan-white flash, three short ion filaments, a faint broken wavefront and small motes over 0.45 seconds, with their own 16-burst pool and replicated `pulse_contact` event. The projectile has a shared white core and cyan packet sheath, 10 cm long inside the existing 5 cm radius budget, oriented along flight. Its swept CylinderShape3D, speed, damage, cadence, energy cost and slowing behavior are unchanged.
 
@@ -234,6 +234,49 @@ expanded 1 mm along the live skinned surface normal to avoid coplanar depth
 fighting against the RT opaque depth conversion. Depth testing remains enabled:
 foreground map geometry must hide the flash. The overlay does not change the
 robot's authored metallic materials, collisions, damage or hit duration.
+
+## Robot breakup deaths
+
+`RobotCorpse` constructs both animated corpses and `death_explode` presentation,
+and owns their snapshot construction/restoration. Match logic owns expiry,
+respawn, credit, flags and Energy Core drops. Rocket launcher, grenade launcher
+and EMP kills select breakup; nonlethal and rejected contacts do not.
+
+`RobotDebrisMesh` caches immutable bone-local render fragments from Tensor's
+authored rigid skin during robot preparation. It preserves triangles, normals,
+tangents, UVs and colors; each instance uses the equipped head/upper body and
+its own extinguished painted materials, without protection/hit overlays.
+Extinguished finishes are immutable and cached for the match lifetime; they do
+not share mutable paint state with a live robot. Animated corpses use fresh
+native visuals and their own animation clock, without live hit colliders.
+No separate Blender animation or modified asset export is required.
+
+`RobotDebris` groups the fragments into 15 independent assemblies: head, chest,
+pelvis, and each upper/lower arm, hand, upper/lower leg and foot. Small mechanisms
+follow their nearest assembly. Each body reuses the active robot's bone-local
+convex collision shapes. Bodies occupy no gameplay collision layer and query
+only world layer 1, so sibling debris, actors, triggers and shots ignore them.
+Direct hits bias travel along incoming flight; splash uses the actual blast
+position. Outward scatter, inherited movement, upward lift and seeded spin
+complete the launch, with reduced EMP strength. Bodies use continuous collision
+detection and match gravity. The chest supplies the death-camera focus.
+
+Breakup has a three-second presentation interval plus the one-second cleanup
+delay. Physics may continue during that delay; all pieces disappear together
+at four seconds, including airborne and off-map pieces. Settling never changes
+respawn or the corpse landing point used for Energy Core drops.
+
+The authoritative snapshot includes the initial bone pose, launch recipe and
+current assembly transforms/velocities. A newly receiving client starts from
+that current state and simulates cosmetic physics locally. Further snapshots
+do not restart debris. Final resting positions may differ between clients.
+Headless authoritative servers simulate collision bodies without render
+fragments. Match teardown and snapshot removal free all child bodies together.
+
+`tests/test_robot_debris.gd` covers pose/geometry, active appearance, collision,
+direction, EMP strength, replication and expiry. `tools/preview_robot_debris.gd`
+captures each weapon's intact pose, flight and settled debris in a floor/wall
+fixture under `reports/robot-debris/` using the custom engine.
 
 ## Effect asset pipeline
 

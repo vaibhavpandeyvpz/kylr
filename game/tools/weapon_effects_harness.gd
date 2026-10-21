@@ -25,8 +25,8 @@ class TestCombat extends ArenaCombat:
 
 class StationaryTarget extends ArenaRobot:
 	func apply_knockback(_impulse: Vector3) -> void: pass
-	func hit(amount: float, attacker, cause: String, impulse := Vector3.ZERO) -> bool:
-		var accepted := super.hit(amount, attacker, cause, impulse)
+	func hit(amount: float, attacker, cause: String, impulse := Vector3.ZERO, contact: Dictionary = {}) -> bool:
+		var accepted := super.hit(amount, attacker, cause, impulse, contact)
 		if accepted:
 			arena_match.hits += 1
 			arena_match.last_damage = amount
@@ -272,7 +272,7 @@ func update_side_camera() -> void:
 	var pose := Transform3D(Basis.looking_at(focus - point), point)
 	camera_rig.set_gameplay("tpv", pose, 60, true)
 
-func eliminate(victim, _killer, _cause: String):
+func eliminate(victim, _killer, _cause: String, _contact: Dictionary = {}):
 	# Keep accepted hit reactions and confirmations, without target death or
 	# corpse clutter terminating a repeated effects comparison.
 	victim.ah = 100

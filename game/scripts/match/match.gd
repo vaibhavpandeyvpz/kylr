@@ -42,6 +42,7 @@ var team_reached := [0.0,0.0]
 var flags: Array = []
 var drops: Array = []
 var corpses: Array = []
+var corpse_materials: Dictionary = {}
 var death_view_remaining := 0.0
 var local_death_corpse: Node3D
 var local_fall_death := false
@@ -463,7 +464,7 @@ func _process(dt):
 			camera_rig.set_cinematic("spectating",obstruction.position+obstruction.normal*0.18 if not obstruction.is_empty() else desired,focus,fov)
 			return
 	if not r.alive and death_view_remaining > 0 and is_instance_valid(local_death_corpse):
-		var focus: Vector3 = local_death_corpse.global_position + Vector3.UP * 0.95
+		var focus: Vector3 = local_death_corpse.focus_position() if local_death_corpse is RobotDebris else local_death_corpse.global_position + Vector3.UP * 0.95
 		var desired := focus + Basis(Vector3.UP, r.yaw) * Vector3(1.5, 1.0, -3.2)
 		if local_fall_death:
 			if fall_camera_stop == Vector3.INF and desired.y <= -25.0:
@@ -493,7 +494,7 @@ func fall_killer(victim: ArenaRobot) -> ArenaRobot:
 	var attacker: ArenaRobot=robot_by_id(victim.last_hit_robot_id)
 	return attacker if attacker!=null and attacker!=victim and attacker.enemy(victim) else null
 
-func eliminate(victim,killer,cause: String):
+func eliminate(victim,killer,cause: String, contact: Dictionary = {}):
 	if not victim.alive or phase != "Active": return
 	if cause=="Fall off map": killer=fall_killer(victim)
 	var credited_weapon: String=victim.last_hit_weapon if cause=="Fall off map" and killer!=null else cause
@@ -513,30 +514,21 @@ func eliminate(victim,killer,cause: String):
 	if fall_death:
 		var hit := combat.ray(victim.global_position+Vector3.UP*0.5,victim.global_position-Vector3.UP*0.5,[],1)
 		if not hit.is_empty() and hit.collider.get_meta("lethal_surface",false): lunar_impact=hit
-	var death_clip := RobotClips.death(cause, incoming, victim.crouched)
+	var death_clip := "death_explode" if cause in RobotDebris.WEAPONS else RobotClips.death(cause, incoming, victim.crouched)
 	if not lunar_impact.is_empty(): death_clip="death_front"
-	victim.pose(death_clip)
-	var death_animation: Animation = victim.animator.get_animation_library("").get_animation("common_" + death_clip)
+	var breakup := RobotDebris.capture(victim, cause, contact, gravity) if cause in RobotDebris.WEAPONS else {}
 	var falling_out := fall_death and lunar_impact.is_empty()
-	var death_duration := 3.0 if falling_out else death_animation.length if death_animation != null else 104.0 / 30.0
+	var death_duration := RobotDebris.PRESENTATION_SECONDS
+	if breakup.is_empty():
+		victim.pose(death_clip)
+		var death_animation: Animation = victim.animator.get_animation_library("").get_animation("common_" + death_clip)
+		death_duration = 3.0 if falling_out else death_animation.length if death_animation != null else 104.0 / 30.0
+	else:
+		victim.set_weapon_pose_visible(false)
+		victim.animator.pause()
 	Assets.paint(victim.body,victim.tint,victim.armor_secondary,victim.head,true,victim.upper_body)
 	Assets.paint(victim.gun,victim.tint,victim.armor_secondary,victim.head,true,victim.upper_body)
-	var corpse = victim.body.duplicate()
-	for mesh in corpse.find_children("SK_TensorShield*","MeshInstance3D",true,false): mesh.hide()
-	add_child(corpse)
-	corpse.visible = true
-	corpse.global_transform = victim.body.global_transform
-	for collider in corpse.find_children("*", "CollisionObject3D", true, false): collider.collision_layer = 0
-	var corpse_animator := corpse.find_child("RuntimeAnimator", true, false) as AnimationPlayer
-	if corpse_animator:
-		corpse_animator.callback_mode_process = AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_IDLE
-		corpse_animator.play("common_" + death_clip, 0.0)
-		corpse_animator.advance(0.0)
-		if not lunar_impact.is_empty() and death_animation != null:
-			# Falling is an airborne loop. Ground impact needs the settled corpse,
-			# without replaying a standing collapse or changing respawn timing.
-			corpse_animator.seek(death_animation.length, true, true)
-			corpse_animator.pause()
+	var corpse := RobotCorpse.create(self, victim, victim.body.global_transform, death_clip, breakup, not lunar_impact.is_empty())
 	var landing_point: Vector3 = victim.global_position
 	if not lunar_impact.is_empty():
 		landing_point=lunar_impact.position
@@ -599,7 +591,7 @@ func spawn_energy_drops(point: Vector3, energy: float, killer_id: int) -> void:
 
 func tick_drops(dt: float):
 	for corpse in corpses.duplicate():
-		if corpse.falling_out or corpse.node.global_position.y > corpse.point.y + 0.01:
+		if not corpse.node is RobotDebris and (corpse.falling_out or corpse.node.global_position.y > corpse.point.y + 0.01):
 			corpse.fall_velocity -= gravity * dt
 			var position: Vector3 = corpse.node.global_position
 			position.y += corpse.fall_velocity * dt
