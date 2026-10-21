@@ -17,10 +17,12 @@ class World extends Node3D:
 class Actor extends ArenaRobot:
 	var damage := 0.0
 	var hits := 0
+	var contact: Dictionary = {}
 	func _ready():
 		set_process(false);set_physics_process(false);character={"eye_height":1.55}
-	func hit(amount: float,attacker,_cause: String,impulse := Vector3.ZERO) -> bool:
+	func hit(amount: float,attacker,_cause: String,impulse := Vector3.ZERO,hit_contact: Dictionary = {}) -> bool:
 		if amount<=0 or not can_take_damage(attacker): return false
+		contact = hit_contact
 		damage+=amount;hits+=1;apply_knockback(impulse);return true
 func actor(game: World,x: float) -> Actor:
 	var robot := Actor.new();robot.arena_match=game;robot.protection=0;game.add_child(robot)
@@ -37,6 +39,10 @@ func test_direct_hit_pushes_once_and_splash_pushes_outward_with_falloff():
 	var direct := actor(game,0);var near := actor(game,2);var far := actor(game,4.5)
 	grenade.impact({"collider":direct,"position":direct.eye(),"normal":Vector3.LEFT})
 	assert_eq(direct.damage,40.0);assert_eq(direct.hits,1,"No double direct and splash damage")
+	assert_eq(direct.contact.direction, Vector3.RIGHT, "Direct breakup uses grenade flight")
+	assert_false(direct.contact.radial)
+	assert_eq(near.contact.point, direct.eye(), "Splash breakup uses the explosion, not the shooter's position")
+	assert_true(near.contact.radial)
 	assert_eq(direct.knockback_velocity.x,ArenaTuning.GRENADE_PUSH_SPEED)
 	assert_eq(direct.velocity.y,ArenaTuning.GRENADE_BOUNCE_SPEED)
 	assert_almost_eq(near.damage,9.0,.001)

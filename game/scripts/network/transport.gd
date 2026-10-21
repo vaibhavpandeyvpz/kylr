@@ -433,8 +433,9 @@ func make_snapshot(peer: int) -> Dictionary:
 	for drop in game.drops: drops.append({"id":drop.node.get_instance_id(),"p":drop.node.global_position,"ep":drop.ep,"claim":drop.claim})
 	var corpses: Array = []
 	for corpse in game.corpses:
-		var animator := corpse.node.find_child("RuntimeAnimator",true,false) as AnimationPlayer
-		corpses.append({"id":corpse.node.get_instance_id(),"robot":corpse.robot,"transform":corpse.node.global_transform,"time":corpse.time,"fall":corpse.falling_out,"animation":animator.current_animation if animator else "","frame":animator.current_animation_position if animator and animator.current_animation != "" else 0.0})
+		var state := RobotCorpse.snapshot(corpse.node)
+		state.merge({"id":corpse.node.get_instance_id(),"robot":corpse.robot,"time":corpse.time,"fall":corpse.falling_out})
+		corpses.append(state)
 	return {"protocol":2,"generation":generation,"number":snapshot_number,"map":game.map_id,"type":game.match_type,"phase":game.phase,"elapsed":game.elapsed,"countdown":game.countdown,"goal":game.goal,"teams":game.team_scores,"reached":game.team_reached,"colors":game.team_colors,"actors":actors,"ack":peers[peer].ack,"fixtures":fixtures,"flags":flag_states,"missiles":missiles,"arena_warned":game.map.event_warned,"arena_done":game.map.event_done,"feed":game.feed_events,"result":game.result,"next_map":next_map,"captions":captions,"stadium_clip":stadium.current_animation,"stadium_time":stadium.current_animation_position if stadium.current_animation != "" else 0.0,"jumbo":game.map.jumbotron.motion.snapshot(),"drops":drops,"corpses":corpses}
 
 @rpc("authority","call_remote","reliable",0)
@@ -683,17 +684,9 @@ func apply_snapshot(state: Dictionary, first := false):
 		if not remote_corpses.has(value.id):
 			var robot: ArenaRobot = game.robot_by_id(value.robot)
 			if robot == null: continue
-			if value.animation.begins_with("common_"): robot.pose("common/"+value.animation.trim_prefix("common_"))
-			var corpse := robot.body.duplicate() as Node3D
-			Assets.paint(corpse,robot.tint,robot.armor_secondary,robot.head,true,robot.upper_body)
-			game.add_child(corpse)
-			corpse.show()
-			for collider in corpse.find_children("*","CollisionObject3D",true,false): collider.collision_layer = 0
-			remote_corpses[value.id] = corpse
+			remote_corpses[value.id] = RobotCorpse.from_snapshot(game, robot, value)
 		var corpse: Node3D = remote_corpses[value.id]
-		corpse.global_transform = value.transform
-		var animator := corpse.find_child("RuntimeAnimator",true,false) as AnimationPlayer
-		if animator and value.animation != "": animator.play(value.animation); animator.seek(value.frame,true); animator.pause()
+		RobotCorpse.apply_snapshot(corpse, value)
 		if value.robot == local_id:
 			game.local_death_corpse = corpse
 			game.death_view_remaining = value.time

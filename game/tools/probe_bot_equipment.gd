@@ -5,8 +5,8 @@ class DuelBrain extends ArenaBrain:
 
 class Target extends ArenaRobot:
 	var causes: Array[String] = []
-	func hit(amount: float,attacker,cause: String,impulse := Vector3.ZERO) -> bool:
-		var accepted := super.hit(amount,attacker,cause,impulse)
+	func hit(amount: float,attacker,cause: String,impulse := Vector3.ZERO,contact: Dictionary = {}) -> bool:
+		var accepted := super.hit(amount,attacker,cause,impulse,contact)
 		if accepted: causes.append(cause)
 		return accepted
 

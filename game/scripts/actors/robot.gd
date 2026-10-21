@@ -171,6 +171,8 @@ func _ready() -> void:
 	armor_secondary = Assets.robot_accent(body, tint, character.model)
 	Assets.paint(body, tint, armor_secondary, head, false, upper_body)
 	CollisionRig.install(body,"characters",character.model,self)
+	if not (arena_match.replicating and DisplayServer.get_name() == "headless"):
+		RobotDebrisMesh.prepare(body)
 	opponent_marker = OpponentMarker.new()
 	opponent_marker.robot = self
 	opponent_marker.arena_match = arena_match
@@ -768,7 +770,7 @@ func tick_repair_motion(dt: float) -> void:
 	applied_knockback = knockback_velocity
 	move_and_slide()
 
-func hit(amount: float, attacker, cause: String, impulse := Vector3.ZERO) -> bool:
+func hit(amount: float, attacker, cause: String, impulse := Vector3.ZERO, contact: Dictionary = {}) -> bool:
 	if amount <= 0 or not can_take_damage(attacker): return false
 	last_hit_robot_id=attacker.robot_id if attacker!=null else -1
 	last_hit_weapon=cause
@@ -789,8 +791,10 @@ func hit(amount: float, attacker, cause: String, impulse := Vector3.ZERO) -> boo
 		arena_match.hit_marker = 0.24
 	if self == arena_match.local_robot and attacker != null and attacker != self:
 		arena_match.damage_taken.emit(attacker.eye(), amount)
-	if impulse.length_squared() > 0: apply_knockback(impulse)
-	if ah <= 0: arena_match.eliminate(self, attacker if attacker != self else null, cause)
+	if ah <= 0:
+		arena_match.eliminate(self, attacker if attacker != self else null, cause, contact)
+	elif impulse.length_squared() > 0:
+		apply_knockback(impulse)
 	# The next physics pose sample applies the reaction. Its initial weight is
 	# zero; resampling here repeats animation and collider updates for every hit.
 	return true

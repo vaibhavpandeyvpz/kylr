@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c177w6fkhksvr"
-path="res://.godot/imported/grenade_atlas.png-fd5e302a9cf0c953c9f644cdf49899cb.ctex"
+uid="uid://cmmanhbiliwi6"
+path="res://.godot/imported/rocket_explosion_atlas.png-89d305d02ff052e51ed277c3f63a4889.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/models/effects/combat_effects/grenade_atlas.png"
-dest_files=["res://.godot/imported/grenade_atlas.png-fd5e302a9cf0c953c9f644cdf49899cb.ctex"]
+source_file="res://assets/models/effects/combat_effects/rocket_explosion_atlas.png"
+dest_files=["res://.godot/imported/rocket_explosion_atlas.png-89d305d02ff052e51ed277c3f63a4889.ctex"]
 
 [params]
 

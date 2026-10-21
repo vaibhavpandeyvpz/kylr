@@ -41,11 +41,47 @@ func test_effect_kit_delivers_custom_meshes_within_its_authored_budget():
 
 func test_distinct_impact_atlases_survive_handoff_without_empty_or_clipped_cells():
 	var hashes: Array[String] = []
-	for atlas in ["fireball_atlas","grenade_atlas","fire_contact_atlas"]:
+	for atlas in ["fireball_atlas","rocket_explosion_atlas","flak_dust_atlas","grenade_combustion_atlas","fire_contact_atlas"]:
 		var manifest: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(ROOT+atlas+"_rig.json"))
 		assert_false(hashes.has(manifest.sha256),"Different physical events must not silently share the rocket texture")
 		hashes.append(manifest.sha256)
 		check_atlas(atlas,manifest)
+
+func test_grenade_uses_its_fire_atlas_and_neutral_late_dust():
+	var burst := load("res://assets/effects/original/grenade.tscn").instantiate() as OriginalEffect
+	add_child_autofree(burst)
+	var material := burst.get_node("CoolingGas").material_override as ShaderMaterial
+	assert_true(material.get_shader_parameter("volume_atlas").resource_path.ends_with("grenade_combustion_atlas.png"))
+	assert_eq(material.get_shader_parameter("event_profile"),3)
+	var image := Image.new()
+	assert_eq(image.load_png_from_buffer(FileAccess.get_file_as_bytes(ROOT+"grenade_combustion_atlas.png")),OK)
+	var orange := 0
+	var warm_mid_dust := 0
+	var late_tint := Vector3.ZERO
+	var samples := 0
+	for y in range(0,image.get_height(),4):
+		for x in range(0,image.get_width(),4):
+			var pixel := image.get_pixel(x,y)
+			if pixel.a<0.5: continue
+			if y<image.get_height()/4 and pixel.r-pixel.b>0.25: orange+=1
+			if y>=image.get_height()/4 and pixel.r-pixel.b>0.25: warm_mid_dust+=1
+			if y>=image.get_height()*3/4:
+				late_tint+=Vector3(pixel.r,pixel.g,pixel.b)
+				samples+=1
+	assert_gt(orange,20,"Opening frames retain a small ignition core")
+	assert_lt(warm_mid_dust,20,"The grenade quickly becomes dust rather than sustained rocket fire")
+	assert_gt(samples,100,"Late dust remains visible")
+	late_tint/=maxi(1,samples)
+	assert_lt(absf(late_tint.x-late_tint.y),0.04)
+	assert_lt(absf(late_tint.x-late_tint.z),0.04,"Late dust is neutral grey rather than sandy beige")
+
+func test_rocket_explosion_does_not_reuse_flamethrower_or_grenade_atlas():
+	var burst := load("res://assets/effects/original/rocket.tscn").instantiate() as OriginalEffect
+	add_child_autofree(burst)
+	var material := burst.get_node("CoolingGas").material_override as ShaderMaterial
+	assert_true(material.get_shader_parameter("volume_atlas").resource_path.ends_with("rocket_explosion_atlas.png"))
+	assert_eq(material.get_shader_parameter("event_profile"),0)
+	assert_almost_eq(burst.duration,1.45,0.00001)
 
 func check_atlas(atlas: String, manifest: Dictionary) -> void:
 	var path := ROOT+atlas+".png"

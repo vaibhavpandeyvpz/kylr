@@ -64,7 +64,7 @@ func test_lethal_lunar_contact_supports_the_dead_robot():
 	assert_almost_eq(game.corpses[0].node.position.y,20.0,0.002)
 	assert_eq(game.corpses[0].ep,0.0)
 
-func test_direction_headshot_crouch_and_rocket_conditions_play_all_death_variants():
+func test_direction_headshot_and_crouch_conditions_play_authored_death_variants():
 	var game := ArenaMatch.new()
 	game.online = true
 	add_child_autofree(game)
@@ -84,8 +84,7 @@ func test_direction_headshot_crouch_and_rocket_conditions_play_all_death_variant
 		["pistol",Vector3.RIGHT,false,"death_right"],
 		["rifle_headshot",Vector3.FORWARD,false,"death_front_headshot"],
 		["rifle_headshot",Vector3.BACK,false,"death_back_headshot"],
-		["rifle_headshot",Vector3.FORWARD,true,"death_crouching_headshot"],
-		["rocket_launcher",Vector3.FORWARD,false,"death_flying_back"]]:
+		["rifle_headshot",Vector3.FORWARD,true,"death_crouching_headshot"]]:
 		victim.alive = true
 		victim.yaw = 0.7
 		victim.crouched = example[2]
@@ -125,8 +124,11 @@ func test_death_corpse_plays_the_authored_clip_and_camera_frames_it():
 	assert_almost_eq(victim.respawn_time, animator.current_animation_length + 1.0, 0.02)
 	var skeleton := Assets.find(corpse, "Skeleton3D") as Skeleton3D
 	var corpse_weapon_mount := skeleton.find_children("*", "BoneAttachment3D", true, false).filter(func(node): return node.get_child_count() > 0)
-	var body_mounts := victim.skeleton.find_children("*", "BoneAttachment3D", true, false).filter(func(node): return node.get_child_count() > 0)
-	assert_eq(corpse_weapon_mount.size(), body_mounts.size(), "The corpse adds no weapon mount to the authored body rig")
+	var native := Assets.model("characters", victim.character.model)
+	var native_skeleton := Assets.find(native, "Skeleton3D") as Skeleton3D
+	assert_eq(corpse_weapon_mount.size(), native_skeleton.find_children("*", "BoneAttachment3D", true, false).filter(func(node): return node.get_child_count() > 0).size(), "The corpse retains native sockets without live hit bodies or a weapon mount")
+	native.free()
+	assert_true(corpse.find_children("*", "CollisionObject3D", true, false).is_empty())
 	assert_false(victim.weapon_pose_visible)
 	var initial: Array[Transform3D] = []
 	for bone in skeleton.get_bone_count(): initial.append(skeleton.get_bone_pose(bone))
@@ -187,7 +189,8 @@ func test_fall_death_keeps_falling_without_drops_and_camera_stops_at_depth():
 	assert_eq(game.corpses[0].node.find_child("RuntimeAnimator", true, false).current_animation, "common_falling")
 	assert_false(victim.weapon_pose_visible)
 	var fall_skeleton := Assets.find(game.corpses[0].node, "Skeleton3D") as Skeleton3D
-	assert_eq(fall_skeleton.find_children("*", "BoneAttachment3D", true, false).filter(func(node): return node.get_child_count() > 0).size(), victim.skeleton.find_children("*", "BoneAttachment3D", true, false).filter(func(node): return node.get_child_count() > 0).size(), "Falling death adds no weapon mount")
+	assert_true(game.corpses[0].node.find_children("*", "CollisionObject3D", true, false).is_empty(), "Falling corpses have no live hit bodies")
+	assert_eq(fall_skeleton.find_children("*", "MeshInstance3D", true, false).filter(func(node): return String(node.name).begins_with("SK_Pistol")).size(), 0, "Falling death adds no weapon mount")
 	assert_almost_eq(victim.respawn_time, 4.0, 0.02)
 	game.tick_drops(0.2)
 	assert_lt(game.corpses[0].node.global_position.y, -24.0)

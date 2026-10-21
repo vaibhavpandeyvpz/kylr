@@ -58,6 +58,16 @@ Complete reliable snapshots use the same bounded compressed representation as pe
 
 Only global critical captions are restored from snapshots. Ordinary captions are filtered per recipient for range, direction and frequency on the receiving client. Flag animation phase, repair occupants, corpses and machinery are restored before control. Remote deaths extinguish authored emission; respawn restores it. Client/server crouch capsules both use 1.18 m height.
 
+Breakup corpses carry a `breakup` record containing the initial skeleton pose,
+weapon/contact recipe, cosmetic seed, effective gravity and current assembly
+transforms, linear/angular velocities and sleep state. Clients construct these
+through the same `RobotCorpse` factory as local deaths and start from current
+server state, including on late join. Subsequent snapshots leave local debris
+physics running; snapshot removal frees the entire corpse. Debris cannot affect
+authoritative damage, movement, pickups or objectives. The corpse timer remains
+authoritative and independent of settling. Animated corpses retain animation
+name/time snapshots. Matching client/server builds are required.
+
 Packet bursts use a token bucket (360 burst, 120 packets/s refill); input queues remain bounded and never grant extra movement ticks. Heartbeat health leases and the 15-second continuation use wall time. Graceful departure and revoked reservations immediately remove the authoritative actor, drop flags and abort repair. Disconnected ENet peers receive no further snapshots. Rendering preferences explicitly reach online matches mounted beside the app, and temporary views never overwrite the saved camera choice.
 
 Completed snapshots are coalesced to the newest monotonic snapshot and applied once per client physics tick. Reliable presentation events flush after that state update, so a snapshot cannot erase an accepted hit marker in the same tick. Unchanged fixture transforms and animation positions are skipped. The server logs the map-selection seed, selected map, previous map and mode for each generation.

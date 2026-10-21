@@ -43,12 +43,6 @@ prompt-driven process.[^ai-tools]
 
 See the [in-game cinematic gallery](docs/CINEMATICS.md) for five scenes on each map.
 
-![Tensor upper bodies: Default, Aegis, Lamellar, Vesper, Conduit and Reactor](docs/media/tensor-upper-bodies.webp)
-
-*Six interchangeable chest and back assemblies, with independent heads and two
-paint channels. Covers, vents, radiator castings and canister clamps follow each
-assembly's machined surfaces and share Tensor's rigid mechanical rig.*
-
 This is a single repository on `main`:
 
 | Folder | Contents |

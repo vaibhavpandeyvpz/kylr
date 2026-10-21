@@ -37,5 +37,5 @@ def export(name):
     print('[effect atlas]',name,'validated sixteen nonempty, unclipped frames',width,height)
 
 
-for atlas in ('fireball_atlas','grenade_atlas','fire_contact_atlas'):
+for atlas in ('fireball_atlas','rocket_explosion_atlas','flak_dust_atlas','grenade_combustion_atlas','fire_contact_atlas'):
     export(atlas)

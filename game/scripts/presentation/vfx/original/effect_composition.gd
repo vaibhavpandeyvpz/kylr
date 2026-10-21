@@ -82,14 +82,14 @@ func add_mesh(id: String, mesh_id: String, shader: Shader, role: String) -> Mesh
 
 func build_combustion_impact() -> void:
 	duration = 1.45 if kind == "rocket" else 0.9 if kind == "grenade" else 0.8
-	var atlas: Texture2D = preload("res://assets/models/effects/combat_effects/fireball_atlas.png")
-	if kind == "grenade": atlas = preload("res://assets/models/effects/combat_effects/grenade_atlas.png")
+	var atlas: Texture2D = preload("res://assets/models/effects/combat_effects/rocket_explosion_atlas.png")
+	if kind == "grenade": atlas = preload("res://assets/models/effects/combat_effects/grenade_combustion_atlas.png")
 	if kind == "fire_hit": atlas = preload("res://assets/models/effects/combat_effects/fire_contact_atlas.png")
 	var volume := add_mesh("CoolingGas","AxialCard",preload("res://shaders/original/gas_volume.gdshader"),"gas_volume")
 	volume.material_override.set_shader_parameter("volume_atlas",atlas)
-	volume.material_override.set_shader_parameter("event_profile",1 if kind == "grenade" else 2 if kind == "fire_hit" else 0)
+	volume.material_override.set_shader_parameter("event_profile",3 if kind == "grenade" else 2 if kind == "fire_hit" else 0)
 	volume.material_override.set_shader_parameter("surface_aligned",kind == "fire_hit")
-	volume.material_override.set_shader_parameter("anchor_offset_y",0.3 if kind == "fire_hit" else 0.0)
+	volume.material_override.set_shader_parameter("anchor_offset_y",0.3 if kind == "fire_hit" else 0.12 if kind == "grenade" else 0.0)
 	# Covers camera-facing rotation and the fuel flare's shifted surface anchor.
 	volume.custom_aabb = AABB(Vector3.ONE*-1.0,Vector3.ONE*2.0)
 	if kind == "rocket":

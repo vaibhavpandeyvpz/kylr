@@ -144,7 +144,8 @@ func _physics_process(dt):
 		if hit.collider is ArenaRobot:
 			var damage := Arsenal.emp_damage(distance) if weapon == "emp_gun" else Arsenal.mode_value(weapon,"damage",Arsenal.orb_secondary(weapon))
 			var impulse := Knockback.rocket(direction) if weapon == "rocket_launcher" else Knockback.emp(direction) if weapon == "emp_gun" else Vector3.ZERO
-			if hit.collider.hit(damage, shooter, weapon, impulse) and game is ArenaMatch:
+			var contact := {"point":hit.position, "direction":(next-global_position).normalized(), "radial":false}
+			if hit.collider.hit(damage, shooter, weapon, impulse, contact) and game is ArenaMatch:
 				game.impact_at(hit.collider,weapon,hit.position,ArenaTuning.ROCKET_SPLASH_RADIUS if weapon=="rocket_launcher" else 0.0)
 		if weapon == "rocket_launcher":
 			stop_launch_report()
@@ -154,7 +155,7 @@ func _physics_process(dt):
 				if d <= ArenaTuning.ROCKET_SPLASH_RADIUS and game.combat.clear(hit.position + hit.normal * 0.05, robot.eye()):
 					var outward: Vector3 = robot.eye() - hit.position
 					if Vector2(outward.x, outward.z).length_squared() < 0.001: outward = direction
-					if robot.hit(Arsenal.splash_damage(d), shooter, weapon, Knockback.rocket(outward, d)):
+					if robot.hit(Arsenal.splash_damage(d), shooter, weapon, Knockback.rocket(outward, d), {"point":hit.position, "direction":direction, "radial":true}):
 						if game is ArenaMatch: game.impact_at(robot,weapon,hit.position,ArenaTuning.ROCKET_SPLASH_RADIUS)
 					elif game.combat.invulnerable(robot):
 						game.combat.play_impact(weapon, robot.eye(), robot, true, shooter)

@@ -11,7 +11,7 @@ func run() -> void:
 	var folder := "res://assets/models/effects/combat_effects/"
 	var metadata: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(folder+"combat_effects_rig.json"))
 	var passed := true
-	for name in ["turbulence_rgba.png","gas_atlas.png","smoke_atlas.png","fireball_atlas.png","grenade_atlas.png","fire_contact_atlas.png"]:
+	for name in ["turbulence_rgba.png","gas_atlas.png","smoke_atlas.png","fireball_atlas.png","rocket_explosion_atlas.png","flak_dust_atlas.png","grenade_combustion_atlas.png","fire_contact_atlas.png"]:
 		var texture := load(folder+name) as Texture2D
 		var image := texture.get_image()
 		if image == null or not image.has_mipmaps():

@@ -258,6 +258,16 @@ static func paint(root: Node, primary: Color, secondary: Color, head := "project
 	for child in root.get_children():
 		paint(child, primary, secondary, head, dark, upper_body)
 
+static func extinguished_material(source: Material, cache: Dictionary) -> Material:
+	if not source is StandardMaterial3D: return source
+	# Match-owned immutable finishes outlive individual corpse instances.
+	var key := [source.get_instance_id(), source.albedo_color]
+	if cache.has(key): return cache[key]
+	var result := source.duplicate() as StandardMaterial3D
+	result.emission_enabled = false
+	cache[key] = result
+	return result
+
 static func material(color: Color, emission := 0.0) -> StandardMaterial3D:
 	var mat := StandardMaterial3D.new()
 	mat.albedo_color = color
