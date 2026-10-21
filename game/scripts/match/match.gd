@@ -575,7 +575,7 @@ func spawn_energy_drops(point: Vector3, energy: float, killer_id: int) -> void:
 		var node := CoreOrb.new("energy",true)
 		effects.add_child(node)
 		node.global_position = position
-		drops.append({"node":node,"time":30.0,"ep":amount,"killer":killer_id,"claim":-1})
+		drops.append({"node":node,"time":ArenaTuning.DROPPED_CORE_LIFETIME,"ep":amount,"killer":killer_id,"claim":-1})
 		energy -= amount
 
 func tick_drops(dt: float):
