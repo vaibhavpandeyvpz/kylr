@@ -445,7 +445,7 @@ func run() -> void:
 	if options.get("isolate", "") == "armor-overlay":
 		RenderingServer.frame_pre_draw.connect(func():
 			for robot in game.robots:
-				for mesh in robot.armor_meshes: mesh.material_overlay = null)
+				for mesh in robot.surface_meshes: mesh.material_overlay = null)
 	if options.get("isolate", "") == "shadows":
 		for light: Light3D in game.find_children("*","Light3D",true,false):
 			light.shadow_enabled = false

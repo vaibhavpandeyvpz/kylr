@@ -14,11 +14,9 @@ standalone lunar map, native socket placement, and map-owned triangle accounting
 
 ## Layout
 
-### Tensor shield wrapper
+### Robot energy surface
 
-After building Tensor and running its `collision.py`, run the existing `model.py` with `-- --shield-only`. It derives `tensor_shield.blend/.glb/.fbx` and `tensor_shield_report.json` from the fitted closed proxies: inflated voxel union, relaxed loft, silhouette decimation and a small hardware-clearance correction. Each of the five head variants has its own complete connected shell at 1,600 triangles (hard cap 2,500); the game loads only the selected variant onto the existing body skeleton, using normalized weights on at most four humanoid bones. The median rest-pose distance to the rendered surface is approximately 5 cm, with at least 1.8 cm vertex clearance around small protrusions. This visual wrapper is the exception to Tensor's rigid mechanical skinning and has no collider. Its game material uses local position and smooth normals, so it needs no UV texture.
-
-Validate with `model.py -- --shield-roundtrip` and render studio silhouette/side/crouch/wide views using the existing `preview.py -- --shield-preview`. Copy the generated `tensor_shield.glb` into the game's Tensor folder after validation. The body rig, mechanical geometry, colliders and animation library are unchanged; no retarget is needed for this companion mesh.
+Robot protection and hit feedback use a runtime overlay on the native animated mesh, displaced 5 cm along its normals. No separate shield export or collision companion is required. The robot rig, geometry and animations are the contour source. The shared shader and visual lifecycle are owned by [weapon effects](../WEAPON_EFFECTS.md).
 
 ```
 models/
@@ -78,8 +76,7 @@ Every rendered model, including the Energy and Shield Cores, retains its native
 material assignments and finishes. `models/material_uv.py` unwraps and packs one
 unique 0..1 layout per used material at 2048px, across all parts in an exported
 asset. Ammo packs and the rocket get their own layouts. Tensor's body and five
-head variants share its eleven original material atlases; its five shield
-wrappers share a separate shroud atlas. Emission, transparency, geometry, normals,
+head variants share its eleven original material atlases. Emission, transparency, geometry, normals,
 rigs, skinning and existing actions remain unchanged by UV preparation.
 
 Construction seams and curved openings define charts. Planar panels use exact
@@ -154,8 +151,7 @@ colliders; use `--stage colliders` explicitly after geometry changes.
 It uses `models/nvidia_render.py`: NVIDIA OptiX (CUDA fallback) for Cycles,
 GPU Eevee for previews/videos, and persistent render data. GPU jobs run serially
 to fit laptop VRAM. Map image-sequence encoding uses NVIDIA
-NVENC when its probe succeeds, with software H.264 fallback. Tensor previews
-also refresh the shield's studio and pose views. Use `--stage previews` or
+NVENC when its probe succeeds, with software H.264 fallback. Use `--stage previews` or
 `showcases` for individual render passes. Use optional
 `--only <asset names>` for a focused rerun. Logs and status reports live in the
 ignored `target/regeneration/` folder. The cores have a ten-second showcase of

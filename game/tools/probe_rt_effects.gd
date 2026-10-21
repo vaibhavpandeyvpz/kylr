@@ -263,27 +263,28 @@ func run():
 	var target_pose := Transform3D(Basis.looking_at(Vector3(0,-0.1,-1)),scene.target.position+Vector3(0,1,2.4))
 	scene.camera_rig.set_gameplay("tpv",target_pose,45,true)
 	scene.shield_target=true
-	scene.target.shield_mesh.show()
-	scene.target.shield_mesh.material_override.set_shader_parameter("hit_progress",0.3)
-	# The first shield material also compiles asynchronously in the RTX renderer.
+	scene.target.sh=100
+	scene.target.hit_flash=.14
+	EnergySurface.update(scene.target)
+	# Wait for the shared energy-surface material in the RTX renderer.
 	await frames(180)
 	await capture("shield-hit",scene.target)
-	# Exercise the actual damage overlay separately from the shield shader.
+	# Exercise accepted damage after clearing Shield Health.
 	# The target's process callbacks are disabled above, so the flash remains
 	# at a fixed strength through asynchronous shader warmup and capture.
 	scene.shield_target=false
-	scene.target.shield_mesh.hide()
+	EnergySurface.clear(scene.target)
 	scene.target.sh=0
 	scene.target.protection=0
 	var armor_hit:bool=scene.target.hit(1.0,null,"effects_probe")
-	if not armor_hit or not scene.target.armor_overlay_active:
+	if not armor_hit or not scene.target.surface_active:
 		push_error("Armor hit did not install its overlay");quit(10);return
-	for armor_mesh in scene.target.armor_meshes:
-		if armor_mesh.material_overlay!=scene.target.armor_flash:
+	for armor_mesh in scene.target.surface_meshes:
+		if armor_mesh.material_overlay!=scene.target.surface_material:
 			push_error("Armor hit overlay missing on a body surface");quit(10);return
-	scene.target.armor_flash.set_shader_parameter("strength",.5)
+	scene.target.surface_material.set_shader_parameter("hit_strength",.5)
 	await frames(180)
-	await capture("armor-hit",scene.target,{"hit_accepted":armor_hit,"armor_overlay_meshes":scene.target.armor_meshes.size(),"armor_strength":.5,"armor_shader":scene.target.armor_flash.shader.resource_path})
+	await capture("armor-hit",scene.target,{"hit_accepted":armor_hit,"armor_overlay_meshes":scene.target.surface_meshes.size(),"armor_strength":.5,"armor_shader":scene.target.surface_material.shader.resource_path})
 	if reconstruction_observer:reconstruction_observer.release()
 	scene.queue_free()
 	await frames(6)

@@ -75,3 +75,5 @@ live speaker's head. Voice identity persists through respawns and late joins.
 Random assignment and quip selection use a cosmetic RNG, independent of combat
 and spawn randomness. Late joins receive actor voice identity without replaying
 expired robot dialogue.
+
+Accepted damage feedback includes the weapon identifier for the contour-surface hit color. Robot snapshots retain `hit_weapon` with the hit envelope so remote replicas and self-damage use the same palette. Unknown weapon identifiers use neutral grey. This field changes presentation only; the server retains damage authority.

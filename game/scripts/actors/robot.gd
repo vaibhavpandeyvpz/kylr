@@ -99,7 +99,6 @@ var weapon_pose_visible := true
 var gun_socket: Transform3D
 var brain
 var listener: AudioListener3D
-var shield_mesh: MeshInstance3D
 var opponent_marker: OpponentMarker
 var target_nameplate: Label3D
 var anim_state := ""
@@ -113,9 +112,9 @@ var crouch_idle_time := 0.0
 var body_capsule: CapsuleShape3D
 var body_shape: CollisionShape3D
 var hit_flash := 0.0
-var armor_flash := ShaderMaterial.new()
-var armor_meshes: Array[MeshInstance3D] = []
-var armor_overlay_active := false
+var surface_material: ShaderMaterial
+var surface_meshes: Array[MeshInstance3D] = []
+var surface_active := false
 var bot_aim := Vector3.FORWARD
 var hit_rids: Array[RID] = []
 var character_id := "tensor"
@@ -155,9 +154,10 @@ func _ready() -> void:
 	add_child(body_shape)
 	body = Assets.model("characters", character.model)
 	add_child(body)
-	armor_flash.shader = preload("res://shaders/combat/armor_hit.gdshader")
+	surface_material = EnergySurface.material(tint)
 	for mesh in body.find_children("*", "MeshInstance3D", true, false):
-		armor_meshes.append(mesh)
+		surface_meshes.append(mesh)
+		mesh.extra_cull_margin=maxf(mesh.extra_cull_margin,0.06)
 	body.rotation.y = character.forward_yaw
 	skeleton = Assets.find(body, "Skeleton3D")
 	movement_pose.configure(skeleton,character.animation_family)
@@ -170,7 +170,6 @@ func _ready() -> void:
 	armor_secondary = Assets.robot_accent(body, tint, character.model)
 	Assets.paint(body, tint, armor_secondary, head)
 	CollisionRig.install(body,"characters",character.model,self)
-	shield_mesh = ShieldShroud.install(self)
 	opponent_marker = OpponentMarker.new()
 	opponent_marker.robot = self
 	opponent_marker.arena_match = arena_match
@@ -431,17 +430,7 @@ func _process(dt: float) -> void:
 	# Authority already samples the active body for collision/aim each physics
 	# tick. Avoid a second full skeleton pass solely for the rendered frame.
 	if not arena_match.authority or not can_act(): update_aim_pose(dt)
-	shield_mesh.visible = alive and spawn_remaining <= 0 and (protection > 0 or sh > 0)
-	var hit_progress := 1.0 - hit_flash / 0.2
-	# ShaderMaterial already caches its parameters. Avoid queuing an identical
-	# write (and invalidating the native RT material cache) on every render frame.
-	if shield_mesh.material_override.get_shader_parameter("hit_progress") != hit_progress:
-		shield_mesh.material_override.set_shader_parameter("hit_progress", hit_progress)
-	if armor_overlay_active:
-		armor_flash.set_shader_parameter("strength", pow(hit_flash / 0.2, 2.0) if alive else 0.0)
-		if hit_flash <= 0 or not alive:
-			for mesh in armor_meshes: mesh.material_overlay = null
-			armor_overlay_active = false
+	EnergySurface.update(self)
 	if arena_match!=null:
 		var weapon_loop_active: bool = alive and streaming and reload_time<=0 and arena_match.phase=="Active"
 		arena_match.audio.set_loop("weapon_"+str(robot_id),equipped,muzzle() if weapon_loop_active else Vector3.ZERO,weapon_loop_active,self == arena_match.local_robot)
@@ -787,20 +776,14 @@ func hit(amount: float, attacker, cause: String, impulse := Vector3.ZERO) -> boo
 		if not contributors.has(attacker.robot_id): contributors[attacker.robot_id] = []
 		contributors[attacker.robot_id].append([arena_match.elapsed, amount])
 	var split := Arsenal.shield_split(amount, sh)
-	if split.y > 0 and attacker != null:
-		var incoming: Vector3 = shield_mesh.to_local(attacker.eye())-Vector3(0,0.95,0)
-		shield_mesh.material_override.set_shader_parameter("hit_direction", incoming.normalized())
 	ah = maxf(0, ah - split.x)
 	sh = maxf(0, sh - split.y)
 	if arena_match.callouts and split.x >= 20.0 and ah > 0:
 		arena_match.callouts.publish("Armor hit.",display_name,team,false,global_position,-1,robot_id)
 	hit_flash = 0.2
 	if attacker != null and attacker != self and arena_match.online:
-		arena_match.present({"kind":"damage","victim":robot_id,"attacker":attacker.robot_id,"source":attacker.eye(),"amount":amount})
-	if not armor_overlay_active and DisplayServer.get_name() != "headless":
-		armor_flash.set_shader_parameter("strength", 1.0)
-		for mesh in armor_meshes: mesh.material_overlay = armor_flash
-		armor_overlay_active = true
+		arena_match.present({"kind":"damage","victim":robot_id,"attacker":attacker.robot_id,"source":attacker.eye(),"amount":amount,"weapon":cause})
+	EnergySurface.update(self)
 	if attacker != null and attacker != self and attacker == arena_match.local_robot:
 		arena_match.hit_marker = 0.24
 	if self == arena_match.local_robot and attacker != null and attacker != self:
@@ -832,6 +815,7 @@ func network_state() -> Dictionary:
 	state["rocket_lock_target"] = rocket_lock_target
 	state["rocket_lock_progress"] = rocket_lock_progress
 	state["beam"] = weapon_vfx.beam_target
+	state["hit_weapon"] = last_hit_weapon
 	state["contact"] = network_contact
 	state["grounded"] = is_on_floor()
 	state["knockback"] = knockback_velocity
@@ -859,7 +843,6 @@ func restore_network(state: Dictionary, local := false) -> void:
 	voice_variant=int(state.get("voice_variant",voice_variant))
 	var life_changed: bool = alive != state.alive
 	var shot_changed: bool = network_shots != state.shots
-	var hurt: bool = state.ah < ah or state.sh < sh
 	position = Vector3(state.p[0],state.p[1],state.p[2])
 	velocity = state.v
 	knockback_velocity = state.knockback
@@ -904,9 +887,8 @@ func restore_network(state: Dictionary, local := false) -> void:
 	network_shots = state.shots
 	if not network_initialized: network_presented_shot = state.shots
 	network_initialized = true
-	if hurt and alive and DisplayServer.get_name() != "headless":
-		armor_overlay_active = true
-		for mesh in armor_meshes: mesh.material_overlay = armor_flash
+	last_hit_weapon=str(state.get("hit_weapon",last_hit_weapon))
+	EnergySurface.update(self)
 	if life_changed:
 		Assets.paint(body,tint,armor_secondary,head,not alive)
 		Assets.paint(gun,tint,armor_secondary,head,not alive)

@@ -2,7 +2,7 @@
   "version": 1,
   "characters": [{
     "id":"tensor", "title":"Tensor", "model":"tensor",
-    "collision":"tensor_col", "shield":"tensor_shield",
+    "collision":"tensor_col",
     "animation_family":"tensor", "forward_yaw":3.14159265359,
     "skeleton":{"weapon_hand":"RightHand","head":"Head","root":"Root","aim_root":"Spine"},
     "sockets":{"flag":"FlagMount"},

@@ -85,10 +85,9 @@ func build():
 		elif child is CombatTransient and child.align_velocity: child._process(0.04)
 	var shell := Assets.sphere(stage, 0.4, Color("79c8ff"))
 	shell.position = Vector3(2.7, -1.3, 0)
-	var shield_material := ShaderMaterial.new()
-	shield_material.shader = preload("res://shaders/shield.gdshader")
-	shield_material.set_shader_parameter("hit_progress", 0.28)
-	shield_material.set_shader_parameter("hit_direction", Vector3.BACK)
+	var shield_material := EnergySurface.material(Color("60ef98"),0.0)
+	shield_material.set_shader_parameter("shield_strength",1.0)
+	shield_material.set_shader_parameter("hit_strength",0.7)
 	shell.material_override = shield_material
 	for entry in [["ROCKET IMPACT", 0.0], ["SHIELD RESPONSE", 2.7]]:
 		var label := Label3D.new()

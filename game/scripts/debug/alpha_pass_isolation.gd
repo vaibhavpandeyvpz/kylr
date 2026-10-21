@@ -3,11 +3,11 @@ extends RefCounted
 const PHASE_SECONDS := 8.0
 const PHASES := [
 	{"label":"baseline_before_effects","mask":""},
-	{"label":"without_effects","mask":"res://shaders/combat/*;res://shaders/original/*;!res://shaders/combat/armor_hit.gdshader;!res://shaders/original/frosted_glass.gdshader"},
+	{"label":"without_effects","mask":"res://shaders/combat/*;res://shaders/original/*;!res://shaders/combat/energy_surface.gdshader;!res://shaders/original/frosted_glass.gdshader"},
 	{"label":"baseline_after_effects","mask":""},
 	{"label":"without_glass","mask":"res://shaders/original/frosted_glass.gdshader"},
 	{"label":"baseline_after_glass","mask":""},
-	{"label":"without_hit_overlay","mask":"res://shaders/combat/armor_hit.gdshader"},
+	{"label":"without_hit_overlay","mask":"res://shaders/combat/energy_surface.gdshader"},
 	{"label":"baseline_after_hit_overlay","mask":""},
 ]
 const EFFECT_PHASES := [
@@ -16,7 +16,7 @@ const EFFECT_PHASES := [
 	{"label":"baseline_after_layered_effects","mask":""},
 	{"label":"without_thermal_layers","mask":"res://shaders/original/thermal_surface.gdshader"},
 	{"label":"baseline_after_thermal_layers","mask":""},
-	{"label":"without_other_custom_effects","mask":"res://shaders/combat/*;!res://shaders/combat/armor_hit.gdshader"},
+	{"label":"without_other_custom_effects","mask":"res://shaders/combat/*;!res://shaders/combat/energy_surface.gdshader"},
 	{"label":"baseline_after_other_custom_effects","mask":""},
 ]
 const LAYERED_PHASES := [
