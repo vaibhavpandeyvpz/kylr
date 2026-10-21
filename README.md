@@ -122,6 +122,7 @@ and keep separately licensed assets and local credentials out of your PR.
 | --- | --- |
 | [LimboAI](https://github.com/limbonaut/limboai) | Drives bot behavior trees. |
 | [Phantom Camera](https://github.com/ramokz/phantom-camera) | Controls menu and gameplay cameras. |
+| [Shaker](https://github.com/Eneskp3441/Shaker) | Adds local explosion and EMP impact shake. |
 | [ProtonScatter](https://github.com/HungryProton/scatter) | Generates and projects dropped Energy Core positions. |
 | [GUT](https://github.com/bitwes/Gut) | Runs automated gameplay and integration tests. |
 

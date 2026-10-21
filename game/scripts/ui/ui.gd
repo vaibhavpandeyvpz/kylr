@@ -60,7 +60,7 @@ const SETTING_HELP = {
  "reduced_audio_range":"Brings quieter effects forward for comfortable listening without changing hearing range or gameplay.",
  "hud_scale":"Scales the combat readouts while keeping their screen anchors.",
  "contrast":"Adds stronger HUD backing and outlines for readability.",
- "reduced_motion":"Reduces decorative animation and suppresses sprint blur and speed lines. Essential match information stays visible."}
+ "reduced_motion":"Reduces decorative animation and suppresses impact camera shake, sprint blur and speed lines. Essential match information stays visible."}
 
 
 func _ready():

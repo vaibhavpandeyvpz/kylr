@@ -6,6 +6,19 @@ This document is the game-side contract for attaching and timing weapon visuals.
 
 ## Shared attachment contract
 
+Accepted rocket, grenade and EMP damage adds a brief local camera shake in FPV
+and TPV, including direct, splash, shielded and self-blast hits. Use Shaker's
+vendored 3D noise preset resources with a bounded fading envelope. Explosion
+intensity falls linearly from 1 at the blast point to 0 at the blast radius,
+using the robot body's center and full 3D distance, including height. EMP uses
+a fixed 0.65 intensity for its directly hit target only, with a shorter envelope;
+overlapping hits cannot exceed the cap (4 cm translation, 0.02 rad per axis).
+Apply the cosmetic offset after Phantom Camera's base pose, and retain the
+unshaken pose for weapon sight/aim queries. Never alter yaw/pitch input, recoil,
+physics, damage or bot aim. Reduced decorative motion disables shake; cinematic
+and menu views clear it. The server replicates accepted impact feedback on the
+presentation channel, so clients do not infer splash hits from distance alone.
+
 Robot players share immutable playback animation variants by source resource,
 loop policy and root-rotation filtering. Each player retains its own library,
 playback clock, blending and skeleton state. Prepare a derived variant once;
@@ -132,7 +145,7 @@ Surface marks now use original procedural cavities, chips, dust and fine fractur
 
 Repair-station welding reuses the ballistic hit core shader and bounded spark pool, without damage, decals or hit confirmation. A 3.6 cm white-blue glow and a small shadowless light are children of the exported, animated `TorchTip`; 8.5 cm flashes remain anchored to that same live gizmo. Sparks emit from its current world transform and then move independently under gravity. Emission follows the asset's `effects.TorchTip.welding_frames` (12–51 and 87–126 at 30 fps within the five-second repair clip), stopping between strokes, on death/interruption, during deactivation, and outside Active play. Pulses run every 0.16 seconds within 25 m and every 0.5 seconds at 25–60 m; beyond 60 m they stop, and the local light is enabled only within 15 m. Reduced motion keeps a steady nib glow and suppresses flicker, repeated flashes and spark emission. The gripper's gizmo is not a welding nozzle.
 
-Hit confirmation belongs to the accepted damage path for every weapon, including projectile, splash, EMP, lightning, and flame damage. It holds the outlined cyan reticle marks for 0.24 seconds; blocked, friendly, protected, self, and zero-damage contacts do not confirm. Incoming accepted enemy damage shows a brief soft red screen-edge tint plus a direction arc near the sightline and a wider edge bearing. The tint reduces intensity with reduced motion enabled. No added camera shake, aim deflection, or confirmation sound accompanies these cues.
+Hit confirmation belongs to the accepted damage path for every weapon, including projectile, splash, EMP, lightning, and flame damage. It holds the outlined cyan reticle marks for 0.24 seconds; blocked, friendly, protected, self, and zero-damage contacts do not confirm. Incoming accepted enemy damage shows a brief soft red screen-edge tint plus a direction arc near the sightline and a wider edge bearing. The tint reduces intensity with reduced motion enabled. Directional damage feedback adds no aim deflection or confirmation sound; explosion and EMP camera shake follow the shared contract above.
 
 The effects combine library-authored meshes, original color flipbooks, procedural shaders and bounded GPU particles; they do not simulate fluid dynamics at runtime. Flamethrower primary uses three axial layers plus 32 projected flame particles and 16 cooling gas particles. Its nozzle-to-endpoint frame handles vertical shots. Projected cards foreshorten along the camera sightline and soften their elliptical edges; the axial density scrolls outward from the nozzle. The gas runs at 60 Hz with interpolation and a narrow transport-speed band to keep adjacent lobes overlapping in FPV. The translucent axial layers bridge the full stream rather than ending near the muzzle. World-space shader clipping confines every layer to the actual endpoint, including robot hit hulls and excluding the shooter. Full opacity through 10 m fades to zero at 15 m. The core widens from a 3.5 cm source radius to 12 cm; outer layers widen from 5 to 17 cm. Trigger release and weapon switches hide the stream immediately. Thrusters use the same thermal family with fitted length/radius bounds and emission 0.65; secondary fireballs use emission 0.8 and pilot ignition 0.35. EMP uses a smooth capsule plus thin induction filaments, with neutral grey/silver/charcoal, shell emission 1.5 and a darker metallic core at emission 0.35. Cosmetic dimensions, direct collision, range/damage fade and firing cadence are unchanged. Travel and online snapshots update only opacity after 20 m and retire visuals at 25 m; pooled reuse restores full opacity. Exact vent-closing tails and complete minigun transition choreography remain animation-polish work; no spin-up firing delay is added.
 

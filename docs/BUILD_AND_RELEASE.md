@@ -65,6 +65,10 @@ Exclude ProtonScatter's editor-only `presets/` scenes from exported packages.
 They reference upstream demo assets that are not vendored. Runtime scatter
 scripts, modifiers and their licenses remain included.
 
+Exclude Shaker's sample presets in `addons/shaker/data/resources/` from release
+exports. They include references to upstream demo scenes. Runtime noise/preset
+classes and the MIT license remain included.
+
 Phantom Camera's vendored editor updater skips network checks with the headless
 display driver. Its response handler accepts only successful HTTP 200 array
 responses and validates release tags before reading them. Preserve these local
