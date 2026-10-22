@@ -85,7 +85,12 @@ replacement bundle with `tools/bundle_private_assets.py` and update its R2 objec
 and checksum when licensed content changes. `KYLR_PUBLIC_API_URL` configures the
 desktop clients' public API endpoint.
 
-A pushed `v*` tag starts the matrix. One release job waits for all three builds,
+A pushed `v*` tag starts the matrix.
+Tagged builds stamp the checkout's project version from the tag without `v`.
+Windows file/product versions use `MAJOR.MINOR.PATCH.0`; macOS short/build versions
+use `MAJOR.MINOR.PATCH`. Prerelease/build suffixes remain in the project version,
+archive name and manifest. These generated settings are not committed back.
+One release job waits for all three builds,
 downloads their artifacts, verifies SHA-256 checksums and publishes all packages
 together to GitHub Releases. Only that job has release write permission. Tags
 containing a hyphen are prereleases. Manual dispatch on `main` builds downloadable
@@ -97,7 +102,9 @@ A completed hosted matrix is required to claim validation on all three OSes.
 
 [Cloud hosting](CLOUD_HOSTING.md) owns Render, Atlas and Edgegap configuration.
 The manual multiplayer workflow runs one API/publication test suite against
-MongoDB, then builds the private server image once. The download stage installs
+MongoDB on Ubuntu 24.04, then builds the private server image once. The API runner
+is pinned because MongoDB 8.0 cannot start on Linux 6.19+ kernels.
+The download stage installs
 checksum-pinned official Godot for Linux; the Docker build imports restored
 assets and rejects script errors. BuildKit caches binary-download and import
 layers. Optional publication uses the Docker login/build actions to push the

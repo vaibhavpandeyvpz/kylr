@@ -57,7 +57,9 @@ jobs:
           KYLR_PUBLIC_API_URL: ${{ vars.KYLR_PUBLIC_API_URL }}
         run: if [[ -n "$KYLR_PUBLIC_API_URL" ]]; then python tools/configure_online.py; fi
       - name: Build and package
-        run: pwsh -File game/tools/package.ps1 -Version "$VERSION"
+        run: |
+          if [[ "$GITHUB_REF_TYPE" == tag ]]; then python tools/stamp_release_version.py "$VERSION"; fi
+          pwsh -File game/tools/package.ps1 -Version "$VERSION"
       - name: Game tests
         if: runner.os == 'Linux'
         run: |
