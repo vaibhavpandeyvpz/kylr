@@ -66,9 +66,9 @@ pads define its ground contact.
 | bunker | 4,733 | 178 | 5,000 |
 | lunar_dome | 4,929 | 0 | 5,000 |
 | hangar | 9,925 | 192 | 10,000 |
-| cistern | 11,572 | 240 | 12,000 |
-| laboratory | 12,973 | 192 | 15,000 |
-| bastion | 8,383 | 192 | 10,000 |
+| cistern | 11,609 | 240 | 12,000 |
+| laboratory | 11,613 | 192 | 15,000 |
+| bastion | 6,952 | 192 | 10,000 |
 | lodge | 9,483 | 84 | 10,000 |
 | hub | 8,387 | 144 | 10,000 |
 | shelter | 4,178 | 96 | 5,000 |
@@ -119,7 +119,47 @@ Platform, bridge and lip construction helpers live under
 native docking frames, optional tapered chassis and luminaire sockets; they
 are not standalone architecture catalog entries.
 
-### Native room lights in assembled maps
+### Native fixture lights in assembled maps
+
+Exterior wall sconces use `SconceLightMountExterior*` sockets, rigidly attached
+to `Root`. `light_mounts.py` owns their reference-coordinate placement plans
+for both full generators and `refresh_lighting.py`. Each backplate lies on the
+actual opaque wall plane; local +Y points into the wall and local -Y points
+outward. Sloping walls retain the matching fixture rotation. Mount metadata
+records `surface: exterior` and the outward `mount_normal`.
+
+| Asset | Exterior sconces |
+| --- | ---: |
+| Bastion | 8 |
+| Bunker | 5 |
+| Cistern | 2 |
+| Hangar | 4 |
+| Lodge | 4 |
+| Laboratory | 6 |
+| Hub | 4 |
+| Habitat pod | 2 |
+
+Placements clear doors, glazing, service equipment and structural edges. The
+430 × 300 mm sconce backplate requires an additional 100 mm horizontal and
+75 mm vertical wall border. Generation checks planar support; `validate_lighting.py`
+checks a dense support grid and socket/emitter frames in GLB and FBX round trips.
+The eight building previews import native luminaires at these sockets using
+`fixture_preview.py`. Preview fixtures are never saved into the building model.
+Runtime attaches the same native lamp with an identity local transform.
+
+Cistern's two exterior sconces sit halfway between the buttresses at the left
+and right cardinal sides. Shallow machined wall seats provide planar backplate
+support at the original facet junctions. Hub's four exterior sconces are centred
+on the fixed header surfaces above the four door openings.
+Habitat pod's two exterior sconces are centred on the sloping upper side panels
+above the windows, with backplates rotated to follow those panels.
+Lodge and hangar exterior sconces occupy only the front and rear walls, with
+one fixture in each solid bay beside the central door or rear access panel.
+Laboratory's four ground-floor wall faces are plain pressure shell. Two
+symmetrically spaced exterior sconces sit directly on each wall at the same height.
+Bastion's lower wall faces are plain off-white pressure shell. Its eight
+exterior sconces mount directly on those walls; no lower armor plates, cassette
+studs or lower status bars are present.
 
 Original model fixture empties own lamp position and axes; room lights face into
 the supported interior, ceiling lights down. Laboratory and bastion floors use a

@@ -13,10 +13,10 @@ Materials follow KYLR's existing props: off-white
 cyan `M_Emissive` and black `M_Glass` with opacity 0.10. The full grey metal
 roof matches the cistern, with recessed access covers. Integral column end
 flanges seat on horizontal load rings. Parallel inner/outer chamfers retain
-283 mm upper corner wall thickness. Front service panels clear the entry rim;
-rear lower panels have plain faces without grey inspection inserts.
-Service inspection recesses follow the covers' chamfered outlines with a
-uniform 10 mm perimeter clearance, including the diagonal corner edges.
+283 mm upper corner wall thickness. All four ground-floor walls are plain
+pressure shell with two symmetric exterior sconce gizmos per face. Side pairs
+sit at the same height and spacing as the front and rear pairs beside the
+entrance or lift. Upper rear process banks remain mounted on their native skids.
 
 The fixed building fits a **15 × 15 m** placement envelope. It has a regular
 integral floor and grounded footings, with no surrounding metal platform.
@@ -27,8 +27,8 @@ floor. The upper observation room has at least 2.1223 m headroom at its perimete
 rising to 2.6968 m centrally. The integral entrance approach rises 0.2553 m over
 0.60 m. The entrance is 2.00 m wide with 2.10 m central headroom.
 
-The render budget was revised by the user to **15,000 triangles** on
-2026-10-06. The current total is **13,082 triangles**, including optional
+The render budget is **15,000 triangles**. The current total is
+**11,613 triangles**, including optional
 regolith, across six meshes. Every mesh retains the 5,000-triangle maximum.
 UV painting layouts are unique per material at 2048 px; GLB is the primary
 export and FBX is the fallback.
@@ -77,8 +77,9 @@ the asset budget; it is excluded from blocking collision and traversal tests.
 `optional_surface` and `building_bounds_m` in `_rig.json` distinguish the visual
 apron from the fixed building. Export bounds include the apron.
 
-Four `BattenLightMount*` and four `SconceLightMount*` gizmos seat on actual
-interior surfaces. No runtime lights or fixture meshes are included.
+Eight `BattenLightMount*` and four `SconceLightMount*` gizmos seat on actual
+interior surfaces. Eight additional exterior sconce gizmos seat directly on the
+plain ground-floor walls. No runtime lights or fixture meshes are included.
 
 ## Regeneration and inspection
 

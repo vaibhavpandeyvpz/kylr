@@ -172,7 +172,13 @@ def passage(w,lo,hi,y0,y1,c=.16):
 
 def pressure_wall():
     """Continuous machined pressure shell; no decorative tile-grid geometry."""
-    return revolve([(R,.45),(R,2.95),(INNER,2.95),(INNER,.45)])
+    wall=revolve([(R,.45),(R,2.95),(INNER,2.95),(INNER,.45)])
+    # Cardinal side centres lie on facet junctions. Machine two shallow flat
+    # seats between the buttresses so a complete sconce backplate rests on wall.
+    for sign in (-1,1):
+        x0,x1=sorted((sign*(R-.04),sign*(R+.10)))
+        wall=boolean_bm(wall,block((x0,-.40,1.30),(x1,.40,2.10)),'DIFFERENCE')
+    return wall
 
 def architecture(k):
     # Ground-contact footing and sealed reservoir lid form the maintenance deck.

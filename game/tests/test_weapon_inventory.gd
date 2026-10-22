@@ -33,6 +33,17 @@ func test_collect_all_weapons_and_switch_without_losing_any_ammo():
 	actor.select_weapon("pistol")
 	assert_eq(actor.cycle_weapon(-1),actor.owned_weapons[-1])
 
+func test_extinguished_weapon_rigs_can_be_replaced_within_the_same_frame():
+	var actor := await pilot()
+	for id in Arsenal.WEAPONS:
+		actor.equip(id)
+		Assets.paint(actor.gun,actor.tint,actor.armor_secondary,actor.head,true,actor.upper_body)
+		var retired: WeakRef = weakref(actor.gun)
+		actor.equip("pistol")
+		assert_null(retired.get_ref(),id+" releases the extinguished rig immediately")
+		assert_true(is_instance_valid(actor.gun),"Replacement weapon remains usable")
+		assert_not_null(Assets.socket(actor.gun,"RightHandSocket"))
+
 func test_precollect_unowned_ammo_full_pack_cap_and_bank_on_acquisition():
 	var actor := await pilot()
 	for id in Arsenal.WEAPONS:

@@ -81,6 +81,8 @@ def open_model():
     from preview_gizmos import install
     from lunar_material import preview
     preview();install()
+    from fixture_preview import install as mount_fixtures
+    mount_fixtures()
 
 
 

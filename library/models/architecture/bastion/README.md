@@ -5,11 +5,11 @@ owns current door and inside-height limits. Delivered dimensions and mechanical
 travel are recorded in the regenerated `_rig.json`. Run `../verify_dimensions.py` after rebuilding.
 
 Duplex sci-fi bastion. The editable source is `model.py`; Blender,
-GLB, FBX, rig metadata, previews and videos are generated outputs. Nothing is
-installed in the game. Metres, front -Y, up +Z, origin at grade below the centre.
+GLB, FBX, rig metadata, previews and videos are generated outputs.
+Metres, front -Y, up +Z, origin at grade below the centre.
 
 The asset uses the compact chamfered pressure hull, front-and-side panoramic
-observation belts with diagonal braces and a solid rear machinery bulkhead, broad dark lower armor cassettes, heavy
+observation belts with diagonal braces and a solid rear machinery bulkhead, plain off-white lower walls, heavy
 corner ribs, pale waist bands and stepped roof crown. Its roof has two forward
 signal/pressure pods, a directly roof-seated central telemetry enclosure, three flanged rear
 return headers, a large rear extraction bonnet.
@@ -22,6 +22,9 @@ Pressure-wall surrounds use one off-white finish; no triangle-centre or
 position-based black patches are assigned around window or wall-panel edges. The openings pass
 through the real pressure shell; the interior remains walkable.
 An exposed metallic foundation ring supports the building.
+Eight exterior sconce gizmos seat directly on the lower pressure walls, with
+two fixtures per face. The lower walls have no armor cassettes, status bars or
+cassette studs.
 
 The long central plinth is removed. The front side pods and central white
 controller share y = -5.1875 m at their front edges. Their two side margins and

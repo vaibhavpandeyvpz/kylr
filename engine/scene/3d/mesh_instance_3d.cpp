@@ -350,6 +350,11 @@ void MeshInstance3D::create_multiple_convex_collisions(const Ref<MeshConvexDecom
 
 void MeshInstance3D::_notification(int p_what) {
 	switch (p_what) {
+		case NOTIFICATION_PREDELETE_CLEANUP: {
+			// Detach the renderer before member destruction releases the surface
+			// materials. Later geometry cleanup can flush pending instance updates.
+			set_base(RID());
+		} break;
 		case NOTIFICATION_ENTER_TREE: {
 #ifndef DISABLE_DEPRECATED
 			if (upgrading_skeleton_compat) {

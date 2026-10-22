@@ -1,6 +1,6 @@
 extends GutTest
 
-func test_native_fixture_projection_faces_the_authored_room_normal():
+func test_native_fixture_projection_faces_the_authored_surface_normal():
 	for name in ["bastion","cistern","container","container_long","habitat_pod","hangar","hub","laboratory","lodge","shelter","bunker","lunar_dome"]:
 		var prop:=Assets.model("architecture",name)
 		add_child_autofree(prop)
@@ -9,20 +9,64 @@ func test_native_fixture_projection_faces_the_authored_room_normal():
 		await get_tree().physics_frame
 		var metadata: Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://assets/models/architecture/%s/%s_rig.json"%[name,name]))
 		var fixtures:=0
+		var exterior:=0
 		for mount in metadata.gizmos:
 			if mount.get("attachment","") not in ["sconce_light","batten_light"]:continue
 			fixtures+=1
+			if mount.get("surface","")=="exterior":
+				exterior+=1
+				assert_eq(mount.attachment,"sconce_light")
+				var origin: Array=mount.origin
+				var outward: Array=mount.mount_normal
+				assert_gt(Vector2(origin[0],origin[1]).dot(Vector2(outward[0],outward[1])),0.0,name+" exterior sconce faces away from building")
+				if name=="cistern":
+					assert_almost_eq(float(origin[1]),0.0,0.0001,"Cistern sconces centre between side buttresses")
+					assert_gt(absf(float(outward[0])),0.999)
+				if name=="bastion":
+					assert_almost_eq(maxf(absf(float(origin[0])),absf(float(origin[1]))),6.9,0.001,"Bastion sconces sit directly on the plain pressure walls")
+				if name=="hub":
+					assert_gt(float(origin[2]),2.5,"Hub sconces sit on fixed headers above the doors")
+				if name in ["hangar","lodge"]:
+					assert_gt(absf(float(outward[1])),0.999,name+" exterior sconces belong on front and rear walls")
+				if name=="laboratory":
+					assert_almost_eq(maxf(absf(float(origin[0])),absf(float(origin[1]))),6.9,0.001,"Laboratory sconces seat directly on all four cleared pressure walls")
+					assert_almost_eq(minf(absf(float(origin[0])),absf(float(origin[1]))),3.5,0.001,"Laboratory sconces form symmetric pairs on each wall")
+				if name=="habitat_pod":
+					assert_almost_eq(float(origin[1]),0.0,0.0001,"Habitat sconces centre along the side panels")
+					assert_gt(float(origin[2]),3.0,"Habitat sconces sit above the windows")
+					assert_gt(float(outward[2]),0.5,"Habitat sconces follow the sloping upper wall")
 			var socket:=Assets.socket(prop,mount.name)
 			var lamp:=socket.get_node("MountedLuminaire") as Node3D
 			assert_eq(lamp.transform,Transform3D.IDENTITY)
 			var projection:=Assets.socket(lamp,"LightProjection")
 			var normal: Array=mount.mount_normal
 			var expected:=Vector3(normal[0],normal[2],-normal[1]).normalized()
-			assert_gt((-projection.global_basis.z).normalized().dot(expected),.999,name+" emitter faces into the room")
+			assert_gt((-projection.global_basis.z).normalized().dot(expected),.999,name+" emitter follows its supported surface normal")
 		assert_eq(fixtures,count)
+		var expected_exterior: Dictionary={"bastion":8,"bunker":5,"cistern":2,"hangar":4,"lodge":4,"laboratory":8,"hub":4,"habitat_pod":2}
+		assert_eq(exterior,int(expected_exterior.get(name,0)),name+" exterior fixtures survive runtime import")
 		if name=="lunar_dome":
 			assert_eq(count,1,"Dome uses only its top-center sconce")
 			assert_not_null(Assets.socket(prop,"SconceLightMountTopCenter"))
+
+func test_faceoff_variants_retain_native_exterior_mounts_and_attach_once():
+	var expected_counts: Dictionary={"bastion":8,"hangar":4,"laboratory":8,"lodge":4}
+	for asset in expected_counts:
+		var suffix: String="_architecture_"+asset
+		var prop:=Assets.model("maps","faceoff",suffix)
+		add_child_autofree(prop)
+		ArchitectureLights.install(prop,"maps","faceoff",suffix)
+		var metadata: Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://assets/models/maps/faceoff/faceoff%s_rig.json"%suffix))
+		var exterior:=0
+		for mount in metadata.gizmos:
+			if mount.get("surface","")!="exterior":continue
+			exterior+=1
+			var socket:=Assets.socket(prop,mount.name)
+			assert_not_null(socket,asset+" variant retains exterior socket")
+			var lamp:=socket.get_node("MountedLuminaire") as Node3D
+			assert_eq(lamp.transform,Transform3D.IDENTITY,asset+" sconce uses the native wall frame")
+		assert_eq(exterior,int(expected_counts[asset]))
+		assert_eq(ArchitectureLights.install(prop,"maps","faceoff",suffix),0,"Repeated installation cannot duplicate lamps")
 
 func test_pole_lamps_are_emissive_only():
 	var prop := Assets.model("environments","pole_light")

@@ -1,12 +1,12 @@
 {
   "name": "faceoff_architecture_bastion",
-  "triangles": 8692,
-  "triangle_budget": 10309,
+  "triangles": 7278,
+  "triangle_budget": 10326,
   "meshes": {
     "SK_BastionShell": 346,
-    "SK_BastionFrameFront": 1868,
-    "SK_BastionFrameRear": 1518,
-    "SK_BastionServices": 3885,
+    "SK_BastionFrameFront": 1860,
+    "SK_BastionFrameRear": 1543,
+    "SK_BastionServices": 2454,
     "SK_BastionMechanisms": 883,
     "SK_ArchitectureRegolith": 192
   },
@@ -167,8 +167,8 @@
       "name": "BattenLightMountGroundFrontLeft",
       "bone": "Root",
       "origin": [
-        -4.0,
-        -3.0,
+        -3.200000047683716,
+        -2.4000000953674316,
         3.255319118499756
       ],
       "mount_normal": [
@@ -177,18 +177,19 @@
         -1.0
       ],
       "attachment": "batten_light",
+      "surface": "interior",
       "matrix_world": [
         [
           1.0,
           0.0,
           -0.0,
-          -4.0
+          -3.200000047683716
         ],
         [
           -0.0,
           1.0,
           -0.0,
-          -3.0
+          -2.4000000953674316
         ],
         [
           0.0,
@@ -208,8 +209,8 @@
       "name": "BattenLightMountGroundFrontRight",
       "bone": "Root",
       "origin": [
-        4.0,
-        -3.0,
+        3.200000047683716,
+        -2.4000000953674316,
         3.255319118499756
       ],
       "mount_normal": [
@@ -218,18 +219,19 @@
         -1.0
       ],
       "attachment": "batten_light",
+      "surface": "interior",
       "matrix_world": [
         [
           1.0,
           0.0,
           -0.0,
-          4.0
+          3.200000047683716
         ],
         [
           -0.0,
           1.0,
           -0.0,
-          -3.0
+          -2.4000000953674316
         ],
         [
           0.0,
@@ -249,8 +251,8 @@
       "name": "BattenLightMountGroundRearLeft",
       "bone": "Root",
       "origin": [
-        -4.0,
-        3.0,
+        -3.200000047683716,
+        2.4000000953674316,
         3.255319118499756
       ],
       "mount_normal": [
@@ -259,18 +261,19 @@
         -1.0
       ],
       "attachment": "batten_light",
+      "surface": "interior",
       "matrix_world": [
         [
           1.0,
           0.0,
           -0.0,
-          -4.0
+          -3.200000047683716
         ],
         [
           -0.0,
           1.0,
           -0.0,
-          3.0
+          2.4000000953674316
         ],
         [
           0.0,
@@ -290,8 +293,8 @@
       "name": "BattenLightMountGroundRearRight",
       "bone": "Root",
       "origin": [
-        4.0,
-        3.0,
+        3.200000047683716,
+        2.4000000953674316,
         3.255319118499756
       ],
       "mount_normal": [
@@ -300,18 +303,19 @@
         -1.0
       ],
       "attachment": "batten_light",
+      "surface": "interior",
       "matrix_world": [
         [
           1.0,
           0.0,
           -0.0,
-          4.0
+          3.200000047683716
         ],
         [
           -0.0,
           1.0,
           -0.0,
-          3.0
+          2.4000000953674316
         ],
         [
           0.0,
@@ -331,8 +335,8 @@
       "name": "BattenLightMountUpperFrontLeft",
       "bone": "Root",
       "origin": [
-        -4.0,
-        -3.0,
+        -3.200000047683716,
+        -2.4000000953674316,
         6.143617153167725
       ],
       "mount_normal": [
@@ -341,18 +345,19 @@
         -1.0
       ],
       "attachment": "batten_light",
+      "surface": "interior",
       "matrix_world": [
         [
           1.0,
           0.0,
           -1.3500247142417265e-08,
-          -4.0
+          -3.200000047683716
         ],
         [
           -0.0,
           1.0,
           -0.0,
-          -3.0
+          -2.4000000953674316
         ],
         [
           1.3500247142417265e-08,
@@ -372,8 +377,8 @@
       "name": "BattenLightMountUpperFrontRight",
       "bone": "Root",
       "origin": [
-        4.0,
-        -3.0,
+        3.200000047683716,
+        -2.4000000953674316,
         6.143617153167725
       ],
       "mount_normal": [
@@ -382,18 +387,19 @@
         -1.0
       ],
       "attachment": "batten_light",
+      "surface": "interior",
       "matrix_world": [
         [
           1.0,
           0.0,
           -1.3500247142417265e-08,
-          4.0
+          3.200000047683716
         ],
         [
           -0.0,
           1.0,
           -0.0,
-          -3.0
+          -2.4000000953674316
         ],
         [
           1.3500247142417265e-08,
@@ -413,8 +419,8 @@
       "name": "BattenLightMountUpperRearLeft",
       "bone": "Root",
       "origin": [
-        -4.0,
-        3.0,
+        -3.200000047683716,
+        2.4000000953674316,
         6.143617153167725
       ],
       "mount_normal": [
@@ -423,18 +429,19 @@
         -1.0
       ],
       "attachment": "batten_light",
+      "surface": "interior",
       "matrix_world": [
         [
           1.0,
           0.0,
           -1.3500247142417265e-08,
-          -4.0
+          -3.200000047683716
         ],
         [
           -0.0,
           1.0,
           -0.0,
-          3.0
+          2.4000000953674316
         ],
         [
           1.3500247142417265e-08,
@@ -454,8 +461,8 @@
       "name": "BattenLightMountUpperRearRight",
       "bone": "Root",
       "origin": [
-        4.0,
-        3.0,
+        3.200000047683716,
+        2.4000000953674316,
         6.143617153167725
       ],
       "mount_normal": [
@@ -464,18 +471,19 @@
         -1.0
       ],
       "attachment": "batten_light",
+      "surface": "interior",
       "matrix_world": [
         [
           1.0,
           0.0,
           -1.3500247142417265e-08,
-          4.0
+          3.200000047683716
         ],
         [
           -0.0,
           1.0,
           -0.0,
-          3.0
+          2.4000000953674316
         ],
         [
           1.3500247142417265e-08,
@@ -505,6 +513,7 @@
         0.0
       ],
       "attachment": "sconce_light",
+      "surface": "interior",
       "matrix_world": [
         [
           0.0,
@@ -546,6 +555,7 @@
         0.0
       ],
       "attachment": "sconce_light",
+      "surface": "interior",
       "matrix_world": [
         [
           0.0,
@@ -587,6 +597,7 @@
         0.0
       ],
       "attachment": "sconce_light",
+      "surface": "interior",
       "matrix_world": [
         [
           0.0,
@@ -628,6 +639,7 @@
         0.0
       ],
       "attachment": "sconce_light",
+      "surface": "interior",
       "matrix_world": [
         [
           0.0,
@@ -646,6 +658,342 @@
           -0.0,
           1.0,
           5.265957355499268
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "SconceLightMountExteriorFrontA",
+      "bone": "Root",
+      "origin": [
+        -3.5,
+        -6.900000095367432,
+        1.4122340679168701
+      ],
+      "mount_normal": [
+        0.0,
+        -1.0,
+        1.9848727106364095e-07
+      ],
+      "attachment": "sconce_light",
+      "surface": "exterior",
+      "matrix_world": [
+        [
+          1.0,
+          -0.0,
+          0.0,
+          -3.5
+        ],
+        [
+          0.0,
+          1.0,
+          1.9848727106364095e-07,
+          -6.900000095367432
+        ],
+        [
+          -0.0,
+          -1.9848727106364095e-07,
+          1.0,
+          1.4122340679168701
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "SconceLightMountExteriorFrontB",
+      "bone": "Root",
+      "origin": [
+        3.5,
+        -6.900000095367432,
+        1.4122340679168701
+      ],
+      "mount_normal": [
+        0.0,
+        -1.0,
+        1.8608182017487707e-07
+      ],
+      "attachment": "sconce_light",
+      "surface": "exterior",
+      "matrix_world": [
+        [
+          1.0,
+          -0.0,
+          0.0,
+          3.5
+        ],
+        [
+          0.0,
+          1.0,
+          1.8608182017487707e-07,
+          -6.900000095367432
+        ],
+        [
+          -0.0,
+          -1.8608182017487707e-07,
+          1.0,
+          1.4122340679168701
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "SconceLightMountExteriorRearA",
+      "bone": "Root",
+      "origin": [
+        -3.5,
+        6.900000095367432,
+        1.4122340679168701
+      ],
+      "mount_normal": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "attachment": "sconce_light",
+      "surface": "exterior",
+      "matrix_world": [
+        [
+          -1.0,
+          -0.0,
+          0.0,
+          -3.5
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0,
+          6.900000095367432
+        ],
+        [
+          0.0,
+          -0.0,
+          1.0,
+          1.4122340679168701
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "SconceLightMountExteriorRearB",
+      "bone": "Root",
+      "origin": [
+        3.5,
+        6.90000057220459,
+        1.4122340679168701
+      ],
+      "mount_normal": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "attachment": "sconce_light",
+      "surface": "exterior",
+      "matrix_world": [
+        [
+          -1.0,
+          -0.0,
+          0.0,
+          3.5
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0,
+          6.90000057220459
+        ],
+        [
+          0.0,
+          -0.0,
+          1.0,
+          1.4122340679168701
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "SconceLightMountExteriorLeftA",
+      "bone": "Root",
+      "origin": [
+        6.90000057220459,
+        -3.5,
+        1.4122340679168701
+      ],
+      "mount_normal": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "attachment": "sconce_light",
+      "surface": "exterior",
+      "matrix_world": [
+        [
+          0.0,
+          -1.0,
+          0.0,
+          6.90000057220459
+        ],
+        [
+          1.0,
+          -0.0,
+          0.0,
+          -3.5
+        ],
+        [
+          0.0,
+          -0.0,
+          1.0,
+          1.4122340679168701
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "SconceLightMountExteriorLeftB",
+      "bone": "Root",
+      "origin": [
+        6.900000095367432,
+        3.5,
+        1.4122340679168701
+      ],
+      "mount_normal": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "attachment": "sconce_light",
+      "surface": "exterior",
+      "matrix_world": [
+        [
+          0.0,
+          -1.0,
+          0.0,
+          6.900000095367432
+        ],
+        [
+          1.0,
+          -0.0,
+          0.0,
+          3.5
+        ],
+        [
+          0.0,
+          -0.0,
+          1.0,
+          1.4122340679168701
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "SconceLightMountExteriorRightA",
+      "bone": "Root",
+      "origin": [
+        -6.900000095367432,
+        -3.5,
+        1.4122340679168701
+      ],
+      "mount_normal": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "attachment": "sconce_light",
+      "surface": "exterior",
+      "matrix_world": [
+        [
+          0.0,
+          1.0,
+          0.0,
+          -6.900000095367432
+        ],
+        [
+          -1.0,
+          -0.0,
+          0.0,
+          -3.5
+        ],
+        [
+          0.0,
+          -0.0,
+          1.0,
+          1.4122340679168701
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "SconceLightMountExteriorRightB",
+      "bone": "Root",
+      "origin": [
+        -6.90000057220459,
+        3.5,
+        1.4122340679168701
+      ],
+      "mount_normal": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "attachment": "sconce_light",
+      "surface": "exterior",
+      "matrix_world": [
+        [
+          0.0,
+          1.0,
+          0.0,
+          -6.90000057220459
+        ],
+        [
+          -1.0,
+          -0.0,
+          0.0,
+          3.5
+        ],
+        [
+          0.0,
+          -0.0,
+          1.0,
+          1.4122340679168701
         ],
         [
           0.0,
@@ -739,7 +1087,7 @@
     "role": "occupancy area; not a solid blocker"
   },
   "checks": {
-    "exact_solid_pairs": 402,
+    "exact_solid_pairs": 380,
     "connectivity": true,
     "motion_states": 388,
     "coplanar": true,
@@ -795,9 +1143,10 @@
     "M_Regolith_Diffuse": "Diffuse",
     "M_RegolithDark_Diffuse": "Diffuse",
     "M_RegolithLight_Diffuse": "Diffuse",
-    "M_Secondary_Diffuse": "Diffuse"
+    "M_Secondary_Diffuse": "Diffuse",
+    "M_PlanetaryFaceoff_Diffuse": "Diffuse"
   },
-  "map_owned_boolean_triangles": 309,
+  "map_owned_boolean_triangles": 326,
   "native_triangle_budget": 10000,
   "source_asset": "bastion",
   "source_category": "architecture",
