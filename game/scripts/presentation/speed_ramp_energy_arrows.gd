@@ -19,7 +19,7 @@ func set_reduced_motion(reduced: bool) -> void:
 
 func _ready() -> void:
 	if DisplayServer.get_name()=="headless":return
-	var plane:=PlaneMesh.new();plane.size=Vector2(0.84,0.30)
+	var mesh:=TraversalEnergyMesh.chevron()
 	for index in 4:
 		var material:=ShaderMaterial.new()
 		material.shader=preload("res://shaders/speed_ramp_energy_arrows.gdshader")
@@ -27,6 +27,6 @@ func _ready() -> void:
 		material.set_shader_parameter("motion_speed",0.0 if reduced_motion else 1.0)
 		materials.append(material)
 		var arrow:=MeshInstance3D.new()
-		arrow.name="DirectionalChevron%d"%(index+1);arrow.mesh=plane;arrow.material_override=material
+		arrow.name="DirectionalChevron%d"%(index+1);arrow.mesh=mesh;arrow.material_override=material
 		arrow.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 		arrow.extra_cull_margin=2.0;add_child(arrow)

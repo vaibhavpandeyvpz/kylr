@@ -13,11 +13,7 @@ void vertex() {
 }
 
 void fragment() {
-	// The apex points along local +Z, toward the ramp's launch lip.
-	float chevron = 0.82 - abs(UV.x - 0.5) * 1.35;
-	float band = 1.0 - smoothstep(0.14, 0.20, abs(UV.y - chevron));
-	float border = smoothstep(0.0,0.07,UV.x) * smoothstep(0.0,0.07,1.0-UV.x);
 	ALBEDO = tint.rgb;
 	EMISSION = tint.rgb * 1.4;
-	ALPHA = band * border * tint.a * smoothstep(0.0,0.12,phase) * (1.0-smoothstep(0.75,1.0,phase));
+	ALPHA = tint.a * smoothstep(0.0,0.12,phase) * (1.0-smoothstep(0.75,1.0,phase));
 }
