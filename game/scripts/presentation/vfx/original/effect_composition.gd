@@ -82,27 +82,26 @@ func add_mesh(id: String, mesh_id: String, shader: Shader, role: String) -> Mesh
 
 func build_combustion_impact() -> void:
 	duration = 1.45 if kind == "rocket" else 0.9 if kind == "grenade" else 0.8
-	var atlas: Texture2D = preload("res://assets/models/effects/combat_effects/rocket_explosion_atlas.png")
-	if kind == "grenade": atlas = preload("res://assets/models/effects/combat_effects/grenade_combustion_atlas.png")
+	if kind == "rocket":
+		build_rocket_3d()
+		add_sparks()
+		add_fragments()
+		return
+	if kind == "grenade":
+		build_grenade_3d()
+		add_sparks()
+		add_fragments()
+		return
+	var atlas: Texture2D
 	if kind == "fire_hit": atlas = preload("res://assets/models/effects/combat_effects/fire_contact_atlas.png")
 	var volume := add_mesh("CoolingGas","AxialCard",preload("res://shaders/original/gas_volume.gdshader"),"gas_volume")
 	volume.material_override.set_shader_parameter("volume_atlas",atlas)
-	volume.material_override.set_shader_parameter("event_profile",3 if kind == "grenade" else 2 if kind == "fire_hit" else 0)
+	volume.material_override.set_shader_parameter("event_profile",2)
 	volume.material_override.set_shader_parameter("surface_aligned",kind == "fire_hit")
-	volume.material_override.set_shader_parameter("anchor_offset_y",0.3 if kind == "fire_hit" else 0.12 if kind == "grenade" else 0.0)
+	volume.material_override.set_shader_parameter("anchor_offset_y",0.3)
 	# Covers camera-facing rotation and the fuel flare's shifted surface anchor.
 	volume.custom_aabb = AABB(Vector3.ONE*-1.0,Vector3.ONE*2.0)
-	if kind == "rocket":
-		var jet := add_mesh("BlastJet","FlameEnvelope",THERMAL,"blast_jet")
-		jet.material_override.set_shader_parameter("turbulence_texture",NOISE)
-		jet.material_override.set_shader_parameter("axial",true)
-		jet.material_override.set_shader_parameter("plume_shape",1)
-		jet.material_override.set_shader_parameter("beam_length",1.4)
-		jet.material_override.set_shader_parameter("end_radius",0.45)
-		jet.material_override.set_shader_parameter("effect_emission",0.45)
-		jet.custom_aabb = AABB(Vector3(-0.5,0,-0.5),Vector3(1,1.5,1))
-		add_mesh("BurstStreaks","BurstRays",preload("res://shaders/original/pressure_ring.gdshader"),"rays")
-	elif kind == "fire_hit":
+	if kind == "fire_hit":
 		for index in 2:
 			var lick := add_mesh("FuelTongue"+str(index),"FlameEnvelope" if index == 0 else "VortexSheets",THERMAL,"fuel_lick")
 			lick.material_override.set_shader_parameter("turbulence_texture",NOISE)
@@ -116,7 +115,37 @@ func build_combustion_impact() -> void:
 			lick.rotation.z = -0.25 if index == 0 else 0.3
 			lick.custom_aabb = AABB(Vector3(-0.25,0,-0.25),Vector3(0.5,0.7,0.5))
 	add_sparks()
-	if kind == "grenade": add_fragments()
+
+func build_rocket_3d() -> void:
+	var cloud_shader := preload("res://shaders/original/combustion_cloud_3d.gdshader")
+	var offsets := [Vector3(-0.45,0.2,0.25),Vector3(0.4,0.35,-0.15),Vector3(0,0.8,0)]
+	for index in offsets.size():
+		add_gas_lobe("BurningLobe"+str(index),cloud_shader,0,offsets[index],[2.1,1.9,2.0][index],index*1.71,index)
+	var soot := [Vector3(-0.7,0.45,-0.15),Vector3(0.65,0.6,0.15),Vector3(0.05,1.0,-0.55),Vector3(0.15,0.3,0.65),Vector3(-0.25,0.25,-0.7)]
+	for index in soot.size():
+		add_gas_lobe("SootLobe"+str(index),cloud_shader,1,soot[index],[1.9,1.7,1.8,1.65,1.6][index],4.3+index*1.39,index)
+	add_gas_lobe("IgnitionCore",cloud_shader,2,Vector3(0,0.25,0),0.8,0,0)
+	var wave := add_mesh("PressureWave","ThermalShell",preload("res://shaders/original/rocket_wave_3d.gdshader"),"rocket_wave")
+	wave.custom_aabb = AABB(Vector3.ONE*-0.6,Vector3.ONE*1.2)
+
+func build_grenade_3d() -> void:
+	var cloud_shader := preload("res://shaders/original/combustion_cloud_3d.gdshader")
+	var offsets := [Vector3(-0.65,0.12,0.2),Vector3(0.55,0.17,-0.25),Vector3(0.1,0.3,0.55),Vector3(-0.15,0.35,-0.55),Vector3(0,0.55,0)]
+	for index in offsets.size():
+		add_gas_lobe("DustLobe"+str(index),cloud_shader,3,offsets[index],[2.1,2.0,1.85,1.8,1.4][index],8.3+index*1.63,index,Vector3(1,0.65,1))
+	add_gas_lobe("IgnitionCore",cloud_shader,2,Vector3(0,0.05,0),0.55,0,0)
+
+func add_gas_lobe(id: String, shader: Shader, layer: int, offset: Vector3, size: float, phase: float, rank: int, stretch := Vector3.ONE) -> void:
+	var node := add_mesh(id,"ThermalShell",shader,"spatial_gas")
+	node.material_override.set_shader_parameter("turbulence",NOISE)
+	node.material_override.set_shader_parameter("density_volume",preload("res://assets/effects/original/rocket_density.tres"))
+	node.material_override.set_shader_parameter("albedo_height",preload("res://assets/models/effects/combat_effects/rocket_cloud_albedo_height.png"))
+	node.material_override.set_shader_parameter("normal_roughness",preload("res://assets/models/effects/combat_effects/rocket_cloud_normal_roughness.png"))
+	node.material_override.set_shader_parameter("layer",layer)
+	node.material_override.set_shader_parameter("phase",phase)
+	node.rotation = Vector3(phase*0.17,phase*0.31,phase*0.23)
+	node.custom_aabb = AABB(Vector3.ONE*-0.85,Vector3.ONE*1.7)
+	surfaces[-1].merge({"offset":offset,"size":size,"layer":layer,"rank":rank,"stretch":stretch})
 
 func build_energy_impact() -> void:
 	duration = 0.65 if kind == "emp" else 0.45
@@ -176,10 +205,15 @@ func add_sparks() -> void:
 	emitter.process_material = process
 	emitter.draw_pass_1 = EffectMeshes.mesh("AxialCard")
 	var material := ShaderMaterial.new()
-	material.shader = SPRITE
-	material.set_shader_parameter("billboard",false)
-	material.set_shader_parameter("card_width",0.08)
-	material.set_shader_parameter("primary_color",primary_color)
+	material.shader = preload("res://shaders/original/casing_fragment.gdshader") if kind in ["rocket","grenade"] else SPRITE
+	if kind in ["rocket","grenade"]:
+		emitter.draw_pass_1 = EffectMeshes.mesh("FragmentChip")
+		process.scale_min = 0.035
+		process.scale_max = 0.11
+	else:
+		material.set_shader_parameter("billboard",false)
+		material.set_shader_parameter("card_width",0.08)
+		material.set_shader_parameter("primary_color",primary_color)
 	emitter.material_override = material
 	add_child(emitter)
 	emitters.append(emitter)
@@ -266,6 +300,9 @@ func play() -> float:
 	age = 0.0
 	playing = true
 	show()
+	for surface in surfaces:
+		if surface.role == "spatial_gas":
+			surface.material.set_shader_parameter("impact_origin",global_position+global_basis.y*0.12)
 	for emitter in emitters:
 		emitter.amount_ratio = budget_ratio
 		emitter.restart()
@@ -313,6 +350,10 @@ func apply_emitter_budget() -> void:
 	for emitter in emitters:
 		# Keep the damaging jet continuous; scale only its decorative cooling gas.
 		emitter.amount_ratio = maxf(0.75,budget_ratio) if emitter.name == "ProjectedFlame" else budget_ratio
+	for surface in surfaces:
+		if surface.role == "spatial_gas":
+			surface.node.visible = int(surface.rank)<(2 if budget_ratio<=0.25 else 3 if budget_ratio<=0.5 else 5)
+			surface.material.set_shader_parameter("march_steps",16 if budget_ratio<=0.5 else 24 if budget_ratio<1.0 else 32)
 
 func _process(dt: float) -> void:
 	if duration <= 0.0: return
@@ -323,6 +364,12 @@ func _process(dt: float) -> void:
 		var node: MeshInstance3D = surface.node
 		node.set_instance_shader_parameter("progress",progress)
 		match surface.role:
+			"spatial_gas":
+				var expansion := 0.08+0.92*(1.0-exp(-age*(11.0 if int(surface.layer)==1 else 19.0)))
+				node.scale = surface.stretch*float(surface.size)*expansion
+				node.position = surface.offset*expansion+Vector3.UP*((0.12+progress*0.22) if kind == "grenade" else (0.18+progress*0.28))
+			"rocket_wave":
+				node.scale = Vector3.ONE*(0.15+minf(age,0.4)*16.0)
 			"hot":
 				var growth := (0.6+3.4*(1.0-exp(-age*23.0))) * compact
 				node.scale = Vector3.ONE * growth * (0.92 if node.name.ends_with("1") else 1.0)
@@ -331,10 +378,8 @@ func _process(dt: float) -> void:
 				node.position.y = progress * 0.8
 				node.visible = false
 			"gas_volume":
-				node.scale = Vector3.ONE * (4.8 if kind == "rocket" else 5.2 if kind == "grenade" else 3.6)
-				node.position.y = 0.45+progress*0.4 if kind == "rocket" else 0.25+progress*0.2 if kind == "grenade" else 0.03
-			"blast_jet":
-				surface.material.set_shader_parameter("effect_opacity",0.4*(1.0-smoothstep(0.0,0.18,progress)))
+				node.scale = Vector3.ONE * (5.2 if kind == "grenade" else 3.6)
+				node.position.y = 0.25+progress*0.2 if kind == "grenade" else 0.03
 			"fuel_lick":
 				surface.material.set_shader_parameter("effect_opacity",0.3*(1.0-smoothstep(0.3,1.0,progress)))
 			"ion_flash":
@@ -350,9 +395,6 @@ func _process(dt: float) -> void:
 			"ring":
 				node.scale = Vector3.ONE * (0.2+2.4*(1.0-exp(-age*12.0))) * compact
 				node.set_instance_shader_parameter("progress",minf(1.0,progress*2.5))
-			"rays":
-				node.scale = Vector3.ONE * (0.7+age*10.0) * compact
-				node.set_instance_shader_parameter("progress",minf(1.0,progress*4.0))
 	if progress >= 1.0:
 		playing = false
 		hide()

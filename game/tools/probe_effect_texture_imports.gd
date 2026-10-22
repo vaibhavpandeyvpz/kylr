@@ -10,8 +10,10 @@ func run() -> void:
 		return
 	var folder := "res://assets/models/effects/combat_effects/"
 	var metadata: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(folder+"combat_effects_rig.json"))
+	var cloud: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(folder+"rocket_cloud_rig.json"))
+	metadata.texture_samples.merge(cloud.texture_samples)
 	var passed := true
-	for name in ["turbulence_rgba.png","gas_atlas.png","smoke_atlas.png","fireball_atlas.png","rocket_explosion_atlas.png","flak_dust_atlas.png","grenade_combustion_atlas.png","fire_contact_atlas.png"]:
+	for name in ["turbulence_rgba.png","gas_atlas.png","smoke_atlas.png","fireball_atlas.png","rocket_cloud_albedo_height.png","rocket_cloud_normal_roughness.png","flak_dust_atlas.png","fire_contact_atlas.png"]:
 		var texture := load(folder+name) as Texture2D
 		var image := texture.get_image()
 		if image == null or not image.has_mipmaps():
