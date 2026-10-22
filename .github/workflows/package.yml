@@ -44,9 +44,14 @@ jobs:
           bin-path: .local/godot/bin
       - name: Select official Godot
         run: |
-          "GODOT=$((Get-Command godot -CommandType Application -ErrorAction Stop).Source)" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
-          & godot --version
-          if ($LASTEXITCODE -ne 0) { throw 'Godot setup failed.' }
+          $executables = @(Get-ChildItem -LiteralPath .local/godot/runtime -Filter '*_console.exe' -File -Recurse)
+          if ($executables.Count -ne 1) { throw 'Expected one installed Godot console executable.' }
+          $godot = $executables[0].FullName
+          $version = (& $godot --version | Out-String).Trim()
+          if ($LASTEXITCODE -ne 0 -or $version -notmatch '^4\.7\.2\.') { throw "Godot setup failed: $version" }
+          "GODOT=$godot" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
+          Write-Output "Godot executable: $godot"
+          Write-Output "Godot version: $version"
       - name: Restore licensed game assets
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}

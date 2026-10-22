@@ -61,7 +61,9 @@ guard and HTTP response validation when updating that addon.
 restore LFS and licensed assets, set up official Godot 4.7.2 and export templates
 with `chickensoft-games/setup-godot@v2`, then verify, export and inspect the game.
 The action uses `use-dotnet: false`, `include-templates: true` and its download
-cache. A cold run downloads the release archives and imports game assets.
+cache. Windows steps select the installed console executable and capture version
+output before checking its exit code. A cold run downloads the release archives
+and imports game assets.
 
 Configure bucket-scoped R2 credentials, endpoint/object variables and
 `PRIVATE_GAME_ASSETS_SHA256` as described in [asset setup](ASSET_SETUP.md). The
