@@ -11,7 +11,7 @@ Capture the Flag, five-life Elimination, and Gun Game on Skyfall and Faceoff.
 Online Multiplayer uses authenticated accounts and authoritative dedicated
 servers for the same match types.
 
-**100% prompt / vibe coded.** Development started with **Claude**, then moved to
+Development started with **Claude**, then moved to
 **ChatGPT / Codex** to bring image generation into the asset creation workflow.
 Game code, scripted Blender models, effects and tools are developed through that
 prompt-driven process.[^ai-tools]
