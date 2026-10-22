@@ -2,7 +2,6 @@ class_name RenderedCombatProfile
 extends Node
 const MapOcclusion = preload("res://scripts/debug/map_occlusion_diagnostic.gd")
 const AlphaPassIsolation = preload("res://scripts/debug/alpha_pass_isolation.gd")
-const ReconstructionObserver = preload("res://scripts/debug/reconstruction_observer.gd")
 ## Real-time frame percentiles, with live match/UI, isolated preferences and seed.
 var root: Window:
 	get: return get_tree().root
@@ -20,7 +19,6 @@ var measure_started_usec := 0
 var occlusion_query_start: Dictionary = {}
 var options := {}
 var alpha_isolation: RefCounted
-var reconstruction_observer: CompositorEffect
 var separate_render_thread := false
 var rendering_preparation: Dictionary = {}
 var preparation_audio_was_muted := false
@@ -167,8 +165,8 @@ func _ready() -> void:
 			return
 	if options.has("diagnostic-raster-scale") or options.has("diagnostic-raster-upscaler"):
 		var scale_text := String(options.get("diagnostic-raster-scale","1.0"))
-		if not scale_text.is_valid_float() or not is_finite(float(scale_text)) or float(scale_text)<0.5 or float(scale_text)>1.0 or String(options.get("diagnostic-raster-upscaler","fsr2")) not in ["bilinear","fsr2","dlss"] or int(options.get("quality",3)) not in [0,1,2]:
-			push_error("Raster diagnostic requires a raster preset, scale 0.5..1.0 and bilinear, fsr2 or dlss")
+		if not scale_text.is_valid_float() or not is_finite(float(scale_text)) or float(scale_text)<0.5 or float(scale_text)>1.0 or String(options.get("diagnostic-raster-upscaler","fsr2")) not in ["bilinear","fsr2"] or int(options.get("quality",2)) not in [0,1,2]:
+			push_error("Raster diagnostic requires a raster preset, scale 0.5..1.0 and bilinear or fsr2")
 			get_tree().quit(1)
 			return
 	run.call_deferred()
@@ -219,15 +217,6 @@ func run() -> void:
 	next_simulation_checkpoint=0.0
 	seed(int(options.get("seed",120)))
 	ArenaBrain.decision_phases = clampi(int(options.get("decision-phases",ArenaBrain.decision_phases)),1,16)
-	if options.has("query-shadows"):
-		ProjectSettings.set_setting("rendering/pathtracing/use_simple_shadows",String(options["query-shadows"]) == "1")
-	if options.has("rr-preset"):
-		var rr_preset: String = String(options["rr-preset"]).to_upper()
-		if rr_preset not in ["?","D","E"] or not Engine.has_singleton("Streamline"):
-			push_error("RR preset diagnostic requires Streamline and preset ?, D or E")
-			get_tree().quit(1)
-			return
-		Engine.get_singleton("Streamline").set_parameter(ClassDB.class_get_integer_constant("Streamline","STREAMLINE_PARAM_DLSS_RR_PRESET"),rr_preset)
 	var presentation:=String(options.get("vsync","project"))
 	if presentation not in ["project","off","on"]:
 		push_error("Profiler V-Sync must be project, off or on")
@@ -271,59 +260,26 @@ func run() -> void:
 	app.prefs.values.difficulty = clampi(int(options.get("difficulty",1)),0,3)
 	app.prefs.values.goal = 999
 	app.prefs.values.name = "Profiler"
-	app.prefs.values.quality = clampi(int(options.get("quality",3)),0,3)
+	app.prefs.values.quality = clampi(int(options.get("quality",2)),0,2)
 	var preset: Dictionary = Preferences.QUALITY_PRESETS[app.prefs.values.quality]
 	for key in preset: app.prefs.values[key] = preset[key]
-	if int(app.prefs.values.quality)==3:
-		var backend:=String(options.get("denoiser","dlss"))
-		if backend!="dlss":
-			push_error("Select --denoiser=dlss")
-			await app.request_quit();return
-		app.prefs.values.rt_denoiser=Preferences.DENOISER_DLSS
-		app.prefs.values.rt_upscaling=backend=="dlss"
-		# Raw tracing is an explicit isolation diagnostic, never a release backend.
-		var unavailable:=Preferences.ray_tracing_hardware_unavailable_reason() if String(options.get("diagnostic-raw-rt","0"))=="1" else Preferences.ray_tracing_unavailable_reason(int(app.prefs.values.rt_denoiser))
-		if not unavailable.is_empty():
-			push_error("Benchmark backend unavailable: "+unavailable)
-			await app.request_quit();return
 	if options.has("arena-stress") and String(options.get("preset-lighting","0"))!="1":
 		app.prefs.values.fixture_lighting = true
-	if app.prefs.values.quality == 3:
-		app.prefs.values.antialiasing = 3 # Maximum custom setting: 8x MSAA.
-		app.prefs.values.sprint_blur = 1.0
-		app.prefs.values.speed_lines = true
-		app.prefs.values.reduced_motion = false
 	if options.has("timeline"): record_timeline("before_match")
 	app.set_meta("profile_roster_seed",int(options.get("seed",120)))
 	await app.start_match()
 	game = app.match_node
 	if options.has("diagnostic-raster-scale") or options.has("diagnostic-raster-upscaler"):
 		var upscaler := String(options.get("diagnostic-raster-upscaler","fsr2"))
-		if upscaler=="dlss" and (not Engine.has_singleton("Streamline") or not Engine.get_singleton("Streamline").get_capability(0)):
-			push_error("DLSS Super Resolution is unavailable");await app.request_quit();return
 		root.msaa_3d=Viewport.MSAA_DISABLED
 		root.use_taa=false
 		root.screen_space_aa=Viewport.SCREEN_SPACE_AA_DISABLED
-		root.scaling_3d_mode=Viewport.SCALING_3D_MODE_DLSS if upscaler=="dlss" else Viewport.SCALING_3D_MODE_FSR2 if upscaler=="fsr2" else Viewport.SCALING_3D_MODE_BILINEAR
+		root.scaling_3d_mode=Viewport.SCALING_3D_MODE_FSR2 if upscaler=="fsr2" else Viewport.SCALING_3D_MODE_BILINEAR
 		root.scaling_3d_scale=float(options.get("diagnostic-raster-scale",1.0))
 		print("DIAGNOSTIC_RASTER_RECONSTRUCTION scale=",root.scaling_3d_scale," mode=",root.scaling_3d_mode," not_for_preset_acceptance=true")
-	if options.has("verify-native-rr") or options.has("verify-native-sr"):
-		var worlds := game.find_children("*","WorldEnvironment",true,false)
-		if worlds.size()!=1:
-			push_error("Native RR verification requires one game environment")
-			await app.request_quit();return
-		reconstruction_observer=ReconstructionObserver.new()
-		if options.has("verify-native-sr"):
-			reconstruction_observer.metadata_key=&"dlss_sr_diagnostics"
-			reconstruction_observer.required_feature="SR"
-		var world: WorldEnvironment=worlds[0]
-		if world.compositor==null: world.compositor=Compositor.new()
-		var effects: Array[CompositorEffect]=world.compositor.compositor_effects.duplicate()
-		effects.append(reconstruction_observer)
-		world.compositor.compositor_effects=effects
 	if options.has("arena-stress"):
 		# Match loading precedes the diagnostic-only deck and weapon setup.
-		# Keep preparation covered until those new RT materials are usable too.
+		# Keep preparation covered until those new materials are usable too.
 		app.loading_screen.begin("Preparing benchmark…")
 		await app.loading_screen.paint()
 	var renderer_state := [false]
@@ -347,11 +303,6 @@ func run() -> void:
 	while game.local_robot == null and game.phase == "Waiting":
 		await get_tree().physics_frame
 	# Diagnostic overrides retain the shipping scene and simulation.
-	if options.has("rt-scale"):
-		var scale := clampf(float(options["rt-scale"]),0.25,1.0)
-		root.scaling_3d_scale=scale
-		for environment in app.find_children("*","WorldEnvironment",true,false):
-			environment.get_viewport().scaling_3d_scale=scale
 	if options.has("follow-bot"):
 		if options.has("stress"):
 			push_error("Bot following requires live AI, without --stress")
@@ -387,17 +338,6 @@ func run() -> void:
 	if options.has("arena-stress"):
 		arena_stress = preload("res://scripts/debug/arena_stress.gd").new()
 		if not arena_stress.install(game,float(options.get("seconds",12)),String(options.get("preset-lighting","0"))=="1"): return
-		if String(options.get("diagnostic-raw-rt","0"))=="1":
-			root.scaling_3d_mode=Viewport.SCALING_3D_MODE_BILINEAR
-			root.msaa_3d=Viewport.MSAA_DISABLED
-			root.screen_space_aa=Viewport.SCREEN_SPACE_AA_DISABLED
-			root.use_taa=false
-			for world in game.find_children("*","WorldEnvironment",true,false):
-				world.environment.set("pathtracing_denoiser",0)
-				world.environment.set("pathtracing_samples_per_pixel",1)
-				world.environment.set("pathtracing_max_bounces",3)
-				world.environment.set("pathtracing_enabled",true)
-			print("DIAGNOSTIC_RAW_RT enabled=true not_for_acceptance=true")
 		if options.has("diagnostic-sdfgi"):
 			if String(options["diagnostic-sdfgi"]) not in ["0","1"]:
 				push_error("SDFGI diagnostic expects 0 or 1");await app.request_quit();return
@@ -414,9 +354,9 @@ func run() -> void:
 		if arena_stress.clock<warmup_seconds:
 			push_error("Benchmark camera did not complete its warmup orbit")
 			await app.request_quit();return
-		# Installing the deck, weapons and lights can compile new RT hit groups.
+		# Installing the deck, weapons and lights can compile new shader pipelines.
 		# Never count missing world geometry as a fast rendered sample.
-		rendering_preparation=await app.ResourcePreparation.wait_for_rendering(get_tree(),root,bool(app.prefs.values.ray_tracing) or String(options.get("diagnostic-raw-rt","0"))=="1")
+		rendering_preparation=await app.ResourcePreparation.wait_for_rendering(get_tree(),root)
 		if not rendering_preparation.ready:
 			push_error("Stress rendering was not ready: "+JSON.stringify(rendering_preparation))
 			arena_stress=null
@@ -467,16 +407,6 @@ func run() -> void:
 		return
 	game.map.traversal.planning_cache_enabled = String(options.get("planning-cache","1")) == "1"
 	game.map.traversal.reuse_query_shapes = String(options.get("reuse-nav-shapes","0")) == "1"
-	if options.has("native-clear-rays"):
-		if String(options["native-clear-rays"]) not in ["0","1"]:
-			push_error("Native clear-ray diagnostic expects 0 or 1")
-			await app.request_quit()
-			return
-		game.combat.native_clear_rays = String(options["native-clear-rays"]) == "1"
-	if game.combat.native_clear_rays and not ClassDB.class_has_method("PhysicsDirectSpaceState3D","ray_intersects"):
-		push_error("Native clear-ray diagnostic requires the rebuilt custom engine")
-		await app.request_quit()
-		return
 	if options.has("sample-at-sim"):
 		var sample_time := float(options["sample-at-sim"])
 		if not is_finite(sample_time) or sample_time <= game.elapsed:
@@ -529,16 +459,9 @@ func run() -> void:
 		await app.request_quit()
 		print("PROFILE_ABORT_SHUTDOWN_COMPLETE")
 		return
-	var reconstruction_before := {}
-	if reconstruction_observer:
 		var deadline := Time.get_ticks_usec()+90000000
 		while Time.get_ticks_usec()<deadline:
-			reconstruction_before=reconstruction_observer.stats()
-			if not reconstruction_before.error.is_empty(): break
-			if int(reconstruction_before.adapter.get("frames",0))>=8 and reconstruction_before.adapter.get("evaluation_succeeded",false): break
 			await get_tree().process_frame
-		if not reconstruction_before.error.is_empty() or not reconstruction_before.adapter.get("evaluation_succeeded",false) or int(reconstruction_before.adapter.get("frames",0))<8:
-			push_error("Native RR did not become ready: "+JSON.stringify(reconstruction_before))
 			await app.request_quit();return
 	measure_started_usec = Time.get_ticks_usec()
 	if arena_stress: arena_stress.begin_sample()
@@ -554,7 +477,6 @@ func run() -> void:
 	await wait_wall_seconds(float(options.get("seconds",30)))
 	var measurement_wall_seconds:float=(Time.get_ticks_usec()-measure_started_usec)/1000000.0
 	measuring = false
-	var reconstruction_after: Dictionary = reconstruction_observer.stats() if reconstruction_observer else {}
 	if alpha_isolation: alpha_isolation.finish(Time.get_ticks_usec())
 	if options.has("gpu-profile-markers"): print("PROFILE_SAMPLE_END ",String(options.get("name","baseline")))
 	if options.has("timeline"): record_timeline("measurement_end")
@@ -600,12 +522,10 @@ func run() -> void:
 	result["target_fps"] = target_fps
 	result["measurement_wall_seconds"] = measurement_wall_seconds
 	result["diagnostic_sdfgi_override"] = options.get("diagnostic-sdfgi",null)
-	result["diagnostic_raw_rt"] = String(options.get("diagnostic-raw-rt","0"))=="1"
 	# Preserve each measured interval so isolated stalls can be located instead
 	# of being hidden by an average or a periodically refreshed CPU monitor.
 	result["frame_intervals_ms"] = frames
 	result["decision_phases"] = ArenaBrain.decision_phases
-	result["query_shadows_requested"] = bool(ProjectSettings.get_setting("rendering/pathtracing/use_simple_shadows",false))
 	result["separate_render_thread"] = separate_render_thread
 	result["gpu_timing_sampled"] = not options.has("frame-times-only")
 	if options.has("frame-times-only"):
@@ -613,16 +533,11 @@ func run() -> void:
 		result["render_cpu_ms"] = null
 	result["planning_query_cache_enabled"] = game.map.traversal.planning_cache_enabled
 	result["navigation_query_shape_reuse"] = game.map.traversal.reuse_query_shapes
-	result["native_clear_rays"] = game.combat.native_clear_rays
 	if options.has("simulation-checkpoints"): result["simulation_checkpoints"] = simulation_checkpoints.duplicate(true)
 	result["simulation_sample"] = {"start":sample_start_simulation,"end":game.elapsed,"rng_state_start":sample_start_rng,"robots_start":sample_start_robots,"team_colors":game.team_colors.map(func(color): return color.to_html())}
-	result.quality_settings["ray_tracing_requested"]=app.prefs.values.ray_tracing
-	result["rt_qualification_build"]=OS.has_feature("rt_qualification")
-	result.quality_settings["rt_denoiser_requested"]=app.prefs.values.rt_denoiser
 	result.quality_settings["active_renderer"]=Preferences.active_renderer_label(app)
 	result.quality_settings["scaling_3d_mode"]=int(root.scaling_3d_mode)
 	result.quality_settings["scaling_3d_scale"]=root.scaling_3d_scale
-	result.quality_settings["rr_preset_requested"]=String(options.get("rr-preset","?")).to_upper()
 	result["environments"]=[]
 	result["fixture_light_state"]={"total":0,"illuminating":0,"shadow_casting":0}
 	for light in game.find_children("*","Light3D",true,false):
@@ -634,9 +549,6 @@ func run() -> void:
 		var env: Environment=environment.environment
 		if env==null: continue
 		result.environments.append({"node":String(environment.get_path()),
-			"pathtracing_enabled":env.get("pathtracing_enabled"),"pathtracing_max_bounces":env.get("pathtracing_max_bounces"),
-			"pathtracing_denoiser":env.get("pathtracing_denoiser"),
-			"pathtracing_samples_per_pixel":env.get("pathtracing_samples_per_pixel"),
 			"ambient_light_source":env.ambient_light_source,"sdfgi_enabled":env.sdfgi_enabled,"ssil_enabled":env.ssil_enabled,
 			"reflected_light_source":env.reflected_light_source,"reflection_maps_disabled":env.has_meta("quality_reflection_maps")})
 	if followed_bot:
@@ -646,9 +558,6 @@ func run() -> void:
 	result["over_target_budget_percent"] = target_slow*100.0/frames.size()
 	result["meets_target_every_frame"] = target_slow == 0
 	result["scene_audit"] = scene_audit()
-	if reconstruction_observer:
-		result["native_reconstruction"]={"before":reconstruction_before,"after":reconstruction_after,
-			"evaluation_delta":int(reconstruction_after.adapter.get("frames",0))-int(reconstruction_before.adapter.get("frames",0))}
 	if alpha_isolation: result["alpha_isolation"] = alpha_isolation.report()
 	if options.has("material-audit"): result["material_audit"] = material_audit()
 	if arena_stress:

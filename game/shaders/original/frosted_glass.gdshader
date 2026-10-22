@@ -1,5 +1,5 @@
 // Original thin dielectric approximation for KYLR's authored glass surfaces.
-// Opaque screen transmission is a raster approximation, not recursive RT glass.
+// Screen transmission samples the opaque scene color.
 shader_type spatial;
 render_mode blend_mix, cull_back, depth_draw_never;
 uniform sampler2D opaque_color : hint_screen_texture, filter_linear_mipmap, repeat_disable;

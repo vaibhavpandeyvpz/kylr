@@ -52,16 +52,10 @@ func _ready() -> void:
 	process_priority=100
 	settings = Preferences.new("res://reports/cinematic-unused.cfg")
 	settings.values = Preferences.DEFAULTS.duplicate(true)
-	settings.values.merge(Preferences.QUALITY_PRESETS[3],true)
-	settings.values.quality = 3
-	settings.values.rt_upscaling = false
+	settings.values.merge(Preferences.QUALITY_PRESETS[2],true)
+	settings.values.quality = 2
 	settings.apply_rendering(self)
 	assert(is_equal_approx(get_viewport().scaling_3d_scale,1.0))
-	var reason := Preferences.ray_tracing_unavailable_reason()
-	if not reason.is_empty():
-		push_error(reason)
-		get_tree().quit(1)
-		return
 	var size := Vector2i(1280,720) if options.get("preview","0")=="1" else Vector2i(1920,1080)
 	get_tree().root.size = size
 	get_tree().root.content_scale_size = size
@@ -212,7 +206,7 @@ func plan_encounter(shot: String) -> void:
 	take_clock=0
 
 func run() -> void:
-	var ready: Dictionary=await Preparation.wait_for_rendering(get_tree(),get_viewport(),true)
+	var ready: Dictionary=await Preparation.wait_for_rendering(get_tree(),get_viewport())
 	assert(ready.get("ready",false))
 	loading_hold=false
 	while phase!="Active": await get_tree().physics_frame
@@ -224,7 +218,7 @@ func run() -> void:
 	for shot in shots:
 		plan_encounter(shot)
 		# Settle the fixed view before firing; time remains slowed throughout.
-		await Preparation.wait_for_rendering(get_tree(),get_viewport(),true)
+		await Preparation.wait_for_rendering(get_tree(),get_viewport())
 		taking=true
 		var capture_at := float(options.get("capture-at",2.0 if shot=="aftermath" else .95))
 		if shot=="vista": capture_at=.2
@@ -245,7 +239,7 @@ func run() -> void:
 		DirAccess.make_dir_recursive_absolute(directory)
 		var filename: String=directory+"/"+map_id+"-"+String(shot)+".png"
 		assert(captured.save_png(filename)==OK)
-		var state := {"map":map_id,"shot":shot,"gameplay_driven_shots":true,"time_scale":speed,"capture_time":take_clock,"match_elapsed":elapsed,"actors":actors,"corpses":corpses.size(),"drops":drops.size(),"camera_position":observer.position,"gpu":RenderingServer.get_rendering_device().get_device_name(),"quality":"Ultra","hit_overlay":false,"upscaling":false,"internal_scale":get_viewport().scaling_3d_scale,"rt_ready":ready,"path":filename,"size":[captured.get_width(),captured.get_height()]}
+		var state := {"map":map_id,"shot":shot,"gameplay_driven_shots":true,"time_scale":speed,"capture_time":take_clock,"match_elapsed":elapsed,"actors":actors,"corpses":corpses.size(),"drops":drops.size(),"camera_position":observer.position,"gpu":RenderingServer.get_rendering_device().get_device_name(),"quality":"High","hit_overlay":false,"upscaling":false,"internal_scale":get_viewport().scaling_3d_scale,"rendering_ready":ready,"path":filename,"size":[captured.get_width(),captured.get_height()]}
 		captures.append(state)
 		print("CINEMATIC_CAPTURE ",JSON.stringify(state))
 		get_tree().paused=false

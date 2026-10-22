@@ -9,7 +9,7 @@ if (-not (Test-Path -LiteralPath $secretPath)) {
     Set-Content -LiteralPath $secretPath -Value @("JWT_SECRET=$accessSecret","CONTROL_TOKEN=$controlSecret")
 }
 if ($Build) {
-    & docker build -t kylr-game-server:local -f (Join-Path $projectRoot 'services/deploy/Dockerfile.game') $projectRoot
+    & docker build -t kylr-game-server:local -f (Join-Path $projectRoot 'services/deploy/Dockerfile.edgegap') (Split-Path -Parent $projectRoot)
     if ($LASTEXITCODE -ne 0) { throw 'Game server image build failed.' }
 }
 & docker compose --env-file $secretPath -f (Join-Path $projectRoot 'services/deploy/compose.yaml') up -d --build --wait

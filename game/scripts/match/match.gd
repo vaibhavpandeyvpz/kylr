@@ -134,9 +134,6 @@ func _ready():
 	shuffle_roster(colors,setup_rng)
 	team_colors = [colors[0],colors[1]]
 	combat = ArenaCombat.new(self)
-	# Body-only visibility queries need only a boolean, not a result Dictionary.
-	# Keep the generic combat helper's legacy default for custom/mocked ray users.
-	combat.native_clear_rays = ClassDB.class_has_method("PhysicsDirectSpaceState3D", "ray_intersects")
 	effects = ArenaEffects.new()
 	effects.game = self
 	effects.gravity = gravity

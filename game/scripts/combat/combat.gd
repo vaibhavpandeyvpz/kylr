@@ -5,7 +5,6 @@ var shape_cast: ShapeCast3D
 var shape_exclusions: Array = []
 var beam_shapes: Dictionary = {}
 var projectile_bounds := BoxShape3D.new()
-var native_clear_rays := false
 static var profile_queries := false
 static var query_stats: Dictionary = {}
 
@@ -120,12 +119,6 @@ func ray(from: Vector3, to: Vector3, exclude: Array = [], mask := 5) -> Dictiona
 	return result
 
 func clear(from: Vector3, to: Vector3) -> bool:
-	if native_clear_rays:
-		var started := Time.get_ticks_usec() if profile_queries else 0
-		var space = game.get_world_3d().direct_space_state
-		var hit: bool = space.ray_intersects(from,to,1,true,true)
-		if profile_queries: record_query("ray",started)
-		return not hit
 	return ray(from, to, [], 1).is_empty()
 
 func firing_lane(robot, point: Vector3, secondary: bool, origin := Vector3.INF, flight_direction := Vector3.INF) -> bool:

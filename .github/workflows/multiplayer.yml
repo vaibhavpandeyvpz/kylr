@@ -63,7 +63,7 @@ jobs:
   server:
     needs: api
     runs-on: ubuntu-24.04
-    timeout-minutes: 180
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v7
         with:
@@ -92,7 +92,7 @@ jobs:
           aws s3 cp "$R2_ASSET_URI" "$bundle" --endpoint-url "$R2_ENDPOINT_URL" --only-show-errors --no-progress
           python tools/install_private_assets.py --archive "$bundle"
       - uses: docker/setup-buildx-action@v3
-      - name: Build custom Linux engine and import dedicated server
+      - name: Install official Godot and import dedicated server
         uses: docker/build-push-action@v6
         with:
           context: .
@@ -100,7 +100,6 @@ jobs:
           platforms: linux/amd64
           tags: kylr-server:test
           load: true
-          build-args: BUILD_JOBS=4
           cache-from: type=gha,scope=dedicated-server
           cache-to: type=gha,scope=dedicated-server,mode=max
       - name: Verify imported server script

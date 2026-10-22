@@ -121,19 +121,7 @@ static func match_resources(tree: SceneTree,map_id: String) -> void:
 	await prepare_character_animations(tree,animations)
 	map_jobs[map_id]="ready"
 
-static func wait_for_rendering(tree: SceneTree,viewport: Viewport,rt_requested: bool,timeout_s := 90.0) -> Dictionary:
-	if DisplayServer.get_name()=="headless" or not rt_requested: return {"ready":true,"seconds":0.0}
-	if not ClassDB.class_has_integer_constant("RenderingServer","VIEWPORT_RENDER_INFO_RT_SCENE_READY"):
-		return {"ready":false,"error":"The custom engine needs its rendering-readiness update."}
-	var ready_key := ClassDB.class_get_integer_constant("RenderingServer","VIEWPORT_RENDER_INFO_RT_SCENE_READY")
-	var pending_key := ClassDB.class_get_integer_constant("RenderingServer","VIEWPORT_RENDER_INFO_RT_PENDING_MATERIALS")
-	var started := Time.get_ticks_msec()
-	var stable := 0
-	var pending := 0
-	while Time.get_ticks_msec()-started<timeout_s*1000:
-		await RenderingServer.frame_post_draw
-		var ready := RenderingServer.viewport_get_render_info(viewport.get_viewport_rid(),RenderingServer.VIEWPORT_RENDER_INFO_TYPE_VISIBLE,ready_key)
-		pending=RenderingServer.viewport_get_render_info(viewport.get_viewport_rid(),RenderingServer.VIEWPORT_RENDER_INFO_TYPE_VISIBLE,pending_key)
-		stable=stable+1 if ready>0 and pending==0 else 0
-		if stable>=3: return {"ready":true,"seconds":(Time.get_ticks_msec()-started)/1000.0}
-	return {"ready":false,"seconds":(Time.get_ticks_msec()-started)/1000.0,"pending_materials":pending,"error":"Ray tracing did not finish preparing."}
+static func wait_for_rendering(tree: SceneTree, _viewport: Viewport) -> Dictionary:
+	if DisplayServer.get_name()!="headless": await RenderingServer.frame_post_draw
+	else: await tree.process_frame
+	return {"ready":true,"seconds":0.0}

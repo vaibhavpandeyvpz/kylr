@@ -1,19 +1,18 @@
 # Development contracts
 
-The parent workspace is the only Git root. `library/`, `engine/` and `game/`
+The parent workspace is the only Git root. `library/` and `game/`
 are regular folders on `main`, with one commit and one remote. Do not initialize
 component repositories or introduce submodules. Inspect existing changes before
-editing. Preserve upstream engine/vendor notices and asset licenses.
+editing. Preserve upstream dependency notices and asset licenses.
 
 Keep checked-in documentation, comments, configuration and generated metadata
 free of machine-specific absolute paths. Use repository-relative paths and
 discover executables through PATH or configurable environment variables. Keep
 local executable overrides and diagnostic output outside source control.
 
-Run game commands from `game/` using
-`../engine/bin/godot.windows.editor.x86_64.console.exe`. SDKs, build dependencies
-and diagnostic output stay in ignored `engine/.local/`. Do not use system Godot,
-stock export templates.
+Run game commands from `game/` using official Godot 4.7.2. Resolve the editor
+through `GODOT` or PATH and use matching official export templates. Local
+downloads and diagnostics belong in ignored `.local/`, `build/` or `reports/`.
 
 Asset generators run from `library/` with Blender 5.2 headless:
 `blender` resolved from PATH.
@@ -35,6 +34,3 @@ and Online Multiplayer; match types are DM, TDM, CTF, Elimination and Gun Game.
 A robot is a player character; a bot is an AI-controlled robot. Bot, traversal, map collision,
 objective or movement-performance changes require the roster matrix and profiling
 in [playtesting](PLAYTESTING.md). Headless tests do not establish visual or audible quality.
-
-Keep the engine reusable and project-neutral. Game-specific behavior belongs in
-`game/`; engine tests use generic fixtures. Read [engine guidelines](guidelines/engine.md).

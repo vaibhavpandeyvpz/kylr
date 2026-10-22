@@ -72,7 +72,7 @@ blender --background --factory-startup --python-exit-code 1 --python models/maps
 For blend-control changes alone, run
 `.venv/Scripts/python.exe tools/build_planetary_terrain.py all --materials-only`.
 This path rejects height changes against the runtime manifest and leaves meshes
-and collision untouched. Import and inspect both maps in the custom engine after
+and collision untouched. Import and inspect both maps in the official Godot 4.7.2 after
 changing the controls; refresh map-selection captures to match the runtime material.
 
 Prepare native dependencies and architecture/platform variants as specified by
@@ -88,13 +88,13 @@ for Skyfall, inspect all previews and round-trip validation, then run:
 The bake helper installs the pinned MIT Terrain3D `v1.0.2-stable` SDK into ignored
 `library/.local/terrain3d/`. Its release archive SHA-256 is
 `a071850250ec5e596aa54da61c01d75768774eb379ee997584d426a45f4884a2`.
-`GODOT_EXECUTABLE` or `--godot` may select the workspace's custom engine. Bake
+`GODOT_EXECUTABLE` or `--godot` may select the workspace's official Godot 4.7.2. Bake
 caches stay in `.local/planetary/`; SDKs and generated library exports stay out of
 Git. Runtime textures, control maps, their manifest and prepared game meshes are
 checked in. The Terrain3D MIT notice ships with packaged licenses.
 
-After handoff, run custom-engine import, tests, physical source-height checks,
+After handoff, run official Godot import, tests, physical source-height checks,
 the complete two-map bot roster matrix, repeated CPU profiling and serial
-rendered High/Ultra comparisons under [playtesting](../PLAYTESTING.md). Refresh
+rendered High comparisons under [playtesting](../PLAYTESTING.md). Refresh
 map-selection and cinematic captures from fully populated runtime maps. Headless
 route checks do not qualify rendering performance or appearance.

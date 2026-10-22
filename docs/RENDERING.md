@@ -1,38 +1,33 @@
 # Rendering
 
+The game uses official Godot 4.7.2 with Forward+ raster rendering and Vulkan on
+Windows. Windows CI installs Godot and matching export templates with
+`chickensoft-games/setup-godot@v2`. Local setup and Linux container downloads
+use `tools/prepare_godot.py` with SHA-512 pins from `tools/godot-release.json`.
+`GODOT` or PATH selects the editor; local overrides stay outside source control.
+
 ## Graphics presets
 
-Ultra requests the custom engine's opaque path tracer, DLSS Ray Reconstruction
-and optional half-size internal rendering (960x540 for 1920x1080 output).
-Disabling upscaling retains native-resolution RR. DLSS is the only custom RT
-denoiser. Unsupported hardware/runtime retains raster rendering with a disabled
-RT toggle and an explanation. Frame Generation is not integrated; FPS counts
-rendered frames.
+Low disables shadows, ambient occlusion, bloom and MSAA. Medium enables shadows,
+bloom and 2× MSAA. High enables fixture illumination, shadows, ambient occlusion,
+bloom and 4× MSAA. Low and Medium retain emissive-only fixtures. Custom preserves
+individual settings, including optional 8× MSAA. All presets retain authored
+ambient light, raster GI and reflection maps at native resolution.
 
-High uses native-resolution raster rendering with 4x MSAA. High and Ultra enable
-fixture illumination and shadow casting by default. Authored ambient/raster GI
-preferences remain in every preset; opaque path tracing does not consume raster
-GI buffers. The independent reflection-map policy remains in Preferences.
-Separate rendering is experimental and off by default in every preset.
+Menu portraits use independent raster studios with native resolution and 4×
+MSAA. Sconce and batten area lights and aimed pole/jumbotron spotlights follow
+their native sockets. Separate rendering is experimental and defaults Off;
+changing it requires restart and does not change quality preferences.
 
-The engine component provides a generic Godot fork, not a stock-Godot addon. Engine
-features, fixtures and technical validation belong in `engine/`; game presets,
-assets and integration checks belong here. Preserve stock Godot capabilities.
+Game scripts use standard Godot APIs. Portal navigation
+uses scripted costs and an admissible portal heuristic on `AStar3D`; visibility
+queries use `PhysicsDirectSpaceState3D.intersect_ray`. Audio routes are fixed at
+startup as defined in [audio](AUDIO.md).
 
-## Integration contract
+## Verification
 
-- Use the consuming project's persistent Streamline identity. Do not borrow
-  another application's numeric ID. Verify the identity in the packaged runtime.
-- Feed color, depth, motion, reflectance, normal/roughness, specular hit distance
-  and pre-transparency color at the primary reconstruction pass. Keep graph/native
-  callback dependencies and resource lifetimes valid through evaluation.
-- Match jitter, motion scaling, transforms, exposure and depth convention to the
-  tagged resources. Tag hardware depth as
-  `kBufferTypeDepth` with reversed-depth constants.
-- Reset history at scene/view discontinuities and readiness changes. Verify mip
-  bias/primary texture gradients, moving geometry, transparent effects, skinned
-  surfaces and first-frame activation rather than relying on static screenshots.
-- Drain viewport work before IDs are reused; release SDK resources before Vulkan
-  teardown. Check repeated matches, resizing, fullscreen changes and clean exit.
-- Package only pinned production runtime DLLs with signatures, hashes and
-  redistribution notices. Match custom engine export templates to the editor.
+Run import, GUT, match smoke checks and exported package inspection using the
+same official release. Check menu and match appearance, moving fixtures, effects,
+scene transitions and clean exit graphically. Headless checks do not establish
+visual quality, audio quality or frame rates. [Playtesting](PLAYTESTING.md) owns
+roster and performance qualification.

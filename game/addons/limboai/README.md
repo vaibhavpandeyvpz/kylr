@@ -93,7 +93,7 @@ Behavior Trees are powerful hierarchical structures used to model and control th
 
 - **Tested:** Behavior tree tasks and HSM are covered by unit tests.
 
-- **GDExtension:** LimboAI can be [used as extension](https://limboai.readthedocs.io/en/stable/getting-started/getting-limboai.html#get-gdextension-version). Custom engine builds are not necessary.
+- **GDExtension:** LimboAI can be [used as extension](https://limboai.readthedocs.io/en/stable/getting-started/getting-limboai.html#get-gdextension-version). Standard Godot binaries are supported.
 
 - **Demo + Tutorial:** Check out our extensive demo project, which includes an introduction to behavior trees using examples.
 

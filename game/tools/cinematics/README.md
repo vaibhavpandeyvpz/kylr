@@ -27,10 +27,10 @@ Five capture plans are available per map:
 | Skyfall aftermath | Upper platform; minigun, pistol and grenade launcher |
 | Skyfall launch | Lower-deck jump pad; flamethrower, bio rifle and pistol |
 
-Run from `game/` using the custom engine and NVIDIA GPU:
+Run from `game/` using official Godot 4.7.2 and a Forward+ GPU:
 
 ```powershell
-$Godot = '../engine/bin/godot.windows.editor.x86_64.console.exe'
+$Godot = '../godot_console'
 & $Godot --path . --render-thread safe --gpu-index 0 tools/cinematics/faceoff_combat.tscn
 & $Godot --path . --render-thread safe --gpu-index 0 tools/cinematic_showcase.tscn -- --map=skyfall
 ```
@@ -41,7 +41,7 @@ begins firing at 0.6 simulated seconds, and pauses for readback at the chosen
 instant. The capture time includes the pre-fire interval. Camera, actors and
 map placements stay under explicit authoring control; shot outcomes use gameplay.
 
-Captures use native 1920×1080 Ultra, DLSS Ray Reconstruction, **upscaling off**,
+Captures use native 1920×1080 High, raster rendering, **upscaling off**,
 fixture illumination and shadows, and no HUD. The controller asserts native
 viewport scaling and waits for renderer readiness before releasing the match
 countdown. Camera exposure ranges from 1.15× to 1.6×. Audio is muted; player

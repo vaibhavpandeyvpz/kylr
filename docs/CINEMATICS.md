@@ -1,8 +1,8 @@
 # In-game cinematics
 
-Ten encounters captured directly through the custom engine at native 1920×1080
-in Ultra, with DLSS Ray Reconstruction, **upscaling disabled**, fixture lighting
-and shadows. Both arenas retain their authored geometry and prop placements.
+Ten staged encounters show both arenas with their authored geometry and prop
+placements. The capture controller uses High raster rendering at native
+1920×1080, with fixture lighting and shadows.
 
 Characters, loadouts and fixed cameras are staged. Shots run at 10% simulation
 speed through the normal weapon, collision, damage and animation systems, then

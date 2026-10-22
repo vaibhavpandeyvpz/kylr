@@ -115,11 +115,11 @@ func test_ground_and_air_steering_have_distinct_response():
 	assert_lt(stopping.x, 4.5)
 	assert_eq(stopping.y, 2.0)
 
-func test_walk_binding_migrates_saved_modifier_and_honors_new_binding():
+func test_walk_and_sprint_bindings_are_independent():
 	var config := ConfigFile.new()
-	assert_eq(Preferences.read_bindings(config).walk, KEY_SHIFT)
-	config.set_value("bindings", "sprint", KEY_CTRL)
-	assert_eq(Preferences.read_bindings(config).walk, KEY_CTRL)
-	assert_eq(Preferences.read_bindings(config).sprint, KEY_ALT)
+	assert_eq(Preferences.read_bindings(config).walk,KEY_SHIFT)
+	config.set_value("bindings","sprint",KEY_CTRL)
+	assert_eq(Preferences.read_bindings(config).walk,KEY_SHIFT)
+	assert_eq(Preferences.read_bindings(config).sprint,KEY_CTRL)
 	config.set_value("bindings", "walk", KEY_ALT)
 	assert_eq(Preferences.read_bindings(config).walk, KEY_ALT)

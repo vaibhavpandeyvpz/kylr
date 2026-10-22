@@ -45,9 +45,6 @@ window/stretch/aspect="expand"
 
 [rendering]
 
-streamline/project_id="95e2c838-4ac8-49cc-9532-755d2f2d15a1"
-streamline/dlss_preset="K"
-streamline/dlss_ray_reconstruction_preset="E"
 driver/threads/thread_model=1
 rendering_device/driver.windows="vulkan"
 anti_aliasing/quality/msaa_3d=2

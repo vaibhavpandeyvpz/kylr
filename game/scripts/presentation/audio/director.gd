@@ -87,7 +87,7 @@ func acquire(local: bool,id: String,limit: int,importance: float,ambience := fal
 	elif candidates.size()<(SPEECH_LIMIT if speech else LOCAL_LIMIT if local else AMBIENCE_LIMIT if ambience else WORLD_LIMIT):
 		var voice := ArenaVoice.new()
 		add_child(voice)
-		voice.configure(voices.size(),local,ambience,speech)
+		voice.configure(candidates.size(),local,ambience,speech)
 		voices.append(voice)
 		return voice
 	var weakest: ArenaVoice

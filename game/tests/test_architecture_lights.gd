@@ -79,14 +79,14 @@ func test_pole_lamps_are_emissive_only():
 		assert_eq(light.light_cull_mask,0)
 		assert_false(light.shadow_enabled)
 
-func test_ultra_enables_native_rectangles_and_aimed_heads_and_switches_back_live():
+func test_high_enables_native_rectangles_and_aimed_heads_and_switches_back_live():
 	var game := ArenaMatch.new();game.online=true;game.map_id="faceoff"
 	add_child_autofree(game)
 	await wait_physics_frames(3)
 	game.map.start_loadout()
 	await wait_physics_frames(3)
-	var prefs := Preferences.new("user://ultra_lights_test.cfg")
-	for key in Preferences.QUALITY_PRESETS[3]:prefs.values[key]=Preferences.QUALITY_PRESETS[3][key]
+	var prefs := Preferences.new("user://high_lights_test.cfg")
+	for key in Preferences.QUALITY_PRESETS[2]:prefs.values[key]=Preferences.QUALITY_PRESETS[2][key]
 	prefs.apply_rendering(game)
 	var counts := {"sconce_light":0,"batten_light":0,"pole_light":0,"jumbotron":0}
 	for light in game.find_children("*","Light3D",true,false):
@@ -99,7 +99,7 @@ func test_ultra_enables_native_rectangles_and_aimed_heads_and_switches_back_live
 		assert_gt((-light.global_basis.z).normalized().dot((-light.get_parent().global_basis.z).normalized()),.999)
 		if kind in ["sconce_light","batten_light"]:assert_true(light is AreaLight3D)
 		else:assert_true(light is SpotLight3D)
-	for kind in counts:assert_gt(counts[kind],0,kind+" illuminates in Ultra")
+	for kind in counts:assert_gt(counts[kind],0,kind+" illuminates in High")
 	assert_eq(counts.jumbotron,12)
 	# Newly attached lights inherit the currently applied preset too.
 	var socket := Node3D.new();game.add_child(socket)

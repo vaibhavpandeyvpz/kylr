@@ -5,17 +5,14 @@ func _initialize():run.call_deferred()
 
 func run():
 	create_timer(150).timeout.connect(func():push_error("ARMOR_OVERLAY_TIMEOUT");quit(8))
-	var mode:="dlss";var prefix:="armor-overlay";var variant:="authored"
+	var mode:="raster";var prefix:="armor-overlay";var variant:="authored"
 	var smaa:="--smaa" in OS.get_cmdline_user_args()
 	for argument in OS.get_cmdline_user_args():
 		if argument.begins_with("--mode="):mode=argument.get_slice("=",1)
 		if argument.begins_with("--prefix="):prefix=argument.get_slice("=",1)
 		if argument.begins_with("--variant="):variant=argument.get_slice("=",1)
-	if mode not in ["raster","dlss"]:quit(2);return
+	if mode not in ["raster"]:quit(2);return
 	if variant not in ["authored","no-depth","offset-10mm","double-sided"]:quit(2);return
-	var requested:=Preferences.DENOISER_DLSS
-	if mode!="raster" and not Preferences.ray_tracing_unavailable_reason(requested).is_empty():
-		push_error(Preferences.ray_tracing_unavailable_reason(requested));quit(2);return
 	var directory:="res://reports/performance/"+prefix+"-"+mode
 	if DirAccess.dir_exists_absolute(directory):push_error("Use a fresh overlay report prefix");quit(2);return
 	DirAccess.make_dir_recursive_absolute(directory)
@@ -29,13 +26,11 @@ func run():
 	var camera:=Camera3D.new();stage.add_child(camera);camera.current=true
 	camera.position=Vector3(1.5,1.3,2.5);camera.look_at(Vector3(0,.85,0))
 	var prefs:=Preferences.new("user://armor-overlay-probe-unused.cfg")
-	prefs.values.rt_denoiser=Preferences.DENOISER_DLSS
-	prefs.values.ray_tracing=mode!="raster";prefs.values.fixture_lighting=true;prefs.values.antialiasing=0
 	prefs.apply_rendering(stage)
 	# Compare at native size so reconstruction resolution does not hide depth defects.
 	root.scaling_3d_scale=1.;root.use_taa=false
 	root.screen_space_aa=Viewport.SCREEN_SPACE_AA_SMAA if smaa else Viewport.SCREEN_SPACE_AA_DISABLED
-	var ready:Dictionary=await Preparation.wait_for_rendering(self,root,mode!="raster")
+	var ready:Dictionary=await Preparation.wait_for_rendering(self,root)
 	if not ready.ready:push_error(str(ready));quit(3);return
 	for frame in 64:await RenderingServer.frame_post_draw
 	root.get_texture().get_image().save_png(directory.path_join("base.png"))

@@ -1,6 +1,5 @@
 extends SceneTree
 const Preparation = preload("res://scripts/core/resource_preparation.gd")
-const Observer = preload("res://scripts/debug/reconstruction_observer.gd")
 var scene: Node3D
 var folder: String
 
@@ -8,8 +7,7 @@ func _initialize() -> void: run.call_deferred()
 
 func run() -> void:
 	root.size = Vector2i(1280,720)
-	var rt := OS.get_cmdline_user_args().has("--rt")
-	folder = "res://reports/muzzle-3d/"+("rt" if rt else "raster")+"/"
+	folder = "res://reports/muzzle-3d/"+("raster")+"/"
 	DirAccess.make_dir_recursive_absolute(folder)
 	scene = load("res://tools/weapon_effects_harness.tscn").instantiate()
 	root.add_child(scene)
@@ -17,18 +15,9 @@ func run() -> void:
 	for canvas in scene.find_children("*","CanvasLayer",true,false): canvas.visible = false
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	var prefs := Preferences.new("res://reports/muzzle_preview_unused.cfg")
-	prefs.values.quality = 3
-	for key in Preferences.QUALITY_PRESETS[3]: prefs.values[key] = Preferences.QUALITY_PRESETS[3][key]
-	prefs.values.ray_tracing = rt
+	prefs.values.quality = 2
+	for key in Preferences.QUALITY_PRESETS[2]: prefs.values[key] = Preferences.QUALITY_PRESETS[2][key]
 	prefs.apply_rendering(scene)
-	var observer: CompositorEffect
-	if rt:
-		var world: WorldEnvironment = scene.find_children("*","WorldEnvironment",true,false)[0]
-		world.compositor = Compositor.new()
-		observer = Observer.new()
-		world.compositor.compositor_effects = [observer]
-		var ready: Dictionary = await Preparation.wait_for_rendering(self,root,true)
-		assert(ready.ready)
 	for frame in 90: await process_frame
 	scene.set_process(false)
 	scene.set_physics_process(false)
@@ -95,12 +84,7 @@ func run() -> void:
 	var shots: int = scene.local_robot.network_shots-before
 	assert(shots>=8 and overlap>=2,"Real minigun firing must retain independent overlapping flashes")
 	print("MUZZLE_FIRING shots=",shots," maximum_overlapping_flashes=",overlap)
-	if observer:
-		var stats: Dictionary = observer.call("stats")
-		print("MUZZLE_NATIVE ",JSON.stringify(stats))
-		assert(stats.frames>0 and stats.error.is_empty() and stats.adapter.get("evaluation_succeeded",false))
-		observer.call("release")
-	print("MUZZLE_PREVIEW_PASS rt=",rt)
+	print("MUZZLE_PREVIEW_PASS")
 	scene.queue_free()
 	for frame in 4: await process_frame
 	quit()

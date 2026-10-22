@@ -20,7 +20,7 @@ for the pinned authoring setup, procedural textures and static mesh handoff.
 Create a Python environment for the setup tools:
 
 ```powershell
-python -m venv engine/.local/build-venv
+python -m venv .venv
 ```
 
 ## Mixamo animation sources
@@ -69,7 +69,7 @@ relative to `library/animations/source/`:
 Validate the complete download before starting the retarget pass:
 
 ```powershell
-& engine/.local/build-venv/Scripts/python.exe tools/install_animations.py --check-sources
+& .venv/Scripts/python.exe tools/install_animations.py --check-sources
 ```
 
 ### Generate the game animation library
@@ -94,8 +94,8 @@ and weapon GLBs, Blender scenes and a manifest under `library/animations/target/
 Return to the repository root, then install the completed output:
 
 ```powershell
-& engine/.local/build-venv/Scripts/python.exe tools/install_animations.py --source library/animations/target
-& engine/.local/build-venv/Scripts/python.exe tools/install_animations.py --check
+& .venv/Scripts/python.exe tools/install_animations.py --source library/animations/target
+& .venv/Scripts/python.exe tools/install_animations.py --check
 ```
 
 The installer validates the required GLB inputs before copying the 567 clips
@@ -118,9 +118,9 @@ The downloader does not save credentials, signed URLs or account history in Git.
 Install the audio setup dependencies, then restore the game's verified effects:
 
 ```powershell
-& engine/.local/build-venv/Scripts/python.exe -m pip install -r tools/requirements-audio.txt
-& engine/.local/build-venv/Scripts/python.exe tools/install_epidemic_audio.py
-& engine/.local/build-venv/Scripts/python.exe tools/install_epidemic_audio.py --check
+& .venv/Scripts/python.exe -m pip install -r tools/requirements-audio.txt
+& .venv/Scripts/python.exe tools/install_epidemic_audio.py
+& .venv/Scripts/python.exe tools/install_epidemic_audio.py --check
 ```
 
 The [audio recipe](../library/sounds/epidemic_manifest.json) pins 32 source IDs and
@@ -134,9 +134,9 @@ to test a clean installation without touching the active game.
 For catalog discovery or a private account-history comparison:
 
 ```powershell
-& engine/.local/build-venv/Scripts/python.exe tools/download_epidemic_audio.py --search 'science fiction weapon'
-& engine/.local/build-venv/Scripts/python.exe tools/download_epidemic_audio.py --id 'SOUND-EFFECT-UUID'
-& engine/.local/build-venv/Scripts/python.exe tools/download_epidemic_audio.py --history 'engine/.local/download-history.json'
+& .venv/Scripts/python.exe tools/download_epidemic_audio.py --search 'science fiction weapon'
+& .venv/Scripts/python.exe tools/download_epidemic_audio.py --id 'SOUND-EFFECT-UUID'
+& .venv/Scripts/python.exe tools/download_epidemic_audio.py --history '.local/download-history.json'
 ```
 
 History downloads include sound effects and full music recordings when present.
@@ -146,10 +146,10 @@ with `id` or `kosmosId`. Downloads resume using SHA-256-verified cache entries.
 Use your own account and applicable in-game-use license. API access alone does
 not establish game distribution or standalone asset redistribution rights.
 
-After installing local assets, import with the custom engine:
+After installing local assets, import with official Godot:
 
 ```powershell
-& engine/bin/godot.windows.editor.x86_64.console.exe --headless --path game --editor --import --quit
+& $env:GODOT --headless --path game --editor --import --quit
 ```
 
 ## Private assets for CI
@@ -169,7 +169,7 @@ Create the archive from a validated local installation rather than selecting
 files manually. The bundler includes only the installer's allowlisted paths:
 
 ```powershell
-& engine/.local/build-venv/Scripts/python.exe tools/bundle_private_assets.py --output engine/.local/private-assets/KYLR-game-assets.zip
+& .venv/Scripts/python.exe tools/bundle_private_assets.py --output .local/private-assets/KYLR-game-assets.zip
 ```
 
 It writes a `.sha256` sidecar. The installer checks that every runtime weapon
@@ -192,7 +192,7 @@ without a filename, quotes, or the complete contents of a `.sha256` file.
 Compute the value from the exact ZIP uploaded to R2:
 
 ```powershell
-(Get-FileHash -Algorithm SHA256 -LiteralPath 'engine/.local/private-assets/KYLR-game-assets.zip').Hash.ToLowerInvariant()
+(Get-FileHash -Algorithm SHA256 -LiteralPath '.local/private-assets/KYLR-game-assets.zip').Hash.ToLowerInvariant()
 ```
 
 Replacing the R2 ZIP requires updating this secret. The installer reports checksum,
@@ -223,6 +223,6 @@ To validate or restore a prepared private folder locally:
 
 ```powershell
 python tools/install_private_assets.py --check
-python tools/install_private_assets.py --source 'engine/.local/prepared-game-assets'
-python tools/install_private_assets.py --archive 'engine/.local/private-assets/KYLR-game-assets.zip' --sha256 '<archive-sha256>'
+python tools/install_private_assets.py --source '.local/prepared-game-assets'
+python tools/install_private_assets.py --archive '.local/private-assets/KYLR-game-assets.zip' --sha256 '<archive-sha256>'
 ```

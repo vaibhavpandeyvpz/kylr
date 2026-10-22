@@ -2,19 +2,16 @@
 
 Audio should make combat legible before the player reads the HUD. It belongs to the same arena-control world as [DESIGN_LANGUAGE.md](DESIGN_LANGUAGE.md): precise electronic interfaces, powered machinery, metal robots, and short, characterful speech. Every important event has a distinct cue family, but repeated fire must not turn the mix into constant noise. [WEAPON_EFFECTS.md](WEAPON_EFFECTS.md) owns animation/gizmo timing; [WEAPONS.md](gameplay/WEAPONS.md) owns shot cadence and damage.
 
-Normal application shutdown stops music/voices and allows the mixer to retire
-them before quitting. The custom engine also releases remaining playback nodes
-after audio drivers stop, so an immediate exit cannot strand queued PCM/Ogg
-playbacks waiting for another mix callback. Synthetic early-exit cases and the
-packaged headless startup/exit check cover this lifetime behavior; they do not
-verify audible mixing or establish a gameplay FPS improvement.
+Normal application shutdown stops music and voices and allows the mixer to
+retire them before quitting. Audio runs through official Godot 4.7.2. Validate
+playback, bus routing and clean shutdown in the exported package; headless
+checks do not verify audible mixing or establish gameplay FPS.
 
-The custom engine synchronizes bus-send changes with the audio mixer. A generic
-silent routing stress reproduced a native mixer crash on the unfixed build in
-0.75 seconds; two Dummy-driver and one Windows-audio run passed after the fix,
-each exercising 4.45 million route changes. Playback teardown probes also pass.
-This fixes a concurrency failure; it does not establish an FPS gain or explain
-the separate presentation stalls.
+Spatial low-pass buses have fixed sends configured before playback: each world
+slot has World, Critical and Announcer routes; ambience and speech slots have
+their own routes. Reusing a voice selects a player bus and its filter without
+changing mixer bus sends. Voice limits and mix destinations remain explicit in
+the audio director.
 
 Audio occlusion keeps all three geometry rays live for each sample. Their
 query parameters are reused only within that synchronous sample; contacts and

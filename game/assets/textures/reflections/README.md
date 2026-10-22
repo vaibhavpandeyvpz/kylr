@@ -10,7 +10,7 @@ All environment-reflecting materials use it, including steel, bronze, copper,
 aluminium, titanium and the original thin-dielectric glass across asset categories.
 It is not an albedo texture and does not replace the visible cosmic sky.
 A low neutral floor keeps dark reflections legible; edge fades suppress joins.
-No extra scene lights, shadow maps or ray tracing are introduced.
+The panorama supplies the authored metallic reflection fill.
 
 Runtime finishes are shared through `Assets.finish_metals`. Coverage uses authored
 metallic values as well as named bright alloys, so weapon frames, robot armour,

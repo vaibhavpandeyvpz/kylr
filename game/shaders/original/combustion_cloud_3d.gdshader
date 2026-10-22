@@ -53,7 +53,7 @@ void fragment() {
     vec3 fire_sum = vec3(0.0);
     float alpha = 0.0;
     // Decorrelate the ray samples so a rotating cloud cannot reveal stacked
-    // integration slices. Stable screen-space jitter is filtered by TAA/DLSS.
+    // integration slices. Stable screen-space jitter distributes integration samples.
     float jitter = fract(sin(dot(FRAGCOORD.xy,vec2(12.9898,78.233)))*43758.5453);
     for (int i=0;i<32;i++) {
         if (i>=march_steps || alpha>0.985) break;

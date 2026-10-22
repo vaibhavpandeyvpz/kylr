@@ -1,7 +1,6 @@
 # Runtime and development dependencies
 
 - Godot 4.7.2 and its bundled Jolt Physics, ENet, glTF/FBX importers, and AStar3D: engine-maintained runtime subsystems.
-- Microsoft Visual C++ x64 runtime 14.51.36247: the three required release CRT DLLs are bundled application-local for Streamline, verified by pinned hashes and Microsoft signatures. Prepare from the stable Visual Studio redist directory with `tools/prepare_windows_vc_runtime.ps1`; the original redistribution notice is retained under `licenses/engine-rtx/MSVC`. Redistribution is subject to the installed Visual Studio terms and [Microsoft's distributable-files list](https://learn.microsoft.com/en-us/visualstudio/releases/2026/redistribution). The supported Windows baseline is Windows 10 or newer. Runtime updates require a pin update and renewed deployment validation.
 - GUT 9.6.1, MIT, https://github.com/bitwes/Gut: automated Godot integration and rule tests. License retained in `addons/gut`.
 - LimboAI 1.8.1, MIT, https://github.com/limbonaut/limboai/releases/tag/v1.8.1: official GDExtension package for Godot 4.6+, tested here with Godot 4.7.2. Behavior trees and native debugging are bundled in `addons/limboai`; game-specific tasks live in `scripts/ai/tasks`.
 - Phantom Camera v0.11.0.3, MIT, https://github.com/ramokz/phantom-camera/releases/tag/v0.11.0.3: live 3D camera hosting, view priority, and transitions. License retained in `addons/phantom_camera/LICENSE`.
@@ -21,10 +20,3 @@ records are retained in the library. Runtime shaders and compositions are under
 `shaders/original/` and `scripts/presentation/vfx/original/`. Combat
 shaders are separate assets. Bullet marks use an original seeded procedural
 shader instead of a bitmap atlas. Asset licenses apply independently to sounds, animations and textures.
-
-The custom RTX engine uses Streamline 2.10.0 (MIT source integration, with
-separately licensed NVIDIA binary runtimes). The Windows package retains the
-Streamline and third-party notices, plus the supplied DLSS, NIS and Reflex
-license files under `licenses/engine-rtx`. The packager verifies pinned production
-runtime hashes and NVIDIA signatures. Capability and runtime availability remain
-separate from image-quality, performance and deployment qualification.

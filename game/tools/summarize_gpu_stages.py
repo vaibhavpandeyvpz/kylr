@@ -58,7 +58,7 @@ def summarize_alpha(path):
         if len(interior) < 3 or not native or any(mask != row["mask"] for mask, _ in native):
             raise ValueError("Insufficient controlled native intervals: " + row["label"])
         stages = {}
-        for name in ("Pathtracer", "DLSS", "Render 3D Transparent Pass"):
+        for name in ("Render 3D Opaque Pass", "Render 3D Transparent Pass"):
             values = [r["stages_ms"][name] for r in interior if name in r["stages_ms"]]
             if len(values) < 3:
                 raise ValueError("Missing stage coverage: " + name)

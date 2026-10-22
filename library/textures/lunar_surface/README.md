@@ -39,5 +39,5 @@ renderer refresh the canonical texture bytes when building materials.
 Validate both populated maps from `game/`:
 
 ```powershell
-& ../engine/bin/godot.windows.editor.x86_64.console.exe --path . --render-thread safe --gpu-index 0 --script tools/audit_regolith_materials.gd -- --capture
+& $env:GODOT --path . --render-thread safe --gpu-index 0 --script tools/audit_regolith_materials.gd -- --capture
 ```

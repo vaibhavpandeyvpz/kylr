@@ -1,5 +1,6 @@
-param([string]$Godot=(Join-Path $PSScriptRoot '../../engine/bin/godot.windows.editor.x86_64.console.exe'))
+param([string]$Godot=$(if ($env:GODOT) { $env:GODOT } else { 'godot' }))
 $ErrorActionPreference='Stop'
+$Godot = (Get-Command $Godot -CommandType Application -ErrorAction Stop).Source
 $project=[IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))
 $fixture=Join-Path $project ('reports/render-thread-startup-'+[Guid]::NewGuid().ToString('N'))
 New-Item -ItemType Directory -Path $fixture | Out-Null
@@ -32,7 +33,7 @@ func _initialize():
  print("RENDER_THREAD_STARTUP_PASS configured=",configured," actual=",actual)
  quit()
 '@ | Set-Content -LiteralPath (Join-Path $fixture 'probe.gd') -Encoding utf8
-$binary=Join-Path (Split-Path $Godot) 'godot.windows.editor.x86_64.exe'
+$binary=$Godot
 $hash=(Get-FileHash -LiteralPath $binary).Hash
 foreach ($step in @(@('1','2'),@('2','1'),@('1','clear'))) {
     $label=$step -join '-'

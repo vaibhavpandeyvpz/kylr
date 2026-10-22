@@ -1,10 +1,31 @@
 extends SceneTree
 
 func _initialize() -> void:
-	call_deferred("profile")
+	call_deferred("matrix" if OS.get_cmdline_user_args().has("--matrix") else "profile")
 
-func profile() -> void:
-	var args := OS.get_cmdline_user_args()
+func matrix() -> void:
+	var map_id := "faceoff"
+	var directory := ""
+	for argument in OS.get_cmdline_user_args():
+		if argument.begins_with("--map="): map_id=argument.trim_prefix("--map=")
+		if argument.begins_with("--report-directory="): directory=argument.trim_prefix("--report-directory=")
+	if map_id not in ["faceoff","skyfall"] or not directory.begins_with("res://reports/roster/"):
+		push_error("Choose a map and a report directory under res://reports/roster/");quit(1);return
+	for mode in ["DM","TDM","CTF","ELIMINATION","GUNGAME"]:
+		for count in [2,4,6,8,10]:
+			var seconds := 120 if mode=="CTF" else 30
+			var path := directory.path_join(mode.to_lower()+"-"+str(count)+".json")
+			if FileAccess.file_exists(path): push_error("Roster report already exists: "+path);quit(1);return
+			var arguments := PackedStringArray([mode,str(count),str(seconds),"normal","123",map_id,"1","--report-output="+path])
+			for option in OS.get_cmdline_user_args():
+				if option.begins_with("--decision-phases="): arguments.append(option)
+			await profile(arguments,false)
+			print("ROSTER_CASE_COMPLETE ",map_id," ",mode,"/",count)
+	print("ROSTER_MATRIX_COMPLETE ",map_id)
+	quit()
+
+func profile(args: PackedStringArray=PackedStringArray(), exit_after := true):
+	if args.is_empty(): args=OS.get_cmdline_user_args()
 	var report_prefix := ""
 	var report_output := ""
 	for argument in args:
@@ -19,11 +40,6 @@ func profile() -> void:
 				push_error("Diagnostic report prefix must be an identifier")
 				quit(1)
 				return
-	var native_clear_rays := args.has("--native-clear-rays=1")
-	if native_clear_rays and not ClassDB.class_has_method("PhysicsDirectSpaceState3D", "ray_intersects"):
-		push_error("Native clear-ray matrix requires the rebuilt custom engine")
-		quit(1)
-		return
 	for argument in args:
 		if argument.begins_with("--decision-phases="):
 			ArenaBrain.decision_phases = clampi(int(argument.get_slice("=",1)),1,16)
@@ -42,7 +58,6 @@ func profile() -> void:
 	var upper_floor_case := args.size()>7 and args[7]=="upper-floor"
 	await physics_frame
 	await physics_frame
-	game.combat.native_clear_rays = native_clear_rays
 	game.map.start_map_assembly()
 	game.map.assembly.seek(5.0, true)
 	game.map.start_loadout()
@@ -162,7 +177,6 @@ func profile() -> void:
 	var output := {"mode":mode,"count":count,"seconds":seconds,"seed":match_seed,"difficulty":game.difficulty,"difficulty_revision":BotDifficulty.data.revision,"wall_ms_per_frame":wall_ms_per_frame,"physics_ms_avg":average(physics_times),"physics_ms_peak":physics_times.max(),"process_ms_avg":average(frame_times),"flags":[{"state":game.flags[0].state,"carrier":game.flags[0].carrier},{"state":game.flags[1].state,"carrier":game.flags[1].carrier}],"robots":[]}
 	output["match_elapsed"] = game.elapsed
 	output["decision_phases"] = ArenaBrain.decision_phases
-	output["native_clear_rays"] = native_clear_rays
 	output["phase"] = game.phase
 	output["upper_floor_case"]=upper_floor_case
 	output["team_scores"] = game.team_scores.duplicate()
@@ -187,7 +201,6 @@ func profile() -> void:
 	var prefix := "" if game.map_id == "skyfall" else game.map_id+"_"
 	if game.difficulty != 1: prefix = "difficulty%d_" % game.difficulty + prefix
 	if ArenaBrain.decision_phases != 1: prefix = "phases%d_" % ArenaBrain.decision_phases + prefix
-	if native_clear_rays: prefix = "native_rays_" + prefix
 	if not report_prefix.is_empty(): prefix = report_prefix + "_" + prefix
 	var file := FileAccess.open(report_output if not report_output.is_empty() else "res://reports/bot_profile_%s%s_%d.json" % [prefix,mode.to_lower(),count],FileAccess.WRITE)
 	if file: file.store_string(result)
@@ -196,7 +209,7 @@ func profile() -> void:
 	OS.delay_msec(100)
 	game.queue_free()
 	for frame in 3: await physics_frame
-	quit()
+	if exit_after: quit()
 
 func average(values: Array[float]) -> float:
 	if values.is_empty(): return 0.0

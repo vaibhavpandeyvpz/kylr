@@ -4,8 +4,6 @@ var fixture: Node3D
 var pulse: PulseGunController
 var shots := 0
 var last_action := "Ready"
-var orbit_yaw := 0.8
-var orbit_pitch := 0.28
 var orbit_distance := 11.5
 var orbit_focus := Vector3(0,0.7,-5)
 var dragging := false

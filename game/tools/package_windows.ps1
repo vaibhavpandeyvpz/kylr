@@ -1,13 +1,13 @@
 param(
     [ValidatePattern('^[A-Za-z0-9][A-Za-z0-9._+-]*$')]
     [string]$Version = '0.1.0',
-    [string]$Godot = (Join-Path $PSScriptRoot '../../engine/bin/godot.windows.editor.x86_64.console.exe'),
-    [string]$VCRuntimeDirectory = (Join-Path $PSScriptRoot '../../engine/.local/msvc-runtime-14.51.36247')
+    [string]$Godot = $(if ($env:GODOT) { $env:GODOT } else { 'godot' })
 )
 $ErrorActionPreference = 'Stop'
 & (Join-Path $PSScriptRoot 'check_local_assets.ps1')
 $projectRoot = Split-Path -Parent $PSScriptRoot
 $workspaceRoot = Split-Path -Parent $projectRoot
+Set-Location $projectRoot
 $buildId = [guid]::NewGuid().ToString('N')
 # A fresh staging directory prevents obsolete DLLs or local reports shipping.
 $outputDirectory = Join-Path $projectRoot "build/package-$buildId/windows"
@@ -17,7 +17,7 @@ New-Item -ItemType Directory -Force $outputDirectory,$reportDirectory | Out-Null
 function Invoke-GodotCheck([string]$Name, [string]$Executable, [string[]]$Arguments) {
     $log = Join-Path $reportDirectory "$Name.log"
     # A pipeline also makes PowerShell wait for GUI-subsystem executables.
-    & $Executable @Arguments 2>&1 | Out-File -LiteralPath $log -Encoding utf8
+    & $Executable --log-file $log @Arguments 2>&1 | Out-Null
     $engineExit = $LASTEXITCODE
     if ($engineExit -ne 0 -or (Select-String -LiteralPath $log -Pattern 'SCRIPT ERROR:|ERROR:|VUID-|SYNC-HAZARD|ObjectDB.*leaked at exit|Resources still in use at exit')) {
         Get-Content -LiteralPath $log -Tail 40
@@ -45,35 +45,15 @@ Copy-Item -LiteralPath (Join-Path $projectRoot 'THIRD_PARTY.md') -Destination $o
 foreach ($projectNotice in @('LICENSE','NOTICE')) {
     Copy-Item -LiteralPath (Join-Path $projectRoot "../$projectNotice") -Destination $outputDirectory
 }
-# Exporting the executable/PCK does not copy the optional engine SDK runtimes.
-# Match the pinned production SDK, never a development/watermarked directory.
-$engineRoot = [IO.Path]::GetFullPath((Join-Path $projectRoot '../engine'))
-$runtimeDirectory = Split-Path ([IO.Path]::GetFullPath($Godot))
-. (Join-Path $PSScriptRoot 'windows_engine_runtime.ps1')
-$sdk = Join-Path $engineRoot '.local/streamline-sdk-v2.10.0'
-$sdkManifestPath = Join-Path $engineRoot 'drivers/streamline/runtime_manifest.json'
-$sdkManifest = Get-Content -LiteralPath $sdkManifestPath -Raw | ConvertFrom-Json
-$runtimeManifest = @(Get-VerifiedStreamlineRuntimeFiles -Directory $runtimeDirectory -ManifestPath $sdkManifestPath)
-foreach ($runtime in $runtimeManifest) {
-    $destination=Join-Path $outputDirectory $runtime.name
-    Copy-Item -LiteralPath (Join-Path $runtimeDirectory $runtime.name) -Destination $destination
-    if((Get-FileHash -LiteralPath $destination).Hash.ToLowerInvariant() -ne $runtime.sha256){
-        throw "RTX runtime copy differs: $($runtime.name)"
+# Reject unexpected external C++ runtimes instead of silently creating an incomplete package.
+. (Join-Path $PSScriptRoot 'windows_binary_dependencies.ps1')
+$nativeFiles = @(Get-ChildItem -LiteralPath $outputDirectory -Recurse -File | Where-Object { $_.Extension -in @('.exe','.dll') })
+foreach ($native in $nativeFiles) {
+    foreach ($dependency in @(Get-PEImportedLibraries $native.FullName)) {
+        if ($dependency -match '^(MSVCP|VCRUNTIME|CONCRT)') { throw "Unstaged native runtime dependency in $($native.Name): $dependency" }
     }
 }
-$vcRuntime=Copy-VCRuntime -Directory $VCRuntimeDirectory -Destination $outputDirectory
-$noticeDirectory = Join-Path $outputDirectory 'licenses/engine-rtx'
-New-Item -ItemType Directory -Path $noticeDirectory -Force | Out-Null
-if($sdkManifest.notices.Count -ne 5){throw 'Streamline production notices are incomplete.'}
-foreach ($notice in $sdkManifest.notices) {
-    $source=[IO.Path]::GetFullPath((Join-Path $sdk $notice.source))
-    $sdkRoot=[IO.Path]::GetFullPath($sdk).TrimEnd([IO.Path]::DirectorySeparatorChar)+[IO.Path]::DirectorySeparatorChar
-    if(-not $source.StartsWith($sdkRoot,[StringComparison]::OrdinalIgnoreCase) -or $notice.name -notmatch '^[A-Za-z0-9_.-]+$'){
-        throw 'Invalid Streamline notice path.'
-    }
-    if((Get-FileHash -LiteralPath $source).Hash.ToLowerInvariant() -ne $notice.sha256){throw "Streamline notice differs: $($notice.name)"}
-    Copy-Item -LiteralPath $source -Destination (Join-Path $noticeDirectory $notice.name)
-}
+
 $notices = @('addons/limboai/LICENSE.md','addons/limboai/LOGO_LICENSE.md','addons/phantom_camera/LICENSE','addons/proton_scatter/LICENSE','addons/proton_scatter/LICENSE.md')
 $notices += 'addons/shaker/LICENSE'
 New-Item -ItemType Directory -Force (Join-Path $outputDirectory 'licenses/terrain3d') | Out-Null
@@ -94,8 +74,8 @@ New-Item -ItemType Directory -Path $inspectionProject | Out-Null
 Invoke-GodotCheck 'inspect' $Godot @('--headless','--path',$inspectionProject,'--script',(Join-Path $PSScriptRoot 'inspect_package.gd'),'--',"--pack=$pack")
 # GUI-subsystem release executables may emit no redirected stdout on Windows.
 # Read Godot's explicit file log too, rather than accepting an empty log.
-$startupLog = Join-Path $reportDirectory 'game-startup.log'
-Invoke-GodotCheck 'smoke' $executable @('--headless','--log-file',$startupLog,'--quit-after','2')
+$startupLog = Join-Path $reportDirectory 'smoke.log'
+Invoke-GodotCheck 'smoke' $executable @('--headless','--quit-after','2')
 if (-not (Test-Path -LiteralPath $startupLog) -or
     -not (Select-String -LiteralPath $startupLog -Pattern '^Godot Engine v4\.7\.2\.') -or
     (Select-String -LiteralPath $startupLog -Pattern 'SCRIPT ERROR:|ERROR:|VUID-|SYNC-HAZARD|ObjectDB.*leaked at exit|Resources still in use at exit')) {
@@ -104,7 +84,7 @@ if (-not (Test-Path -LiteralPath $startupLog) -or
 
 $revision = (& git -C $workspaceRoot rev-parse HEAD).Trim()
 if ($LASTEXITCODE -ne 0) { throw 'Cannot identify package revision.' }
-$manifest = @{version=$Version;revision=$revision;godot=$engineVersion;development=([bool](& git -C $workspaceRoot status --porcelain));streamline_manifest_sha256=(Get-FileHash -LiteralPath $sdkManifestPath).Hash.ToLowerInvariant();rtx_runtime=$runtimeManifest;vc_runtime=$vcRuntime;files=@()}
+$manifest = @{version=$Version;revision=$revision;godot=$engineVersion;development=([bool](& git -C $workspaceRoot status --porcelain));distribution="official";files=@()}
 foreach ($file in Get-ChildItem -LiteralPath $outputDirectory -File -Recurse | Sort-Object FullName) {
     $manifest.files += @{
         name=[IO.Path]::GetRelativePath($outputDirectory,$file.FullName).Replace('\','/')

@@ -1,5 +1,4 @@
 extends CanvasLayer
-signal raster_requested
 ## Lightweight enough to draw before the application's resource graph is loaded.
 var canvas: ColorRect
 var spinner: Spinner
@@ -50,19 +49,6 @@ func finish() -> void:
 	canvas.hide()
 	for button in canvas.find_children("*","Button",false,false): button.queue_free()
 	spinner.show()
-
-func offer_raster() -> void:
-	spinner.hide()
-	caption.text="Ray tracing could not finish preparing."
-	var button := Button.new()
-	button.text="CONTINUE WITH RASTER LIGHTING"
-	button.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
-	button.position=Vector2(-180,88)
-	button.size=Vector2(360,44)
-	MenuSkin.apply_button(button)
-	canvas.add_child(button)
-	button.pressed.connect(func(): raster_requested.emit())
-	button.grab_focus()
 
 func _process(dt: float) -> void:
 	if not canvas or not canvas.visible: return

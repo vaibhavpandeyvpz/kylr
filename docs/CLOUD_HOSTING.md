@@ -75,8 +75,8 @@ expired requests permit a fresh retry. Deployment records survive in Atlas.
 
 ## Edgegap server image
 
-The image builds this repository's custom Linux engine with `use_streamline=no`
-and imports the restored game assets. Do not substitute stock Godot. Keep its
+The image downloads checksum-pinned official Godot 4.7.2 for Linux and imports
+the restored game assets. Keep its
 registry private because it contains separately licensed runtime assets.
 
 Configure the existing R2 secrets/variables for private asset restoration, plus:
@@ -89,7 +89,7 @@ Configure the existing R2 secrets/variables for private asset restoration, plus:
   `registry.edgegap.com/<organization>/kylr-server`, without a tag.
 
 Run **Verify multiplayer and build dedicated server** in Actions. It tests the API
-against MongoDB, restores assets, builds the custom Linux engine, imports the
+against MongoDB, restores assets, downloads official Godot, imports the
 project and checks the server script. Enable `publish` to push to the private
 registry with the source commit as its immutable image tag, then registers that
 commit as an Edgegap app version with UDP port 25000, 1.5 vCPU, 3 GB memory,

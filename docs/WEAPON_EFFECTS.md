@@ -58,9 +58,8 @@ weapon family and skeleton layout so weapon changes retain their authored poses.
 
 Shield hit progress reads the current hit state each rendered frame and writes
 the shader parameter only when its cached material value differs. Hit changes,
-replacement materials and external parameter edits remain live. Avoid repeated
-identical writes: the custom renderer invalidates its RT material cache on each
-parameter write, even when the value is unchanged.
+replacement materials and external parameter edits remain live. Cache unchanged
+values to avoid redundant shader parameter updates.
 
 ### Shared robot movement and reaction layers
 
@@ -175,8 +174,7 @@ lengths remain independently editable.
 The minigun's 0.18-second flashes overlap at its existing 8 shots/s cadence;
 each retains its own phase, growth and fade. `tools/preview_muzzle_flashes.gd`
 captures the actual FPV and world weapons, front openings, shape variants, growth phases and
-overlap under `reports/muzzle-3d/`. Pass `-- --rt` with
-`GODOT_DLSS_DIAGNOSTICS=1` for native ray-traced captures; add `--motion` for a
+overlap under `reports/muzzle-3d/`. Add `--motion` for a
 100-frame recording of real minigun firing. The probe checks accepted shot counts
 and overlapping live instances.
 
@@ -202,8 +200,8 @@ second spark emitter. Lightning, rocket/grenade debris and bio particles keep
 their independent effects.
 
 `tools/preview_shared_sparks.gd` records growth, flight and shrink phases for all
-four presets under `reports/shared-sparks/`. Add `-- --rt` for Ray Reconstruction
-with upscaling disabled. The fixture includes a solid floor for Jolt contacts.
+High quality under `reports/shared-sparks/raster/`. The fixture includes a solid
+floor for Jolt contacts.
 
 Hit confirmation belongs to the accepted damage path for every weapon, including projectile, splash, EMP, lightning, and flame damage. It holds the outlined cyan reticle marks for 0.24 seconds; blocked, friendly, protected, self, and zero-damage contacts do not confirm. Incoming accepted enemy damage shows a brief soft red screen-edge tint plus a direction arc near the sightline and a wider edge bearing. The tint reduces intensity with reduced motion enabled. Directional damage feedback adds no aim deflection or confirmation sound; explosion and EMP camera shake follow the shared contract above.
 
@@ -269,12 +267,12 @@ field plate. Bindings, transforms, availability and Reduced Motion remain
 preserved. No vertex displacement moves the field beyond its authored frame.
 
 Fixture illumination/shadows follow the graphics preferences (enabled by default
-in High and Ultra). Decorative VFX lights do not replace authoritative fixtures
+in High). Decorative VFX lights do not replace authoritative fixtures
 or alter gameplay. See [renderer configuration](RENDERING.md).
 
 ## Shared glass and bio contact finish
 
-All authored `_Glass` materials use the shared original thin-dielectric shader in `shaders/original/frosted_glass.gdshader`, preserving Blender diffuse tint and opacity. Core outer shells retain 25% opacity. Mild screen-space refraction, mipmapped frost and Fresnel response preserve readability; transparent layers do not write depth. This is not recursive ray-traced transmission. `_Metallic` retains its authored finish; `_Diffuse` and `_Emissive` disable specular and clearcoat while preserving diffuse/emission. Architecture and map castings use diffuse classifications except explicit glass/emissive surfaces.
+All authored `_Glass` materials use the shared original thin-dielectric shader in `shaders/original/frosted_glass.gdshader`, preserving Blender diffuse tint and opacity. Core outer shells retain 25% opacity. Mild screen-space refraction, mipmapped frost and Fresnel response preserve readability; transparent layers do not write depth. `_Metallic` retains its authored finish; `_Diffuse` and `_Emissive` disable specular and clearcoat while preserving diffuse/emission. Architecture and map castings use diffuse classifications except explicit glass/emissive surfaces.
 
 Inactive EMP projectile visuals retain their two mesh nodes and per-shot materials
 in a match-owned pool of at most 16 idle charges. Reuse resets the local transform
@@ -336,8 +334,7 @@ damage, impact sound or one-shot presentation events.
 views, low detail, an opaque foreground fixture, an inside view and a rotated
 impact axis under `reports/rocket-3d/`. Add `--grenade` to capture the grenade
 recipe under `reports/grenade-3d/`, or `--fireball` for the compact flare cloud
-under `reports/fire_hit-3d/`. Pass `-- --rt` with `GODOT_DLSS_DIAGNOSTICS=1` for the native
-ray-traced check. `export_rocket_cloud.py` in the library derives the packed
+under `reports/fire_hit-3d/`. `export_rocket_cloud.py` in the library derives the packed
 material maps from the tracked bitmap source. Add `--motion` to save a live
 100-frame sequence at the engine's selected fixed frame rate. The maps' independent alpha channels
 require lossless imports, mipmaps and disabled alpha-border repair.
@@ -346,21 +343,7 @@ Pulse contacts use a compact 3D cyan ion bloom over 0.52 seconds, with their own
 
 Live bio/pulse visuals retain independent classes. Flak contacts use a brief friction flash and compact abrasion dust over 0.42 seconds, plus the shared yellow spark tracers; bio uses a 44.5 cm nominal green organic composition, including a compact outer shell and final splash; both small-particle layers stay within 1 m of the contact origin, including sprite extent and gravity. Both have independent 16-burst pools. Flak rounds use tumbling metal fragments with compact tails. `WeaponContactBurst` owns shared lifecycle and particle mechanics. `BallisticProjectile` continues to own flight, bounce, status and damage; `ArenaEffects` dispatches replicated contacts. Effect shaders live in `shaders/original/` alongside the combat shaders.
 
-Verification covers immutable-resource sharing, per-instance fades, bounds, socket orientation, pooling and replicated contact events, with rendered raster/RT captures.
-
-### RTX effects comparison
-
-Run `tools/run-rt-effects-probe.ps1` with the custom engine to capture all ten primary weapons, lightning/flame secondary modes, shield hits, projectile visuals, nine contacts and five environment effects in raster and ray-traced modes. Its 43 cases also check independent instance shader parameters, unshaded colors, and opaque particle visibility/occlusion/foreground. It waits for asynchronous material compilation, checks firing/contact activity and rejects engine errors; inspect `reports/effects-*.png` for visual correctness. These sampled captures do not certify every camera, frame, multiplayer interaction or temporal artifact. The renderer must refresh invalid cached instance-transform descriptors after particle/motion-vector buffer recreation so transparent effects remain renderable on first RT activation and mode switches.
-
-Use `-FlameOnly` for five focused cases: side framing, a side closeup, and the real FPV weapon at long range, near contact and upward aim. These captures include accepted damage and verify that the stream uses the displayed FPV muzzle.
-
-### Armor hit overlay depth
-
-The warm armor hit flash stays unshaded and additive. Its raster overlay is
-expanded 1 mm along the live skinned surface normal to avoid coplanar depth
-fighting against the RT opaque depth conversion. Depth testing remains enabled:
-foreground map geometry must hide the flash. The overlay does not change the
-robot's authored metallic materials, collisions, damage or hit duration.
+Verification covers immutable-resource sharing, per-instance fades, bounds, socket orientation, pooling and replicated contact events, with rendered captures.
 
 ## Robot breakup deaths
 
@@ -381,8 +364,7 @@ an attacker bearing, and a 0.42-second bounded camera shake through the death
 camera. Reduced Motion halves the tint and disables shake. Presentation events
 replicate the cloud and victim feedback; none apply damage or change fall credit.
 `tools/preview_robot_debris.gd -- --fall` captures the grounded breakup;
-`tools/preview_combustion_impact.gd -- --fall` captures its cloud, with `--rt`
-available for native ray-traced verification.
+`tools/preview_combustion_impact.gd -- --fall` captures its cloud.
 
 Rocket, grenade and fall-impact clouds distribute equal-sized lobes in all six
 axial directions around a common centre. Both their offsets and volume radii
@@ -427,7 +409,7 @@ fragments. Match teardown and snapshot removal free all child bodies together.
 `tests/test_robot_debris.gd` covers pose/geometry, active appearance, collision,
 direction, EMP strength, replication and expiry. `tools/preview_robot_debris.gd`
 captures each weapon's intact pose, flight and settled debris in a floor/wall
-fixture under `reports/robot-debris/` using the custom engine.
+fixture under `reports/robot-debris/` using official Godot.
 
 ## Effect asset pipeline
 
@@ -442,7 +424,7 @@ palette, geometry and particle budget. Shared geometry is immutable; animated
 opacity and effect state are per instance. Persistent portal and capture fields
 follow the arena presentation contract.
 
-`tools/preview_energy_surface.gd` captures the live skinned robot with its primary protection tint, animated phase samples, seven distinct weapon-hit colors and the native green repair barrier under `reports/energy-surface/`. It defaults to native-resolution ray tracing; pass `-- --raster` for Forward+. `tools/probe_armor_overlay.gd` supplies the foreground-occlusion check using the same shader.
+`tools/preview_energy_surface.gd` captures the live skinned robot with its primary protection tint, animated phase samples, seven distinct weapon-hit colors and the native green repair barrier under `reports/energy-surface/`. It uses native-resolution High raster rendering. `tools/probe_armor_overlay.gd` supplies the foreground-occlusion check using the same shader.
 
 The weapon effects harness supports middle-mouse drag to orbit, Ctrl + wheel
 to zoom, V to cycle scene/weapon/impact focus, and C to restore the side camera;
@@ -451,3 +433,7 @@ ordinary wheel input selects weapons.
 from side, oblique, raised and impact-close-up viewpoints under `reports/flame3d/`.
 
 Editable effect bitmap sources live in `library/models/effects/combat_effects/source/`, with one Markdown prompt record per source image under `source/prompts/`. The material exporters record hashes and independent channel samples. `export_flak_dust.py` validates the dedicated color atlas without resampling.
+
+Weapon replacement detaches each retiring geometry instance from its rendering
+base and clears per-instance material overrides before releasing the rig.
+Inventory changes retain immediate rig replacement and animated socket ownership.

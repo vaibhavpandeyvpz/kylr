@@ -1,16 +1,17 @@
 param(
- [ValidateSet('raster','dlss')][string]$Mode='dlss',
+ [ValidateSet('raster')][string]$Mode='raster',
  [ValidatePattern('^[a-zA-Z0-9_-]+$')][string]$Prefix=('armor-overlay-'+(Get-Date -Format 'yyyyMMdd-HHmmss')),
  [switch]$Validation,
  [ValidateSet('authored','no-depth','offset-10mm','double-sided')][string]$Variant='authored',
  [switch]$SMAA,
- [string]$Godot=(Join-Path $PSScriptRoot '../../engine/bin/godot.windows.editor.x86_64.console.exe')
+ [string]$Godot=$(if ($env:GODOT) { $env:GODOT } else { 'godot' })
 )
 $ErrorActionPreference='Stop'
+$Godot = (Get-Command $Godot -CommandType Application -ErrorAction Stop).Source
 $project=[IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))
 $output=Join-Path $project "reports/performance/$Prefix-$Mode"
 if (Test-Path -LiteralPath $output) {throw 'Choose a fresh capture prefix.'}
-$paths=@((Join-Path (Split-Path $Godot) 'godot.windows.editor.x86_64.exe'),
+$paths=@(($Godot),
  (Join-Path $project 'tools/probe_armor_overlay.gd'),(Join-Path $project 'shaders/combat/energy_surface.gdshader'))
 $hashes=@($paths | ForEach-Object {(Get-FileHash -LiteralPath $_).Hash})
 $saved=@{}
@@ -20,8 +21,8 @@ foreach ($name in @('VK_LAYER_PATH','VK_INSTANCE_LAYERS','VK_VALIDATION_VALIDATE
 try {
  $arguments=@('--path',('"'+$project+'"'),'--script','res://tools/probe_armor_overlay.gd')
  if ($Validation) {
-  $env:VK_LAYER_PATH=[IO.Path]::GetFullPath((Join-Path $project '../engine/.local/vulkan-validation-1.4.363.0/Bin'))
-  if (-not (Test-Path -LiteralPath (Join-Path $env:VK_LAYER_PATH 'VkLayer_khronos_validation.json'))) {throw 'Pinned validation layer missing.'}
+  if (-not $env:VK_LAYER_PATH) { throw 'Set VK_LAYER_PATH to an installed Vulkan validation layer directory.' }
+  if (-not (Test-Path -LiteralPath (Join-Path $env:VK_LAYER_PATH 'VkLayer_khronos_validation.json'))) {throw 'Vulkan validation layer missing.'}
   $env:VK_INSTANCE_LAYERS='VK_LAYER_KHRONOS_validation';$env:VK_VALIDATION_VALIDATE_SYNC='true'
   $arguments+='--gpu-validation'
  }

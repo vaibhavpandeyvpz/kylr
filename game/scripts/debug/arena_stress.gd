@@ -109,7 +109,7 @@ func install(match_node: ArenaMatch, seconds: float, use_preset_lighting := fals
 	var listener := AudioListener3D.new()
 	game.camera.add_child(listener)
 	listener.make_current()
-	# Explicit diagnostic GI override, independent of shipping Ultra's GI rule.
+	# Explicit diagnostic GI override, independent of preset lighting.
 	if not preset_lighting:
 		for world: WorldEnvironment in game.find_children("*","WorldEnvironment",true,false):
 			world.environment.ambient_light_source=Environment.AMBIENT_SOURCE_COLOR
@@ -270,7 +270,7 @@ func report() -> Dictionary:
 		clean["combat_jump_requests"]=game.robots[bots.size()].brain.combat_jump_requests
 		for key in ["previous","last_direction","shots_start"]: clean.erase(key)
 		bots.append(clean)
-	return {"valid":valid,"center":[center.x,center.y,center.z],"area_m":[10,10],"diagnostic_deck":diagnostic_deck,"overall_deck_m":[12,12],"native_lamp_counts":{"pole_light":2,"sconce_light":2,"batten_light":2},"jumbotron_position":str(game.map.jumbotron.motion.asset.global_position),"jumbotron_height_m":game.map.jumbotron.motion.asset.global_position.y,"camera_radius_m":5,"camera_height_m":5,"camera_sweep_degrees":rad_to_deg(measured_angle),"full_map_loaded":true,"preset_lighting":preset_lighting,"gi_override":"authored settings preserved" if preset_lighting else "SDFGI and ambient enabled; RT bounces retained when RT enabled","fixture_lights":lights.size(),"equipment_locked":true,"trigger_exercise":"0.75 s primary trigger every 3 s, staggered per actor; native AI between exercises","resources_replenished_each_tick":true,"bots":bots}
+	return {"valid":valid,"center":[center.x,center.y,center.z],"area_m":[10,10],"diagnostic_deck":diagnostic_deck,"overall_deck_m":[12,12],"native_lamp_counts":{"pole_light":2,"sconce_light":2,"batten_light":2},"jumbotron_position":str(game.map.jumbotron.motion.asset.global_position),"jumbotron_height_m":game.map.jumbotron.motion.asset.global_position.y,"camera_radius_m":5,"camera_height_m":5,"camera_sweep_degrees":rad_to_deg(measured_angle),"full_map_loaded":true,"preset_lighting":preset_lighting,"gi_override":"authored settings preserved" if preset_lighting else "SDFGI and ambient enabled","fixture_lights":lights.size(),"equipment_locked":true,"trigger_exercise":"0.75 s primary trigger every 3 s, staggered per actor; native AI between exercises","resources_replenished_each_tick":true,"bots":bots}
 
 func reject(reason: String) -> bool:
 	failed=true

@@ -1,7 +1,7 @@
 param(
     [ValidateSet('skyfall','faceoff')][string[]]$Maps = @('skyfall','faceoff'),
     [ValidateSet('DM','TDM','CTF')][string[]]$Modes = @('DM','TDM','CTF'),
-    [ValidateRange(0,3)][int[]]$Qualities = @(0,1,2,3),
+    [ValidateRange(0,2)][int[]]$Qualities = @(0,1,2),
     [ValidateRange(2,10)][int[]]$Counts = @(10),
     [ValidateRange(1,10)][int]$Repeats = 1,
     [ValidateRange(25,300)][int]$Seconds = 25,
@@ -13,15 +13,15 @@ param(
 # belong in separate trials, not in this baseline matrix.
 $ErrorActionPreference = 'Stop'
 $project = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))
-$runtime = Join-Path $project 'reports/performance/release-diagnostic/KylrRTXDiagnostic.exe'
-$sourceRuntime = Join-Path $project '../engine/bin/godot.windows.template_release.x86_64.exe'
+$runtime = Join-Path $project 'reports/performance/release-diagnostic/KylrDiagnostic.exe'
+$sourceRuntime = $(if ($env:GODOT_TEMPLATE) { $env:GODOT_TEMPLATE } else { Join-Path $env:APPDATA 'Godot/export_templates/4.7.2.stable/windows_release_x86_64.exe' })
 $pack = [IO.Path]::ChangeExtension($runtime, '.pck')
 if (-not (Test-Path -LiteralPath $runtime) -or -not (Test-Path -LiteralPath $pack)) {
-    throw 'Run the custom editor with -s res://tools/pack_rendered_profile.gd first.'
+    throw 'Run the official editor with -s res://tools/pack_rendered_profile.gd first.'
 }
 $runtimeHash = (Get-FileHash -LiteralPath $runtime).Hash
 if ($runtimeHash -ne (Get-FileHash -LiteralPath $sourceRuntime).Hash) {
-    throw 'Diagnostic runtime is stale; repack using the custom editor.'
+    throw 'Diagnostic runtime is stale; repack using the official editor.'
 }
 $reportDirectory = if ([IO.Path]::IsPathRooted($ReportDirectory)) {
     [IO.Path]::GetFullPath($ReportDirectory)
@@ -61,9 +61,7 @@ foreach ($map in $Maps) {
                     if ((Get-Item -LiteralPath $path).LastWriteTime -lt $started) { throw "Stale report $name" }
                     $report = Get-Content -LiteralPath $path -Raw | ConvertFrom-Json
                     if ($report.target_fps -ne 120 -or $report.quality_settings.quality -ne $quality -or $report.display.changed_during_sample -or $report.display.window_size -ne '(1920, 1080)' -or $report.follow_bot.moving_seconds -lt 3 -or $report.frames -lt 60) { throw "Invalid sample $name" }
-                    $rtExpected = $quality -eq 3
-                    if ($report.quality_settings.ray_tracing_requested -ne $rtExpected -or $report.quality_settings.fixture_lighting -ne $rtExpected) { throw "Incorrect preset features in $name" }
-                    if (@($report.environments | Where-Object { $_.pathtracing_enabled -ne $rtExpected }).Count -gt 0 -or @($report.environments).Count -eq 0) { throw "Incorrect active renderer in $name" }
+                    if ($report.quality_settings.fixture_lighting -ne ($quality -eq 2) -or $report.quality_settings.active_renderer -ne 'Raster') { throw "Incorrect preset features in $name" }
                     $manifest.samples += [ordered]@{name=$name; report=$path; average_fps=$report.average_fps; frame_ms=$report.frame_ms; over_target_budget_percent=$report.over_target_budget_percent; meets_target_every_frame=$report.meets_target_every_frame}
                     $manifest | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $manifestPath
                     Write-Output "RESULT $name fps=$($report.average_fps) p95=$($report.frame_ms.p95) p99=$($report.frame_ms.p99)"

@@ -1,6 +1,6 @@
 # Playtesting and performance
 
-Use the sibling custom engine for every import, test and capture. Commands run
+Use official Godot 4.7.2 for every import, test and capture. Commands run
 from `game/`; `$Godot` is the console executable defined in the README.
 Generated results belong in ignored `reports/`, not in source documentation.
 Keep generated measurements in ignored reports; document verification procedures here.
@@ -15,7 +15,7 @@ appearance, audio quality or real-time FPS.
 ## Bot and traversal matrix
 
 Behavior-tree, equipment-policy and resource-targeting changes also require a
-baseline/current CPU comparison with the same custom engine, map, seed,
+baseline/current CPU comparison with the same official Godot version, map, seed,
 difficulty and ten-robot roster. Warm the simulation, run repeated serial trials
 without concurrent builds or matrix jobs, and report average, p95, p99 and
 maximum decision CPU time per physics frame alongside whole-frame costs.
@@ -35,6 +35,9 @@ foreach ($map in @('skyfall','faceoff')) {
 ```
 
 The runner requires a fresh report prefix and records hashes and activity.
+Each map runs its 25 cases serially in one process, reusing immutable resource
+and navigation caches between matches. Match state and solver instances remain
+independent.
 For difficulty sweeps, configurable durations and the physical charged-jump
 check, use `tools/run_bot_matrix.ps1 -Map faceoff`. It defaults to Skyfall;
 repeat for each map. Fixed-rate/headless throughput is a functional diagnostic.
@@ -72,12 +75,9 @@ It includes infinite health/ammo, live fighting/dodging and the full surrounding
 map. Keep gameplay, fixture illumination/shadows and preset settings intact.
 
 ```powershell
-./tools/run_arena_stress.ps1 -Quality 2,3 -PresetLighting -GPUIndex 0 -ExpectedGPU NVIDIA -Repack -ReportName review -RuntimeDirectory reports/performance/release-review
+./tools/run_arena_stress.ps1 -Quality 0,1,2 -PresetLighting -GPUIndex 0 -ExpectedGPU NVIDIA -Repack -ReportName review -RuntimeDirectory reports/performance/release-review
 ```
 
-For Ultra alone, `tools/run_dlss_benchmark.ps1` also verifies native DLSS RR
-execution and actual internal/output dimensions. `-DisableUpscaling` retains
-native-resolution RR. Use a fresh report/runtime name and `-Repack` after changes.
 The all-preset/full-match runner is `tools/run_graphics_matrix.ps1`; it requires
 `tools/pack_rendered_profile.gd` to prepare its default diagnostic package first.
 
@@ -98,17 +98,15 @@ profiling path; see [tools](../game/tools/README.md) for entry points.
 
 ## Loading, visuals and lifecycle
 
-Use `run_loading_lifecycle_probe.ps1` for menu, repeated matches and shutdown,
-and `run_renderer_startup_probe.ps1` for visibility/readiness at scene reveal.
-Both require graphical validation prerequisites; review the captured images.
+Use `run_loading_lifecycle_probe.ps1` for menu, repeated matches and shutdown.
+Review its graphical captures.
 Loading holds simulation/audio until readiness rather than hiding a running match.
 
-Use `run-rt-effects-probe.ps1` for the 43 effect cases in raster/RT and all
-presets. Review early/peak/tail, foreground occlusion, rapid reuse, Reduced
-Motion, bloom off, vertical fire, fixture lighting and RT transitions. The
-interactive weapon sandbox remains available for direct FPV/TPV checks.
+Use `run_weapon_effects_harness.ps1` for direct FPV/TPV effect checks across
+the three graphics presets. Review early/peak/tail, foreground occlusion, rapid
+reuse, Reduced Motion, bloom off, vertical fire and fixture lighting.
 
-Manually exercise settings Apply/Revert, unsupported-device explanations,
+Manually exercise settings Apply/Revert, display confirmation,
 800x600 through 1080p/portrait layouts, controller/keyboard focus, menu/match/
 results transitions, death/respawn, audio, and exported gameplay. For online
 verification use [ONLINE_PROTOCOL.md](ONLINE_PROTOCOL.md). Renderer behavior is

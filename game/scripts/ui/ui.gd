@@ -46,13 +46,12 @@ const SETTING_HELP = {
  "invert":"Reverses vertical mouse look.", "fov":"Sets camera field of view in degrees. A wider view makes distant objects appear smaller.",
  "display_mode":"Windowed is resizable. Borderless and exclusive fullscreen use the monitor's native resolution. Display changes need confirmation within 15 seconds.",
  "resolution":"Windowed size, limited to the connected display. Fullscreen uses native resolution.",
- "ray_tracing":"Traces lighting, shadows and reflections. DLSS Ray Reconstruction supports native resolution or optional upscaling. Requires a supported graphics device and denoiser.",
- "quality":"High and Ultra enable fixture illumination and shadows. Ultra also defaults to DLSS ray tracing when available. Raster rendering uses the selected ambient occlusion and MSAA settings. Low and Medium retain emissive-only fixtures. Detail changes select Custom.",
+ "quality":"High enables fixture illumination and shadows. Raster rendering uses the selected ambient occlusion and MSAA settings. Low and Medium retain emissive-only fixtures. Detail changes select Custom.",
  "fixture_lighting":"Makes sconces, battens, pole heads and jumbotron spotlights illuminate nearby surfaces using their authored facing. Light shadows controls their shadows.",
  "shadows":"Draws supported light shadows. Turning this off reduces rendering cost.",
- "ambient_occlusion":"Adds raster shading around surface contacts. Available with Forward+ when ray tracing is off.",
+ "ambient_occlusion":"Adds raster shading around surface contacts. Available with Forward+.",
  "bloom":"Adds a subtle glow around bright surfaces. This preserves gameplay indicators when off.",
- "antialiasing":"Smooths jagged raster edges. Higher sample counts cost more GPU time. This selection applies when ray tracing is off.",
+ "antialiasing":"Smooths jagged raster edges. Higher sample counts cost more GPU time.",
  "sprint_blur":"Blurs only the screen edges during actual sprint movement. Zero turns it off; the center aim area and HUD stay clear.",
  "speed_lines":"Adds faint lines at the screen edges while sprinting. Reduced motion suppresses both sprint effects.",
  "callouts":"Full allows ordinary reactions once per robot per 8 seconds; Reduced uses 16 seconds. Kill quips and repair/energy dialogue play per event. Off suppresses robot dialogue. Objective announcements and the low-energy warning tone remain available.",
@@ -301,11 +300,7 @@ func setting_help(control: Control, key: String, title: String):
 	if key == "tutorial_hints": explanation = "Shows five first-life hints with your current controls. They pause during spawn, repair, death and results, then turn off automatically. Enable this to repeat them next match."
 	if key == "name": explanation = "Your robot's callsign in Instant Action. Use 1–20 letters, digits, dots or underscores. Online Multiplayer uses your account display name."
 	if key == "separate_rendering_thread": explanation = "Runs rendering on a separate thread. Experimental; it may improve performance or cause instability. Off uses Safe mode. Requires a game restart and is independent of visual quality."
-	if key == "rt_upscaling": explanation = "Available only with DLSS. On reconstructs half-size internal rendering to the output resolution; Off keeps native-resolution Ray Reconstruction. Interface text stays at output resolution."
 	if key in pending_bindings: explanation = "Choose a keyboard key or mouse button for " + title.to_lower() + ". Escape cancels capture. A conflict offers Swap or Cancel, keeping both actions usable."
-	if key == "ray_tracing" and not Preferences.ray_tracing_unavailable_reason(int(pending.rt_denoiser)).is_empty(): explanation=Preferences.ray_tracing_unavailable_reason(int(pending.rt_denoiser))
-	if key in ["antialiasing","ambient_occlusion"] and bool(pending.ray_tracing) and Preferences.ray_tracing_unavailable_reason(int(pending.rt_denoiser)).is_empty():
-		explanation="Unavailable while ray tracing is selected. Your saved raster setting is retained for when ray tracing is off."
 	control.tooltip_text = explanation
 	control.accessibility_name = title
 	control.accessibility_description = explanation
@@ -410,27 +405,13 @@ func settings_tab(tab: String):
 			resolution.disabled = int(pending.display_mode) != 0 or DisplayServer.get_name() == "headless"
 			setting_help(resolution,"resolution","Resolution")
 			label(rows,"QUALITY",20,ACTION)
-			setting_choice(rows,"Visual quality","quality",["Low","Medium","High","Ultra","Custom"])
-			var rt := toggle(rows,"Ray tracing","ray_tracing")
-			var rt_reason := Preferences.ray_tracing_unavailable_reason(int(pending.rt_denoiser))
-			var rt_selected := bool(pending.ray_tracing) and rt_reason.is_empty()
-			rt.disabled = not rt_reason.is_empty()
-			if rt.disabled:
-				rt.set_pressed_no_signal(false)
-				rt.tooltip_text = rt_reason
-				var reason := label(rows,rt_reason,16,MUTED)
-				reason.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-			var capabilities:=Preferences.rt_denoiser_capabilities()
-			var upscaling:=toggle(rows,"DLSS upscaling","rt_upscaling")
-			upscaling.disabled=not rt_selected or not capabilities.dlss
-			upscaling.tooltip_text="On: reconstruct half-size internal rendering to the output resolution. Off: native-resolution DLSS Ray Reconstruction. Available only with DLSS."
+			setting_choice(rows,"Visual quality","quality",["Low","Medium","High","Custom"])
 			toggle(rows,"Fixture illumination","fixture_lighting")
 			toggle(rows,"Light shadows","shadows")
 			var ao := toggle(rows,"Raster ambient occlusion","ambient_occlusion")
-			ao.disabled = rt_selected or RenderingServer.get_current_rendering_method() != "forward_plus"
+			ao.disabled = RenderingServer.get_current_rendering_method() != "forward_plus"
 			toggle(rows,"Bloom","bloom")
-			var antialiasing:=setting_choice(rows,"Raster antialiasing","antialiasing",["Off","2× MSAA","4× MSAA","8× MSAA"])
-			antialiasing.disabled=rt_selected
+			setting_choice(rows,"Raster antialiasing","antialiasing",["Off","2× MSAA","4× MSAA","8× MSAA"])
 			label(rows,"RENDERING",20,ACTION)
 			var renderer_status:=label(rows,"Active renderer: "+Preferences.active_renderer_label(app),16,MUTED)
 			renderer_status.set_meta("renderer_status",true)
@@ -463,7 +444,7 @@ func settings_tab(tab: String):
 			confirm.popup_centered()
 		else: settings_return.call())
 	button(footer,"DEFAULTS",func():
-		var groups := {"Controls":["sensitivity","invert","third_person"],"Audio":["master","music","effects","interface","announcer","voices","reduced_audio_range","callouts","subtitles"],"Graphics":["fov","display_mode","resolution","quality","separate_rendering_thread","rt_denoiser","rt_upscaling","ray_tracing","fixture_lighting","shadows","ambient_occlusion","bloom","antialiasing","sprint_blur","speed_lines"],"HUD":["hud_scale","contrast","subtitles","reduced_motion","tutorial_hints"]}
+		var groups := {"Controls":["sensitivity","invert","third_person"],"Audio":["master","music","effects","interface","announcer","voices","reduced_audio_range","callouts","subtitles"],"Graphics":["fov","display_mode","resolution","quality","separate_rendering_thread","fixture_lighting","shadows","ambient_occlusion","bloom","antialiasing","sprint_blur","speed_lines"],"HUD":["hud_scale","contrast","subtitles","reduced_motion","tutorial_hints"]}
 		for key in groups[tab]: pending[key]=Preferences.DEFAULTS[key]
 		if tab == "Graphics": pending.resolution=Preferences.resolutions().back()
 		if tab == "Controls": pending_bindings=Preferences.DEFAULT_BINDINGS.duplicate()
@@ -585,9 +566,8 @@ func toggle(parent,title: String,key: String) -> CheckButton:
 	parent.add_child(node)
 	node.toggled.connect(func(value):
 		pending[key]=value
-		if key in ["shadows","ambient_occlusion","bloom","fixture_lighting","ray_tracing"]: pending.quality=Preferences.CUSTOM_QUALITY
-		if key=="ray_tracing":settings_tab("Graphics")
-		else:settings_dirty())
+		if key in ["shadows","ambient_occlusion","bloom","fixture_lighting"]: pending.quality=Preferences.CUSTOM_QUALITY
+		settings_dirty())
 	setting_help(node,key,title)
 	return node
 

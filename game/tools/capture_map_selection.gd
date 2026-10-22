@@ -14,10 +14,9 @@ func run():
 	AudioServer.set_bus_mute(0,true)
 	var prefs := Preferences.new(output.path_join("preferences.cfg"))
 	prefs.values=Preferences.DEFAULTS.duplicate(true)
-	prefs.values.merge(Preferences.QUALITY_PRESETS[3],true)
-	prefs.values.quality=3
+	prefs.values.merge(Preferences.QUALITY_PRESETS[2],true)
+	prefs.values.quality=2
 	prefs.values.quality_benchmarked=true
-	prefs.values.rt_upscaling=false
 	prefs.values.resolution=Vector2i(1920,1080)
 	prefs.values.display_mode=1
 	prefs.values.name="Pilot"

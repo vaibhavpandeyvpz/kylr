@@ -63,7 +63,7 @@ def main():
                     links.append(link)
                     assignment.update(host='127.0.0.1',port=link.port)
                 env=dict(os.environ,KYLR_PROBE_NETWORK_ONLY='1' if args.network_only else '0',KYLR_PROBE_ASSIGNMENT=json.dumps(assignment),KYLR_PROBE_SECONDS=str(duration),KYLR_PROBE_FIRE='1' if index==0 else '0',KYLR_PROBE_REPORT=str(path))
-                processes.append(subprocess.Popen([os.getenv('GODOT',str(root.parent/'engine'/'bin'/'godot.windows.editor.x86_64.console.exe')),'--headless','--path',str(root),'-s','res://tools/probe_online_client.gd'],env=env,stdout=log,stderr=subprocess.STDOUT))
+                processes.append(subprocess.Popen([os.getenv('GODOT','godot'),'--headless','--path',str(root),'-s','res://tools/probe_online_client.gd'],env=env,stdout=log,stderr=subprocess.STDOUT))
                 time.sleep(1)
             assert len({item['server_id'] for item in assignments})==1,'Roster split into different servers'
             for index,process in enumerate(processes):

@@ -6,8 +6,7 @@ func _initialize() -> void: run.call_deferred()
 
 func run() -> void:
 	root.size=Vector2i(1280,720)
-	var rt := "--rt" in OS.get_cmdline_user_args()
-	var mode := "rt" if rt else "raster"
+	var mode := "raster"
 	var folder := "res://reports/shared-sparks/"+mode+"/"
 	DirAccess.make_dir_recursive_absolute(folder)
 	var stage := Node3D.new()
@@ -47,10 +46,8 @@ func run() -> void:
 	stage.add_child(light)
 	var preferences := Preferences.new("res://reports/shared-sparks-unused.cfg")
 	preferences.values=Preferences.DEFAULTS.duplicate(true)
-	preferences.values.merge(Preferences.QUALITY_PRESETS[3],true)
-	preferences.values.quality=3
-	preferences.values.ray_tracing=rt
-	preferences.values.rt_upscaling=false
+	preferences.values.merge(Preferences.QUALITY_PRESETS[2],true)
+	preferences.values.quality=2
 	preferences.apply_rendering(stage)
 	await physics_frame
 	var spark := ImpactSparks.new()
@@ -69,7 +66,7 @@ func run() -> void:
 				assert(actual.basis.y.length()<=0.05001)
 				assert(is_equal_approx(actual.basis.x.length(),1.0))
 				assert(is_equal_approx(actual.basis.z.length(),1.0))
-			var ready: Dictionary=await Preparation.wait_for_rendering(self,root,rt)
+			var ready: Dictionary=await Preparation.wait_for_rendering(self,root)
 			assert(ready.ready)
 			for frame in 30: await process_frame
 			await RenderingServer.frame_post_draw

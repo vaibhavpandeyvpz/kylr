@@ -15,9 +15,8 @@ func run():
 	var manifest: Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://data/maps/previews.json"))
 	var settings:=Preferences.new("user://map-preview-capture.cfg")
 	settings.values=Preferences.DEFAULTS.duplicate(true)
-	settings.values.merge(Preferences.QUALITY_PRESETS[3],true)
-	settings.values.quality=3
-	settings.values.rt_upscaling=false
+	settings.values.merge(Preferences.QUALITY_PRESETS[2],true)
+	settings.values.quality=2
 	for map_id in manifest:
 		var requested := ""
 		for argument in OS.get_cmdline_user_args():
@@ -62,7 +61,7 @@ func run():
 			observer.position=MapCatalog.vector(shot.position)
 			observer.look_at(MapCatalog.vector(shot.target))
 			observer.fov=float(shot.fov)
-			var ready:=await Preparation.wait_for_rendering(self,root,true)
+			var ready:=await Preparation.wait_for_rendering(self,root)
 			assert(ready.ready)
 			await settle(45)
 			await RenderingServer.frame_post_draw

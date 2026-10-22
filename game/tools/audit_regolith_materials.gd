@@ -38,19 +38,18 @@ func run() -> void:
 			game.add_child(camera)
 			camera.current = true
 			var preferences := Preferences.new("res://reports/regolith-audit-preferences.cfg")
-			preferences.values.quality=3
-			for key in Preferences.QUALITY_PRESETS[3]: preferences.values[key]=Preferences.QUALITY_PRESETS[3][key]
+			preferences.values.quality=2
+			for key in Preferences.QUALITY_PRESETS[2]: preferences.values[key]=Preferences.QUALITY_PRESETS[2][key]
 			preferences.apply_rendering(game)
-			var rt_requested := bool(preferences.values.ray_tracing) and preferences.ray_tracing_unavailable_reason(int(preferences.values.rt_denoiser)).is_empty()
 			for region in ["crater", "outside"]:
 				var target := Vector3(25,0,25) if region=="crater" else Vector3(180,0,0)
 				camera.global_position=target+Vector3(6,7,8)
 				camera.look_at(target)
-				var readiness := await ResourcePreparation.wait_for_rendering(self,root,rt_requested)
+				var readiness := await ResourcePreparation.wait_for_rendering(self,root)
 				if not readiness.ready: failures.append(map_id+":"+region+": rendering not ready")
 				for frame in range(30): await RenderingServer.frame_post_draw
 				root.get_texture().get_image().save_png("res://reports/regolith-%s-%s.png"%[map_id,region])
-				print("REGOLITH_CAPTURE ",map_id," ",region," rt=",rt_requested," ready=",readiness.ready)
+				print("REGOLITH_CAPTURE ",map_id," ",region," ready=",readiness.ready)
 		counts[map_id] = count
 		if count == 0: failures.append(map_id + ": no regolith surfaces")
 		game.queue_free()

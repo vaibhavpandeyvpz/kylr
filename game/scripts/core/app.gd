@@ -237,26 +237,8 @@ func benchmark_quality():
 	prefs.save()
 
 func prepare_rendering() -> Dictionary:
-	var rt_requested := is_instance_valid(match_node) and bool(prefs.values.ray_tracing) and Preferences.ray_tracing_unavailable_reason(int(prefs.values.rt_denoiser)).is_empty()
-	var ready: Dictionary=await ResourcePreparation.wait_for_rendering(get_tree(),get_viewport(),rt_requested)
-	if ready.ready:
-		print("RENDERER_ACTIVE ",Preferences.active_renderer_label(self))
-		if is_instance_valid(match_node) and bool(prefs.values.ray_tracing) and not rt_requested:
-			print("RENDERER_RT_UNAVAILABLE ",Preferences.ray_tracing_unavailable_reason(int(prefs.values.rt_denoiser)))
-	if not ready.ready:
-		push_warning("Rendering preparation failed: "+JSON.stringify(ready))
-		if get_meta("automated_profile",false):
-			push_error("Automated rendering preparation failed: "+JSON.stringify(ready))
-			get_tree().quit(1)
-			return ready
-		loading_screen.offer_raster()
-		await loading_screen.raster_requested
-		prefs.values.ray_tracing=false
-		prefs.values.quality=Preferences.CUSTOM_QUALITY
-		prefs.apply_rendering(self)
-		prefs.save()
-		ready["fallback"]="raster_selected"
-		ready.ready=true
+	var ready: Dictionary=await ResourcePreparation.wait_for_rendering(get_tree(),get_viewport())
+	print("RENDERER_ACTIVE ",Preferences.active_renderer_label(self))
 	return ready
 
 func apply_rendering_with_loading() -> void:
@@ -275,9 +257,7 @@ func start_match():
 	await loading_screen.paint()
 	await ResourcePreparation.match_resources(get_tree(),String(prefs.values.map))
 	retire_preview()
-	# The new camera can render during asynchronous scene assembly, before its
-	# environment receives the selected denoiser. Do not inherit the menu's
-	# temporal upscaler during that interval; on_ready restores the full preset.
+	# Keep native rendering during asynchronous scene assembly.
 	get_viewport().scaling_3d_mode=Viewport.SCALING_3D_MODE_BILINEAR
 	get_viewport().scaling_3d_scale=1.0
 	match_node=ArenaMatch.new()

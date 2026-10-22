@@ -48,8 +48,7 @@ static func install(parent: Node, preview := false) -> WorldEnvironment:
 	moon.directional_shadow_max_distance = 110
 	parent.add_child(moon)
 	if preview:
-		# The menu has no arena fixtures. Use real studio lights so disabling
-		# raster ambient/reflection fill for RT does not leave the robot unlit.
+		# The menu has no arena fixtures; dedicated studio lights shape the portrait.
 		for spec in [
 			["Key",Vector3(2.5,3.0,2.5),Color("edf3ff"),4.0,Vector2(1.6,1.6)],
 			["Fill",Vector3(-2.0,1.8,1.2),Color("b8cfe8"),1.4,Vector2(1.8,1.8)],

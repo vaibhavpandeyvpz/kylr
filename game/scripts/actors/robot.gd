@@ -352,6 +352,11 @@ func equip(id: String) -> void:
 	if skeleton: aim_pose.restore(skeleton)
 	if gun:
 		for node in gun.find_children("*","StaticBody3D",true,false): hit_rids.erase(node.get_rid())
+		# Detach per-instance finishes while the mesh and materials are alive.
+		for geometry in gun.find_children("*","GeometryInstance3D",true,false):
+			geometry.set_base(RID())
+			geometry.material_overlay=null
+			geometry.material_override=null
 		gun.free()
 	equipped = id
 	streaming = false

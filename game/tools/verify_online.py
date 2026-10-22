@@ -36,7 +36,7 @@ def main():
         server_id,generation=secrets.token_hex(16),secrets.token_hex(16)
         db.servers.insert_one({'_id':server_id,'match_id':generation,'type':args.type,'phase':'Waiting','host':'127.0.0.1','port':25150,'slots':[],'ready':False,'lease_until':time.time()+60,'last_occupied':time.time()})
         env=dict(os.environ,KYLR_SERVER_ID=server_id,KYLR_MATCH_ID=generation,KYLR_MATCH_TYPE=args.type,KYLR_PORT='25150',KYLR_API_URL='http://127.0.0.1:18080',KYLR_CONTROL_TOKEN=control)
-        godot=os.getenv('GODOT',str(root.parent/'engine'/'bin'/'godot.windows.editor.x86_64.console.exe'))
+        godot=os.getenv('GODOT','godot')
         server_log=(reports/'server-probe.log').open('w',encoding='utf-8')
         server=subprocess.Popen([godot,'--headless','--path',str(root),'-s','res://tools/probe_online_server.gd'],env=env,stdout=server_log,stderr=subprocess.STDOUT)
         deadline=time.time()+20

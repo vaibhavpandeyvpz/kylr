@@ -1,17 +1,15 @@
 class_name Preferences
 extends RefCounted
 const DEFAULTS = {"tutorial_hints":true,"map":"skyfall","name":"","type":0,"difficulty":1,"count":10,"goal":25,"minutes":15,"mode":"Instant Action","online_type":0,"third_person":false,
-	"sensitivity":0.0022,"fov":60.0,"fov_version":1,"master":1.0,"effects":1.0,"music":0.6,"interface":1.0,"announcer":1.0,"voices":1.0,"reduced_audio_range":false,"hud_scale":1.0,"reduced_motion":false,"contrast":false,"subtitles":true,"invert":false,
-	"display_mode":0,"resolution":Vector2i(1280,720),"quality":1,"quality_version":1,"quality_benchmarked":false,"separate_rendering_thread":false,"rt_denoiser":0,"rt_upscaling":true,"ray_tracing":false,"fixture_lighting":false,"shadows":true,"ambient_occlusion":false,"bloom":true,"antialiasing":1,"sprint_blur":0.35,"speed_lines":true,"callouts":0}
+	"sensitivity":0.0022,"fov":60.0,"master":1.0,"effects":1.0,"music":0.6,"interface":1.0,"announcer":1.0,"voices":1.0,"reduced_audio_range":false,"hud_scale":1.0,"reduced_motion":false,"contrast":false,"subtitles":true,"invert":false,
+	"display_mode":0,"resolution":Vector2i(1280,720),"quality":1,"quality_benchmarked":false,"separate_rendering_thread":false,"fixture_lighting":false,"shadows":true,"ambient_occlusion":false,"bloom":true,"antialiasing":1,"sprint_blur":0.35,"speed_lines":true,"callouts":0}
 const QUALITY_PRESETS = [
-	{"shadows":false,"ambient_occlusion":false,"bloom":false,"antialiasing":0,"ray_tracing":false,"fixture_lighting":false},
-	{"shadows":true,"ambient_occlusion":false,"bloom":true,"antialiasing":1,"ray_tracing":false,"fixture_lighting":false},
-	{"shadows":true,"ambient_occlusion":true,"bloom":true,"antialiasing":2,"ray_tracing":false,"fixture_lighting":true},
-	{"shadows":true,"ambient_occlusion":true,"bloom":true,"antialiasing":3,"ray_tracing":true,"rt_denoiser":0,"rt_upscaling":true,"fixture_lighting":true}]
-const CUSTOM_QUALITY := 4
+	{"shadows":false,"ambient_occlusion":false,"bloom":false,"antialiasing":0,"fixture_lighting":false},
+	{"shadows":true,"ambient_occlusion":false,"bloom":true,"antialiasing":1,"fixture_lighting":false},
+	{"shadows":true,"ambient_occlusion":true,"bloom":true,"antialiasing":2,"fixture_lighting":true}]
+const CUSTOM_QUALITY := 3
 const RENDERER_SETTINGS_PATH := "user://renderer.cfg"
 const OFFLINE_COUNTS = [2,4,6,8,10]
-const DENOISER_DLSS := 0
 var setup_notices: Array[String] = []
 var storage_path := "user://preferences.cfg"
 var values := DEFAULTS.duplicate(true)
@@ -21,9 +19,6 @@ var bindings := DEFAULT_BINDINGS.duplicate()
 static func read_bindings(config: ConfigFile) -> Dictionary:
 	var result := DEFAULT_BINDINGS.duplicate()
 	for key in result: result[key] = config.get_value("bindings",key,result[key])
-	if not config.has_section_key("bindings","walk") and config.has_section_key("bindings","sprint"):
-		result.walk = config.get_value("bindings","sprint",KEY_SHIFT)
-		result.sprint = KEY_ALT if result.walk == KEY_CTRL else KEY_CTRL
 	return result
 
 static func valid_name(value: String) -> bool:
@@ -37,12 +32,7 @@ func _init(path := "user://preferences.cfg"):
 	var config := ConfigFile.new()
 	if config.load(storage_path) == OK:
 		for key in values: values[key] = config.get_value("preferences",key,values[key])
-		# Index 3 used to mean Custom, never silently opt old saves into Ultra.
-		if not config.has_section_key("preferences","quality_version") and int(values.quality)==3: values.quality=CUSTOM_QUALITY
-		if not config.has_section_key("preferences","fov_version") and is_equal_approx(float(values.fov),78.0): values.fov = 60.0
-		if not config.has_section_key("preferences","ray_tracing"): values.ray_tracing=int(values.quality)==3
 		bindings = read_bindings(config)
-	values.rt_denoiser=DENOISER_DLSS
 	if not config.has_section_key("preferences","resolution"): values.resolution=resolutions().back()
 	var previous_count := int(values.count)
 	values.count = clampi(int(ceil(previous_count / 2.0)) * 2,2,10)
@@ -52,12 +42,8 @@ func _init(path := "user://preferences.cfg"):
 		var previous := int(values[key])
 		values[key] = clampi(previous,option[1],option[2])
 		if previous != values[key]: setup_notices.append("Saved %s was unavailable and has been reset." % key)
-	for option in [["display_mode",0,2],["quality",0,4],["antialiasing",0,3],["callouts",0,2]]:
+	for option in [["display_mode",0,2],["quality",0,3],["antialiasing",0,3],["callouts",0,2]]:
 		values[option[0]] = clampi(int(values[option[0]]),option[1],option[2])
-	# Restore the current High preset; individual lighting choices use Custom.
-	if int(values.quality)==2:
-		values.fixture_lighting=true
-		values.shadows=true
 	for option in [["fov",60.0,100.0],["hud_scale",0.8,1.4],["sprint_blur",0.0,1.0],["sensitivity",0.0005,0.006]]:
 		values[option[0]] = clampf(float(values[option[0]]),option[1],option[2])
 	if typeof(values.resolution) != TYPE_VECTOR2I or not values.resolution in resolutions(): values.resolution=resolutions().back()
@@ -111,97 +97,16 @@ func apply_display(options: Dictionary = {}):
 		DisplayServer.window_set_size(size)
 		DisplayServer.window_set_position(usable.position + (usable.size-size)/2)
 
-static func ray_tracing_unavailable_reason(requested: int = -1) -> String:
-	var reason:=ray_tracing_hardware_unavailable_reason()
-	if not reason.is_empty():return reason
-	var capabilities:=rt_denoiser_capabilities()
-	if not capabilities.dlss:
-		return "DLSS Ray Reconstruction is not supported by this device, driver or installed runtime."
-	if requested!=-1 and requested!=DENOISER_DLSS:
-		return "The selected ray-tracing denoiser is unavailable on this build."
-	return ""
+static func active_renderer_label(_target: Node) -> String:
+	return "Headless" if DisplayServer.get_name()=="headless" else "Raster"
 
-static func ray_tracing_hardware_unavailable_reason() -> String:
-	if DisplayServer.get_name() == "headless": return "Ray tracing is unavailable without a graphical display."
-	if RenderingServer.get_current_rendering_method() != "forward_plus": return "Ray tracing requires the Forward+ renderer."
-	if not ClassDB.class_has_method("Environment","set_pathtracing_enabled"): return "Ray tracing requires the KYLR RTX engine."
-	var device := RenderingServer.get_rendering_device()
-	if device == null or not device.has_feature(RenderingDevice.SUPPORTS_RAYTRACING_PIPELINE):
-		return "This graphics device or driver does not support hardware ray tracing."
-	return ""
-
-static func rt_denoiser_capabilities() -> Dictionary:
-	var dlss:bool=Engine.has_singleton("Streamline") and Engine.get_singleton("Streamline").get_capability(2)
-	return {"dlss":dlss}
-
-static func resolve_rt_denoiser(requested: int, capabilities: Dictionary) -> int:
-	if requested==DENOISER_DLSS and capabilities.dlss:return DENOISER_DLSS
-	return -1
-
-static func active_renderer_label(target: Node) -> String:
-	if DisplayServer.get_name()=="headless":return "Headless"
-	var worlds:=target.find_children("*","WorldEnvironment",true,false)
-	var active_match=target.get("match_node")
-	if is_instance_valid(active_match) and not target.is_ancestor_of(active_match):
-		worlds.append_array(active_match.find_children("*","WorldEnvironment",true,false))
-	for world in worlds:
-		var environment:Environment=world.environment
-		if environment==null or not environment.has_method("set_pathtracing_enabled") or not environment.get("pathtracing_enabled"):continue
-		var backend:="DLSS Ray Reconstruction" if int(environment.get("pathtracing_denoiser"))==1 else "Unfiltered path tracing"
-		var viewport:Viewport=world.get_viewport()
-		if ClassDB.class_has_integer_constant("RenderingServer","VIEWPORT_RENDER_INFO_RT_SCENE_READY"):
-			var ready_key:=ClassDB.class_get_integer_constant("RenderingServer","VIEWPORT_RENDER_INFO_RT_SCENE_READY")
-			if RenderingServer.viewport_get_render_info(viewport.get_viewport_rid(),RenderingServer.VIEWPORT_RENDER_INFO_TYPE_VISIBLE,ready_key)==0:return "Preparing "+backend
-		return backend+" / "+("native resolution" if is_equal_approx(viewport.scaling_3d_scale,1.0) else str(roundi(viewport.scaling_3d_scale*100))+"% internal resolution")
-	return "Raster"
-
-func _apply_viewport_rendering(viewport: Viewport, rt_enabled: bool):
+func _apply_viewport_rendering(viewport: Viewport):
 	viewport.set_meta("effect_quality",int(values.quality))
-	var denoiser:=resolve_rt_denoiser(int(values.rt_denoiser),rt_denoiser_capabilities()) if rt_enabled else -1
-	var dlss:=rt_enabled and denoiser==DENOISER_DLSS
-	viewport.msaa_3d = Viewport.MSAA_DISABLED if rt_enabled else clampi(int(values.antialiasing),0,3)
-	viewport.scaling_3d_mode = Viewport.SCALING_3D_MODE_DLSS if dlss else Viewport.SCALING_3D_MODE_BILINEAR
-	viewport.scaling_3d_scale = 0.5 if dlss and values.rt_upscaling else 1.0
+	viewport.msaa_3d = clampi(int(values.antialiasing),0,3)
+	viewport.scaling_3d_mode = Viewport.SCALING_3D_MODE_BILINEAR
+	viewport.scaling_3d_scale = 1.0
 	viewport.screen_space_aa = Viewport.SCREEN_SPACE_AA_DISABLED
-	if rt_enabled:viewport.use_taa=false
-
-func _restore_authored_environment_gi(env: Environment):
-	# Preserve authored lighting in every preset. Restore live environments that
-	# still carry a snapshot from the earlier Ultra RT override.
-	if env.has_meta("quality_raster_gi"):
-		var original: Dictionary = env.get_meta("quality_raster_gi")
-		for property in original: env.set(property, original[property])
-		env.remove_meta("quality_raster_gi")
-
-func _apply_environment_reflections(env: Environment, rt_enabled: bool):
-	var disable_maps := rt_enabled and bool(values.fixture_lighting)
-	if disable_maps:
-		if not env.has_meta("quality_reflection_maps"):
-			var original := {"source": env.reflected_light_source}
-			if env.sky and env.sky.sky_material is ShaderMaterial:
-				var material := env.sky.sky_material as ShaderMaterial
-				if material.shader != null and material.shader.resource_path == "res://shaders/original/lunar_sky.gdshader":
-					original["material"] = material
-					for parameter in ["reflection_fill_energy", "reflection_detail_strength", "reflection_panorama"]:
-						original[parameter] = material.get_shader_parameter(parameter)
-			env.set_meta("quality_reflection_maps", original)
-		var original: Dictionary = env.get_meta("quality_reflection_maps")
-		env.reflected_light_source = Environment.REFLECTION_SOURCE_DISABLED
-		if original.has("material"):
-			var material: ShaderMaterial = original.material
-			# RT misses still see the authored cosmic sky, without the artificial
-			# chrome panorama that is only meant to fill raster reflections.
-			material.set_shader_parameter("reflection_fill_energy", 0.0)
-			material.set_shader_parameter("reflection_detail_strength", 0.0)
-			material.set_shader_parameter("reflection_panorama", null)
-	elif env.has_meta("quality_reflection_maps"):
-		var original: Dictionary = env.get_meta("quality_reflection_maps")
-		env.reflected_light_source = original.source
-		if original.has("material"):
-			var material: ShaderMaterial = original.material
-			for parameter in ["reflection_fill_energy", "reflection_detail_strength", "reflection_panorama"]:
-				material.set_shader_parameter(parameter, original[parameter])
-		env.remove_meta("quality_reflection_maps")
+	viewport.use_taa = false
 
 func apply_rendering(target: Node):
 	if target == null: return
@@ -214,22 +119,13 @@ func apply_rendering(target: Node):
 		active_match.fixture_lighting_enabled=bool(values.fixture_lighting)
 		active_match.fixture_shadows_enabled=bool(values.shadows)
 	if is_instance_valid(active_match) and not target.is_ancestor_of(active_match): apply_rendering(active_match)
-	var rt_enabled := bool(values.ray_tracing) and ray_tracing_unavailable_reason(int(values.rt_denoiser)).is_empty()
-	if target.get_meta("menu_studio_host",false) and not is_instance_valid(active_match): rt_enabled=false
-	_apply_viewport_rendering(target.get_viewport(),rt_enabled)
+	_apply_viewport_rendering(target.get_viewport())
 	for effect in target.find_children("*","Node3D",true,false):
 		if effect is OriginalEffect: effect.set_detail(int(values.quality))
 	for environment in target.find_children("*","WorldEnvironment",true,false):
 		if environment.environment == null: continue
-		_apply_viewport_rendering(environment.get_viewport(),rt_enabled)
+		_apply_viewport_rendering(environment.get_viewport())
 		var env: Environment = environment.environment
-		_restore_authored_environment_gi(env)
-		_apply_environment_reflections(env, rt_enabled)
-		if env.has_method("set_pathtracing_enabled"):
-			env.set("pathtracing_samples_per_pixel",1)
-			env.set("pathtracing_max_bounces",3)
-			env.set("pathtracing_denoiser",1)
-			env.set("pathtracing_enabled",rt_enabled)
 		if env.sky and env.sky.sky_material is ShaderMaterial:
 			var sky_material := env.sky.sky_material as ShaderMaterial
 			if sky_material.shader.resource_path == "res://shaders/original/lunar_sky.gdshader":
@@ -237,7 +133,7 @@ func apply_rendering(target: Node):
 		if not environment.has_meta("quality_ao"):
 			environment.set_meta("quality_ao",env.ssao_enabled)
 			environment.set_meta("quality_bloom",env.glow_enabled)
-		env.ssao_enabled = not rt_enabled and values.ambient_occlusion and bool(environment.get_meta("quality_ao"))
+		env.ssao_enabled = values.ambient_occlusion and bool(environment.get_meta("quality_ao"))
 		env.glow_enabled = values.bloom and bool(environment.get_meta("quality_bloom"))
 	for light in target.find_children("*","Light3D",true,false):
 		if light.get_meta("fixture_light",false):

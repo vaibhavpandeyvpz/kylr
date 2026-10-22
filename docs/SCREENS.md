@@ -3,7 +3,7 @@
 Main-menu and lobby/customisation robot portraits use the same ArenaLighting
 reflection panorama, ambient fill, directional key and tone mapping as matches.
 Preview stages add real rectangular key, fill and rim lights so the robot remains
-readable with ray tracing and disabled reflection maps; authored ambient fill is retained.
+readable with authored ambient fill and reflection maps.
 The main-menu pedestal uses the same regolith albedo, normal, ORM and world-scale
 triplanar material as lunar surfaces in the arenas.
 The main-menu pedestal turns slowly with the robot parented to its turntable;
@@ -15,11 +15,7 @@ Preview environments keep the dark menu background and omit distance fog; the
 background does not replace the reflection sky. All views consume the same
 classified authored materials and retain their chosen primary/secondary colours.
 Head and emote choices use compact Blender-rendered portraits in the selected primary finish; armor tiles crop the chest, waist and upper arms.
-During matches, when supported ray tracing and fixture illumination are both active, world views
-disable raster sky reflections and the artificial chrome reflection panorama.
-Ray-traced rays retain the visible authored sky and real scene reflections.
-Turning off either option restores the authored reflection settings, including
-Custom quality; unavailable RT leaves the raster recipe intact.
+
 
 This document defines the screen flow, **Online Multiplayer lobby**, **Customise screen**, **in-match HUD**, and **Settings screen** for KYLR, including remembered selections and the FPV/TPV presentation. [DESIGN_LANGUAGE.md](DESIGN_LANGUAGE.md) is the shared visual and interaction theme for all these surfaces. [GAMEPLAY.md](GAMEPLAY.md) defines the game modes and player experience, [RULES.md](RULES.md) defines match rules, and [ONLINE.md](ONLINE.md) defines login, matchmaking, and server admission. Here, **Online Multiplayer** is a game mode; **DM**, **TDM**, **CTF**, **Elimination**, and **Gun Game** are match types. A **robot** is the player's character. A **bot** is an AI-controlled robot in Instant Action.
 
@@ -272,68 +268,26 @@ Instant Action preparation holds both the opening countdown and robot spawn
 timers. Spawn fixtures begin only after the hold is released, so their opening
 motion and cues cannot be consumed behind the loading overlay.
 
-Ultra waits for the native engine to report a valid RT scene and zero pending
-hit-group materials before revealing the scene. On a preparation timeout the
-player can explicitly continue with raster lighting; automation fails instead.
 Cold shader preparation and individual scene operations can still stall the
 spinner; this mechanism covers preparation rather than promising instant loads.
 Online scene preparation is owned by the network session.
 ### Rendering thread preference
 
 Graphics includes a Separate rendering thread toggle. It defaults Off (Safe mode)
-in every quality preset, including Ultra, and changing visual quality does not
+in every quality preset, and changing visual quality does not
 overwrite an explicit thread choice. The setting is experimental, persists only
 on Apply, and takes effect on the next game launch. Show the restart requirement
 in the control label/help and the saved status; do not switch rendering servers
 during a running match. Graphics Defaults resets it to Off. Discard retains the
 previous saved startup mode.
 
-## Ray-tracing graphics controls
+## Graphics controls
 
-DLSS Ray Reconstruction is the sole ray-tracing denoiser; Graphics settings has
-no denoiser selector. Keep the Ray tracing and DLSS upscaling toggles, with
-upscaling available only while supported ray tracing is selected. Ultra requests ray
-tracing and fixture illumination by default, with DLSS upscaling enabled.
-High uses raster rendering with fixture illumination and shadow casting enabled
-by default. Low and Medium keep fixtures emissive-only. Manual illumination or
-shadow edits select Custom; reselecting High restores both lighting settings.
-Unsupported hardware or runtime disables the RT controls with an explanation
-and uses raster rendering. Turning upscaling off retains native-resolution Ray
-Reconstruction. Separate
-rendering remains an independent option, off by default in every preset.
-
-### Online presentation and responsive layout
-
-Online screens use anchored margins, a scrollable content region and a fixed action
-footer. Back/Revert stay at the left; Play/Save stay at the right. The preview stage
-and choices share wide screens; smaller layouts reduce grid columns and stack
-regions where needed. Footers remain reachable without scrolling the content.
-Only one online preview is visible, with its own World3D, camera, studio lighting
-and regolith turntable. Main-menu geometry is hidden while online previews are
-shown and retired before joining the match. Returning to the menu resumes its
-single preview. Platforms rotate with their robot; dragging rotates the online stage.
-
-A connected player awaiting the minimum roster sees a Server Ready waiting screen,
-not a combat HUD over the unassembled map. Joining and map continuation keep the
-loading cover until the client world and selected renderer are ready. Portal
-fields appear only when both linked gates are usable during active play.
-
-Portrait generators: `library/tools/render_customisation.py`, followed by
-`tools/install_customisation_thumbnails.py`. Runtime tiles are 192×192 WebP; the
-336-image set covers five heads, six upper bodies and five emotes in twelve primary colors, plus
-all 144 armor finish combinations. PNG intermediates remain in ignored library build output.
-
-Joining and waiting use the same Match staging layout, shared menu plates and fixed footer actions. Three labeled milestones show server discovery, secure admission and gathering players. Status follows backend and transport events without estimated percentages. Waiting shows the authoritative connected roster and the two-player start threshold; the world remains covered until countdown and renderer preparation finish.
-
-Main-menu and online portrait studios share `MenuStudio`, which owns a separate raster-rendered viewport outside the gameplay scene. Its neutral lighting and authored PBR materials remain stable when gameplay switches ray tracing, DLSS or quality presets. The studio is retired explicitly on shutdown and rendered only on screens that display it.
-
-Boolean settings use full-width switch rows with an explicit On/Off readout beside the switch. The whole row responds to mouse activation and native keyboard/controller input. The plate retains its geometry in every state; hover only raises the surface, focus adds an outline and the switch indicator alone conveys the value. Disabled rows keep a muted readable state and their dependency explanation. Changes remain pending until Apply.
-
-Main Menu and online portraits use the same ambient fill, rectangular key/fill/rim lights, reflection recipe, tone mapping, native-resolution rendering and 4× MSAA. Gameplay quality and ray-tracing choices do not relight menu robots or pedestals. Main Menu uses its full-screen camera composition; online screens frame the robot within their preview column. Pause and results preserve the live match environment rather than adding studio lights.
-
-Instant Action setup shows the selected map’s short overview and description above five player-free native-rendered photographs: a cinematic overview and four route, objective or fixture views. Images include the assembled map loadout, pickups, fixture lighting, shadows and environmental effects. The preview advances every two seconds and resets on map selection; numbered controls select a view directly. Reduced decorative motion stops automatic cycling. Gameplay energy rules remain in the first-life hints rather than repeated in setup. Setup keeps Back and Start Match in a fixed footer and scrolls its two content columns on smaller windows.
-
-A credited local elimination displays “You killed XYZ” above the crosshair for 2.6 seconds. A chain accolade appears in a larger bold line beneath it, still above the aiming area. Rajdhani Bold, a dark outline and cyan accents preserve the shared HUD styling; Champion and Death Bringer use amber. A 0.22-second scale settle leads into a 0.4-second fade; Reduced Motion removes the scale animation. The next elimination replaces the current caption immediately. Names remain literal text, the component ignores pointer input and it follows HUD scaling. These gameplay confirmations remain available with Subtitles off; ordinary speech captions retain their existing controls.
+Visual quality offers Low, Medium, High and Custom. High enables fixture
+illumination and shadow casting with 4× MSAA. Low and Medium keep fixtures
+emissive-only. Individual lighting, shadow, ambient-occlusion, bloom and
+antialiasing edits select Custom. All presets use native-resolution raster
+rendering and retain authored ambient fill and reflection maps.
 
 ## Elimination and Gun Game presentation
 

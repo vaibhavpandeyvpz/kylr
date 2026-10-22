@@ -1,5 +1,5 @@
 extends RefCounted
-## Diagnostic raster-alpha draw isolation. Simulation and RT resources stay live.
+## Diagnostic raster-alpha draw isolation. Simulation and render resources stay live.
 const PHASE_SECONDS := 8.0
 const PHASES := [
 	{"label":"baseline_before_effects","mask":""},

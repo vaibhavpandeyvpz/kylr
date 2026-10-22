@@ -2,11 +2,9 @@
 
 Run these scripts from the repository root with PowerShell 7:
 
-- `prepare_windows_dependencies.ps1`: stage and verify pinned production
-  Streamline runtimes/notices and Microsoft C++ runtime files.
-- `engine/misc/scripts/build_windows.ps1`: build the custom editor or export
-  template with installed Visual Studio C++ tools and SCons.
-- `requirements-build.txt`: pinned build-tool dependency.
+- `prepare_godot.py`: download checksum-pinned official Godot 4.7.2 and optional
+  matching export templates into ignored local directories.
+- `godot-release.json`: official release archive checksums used by Windows and Linux builds.
 - `install_animations.py`: validate Mixamo downloads and install local retarget output.
 - `download_epidemic_audio.py`: authenticated MCP sound-effect downloads to ignored cache.
 - `install_epidemic_audio.py`: restore exact library/game PCM cues from pinned licensed sources.

@@ -96,7 +96,7 @@ def install_archive(archive, digest):
     if actual != digest.lower():
         raise ValueError('Private asset archive checksum mismatch. Downloaded ZIP SHA-256: ' + actual +
                          '. Verify the R2 object and update PRIVATE_GAME_ASSETS_SHA256 to the intended archive hash')
-    parent = ROOT / 'engine/.local'
+    parent = ROOT / '.local'
     parent.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory(dir=parent) as scratch:
         folder = Path(scratch)

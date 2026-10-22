@@ -1,10 +1,10 @@
 param(
-    [string]$Godot = (Join-Path $PSScriptRoot '../../engine/bin/godot.windows.editor.x86_64.console.exe'),
+    [string]$Godot = $(if ($env:GODOT) { $env:GODOT } else { 'godot' }),
     [string]$ReleaseExecutable = '',
     [string[]]$Maps = @('skyfall', 'faceoff'),
     [ValidateSet('DM','TDM','CTF')][string[]]$Modes = @('DM','TDM','CTF'),
     [ValidateSet('ai','combat')][string[]]$Scenarios = @('ai','combat'),
-    [ValidateRange(0,3)][int]$Quality = 3,
+    [ValidateRange(0,2)][int]$Quality = 2,
     [ValidateRange(20,600)][int]$Warmup = 20,
     [ValidateRange(15,600)][int]$Seconds = 30,
     [ValidateRange(1,1000)][int]$TargetFps = 240,

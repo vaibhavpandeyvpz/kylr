@@ -1,4 +1,4 @@
-name: Build engine, game and release
+name: Verify, package and release game
 
 on:
   push:
@@ -14,73 +14,13 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  template:
-    name: Build Windows release template
-    runs-on: windows-2025-vs2026
-    timeout-minutes: 240
-    env:
-      SCONS_CACHE_MSVC_CONFIG: 'true'
-    defaults:
-      run:
-        shell: pwsh
-    steps:
-      - uses: actions/checkout@v7
-        with:
-          persist-credentials: false
-          lfs: true
-      - uses: actions/setup-python@v7
-        with:
-          python-version: '3.12'
-      - name: Check private asset configuration
-        env:
-          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
-          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
-          R2_ENDPOINT_URL: ${{ vars.R2_ENDPOINT_URL }}
-          R2_ASSET_URI: ${{ vars.R2_ASSET_URI }}
-          PRIVATE_GAME_ASSETS_SHA256: ${{ secrets.PRIVATE_GAME_ASSETS_SHA256 }}
-        run: |
-          foreach ($name in @('R2_ACCESS_KEY_ID','R2_SECRET_ACCESS_KEY','R2_ENDPOINT_URL','R2_ASSET_URI','PRIVATE_GAME_ASSETS_SHA256')) {
-            if (-not [Environment]::GetEnvironmentVariable($name)) {
-              throw "Configure $name before building. See docs/ASSET_SETUP.md."
-            }
-          }
-          Get-Command aws -ErrorAction Stop | Out-Null
-      - name: Install pinned build tools
-        run: python -m pip install -r tools/requirements-build.txt
-      - name: Prepare verified production runtimes
-        run: ./tools/prepare_windows_dependencies.ps1
-      - name: Restore compiled objects
-        uses: actions/cache@v5
-        with:
-          path: engine/.scons_cache
-          key: windows-vs2026-speed-v1-template_release-${{ hashFiles('engine/**', '!engine/.local/**', '!engine/bin/**', '!engine/.scons_cache/**', 'tools/requirements-build.txt') }}
-          restore-keys: |
-            windows-vs2026-speed-v1-template_release-
-      - name: Build target using runner CPUs
-        env:
-          ENGINE_TARGET: template_release
-        run: |
-          $jobs = [Math]::Max(1, [Environment]::ProcessorCount)
-          ./engine/misc/scripts/build_windows.ps1 -Python python -Target $env:ENGINE_TARGET -Jobs $jobs -CachePath (Join-Path $env:GITHUB_WORKSPACE 'engine/.scons_cache')
-      - name: Upload release-template executable
-        uses: actions/upload-artifact@v7
-        with:
-          name: windows-template
-          overwrite: true
-          if-no-files-found: error
-          retention-days: 1
-          compression-level: 6
-          path: engine/bin/godot.windows.template_release.x86_64.exe
-
   game:
-    name: Build editor, verify and package game
-    runs-on: windows-2025-vs2026
-    timeout-minutes: 300
+    name: Verify and package game
+    runs-on: windows-latest
+    timeout-minutes: 60
     permissions:
       contents: write
       actions: read
-    env:
-      SCONS_CACHE_MSVC_CONFIG: 'true'
     defaults:
       run:
         shell: pwsh
@@ -92,21 +32,22 @@ jobs:
       - uses: actions/setup-python@v7
         with:
           python-version: '3.12'
-      - name: Check private asset configuration
-        env:
-          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
-          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
-          R2_ENDPOINT_URL: ${{ vars.R2_ENDPOINT_URL }}
-          R2_ASSET_URI: ${{ vars.R2_ASSET_URI }}
-          PRIVATE_GAME_ASSETS_SHA256: ${{ secrets.PRIVATE_GAME_ASSETS_SHA256 }}
+      - name: Set up official Godot
+        uses: chickensoft-games/setup-godot@v2
+        with:
+          version: '4.7.2'
+          use-dotnet: false
+          include-templates: true
+          cache: true
+          path: .local/godot/runtime
+          downloads-path: .local/godot/downloads
+          bin-path: .local/godot/bin
+      - name: Select official Godot
         run: |
-          foreach ($name in @('R2_ACCESS_KEY_ID','R2_SECRET_ACCESS_KEY','R2_ENDPOINT_URL','R2_ASSET_URI','PRIVATE_GAME_ASSETS_SHA256')) {
-            if (-not [Environment]::GetEnvironmentVariable($name)) {
-              throw "Configure $name before building. See docs/ASSET_SETUP.md."
-            }
-          }
-          Get-Command aws -ErrorAction Stop | Out-Null
-      - name: Restore separately licensed game assets
+          "GODOT=$((Get-Command godot -CommandType Application -ErrorAction Stop).Source)" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
+          & godot --version
+          if ($LASTEXITCODE -ne 0) { throw 'Godot setup failed.' }
+      - name: Restore licensed game assets
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
@@ -126,50 +67,11 @@ jobs:
           } finally {
             if (Test-Path -LiteralPath $bundle) { Remove-Item -LiteralPath $bundle -Force }
           }
-      - name: Install pinned build tools
-        run: python -m pip install -r tools/requirements-build.txt
-      - name: Prepare verified production runtimes
-        run: ./tools/prepare_windows_dependencies.ps1
-      - name: Restore compiled objects
-        uses: actions/cache@v5
-        with:
-          path: engine/.scons_cache
-          key: windows-vs2026-speed-v1-editor-${{ hashFiles('engine/**', '!engine/.local/**', '!engine/bin/**', '!engine/.scons_cache/**', 'tools/requirements-build.txt') }}
-          restore-keys: |
-            windows-vs2026-speed-v1-editor-
-      - name: Build target using runner CPUs
-        env:
-          ENGINE_TARGET: editor
-        run: |
-          $jobs = [Math]::Max(1, [Environment]::ProcessorCount)
-          ./engine/misc/scripts/build_windows.ps1 -Python python -Target $env:ENGINE_TARGET -Jobs $jobs -CachePath (Join-Path $env:GITHUB_WORKSPACE 'engine/.scons_cache')
       - name: Configure public multiplayer endpoint
         env:
           KYLR_PUBLIC_API_URL: ${{ vars.KYLR_PUBLIC_API_URL }}
         run: |
           if ($env:KYLR_PUBLIC_API_URL) { python tools/configure_online.py }
-      - name: Wait for matching release template
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          $deadline = (Get-Date).AddHours(4)
-          $artifactName = 'windows-template'
-          while ($true) {
-            $artifacts = gh api "repos/$env:GITHUB_REPOSITORY/actions/runs/$env:GITHUB_RUN_ID/artifacts?per_page=100" | ConvertFrom-Json
-            if ($LASTEXITCODE -ne 0) { throw 'Cannot query template artifact.' }
-            if (@($artifacts.artifacts | Where-Object { $_.name -eq $artifactName -and -not $_.expired }).Count) { break }
-            $jobs = gh api "repos/$env:GITHUB_REPOSITORY/actions/runs/$env:GITHUB_RUN_ID/attempts/$env:GITHUB_RUN_ATTEMPT/jobs?per_page=100" | ConvertFrom-Json
-            if ($LASTEXITCODE -ne 0) { throw 'Cannot query template build status.' }
-            $failed = @($jobs.jobs | Where-Object { $_.name -eq 'Build Windows release template' -and $_.conclusion -in @('failure','cancelled','timed_out','skipped','action_required','stale') })
-            if ($failed.Count) { throw 'Release-template job failed; inspect its build log.' }
-            if ([int]$env:GITHUB_RUN_ATTEMPT -gt 1 -and -not @($jobs.jobs | Where-Object name -eq 'Build Windows release template').Count) { throw 'Template artifact is unavailable. Re-run all jobs to rebuild it.' }
-            if ((Get-Date) -ge $deadline) { throw 'Timed out waiting for release template.' }
-            Start-Sleep -Seconds 15
-          }
-      - uses: actions/download-artifact@v8
-        with:
-          name: windows-template
-          path: engine/bin
       - name: Import and verify game
         run: ./game/tools/verify.ps1
       - name: Export, inspect and smoke-test package
@@ -212,7 +114,7 @@ jobs:
         if: always()
         run: |
           foreach ($folder in @('game/reports/verification','game/reports/packaging')) {
-            foreach ($log in Get-ChildItem -LiteralPath $folder -Filter '*.log' -File -ErrorAction SilentlyContinue) {
+            foreach ($log in Get-ChildItem -LiteralPath $folder -Filter '*.log' -File -Recurse -ErrorAction SilentlyContinue) {
               Write-Output "::group::$($log.Name)"
               Select-String -LiteralPath $log.FullName -Pattern 'SCRIPT ERROR:|ERROR:|\[Failed\]|Leaked instance:|instances were leaked' -Context 3,8 |
                 ForEach-Object { Write-Output $_.ToString() }

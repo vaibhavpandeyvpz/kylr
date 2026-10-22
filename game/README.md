@@ -10,9 +10,9 @@ controls for every match type. See the [match rules](../docs/RULES.md).
 ## Requirements
 
 - Git and PowerShell 7 for the commands below.
-- **Our custom Godot 4.7.2 RTX engine**, included beside `game/` as the `engine/` component of this repository.
+- **Official Godot 4.7.2 stable**, resolved through `GODOT` or PATH.
 - A GPU compatible with Forward+ for playing and screenshot capture. The Windows project uses Vulkan; automated checks can run headless.
-- Matching **custom-engine export templates** in `../engine/bin/` for building an executable. Stock templates do not include the RTX implementation.
+- Matching **official export templates** for building an executable.
 
 Authored models, GUT tests, the LimboAI GDExtension, Phantom Camera and ProtonScatter are included in this repository. Install the separately licensed animations and sound effects using [asset setup](../docs/ASSET_SETUP.md) before importing the game. Generating retargeted animations requires Blender; running with prepared assets does not. Phantom Camera is enabled in `project.godot` and drives the menu preview and match cameras. ProtonScatter's runtime modifier stack places dropped Energy Cores on map colliders; its optional editor plugin can be enabled after the initial asset import. API keys are used only by local asset setup tools and are not required by the running game. See [third-party notices](THIRD_PARTY.md) for dependency and asset licenses.
 
@@ -30,35 +30,22 @@ git lfs install
 git clone https://github.com/vaibhavpandeyvpz/kylr.git KYLR
 Set-Location .\KYLR\game
 
-$Godot = (Resolve-Path '../engine/bin/godot.windows.editor.x86_64.console.exe').Path
+$Godot = (Get-Command godot_console -ErrorAction Stop).Source
 & $Godot --version
 & ./tools/check_local_assets.ps1
 & $Godot --headless --path . --editor --import --quit
 ```
 
-The clone command uses GitHub HTTPS. Build the engine using the [root setup instructions](../README.md#build-and-run-on-windows) before importing a fresh clone. If you already have a checkout, open PowerShell in its `game` directory instead of cloning again. All subsequent commands assume the current directory contains `project.godot` and `$Godot` points to the sibling custom engine console executable. Set that variable again in each new terminal session.
+The clone command uses GitHub HTTPS. Install official Godot and its export templates using the [root setup instructions](../README.md#build-and-run-on-windows) before importing a fresh clone. If you already have a checkout, open PowerShell in its `game` directory instead of cloning again. All subsequent commands assume the current directory contains `project.godot` and `$Godot` points to the official Godot console executable. Set that variable again in each new terminal session.
 
 The initial import generates the ignored `.godot/` cache and registers script classes and native extensions. Repeat the import after pulling changes to assets or addons, before running tests directly. The full verification script also performs this step.
 
-## Custom engine build and ray tracing
+## Graphics and validation
 
-The active project is `game/`. Build the sibling custom engine with
-`tools/build-godot-rt.cmd` (editor), `tools/build-godot-rt.cmd template_debug`,
-and `tools/build-godot-rt.cmd template_release`. Install Visual Studio C++ tools
-and SCons in `engine/.local/build-venv`. Streamline 2.10.0 runtime DLLs and their
-licenses must accompany the executable. Build outputs belong in `engine/bin/`;
-SDKs and the Vulkan validation layer live in the ignored `engine/.local/`.
-
-Ultra requests DLSS Ray Reconstruction with optional upscaling enabled. The
-ray-tracing toggle is disabled with an explanation when hardware/runtime support
-is missing. Turning upscaling off retains native-resolution Ray Reconstruction.
-Exports require matching custom templates. See [rendering](../docs/RENDERING.md)
-for presets and the RT integration contract.
-
-See [rendering](../docs/RENDERING.md) for integration
-contracts, GPU checks and current limitations. [PLAYTESTING.md](../docs/PLAYTESTING.md)
-owns the bot matrix, rendered benchmarks and profiling rules; [tools](tools/README.md)
-indexes reusable validation and authoring entry points.
+Low, Medium and High are raster presets; Custom retains individual settings.
+High enables fixture illumination, shadows, ambient occlusion, bloom and 4× MSAA.
+See [rendering](../docs/RENDERING.md) for the current graphics contract and
+[playtesting](../docs/PLAYTESTING.md) for validation and performance checks.
 
 ## Run and edit
 
@@ -234,10 +221,8 @@ New-Item -ItemType Directory -Force .\reports | Out-Null
 
 ## Build a Windows executable
 
-Build the matching custom release template with `tools/build-godot-rt.cmd template_release`.
-The `Windows Desktop` preset targets Windows x64 and already points at that
-template in the engine component. Stock export templates do not include
-the RTX integration. Debug exports require a separate `template_debug` build.
+Install matching official Godot 4.7.2 export templates with the root
+`tools/prepare_godot.py --platform windows --templates` installer.
 
 From the project directory, import and verify first, then export:
 
@@ -264,26 +249,23 @@ Prepare the local Windows package with PowerShell 7:
 pwsh -File ./tools/package_windows.ps1 -Godot $Godot -Version dev-local
 ```
 
-Each invocation uses fresh staging under `build/package-*/windows/`, checks the
-pinned NVIDIA and Microsoft runtime signatures/hashes, includes redistribution
-notices, inspects the PCK and runs an exported startup check. It writes
+Each invocation uses fresh staging under `build/package-*/windows/`, inspects
+native binary dependencies, includes license notices, verifies the PCK and runs
+an exported startup check. It writes
 `build/KYLR-Windows-<version>.zip` and its SHA-256 checksum, with logs under
 `reports/packaging/`. Packages remain unsigned. These checks do not replace
 rendered gameplay/audio, quality or performance qualification.
 
-The root [release workflow](../.github/workflows/package.yml) builds the custom
-engine before verifying/exporting the game and publishing a pushed `v*` tag.
+The root [release workflow](../.github/workflows/package.yml) downloads official
+Godot before verifying/exporting the game and publishing a pushed `v*` tag.
 Manual dispatch only uploads artifacts. See [build and release](../docs/BUILD_AND_RELEASE.md)
 for the hosted workflow and rendered validation procedures.
 
 ## Troubleshooting and project layout
 
 - **Unknown LimboAI classes or missing resources:** keep bundled assets/addons
-  together and repeat the custom engine import command.
-- **Export template errors:** build the custom target referenced by
-  `export_presets.cfg`; do not substitute a stock template.
-- **Unsupported ray tracing:** the graphics settings explain the missing device,
-  driver or DLSS runtime capability and retain raster rendering.
+  together and repeat the official Godot import command.
+- **Export template errors:** install matching official Godot 4.7.2 export templates.
 - **Verification failure:** inspect the named log in `reports/verification/`.
 
 | Directory | Contents |

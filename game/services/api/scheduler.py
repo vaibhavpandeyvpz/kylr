@@ -82,7 +82,7 @@ class Scheduler:
         try:
             if os.getenv('SCHEDULER','docker') == 'local':
                 root = Path(__file__).resolve().parents[2]
-                executable = os.getenv('GODOT',str(root.parent/'engine'/'bin'/'godot.windows.editor.x86_64.console.exe'))
+                executable = os.getenv('GODOT','godot')
                 env = dict(os.environ,**environment)
                 logdir = root/'reports'/'online'
                 logdir.mkdir(parents=True,exist_ok=True)

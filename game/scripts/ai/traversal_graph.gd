@@ -20,7 +20,7 @@ func end_planning_queries() -> void:
 	planning_movement_queries.clear()
 static var profile_paths := false
 static var path_stats: Dictionary = {}
-class TraversalAStar extends PortalAStar3D:
+class TraversalAStar extends AStar3D:
 	var transitions: Dictionary={}
 	var portal_nodes: Array[int]=[]
 	var portal_metric: Array=[]
@@ -44,14 +44,6 @@ class TraversalAStar extends PortalAStar3D:
 		return get_point_position(from_id).distance_to(get_point_position(to_id))
 	func refresh_portal_metric():
 		path_cache.clear()
-		if native_costs_enabled:
-			var connections := PackedInt64Array()
-			for edge in transitions:
-				if transitions[edge] == "portal":
-					connections.append(edge.x)
-					connections.append(edge.y)
-			configure_portal_connections(connections, 3.0)
-			return
 		portal_nodes.clear();portal_metric.clear();target_costs.clear();heuristic_fields.clear()
 		for edge in transitions:
 			if transitions[edge]!="portal":continue
@@ -140,7 +132,7 @@ func snapshot() -> Dictionary:
 		var points: Array[Dictionary]=[]
 		for id in navigation.get_point_ids():
 			points.append({"id":id,"point":navigation.get_point_position(id),"connections":navigation.get_point_connections(id)})
-		topology.append({"points":points,"portal_nodes":navigation.portal_nodes.duplicate()})
+		topology.append({"points":points})
 	return {"topology":topology,"cells":cells.duplicate(true),"actions":actions.duplicate(true),"entries":entries.duplicate(true),"destinations":destinations.duplicate(true),"jump_waypoints":jump_waypoints.duplicate(true),"crouched_jumps":crouched_jumps.duplicate(true),"portal_points":portal_points.duplicate()}
 
 func restore_snapshot(data: Dictionary) -> void:
@@ -157,7 +149,6 @@ func restore_snapshot(data: Dictionary) -> void:
 		for point in data.topology[index].points: navigation.add_point(point.id,point.point)
 		for point in data.topology[index].points:
 			for connection in point.connections: navigation.connect_points(point.id,connection,false)
-		navigation.portal_nodes.assign(data.topology[index].portal_nodes)
 		navigation.refresh_portal_metric()
 
 func _sample_column(level: float,x: int,bounds: Dictionary) -> void:

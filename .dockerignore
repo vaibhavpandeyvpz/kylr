@@ -1,11 +1,10 @@
 # Root context is used only for the dedicated-server build.
 **
-!engine/
-!engine/**
 !game/
 !game/**
 !tools/
-!tools/requirements-build.txt
+!tools/prepare_godot.py
+!tools/godot-release.json
 !LICENSE
 !NOTICE
 **/.git
@@ -17,9 +16,6 @@
 **/*.pyc
 **/.codex
 **/.claude
-engine/bin
-engine/.scons_cache
-engine/.sconsign*
 **/*.o
 **/*.obj
 **/*.a

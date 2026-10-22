@@ -78,6 +78,8 @@ Use the actual configured database name. The gzip archive and `.sha256` sidecar 
 
 `tools/verify_service_recovery.py` exercises account appearance across owned API/Mongo restarts and replacement of a test-owned crashed game server. It passed all three checks on the local Docker stack. Public hosting, automated secret rotation and production monitoring/backup retention remain deployment work.
 
-### Custom engine deployment
+### Godot deployment
 
-Local server tools use the custom engine in `engine/`. Before building the game Docker image, build `engine/` for Linux (editor target, `use_streamline=no`) and place its executable at `game/build/linux/godot.linuxbsd.editor.x86_64`. The image imports with that executable.
+Local server tools use official Godot 4.7.2, selected through `GODOT` or PATH.
+`tools/start_online.ps1 -Build` builds the root-context `Dockerfile.edgegap`,
+which downloads the pinned official Linux binary and imports restored assets.

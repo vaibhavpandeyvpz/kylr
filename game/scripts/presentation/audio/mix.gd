@@ -9,14 +9,24 @@ static func ensure_bus(name: String, send := "Master") -> int:
 		AudioServer.add_bus()
 		index=AudioServer.bus_count-1
 		AudioServer.set_bus_name(index,name)
-	AudioServer.set_bus_send(index,send)
+		AudioServer.set_bus_send(index,send)
 	return index
+
+static func voice_bus(slot: int, ambience: bool, speech: bool, route: String) -> String:
+	return "Arena%s%02d_%s" % ["Ambience" if ambience else "Speech" if speech else "World",slot,route]
 
 static func configure(reduced_range := false):
 	for bus in ["Effects","Music","Interface","Announcer"]: ensure_bus(bus)
 	for bus in ["World","Local","Critical","Voices"]: ensure_bus(bus,"Effects")
 	ensure_bus("Ambience","World")
 	if room==null:
+		# Configure fixed routes before playback. Runtime voice reuse changes the
+		# player's bus, never a bus send read concurrently by the audio mixer.
+		for group in [[SpatialAudioDirector.WORLD_LIMIT,false,false,["World","Critical","Announcer"]],[SpatialAudioDirector.AMBIENCE_LIMIT,true,false,["Ambience"]],[SpatialAudioDirector.SPEECH_LIMIT,false,true,["Voices"]]]:
+			for slot in int(group[0]):
+				for route in group[3]:
+					var bus := ensure_bus(voice_bus(slot,group[1],group[2],route),route)
+					AudioServer.add_bus_effect(bus,AudioEffectLowPassFilter.new())
 		room=AudioEffectReverb.new()
 		room.wet=0.04
 		room.dry=1

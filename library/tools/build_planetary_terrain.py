@@ -43,16 +43,17 @@ def build(map_id,godot=None,materials_only=False):
     sdk=install()
     (sdk/'project.godot').write_text('config_version=5\n[application]\nconfig/name="Planetary terrain authoring"\n',encoding='utf-8')
     shutil.copyfile(ROOT/'tools/bake_planetary_terrain.gd',sdk/'bake.gd')
-    engine=Path(godot or os.environ.get('GODOT_EXECUTABLE') or ROOT.parent/'engine/bin/godot.windows.editor.x86_64.console.exe')
+    executable=godot or os.environ.get('GODOT_EXECUTABLE') or os.environ.get('GODOT') or shutil.which('godot')
+    if not executable: raise RuntimeError('Set GODOT or provide --godot for official Godot 4.7.2')
     for arguments in [['--editor','--import','--quit'],['--script','bake.gd','--',str(output),map_id]]:
-        subprocess.run([str(engine),'--headless','--path',str(sdk),*arguments],check=True)
+        subprocess.run([str(executable),'--headless','--path',str(sdk),*arguments],check=True)
     assert (output/(map_id+'_baked.json')).exists()
     print('PLANETARY_FIELD',map_id,record['min_height'],record['max_height'],flush=True)
 
 
 if __name__=='__main__':
     parser=argparse.ArgumentParser();parser.add_argument('map',choices=['faceoff','skyfall','all'])
-    parser.add_argument('--godot',help='Custom engine executable; defaults to GODOT_EXECUTABLE or the workspace engine')
+    parser.add_argument('--godot',help='Official Godot executable; defaults to GODOT_EXECUTABLE, GODOT or PATH')
     parser.add_argument('--materials-only',action='store_true',help='Regenerate blend controls only; reject height changes against the runtime manifest')
     args=parser.parse_args()
     for map_id in (['faceoff','skyfall'] if args.map=='all' else [args.map]): build(map_id,args.godot,args.materials_only)

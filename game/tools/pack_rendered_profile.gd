@@ -6,13 +6,11 @@ var packer := PCKPacker.new()
 var output := "res://reports/performance/release-diagnostic"
 var count := 0
 var failed := false
-var qualification_feature := true
 var verify_only := ""
 
 func _initialize() -> void:
 	for argument in OS.get_cmdline_user_args():
 		if argument.begins_with("--output="):output=argument.trim_prefix("--output=")
-		if argument=="--qualification-feature=0":qualification_feature=false
 		if argument.begins_with("--verify-only="):verify_only=argument.trim_prefix("--verify-only=")
 		if argument.begins_with("--expected-files="):count=int(argument.trim_prefix("--expected-files="))
 	call_deferred("run" if verify_only.is_empty() else "run_verification")
@@ -92,35 +90,11 @@ func run() -> void:
 		push_error("Choose a fresh diagnostic runtime directory; preserve earlier packages")
 		quit(1);return
 	if DirAccess.make_dir_recursive_absolute(destination)!=OK:quit(1);return
-	# A fresh PCK with an old executable is not a valid engine comparison.
-	var engine_bin := ProjectSettings.globalize_path("res://").path_join("../engine/bin").simplify_path()
-	var runtime := engine_bin.path_join("godot.windows.template_release.x86_64.exe")
-	if not FileAccess.file_exists(runtime) or DirAccess.copy_absolute(runtime,destination.path_join("KylrRTXDiagnostic.exe")) != OK:
-		push_error("Cannot refresh the diagnostic executable from the custom engine release build")
-		quit(1)
-		return
-	var sdk_manifest_path:=engine_bin.path_join("../drivers/streamline/runtime_manifest.json").simplify_path()
-	var sdk_manifest:Variant=JSON.parse_string(FileAccess.get_file_as_string(sdk_manifest_path))
-	if not sdk_manifest is Dictionary or sdk_manifest.get("sdk_version")!="2.10.0" or sdk_manifest.get("runtime_flavor")!="production" or sdk_manifest.get("files",[]).size()!=12:
-		push_error("Pinned production Streamline manifest is missing or invalid");quit(1);return
-	for file:Dictionary in sdk_manifest.files:
-		var library:=String(file.name)
-		if not library.is_valid_filename() or not library.ends_with(".dll"):
-			push_error("Invalid runtime filename");quit(1);return
-		var source:=engine_bin.path_join(library)
-		var target:=destination.path_join(library)
-		if FileAccess.get_sha256(source)!=String(file.sha256) or DirAccess.copy_absolute(source,target)!=OK or FileAccess.get_sha256(target)!=String(file.sha256):
-			push_error("Diagnostic runtime does not match the production archive: " + library)
-			quit(1)
-			return
-	var notices:=destination.path_join("licenses/engine-rtx")
-	if DirAccess.make_dir_recursive_absolute(notices)!=OK:quit(1);return
-	var sdk_root:=engine_bin.path_join("../.local/streamline-sdk-v2.10.0").simplify_path()+"/"
-	for notice:Dictionary in sdk_manifest.notices:
-		var source:=sdk_root.path_join(String(notice.source)).simplify_path()
-		if not source.begins_with(sdk_root) or not String(notice.name).is_valid_filename() or FileAccess.get_sha256(source)!=String(notice.sha256):
-			push_error("Invalid production notice");quit(1);return
-		if DirAccess.copy_absolute(source,notices.path_join(String(notice.name)))!=OK:quit(1);return
+	var runtime := OS.get_environment("GODOT_TEMPLATE")
+	if runtime.is_empty(): runtime=OS.get_data_dir().path_join("Godot/export_templates/4.7.2.stable/windows_release_x86_64.exe")
+	if not FileAccess.file_exists(runtime) or DirAccess.copy_absolute(runtime,destination.path_join("KylrDiagnostic.exe")) != OK:
+		push_error("Install the official Windows release template or set GODOT_TEMPLATE")
+		quit(1);return
 	# Native extensions must be real files beside the PCK. An existing staging
 	# directory must not hide missing dependencies in a newly created pack.
 	var extension_directory:=destination.path_join("addons/limboai/bin")
@@ -134,17 +108,13 @@ func run() -> void:
 		quit(1)
 		return
 	config.set_value("application", "run/main_scene", "res://rendered_profile.tscn")
-	# Equivalent to the custom feature exported by ProjectSettings' binary
-	# writer. This tag belongs only to this explicit diagnostic source pack.
-	if qualification_feature:config.set_value("", "_custom_features", "rt_qualification")
-	else:config.erase_section_key("", "_custom_features")
 	var settings_path := output.path_join("diagnostic-project.godot")
 	config.save(settings_path)
 	var scene_path := output.path_join("diagnostic-main.tscn")
 	var scene := FileAccess.open(scene_path, FileAccess.WRITE)
 	scene.store_string('[gd_scene load_steps=2 format=3]\n\n[ext_resource type="Script" path="res://scripts/debug/rendered_combat_profile.gd" id="1"]\n\n[node name="RenderedCombatProfile" type="Node"]\nscript = ExtResource("1")\n')
 	scene.close()
-	var error := packer.pck_start(output.path_join("KylrRTXDiagnostic.pck"))
+	var error := packer.pck_start(output.path_join("KylrDiagnostic.pck"))
 	if error != OK:
 		push_error("Cannot create diagnostic pack: " + error_string(error))
 		quit(1)
@@ -165,15 +135,15 @@ func run() -> void:
 		push_error("Cannot finalize diagnostic pack: " + error_string(error))
 		quit(1)
 		return
-	if not verify_pack(output.path_join("KylrRTXDiagnostic.pck"),count):
+	if not verify_pack(output.path_join("KylrDiagnostic.pck"),count):
 		push_error("Diagnostic pack failed directory/payload verification; do not run it")
 		quit(3)
 		return
 	print("RENDERED_DIAGNOSTIC_PACK_READY files=", count, " path=", output)
 	FileAccess.open(output.path_join("manifest.json"),FileAccess.WRITE).store_string(JSON.stringify({
-		"diagnostic_only":true,"rt_qualification_feature":qualification_feature,"files":count,
+		"diagnostic_only":true,"files":count,
 		"engine_sha256":FileAccess.get_sha256(runtime),
-		"pack_sha256":FileAccess.get_sha256(output.path_join("KylrRTXDiagnostic.pck")),
+		"pack_sha256":FileAccess.get_sha256(output.path_join("KylrDiagnostic.pck")),
 		"pack_content_verified":true,"verified_payloads":count,
 		"profile_sha256":FileAccess.get_sha256("res://scripts/debug/rendered_combat_profile.gd"),
 		"production_quality_accepted":false},"\t"))

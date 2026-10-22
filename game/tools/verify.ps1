@@ -1,13 +1,14 @@
-param([string]$Godot = (Join-Path $PSScriptRoot '../../engine/bin/godot.windows.editor.x86_64.console.exe'))
+param([string]$Godot = $(if ($env:GODOT) { $env:GODOT } else { 'godot' }))
 $ErrorActionPreference = 'Stop'
 & (Join-Path $PSScriptRoot 'check_local_assets.ps1')
 $projectRoot = Split-Path -Parent $PSScriptRoot
+Set-Location $projectRoot
 $reportRoot = Join-Path $projectRoot 'reports/verification'
 New-Item -ItemType Directory -Path $reportRoot -Force | Out-Null
 
 function Invoke-Check([string]$Name, [string[]]$Arguments) {
     $log = Join-Path $reportRoot "$Name.log"
-    & $Godot --headless --path $projectRoot @Arguments *> $log
+    & $Godot --headless --log-file $log --path $projectRoot @Arguments 2>&1 | Out-Null
     $engineExit = $LASTEXITCODE
     $failures = Select-String -LiteralPath $log -Pattern 'SCRIPT ERROR:|ERROR:|\[Failed\]|Leaked instance:|instances were leaked'
     if ($engineExit -ne 0 -or $failures) {

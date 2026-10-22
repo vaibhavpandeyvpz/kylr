@@ -27,6 +27,7 @@ var target_low_transmission := 1.0
 var target_high_transmission := 1.0
 var filter: AudioEffectLowPassFilter
 var bus_name := ""
+var bus_slot := 0
 
 func follow(source: Node3D, origin: Vector3):
 	emitter = weakref(source)
@@ -44,16 +45,13 @@ func configure(index: int,near_field: bool,ambient_field := false,speech_field :
 	local=near_field
 	ambience=ambient_field
 	speech=speech_field
+	bus_slot=index
 	player=AudioStreamPlayer.new() if local else AudioStreamPlayer3D.new()
 	add_child(player)
 	player.finished.connect(stop)
 	if not local:
-		bus_name="ArenaVoice%02d" % index
-		var bus := ArenaMix.ensure_bus(bus_name,"World")
-		if AudioServer.get_bus_effect_count(bus)==0:
-			filter=AudioEffectLowPassFilter.new()
-			AudioServer.add_bus_effect(bus,filter)
-		else: filter=AudioServer.get_bus_effect(bus,0)
+		bus_name=ArenaMix.voice_bus(index,ambience,speech,"Ambience" if ambience else "Voices" if speech else "World")
+		filter=AudioServer.get_bus_effect(AudioServer.get_bus_index(bus_name),0)
 		player.attenuation_filter_cutoff_hz=20500
 		player.attenuation_model=AudioStreamPlayer3D.ATTENUATION_DISABLED
 		player.max_db=0
@@ -83,8 +81,10 @@ func start(id: String,stream: AudioStream,settings: Dictionary,position: Vector3
 	if local:
 		player.bus=settings.bus if settings.bus!="World" else "Local"
 	else:
+		var route: String=settings.bus if settings.bus in ["Ambience","Voices","Announcer","Critical"] else "World"
+		bus_name=ArenaMix.voice_bus(bus_slot,ambience,speech,route)
+		filter=AudioServer.get_bus_effect(AudioServer.get_bus_index(bus_name),0)
 		player.bus=bus_name
-		AudioServer.set_bus_send(AudioServer.get_bus_index(bus_name),settings.bus if settings.bus in ["Ambience","Voices","Announcer","Critical"] else "World")
 		player.global_position=point
 		filter.cutoff_hz=18000
 	player.volume_db=level_db(distance,0.0)

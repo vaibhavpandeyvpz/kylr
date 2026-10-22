@@ -21,8 +21,7 @@ func run():
 	root.size=Vector2i(1280,960)
 	Engine.max_fps=60
 	AudioServer.set_bus_mute(0,true)
-	var ray_traced: bool="--raster" not in OS.get_cmdline_user_args()
-	directory="res://reports/energy-surface/"+("rt" if ray_traced else "raster")
+	directory="res://reports/energy-surface/raster"
 	DirAccess.make_dir_recursive_absolute(directory)
 	scene=load("res://tools/weapon_effects_harness.gd").new()
 	root.add_child(scene)
@@ -41,11 +40,10 @@ func run():
 	scene.camera_rig.host.set_process(false)
 	var prefs:=Preferences.new("user://energy-surface-preview.cfg")
 	prefs.values=Preferences.DEFAULTS.duplicate(true)
-	prefs.values.merge(Preferences.QUALITY_PRESETS[3 if ray_traced else 2],true)
-	prefs.values.ray_tracing=ray_traced;prefs.values.rt_upscaling=false;prefs.values.antialiasing=0
+	prefs.values.merge(Preferences.QUALITY_PRESETS[2],true)
 	prefs.apply_rendering(scene)
 	root.scaling_3d_scale=1.0
-	var ready:=await Preparation.wait_for_rendering(self,root,ray_traced)
+	var ready:=await Preparation.wait_for_rendering(self,root)
 	assert(ready.ready)
 	EnergySurface.update(scene.target)
 	await capture("shield-primary")

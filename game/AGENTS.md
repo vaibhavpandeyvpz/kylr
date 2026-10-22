@@ -5,4 +5,4 @@ Follow [the root guide](../AGENTS.md),
 [development guidance](../docs/DEVELOPMENT.md).
 Gameplay contracts live in [../docs/](../docs/README.md).
 This folder is part of the root repository; it has no independent Git branch.
-Run Godot tools here using the custom editor in `../engine/bin/`.
+Run Godot tools here using official Godot 4.7.2, resolved through `GODOT` or PATH.

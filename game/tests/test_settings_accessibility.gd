@@ -49,37 +49,21 @@ func test_instant_action_callsign_is_editable_validated_and_applied():
 	assert_eq(app.prefs.values.name,"New.Pilot")
 	assert_true(ui.status.text.contains("Callsign"))
 
-func test_ultra_preset_selects_full_fixture_lighting_and_custom_keeps_individual_choice():
+func test_high_preset_selects_full_fixture_lighting_and_custom_keeps_individual_choice():
 	ui.settings_tab("Graphics")
 	var quality: OptionButton
 	for option in ui.page.find_children("*","OptionButton",true,false):
 		if option.get_meta("setting_key","")=="quality": quality=option
-	assert_eq(quality.item_count,5)
-	assert_eq(quality.get_item_text(3),"Ultra")
-	quality.item_selected.emit(3)
+	assert_eq(quality.item_count,4)
+	assert_eq(quality.get_item_text(2),"High")
+	quality.item_selected.emit(2)
 	assert_true(ui.pending.fixture_lighting)
 	assert_true(ui.pending.shadows)
-	assert_eq(ui.pending.rt_denoiser,Preferences.DENOISER_DLSS)
-	assert_eq(ui.pending.antialiasing,3)
+	assert_eq(ui.pending.antialiasing,2)
 	for toggle in ui.page.find_children("*","CheckButton",true,false):
 		if toggle.text=="Fixture illumination":toggle.toggled.emit(false)
 	assert_eq(ui.pending.quality,Preferences.CUSTOM_QUALITY)
 	assert_false(ui.pending.fixture_lighting)
-
-func test_saved_custom_quality_does_not_become_ultra():
-	var path := "user://settings_legacy_custom_test.cfg"
-	var config := ConfigFile.new()
-	config.set_value("preferences","quality",3)
-	config.set_value("preferences","antialiasing",3)
-	assert_eq(config.save(path),OK)
-	var prefs := Preferences.new(path)
-	assert_eq(prefs.values.quality,Preferences.CUSTOM_QUALITY)
-	assert_false(prefs.values.fixture_lighting)
-	assert_eq(prefs.values.antialiasing,3)
-	assert_eq(prefs.save(),OK)
-	prefs=Preferences.new(path)
-	assert_eq(prefs.values.quality,Preferences.CUSTOM_QUALITY)
-	DirAccess.remove_absolute(path)
 
 func test_high_preset_enables_fixture_illumination_and_shadows():
 	ui.settings_tab("Graphics")
@@ -89,43 +73,30 @@ func test_high_preset_enables_fixture_illumination_and_shadows():
 			break
 	assert_true(ui.pending.fixture_lighting)
 	assert_true(ui.pending.shadows)
-	assert_false(ui.pending.ray_tracing)
 	assert_eq(ui.pending.antialiasing,2)
 	for preset in [0,1]:
 		assert_false(Preferences.QUALITY_PRESETS[preset].fixture_lighting)
 
-func test_saved_high_enables_fixture_lighting_and_shadows_without_overriding_custom():
-	var path := "user://settings_high_fixture_test.cfg"
-	var config := ConfigFile.new()
-	config.set_value("preferences","quality_version",1)
-	config.set_value("preferences","quality",2)
-	config.set_value("preferences","fixture_lighting",false)
-	config.set_value("preferences","shadows",false)
-	assert_eq(config.save(path),OK)
+func test_saved_custom_preserves_individual_lighting():
+	var path := "user://settings_custom_fixture_test.cfg"
 	var prefs := Preferences.new(path)
-	assert_eq(prefs.values.quality,2)
-	assert_true(prefs.values.fixture_lighting)
-	assert_true(prefs.values.shadows)
-	config.set_value("preferences","quality",Preferences.CUSTOM_QUALITY)
-	assert_eq(config.save(path),OK)
-	prefs=Preferences.new(path)
-	assert_false(prefs.values.fixture_lighting,"Custom preserves the player's choice")
-	assert_false(prefs.values.shadows,"Custom preserves the player's shadow choice")
+	prefs.values.quality=Preferences.CUSTOM_QUALITY
+	prefs.values.fixture_lighting=false
+	prefs.values.shadows=false
+	assert_eq(prefs.save(),OK)
+	var restored := Preferences.new(path)
+	assert_eq(restored.values.quality,Preferences.CUSTOM_QUALITY)
+	assert_false(restored.values.fixture_lighting)
+	assert_false(restored.values.shadows)
 	DirAccess.remove_absolute(path)
 
-func test_graphics_omits_denoiser_choice_and_disables_unsupported_upscaling():
+func test_graphics_quality_offers_three_presets_and_custom():
 	ui.settings_tab("Graphics")
-	var denoiser:OptionButton
-	var upscaling:CheckButton
 	for node in ui.page.find_children("*","OptionButton",true,false):
-		if node.get_meta("setting_key","")=="rt_denoiser":denoiser=node
-	for node in ui.page.find_children("*","CheckButton",true,false):
-		if node.text=="DLSS upscaling":upscaling=node
-	assert_null(denoiser,"DLSS is the only backend, so no selector is shown")
-	assert_not_null(upscaling)
-	assert_true(upscaling.disabled,"Headless tests have no supported graphics device")
-	assert_true(upscaling.button_pressed)
-	assert_eq(app.prefs.values.rt_denoiser,Preferences.DENOISER_DLSS)
+		if node.get_meta("setting_key","")=="quality":
+			var titles: Array[String]=[]
+			for index in node.item_count: titles.append(node.get_item_text(index))
+			assert_eq(titles,["Low","Medium","High","Custom"])
 	assert_eq(app.prefs.saves,0)
 
 func test_render_thread_choice_is_pending_and_independent_of_quality():
@@ -144,8 +115,8 @@ func test_render_thread_choice_is_pending_and_independent_of_quality():
 	var quality:OptionButton
 	for node in ui.page.find_children("*","OptionButton",true,false):
 		if node.get_meta("setting_key","")=="quality":quality=node
-	quality.item_selected.emit(3)
-	assert_true(ui.pending.separate_rendering_thread,"Ultra preserves an explicit independent thread choice")
+	quality.item_selected.emit(2)
+	assert_true(ui.pending.separate_rendering_thread,"High preserves an explicit independent thread choice")
 	for node in ui.page.find_children("*","Button",true,false):
 		if node.text=="DEFAULTS":node.pressed.emit();break
 	assert_false(ui.pending.separate_rendering_thread)
@@ -318,49 +289,3 @@ func test_narrow_settings_keeps_actions_visible_and_collapses_help():
 		if node.text in ["BACK","DEFAULTS","APPLY"]:
 			assert_lte(node.get_global_rect().end.y,600.0)
 			assert_lte(node.get_global_rect().end.x,800.0)
-
-func test_ray_tracing_is_disabled_when_unavailable():
-	ui.pending.ray_tracing=true
-	ui.settings_tab("Graphics")
-	var control: CheckButton
-	for node in ui.page.find_children("*","CheckButton",true,false):
-		if node.text == "Ray tracing": control=node
-	assert_not_null(control)
-	var reason := Preferences.ray_tracing_unavailable_reason(int(ui.pending.rt_denoiser))
-	assert_eq(control.disabled,not reason.is_empty())
-	if not reason.is_empty():
-		assert_false(control.button_pressed)
-		assert_eq(control.tooltip_text,reason)
-	assert_true(ui.pending.ray_tracing,"Unavailable hardware must not erase the saved preference")
-
-func test_ray_tracing_presets_and_saved_ultra_migration():
-	for index in range(4): assert_eq(Preferences.QUALITY_PRESETS[index].ray_tracing,index==3)
-	var path := "user://rt_settings_migration_test.cfg"
-	var config := ConfigFile.new()
-	config.set_value("preferences","quality",3)
-	config.set_value("preferences","quality_version",1)
-	assert_eq(config.save(path),OK)
-	var prefs := Preferences.new(path)
-	assert_true(prefs.values.ray_tracing)
-	prefs.values.ray_tracing=false
-	assert_eq(prefs.save(),OK)
-	assert_false(Preferences.new(path).values.ray_tracing)
-	DirAccess.remove_absolute(path)
-
-func test_unavailable_ray_tracing_uses_raster_settings():
-	if Preferences.ray_tracing_unavailable_reason(int(Preferences.DEFAULTS.rt_denoiser)).is_empty():
-		pass_test("Requires unsupported/headless rendering")
-		return
-	var world := Node3D.new()
-	add_child_autofree(world)
-	var environment := WorldEnvironment.new()
-	environment.environment=Environment.new()
-	world.add_child(environment)
-	var prefs := Preferences.new("user://rt_fallback_unused.cfg")
-	prefs.values.ray_tracing=true
-	prefs.values.antialiasing=2
-	prefs.apply_rendering(world)
-	assert_false(environment.environment.get("pathtracing_enabled"))
-	assert_eq(world.get_viewport().msaa_3d,Viewport.MSAA_4X)
-	assert_eq(world.get_viewport().scaling_3d_scale,1.0)
-	assert_true(prefs.values.ray_tracing)

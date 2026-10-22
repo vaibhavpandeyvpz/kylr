@@ -7,7 +7,7 @@ var visibility_elapsed := 0.0
 const MAX_CAMERA_DISTANCE := 15.0
 
 func _ready() -> void:
-	text = "◆"
+	text = "â—†"
 	position.y = 2.16
 	billboard = BaseMaterial3D.BILLBOARD_ENABLED
 	fixed_size = true

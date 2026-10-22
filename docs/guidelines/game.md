@@ -41,6 +41,9 @@ do not scale the prop or move its authoritative gizmo to obtain clearance. Platf
 
 Native mechanical architecture placements: use `pillar_platform` only below the pillar, and sample the native ram extension to meet the next floor underside. Use `weapon_holder_wall` for raised holder placements; its native `WeaponHolderMount` owns the holder aperture and axes. These are separate gizmo imports in populated previews/runtime, excluded from map-owned triangles.
 
-## Custom Godot engine
+## Godot runtime
 
-Use `engine/bin/godot.windows.editor.x86_64.console.exe` for game runs, imports and validation. The engine is the `engine/` component of the root monorepo; run Git commands at the workspace root. The active game is `game/`. Local SDK/build dependencies live in `engine/.local/`. Do not use system Godot.
+Use official Godot 4.7.2 for game runs, imports, validation and exports. Resolve
+executables through `GODOT` or PATH. Use matching official export templates.
+Run Git commands at the root and game tools from `game/`. Keep binary overrides
+out of Git.
