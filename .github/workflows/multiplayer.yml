@@ -1,4 +1,4 @@
-name: Verify multiplayer and build dedicated server
+name: Publish to Edgegap
 
 on:
   workflow_dispatch:
