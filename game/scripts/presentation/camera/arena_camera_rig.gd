@@ -61,7 +61,7 @@ func _ready() -> void:
 func _process(dt: float) -> void:
 	unshaken_pose=camera.global_transform
 	shake_applied=false
-	if not shake_enabled or active_view not in ["fpv","tpv"]:
+	if not shake_enabled or active_view not in ["fpv","tpv","death"]:
 		impact_shake.clear()
 		return
 	var offset := impact_shake.sample(dt)

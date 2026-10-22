@@ -12,6 +12,13 @@ var viewer: Node3D
 var camera: Camera3D
 var hits: Array[Dictionary] = []
 var reduced_motion := false
+var impact_age := INF
+
+func mark_fall_impact() -> void:
+	hits.clear()
+	impact_age = 0.0
+	set_process(true)
+	queue_redraw()
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -38,22 +45,24 @@ func mark(source: Vector3, damage: float) -> void:
 
 func clear() -> void:
 	hits.clear()
+	impact_age = INF
 	set_process(false)
 	queue_redraw()
 
 func _process(dt: float) -> void:
+	impact_age += dt
 	for index in range(hits.size() - 1, -1, -1):
 		hits[index].age += dt
 		if hits[index].age >= LIFE: hits.remove_at(index)
-	if hits.is_empty(): set_process(false)
+	if hits.is_empty() and impact_age >= 0.38: set_process(false)
 	queue_redraw()
 
 func _draw() -> void:
-	if camera == null or hits.is_empty(): return
+	if camera == null or (hits.is_empty() and impact_age >= 0.38): return
 	var width := size.x - EDGE_INSET * 2.0
 	var height := size.y - EDGE_INSET * 2.0
 	if width <= 0.0 or height <= 0.0: return
-	var pulse := 0.0
+	var pulse := clampf(1.0-impact_age/0.38,0.0,1.0)*0.48
 	for hit in hits:
 		pulse = maxf(pulse, clampf(1.0 - hit.age / 0.38, 0.0, 1.0) * lerpf(0.25, 0.48, hit.strength))
 	if pulse > 0.0:

@@ -1,5 +1,91 @@
 extends GutTest
 
+func test_lethal_surface_impact_breaks_up_once_with_local_feedback_and_no_pickup():
+	var game := await fixture()
+	var robot := actor(game)
+	game.local_robot = robot
+	game.camera_rig.set_process(false)
+	game.replicating = true
+	game.authority = true
+	var floor_body := StaticBody3D.new()
+	floor_body.set_meta("lethal_surface",true)
+	game.add_child(floor_body)
+	floor_body.position = Vector3(200,39.85,0)
+	var collision := CollisionShape3D.new()
+	var shape := BoxShape3D.new()
+	shape.size = Vector3(10,0.3,10)
+	collision.shape = shape
+	floor_body.add_child(collision)
+	await wait_physics_frames(2)
+	watch_signals(game)
+	robot.velocity = Vector3(2,0,1) # Collision has already consumed vertical speed.
+	robot.pose("common/falling")
+	robot.animator.advance(0.4)
+	var falling_poses: Array[Transform3D] = []
+	for bone in robot.skeleton.get_bone_count(): falling_poses.append(robot.skeleton.get_bone_global_pose(bone))
+	game.eliminate(robot,null,"Fall off map",{"velocity":Vector3(2,-25,1)})
+	var corpse: Dictionary = game.corpses.back()
+	assert_true(corpse.node is RobotDebris)
+	assert_false(corpse.falling_out)
+	assert_eq(corpse.ep,0.0)
+	assert_eq(corpse.time,4.0)
+	assert_eq(corpse.node.recipe.weapon,"Fall off map")
+	assert_eq(corpse.node.recipe.poses,falling_poses,"Impact preserves the falling pose without sampling a standing or lying clip")
+	assert_eq(corpse.node.recipe.velocity,Vector3(0.5,0,0.25),"Ground contact consumes downward speed before debris launch")
+	assert_signal_emit_count(game,"fall_impact",1)
+	assert_gt(game.camera_rig.impact_shake.remaining,0.0)
+	assert_eq(game.presentation_events.filter(func(event):return event.kind=="fall_explosion").size(),1)
+	assert_eq(game.presentation_events.filter(func(event):return event.kind=="fall_explosion")[0].incoming,Vector3(2,-25,1),"Replicate pre-contact descent for the 3D explosion frame")
+	game.eliminate(robot,null,"Fall off map")
+	assert_signal_emit_count(game,"fall_impact",1)
+	game.tick_drops(4.01)
+	assert_true(game.corpses.is_empty())
+	assert_true(game.drops.is_empty())
+
+func test_void_fall_has_no_impact_flash_explosion_or_breakup():
+	var game := await fixture()
+	var robot := actor(game)
+	game.local_robot = robot
+	game.replicating = true
+	game.authority = true
+	watch_signals(game)
+	game.eliminate(robot,null,"Fall off map")
+	assert_false(game.corpses.back().node is RobotDebris)
+	assert_true(game.corpses.back().falling_out)
+	assert_signal_not_emitted(game,"fall_impact")
+	assert_true(game.presentation_events.filter(func(event):return event.kind=="fall_explosion").is_empty())
+
+func test_fall_cloud_is_independent_and_has_less_dust_than_grenade():
+	var fall_effect := preload("res://assets/effects/original/fall_impact.tscn").instantiate() as OriginalEffect
+	var grenade := preload("res://assets/effects/original/grenade.tscn").instantiate() as OriginalEffect
+	add_child_autofree(fall_effect)
+	add_child_autofree(grenade)
+	assert_eq(fall_effect.surfaces.size(),grenade.surfaces.size(),"Both clouds cover the complete impact sphere")
+	assert_lt(float(fall_effect.surfaces[0].size),float(grenade.surfaces[0].size))
+	assert_lt(fall_effect.duration,grenade.duration)
+	assert_true(fall_effect.emitters.is_empty(),"Body assemblies supply physical debris")
+	for surface in fall_effect.surfaces:
+		if surface.layer == 3:
+			assert_eq(surface.material.get_shader_parameter("effect_opacity"),0.45)
+
+func test_replicated_fall_feedback_is_local_and_respects_reduced_motion():
+	var game := await fixture()
+	game.local_robot = actor(game)
+	game.camera_rig.set_process(false)
+	watch_signals(game)
+	game.fall_impact_feedback(99,true)
+	assert_signal_not_emitted(game,"fall_impact")
+	assert_eq(game.camera_rig.impact_shake.remaining,0.0)
+	game.reduced_motion = true
+	game.fall_impact_feedback(game.local_robot.robot_id,true)
+	assert_signal_emit_count(game,"fall_impact",1)
+	assert_eq(game.camera_rig.impact_shake.remaining,0.0)
+	game.reduced_motion = false
+	game.fall_impact_feedback(game.local_robot.robot_id,true)
+	assert_signal_emit_count(game,"fall_impact",2)
+	assert_gt(game.camera_rig.impact_shake.remaining,0.0)
+	assert_true(game.presentation_events.is_empty(),"Receiving feedback never echoes an event")
+
 func fixture() -> ArenaMatch:
 	var game := ArenaMatch.new()
 	game.online = true

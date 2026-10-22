@@ -10,6 +10,7 @@ func run() -> void:
 	root.size = Vector2i(1280,720)
 	var rt := OS.get_cmdline_user_args().has("--rt")
 	var kind := "fire_hit" if OS.get_cmdline_user_args().has("--fireball") else "grenade" if OS.get_cmdline_user_args().has("--grenade") else "rocket"
+	if OS.get_cmdline_user_args().has("--fall"): kind = "fall_impact"
 	var view_scale := 0.35 if kind=="fire_hit" else 1.0
 	var mode := "rt" if rt else "raster"
 	var folder := "res://reports/"+kind+"-3d/"+mode+"/"

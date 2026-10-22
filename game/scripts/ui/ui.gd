@@ -674,6 +674,7 @@ func start_hud():
 	if app.match_node is ArenaMatch:
 		damage_indicator.camera=app.match_node.camera
 		app.match_node.damage_taken.connect(damage_indicator.mark)
+		app.match_node.fall_impact.connect(damage_indicator.mark_fall_impact)
 	match_frame=MatchHudFrame.new()
 	hud.add_child(match_frame)
 	match_frame.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -729,7 +730,7 @@ func _process(dt):
 	damage_indicator.viewer=r
 	damage_indicator.reduced_motion=app.prefs.values.reduced_motion
 	if not r.alive and not damage_indicator.hits.is_empty(): damage_indicator.clear()
-	damage_indicator.visible=game.phase=="Active" and r.alive and screen=="match"
+	damage_indicator.visible=game.phase=="Active" and (r.alive or damage_indicator.impact_age<0.38) and screen=="match"
 	var opening: bool = game.phase == "Countdown"
 	var hud_scale: float=app.prefs.values.hud_scale
 	hud.scale=Vector2.ONE*hud_scale

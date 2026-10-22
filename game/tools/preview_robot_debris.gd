@@ -19,6 +19,8 @@ func capture(label: String) -> void:
 	print("ROBOT_DEBRIS_CAPTURE ", path)
 
 func run() -> void:
+	var fall_mode := OS.get_cmdline_user_args().has("--fall")
+	if fall_mode: directory = "res://reports/fall-impact"
 	root.size = Vector2i(1280, 800)
 	Engine.max_fps = 60
 	AudioServer.set_bus_mute(0, true)
@@ -60,6 +62,7 @@ func run() -> void:
 	light.shadow_enabled = true
 	stage.add_child(light)
 	var floor_body := StaticBody3D.new()
+	floor_body.set_meta("lethal_surface",fall_mode)
 	stage.add_child(floor_body)
 	floor_body.position.y = -0.15
 	var floor_mesh := MeshInstance3D.new()
@@ -77,6 +80,16 @@ func run() -> void:
 	camera.look_at(Vector3(0.5, 0.9, 0))
 	camera.fov = 50
 	camera.make_current()
+	if fall_mode:
+		stage.local_robot = target
+		var canvas := CanvasLayer.new()
+		stage.add_child(canvas)
+		var indicator := DamageIndicator.new()
+		canvas.add_child(indicator)
+		indicator.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+		indicator.viewer = target
+		indicator.camera = camera
+		stage.fall_impact.connect(indicator.mark_fall_impact)
 	var wall := StaticBody3D.new()
 	stage.add_child(wall)
 	wall.position = Vector3(3, 1.5, 0)
@@ -90,7 +103,7 @@ func run() -> void:
 	shape.shape = box.create_convex_shape()
 	wall.add_child(shape)
 	for frame in 30: await process_frame
-	for weapon: String in RobotDebris.WEAPONS:
+	for weapon: String in (["Fall off map"] if fall_mode else RobotDebris.WEAPONS):
 		var robot: ArenaRobot = target
 		robot.alive = true
 		robot.ah = 100
@@ -102,8 +115,8 @@ func run() -> void:
 		robot.position = Vector3.ZERO
 		robot.body.rotation.y = 0
 		robot.velocity = Vector3.ZERO
-		robot.pose("idle")
-		robot.animator.advance(0)
+		robot.pose("common/falling" if fall_mode else "idle")
+		robot.animator.advance(0.4 if fall_mode else 0.0)
 		robot.gun.hide()
 		Assets.paint(robot.body, robot.tint, robot.armor_secondary, robot.head, false, robot.upper_body)
 		await capture(weapon + "-intact")

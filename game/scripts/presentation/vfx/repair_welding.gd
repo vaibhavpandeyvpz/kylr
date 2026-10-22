@@ -73,4 +73,4 @@ func _process(dt: float) -> void:
 		flash.anchor = weakref(tip)
 		flash.anchor_offset = Transform3D(Basis.from_scale(Vector3.ONE*0.085),Vector3.ZERO)
 	# Back away from the metal toward the torch, using the exported tool frame.
-	game.effects.sparks(tip.global_position,tip.global_basis.z.normalized())
+	game.effects.sparks(tip.global_position,tip.global_basis.z.normalized(),false,&"welding")

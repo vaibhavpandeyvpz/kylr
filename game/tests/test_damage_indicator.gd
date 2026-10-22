@@ -1,5 +1,17 @@
 extends GutTest
 
+func test_fall_impact_flashes_edges_without_an_attacker_bearing():
+	var indicator := DamageIndicator.new()
+	add_child_autofree(indicator)
+	indicator.mark_fall_impact()
+	assert_true(indicator.hits.is_empty())
+	assert_eq(indicator.impact_age,0.0)
+	assert_true(indicator.is_processing())
+	indicator._process(0.4)
+	assert_false(indicator.is_processing())
+	indicator.clear()
+	assert_eq(indicator.impact_age,INF)
+
 func test_damage_bearing_tracks_camera_turn_merges_hits_and_expires():
 	var viewer := Node3D.new()
 	add_child_autofree(viewer)

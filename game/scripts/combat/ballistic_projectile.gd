@@ -124,7 +124,7 @@ func impact(hit: Dictionary) -> void:
 						if game is ArenaMatch: game.impact_at(robot,weapon,hit.position,radius)
 	game.audio.cue("hit_"+weapon,hit.position)
 	if weapon == "grenade_launcher":
-		game.effects.grenade_explosion(hit.position,hit.normal)
+		game.effects.grenade_explosion(hit.position,hit.normal,velocity)
 	elif weapon == "pulse_gun":
 		game.effects.pulse_contact(hit.position,hit.normal)
 	elif weapon == "bio_rifle":

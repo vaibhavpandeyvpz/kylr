@@ -7,6 +7,7 @@ const WEAPONS := ["rocket_launcher", "grenade_launcher", "emp_gun"]
 const PRESENTATION_SECONDS := 3.0
 const BLAST_LAUNCH := {"push_speed":6.0, "scatter_speed":3.0, "lift_speed":2.5, "spin_speed":9.0}
 const EMP_LAUNCH := {"push_speed":3.0, "scatter_speed":1.4, "lift_speed":1.0, "spin_speed":5.0}
+const FALL_LAUNCH := {"push_speed":2.0, "scatter_speed":2.2, "lift_speed":1.8, "spin_speed":6.0}
 const GROUPS := ["Hips", "Chest", "Head", "LeftUpperArm", "LeftLowerArm", "LeftHand", "RightUpperArm", "RightLowerArm", "RightHand", "LeftUpperLeg", "LeftLowerLeg", "LeftFoot", "RightUpperLeg", "RightLowerLeg", "RightFoot"]
 var recipe: Dictionary
 var bodies: Dictionary = {}
@@ -66,6 +67,7 @@ func build(robot: ArenaRobot, data: Dictionary, materials: Dictionary, render_me
 	var random := RandomNumberGenerator.new()
 	random.seed = recipe.seed
 	var launch: Dictionary = EMP_LAUNCH if recipe.weapon == "emp_gun" else BLAST_LAUNCH
+	if recipe.weapon == "Fall off map": launch = FALL_LAUNCH
 	var center := global_position + Vector3.UP * 0.95
 	for body: RigidBody3D in bodies.values():
 		var outward := (body.global_position - center).normalized()

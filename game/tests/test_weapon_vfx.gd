@@ -520,15 +520,15 @@ func test_bullet_atlas_marks_follow_moving_surfaces_and_expire():
 	mark._process(10.01)
 	assert_true(mark.is_queued_for_deletion())
 
-func test_impact_sparks_reuse_a_bounded_gpu_pool_under_automatic_fire():
+func test_impact_sparks_reuse_a_bounded_pool_under_automatic_fire():
 	var effects := ArenaEffects.new()
 	add_child_autofree(effects)
 	for i in 80: effects.sparks(Vector3.ZERO,Vector3.UP)
 	assert_eq(effects.spark_pool.size(),ArenaEffects.MAX_SPARK_BURSTS)
 	assert_eq(effects.count,0,"Spark density does not consume the muzzle/impact mesh budget")
-	await wait_seconds(0.5)
+	await wait_seconds(0.6)
 	effects.sparks(Vector3.ONE,Vector3.UP,true)
-	assert_eq(effects.spark_pool.size(),ArenaEffects.MAX_SPARK_BURSTS,"Finished GPU emitters are reused")
+	assert_eq(effects.spark_pool.size(),ArenaEffects.MAX_SPARK_BURSTS,"Finished tracer bursts are reused")
 	assert_eq(effects.spark_pool[0].global_position,Vector3.ONE)
 
 func test_stream_reuses_layers_reaches_endpoint_and_releases_budget():

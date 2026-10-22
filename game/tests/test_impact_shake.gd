@@ -178,6 +178,10 @@ func test_camera_shake_preserves_aim_and_clears_in_cinematics():
 	assert_eq(rig.camera.global_transform,base)
 	assert_eq(rig.impact_shake.strength,0.0)
 	rig.shake_enabled=true
+	rig.impact_shake.trigger("Fall off map",1)
+	rig.select("death")
+	rig._process(0.05)
+	assert_gt(rig.impact_shake.remaining,0.0,"The fall impact shake continues through the death camera")
 	rig.impact_shake.trigger("rocket_launcher",1)
 	rig.select("opening")
 	rig._process(0.05)

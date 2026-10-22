@@ -28,7 +28,7 @@ static func blast_strength(center: Vector3, target: Vector3, radius: float) -> f
 	return clampf(1.0-center.distance_to(target)/radius,0.0,1.0)
 
 func trigger(cause: String, intensity: float) -> void:
-	if cause not in ["rocket_launcher","grenade_launcher","emp_gun"] or not is_finite(intensity) or intensity<=0: return
+	if cause not in ["rocket_launcher","grenade_launcher","emp_gun","Fall off map"] or not is_finite(intensity) or intensity<=0: return
 	var incoming := minf(intensity,1.0)
 	var residual := strength*pow(clampf(remaining/duration,0,1),2)
 	strength=minf(1.0,maxf(residual,incoming)+minf(residual,incoming)*0.15)
