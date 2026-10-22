@@ -706,6 +706,8 @@ func presentation(match_id: String, events: Array):
 func apply_presentation(event: Dictionary):
 	match event.kind:
 		"impact_shake": game.impact_feedback(int(event.victim),str(event.cause),float(event.strength),true)
+		"fall_impact_feedback": game.fall_impact_feedback(int(event.victim),true)
+		"fall_explosion": game.effects.fall_explosion(event.point,event.normal,event.get("incoming",Vector3.ZERO))
 		"elimination": game.receive_elimination(event)
 		"shot":
 			var robot: ArenaRobot = game.robot_by_id(event.robot)
@@ -739,7 +741,7 @@ func apply_presentation(event: Dictionary):
 				game.audio.cue(event.cue,event.point,local,game.robot_by_id(event.emitter))
 		"impact": game.effects.impact(event.point,event.normal,event.energy,null,event.robot)
 		"explosion": game.effects.explosion(event.point,event.normal,event.size,event.incoming)
-		"grenade_explosion": game.effects.grenade_explosion(event.point,event.normal)
+		"grenade_explosion": game.effects.grenade_explosion(event.point,event.normal,event.get("incoming",Vector3.ZERO))
 		"pulse_contact": game.effects.pulse_contact(event.point,event.normal)
 		"bio_contact": game.effects.bio_contact(event.point,event.normal)
 		"flak_contact": game.effects.flak_contact(event.point,event.normal)

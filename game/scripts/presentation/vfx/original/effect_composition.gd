@@ -2,7 +2,6 @@ class_name OriginalEffect
 extends Node3D
 
 # Independent composition built from the library's generated effect kit.
-const SPRITE = preload("res://shaders/original/burst_sprite.gdshader")
 const THERMAL = preload("res://shaders/original/thermal_surface.gdshader")
 const SHELL = preload("res://shaders/original/eruption_shell.gdshader")
 const NOISE = preload("res://assets/models/effects/combat_effects/turbulence_rgba.png")
@@ -156,22 +155,26 @@ func build_fireball_hit_3d() -> void:
 
 func build_rocket_3d() -> void:
 	var cloud_shader := preload("res://shaders/original/combustion_cloud_3d.gdshader")
-	var offsets := [Vector3(-0.45,0.2,0.25),Vector3(0.4,0.35,-0.15),Vector3(0,0.8,0)]
-	for index in offsets.size():
-		add_gas_lobe("BurningLobe"+str(index),cloud_shader,0,offsets[index],[2.1,1.9,2.0][index],index*1.71,index)
-	var soot := [Vector3(-0.7,0.45,-0.15),Vector3(0.65,0.6,0.15),Vector3(0.05,1.0,-0.55),Vector3(0.15,0.3,0.65),Vector3(-0.25,0.25,-0.7)]
-	for index in soot.size():
-		add_gas_lobe("SootLobe"+str(index),cloud_shader,1,soot[index],[1.9,1.7,1.8,1.65,1.6][index],4.3+index*1.39,index)
+	add_spherical_cloud("BurningLobe",cloud_shader,0,0.65,0.2,1.6)
+	add_spherical_cloud("SootLobe",cloud_shader,1,0.85,0.3,1.4)
 	add_gas_lobe("IgnitionCore",cloud_shader,2,Vector3(0,0.25,0),0.8,0,0)
 	var wave := add_mesh("PressureWave","ThermalShell",preload("res://shaders/original/rocket_wave_3d.gdshader"),"rocket_wave")
 	wave.custom_aabb = AABB(Vector3.ONE*-0.6,Vector3.ONE*1.2)
 
 func build_grenade_3d() -> void:
 	var cloud_shader := preload("res://shaders/original/combustion_cloud_3d.gdshader")
-	var offsets := [Vector3(-0.65,0.12,0.2),Vector3(0.55,0.17,-0.25),Vector3(0.1,0.3,0.55),Vector3(-0.15,0.35,-0.55),Vector3(0,0.55,0)]
-	for index in offsets.size():
-		add_gas_lobe("DustLobe"+str(index),cloud_shader,3,offsets[index],[2.1,2.0,1.85,1.8,1.4][index],8.3+index*1.63,index,Vector3(1,0.65,1))
+	add_spherical_cloud("DustLobe",cloud_shader,3,0.65,0.16,1.8)
 	add_gas_lobe("IgnitionCore",cloud_shader,2,Vector3(0,0.05,0),0.55,0,0)
+
+func add_spherical_cloud(prefix: String, shader: Shader, layer: int, radius: float, height: float, size: float, angle_offset := 0.0, opacity := 1.0) -> void:
+	# Six overlapping lobes cover a sphere without a preferred long axis.
+	# Preserve coverage at low detail; reduce ray-march samples instead of sectors.
+	var directions := [Vector3.RIGHT,Vector3.LEFT,Vector3.UP,Vector3.DOWN,Vector3.BACK,Vector3.FORWARD]
+	for index in 6:
+		var direction: Vector3 = Basis(Vector3.UP,angle_offset)*directions[index]
+		add_gas_lobe(prefix+str(index),shader,layer,direction*radius+Vector3.UP*height,size,8.3+index*1.63,index)
+		surfaces[-1].material.set_shader_parameter("effect_opacity",opacity)
+		surfaces[-1]["spherical"] = true
 
 func add_gas_lobe(id: String, shader: Shader, layer: int, offset: Vector3, size: float, phase: float, rank: int, stretch := Vector3.ONE) -> void:
 	var node := add_mesh(id,"ThermalShell",shader,"spatial_gas")
@@ -204,7 +207,6 @@ func build_energy_impact() -> void:
 	for index in 2:
 		var ring := add_mesh("PressureFront"+str(index),"PressureRing",preload("res://shaders/original/pressure_ring.gdshader"),"ring")
 		ring.rotation = Vector3(index*1.1,0,index*0.7)
-	add_sparks()
 
 func add_sparks() -> void:
 	var emitter := GPUParticles3D.new()
@@ -233,17 +235,11 @@ func add_sparks() -> void:
 	ramp.gradient = gradient
 	process.color_ramp = ramp
 	emitter.process_material = process
-	emitter.draw_pass_1 = EffectMeshes.mesh("AxialCard")
+	emitter.draw_pass_1 = EffectMeshes.mesh("FragmentChip")
 	var material := ShaderMaterial.new()
-	material.shader = preload("res://shaders/original/casing_fragment.gdshader") if kind in ["rocket","grenade"] else SPRITE
-	if kind in ["rocket","grenade"]:
-		emitter.draw_pass_1 = EffectMeshes.mesh("FragmentChip")
-		process.scale_min = 0.035
-		process.scale_max = 0.11
-	else:
-		material.set_shader_parameter("billboard",false)
-		material.set_shader_parameter("card_width",0.08)
-		material.set_shader_parameter("primary_color",primary_color)
+	material.shader = preload("res://shaders/original/casing_fragment.gdshader")
+	process.scale_min = 0.035
+	process.scale_max = 0.11
 	emitter.material_override = material
 	add_child(emitter)
 	emitters.append(emitter)
@@ -343,6 +339,7 @@ func apply_emitter_budget() -> void:
 	for surface in surfaces:
 		if surface.role == "spatial_gas":
 			surface.node.visible = int(surface.rank)<(2 if budget_ratio<=0.25 else 3 if budget_ratio<=0.5 else 5)
+			if surface.get("spherical",false): surface.node.visible = true
 			surface.material.set_shader_parameter("march_steps",16 if budget_ratio<=0.5 else 24 if budget_ratio<1.0 else 32)
 
 func _process(dt: float) -> void:

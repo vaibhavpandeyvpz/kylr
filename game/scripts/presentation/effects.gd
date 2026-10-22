@@ -30,6 +30,7 @@ var lightning_pool: Array[LightningSparks] = []
 var emp_pool: Array[PackBurst] = []
 var rocket_pool: Array[PackBurst] = []
 var grenade_pool: Array[PackBurst] = []
+var fall_pool: Array[PackBurst] = []
 var pulse_pool: Array[PulseContact] = []
 var bio_pool: Array[BioContact] = []
 var flak_pool: Array[FlakContact] = []
@@ -221,7 +222,8 @@ func emp_contact(point: Vector3, normal: Vector3):
 	var n := normal.normalized() if normal.length_squared() > 0.01 else Vector3.UP
 	var burst := packed_burst(emp_pool, preload("res://assets/effects/original/emp.tscn"), true)
 	if burst: burst.fire(point + n * 0.015, n, 0.6)
-func sparks(point: Vector3, normal: Vector3, energy := false):
+	sparks(point+n*0.015,n,false,&"emp")
+func sparks(point: Vector3, normal: Vector3, energy := false, profile: StringName = &"ballistic"):
 	var burst: ImpactSparks
 	for candidate in spark_pool:
 		if candidate.remaining <= 0:
@@ -232,7 +234,7 @@ func sparks(point: Vector3, normal: Vector3, energy := false):
 		burst = ImpactSparks.new()
 		add_child(burst)
 		spark_pool.append(burst)
-	burst.fire(point, normal, energy, gravity * SPARK_GRAVITY_RATIO)
+	burst.fire(point, normal, energy, gravity * SPARK_GRAVITY_RATIO,profile)
 
 func impact(point: Vector3, normal: Vector3, energy := false, surface: Node3D = null, robot_hit := false):
 	if replicate({"kind":"impact","point":point,"normal":normal,"energy":energy,"robot":robot_hit}): return
@@ -265,15 +267,25 @@ func impact(point: Vector3, normal: Vector3, energy := false, surface: Node3D = 
 func explosion(point: Vector3, normal: Vector3, size := 1.3, incoming := Vector3.ZERO):
 	if replicate({"kind":"explosion","point":point,"normal":normal,"size":size,"incoming":incoming}): return
 	var n := normal.normalized() if normal.length_squared() > 0.01 else Vector3.UP
-	var outward := -incoming.normalized() if incoming.length_squared() > 0.0001 else n
 	var burst := packed_burst(rocket_pool, preload("res://assets/effects/original/rocket.tscn"))
-	if burst: burst.fire(point + n * 0.06, outward, size * 0.6)
-func grenade_explosion(point: Vector3, normal: Vector3):
-	if replicate({"kind":"grenade_explosion","point":point,"normal":normal}): return
+	if burst: burst.fire(point + n * 0.06, blast_axis(n,incoming), size * 0.6)
+
+static func blast_axis(normal: Vector3, incoming: Vector3) -> Vector3:
+	return -incoming.normalized() if incoming.length_squared()>0.0001 else normal.normalized() if normal.length_squared()>0.0001 else Vector3.UP
+
+func grenade_explosion(point: Vector3, normal: Vector3, incoming := Vector3.ZERO):
+	if replicate({"kind":"grenade_explosion","point":point,"normal":normal,"incoming":incoming}): return
 	if DisplayServer.get_name() == "headless": return
 	var n := normal.normalized() if normal.length_squared() > 0.01 else Vector3.UP
 	var burst := packed_burst(grenade_pool, preload("res://assets/effects/original/grenade.tscn"))
-	if burst: burst.fire(point + n * 0.015, n)
+	if burst: burst.fire(point + n * 0.015, blast_axis(n,incoming))
+
+func fall_explosion(point: Vector3, normal: Vector3, incoming := Vector3.ZERO):
+	if replicate({"kind":"fall_explosion","point":point,"normal":normal,"incoming":incoming}): return
+	if DisplayServer.get_name() == "headless": return
+	var n := normal.normalized() if normal.length_squared() > 0.01 else Vector3.UP
+	var burst := packed_burst(fall_pool,preload("res://assets/effects/original/fall_impact.tscn"))
+	if burst: burst.fire(point+n*0.015,blast_axis(n,incoming))
 
 func pulse_contact(point: Vector3, normal: Vector3):
 	if replicate({"kind":"pulse_contact","point":point,"normal":normal}): return
@@ -309,8 +321,9 @@ func bio_contact(point: Vector3, normal: Vector3):
 
 func flak_contact(point: Vector3, normal: Vector3):
 	if replicate({"kind":"flak_contact","point":point,"normal":normal}): return
-	if DisplayServer.get_name() == "headless": return
 	var n := normal.normalized() if normal.length_squared() > 0.01 else Vector3.UP
+	sparks(point+n*0.015,n,false,&"flak")
+	if DisplayServer.get_name() == "headless": return
 	var burst: FlakContact
 	for candidate in flak_pool:
 		if candidate.remaining <= 0.0:

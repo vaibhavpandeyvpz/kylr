@@ -143,6 +143,9 @@ func set_camera(focus: Vector3, distance: float):
 
 func freeze(node: Node):
 	node.set_process(false)
+	if node is ImpactSparks:
+		if node.elapsed<=0.0: node._physics_process(0.08)
+		node.set_physics_process(false)
 	if node is GPUParticles3D: node.speed_scale=0.0
 	if node is AnimationPlayer: node.pause()
 	for child in node.get_children(): freeze(child)

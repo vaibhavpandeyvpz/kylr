@@ -645,7 +645,7 @@ func simulate_movement(dt: float, predicted := false, replaying := false) -> voi
 		if protection > 0: arena_match.spawn_robot(self)
 		else:
 			ah = 0
-			arena_match.eliminate(self, null, "Fall off map")
+			arena_match.eliminate(self, null, "Fall off map", {"velocity":Vector3(velocity.x,falling_speed,velocity.z)})
 		return
 	body.rotation.y = yaw + character.forward_yaw
 	if human:

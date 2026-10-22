@@ -3,6 +3,7 @@ extends Node3D
 signal message(text: String)
 signal completed
 signal damage_taken(source: Vector3, amount: float)
+signal fall_impact
 signal local_elimination(event: Dictionary)
 
 const KILL_CHAIN_WINDOW := 10.0
@@ -105,6 +106,12 @@ func impact_feedback(victim_id: int, cause: String, strength: float, replicated 
 	if not replicated: present({"kind":"impact_shake","victim":victim_id,"cause":cause,"strength":strength})
 	if local_robot==null or local_robot.robot_id!=victim_id or camera_rig==null or reduced_motion or phase!="Active": return
 	camera_rig.impact_shake.trigger(cause,strength)
+
+func fall_impact_feedback(victim_id: int, replicated := false) -> void:
+	if not replicated: present({"kind":"fall_impact_feedback","victim":victim_id})
+	impact_feedback(victim_id,"Fall off map",1.0,true)
+	if local_robot != null and local_robot.robot_id == victim_id:
+		fall_impact.emit()
 
 static func shuffle_roster(values: Array, setup_rng: RandomNumberGenerator = null) -> void:
 	if setup_rng == null:
@@ -515,8 +522,13 @@ func eliminate(victim,killer,cause: String, contact: Dictionary = {}):
 		var hit := combat.ray(victim.global_position+Vector3.UP*0.5,victim.global_position-Vector3.UP*0.5,[],1)
 		if not hit.is_empty() and hit.collider.get_meta("lethal_surface",false): lunar_impact=hit
 	var death_clip := "death_explode" if cause in RobotDebris.WEAPONS else RobotClips.death(cause, incoming, victim.crouched)
-	if not lunar_impact.is_empty(): death_clip="death_front"
 	var breakup := RobotDebris.capture(victim, cause, contact, gravity) if cause in RobotDebris.WEAPONS else {}
+	if not lunar_impact.is_empty():
+		death_clip = "death_explode"
+		var impact_velocity: Vector3 = contact.get("velocity",victim.velocity)
+		breakup = RobotDebris.capture(victim,cause,{"point":lunar_impact.position,"direction":lunar_impact.normal,"radial":true,"velocity":Vector3(impact_velocity.x,0,impact_velocity.z)*0.25},gravity)
+		effects.fall_explosion(lunar_impact.position,lunar_impact.normal,impact_velocity)
+		fall_impact_feedback(victim.robot_id)
 	var falling_out := fall_death and lunar_impact.is_empty()
 	var death_duration := RobotDebris.PRESENTATION_SECONDS
 	if breakup.is_empty():

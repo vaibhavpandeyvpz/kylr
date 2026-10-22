@@ -16,7 +16,8 @@ overlapping hits cannot exceed the cap (4 cm translation, 0.02 rad per axis).
 Apply the cosmetic offset after Phantom Camera's base pose, and retain the
 unshaken pose for weapon sight/aim queries. Never alter yaw/pitch input, recoil,
 physics, damage or bot aim. Reduced decorative motion disables shake; cinematic
-and menu views clear it. The server replicates accepted impact feedback on the
+and menu views clear it, except the death camera retains the impact envelope.
+The server replicates accepted impact feedback on the
 presentation channel, so clients do not infer splash hits from distance alone.
 
 Robot players share immutable playback animation variants by source resource,
@@ -181,7 +182,28 @@ and overlapping live instances.
 
 Surface marks now use original procedural cavities, chips, dust and fine fractures with 64 seeded variants. The existing instance identifier, 9–16 cm footprint, surface anchor, 64-mark cap and ten-second lifetime remain unchanged; the final second fades away. Marks remain omitted on robots. No bitmap atlas is required.
 
-Repair-station welding reuses the ballistic hit core shader and bounded spark pool, without damage, decals or hit confirmation. A 3.6 cm white-blue glow and a small shadowless light are children of the exported, animated `TorchTip`; 8.5 cm flashes remain anchored to that same live gizmo. Sparks emit from its current world transform and then move independently under gravity. Emission follows the asset's `effects.TorchTip.welding_frames` (12–51 and 87–126 at 30 fps within the five-second repair clip), stopping between strokes, on death/interruption, during deactivation, and outside Active play. Pulses run every 0.16 seconds within 25 m and every 0.5 seconds at 25–60 m; beyond 60 m they stop, and the local light is enabled only within 15 m. Reduced motion keeps a steady nib glow and suppresses flicker, repeated flashes and spark emission. The gripper's gizmo is not a welding nozzle.
+Repair-station welding reuses the ballistic hit core shader and shared bounded spark pool, without damage, decals or hit confirmation. A 3.6 cm white-blue glow and a small shadowless light are children of the exported, animated `TorchTip`; 8.5 cm flashes remain anchored to that same live gizmo. Sparks emit from its current world transform and then move independently under gravity. Emission follows the asset's `effects.TorchTip.welding_frames` (12–51 and 87–126 at 30 fps within the five-second repair clip), stopping between strokes, on death/interruption, during deactivation, and outside Active play. Pulses run every 0.16 seconds within 25 m and every 0.5 seconds at 25–60 m; beyond 60 m they stop, and the local light is enabled only within 15 m. Reduced motion keeps a steady nib glow and suppresses flicker, repeated flashes and spark emission. The gripper's gizmo is not a welding nozzle.
+
+Ordinary bullet hits, flak impacts, EMP impacts and repair welding share
+`ImpactSparks` and one pool capped at sixteen bursts. Each burst batches at most
+32 closed yellow cylinders in a MultiMesh, with shared immutable geometry and
+material. Presets change only tracer count. Each cylinder is 1 cm in diameter,
+launches at 2 m/s and grows from its source to a random maximum length between
+2 and 5 cm. Arena-scaled gravity curves its flight downward; its short trail
+follows the trajectory rather than remaining aligned to its launch direction. An even
+spherical petal distribution gives the burst its outward flower shape. At 0.5 s
+the nose stops and the tail feeds into it at 2 m/s, reaching zero length within
+25 ms. Jolt sphere sweeps, with a 5 mm radius and no query margin, stop noses at
+solid world geometry and authored robot hit hulls; a hit consumes the remaining
+tail in the same way. The tracers cause no damage or physical impulse. Detached
+welding sparks retain their launch origin as the torch moves. EMP retains its
+pressure/refraction composition and flak retains its flash/dust; neither adds a
+second spark emitter. Lightning, rocket/grenade debris and bio particles keep
+their independent effects.
+
+`tools/preview_shared_sparks.gd` records growth, flight and shrink phases for all
+four presets under `reports/shared-sparks/`. Add `-- --rt` for Ray Reconstruction
+with upscaling disabled. The fixture includes a solid floor for Jolt contacts.
 
 Hit confirmation belongs to the accepted damage path for every weapon, including projectile, splash, EMP, lightning, and flame damage. It holds the outlined cyan reticle marks for 0.24 seconds; blocked, friendly, protected, self, and zero-damage contacts do not confirm. Incoming accepted enemy damage shows a brief soft red screen-edge tint plus a direction arc near the sightline and a wider edge bearing. The tint reduces intensity with reduced motion enabled. Directional damage feedback adds no aim deflection or confirmation sound; explosion and EMP camera shake follow the shared contract above.
 
@@ -268,27 +290,28 @@ Rocket secondary uses the scope reticle and hides the FPV model. The authoritati
 
 Bio contact particles and core-ray particles share immutable process materials, gradient textures and draw materials keyed by their complete settings. Each projectile retains its own GPUParticles3D simulation, emission and playback state. Different sizes, speeds, colours and emission strengths must resolve to distinct recipes where those values affect the resource. The projectile-resource regression suite covers same-recipe reuse and variant isolation.
 
-Rocket contacts use a 1.45-second spatial composition: three burning gas lobes,
-five cooling soot lobes, a brief ignition core, a faint expanding pressure shell
+Rocket contacts use a 1.45-second spatial composition: six burning gas lobes,
+six cooling soot lobes, a brief ignition core, a faint expanding pressure shell
 and small tumbling hot metal fragments. Closed library meshes bound the gas;
 the shader integrates density along the viewing ray and clips it against opaque
 scene depth, including when viewed from inside. An immutable 64³ noise volume
 supplies continuous turbulent density. Generated billow albedo/height and matching
 normal/roughness maps supply soot relief and combustion breakup. Heat decays into
 neutral grey smoke. Layer growth, drift and shader progress belong to each burst;
-quality/distance budgets reduce secondary lobes and integration samples while
-retaining fire, smoke and ignition. The composition is oriented back along
+quality/distance budgets reduce integration samples while retaining complete
+spherical coverage, fire, smoke and ignition. The composition is oriented back along
 incoming flight and uses no camera-facing explosion cards.
 
-Grenades use a separate 0.9-second spatial recipe: five flattened neutral grey
-dust lobes spread along the impact plane, a compact ignition core, fast embers
+Grenades use a separate 0.9-second spatial recipe: six neutral grey
+dust lobes distributed around an expanding sphere, a compact ignition core, fast embers
 and small tumbling metal casing chips. The dust reuses the immutable density
 volume and material detail maps with its own geometry arrangement, erosion,
 scattering and timing. Only a small region around the impact emits briefly;
 the dust becomes non-emissive after the opening ignition. It has no sustained
 burning lobes or camera-facing explosion cards. Flak uses the independent
 `flak_dust_atlas.png` for compact abrasion dust. Each contact has its own reusable 16-burst pool. Grenades align +Y to the
-contact normal. Discrete presentation events replicate; damage, splash, bounce,
+reverse incoming flight direction, falling back to the contact normal without flight data.
+Discrete presentation events replicate; damage, splash, bounce,
 collision and effect-light policy are unchanged.
 
 Fireball contacts form a compact 0.48-second 3D flare cloud. Six independently
@@ -321,7 +344,7 @@ require lossless imports, mipmaps and disabled alpha-border repair.
 
 Pulse contacts use a compact 3D cyan ion bloom over 0.52 seconds, with their own 16-burst pool and replicated `pulse_contact` event. A bright core, scalloped closed shell, three broken latitude bands and eight solid ion beads expand away from the contact plane. The 46 cm nominal footprint and blue cellular seams distinguish the contact; it contains no camera-facing cards. It reuses the library's immutable effect meshes with isolated per-impact shader progress. The projectile is a glowing cyan cylinder, 5 cm in diameter, with a brighter cyan core. Its nose advances from the muzzle while its tail stays there until it reaches 25 cm long; both then travel together. On contact the nose stops at the surface and the remaining length feeds into that point at projectile speed, shrinking to zero. Absorption is cosmetic and applies no additional damage. The swept cylinder follows the growing length behind its nose. Damage, cadence, energy cost and slowing behavior retain their gameplay settings.
 
-Live bio/pulse visuals retain independent classes. Flak contacts use a brief friction flash, ejected hot metal chips and compact abrasion dust over 0.42 seconds; bio uses a 44.5 cm nominal green organic composition, including a compact outer shell and final splash; both small-particle layers stay within 1 m of the contact origin, including sprite extent and gravity. Both have independent 16-burst pools. Flak rounds use tumbling metal fragments with compact tails. `WeaponContactBurst` owns shared lifecycle and particle mechanics. `BallisticProjectile` continues to own flight, bounce, status and damage; `ArenaEffects` dispatches replicated contacts. Effect shaders live in `shaders/original/` alongside the combat shaders.
+Live bio/pulse visuals retain independent classes. Flak contacts use a brief friction flash and compact abrasion dust over 0.42 seconds, plus the shared yellow spark tracers; bio uses a 44.5 cm nominal green organic composition, including a compact outer shell and final splash; both small-particle layers stay within 1 m of the contact origin, including sprite extent and gravity. Both have independent 16-burst pools. Flak rounds use tumbling metal fragments with compact tails. `WeaponContactBurst` owns shared lifecycle and particle mechanics. `BallisticProjectile` continues to own flight, bounce, status and damage; `ArenaEffects` dispatches replicated contacts. Effect shaders live in `shaders/original/` alongside the combat shaders.
 
 Verification covers immutable-resource sharing, per-instance fades, bounds, socket orientation, pooling and replicated contact events, with rendered raster/RT captures.
 
@@ -345,6 +368,30 @@ robot's authored metallic materials, collisions, damage or hit duration.
 and owns their snapshot construction/restoration. Match logic owns expiry,
 respawn, credit, flags and Energy Core drops. Rocket launcher, grenade launcher
 and EMP kills select breakup; nonlethal and rejected contacts do not.
+
+Lethal fall contact with terrain also selects breakup from the current pose,
+using its own tighter upward/radial launch recipe. Ground impact consumes the
+downward velocity; debris retains a quarter of horizontal movement. Void falls
+retain their falling presentation. The independent `fall_impact.tscn` composition
+uses the grenade cloud shader and shared immutable meshes, with six smaller
+dust lobes at 45% opacity, a brief ignition core and no extra flying fragments.
+Its exported dust size, opacity and duration can be tuned independently of
+grenade impacts. The local impact emits the existing soft red edge tint without
+an attacker bearing, and a 0.42-second bounded camera shake through the death
+camera. Reduced Motion halves the tint and disables shake. Presentation events
+replicate the cloud and victim feedback; none apply damage or change fall credit.
+`tools/preview_robot_debris.gd -- --fall` captures the grounded breakup;
+`tools/preview_combustion_impact.gd -- --fall` captures its cloud, with `--rt`
+available for native ray-traced verification.
+
+Rocket, grenade and fall-impact clouds distribute equal-sized lobes in all six
+axial directions around a common centre. Both their offsets and volume radii
+grow uniformly in three dimensions, giving a spherical expansion rather than
+a flattened disc or an elongated jet. The incoming 3D flight direction defines
+the orientation frame; surface normals supply the fallback for previews without
+flight data. Low detail preserves all directions and reduces ray-march samples.
+Opaque geometry clips the sphere naturally at contact surfaces. Each effect
+retains its own radius, palette, smoke density and lifetime.
 
 `RobotDebrisMesh` caches immutable bone-local render fragments from Tensor's
 authored rigid skin during robot preparation. It preserves triangles, normals,

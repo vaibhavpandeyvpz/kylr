@@ -2,7 +2,7 @@ extends GutTest
 class Audio extends RefCounted:
 	func cue(_id,_point): pass
 class Effects extends RefCounted:
-	func grenade_explosion(_point,_normal): pass
+	func grenade_explosion(_point,_normal,_incoming := Vector3.ZERO): pass
 class Combat extends ArenaCombat:
 	var covered := false
 	func clear(_from: Vector3,_to: Vector3) -> bool: return not covered

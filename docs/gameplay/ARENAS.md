@@ -277,7 +277,7 @@ clearance tests the robot motor's supported step height and the whole raised
 capsule, including headroom. Low stones between navigation samples remain
 walking edges; taller obstructions and low lintels remain blocked.
 
-Skyfall lunar contact kills the robot but supports its corpse: play the ground death clip and hold the final pose on the lunar collision surface. Only genuine falls into the void continue below the arena.
+Skyfall lunar contact kills the robot and scatters its physical body assemblies against the lunar collision surface for four seconds. A separate grenade-style impact cloud uses reduced dust and no extra flying fragments. The local player receives the red screen-edge impact flash and a bounded camera shake, disabled by Reduced Motion. Only genuine falls into the void continue below the arena.
 
 Normal and charged jumps use the same powered-rise/coast handoff: their release cutoffs are 1 m and 2 m divided by the map gravity multiplier. Launch speed sqrt(2 * effective gravity * release cutoff) therefore stays independent of that multiplier. Jump pads retain 10 m/s through their 10 m divided by multiplier cutoff. None zero vertical velocity at release. At 1.0 gravity the approximate unobstructed apexes are 2 m, 4 m and 12.55 m; Skyfall (0.8) gives 2.5 m, 5 m and 15.69 m; Faceoff (1.2) gives 1.67 m, 3.33 m and 10.46 m. Collision can shorten these arcs.
 

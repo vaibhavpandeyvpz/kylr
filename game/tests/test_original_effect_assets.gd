@@ -87,7 +87,7 @@ func test_grenade_is_a_spatial_dust_burst_with_small_ignition():
 		assert_ne(int(surface.layer),0,"Grenade has no sustained burning lobes")
 		if int(surface.layer) == 3:
 			dust += 1
-			assert_lt(surface.stretch.y,surface.stretch.x,"Dust spreads along the impact plane")
+			assert_eq(surface.stretch,Vector3.ONE,"Dust expands volumetrically without flattening")
 		else:
 			ignition += 1
 			assert_lt(float(surface.size),0.6,"Ignition stays compact inside the dust")
@@ -99,7 +99,35 @@ func test_grenade_is_a_spatial_dust_burst_with_small_ignition():
 	for surface in burst.surfaces:
 		if int(surface.layer)==3 and surface.node.visible: visible_dust += 1
 	assert_gt(visible_dust,0)
-	assert_lt(visible_dust,dust)
+	assert_eq(visible_dust,dust,"Low detail preserves complete spherical coverage")
+
+func test_blast_clouds_expand_as_spheres_instead_of_axial_or_planar_shapes():
+	for kind in ["rocket","grenade","fall_impact"]:
+		var burst := load("res://assets/effects/original/"+kind+".tscn").instantiate() as OriginalEffect
+		add_child_autofree(burst)
+		burst.play()
+		burst.set_process(false)
+		var previous_extent := Vector3.ZERO
+		for age in [0.01,0.05,0.15]:
+			burst.age = age
+			burst._process(0.0)
+			var low := Vector3.ONE*INF
+			var high := Vector3.ONE*-INF
+			for surface in burst.surfaces:
+				if not surface.get("spherical",false): continue
+				var node: MeshInstance3D = surface.node
+				assert_almost_eq(node.scale.x,node.scale.y,0.00001)
+				assert_almost_eq(node.scale.x,node.scale.z,0.00001)
+				low = low.min(node.position-node.scale*0.48)
+				high = high.max(node.position+node.scale*0.48)
+			var extent := high-low
+			assert_almost_eq(extent.x,extent.y,0.00001,kind+" spherical Y extent")
+			assert_almost_eq(extent.x,extent.z,0.00001,kind+" spherical Z extent")
+			assert_gt(extent.x,previous_extent.x,"The complete volume grows over time")
+			previous_extent = extent
+	for incoming in [Vector3.DOWN,Vector3(1,-2,3),Vector3.LEFT]:
+		var axis := ArenaEffects.blast_axis(Vector3.UP,incoming)
+		assert_gt(axis.dot(-incoming.normalized()),0.9999,"Full 3D flight defines the orientation frame")
 
 func test_muzzle_profile_controls_inner_and_outer_dimensions_and_colors():
 	var burst := load("res://assets/effects/original/flash_long.tscn").instantiate() as OriginalEffect
@@ -163,7 +191,10 @@ func test_rocket_low_detail_keeps_fire_and_soot_and_replay_resets_fade():
 	assert_has(layers,0)
 	assert_has(layers,1)
 	assert_has(layers,2)
-	assert_lt(count,9)
+	assert_eq(count,13,"Six fire and six soot volumes plus the core retain spherical coverage")
+	for surface in burst.surfaces:
+		if surface.role == "spatial_gas":
+			assert_eq(surface.material.get_shader_parameter("march_steps"),16,"Low detail reduces volumetric samples")
 	burst.play()
 	burst._process(burst.duration)
 	assert_false(burst.playing)
