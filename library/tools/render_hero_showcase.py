@@ -17,6 +17,8 @@ LIB = Path(__file__).resolve().parents[1]
 ROOT = LIB.parent
 BUILD = LIB / 'build/hero_showcase'
 MODELS = LIB / 'models'
+sys.path.insert(0, str(LIB / 'tools'))
+from showcase_effects import muzzle_flash, rocket_burst
 sys.path.insert(0, str(MODELS))
 sys.path.insert(0, str(MODELS / 'architecture'))
 from nvidia_render import configure_gpu
@@ -158,20 +160,6 @@ def point(name, pos, power, color, radius):
     obj.location = pos
 
 
-def emission(name, color, strength):
-    mat = bpy.data.materials.new(name)
-    if mat.node_tree is None:
-        mat.use_nodes = True
-    nodes = mat.node_tree.nodes
-    nodes.clear()
-    out = nodes.new('ShaderNodeOutputMaterial')
-    em = nodes.new('ShaderNodeEmission')
-    em.inputs['Color'].default_value = (*color, 1)
-    em.inputs['Strength'].default_value = strength
-    mat.node_tree.links.new(em.outputs[0], out.inputs['Surface'])
-    return mat
-
-
 def effect_piece(name, location, scale, material, rotation=None):
     source = next(o for o in FX_KIT if o.name.split('.')[0] == name)
     obj = source.copy()
@@ -187,36 +175,6 @@ def effect_piece(name, location, scale, material, rotation=None):
     obj.data.materials.append(material)
     return obj
 
-
-def atlas_burst(location, size, frame):
-    mat = bpy.data.materials.new('M_CombustionFlipbook')
-    if mat.node_tree is None:
-        mat.use_nodes = True
-    n, links = mat.node_tree.nodes, mat.node_tree.links
-    n.clear()
-    out, mix = n.new('ShaderNodeOutputMaterial'), n.new('ShaderNodeMixShader')
-    transparent, hot = n.new('ShaderNodeBsdfTransparent'), n.new('ShaderNodeEmission')
-    tex, uv = n.new('ShaderNodeTexImage'), n.new('ShaderNodeTexCoord')
-    tex.image = bpy.data.images.load(str(MODELS / 'effects/combat_effects/source/fireball_atlas.png'), check_existing=True)
-    mapping = n.new('ShaderNodeVectorMath')
-    mapping.operation = 'MULTIPLY_ADD'
-    mapping.inputs[1].default_value = (.25, .25, 1)
-    mapping.inputs[2].default_value = ((frame % 4) * .25, (3 - frame // 4) * .25, 0)
-    links.new(uv.outputs['UV'], mapping.inputs[0])
-    links.new(mapping.outputs['Vector'], tex.inputs['Vector'])
-    links.new(tex.outputs['Color'], hot.inputs['Color'])
-    hot.inputs['Strength'].default_value = 2.4
-    links.new(tex.outputs['Alpha'], mix.inputs[0])
-    links.new(transparent.outputs[0], mix.inputs[1])
-    links.new(hot.outputs[0], mix.inputs[2])
-    links.new(mix.outputs[0], out.inputs['Surface'])
-    bpy.ops.mesh.primitive_plane_add(size=size, location=location)
-    obj = bpy.context.object
-    obj.name = 'FX_RocketDetonation'
-    move(obj, FX)
-    obj.rotation_euler = (CAM.location - obj.location).to_track_quat('Z', 'Y').to_euler()
-    obj.data.materials.append(mat)
-    obj.visible_shadow = False
 
 
 def shelf():
@@ -316,20 +274,16 @@ area('SolarRim', (-3, 6, 6), (0, 0, 1), 1100, (1, .69, .42), 4)
 KIT = collection('ASSET / effect geometry (not rendered)')
 KIT.hide_render = True
 _, FX_KIT = append_asset('effects', 'combat_effects', KIT)
-hot = emission('M_MuzzleFire', (1, .32, .055), 12)
 if muzzle:
     bpy.context.view_layer.update()
     matrix = muzzle.matrix_world.copy()
-    flash = effect_piece('SK_FlameEnvelope', matrix.translation, (.035, .22, .035), hot)
-    flash.rotation_euler = matrix.to_euler()
-    point('Muzzle', matrix.translation, 18, (1, .38, .08), .12)
-atlas_burst((27, 13, .8), 2.7, 6)
-point('Detonation', (27, 13, 1.1), 650, (1, .21, .035), .7)
-effect_piece('SK_BurstRays', (27, 13, .8), (1.3, 1.3, 1.3), hot,
-             (math.radians(23), math.radians(35), .4))
+    muzzle_flash(matrix,effect_piece)
+    point('Muzzle',matrix.translation,18,(1,.38,.08),.12)
+rocket_burst((23.7,13.5,.3),effect_piece)
+point('Detonation',(23.7,13.5,.8),650,(1,.21,.035),.7)
 
 scene.render.engine = 'CYCLES'
-scene.cycles.samples = 48 if args.preview else 512
+scene.cycles.samples = 48 if args.preview else 128
 scene.cycles.use_adaptive_sampling = True
 scene.cycles.adaptive_threshold = .04 if args.preview else .012
 scene.cycles.use_denoising = True

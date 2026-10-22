@@ -119,7 +119,7 @@
         "width": 2.0,
         "radius": 16
       },
-      "full_damage_range": 20,
+      "full_damage_range": 20.0,
       "projectile_speed": 25.0
     },
     "rocket_launcher": {
@@ -159,7 +159,7 @@
       "title": "Flamethrower",
       "model": "flamethrower",
       "animation_family": "flamethrower",
-      "range": 15.0,
+      "range": 10.0,
       "damage": 20.0,
       "interval": 0.5,
       "capacity": 50,
@@ -180,7 +180,7 @@
         "radius": 14
       },
       "damage_tick": 0.1,
-      "full_damage_range": 10.0,
+      "full_damage_range": 8.0,
       "splash_damage": 1.0,
       "splash_radius": 5.0,
       "secondary_damage": 25.0,

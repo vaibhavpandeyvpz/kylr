@@ -1,0 +1,221 @@
+{
+  "generator": "export_fireball_material.py",
+  "sources": {
+    "fireball_flame_source.png": "9cab9a43132860a775d231ca9caf4605594e54aa54df39fd01980c6e01b5a6d1",
+    "fireball_smoke_source.png": "a071512bac26ca15cbdf32d33548be2da8307a5c1db21624757d98e1dfca282a"
+  },
+  "textures": {
+    "fireball_flame_albedo_density.png": "e7c96ac2021c957b81e416c5568192efe22fa800a9a228763b80f2d6a709fb71",
+    "fireball_flame_normal_roughness.png": "87d1291cdf5751bbb6d480d9c83d3077528310041b793f6080edaa413bff2669",
+    "fireball_smoke_albedo_density.png": "83c2ddb49f38bda151de7c0cedaa85569168e3a824dc21d06d1e72d8902a2ed1",
+    "fireball_smoke_normal_roughness.png": "f5be1e0b7f40253e5cddecafbf06d8ae8780809f6d57a880dd0b732bc23343fa"
+  },
+  "texture_samples": {
+    "fireball_flame_albedo_density.png": [
+      {
+        "pixel": [
+          0,
+          0
+        ],
+        "rgba8": [
+          235,
+          72,
+          5,
+          197
+        ]
+      },
+      {
+        "pixel": [
+          418,
+          418
+        ],
+        "rgba8": [
+          166,
+          6,
+          1,
+          2
+        ]
+      },
+      {
+        "pixel": [
+          627,
+          627
+        ],
+        "rgba8": [
+          169,
+          7,
+          1,
+          10
+        ]
+      },
+      {
+        "pixel": [
+          1253,
+          1253
+        ],
+        "rgba8": [
+          227,
+          62,
+          4,
+          176
+        ]
+      }
+    ],
+    "fireball_flame_normal_roughness.png": [
+      {
+        "pixel": [
+          0,
+          0
+        ],
+        "rgba8": [
+          70,
+          235,
+          166,
+          215
+        ]
+      },
+      {
+        "pixel": [
+          418,
+          418
+        ],
+        "rgba8": [
+          128,
+          128,
+          255,
+          252
+        ]
+      },
+      {
+        "pixel": [
+          627,
+          627
+        ],
+        "rgba8": [
+          128,
+          96,
+          251,
+          251
+        ]
+      },
+      {
+        "pixel": [
+          1253,
+          1253
+        ],
+        "rgba8": [
+          186,
+          19,
+          161,
+          219
+        ]
+      }
+    ],
+    "fireball_smoke_albedo_density.png": [
+      {
+        "pixel": [
+          0,
+          0
+        ],
+        "rgba8": [
+          27,
+          27,
+          28,
+          76
+        ]
+      },
+      {
+        "pixel": [
+          418,
+          418
+        ],
+        "rgba8": [
+          27,
+          28,
+          29,
+          80
+        ]
+      },
+      {
+        "pixel": [
+          627,
+          627
+        ],
+        "rgba8": [
+          40,
+          41,
+          42,
+          159
+        ]
+      },
+      {
+        "pixel": [
+          1253,
+          1253
+        ],
+        "rgba8": [
+          25,
+          26,
+          26,
+          65
+        ]
+      }
+    ],
+    "fireball_smoke_normal_roughness.png": [
+      {
+        "pixel": [
+          0,
+          0
+        ],
+        "rgba8": [
+          213,
+          128,
+          222,
+          238
+        ]
+      },
+      {
+        "pixel": [
+          418,
+          418
+        ],
+        "rgba8": [
+          210,
+          179,
+          210,
+          237
+        ]
+      },
+      {
+        "pixel": [
+          627,
+          627
+        ],
+        "rgba8": [
+          236,
+          68,
+          158,
+          222
+        ]
+      },
+      {
+        "pixel": [
+          1253,
+          1253
+        ],
+        "rgba8": [
+          57,
+          206,
+          199,
+          240
+        ]
+      }
+    ]
+  },
+  "channels": {
+    "fireball_flame_albedo_density.png": "linear albedo RGB; density/height A",
+    "fireball_flame_normal_roughness.png": "OpenGL tangent normal RGB; roughness A",
+    "fireball_smoke_albedo_density.png": "linear albedo RGB; density/height A",
+    "fireball_smoke_normal_roughness.png": "OpenGL tangent normal RGB; roughness A"
+  }
+}

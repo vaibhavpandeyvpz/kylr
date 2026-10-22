@@ -127,11 +127,11 @@ func test_camera_crosshair_convergence_and_muzzle_cover():
 	for offset in [Vector3(0, 1.52, 0), Vector3(0.48, 1.77, 2)]:
 		world.camera.position = offset
 		world.camera.rotation.x = deg_to_rad(-25)
-		var target := combat.aim_target(robot, 15)
+		var target := combat.aim_target(robot, 10)
 		assert_gt((target - offset).normalized().dot(-world.camera.global_basis.z), 0.9999)
 		assert_gt(combat.shot_direction(robot).dot((target - robot.muzzle()).normalized()), 0.9999)
 		var endpoint := combat.flame_endpoint(robot, robot.muzzle())
-		assert_almost_eq(endpoint.distance_to(robot.muzzle()), 15.0, 0.001)
+		assert_almost_eq(endpoint.distance_to(robot.muzzle()), 10.0, 0.001)
 		assert_gt((endpoint - robot.muzzle()).normalized().dot(combat.shot_direction(robot)), 0.9999)
 	# A short wall hides the muzzle while the shoulder camera can see over it.
 	world.camera.position = Vector3(0.48, 1.77, 2)

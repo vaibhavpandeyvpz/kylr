@@ -370,11 +370,12 @@ func flame_endpoint(robot, origin: Vector3) -> Vector3:
 
 func flame_segment(robot, _origin: Vector3) -> Dictionary:
 	var muzzle: Vector3 = robot.muzzle()
-	var direction := shot_direction(robot,15.0,true) if robot.get("streaming") == true else (aim_target(robot,15.0)-muzzle).normalized()
-	var target := muzzle + direction * 15.0
+	var reach: float = Arsenal.WEAPONS.flamethrower.range
+	var direction := shot_direction(robot,reach,true) if robot.get("streaming") == true else (aim_target(robot,reach)-muzzle).normalized()
+	var target := muzzle + direction * reach
 	var hit := beam_hit(muzzle,target,CombatStream.FLAME_OUTER_END_RADIUS,[robot.get_rid()])
 	if not hit.is_empty(): target = hit.position
-	return {"point":target,"robot_hit":not hit.is_empty() and hit.collider is ArenaRobot}
+	return {"point":target,"robot_hit":not hit.is_empty() and hit.collider is ArenaRobot,"normal":hit.get("normal",Vector3.ZERO)}
 
 
 func trace(robot, reach: float, damage: float, color: Color, scoped: bool) -> void:
@@ -418,8 +419,9 @@ func update_contact(robot, hit: Dictionary) -> void:
 
 func update_flame_contact(robot) -> void:
 	var origin: Vector3 = robot.muzzle()
-	var direction := shot_direction(robot,15.0,true)
-	update_contact(robot,beam_hit(origin,origin+direction*15.0,CombatStream.FLAME_OUTER_END_RADIUS,[robot.get_rid()]))
+	var reach: float = Arsenal.WEAPONS.flamethrower.range
+	var direction := shot_direction(robot,reach,true)
+	update_contact(robot,beam_hit(origin,origin+direction*reach,CombatStream.FLAME_OUTER_END_RADIUS,[robot.get_rid()]))
 
 func play_impact(weapon: String, point: Vector3, collider, _shielded: bool, shooter, secondary := false) -> void:
 	var id := ""
@@ -433,10 +435,11 @@ func play_impact(weapon: String, point: Vector3, collider, _shielded: bool, shoo
 
 func flame(robot) -> void:
 	var origin: Vector3 = robot.muzzle()
-	var direction := shot_direction(robot,15.0,true)
+	var reach: float = Arsenal.WEAPONS.flamethrower.range
+	var direction := shot_direction(robot,reach,true)
 	var direct: Array = []
 	var amounts: Dictionary = {}
-	var hit := beam_hit(origin,origin+direction*15.0,CombatStream.FLAME_OUTER_END_RADIUS,[robot.get_rid()])
+	var hit := beam_hit(origin,origin+direction*reach,CombatStream.FLAME_OUTER_END_RADIUS,[robot.get_rid()])
 	if not hit.is_empty() and hit.collider is ArenaRobot:
 		var victim: ArenaRobot = hit.collider
 		direct.append(victim)
@@ -446,7 +449,7 @@ func flame(robot) -> void:
 		amounts[victim] = tick_damage * clampf((Arsenal.WEAPONS.flamethrower.range-distance)/falloff_width,0.0,1.0)
 	for victim in direct:
 		for other in game.robots:
-			if other in direct or other == robot or origin.distance_to(other.eye()) > 15: continue
+			if other in direct or other == robot or origin.distance_to(other.eye()) > reach: continue
 			var distance: float = victim.position.distance_to(other.position)
 			if distance <= 5 and clear(victim.eye(), other.eye()):
 				var splash_tick: float = Arsenal.WEAPONS.flamethrower.splash_damage

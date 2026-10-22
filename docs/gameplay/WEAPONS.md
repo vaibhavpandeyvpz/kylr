@@ -69,14 +69,14 @@ Rocket, EMP and firing recoil share `Knockback` and the robot's collision-based 
 
 ### Flamethrower profile
 
-The flamethrower emits a **continuous beam of fiery fumes** that eventually becomes smoke. Its **effective range is 10 m**, with a weakening tail to 15 m. Starting the stream applies **1° recoil once**, not on later damage ticks. Its damage cadence is **one tick per 100 ms**, dealing **2 base damage (20 damage per second)**
-through 10 m. Direct damage fades linearly to zero at 15 m. Other robots take
+The flamethrower emits a **continuous beam of fiery fumes** that eventually becomes smoke. Its **maximum range is 10 m**, with full damage through 8 m. Starting the stream applies **1° recoil once**, not on later damage ticks. Its damage cadence is **one tick per 100 ms**, dealing **2 base damage (20 damage per second)**
+through 8 m. Direct damage fades linearly to zero at 10 m. Other robots take
 1 base splash damage per tick within 1 m, fading to 0.2 at 5 m. A direct victim
 does not take its own splash. Apply the shared shield split to every tick.
 
 Secondary fire launches a **10 cm fireball** using the lightning orb rules: **10 m/s**, **0.25 seconds** between launches, **one ammo** and **1° recoil** per launch. It travels straight through **40 m**, then falls under map gravity; it stays active for **20 seconds** unless it hits something first. A first direct contact deals **25 base damage** with the shared shield split, at any distance, with **no damage falloff, size decay, splash, lingering burn or extra charge wait**. Secondary takes precedence over primary when both controls are held. Its explosion is cosmetic.
 
-Direct contact uses a swept 0.17 m radius matching the visible outer beam at its endpoint; solid cover blocks it. Splash does not stack from multiple direct targets in one tick, and the smoke tail is visual only.
+Direct contact uses a swept 0.17 m radius matching the visible outer beam at its endpoint; solid cover blocks it. Splash does not stack from multiple direct targets in one tick, and the 8–10 m weakening tail fades visually with range.
 
 Every map zone has a designated pickup point for **each** of the rifle, flamethrower, EMP gun, lightning gun, and minigun. The rocket launcher pickup is generally placed on shared, contested ground rather than inside a zone. Each point is assigned a specific weapon by the map and always offers that same weapon when available. After a successful contact pickup, its device closes/retracts for **60 seconds**, then reopens with the same weapon. A closed point cannot be collected from. All map pickup points—weapon, ammo, Energy Core, and Shield Core—use the same **60-second** restock interval. Keep weapon statistics in data resources so balance changes do not alter match logic.
 

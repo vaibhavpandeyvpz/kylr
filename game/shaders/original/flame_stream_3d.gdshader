@@ -7,6 +7,8 @@ uniform sampler2D flow_relief : filter_linear_mipmap, repeat_enable;
 uniform sampler2D scene_depth : hint_depth_texture, filter_nearest, repeat_disable;
 uniform float beam_length = 1.0;
 uniform float segment_length = 1.0;
+uniform float full_damage_range = 8.0;
+uniform float maximum_range = 10.0;
 uniform float start_radius = 0.035;
 uniform float end_radius = 0.17;
 uniform float emission = 1.5;
@@ -112,7 +114,7 @@ void fragment() {
 		}
 		float tip_fade = smoothstep(0.01,0.14,beam_length-p.y);
 		if (robot_contact && (layer==1 || layer==2 || layer==4)) tip_fade = 1.0;
-		float range_fade = 1.0-smoothstep(10.0,15.0,p.y);
+		float range_fade = 1.0-smoothstep(full_damage_range,maximum_range,p.y);
 		density *= tip_fade*range_fade*effect_opacity;
 		vec3 world_point = (MODEL_MATRIX*vec4(p,1.0)).xyz;
 		if (clip_enabled && dot(world_point-clip_origin,clip_direction)>clip_length) density = 0.0;

@@ -185,11 +185,13 @@ func _process(dt: float):
 			var start := origin()
 			var end := beam_target
 			var robot_contact := false
+			var contact_normal := Vector3.ZERO
 			if robot.equipped == "flamethrower":
 				var segment: Dictionary = robot.arena_match.combat.flame_segment(robot,start)
 				end = segment.point
 				robot_contact = segment.robot_hit
-			stream.update_endpoints(start, end, robot_contact)
+				contact_normal = segment.normal
+			stream.update_endpoints(start, end, robot_contact, contact_normal)
 	else: stop_stream()
 	emit_time -= dt
 	if emit_time > 0: return

@@ -69,7 +69,8 @@ func test_projectile_width_rejects_a_lane_that_a_pistol_ray_can_use():
 	var shooter := actor(game,Vector3.ZERO)
 	var origin := Vector3(0,1,-.4)
 	var target := Vector3(0,1,-8)
-	wall(game,Vector3(.06,1,-4),Vector3(.04,2,.2))
+	# Two-centimetre clearance fits the ray but clips a 2.5 cm pulse radius.
+	wall(game,Vector3(.04,1,-4),Vector3(.04,2,.2))
 	await wait_physics_frames(2)
 	assert_true(game.combat.firing_lane(shooter,target,false,origin))
 	shooter.equipped="pulse_gun"

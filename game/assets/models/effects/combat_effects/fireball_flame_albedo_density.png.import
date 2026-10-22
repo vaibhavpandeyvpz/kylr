@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://8jdymavidaf"
-path="res://.godot/imported/smoke_atlas.png-ef5df2c49121f4b75a63f6bc5bc31b32.ctex"
+uid="uid://c27kb34qlbikv"
+path="res://.godot/imported/fireball_flame_albedo_density.png-507bf3d075d3aaec3d0338f683682c78.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/models/effects/combat_effects/smoke_atlas.png"
-dest_files=["res://.godot/imported/smoke_atlas.png-ef5df2c49121f4b75a63f6bc5bc31b32.ctex"]
+source_file="res://assets/models/effects/combat_effects/fireball_flame_albedo_density.png"
+dest_files=["res://.godot/imported/fireball_flame_albedo_density.png-507bf3d075d3aaec3d0338f683682c78.ctex"]
 
 [params]
 

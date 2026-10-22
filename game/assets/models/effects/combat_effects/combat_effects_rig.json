@@ -17,7 +17,6 @@
     "SK_ElectricalRibbon1": 48,
     "SK_FlameEnvelope": 960,
     "SK_VortexSheets": 192,
-    "SK_BurstRays": 128,
     "SK_FragmentChip": 12,
     "SK_PacketShell": 168,
     "SK_InductionCage": 288,
@@ -120,18 +119,6 @@
         0.4362681210041046
       ]
     },
-    "SK_BurstRays": {
-      "min": [
-        -0.8018476963043213,
-        -0.8809996247291565,
-        -0.40530669689178467
-      ],
-      "max": [
-        0.7558509707450867,
-        0.7094927430152893,
-        0.2721925675868988
-      ]
-    },
     "SK_FragmentChip": {
       "min": [
         -0.5,
@@ -183,7 +170,6 @@
   },
   "textures": {
     "gas_atlas.png": "8591f65cf9ca5be01d38f30d7e56abb38f873e03f4b2907fe4232a74d50a547a",
-    "smoke_atlas.png": "f1cdbc6e0ceba01c30623bdbee8018310684d58a2f8bc8ec3be280fd2289faea",
     "turbulence_rgba.png": "2c6a5b806e811dc10cb1db221cf64abcad357211fc9d567cdc377fdf6cc63a22"
   },
   "texture_samples": {
@@ -226,44 +212,6 @@
       }
     ],
     "gas_atlas.png": [
-      {
-        "pixel": [
-          0,
-          0
-        ],
-        "rgba8": [
-          0,
-          0,
-          0,
-          0
-        ]
-      },
-      {
-        "pixel": [
-          170,
-          102
-        ],
-        "rgba8": [
-          0,
-          0,
-          0,
-          0
-        ]
-      },
-      {
-        "pixel": [
-          511,
-          511
-        ],
-        "rgba8": [
-          0,
-          0,
-          0,
-          0
-        ]
-      }
-    ],
-    "smoke_atlas.png": [
       {
         "pixel": [
           0,

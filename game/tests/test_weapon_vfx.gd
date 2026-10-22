@@ -548,6 +548,36 @@ func test_stream_reuses_layers_reaches_endpoint_and_releases_budget():
 	await wait_seconds(1.15)
 	assert_eq(effects.stream_count, 0)
 
+func test_flame_contact_cloud_loops_tracks_and_stops_without_reallocating():
+	var effects := ArenaEffects.new()
+	add_child_autofree(effects)
+	var flame := effects.stream("flame")
+	var point := Vector3(0,1,-10)
+	flame.update_endpoints(Vector3.ONE,point,true,Vector3.BACK)
+	var contact := flame.contact_loop
+	assert_not_null(contact)
+	assert_true(contact.active)
+	assert_eq(contact.clouds.size(),2)
+	assert_almost_eq(contact.global_position,point+(point-Vector3.ONE).normalized()*0.15,Vector3.ONE*0.0001,"Robot contact anchors at the extended tip")
+	assert_gt(absf(contact.clouds[0].age-contact.clouds[1].age),0.1,"Staggered cycles prevent a simultaneous fade")
+	contact._process(1.3)
+	assert_true(contact.visible)
+	for cloud in contact.clouds:
+		assert_lt(cloud.age,cloud.duration)
+		for surface in cloud.surfaces:
+			if surface.role=="spatial_gas" and int(surface.layer)==2:
+				assert_eq(surface.material.get_shader_parameter("effect_opacity"),0.0,"A continuous loop has no repeated ignition flash")
+	flame.update_endpoints(Vector3.ONE,point,false)
+	assert_false(contact.active,"Empty space stops the contact cloud")
+	assert_false(contact.visible)
+	flame.update_endpoints(Vector3.ONE,point+Vector3.UP,false,Vector3.RIGHT)
+	assert_same(flame.contact_loop,contact,"New world contacts reuse the same cloud")
+	assert_almost_eq(contact.global_position,point+Vector3.UP+Vector3.RIGHT*0.015,Vector3.ONE*0.0001,"World contacts remain on the surface")
+	assert_true(contact.active)
+	flame.release()
+	assert_false(contact.active)
+	assert_false(contact.visible,"Trigger release hides every contact layer")
+
 func test_original_flame_tracks_segment_reuses_geometry_and_stops():
 	var effects := ArenaEffects.new()
 	add_child_autofree(effects)

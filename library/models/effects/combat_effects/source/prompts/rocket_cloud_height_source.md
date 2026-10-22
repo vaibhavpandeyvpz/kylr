@@ -13,7 +13,3 @@ smoke. Broad tonal range, rich midtones, no clipped white, no evenly spaced bump
 No colored fire, glow, scene, objects, ground, text, borders, grid or directional
 baked lighting. Fully opaque grayscale with matching edges, organic detail for
 triplanar sampling and matching normal/roughness derivation.
-
-`export_rocket_cloud.py` derives linear soot albedo/density and matching tangent
-normal/roughness maps. The shader supplies combustion color, animated erosion,
-lighting and emission; the source contains no baked fire animation.

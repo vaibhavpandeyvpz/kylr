@@ -1,1 +1,5 @@
+# Flak abrasion dust atlas
+
+Retained image edit prompt for the transparent cell margins:
+
 Technical correction to this original 4x4 VFX sprite atlas. Keep precisely the same sixteen sequential sprites, physical subject, realistic fine detail, color, fixed camera, and square 4x4 cell layout. REDUCE EVERY SPRITE TO HALF ITS CURRENT SIZE, scaling around the center of ITS OWN CELL. Keep cell positions unchanged. All sixteen sprites must now be tiny isolated subjects with VERY LARGE empty transparent gaps: each complete sprite including all wisps may occupy AT MOST 40 percent of its cell width and height. Most of the canvas should be empty transparent space. This is essential texture packing, NOT a dense contact sheet. Do not enlarge them again to fill the canvas. Fully transparent cell edges are mandatory; no smoke, colored noise or flame pixel can approach a cell edge. Remove detached colored speckles. Preserve genuine alpha transparency and semitransparent edges; no scenery, floor, checkerboard, solid matte, outlines, glow halo, grid, borders, labels or text. Keep the rich photorealistic detail inside each small sprite.

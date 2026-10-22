@@ -160,33 +160,6 @@ def spiral_sheets(collection):
     return mesh(collection, 'VortexSheets', vertices, faces, uv)
 
 
-def burst_rays(collection):
-    """Independent asymmetric tapered streaks, laid out in three dimensions."""
-    vertices, uv, faces = [], [], []
-    rng = np.random.default_rng(SEED+511)
-    for index in range(8):
-        theta = index*math.tau/8
-        direction = Vector((math.cos(theta),math.sin(theta),rng.uniform(-0.55,0.55))).normalized()
-        tangent = direction.cross(Vector((0,0,1))).normalized()
-        side = direction.cross(tangent).normalized()
-        base = len(vertices)
-        length = rng.uniform(0.65,1.0)
-        for row in range(3):
-            distance = (0.3,0.58,length)[row]
-            width = (0.004,0.009,0.001)[row]
-            for corner in range(4):
-                angle = corner*math.pi/2
-                point = direction*distance + (tangent*math.cos(angle)+side*math.sin(angle))*width
-                vertices.append(tuple(point))
-                uv.append((corner/3,row/2))
-            if row < 2:
-                for corner in range(4):
-                    a = base+row*4+corner
-                    b = base+row*4+(corner+1)%4
-                    faces.append((a,b,b+4,a+4))
-    return mesh(collection, 'BurstRays', vertices, faces, uv)
-
-
 def fragment_chip(collection):
     """Small asymmetric, thick casing fragment for ballistic particle motion."""
     top = [(-0.5,-0.25,0.035),(0.4,-0.35,0.06),(0.5,0.2,0.02),(-0.1,0.5,0.04)]
@@ -285,36 +258,35 @@ def textures():
         channels.append(field)
     turbulence = np.stack(channels, axis=-1)
     save_texture('turbulence_rgba', turbulence)
-    for smoke in (False, True):
-        atlas = np.zeros((512, 512, 4), dtype=np.float32)
-        yy, xx = np.mgrid[0:128, 0:128] / 127 * 2-1
-        for frame in range(16):
-            age = frame / 15
-            density = np.zeros((128, 128))
-            for lobe in range(9):
-                angle = lobe * 2.39996323
-                spread = 0.05 + 0.33*age
-                center_x = math.cos(angle)*spread
-                center_y = math.sin(angle)*spread + (age*0.12 if smoke else 0)
-                width = 0.14 + age * 0.21 + (lobe % 3) * 0.035
-                density += np.exp(-((xx-center_x)**2+(yy-center_y)**2)/(width*width)) * (0.6 + lobe*0.04)
-            noise = turbulence[::2, ::2, frame % 4]
-            density = np.clip(density * (0.3+noise*0.9), 0, 1)
-            density *= np.clip(1-(xx*xx+yy*yy), 0, 1)**0.5
-            if frame == 15:
-                density[:] = 0
-            tile = np.ones((128, 128, 4), dtype=np.float32)
-            tile[:, :, :3] = density[:, :, None]
-            tile[:, :, 3] = density
-            row, col = divmod(frame, 4)
-            atlas[row*128:(row+1)*128, col*128:(col+1)*128] = tile
-        save_texture('smoke_atlas' if smoke else 'gas_atlas', atlas)
+    atlas = np.zeros((512, 512, 4), dtype=np.float32)
+    yy, xx = np.mgrid[0:128, 0:128] / 127 * 2-1
+    for frame in range(16):
+        age = frame / 15
+        density = np.zeros((128, 128))
+        for lobe in range(9):
+            angle = lobe * 2.39996323
+            spread = 0.05 + 0.33*age
+            center_x = math.cos(angle)*spread
+            center_y = math.sin(angle)*spread
+            width = 0.14 + age * 0.21 + (lobe % 3) * 0.035
+            density += np.exp(-((xx-center_x)**2+(yy-center_y)**2)/(width*width)) * (0.6 + lobe*0.04)
+        noise = turbulence[::2, ::2, frame % 4]
+        density = np.clip(density * (0.3+noise*0.9), 0, 1)
+        density *= np.clip(1-(xx*xx+yy*yy), 0, 1)**0.5
+        if frame == 15:
+            density[:] = 0
+        tile = np.ones((128, 128, 4), dtype=np.float32)
+        tile[:, :, :3] = density[:, :, None]
+        tile[:, :, 3] = density
+        row, col = divmod(frame, 4)
+        atlas[row*128:(row+1)*128, col*128:(col+1)*128] = tile
+    save_texture('gas_atlas', atlas)
 
 
 def main():
     collection = reset()
     objects = [sphere(collection, 'ThermalShell'), sphere(collection, 'BurstShell', True), nozzle(collection), ring(collection), ribbon(collection, 0), ribbon(collection, 1)]
-    objects.extend([flame_envelope(collection),spiral_sheets(collection),burst_rays(collection),fragment_chip(collection)])
+    objects.extend([flame_envelope(collection),spiral_sheets(collection),fragment_chip(collection)])
     objects.extend([sphere(collection,'PacketShell',sides=12,rings=8),induction_cage(collection)])
     objects.append(mesh(collection, 'AxialCard', [(-0.5, 0, 0), (0.5, 0, 0), (0.5, -1, 0), (-0.5, -1, 0)], [(0, 3, 2, 1)], [(0, 0), (1, 0), (1, 1), (0, 1)]))
     material = bpy.data.materials.new('M_Effect_Emissive')
@@ -333,11 +305,11 @@ def main():
     bpy.context.view_layer.objects.active = rig
     bpy.ops.export_scene.gltf(filepath=str(HERE / (NAME+'.glb')), export_format='GLB', use_selection=True, export_yup=True, export_skins=True, export_def_bones=True, export_animations=False, export_materials='EXPORT')
     bpy.ops.export_scene.fbx(filepath=str(HERE / (NAME+'.fbx')), use_selection=True, object_types={'MESH', 'ARMATURE'}, global_scale=1, apply_unit_scale=True, apply_scale_options='FBX_SCALE_ALL', axis_forward='-Z', axis_up='Y', bake_space_transform=False, use_mesh_modifiers=False, mesh_smooth_type='OFF', add_leaf_bones=False, primary_bone_axis='Y', secondary_bone_axis='X', use_armature_deform_only=True, bake_anim=False, path_mode='COPY', embed_textures=True)
-    metadata = {'generator': 'model.py', 'seed': SEED, 'bone': 'Root', 'visual_only': True, 'axis_blender': [0, -1, 0], 'triangles': counts, 'bounds_blender': {obj.name: {'min': list(map(min, zip(*(vertex.co for vertex in obj.data.vertices)))), 'max': list(map(max, zip(*(vertex.co for vertex in obj.data.vertices))))} for obj in objects}, 'textures': {path.name: hashlib.sha256(path.read_bytes()).hexdigest() for path in sorted(HERE.glob('*_*.png')) if path.stem in ['turbulence_rgba', 'gas_atlas', 'smoke_atlas']}, 'texture_samples':TEXTURE_SAMPLES}
+    metadata = {'generator': 'model.py', 'seed': SEED, 'bone': 'Root', 'visual_only': True, 'axis_blender': [0, -1, 0], 'triangles': counts, 'bounds_blender': {obj.name: {'min': list(map(min, zip(*(vertex.co for vertex in obj.data.vertices)))), 'max': list(map(max, zip(*(vertex.co for vertex in obj.data.vertices))))} for obj in objects}, 'textures': {path.name: hashlib.sha256(path.read_bytes()).hexdigest() for path in sorted(HERE.glob('*_*.png')) if path.stem in ['turbulence_rgba', 'gas_atlas']}, 'texture_samples':TEXTURE_SAMPLES}
     (HERE / (NAME+'_rig.json')).write_text(json.dumps(metadata, indent=2)+'\n')
     bpy.context.preferences.filepaths.save_version = 0
     bpy.ops.wm.save_as_mainfile(filepath=str(HERE / (NAME+'.blend')), compress=True)
-    print('[combat_effects] generated original kit:', sum(counts.values()), 'triangles; three procedural textures')
+    print('[combat_effects] generated original kit:', sum(counts.values()), 'triangles; two procedural textures')
 
 
 def roundtrip():

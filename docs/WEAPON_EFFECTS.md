@@ -185,7 +185,7 @@ Repair-station welding reuses the ballistic hit core shader and bounded spark po
 
 Hit confirmation belongs to the accepted damage path for every weapon, including projectile, splash, EMP, lightning, and flame damage. It holds the outlined cyan reticle marks for 0.24 seconds; blocked, friendly, protected, self, and zero-damage contacts do not confirm. Incoming accepted enemy damage shows a brief soft red screen-edge tint plus a direction arc near the sightline and a wider edge bearing. The tint reduces intensity with reduced motion enabled. Directional damage feedback adds no aim deflection or confirmation sound; explosion and EMP camera shake follow the shared contract above.
 
-The effects combine library-authored meshes, original color flipbooks, procedural shaders and bounded GPU particles; they do not simulate fluid dynamics at runtime. Flamethrower primary integrates gas density through three closed, library-authored mesh envelopes: short hot core, full-length turbulent fuel flame and cooler outer curls. Four additional closed gas envelopes form irregular rotating flame tongues between the muzzle and half the beam length. Their width, curl, radial offset and density vary independently; their centers sit inside the beam boundary so at least half their width overlaps it. Four matching terminal tongues occupy the final 20% of the beam, with the same axial flow, rotation, wrapped material and embedded placement as the muzzle flares. Fine-scale density erodes the main flame near its end. World contacts and unobstructed ends retain a 14 cm opacity fade. Only a robot hull contact extends the rendered segment 15 cm beyond its hit point and suppresses the terminal fade, keeping the flame connected to the armor. Opaque depth still occludes gas inside the target; collision, damage and authoritative reach remain at the real surface. Each view ray samples a shared 3D density texture and wrapped generated flame albedo/density and normal/roughness maps. Density, heat and radial falloff provide depth from side, oblique and axial views without projected flame cards. Flow moves away from the nozzle at 6 m/s. The volume shader clips its ray interval against opaque scene depth and the presentation endpoint, including the robot-only 15 cm overlap and excluding the shooter. Full opacity through 10 m fades to zero at 15 m. The core widens from a 3.5 cm source radius to 12 cm; outer layers widen from 5 to 17 cm. Trigger release and weapon switches hide the stream immediately. Thrusters use the same thermal family with fitted length/radius bounds and emission 0.65; secondary fireballs use emission 0.8 and pilot ignition 0.35. EMP uses a smooth capsule plus thin induction filaments, with neutral grey/silver/charcoal, shell emission 1.5 and a darker metallic core at emission 0.35. Cosmetic dimensions, direct collision, range/damage fade and firing cadence are unchanged. Travel and online snapshots update only opacity after 20 m and retire visuals at 25 m; pooled reuse restores full opacity. Exact vent-closing tails and complete minigun transition choreography remain animation-polish work; no spin-up firing delay is added.
+The effects combine library-authored meshes, packed material textures, a dedicated flak dust atlas, procedural shaders and bounded GPU particles; they do not simulate fluid dynamics at runtime. Flamethrower primary integrates gas density through three closed, library-authored mesh envelopes: short hot core, full-length turbulent fuel flame and cooler outer curls. Four additional closed gas envelopes form irregular rotating flame tongues between the muzzle and half the beam length. Their width, curl, radial offset and density vary independently; their centers sit inside the beam boundary so at least half their width overlaps it. Four matching terminal tongues occupy the final 20% of the beam, with the same axial flow, rotation, wrapped material and embedded placement as the muzzle flares. Fine-scale density erodes the main flame near its end. World contacts and unobstructed ends retain a 14 cm opacity fade. Only a robot hull contact extends the rendered segment 15 cm beyond its hit point and suppresses the terminal fade, keeping the flame connected to the armor. Opaque depth still occludes gas inside the target; collision, damage and authoritative reach remain at the real surface. Each view ray samples a shared 3D density texture and wrapped generated flame albedo/density and normal/roughness maps. Density, heat and radial falloff provide depth from side, oblique and axial views without projected flame cards. Flow moves away from the nozzle at 6 m/s. The volume shader clips its ray interval against opaque scene depth and the presentation endpoint, including the robot-only 15 cm overlap and excluding the shooter. Full opacity through 8 m fades to zero at the 10 m maximum; both shader distances come from the weapon catalog. The core widens from a 3.5 cm source radius to 12 cm; outer layers widen from 5 to 17 cm. Trigger release and weapon switches hide the stream immediately. Thrusters use the same thermal family with fitted length/radius bounds and emission 0.65; secondary fireballs use emission 0.8 and pilot ignition 0.35. EMP uses a smooth capsule plus thin induction filaments, with neutral grey/silver/charcoal, shell emission 1.5 and a darker metallic core at emission 0.35. The EMP projectile retains its authored dimensions, direct collision and firing cadence. Travel and online snapshots update only opacity after 20 m and retire visuals at 25 m; pooled reuse restores full opacity. Exact vent-closing tails and complete minigun transition choreography remain animation-polish work; no spin-up firing delay is added.
 
 Run the socket/lifecycle tests through `tools/verify.ps1`. A repeatable rendered contact sheet is available with:
 
@@ -266,7 +266,7 @@ Rocket secondary uses the scope reticle and hides the FPV model. The authoritati
 
 ## Bio projectile resource sharing
 
-Core-ray particles share immutable process materials, gradient textures and draw materials keyed by their complete settings. Each projectile retains its own GPUParticles3D simulation, emission and playback state. Different sizes, speeds, colours and emission strengths must resolve to distinct recipes where those values affect the resource. The projectile-resource regression suite covers same-recipe reuse and variant isolation.
+Bio contact particles and core-ray particles share immutable process materials, gradient textures and draw materials keyed by their complete settings. Each projectile retains its own GPUParticles3D simulation, emission and playback state. Different sizes, speeds, colours and emission strengths must resolve to distinct recipes where those values affect the resource. The projectile-resource regression suite covers same-recipe reuse and variant isolation.
 
 Rocket contacts use a 1.45-second spatial composition: three burning gas lobes,
 five cooling soot lobes, a brief ignition core, a faint expanding pressure shell
@@ -291,10 +291,29 @@ burning lobes or camera-facing explosion cards. Flak uses the independent
 contact normal. Discrete presentation events replicate; damage, splash, bounce,
 collision and effect-light policy are unchanged.
 
+Fireball contacts form a compact 0.48-second 3D flare cloud. Six independently
+curling, eroding flame membranes unfold outward around three faint inner gas
+volumes, a short ignition core and one sparse cooling wisp. Generated flame and
+smoke material sources supply linear albedo/density and normal/roughness maps,
+packed by `library/models/effects/combat_effects/export_fireball_material.py`.
+The flame dominates the silhouette; the contact has no billboard layer, flying
+debris or lingering ground fire. Native hit position, damage and replication
+retain their existing behavior.
+
+While primary flamethrower fire contacts a robot or world surface, a smaller
+version of this flare cloud loops at the actual hit point. Two retained copies
+run half a cycle apart to avoid a fade gap, with subdued emission and no repeated
+ignition flash. Robot hits anchor it at the end of the 15 cm visual extension;
+world hits anchor it on the surface. The cloud follows the surface normal and moving contact point;
+empty space, trigger release, weapon switching or loss of the stream hides it
+immediately. Resuming contact reuses the same meshes and materials. It adds no
+damage, impact sound or one-shot presentation events.
+
 `tools/preview_combustion_impact.gd` captures six lifetime phases, side/back/above
 views, low detail, an opaque foreground fixture, an inside view and a rotated
 impact axis under `reports/rocket-3d/`. Add `--grenade` to capture the grenade
-recipe under `reports/grenade-3d/`. Pass `-- --rt` with `GODOT_DLSS_DIAGNOSTICS=1` for the native
+recipe under `reports/grenade-3d/`, or `--fireball` for the compact flare cloud
+under `reports/fire_hit-3d/`. Pass `-- --rt` with `GODOT_DLSS_DIAGNOSTICS=1` for the native
 ray-traced check. `export_rocket_cloud.py` in the library derives the packed
 material maps from the tracked bitmap source. Add `--motion` to save a live
 100-frame sequence at the engine's selected fixed frame rate. The maps' independent alpha channels
@@ -302,7 +321,7 @@ require lossless imports, mipmaps and disabled alpha-border repair.
 
 Pulse contacts use a compact 3D cyan ion bloom over 0.52 seconds, with their own 16-burst pool and replicated `pulse_contact` event. A bright core, scalloped closed shell, three broken latitude bands and eight solid ion beads expand away from the contact plane. The 46 cm nominal footprint and blue cellular seams distinguish the contact; it contains no camera-facing cards. It reuses the library's immutable effect meshes with isolated per-impact shader progress. The projectile is a glowing cyan cylinder, 5 cm in diameter, with a brighter cyan core. Its nose advances from the muzzle while its tail stays there until it reaches 25 cm long; both then travel together. On contact the nose stops at the surface and the remaining length feeds into that point at projectile speed, shrinking to zero. Absorption is cosmetic and applies no additional damage. The swept cylinder follows the growing length behind its nose. Damage, cadence, energy cost and slowing behavior retain their gameplay settings.
 
-Live bio/pulse visuals retain independent classes. Flak contacts use a brief friction flash, ejected hot metal chips and compact abrasion dust over 0.42 seconds; bio retains its green organic composition. Both have independent 16-burst pools. Flak rounds use tumbling metal fragments with compact tails. `WeaponContactBurst` owns shared lifecycle and particle mechanics. `BallisticProjectile` continues to own flight, bounce, status and damage; `ArenaEffects` dispatches replicated contacts. Effect shaders live in `shaders/original/` alongside the combat shaders.
+Live bio/pulse visuals retain independent classes. Flak contacts use a brief friction flash, ejected hot metal chips and compact abrasion dust over 0.42 seconds; bio uses a 44.5 cm nominal green organic composition, including a compact outer shell and final splash; both small-particle layers stay within 1 m of the contact origin, including sprite extent and gravity. Both have independent 16-burst pools. Flak rounds use tumbling metal fragments with compact tails. `WeaponContactBurst` owns shared lifecycle and particle mechanics. `BallisticProjectile` continues to own flight, bounce, status and damage; `ArenaEffects` dispatches replicated contacts. Effect shaders live in `shaders/original/` alongside the combat shaders.
 
 Verification covers immutable-resource sharing, per-instance fades, bounds, socket orientation, pooling and replicated contact events, with rendered raster/RT captures.
 
@@ -383,3 +402,5 @@ to zoom, V to cycle scene/weapon/impact focus, and C to restore the side camera;
 ordinary wheel input selects weapons.
 `-- --harness-flame-preview` exercises orbit/zoom and captures the 3D stream
 from side, oblique, raised and impact-close-up viewpoints under `reports/flame3d/`.
+
+Editable effect bitmap sources live in `library/models/effects/combat_effects/source/`, with one Markdown prompt record per source image under `source/prompts/`. The material exporters record hashes and independent channel samples. `export_flak_dust.py` validates the dedicated color atlas without resampling.

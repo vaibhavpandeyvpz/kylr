@@ -52,14 +52,11 @@ def main():
             profile['damage'] = number('damage')
             if row['fire_rate_per_s']:
                 profile['interval'] = 1/number('fire_rate_per_s')
-            if row['weapon'] == 'Flamethrower':
-                # CSV range is the full-damage reach; retain the approved 5 m tail.
-                profile['full_damage_range'] = number('range_m')
-                profile['range'] = number('range_m')+5
-            else:
-                profile['range'] = number('range_m')
-            if row['weapon'] == 'EMP gun':
-                profile['full_damage_range'] = 20
+            profile['range'] = number('range_m')
+            if row.get('full_damage_range_m'):
+                profile['full_damage_range'] = number('full_damage_range_m')
+                if profile['full_damage_range'] >= profile['range']:
+                    raise ValueError('Full-damage range must be below maximum: '+str(identity))
             for column, key in [('projectile_speed_m_per_s','projectile_speed'),
                                 ('damage_tick_interval_s','damage_tick'),
                                 ('pellets_per_shot','pellets'),('splash_damage_max','splash_damage'),
@@ -71,7 +68,8 @@ def main():
     if len(rows) != 16:
         raise ValueError('Expected all 16 firing-mode/map rows')
     for path, data in [(weapon_path,catalog),(map_path,maps)]:
-        path.write_text(json.dumps(data,indent=2)+'\n',encoding='utf-8')
+        if json.loads(path.read_text(encoding='utf-8')) != data:
+            path.write_text(json.dumps(data,indent=2)+'\n',encoding='utf-8')
     print('Applied 16 weapon-balance rows to runtime catalogs')
 
 
