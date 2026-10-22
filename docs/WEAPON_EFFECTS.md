@@ -213,7 +213,39 @@ Rocket secondary uses the scope reticle and hides the FPV model. The authoritati
 
 Core-ray particles share immutable process materials, gradient textures and draw materials keyed by their complete settings. Each projectile retains its own GPUParticles3D simulation, emission and playback state. Different sizes, speeds, colours and emission strengths must resolve to distinct recipes where those values affect the resource. The projectile-resource regression suite covers same-recipe reuse and variant isolation.
 
-Rocket and grenade contacts have distinct original compositions. Rockets use the dedicated `rocket_explosion_atlas.png`: a 1.45-second asymmetric rolling orange warhead fireball with a dark soot mantle, a short axial blast jet, tapered streaks and sparks, oriented back along incoming flight. Grenades use `grenade_combustion_atlas.png`: a 0.9-second neutral grey lunar-dust puff, with a small central ignition confined to its opening frames, fast sparks and small metal casing chips. Its shader emits briefly from the tiny hot core; grey dust stays non-emissive with a cool regolith tint. Flak uses the independent `flak_dust_atlas.png` for compact abrasion dust. The projected flamethrower flame/fume particles retain `fireball_atlas.png`; explosion contacts do not share it. Each contact has its own reusable 16-burst pool. Grenades align +Y to the contact normal. Discrete presentation events replicate; damage, splash, bounce, collision and effect-light policy are unchanged.
+Rocket contacts use a 1.45-second spatial composition: three burning gas lobes,
+five cooling soot lobes, a brief ignition core, a faint expanding pressure shell
+and small tumbling hot metal fragments. Closed library meshes bound the gas;
+the shader integrates density along the viewing ray and clips it against opaque
+scene depth, including when viewed from inside. An immutable 64³ noise volume
+supplies continuous turbulent density. Generated billow albedo/height and matching
+normal/roughness maps supply soot relief and combustion breakup. Heat decays into
+neutral grey smoke. Layer growth, drift and shader progress belong to each burst;
+quality/distance budgets reduce secondary lobes and integration samples while
+retaining fire, smoke and ignition. The composition is oriented back along
+incoming flight and uses no camera-facing explosion cards.
+
+Grenades use a separate 0.9-second spatial recipe: five flattened neutral grey
+dust lobes spread along the impact plane, a compact ignition core, fast embers
+and small tumbling metal casing chips. The dust reuses the immutable density
+volume and material detail maps with its own geometry arrangement, erosion,
+scattering and timing. Only a small region around the impact emits briefly;
+the dust becomes non-emissive after the opening ignition. It has no sustained
+burning lobes or camera-facing explosion cards. Flak uses the independent
+`flak_dust_atlas.png` for compact abrasion dust. The projected flamethrower
+flame/fume particles retain `fireball_atlas.png`; explosion contacts do not share
+it. Each contact has its own reusable 16-burst pool. Grenades align +Y to the
+contact normal. Discrete presentation events replicate; damage, splash, bounce,
+collision and effect-light policy are unchanged.
+
+`tools/preview_combustion_impact.gd` captures six lifetime phases, side/back/above
+views, low detail, an opaque foreground fixture, an inside view and a rotated
+impact axis under `reports/rocket-3d/`. Add `--grenade` to capture the grenade
+recipe under `reports/grenade-3d/`. Pass `-- --rt` with `GODOT_DLSS_DIAGNOSTICS=1` for the native
+ray-traced check. `export_rocket_cloud.py` in the library derives the packed
+material maps from the tracked bitmap source. Add `--motion` to save a live
+100-frame sequence at the engine's selected fixed frame rate. The maps' independent alpha channels
+require lossless imports, mipmaps and disabled alpha-border repair.
 
 Pulse contacts use a brief cyan-white flash, three short ion filaments, a faint broken wavefront and small motes over 0.45 seconds, with their own 16-burst pool and replicated `pulse_contact` event. The projectile has a shared white core and cyan packet sheath, 10 cm long inside the existing 5 cm radius budget, oriented along flight. Its swept CylinderShape3D, speed, damage, cadence, energy cost and slowing behavior are unchanged.
 

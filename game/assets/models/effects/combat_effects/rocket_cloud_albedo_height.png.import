@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ptuaqldesh0x"
-path="res://.godot/imported/grenade_combustion_atlas.png-9dd4ea44da9dd576b6ff3e7c79c75cc1.ctex"
+uid="uid://c3r7lyb6t6an1"
+path="res://.godot/imported/rocket_cloud_albedo_height.png-a05e3b28117729798a735f9d38a6601a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/models/effects/combat_effects/grenade_combustion_atlas.png"
-dest_files=["res://.godot/imported/grenade_combustion_atlas.png-9dd4ea44da9dd576b6ff3e7c79c75cc1.ctex"]
+source_file="res://assets/models/effects/combat_effects/rocket_cloud_albedo_height.png"
+dest_files=["res://.godot/imported/rocket_cloud_albedo_height.png-a05e3b28117729798a735f9d38a6601a.ctex"]
 
 [params]
 
@@ -31,7 +31,7 @@ process/channel_remap/red=0
 process/channel_remap/green=1
 process/channel_remap/blue=2
 process/channel_remap/alpha=3
-process/fix_alpha_border=true
+process/fix_alpha_border=false
 process/premult_alpha=false
 process/normal_map_invert_y=false
 process/hdr_as_srgb=false

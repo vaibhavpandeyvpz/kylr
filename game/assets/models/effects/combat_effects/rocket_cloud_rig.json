@@ -1,0 +1,119 @@
+{
+  "generator": "export_rocket_cloud.py",
+  "source": "source/rocket_cloud_height_source.png",
+  "source_sha256": "270500e963077890bef79090debe1e94f0b000c4af53f67707052daf349cd25d",
+  "size": [
+    1254,
+    1254
+  ],
+  "textures": {
+    "rocket_cloud_albedo_height.png": "77b9b14b201f363c711fa62cb57e1e6881c1c5e7220022e27a2c918c79f916c5",
+    "rocket_cloud_normal_roughness.png": "9f18463429b18a8133bba2fe28921dff0224b9c74d3951c6eadcb4086cd88094"
+  },
+  "texture_samples": {
+    "rocket_cloud_albedo_height.png": [
+      {
+        "pixel": [
+          0,
+          0
+        ],
+        "rgba8": [
+          55,
+          57,
+          59,
+          147
+        ]
+      },
+      {
+        "pixel": [
+          418,
+          418
+        ],
+        "rgba8": [
+          65,
+          68,
+          70,
+          187
+        ]
+      },
+      {
+        "pixel": [
+          627,
+          627
+        ],
+        "rgba8": [
+          35,
+          36,
+          37,
+          67
+        ]
+      },
+      {
+        "pixel": [
+          1253,
+          1253
+        ],
+        "rgba8": [
+          63,
+          65,
+          67,
+          178
+        ]
+      }
+    ],
+    "rocket_cloud_normal_roughness.png": [
+      {
+        "pixel": [
+          0,
+          0
+        ],
+        "rgba8": [
+          24,
+          189,
+          170,
+          220
+        ]
+      },
+      {
+        "pixel": [
+          418,
+          418
+        ],
+        "rgba8": [
+          188,
+          237,
+          152,
+          212
+        ]
+      },
+      {
+        "pixel": [
+          627,
+          627
+        ],
+        "rgba8": [
+          55,
+          128,
+          233,
+          236
+        ]
+      },
+      {
+        "pixel": [
+          1253,
+          1253
+        ],
+        "rgba8": [
+          223,
+          43,
+          139,
+          214
+        ]
+      }
+    ]
+  },
+  "channels": {
+    "rocket_cloud_albedo_height.png": "linear soot albedo RGB; density/height A",
+    "rocket_cloud_normal_roughness.png": "OpenGL tangent normal RGB; roughness A"
+  }
+}
