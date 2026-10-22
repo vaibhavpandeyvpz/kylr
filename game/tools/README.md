@@ -27,6 +27,10 @@ intended GPU. Keep validation, synchronous timings and feature-isolation trials
 separate from normal gameplay measurements. Verify active features, actual
 resolution and package hashes; never interpret a fixed-rate capture as FPS.
 
+`apply_weapon_balance.py` reads `docs/gameplay/WEAPON_BALANCE.csv`. Its
+`range_m` is maximum reach; optional `full_damage_range_m` defines where linear
+damage falloff begins. Flamethrower primary uses 8 m full damage and 10 m maximum.
+
 ## Graphics and effects
 
 - `run_weapon_effects_harness.ps1` opens the interactive real-weapon sandbox.

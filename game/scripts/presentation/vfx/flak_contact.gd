@@ -27,11 +27,9 @@ func _build_layers() -> void:
 	_dust.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	_dust.custom_aabb = AABB(Vector3.ONE*-1.5,Vector3.ONE*3.0)
 	var dust_material := ShaderMaterial.new()
-	dust_material.shader = preload("res://shaders/original/gas_volume.gdshader")
+	dust_material.shader = preload("res://shaders/original/flak_dust.gdshader")
 	dust_material.set_shader_parameter("volume_atlas",preload("res://assets/models/effects/combat_effects/flak_dust_atlas.png"))
-	dust_material.set_shader_parameter("event_profile",1)
 	dust_material.set_shader_parameter("effect_opacity",0.26)
-	dust_material.set_shader_parameter("emission",0.0)
 	_dust.material_override = dust_material
 	add_child(_dust)
 	var chips := _base_particles("ImpactChips", 1.0)

@@ -44,6 +44,42 @@ func fixture(weapon: String) -> Dictionary:
 	world.local_robot = robot
 	return {"world": world, "robot": robot, "combat": ArenaCombat.new(world)}
 
+class FlameVictim extends RobotProbe:
+	var accepted_damage := -1.0
+	func hit(amount: float, _attacker, _cause: String, _impulse := Vector3.ZERO, _contact: Dictionary = {}) -> bool:
+		accepted_damage = amount
+		return amount > 0
+
+class FlameTrace extends ArenaCombat:
+	var contact: Dictionary = {}
+	var swept_length := 0.0
+	var aim_reach := 0.0
+	func shot_direction(_robot, reach := -1.0, _continuous := false) -> Vector3:
+		aim_reach = reach
+		return Vector3.FORWARD
+	func beam_hit(origin: Vector3, target: Vector3, _radius: float, _exclude: Array = []) -> Dictionary:
+		swept_length = origin.distance_to(target)
+		return contact
+
+func test_flame_damage_falls_from_full_at_eight_metres_to_zero_at_ten():
+	var setup := fixture("flamethrower")
+	var combat := FlameTrace.new(setup.world)
+	var robot: ArenaRobot = setup.robot
+	robot.streaming = true
+	var victim := FlameVictim.new()
+	setup.world.add_child(victim)
+	for sample in [[1.0,2.0],[8.0,2.0],[9.0,1.0],[10.0,0.0]]:
+		combat.contact = {"collider":victim,"position":robot.muzzle()+Vector3.FORWARD*sample[0],"normal":Vector3.BACK}
+		combat.flame(robot)
+		assert_almost_eq(victim.accepted_damage,sample[1],0.00001)
+		assert_almost_eq(combat.swept_length,10.0,0.00001,"Damage sweep stops at the catalog maximum")
+	combat.contact = {}
+	var endpoint := combat.flame_endpoint(robot,robot.muzzle())
+	assert_almost_eq(endpoint.distance_to(robot.muzzle()),10.0,0.00001)
+	combat.update_flame_contact(robot)
+	assert_almost_eq(combat.swept_length,10.0,0.00001,"Contact audio uses the same range")
+	assert_almost_eq(combat.aim_reach,10.0,0.00001)
+
 class CapturedLaunch extends ArenaCombat:
 	var locked_id := -99
 	var scoped := false

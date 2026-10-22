@@ -1,9 +1,37 @@
 extends GutTest
 
+func test_fireball_contact_is_compact_volumetric_and_flame_dominant():
+	var burst := load("res://assets/effects/original/fire_hit.tscn").instantiate() as OriginalEffect
+	add_child_autofree(burst)
+	var layers := [0,0,0,0,0]
+	var flares := 0
+	for surface in burst.surfaces:
+		if surface.role=="fuel_flare":
+			flares += 1
+			assert_ne(surface.node.mesh,EffectMeshes.mesh("AxialCard"))
+			assert_not_null(surface.material.get_shader_parameter("flow_material"))
+			assert_not_null(surface.material.get_shader_parameter("flow_relief"))
+			continue
+		assert_eq(surface.role,"spatial_gas")
+		assert_same(surface.node.mesh,EffectMeshes.mesh("ThermalShell"))
+		assert_lt(float(surface.size),0.8,"Fuel burst stays smaller than rocket lobes")
+		assert_eq(surface.material.shader.resource_path,"res://shaders/original/fireball_contact_3d.gdshader")
+		assert_not_null(surface.material.get_shader_parameter("normal_roughness"))
+		layers[int(surface.layer)] += 1
+	assert_eq(layers,[0,1,1,0,3],"Three faint inner volumes, one wisp and one ignition core")
+	assert_eq(flares,6,"Six independently curling and eroding flame membranes form the flare cloud")
+	assert_true(burst.emitters.is_empty(),"Fuel contacts contain neither sprite particles nor debris")
+	assert_almost_eq(burst.duration,0.48,0.00001)
+	burst.play()
+	burst._process(burst.duration)
+	assert_false(burst.visible)
+	burst.play()
+	assert_true(burst.visible,"Pooled contacts restart cleanly")
+
 const ROOT := "res://assets/models/effects/combat_effects/"
 
 func test_library_data_texture_channels_survive_export_and_handoff():
-	for name in ["combat_effects_rig.json","rocket_cloud_rig.json","muzzle_flow_rig.json"]:
+	for name in ["combat_effects_rig.json","rocket_cloud_rig.json","muzzle_flow_rig.json","fireball_material_rig.json"]:
 		check_data_textures(JSON.parse_string(FileAccess.get_file_as_string(ROOT+name)))
 
 func check_data_textures(manifest: Dictionary) -> void:
@@ -39,16 +67,13 @@ func test_effect_kit_delivers_custom_meshes_within_its_authored_budget():
 		assert_true(mesh.get_aabb().position.is_finite())
 		assert_true(mesh.get_aabb().size.is_finite())
 	assert_lte(total,5000)
-	for id in ["FlameEnvelope","VortexSheets","BurstRays"]:
+	for id in ["FlameEnvelope","VortexSheets","FragmentChip"]:
 		assert_true(EffectMeshes.mesh(id) is ArrayMesh,"Detailed surfaces come from the authored library kit")
 
-func test_distinct_impact_atlases_survive_handoff_without_empty_or_clipped_cells():
-	var hashes: Array[String] = []
-	for atlas in ["fireball_atlas","flak_dust_atlas","fire_contact_atlas"]:
-		var manifest: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(ROOT+atlas+"_rig.json"))
-		assert_false(hashes.has(manifest.sha256),"Different physical events retain distinct texture content")
-		hashes.append(manifest.sha256)
-		check_atlas(atlas,manifest)
+func test_flak_dust_atlas_survives_handoff_without_empty_or_clipped_cells():
+	var atlas := "flak_dust_atlas"
+	var manifest: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(ROOT+atlas+"_rig.json"))
+	check_atlas(atlas,manifest)
 
 func test_grenade_is_a_spatial_dust_burst_with_small_ignition():
 	var burst := load("res://assets/effects/original/grenade.tscn").instantiate() as OriginalEffect

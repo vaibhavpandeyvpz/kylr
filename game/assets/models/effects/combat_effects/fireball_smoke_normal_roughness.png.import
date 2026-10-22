@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://luj2e2j4h2qn"
-path="res://.godot/imported/fire_contact_atlas.png-48d0923a83be442f343aac0d687da91b.ctex"
+uid="uid://k34s8wus3i02"
+path="res://.godot/imported/fireball_smoke_normal_roughness.png-32e6130b3aeb0b996c333fddf3984af3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/models/effects/combat_effects/fire_contact_atlas.png"
-dest_files=["res://.godot/imported/fire_contact_atlas.png-48d0923a83be442f343aac0d687da91b.ctex"]
+source_file="res://assets/models/effects/combat_effects/fireball_smoke_normal_roughness.png"
+dest_files=["res://.godot/imported/fireball_smoke_normal_roughness.png-32e6130b3aeb0b996c333fddf3984af3.ctex"]
 
 [params]
 
@@ -31,7 +31,7 @@ process/channel_remap/red=0
 process/channel_remap/green=1
 process/channel_remap/blue=2
 process/channel_remap/alpha=3
-process/fix_alpha_border=true
+process/fix_alpha_border=false
 process/premult_alpha=false
 process/normal_map_invert_y=false
 process/hdr_as_srgb=false

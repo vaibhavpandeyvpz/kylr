@@ -2,7 +2,7 @@ class_name BioContact
 extends WeaponContactBurst
 
 func _init() -> void:
-	size_m = 0.89
+	size_m = 0.445
 	duration = 0.68
 	particle_count = 42
 	primary_color = Color(0.42, 1, 0.045, 1)
@@ -20,5 +20,6 @@ func _build_layers() -> void:
 	_add_shell("NovaShell", 1.02, 0.0, 0.78, 1.2)
 	_add_layer("Nova", 3.0, 1.12, 0.0, 0.7, 0.6)
 	_add_layer("ShockRing", 1.0, 1.0, 0.08, 0.94, 1.4)
-	_add_particles("LongRays", 4.0, 1.45, 0.68, 0.08)
-	_add_particles("HotSparks", 5.0, 0.6, 0.94, 0.2, 0.55)
+	# Lifetime, spawn offset, gravity and sprite extent fit inside a 1 m radius.
+	_add_particles("LongRays", 4.0, 1.45, 0.14, 0.08)
+	_add_particles("HotSparks", 5.0, 0.6, 0.15, 0.2, 0.55)

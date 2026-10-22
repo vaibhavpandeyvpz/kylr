@@ -14,8 +14,10 @@ func run() -> void:
 	metadata.texture_samples.merge(cloud.texture_samples)
 	var muzzle: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(folder+"muzzle_flow_rig.json"))
 	metadata.texture_samples.merge(muzzle.texture_samples)
+	var fuel: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(folder+"fireball_material_rig.json"))
+	metadata.texture_samples.merge(fuel.texture_samples)
 	var passed := true
-	for name in ["turbulence_rgba.png","gas_atlas.png","smoke_atlas.png","fireball_atlas.png","rocket_cloud_albedo_height.png","rocket_cloud_normal_roughness.png","muzzle_albedo_density.png","muzzle_normal_roughness.png","flak_dust_atlas.png","fire_contact_atlas.png"]:
+	for name in ["turbulence_rgba.png","gas_atlas.png","rocket_cloud_albedo_height.png","rocket_cloud_normal_roughness.png","muzzle_albedo_density.png","muzzle_normal_roughness.png","flak_dust_atlas.png","fireball_flame_albedo_density.png","fireball_flame_normal_roughness.png","fireball_smoke_albedo_density.png","fireball_smoke_normal_roughness.png"]:
 		var texture := load(folder+name) as Texture2D
 		var image := texture.get_image()
 		if image == null or not image.has_mipmaps():

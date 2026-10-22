@@ -1,7 +1,7 @@
 {
   "source": "source/flak_dust_atlas.png",
   "generator": "OpenAI built-in imagegen",
-  "preparation": "export_fireball.py; pixel-preserving validation and copy",
+  "preparation": "export_flak_dust.py; pixel-preserving validation and copy",
   "atlas_size": [
     1254,
     1254

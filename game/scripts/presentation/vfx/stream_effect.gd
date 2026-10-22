@@ -22,6 +22,7 @@ var pack_fire: Node3D
 var pack_beam: Node3D
 var beam_materials: Array[ShaderMaterial] = []
 var strand_sparks: Array[GPUParticles3D] = []
+var contact_loop: FlameContactLoop
 
 static func arc_noise() -> NoiseTexture2D:
 	if noise_texture == null:
@@ -74,13 +75,21 @@ func layer(mesh: Mesh, shader: Shader, ratio: float, parameters: Dictionary) -> 
 	layers.append({"node": node, "material": material, "ratio": ratio})
 	return node
 
-func update_endpoints(from: Vector3, to: Vector3, robot_contact := false):
+func update_endpoints(from: Vector3, to: Vector3, robot_contact := false, contact_normal := Vector3.ZERO):
 	if released: return
 	idle_time = 0
 	reach = from.distance_to(to)
 	visible = reach > 0.015
 	if not visible: return
 	global_transform = Transform3D(Basis(Quaternion(Vector3.UP, (to - from).normalized())), from)
+	if kind=="flame":
+		if contact_normal.length_squared()>0.5:
+			if not is_instance_valid(contact_loop):
+				contact_loop = FlameContactLoop.new()
+				add_child(contact_loop)
+			var cloud_point := to+(to-from).normalized()*ROBOT_FLAME_OVERLAP if robot_contact else to
+			contact_loop.follow(cloud_point,contact_normal,0.0 if robot_contact else 0.015)
+		elif is_instance_valid(contact_loop): contact_loop.stop()
 	var thermal := (pack_beam if pack_beam else pack_fire) as OriginalEffect
 	if thermal:
 		var overlap := ROBOT_FLAME_OVERLAP if kind=="flame" and robot_contact else 0.0
@@ -90,7 +99,10 @@ func update_endpoints(from: Vector3, to: Vector3, robot_contact := false):
 			material.set_shader_parameter("clip_origin",from)
 			material.set_shader_parameter("clip_direction",(to-from).normalized())
 			material.set_shader_parameter("clip_length",reach+overlap)
-			if kind=="flame": material.set_shader_parameter("robot_contact",robot_contact)
+			if kind=="flame":
+				material.set_shader_parameter("robot_contact",robot_contact)
+				material.set_shader_parameter("full_damage_range",float(Arsenal.WEAPONS.flamethrower.full_damage_range))
+				material.set_shader_parameter("maximum_range",float(Arsenal.WEAPONS.flamethrower.range))
 		return
 	for entry in layers:
 		if entry.ratio == 0: continue
@@ -112,6 +124,7 @@ func release():
 	for entry in layers: entry.node.hide()
 	if pack_fire: pack_fire.hide()
 	if pack_beam: pack_beam.hide()
+	if is_instance_valid(contact_loop): contact_loop.stop()
 
 func _process(dt: float):
 	idle_time += dt

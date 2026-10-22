@@ -5,7 +5,7 @@ func test_pulse_contact_is_volumetric_and_recycles_without_shared_animation():
 	var b := PulseContact.new()
 	add_child_autofree(a)
 	add_child_autofree(b)
-	assert_lt(a.size_m,0.89,"Pulse footprint is smaller than the bio contact")
+	assert_almost_eq(a.size_m,0.46,0.00001,"Pulse retains its independent footprint")
 	assert_shared_geometry(a,b)
 	assert_eq(a._layers.size(),11)
 	for entry in a._layers:
@@ -89,6 +89,20 @@ func test_emp_charge_recycling_resets_fade_transform_and_keeps_live_shots_indepe
 	assert_eq(reused.core_material.albedo_color.a,1.0)
 	assert_eq(float(reused.shell_material.get_shader_parameter("opacity")),1.0)
 	assert_true(effects.idle_emp_charges.is_empty())
+
+func test_bio_splash_particles_remain_within_one_metre_of_contact():
+	var contact := BioContact.new()
+	add_child_autofree(contact)
+	assert_almost_eq(contact.size_m,0.445,0.00001,"The main bloom keeps its current diameter")
+	assert_eq(contact._particles.size(),2)
+	for particle in contact._particles:
+		var process := particle.process_material as ParticleProcessMaterial
+		var lifetime := particle.lifetime
+		var travel := process.initial_velocity_max*lifetime+0.5*process.gravity.length()*lifetime*lifetime
+		var sprite_radius := particle.draw_pass_1.get_aabb().size.length()*0.5*process.scale_max
+		var world_bound := (travel+process.emission_sphere_radius+sprite_radius)*contact.size_m
+		assert_lte(world_bound,1.0,"Include the whole sprite and gravity, even before damping slows it")
+		assert_gte(process.damping_min,0.0)
 
 func test_impact_primitives_share_geometry_but_not_animated_materials():
 	for effect_type in [FlakContact,BioContact]:

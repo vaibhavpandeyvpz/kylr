@@ -28,7 +28,7 @@ def export(name):
     shutil.copyfile(source,destination)
     (HERE/(name+'_rig.json')).write_text(json.dumps({
         'source':'source/'+name+'.png','generator':'OpenAI built-in imagegen',
-        'preparation':'export_fireball.py; pixel-preserving validation and copy',
+        'preparation':'export_flak_dust.py; pixel-preserving validation and copy',
         'atlas_size':[width,height],'tile_size':width/4,'grid':[4,4],'frames':16,
         'scientific_validation':False,'occupied_pixels':occupied,
         'sha256':hashlib.sha256(destination.read_bytes()).hexdigest()
@@ -37,5 +37,7 @@ def export(name):
     print('[effect atlas]',name,'validated sixteen nonempty, unclipped frames',width,height)
 
 
-for atlas in ('fireball_atlas','flak_dust_atlas','fire_contact_atlas'):
-    export(atlas)
+export('flak_dust_atlas')
+runtime = HERE.parents[3]/'game/assets/models/effects/combat_effects'
+for suffix in ('.png','_rig.json'):
+    shutil.copyfile(HERE/('flak_dust_atlas'+suffix),runtime/('flak_dust_atlas'+suffix))
