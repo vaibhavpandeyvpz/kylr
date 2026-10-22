@@ -9,7 +9,7 @@ Run these scripts from the repository root with PowerShell 7:
 - `download_epidemic_audio.py`: authenticated MCP sound-effect downloads to ignored cache.
 - `install_epidemic_audio.py`: restore exact library/game PCM cues from pinned licensed sources.
 - `requirements-audio.txt`: Python 3.12 PCM preparation dependency.
-- `install_private_assets.py`: verify and restore a private ZIP downloaded by the AWS CLI or validate local assets.
+- `install_private_assets.py`: download and restore a checksum-pinned private R2 ZIP (`--download`), install a prepared archive or validate local assets. Temporary downloads are removed after installation.
 - `requirements-assets.txt`: original texture-generation dependencies.
 - `install_customisation_thumbnails.py`: compress authored Blender head, emote and torso portraits into 192 px WebP tiles (requires Pillow).
 - `install_upper_body_showcase.py`: compose the README gallery from six 1024 px Blender upper-body portraits (requires Pillow).

@@ -1,5 +1,7 @@
 param([string]$Godot = $(if ($env:GODOT) { $env:GODOT } else { 'godot' }))
 $ErrorActionPreference = 'Stop'
+. (Join-Path $PSScriptRoot 'godot.ps1')
+$Godot = Resolve-GodotExecutable $Godot
 & (Join-Path $PSScriptRoot 'check_local_assets.ps1')
 $projectRoot = Split-Path -Parent $PSScriptRoot
 Set-Location $projectRoot

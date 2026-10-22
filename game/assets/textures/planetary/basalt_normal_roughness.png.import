@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://771xucniy8sb"
 path.bptc="res://.godot/imported/basalt_normal_roughness.png-35be50b096d4df86fc13a6b8cff12d7d.bptc.ctex"
+path.astc="res://.godot/imported/basalt_normal_roughness.png-35be50b096d4df86fc13a6b8cff12d7d.astc.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/textures/planetary/basalt_normal_roughness.png"
-dest_files=["res://.godot/imported/basalt_normal_roughness.png-35be50b096d4df86fc13a6b8cff12d7d.bptc.ctex"]
+dest_files=["res://.godot/imported/basalt_normal_roughness.png-35be50b096d4df86fc13a6b8cff12d7d.bptc.ctex", "res://.godot/imported/basalt_normal_roughness.png-35be50b096d4df86fc13a6b8cff12d7d.astc.ctex"]
 
 [params]
 

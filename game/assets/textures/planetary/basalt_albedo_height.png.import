@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://c1qxph0in7cjq"
 path.bptc="res://.godot/imported/basalt_albedo_height.png-a597b87509486d0fc75a6157f40919ef.bptc.ctex"
+path.astc="res://.godot/imported/basalt_albedo_height.png-a597b87509486d0fc75a6157f40919ef.astc.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/textures/planetary/basalt_albedo_height.png"
-dest_files=["res://.godot/imported/basalt_albedo_height.png-a597b87509486d0fc75a6157f40919ef.bptc.ctex"]
+dest_files=["res://.godot/imported/basalt_albedo_height.png-a597b87509486d0fc75a6157f40919ef.bptc.ctex", "res://.godot/imported/basalt_albedo_height.png-a597b87509486d0fc75a6157f40919ef.astc.ctex"]
 
 [params]
 

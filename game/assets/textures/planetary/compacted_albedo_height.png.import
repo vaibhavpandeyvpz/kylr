@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://upj4x24fd8c"
 path.bptc="res://.godot/imported/compacted_albedo_height.png-d9969fcf19311e1f19197ada623c9fdc.bptc.ctex"
+path.astc="res://.godot/imported/compacted_albedo_height.png-d9969fcf19311e1f19197ada623c9fdc.astc.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/textures/planetary/compacted_albedo_height.png"
-dest_files=["res://.godot/imported/compacted_albedo_height.png-d9969fcf19311e1f19197ada623c9fdc.bptc.ctex"]
+dest_files=["res://.godot/imported/compacted_albedo_height.png-d9969fcf19311e1f19197ada623c9fdc.bptc.ctex", "res://.godot/imported/compacted_albedo_height.png-d9969fcf19311e1f19197ada623c9fdc.astc.ctex"]
 
 [params]
 

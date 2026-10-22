@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://delwfmdx70fl0"
 path.bptc="res://.godot/imported/scorch_albedo_height.png-33e85ec48c8fc3f8a7c9597d9bab98a7.bptc.ctex"
+path.astc="res://.godot/imported/scorch_albedo_height.png-33e85ec48c8fc3f8a7c9597d9bab98a7.astc.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/textures/planetary/scorch_albedo_height.png"
-dest_files=["res://.godot/imported/scorch_albedo_height.png-33e85ec48c8fc3f8a7c9597d9bab98a7.bptc.ctex"]
+dest_files=["res://.godot/imported/scorch_albedo_height.png-33e85ec48c8fc3f8a7c9597d9bab98a7.bptc.ctex", "res://.godot/imported/scorch_albedo_height.png-33e85ec48c8fc3f8a7c9597d9bab98a7.astc.ctex"]
 
 [params]
 

@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://bwkrboh8na5yf"
 path.bptc="res://.godot/imported/scorch_normal_roughness.png-68abbc18b57f1303af38a5cad2954480.bptc.ctex"
+path.astc="res://.godot/imported/scorch_normal_roughness.png-68abbc18b57f1303af38a5cad2954480.astc.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/textures/planetary/scorch_normal_roughness.png"
-dest_files=["res://.godot/imported/scorch_normal_roughness.png-68abbc18b57f1303af38a5cad2954480.bptc.ctex"]
+dest_files=["res://.godot/imported/scorch_normal_roughness.png-68abbc18b57f1303af38a5cad2954480.bptc.ctex", "res://.godot/imported/scorch_normal_roughness.png-68abbc18b57f1303af38a5cad2954480.astc.ctex"]
 
 [params]
 

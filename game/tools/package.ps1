@@ -4,13 +4,18 @@ param(
     [string]$Godot = $(if ($env:GODOT) { $env:GODOT } else { 'godot' })
 )
 $ErrorActionPreference = 'Stop'
+. (Join-Path $PSScriptRoot 'godot.ps1')
+$Godot = Resolve-GodotExecutable $Godot
+$platform = if ($IsWindows) { 'Windows' } elseif ($IsMacOS) { 'macOS' } else { 'Linux' }
+$extension = if ($IsWindows) { 'exe' } elseif ($IsMacOS) { 'app' } else { 'x86_64' }
+$preset = if ($IsWindows) { 'Windows Desktop' } elseif ($IsMacOS) { 'macOS' } else { 'Linux' }
 & (Join-Path $PSScriptRoot 'check_local_assets.ps1')
 $projectRoot = Split-Path -Parent $PSScriptRoot
-$workspaceRoot = Split-Path -Parent $projectRoot
+$workspaceRoot = [IO.Path]::GetFullPath((Join-Path $projectRoot '..'))
 Set-Location $projectRoot
 $buildId = [guid]::NewGuid().ToString('N')
 # A fresh staging directory prevents obsolete DLLs or local reports shipping.
-$outputDirectory = Join-Path $projectRoot "build/package-$buildId/windows"
+$outputDirectory = Join-Path $projectRoot "build/package-$buildId/$platform"
 $reportDirectory = Join-Path $projectRoot "reports/packaging/$buildId"
 New-Item -ItemType Directory -Force $outputDirectory,$reportDirectory | Out-Null
 
@@ -30,27 +35,32 @@ $engineVersion = (& $Godot --version | Out-String).Trim()
 if ($LASTEXITCODE -ne 0 -or $engineVersion -notmatch '^4\.7\.2\.') {
     throw "Expected Godot 4.7.2, got: $engineVersion"
 }
-Invoke-GodotCheck 'import' $Godot @('--headless','--path',$projectRoot,'--editor','--import','--quit')
-$executable = Join-Path $outputDirectory 'KYLR.exe'
-$pack = Join-Path $outputDirectory 'KYLR.pck'
-Invoke-GodotCheck 'export' $Godot @('--headless','--path',$projectRoot,'--export-release','Windows Desktop',$executable)
+$exportPath = Join-Path $outputDirectory "KYLR.$extension"
+Invoke-GodotCheck 'export' $Godot @('--headless','--path',$projectRoot,'--export-release',$preset,$exportPath)
+$executable = if ($IsMacOS) { Join-Path $exportPath 'Contents/MacOS/KYLR' } else { $exportPath }
+$packs = @(Get-ChildItem -LiteralPath $outputDirectory -Filter '*.pck' -File -Recurse)
+if ($packs.Count -ne 1) { throw 'Expected one exported PCK.' }
+$pack = $packs[0].FullName
 foreach ($required in @($executable,$pack)) {
     if (-not (Test-Path -LiteralPath $required -PathType Leaf)) { throw "Missing export: $required" }
 }
-if (-not (Get-ChildItem -LiteralPath $outputDirectory -Recurse -File -Filter 'liblimboai.windows.template_release.x86_64.dll')) {
-    throw 'Export is missing the LimboAI release DLL.'
+$nativeName = if ($IsWindows) { 'liblimboai.windows.template_release.x86_64.dll' } elseif ($IsMacOS) { 'liblimboai.macos.template_release' } else { 'liblimboai.linux.template_release.x86_64.so' }
+if (-not (Get-ChildItem -LiteralPath $outputDirectory -Recurse -File -Filter $nativeName)) {
+    throw "Export is missing the LimboAI release library: $nativeName"
 }
 Invoke-GodotCheck 'licenses' $Godot @('--headless','--path',$projectRoot,'--script','res://tools/write_licenses.gd','--',"--output=$outputDirectory/ENGINE-LICENSES.txt")
 Copy-Item -LiteralPath (Join-Path $projectRoot 'THIRD_PARTY.md') -Destination $outputDirectory
 foreach ($projectNotice in @('LICENSE','NOTICE')) {
     Copy-Item -LiteralPath (Join-Path $projectRoot "../$projectNotice") -Destination $outputDirectory
 }
-# Reject unexpected external C++ runtimes instead of silently creating an incomplete package.
-. (Join-Path $PSScriptRoot 'windows_binary_dependencies.ps1')
-$nativeFiles = @(Get-ChildItem -LiteralPath $outputDirectory -Recurse -File | Where-Object { $_.Extension -in @('.exe','.dll') })
-foreach ($native in $nativeFiles) {
-    foreach ($dependency in @(Get-PEImportedLibraries $native.FullName)) {
-        if ($dependency -match '^(MSVCP|VCRUNTIME|CONCRT)') { throw "Unstaged native runtime dependency in $($native.Name): $dependency" }
+if ($IsWindows) {
+    # Reject unexpected external C++ runtimes instead of silently creating an incomplete package.
+    . (Join-Path $PSScriptRoot 'windows_binary_dependencies.ps1')
+    $nativeFiles = @(Get-ChildItem -LiteralPath $outputDirectory -Recurse -File | Where-Object { $_.Extension -in @('.exe','.dll') })
+    foreach ($native in $nativeFiles) {
+        foreach ($dependency in @(Get-PEImportedLibraries $native.FullName)) {
+            if ($dependency -match '^(MSVCP|VCRUNTIME|CONCRT)') { throw "Unstaged native runtime dependency in $($native.Name): $dependency" }
+        }
     }
 }
 
@@ -82,9 +92,9 @@ if (-not (Test-Path -LiteralPath $startupLog) -or
     throw "Exported startup log is missing or contains errors: $startupLog"
 }
 
-$revision = (& git -C $workspaceRoot rev-parse HEAD).Trim()
-if ($LASTEXITCODE -ne 0) { throw 'Cannot identify package revision.' }
-$manifest = @{version=$Version;revision=$revision;godot=$engineVersion;development=([bool](& git -C $workspaceRoot status --porcelain));distribution="official";files=@()}
+$revision = if ($env:GITHUB_SHA) { $env:GITHUB_SHA } else { (& git -C $workspaceRoot rev-parse HEAD).Trim() }
+if ($revision -notmatch '^[0-9a-f]{40}$') { throw 'Cannot identify package revision.' }
+$manifest = @{version=$Version;revision=$revision;godot=$engineVersion;development=($(if ($env:CI) { $false } else { [bool](& git -C $workspaceRoot status --porcelain) }));platform=$platform;distribution="official";files=@()}
 foreach ($file in Get-ChildItem -LiteralPath $outputDirectory -File -Recurse | Sort-Object FullName) {
     $manifest.files += @{
         name=[IO.Path]::GetRelativePath($outputDirectory,$file.FullName).Replace('\','/')
@@ -93,8 +103,17 @@ foreach ($file in Get-ChildItem -LiteralPath $outputDirectory -File -Recurse | S
     }
 }
 $manifest | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath (Join-Path $outputDirectory 'manifest.json') -Encoding utf8
-$archive = Join-Path $projectRoot "build/KYLR-Windows-$Version.zip"
-Compress-Archive -LiteralPath $outputDirectory -DestinationPath $archive -Force
+$suffix = if ($IsLinux) { 'tar.gz' } else { 'zip' }
+$archive = Join-Path $projectRoot "build/KYLR-$platform-$Version.$suffix"
+if ($IsMacOS) {
+    & ditto -c -k --sequesterRsrc --keepParent $outputDirectory $archive
+    if ($LASTEXITCODE -ne 0) { throw 'macOS archive creation failed.' }
+} elseif ($IsLinux) {
+    & tar -czf $archive -C (Split-Path $outputDirectory -Parent) (Split-Path $outputDirectory -Leaf)
+    if ($LASTEXITCODE -ne 0) { throw 'Linux archive creation failed.' }
+} else {
+    Compress-Archive -LiteralPath $outputDirectory -DestinationPath $archive -Force
+}
 $digest = (Get-FileHash -LiteralPath $archive -Algorithm SHA256).Hash.ToLowerInvariant()
 [IO.File]::WriteAllText("$archive.sha256", "$digest  $([IO.Path]::GetFileName($archive))`n", [Text.UTF8Encoding]::new($false))
 Write-Output $archive

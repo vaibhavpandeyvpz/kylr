@@ -188,5 +188,31 @@ class AssetSetupTests(unittest.TestCase):
             self.assertEqual(path.read_bytes(),before)
 
 
+class PrivateDownloadTests(unittest.TestCase):
+    def test_download_installs_pinned_archive_and_removes_temporary_files(self):
+        import install_private_assets as assets
+        import os
+        settings={'R2_ENDPOINT_URL':'https://example.invalid','R2_ASSET_URI':'s3://private/assets.zip',
+                  'AWS_SECRET_ACCESS_KEY':'secret-value'}
+        captured=[]
+        def download(command, check):
+            self.assertTrue(check)
+            self.assertNotIn('secret-value',str(command))
+            Path(command[4]).write_bytes(b'private fixture')
+            captured.append(Path(command[4]))
+        def install(archive, checksum):
+            self.assertEqual(checksum,'a'*64)
+            self.assertEqual(archive.read_bytes(),b'private fixture')
+        with patch.dict(os.environ,settings),patch.object(assets.subprocess,'run',side_effect=download),patch.object(assets,'install_archive',side_effect=install):
+            assets.download_archive('a'*64)
+        self.assertFalse(captured[0].exists())
+
+    def test_missing_pin_prevents_download(self):
+        import install_private_assets as assets
+        with patch.object(assets.subprocess,'run') as download:
+            with self.assertRaises(ValueError): assets.download_archive('')
+        download.assert_not_called()
+
+
 if __name__ == "__main__":
     unittest.main()

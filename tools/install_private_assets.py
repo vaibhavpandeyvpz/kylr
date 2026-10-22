@@ -5,6 +5,7 @@ import json
 import os
 from pathlib import Path
 import shutil
+import subprocess
 import tempfile
 import re
 import zipfile
@@ -115,12 +116,28 @@ def install_archive(archive, digest):
         install(folder)
 
 
+def download_archive(checksum):
+    endpoint = os.environ.get('R2_ENDPOINT_URL', '')
+    uri = os.environ.get('R2_ASSET_URI', '')
+    if not endpoint or not uri or not re.fullmatch(r'[a-fA-F0-9]{64}', checksum):
+        raise ValueError('Configure R2_ENDPOINT_URL, R2_ASSET_URI and PRIVATE_GAME_ASSETS_SHA256')
+    with tempfile.TemporaryDirectory(prefix='kylr-assets-') as temporary:
+        archive = Path(temporary) / 'assets.zip'
+        try:
+            subprocess.run(['aws', 's3', 'cp', uri, str(archive), '--endpoint-url', endpoint,
+                            '--only-show-errors', '--no-progress'], check=True)
+        except subprocess.CalledProcessError:
+            raise ValueError('Private asset download failed') from None
+        install_archive(archive, checksum)
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     mode = parser.add_mutually_exclusive_group(required=True)
     mode.add_argument("--check", action="store_true")
     mode.add_argument("--source", type=Path, help="Prepared private folder with animations/, audio/")
     mode.add_argument("--archive", type=Path, help="Prepared private ZIP downloaded with the AWS CLI")
+    mode.add_argument("--download", action="store_true", help="Download, verify and restore the configured private R2 bundle")
     parser.add_argument("--sha256", default=os.environ.get('PRIVATE_GAME_ASSETS_SHA256', ''),
                         help="Required archive pin; otherwise use PRIVATE_GAME_ASSETS_SHA256")
     args = parser.parse_args()
@@ -129,6 +146,8 @@ if __name__ == "__main__":
             check()
         elif args.source:
             install(args.source.resolve())
+        elif args.download:
+            download_archive(args.sha256)
         else:
             install_archive(args.archive.resolve(), args.sha256)
     except ValueError as error:

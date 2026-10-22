@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://b5q55oky80b0n"
 path.bptc="res://.godot/imported/bedrock_normal_roughness.png-ee33d4ab39b328819cd7d5b908588923.bptc.ctex"
+path.astc="res://.godot/imported/bedrock_normal_roughness.png-ee33d4ab39b328819cd7d5b908588923.astc.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/textures/planetary/bedrock_normal_roughness.png"
-dest_files=["res://.godot/imported/bedrock_normal_roughness.png-ee33d4ab39b328819cd7d5b908588923.bptc.ctex"]
+dest_files=["res://.godot/imported/bedrock_normal_roughness.png-ee33d4ab39b328819cd7d5b908588923.bptc.ctex", "res://.godot/imported/bedrock_normal_roughness.png-ee33d4ab39b328819cd7d5b908588923.astc.ctex"]
 
 [params]
 

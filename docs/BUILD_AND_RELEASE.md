@@ -1,9 +1,11 @@
 # Build and release
 
 The game uses official Godot 4.7.2 stable and matching official export templates.
-Windows packages and Linux servers use prebuilt binaries. Blender authoring does
+Windows, macOS and Linux packages use prebuilt binaries. Blender authoring does
 not run during packaging. Restore licensed animations and sounds through [asset setup](ASSET_SETUP.md)
-before importing or packaging.
+before importing or packaging. CI uses
+`python tools/install_private_assets.py --download` to restore the configured R2
+bundle and clean up its temporary ZIP.
 
 ## Local Windows setup
 
@@ -26,7 +28,10 @@ Update the release and checksum pins together.
 
 Select an existing official installation through `GODOT`, PATH or an explicit
 `-Godot` argument. Prefer the console wrapper for redirected diagnostics. Keep
-machine-specific paths outside tracked files.
+machine-specific paths outside tracked files. On macOS and Linux, install the
+official editor and matching templates, set `GODOT`, and use the same PowerShell
+7 commands below. Universal macOS exports enable both desktop and Apple Silicon
+texture formats in the project settings.
 
 ## Verification and packaging
 
@@ -34,18 +39,22 @@ Run game tools from `game/`:
 
 ```powershell
 ./tools/verify.ps1 -Godot $env:GODOT
-./tools/package_windows.ps1 -Godot $env:GODOT -Version dev-local
+./tools/package.ps1 -Godot $env:GODOT -Version dev-local
 ```
 
 Verification imports assets, runs GUT, exercises all five match types and checks
 the results flow. Packaging uses installed official templates, writes engine and
-third-party notices, checks LimboAI's release DLL, inspects PCK contents, smoke-tests
+third-party notices, checks the native LimboAI release library, inspects PCK contents, smoke-tests
 the exported executable and writes a manifest and SHA-256 checksum. Native PE
 imports are inspected for unexpected external MSVC runtime requirements. Official
 Godot and bundled LimboAI use system Windows/UCRT libraries.
 
-Artifacts are written to `game/build/` and logs to `game/reports/`. Ship the complete
-ZIP. Windows builds are unsigned. Headless checks cannot qualify rendered
+Artifacts are written to `game/build/` and logs to `game/reports/`. Run packaging
+on the target OS: Windows and Linux use x86_64, while macOS exports a universal
+Intel/Apple Silicon app. Windows and macOS packages are ZIPs; Linux uses tar.gz
+to preserve executable permissions. macOS ZIPs preserve app bundles and framework
+links through `ditto`. Ship the complete archive. Windows builds are unsigned;
+macOS uses ad-hoc signing without notarization. Headless checks cannot qualify rendered
 appearance, audio, hardware compatibility or frame rates; follow
 [rendering](RENDERING.md) and [playtesting](PLAYTESTING.md).
 
@@ -57,13 +66,16 @@ guard and HTTP response validation when updating that addon.
 
 ## GitHub workflow
 
-[The Windows workflow](../.github/workflows/package.yml) runs one packaging job:
-restore LFS and licensed assets, set up official Godot 4.7.2 and export templates
-with `chickensoft-games/setup-godot@v2`, then verify, export and inspect the game.
-The action uses `use-dotnet: false`, `include-templates: true` and its download
-cache. Windows steps select the installed console executable and capture version
-output before checking its exit code. A cold run downloads the release archives
-and imports game assets.
+[The desktop workflow](../.github/workflows/package.yml) uses one matrix with
+`windows-latest`, `ubuntu-latest` and `macos-latest`. Each runner checks out LFS,
+sets up Python and official Godot 4.7.2 with matching export templates through
+`chickensoft-games/setup-godot@v2`, restores licensed assets
+and packages a native export. Export imports assets once; every OS checks the
+exported app, and the full GUT suite runs once on Linux. Builds run independently
+with `fail-fast: false`.
+The setup action caches its downloads; game tools select the Windows console
+executable when the action exposes a GUI alias. All three packages and checksums
+are uploaded as one-day Actions artifacts. Failed jobs also retain their logs.
 
 Configure bucket-scoped R2 credentials, endpoint/object variables and
 `PRIVATE_GAME_ASSETS_SHA256` as described in [asset setup](ASSET_SETUP.md). The
@@ -71,27 +83,30 @@ workflow checks the private bundle checksum and restores only catalog-required
 paths. Credentials and downloaded private archives are not uploaded. Rebuild a
 replacement bundle with `tools/bundle_private_assets.py` and update its R2 object
 and checksum when licensed content changes. `KYLR_PUBLIC_API_URL` configures the
-Windows client's public API endpoint.
+desktop clients' public API endpoint.
 
-A pushed `v*` tag publishes the verified ZIP and checksum directly to GitHub
-Releases; tags containing a hyphen are prereleases. Manual dispatch uploads the
-ZIP and checksum as a one-day Actions artifact without publishing. Logs print
-errors with context in workflow output. Only the packaging job has release write
-permission. A completed hosted workflow is required to claim hosted CI validation.
+A pushed `v*` tag starts the matrix. One release job waits for all three builds,
+downloads their artifacts, verifies SHA-256 checksums and publishes all packages
+together to GitHub Releases. Only that job has release write permission. Tags
+containing a hyphen are prereleases. Manual dispatch on `main` builds downloadable
+artifacts; dispatch on a `v*` tag also publishes a release. Rerunning an old run
+uses its original workflow revision; start a new run after workflow changes.
+A completed hosted matrix is required to claim validation on all three OSes.
 
 ## Multiplayer services
 
 [Cloud hosting](CLOUD_HOSTING.md) owns Render, Atlas and Edgegap configuration.
-The manual multiplayer workflow tests the API and builds the private server
-image. Its download stage installs checksum-pinned official Godot for Linux,
-then imports restored assets and checks the server script. BuildKit caches
-binary-download and import layers. Optional publication pushes an immutable
-source-commit image tag and registers the Edgegap app version. Hosting credentials
-never ship to clients.
+The manual multiplayer workflow runs one API/publication test suite against
+MongoDB, then builds the private server image once. The download stage installs
+checksum-pinned official Godot for Linux; the Docker build imports restored
+assets and rejects script errors. BuildKit caches binary-download and import
+layers. Optional publication uses the Docker login/build actions to push the
+source commit as an immutable private image tag, then registers the Edgegap app
+version. Hosting credentials never ship to clients.
 
 ## Terrain authoring
 
 Terrain3D is used only by the [planetary terrain pipeline](library/PLANETARY_TERRAIN.md).
 Game and server packages consume static map meshes and PBR textures, with no
-Terrain3D native runtime. Package checks verify manifest resources and Windows
+Terrain3D native runtime. Package checks verify manifest resources and desktop
 packages include its MIT notice under `licenses/terrain3d/LICENSE.txt`.

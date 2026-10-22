@@ -88,9 +88,10 @@ Configure the existing R2 secrets/variables for private asset restoration, plus:
 - GitHub variable `EDGEGAP_IMAGE`, for example
   `registry.edgegap.com/<organization>/kylr-server`, without a tag.
 
-Run **Verify multiplayer and build dedicated server** in Actions. It tests the API
-against MongoDB, restores assets, downloads official Godot, imports the
-project and checks the server script. Enable `publish` to push to the private
+Run **Publish to Edgegap** in Actions. It tests the API and publication tooling
+once against MongoDB, restores assets and builds the dedicated-server image.
+The Docker build downloads official Godot and imports the project, rejecting
+script errors without a separate script-check run. Enable `publish` to push to the private
 registry with the source commit as its immutable image tag, then registers that
 commit as an Edgegap app version with UDP port 25000, 1.5 vCPU, 3 GB memory,
 60-minute duration and restart policy Never. The default only validates/builds.
@@ -128,7 +129,7 @@ creating servers. Inspect Edgegap's dashboard if provider reconciliation is unav
 
 ## Client builds and live checks
 
-Set GitHub variable `KYLR_PUBLIC_API_URL` to the Render HTTPS origin. Windows
+Set GitHub variable `KYLR_PUBLIC_API_URL` to the Render HTTPS origin. Desktop
 packaging writes it into the game before export. For source builds, from the root:
 
 ```powershell

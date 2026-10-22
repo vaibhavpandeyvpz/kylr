@@ -243,22 +243,24 @@ Run the exported game and manually check menu navigation, match start, controls,
 
 ## Tagged packages and GitHub Releases
 
-Prepare the local Windows package with PowerShell 7:
+Prepare a native Windows, macOS or Linux package with PowerShell 7:
 
 ```powershell
-pwsh -File ./tools/package_windows.ps1 -Godot $Godot -Version dev-local
+pwsh -File ./tools/package.ps1 -Godot $Godot -Version dev-local
 ```
 
-Each invocation uses fresh staging under `build/package-*/windows/`, inspects
+Each invocation uses fresh staging under `build/package-*/<OS>/`, inspects
 native binary dependencies, includes license notices, verifies the PCK and runs
 an exported startup check. It writes
-`build/KYLR-Windows-<version>.zip` and its SHA-256 checksum, with logs under
+`build/KYLR-<OS>-<version>.zip` (Windows/macOS) or `.tar.gz` (Linux), plus a SHA-256 checksum, with logs under
 `reports/packaging/`. Packages remain unsigned. These checks do not replace
 rendered gameplay/audio, quality or performance qualification.
 
 The root [release workflow](../.github/workflows/package.yml) downloads official
-Godot before verifying/exporting the game and publishing a pushed `v*` tag.
-Manual dispatch only uploads artifacts. See [build and release](../docs/BUILD_AND_RELEASE.md)
+Godot on Windows, macOS and Linux. All three native builds must pass before a
+`v*` release publishes their packages together. Manual dispatch on `main` uploads
+artifacts; dispatch on a `v*` tag publishes a release. macOS uses a universal app
+with ad-hoc signing and no notarization. See [build and release](../docs/BUILD_AND_RELEASE.md)
 for the hosted workflow and rendered validation procedures.
 
 ## Troubleshooting and project layout

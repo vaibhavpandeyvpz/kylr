@@ -18,7 +18,7 @@ Generated reports/packages belong in ignored `reports/` and `build/`.
 | All-preset full-match samples | `run_graphics_matrix.ps1` |
 | Configurable rendered match matrix | `run_rendered_matrix.ps1` |
 | Isolated diagnostic release package | `pack_rendered_profile.gd` |
-| Windows redistributable and inspection | `package_windows.ps1` |
+| Native Windows/macOS/Linux package and inspection | `package.ps1` |
 
 Use fresh report/runtime names. Run renderer measurements serially on the
 intended GPU. Keep validation, synchronous timings and feature-isolation trials
@@ -67,7 +67,7 @@ clients to check admission, combat, a late join and round replacement. Pass
 `--mongo` or set `MONGO_TEST_URI`; probes create and remove their own database.
 Keep the online client/server/UI probes, credential checks and impairment helper.
 Runtime packaging depends on `inspect_package.gd`, `write_licenses.gd`,
-`windows_binary_dependencies.ps1`.
+`godot.ps1` and Windows-only `windows_binary_dependencies.ps1`.
 
 ## Retention policy
 

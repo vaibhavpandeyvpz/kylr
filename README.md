@@ -83,13 +83,14 @@ See [game setup and controls](game/README.md) and
 
 ```powershell
 pwsh -File game/tools/verify.ps1 -Godot $Godot
-pwsh -File game/tools/package_windows.ps1 -Godot $Godot -Version dev-local
+pwsh -File game/tools/package.ps1 -Godot $Godot -Version dev-local
 ```
 
-The [release workflow](.github/workflows/package.yml) downloads official Godot
-first, then verifies and exports the game. A pushed `v*` tag publishes the
-verified Windows package and checksums as a GitHub release. Manual runs build
-artifacts without publishing. See [build and release](docs/BUILD_AND_RELEASE.md).
+The [release workflow](.github/workflows/package.yml) sets up official Godot
+on Windows, macOS and Linux, then verifies and exports on each OS. A pushed `v*` tag publishes the
+verified Windows x64, Linux x64 and universal macOS packages with checksums as
+one GitHub release after all three builds pass. Manual runs on `main` build
+artifacts; manual runs on a `v*` tag also publish. See [build and release](docs/BUILD_AND_RELEASE.md).
 
 ## Host multiplayer
 

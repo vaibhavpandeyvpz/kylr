@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://l0aaso3vghot"
 path.bptc="res://.godot/imported/skyfall_weights1.png-cb28cf6dcbc3e9f46a295425e61f8097.bptc.ctex"
+path.astc="res://.godot/imported/skyfall_weights1.png-cb28cf6dcbc3e9f46a295425e61f8097.astc.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/textures/planetary/skyfall_weights1.png"
-dest_files=["res://.godot/imported/skyfall_weights1.png-cb28cf6dcbc3e9f46a295425e61f8097.bptc.ctex"]
+dest_files=["res://.godot/imported/skyfall_weights1.png-cb28cf6dcbc3e9f46a295425e61f8097.bptc.ctex", "res://.godot/imported/skyfall_weights1.png-cb28cf6dcbc3e9f46a295425e61f8097.astc.ctex"]
 
 [params]
 

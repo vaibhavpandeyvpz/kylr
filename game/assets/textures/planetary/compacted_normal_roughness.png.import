@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://d3etkdf6a0v8l"
 path.bptc="res://.godot/imported/compacted_normal_roughness.png-79262edac0de2b4d6d2c548a2fc44d4d.bptc.ctex"
+path.astc="res://.godot/imported/compacted_normal_roughness.png-79262edac0de2b4d6d2c548a2fc44d4d.astc.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/textures/planetary/compacted_normal_roughness.png"
-dest_files=["res://.godot/imported/compacted_normal_roughness.png-79262edac0de2b4d6d2c548a2fc44d4d.bptc.ctex"]
+dest_files=["res://.godot/imported/compacted_normal_roughness.png-79262edac0de2b4d6d2c548a2fc44d4d.bptc.ctex", "res://.godot/imported/compacted_normal_roughness.png-79262edac0de2b4d6d2c548a2fc44d4d.astc.ctex"]
 
 [params]
 

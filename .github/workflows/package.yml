@@ -1,4 +1,4 @@
-name: Publish to Github
+name: Publish to GitHub
 
 on:
   push:
@@ -7,23 +7,25 @@ on:
 
 permissions:
   contents: read
-  actions: read
 
 concurrency:
-  group: release-${{ github.workflow }}-${{ github.ref }}
+  group: release-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
-  game:
-    name: Verify and package game
-    runs-on: windows-latest
+  build:
+    name: Build on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
     timeout-minutes: 60
-    permissions:
-      contents: write
-      actions: read
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, ubuntu-latest, macos-latest]
     defaults:
       run:
-        shell: pwsh
+        shell: bash
+    env:
+      VERSION: ${{ github.ref_type == 'tag' && github.ref_name || format('dev-{0}', github.sha) }}
     steps:
       - uses: actions/checkout@v7
         with:
@@ -32,98 +34,76 @@ jobs:
       - uses: actions/setup-python@v7
         with:
           python-version: '3.12'
-      - name: Set up official Godot
-        uses: chickensoft-games/setup-godot@v2
+      - uses: chickensoft-games/setup-godot@v2
         with:
           version: '4.7.2'
           use-dotnet: false
           include-templates: true
-          cache: true
           path: .local/godot/runtime
           downloads-path: .local/godot/downloads
           bin-path: .local/godot/bin
-      - name: Select official Godot
-        run: |
-          $executables = @(Get-ChildItem -LiteralPath .local/godot/runtime -Filter '*_console.exe' -File -Recurse)
-          if ($executables.Count -ne 1) { throw 'Expected one installed Godot console executable.' }
-          $godot = $executables[0].FullName
-          $version = (& $godot --version | Out-String).Trim()
-          if ($LASTEXITCODE -ne 0 -or $version -notmatch '^4\.7\.2\.') { throw "Godot setup failed: $version" }
-          "GODOT=$godot" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
-          Write-Output "Godot executable: $godot"
-          Write-Output "Godot version: $version"
-      - name: Restore licensed game assets
+      - name: Restore licensed assets
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
           AWS_DEFAULT_REGION: auto
           AWS_EC2_METADATA_DISABLED: 'true'
-          AWS_PAGER: ''
           R2_ENDPOINT_URL: ${{ vars.R2_ENDPOINT_URL }}
           R2_ASSET_URI: ${{ vars.R2_ASSET_URI }}
           PRIVATE_GAME_ASSETS_SHA256: ${{ secrets.PRIVATE_GAME_ASSETS_SHA256 }}
-        run: |
-          $bundle = Join-Path $env:RUNNER_TEMP 'KYLR-game-assets.zip'
-          try {
-            & aws s3 cp $env:R2_ASSET_URI $bundle --endpoint-url $env:R2_ENDPOINT_URL --region auto --only-show-errors --no-progress
-            if ($LASTEXITCODE -ne 0) { throw 'Private R2 asset download failed.' }
-            & python tools/install_private_assets.py --archive $bundle
-            if ($LASTEXITCODE -ne 0) { throw 'Private asset verification or installation failed.' }
-          } finally {
-            if (Test-Path -LiteralPath $bundle) { Remove-Item -LiteralPath $bundle -Force }
-          }
-      - name: Configure public multiplayer endpoint
+        run: python tools/install_private_assets.py --download
+      - name: Configure client endpoint
         env:
           KYLR_PUBLIC_API_URL: ${{ vars.KYLR_PUBLIC_API_URL }}
+        run: if [[ -n "$KYLR_PUBLIC_API_URL" ]]; then python tools/configure_online.py; fi
+      - name: Build and package
+        run: pwsh -File game/tools/package.ps1 -Version "$VERSION"
+      - name: Game tests
+        if: runner.os == 'Linux'
         run: |
-          if ($env:KYLR_PUBLIC_API_URL) { python tools/configure_online.py }
-      - name: Import and verify game
-        run: ./game/tools/verify.ps1
-      - name: Export, inspect and smoke-test package
-        env:
-          BUILD_REF: ${{ github.ref_name }}
-          BUILD_SHA: ${{ github.sha }}
-          IS_RELEASE: ${{ github.event_name == 'push' && github.ref_type == 'tag' }}
-        run: |
-          $version = if ($env:IS_RELEASE -eq 'true') { $env:BUILD_REF } else { 'dev-' + $env:BUILD_SHA.Substring(0,12) }
-          ./game/tools/package_windows.ps1 -Version $version
-      - name: Upload verified package for manual download
-        if: github.event_name == 'workflow_dispatch'
-        uses: actions/upload-artifact@v7
+          mkdir -p game/reports/verification
+          godot --headless --path game --log-file "$PWD/game/reports/verification/tests.log" -s addons/gut/gut_cmdln.gd -gdir=res://tests -gexit
+      - uses: actions/upload-artifact@v7
         with:
-          name: KYLR-Windows
+          name: KYLR-${{ runner.os }}
           path: |
-            game/build/KYLR-Windows-*.zip
-            game/build/KYLR-Windows-*.zip.sha256
+            game/build/KYLR-*.zip
+            game/build/KYLR-*.tar.gz
+            game/build/KYLR-*.sha256
           if-no-files-found: error
           retention-days: 1
           compression-level: 0
-      - name: Publish tagged release directly
-        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
+      - uses: actions/upload-artifact@v7
+        if: failure()
+        with:
+          name: logs-${{ runner.os }}
+          path: |
+            game/reports/verification/
+            game/reports/packaging/
+          retention-days: 1
+
+  release:
+    name: Publish all desktop packages
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      actions: read
+    steps:
+      - uses: actions/download-artifact@v8
+        with:
+          pattern: KYLR-*
+          merge-multiple: true
+          path: packages
+      - name: Verify checksums and publish
+        working-directory: packages
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
           RELEASE_TAG: ${{ github.ref_name }}
         run: |
-          $archives = @(Get-ChildItem -LiteralPath game/build -Filter 'KYLR-Windows-*.zip' -File)
-          if ($archives.Count -ne 1) { throw 'Expected exactly one verified game package.' }
-          $archive = $archives[0]
-          $checksum = "$($archive.FullName).sha256"
-          $expected = ((Get-Content -LiteralPath $checksum -Raw).Trim() -split '\s+')[0]
-          if ((Get-FileHash -LiteralPath $archive.FullName -Algorithm SHA256).Hash.ToLowerInvariant() -ne $expected) { throw 'Package checksum mismatch.' }
-          $releaseArguments = @('release','create',$env:RELEASE_TAG,$archive.FullName,$checksum,'--verify-tag','--generate-notes','--title',"KYLR $env:RELEASE_TAG")
-          if ($env:RELEASE_TAG.Contains('-')) { $releaseArguments += '--prerelease' }
-          & gh @releaseArguments
-          if ($LASTEXITCODE -ne 0) { throw 'GitHub release publication failed.' }
-      - name: Print verification and packaging logs
-        if: always()
-        run: |
-          foreach ($folder in @('game/reports/verification','game/reports/packaging')) {
-            foreach ($log in Get-ChildItem -LiteralPath $folder -Filter '*.log' -File -Recurse -ErrorAction SilentlyContinue) {
-              Write-Output "::group::$($log.Name)"
-              Select-String -LiteralPath $log.FullName -Pattern 'SCRIPT ERROR:|ERROR:|\[Failed\]|Leaked instance:|instances were leaked' -Context 3,8 |
-                ForEach-Object { Write-Output $_.ToString() }
-              Get-Content -LiteralPath $log.FullName -Tail 120
-              Write-Output '::endgroup::'
-            }
-          }
+          sha256sum --check KYLR-*.sha256
+          args=()
+          if [[ "$RELEASE_TAG" == *-* ]]; then args+=(--prerelease); fi
+          gh release create "$RELEASE_TAG" KYLR-*.zip KYLR-*.tar.gz KYLR-*.sha256 --verify-tag --generate-notes --title "KYLR $RELEASE_TAG" "${args[@]}"

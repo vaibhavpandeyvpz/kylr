@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://dfrcdr8q24jis"
 path.bptc="res://.godot/imported/faceoff_weights1.png-871f3ea6f4ad744140c391234033928b.bptc.ctex"
+path.astc="res://.godot/imported/faceoff_weights1.png-871f3ea6f4ad744140c391234033928b.astc.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/textures/planetary/faceoff_weights1.png"
-dest_files=["res://.godot/imported/faceoff_weights1.png-871f3ea6f4ad744140c391234033928b.bptc.ctex"]
+dest_files=["res://.godot/imported/faceoff_weights1.png-871f3ea6f4ad744140c391234033928b.bptc.ctex", "res://.godot/imported/faceoff_weights1.png-871f3ea6f4ad744140c391234033928b.astc.ctex"]
 
 [params]
 

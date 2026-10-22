@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://gqj4njkohv0c"
 path.bptc="res://.godot/imported/rubble_albedo_height.png-70ea864f83c1eb35a1df41e2149f24dc.bptc.ctex"
+path.astc="res://.godot/imported/rubble_albedo_height.png-70ea864f83c1eb35a1df41e2149f24dc.astc.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/textures/planetary/rubble_albedo_height.png"
-dest_files=["res://.godot/imported/rubble_albedo_height.png-70ea864f83c1eb35a1df41e2149f24dc.bptc.ctex"]
+dest_files=["res://.godot/imported/rubble_albedo_height.png-70ea864f83c1eb35a1df41e2149f24dc.bptc.ctex", "res://.godot/imported/rubble_albedo_height.png-70ea864f83c1eb35a1df41e2149f24dc.astc.ctex"]
 
 [params]
 

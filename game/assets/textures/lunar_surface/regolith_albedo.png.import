@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://c3wl2xps20mku"
 path.bptc="res://.godot/imported/regolith_albedo.png-a62d151b4587e7e355d4ec32e7acefb4.bptc.ctex"
+path.astc="res://.godot/imported/regolith_albedo.png-a62d151b4587e7e355d4ec32e7acefb4.astc.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/textures/lunar_surface/regolith_albedo.png"
-dest_files=["res://.godot/imported/regolith_albedo.png-a62d151b4587e7e355d4ec32e7acefb4.bptc.ctex"]
+dest_files=["res://.godot/imported/regolith_albedo.png-a62d151b4587e7e355d4ec32e7acefb4.bptc.ctex", "res://.godot/imported/regolith_albedo.png-a62d151b4587e7e355d4ec32e7acefb4.astc.ctex"]
 
 [params]
 
