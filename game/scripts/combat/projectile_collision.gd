@@ -40,6 +40,11 @@ static func shapes(weapon: String) -> Array:
 
 static func local_pose(projectile: Node3D, component: Dictionary) -> Transform3D:
 	var pose: Transform3D = component.pose
+	if projectile.weapon == "pulse_gun":
+		var length := clampf(projectile.travelled,0.001,PulseProjectileVisual.LENGTH_M)
+		pose.basis = pose.basis*Basis.from_scale(Vector3(1,length/PulseProjectileVisual.LENGTH_M,1))
+		pose.origin.z = length*0.5
+		return pose
 	if projectile.weapon not in ["rocket_launcher", "grenade_launcher"]: return pose
 	var model_basis := Basis(Vector3.UP, PI) if projectile.weapon == "rocket_launcher" else Basis.from_euler(Vector3(projectile.spin,projectile.spin*.6,0))
 	var visual: Node3D = projectile.visual

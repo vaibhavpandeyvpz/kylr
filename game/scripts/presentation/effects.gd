@@ -30,7 +30,7 @@ var lightning_pool: Array[LightningSparks] = []
 var emp_pool: Array[PackBurst] = []
 var rocket_pool: Array[PackBurst] = []
 var grenade_pool: Array[PackBurst] = []
-var pulse_pool: Array[PackBurst] = []
+var pulse_pool: Array[PulseContact] = []
 var bio_pool: Array[BioContact] = []
 var flak_pool: Array[FlakContact] = []
 var fire_orb_pool: Array[PackBurst] = []
@@ -279,8 +279,17 @@ func pulse_contact(point: Vector3, normal: Vector3):
 	if replicate({"kind":"pulse_contact","point":point,"normal":normal}): return
 	if DisplayServer.get_name() == "headless": return
 	var n := normal.normalized() if normal.length_squared() > 0.01 else Vector3.UP
-	var burst := packed_burst(pulse_pool, preload("res://assets/effects/original/pulse.tscn"))
-	if burst: burst.fire(point + n * 0.015, n)
+	var burst: PulseContact
+	for candidate in pulse_pool:
+		if candidate.remaining <= 0.0:
+			burst = candidate
+			break
+	if burst == null:
+		if pulse_pool.size() >= MAX_SPARK_BURSTS: return
+		burst = preload("res://assets/effects/original/pulse.tscn").instantiate()
+		add_child(burst)
+		pulse_pool.append(burst)
+	burst.fire(point+n*0.015,n)
 
 func bio_contact(point: Vector3, normal: Vector3):
 	if replicate({"kind":"bio_contact","point":point,"normal":normal}): return

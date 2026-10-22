@@ -126,6 +126,25 @@ framing automatically:
 Run that command without `--headless` to render the same probe and save
 `reports/weapon-effects-harness.png`.
 
+For the ground-mounted pulse gun, run:
+
+```powershell
+pwsh -File .\tools\run_pulse_gun_bench.ps1 -Godot $Godot
+```
+
+The fixture aims at a random Tensor's torso center, exactly 10 m from its
+muzzle. **LMB** fires one pulse per press with the normal one-second cooldown;
+holding never auto-fires. **R** replaces the target with random head, upper body
+and paint. **RMB drag** orbits, the **wheel** zooms, and **1/2/3** frame the whole
+bench, gun or target. **Esc/F10** exits. It uses the real 15 m/s projectile,
+collision, sound and impact effects, with refilling target health.
+
+```powershell
+& $Godot --headless --fixed-fps 60 --path . tools/pulse_gun_bench.tscn -- --pulse-bench-smoke
+```
+
+Omit `--headless` for rendered captures in `reports/pulse-bench/`.
+
 Run the complete automated verification:
 
 ```powershell

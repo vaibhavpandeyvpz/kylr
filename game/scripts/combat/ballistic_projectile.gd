@@ -68,7 +68,7 @@ func orient() -> void:
 func _physics_process(dt: float) -> void:
 	if game.phase != "Active": queue_free(); return
 	age += dt
-	if age > 8.0 or travelled > float(profile.get("range",100)): queue_free(); return
+	if age > float(profile.get("projectile_lifetime",8.0)) or travelled > float(profile.get("range",100)): queue_free(); return
 	velocity.y -= float(profile.get("projectile_gravity",0)) * game.gravity / ArenaTuning.GRAVITY * dt
 	if has_bounced and bounce_distance >= bounce_falloff:
 		velocity.y -= float(profile.get("bounce_gravity",0)) * game.gravity / ArenaTuning.GRAVITY * dt
@@ -79,6 +79,9 @@ func _physics_process(dt: float) -> void:
 	var hit: Dictionary = game.combat.projectile_hit(self,motion,excluded)
 	if not hit.is_empty():
 		travelled += global_position.distance_to(hit.get("center",hit.position))
+		if weapon == "pulse_gun" and is_instance_valid(visual):
+			visual.update_length(travelled)
+			visual.absorb(hit.position,velocity.length())
 		if not (hit.collider is ArenaRobot) and bounces>0:
 			bounces -= 1
 			bounce_falloff = (bounce_falloff if has_bounced else travelled) * float(profile.get("bounce_falloff_ratio",1.0))
@@ -93,6 +96,7 @@ func _physics_process(dt: float) -> void:
 		queue_free()
 		return
 	travelled += motion.length()
+	if weapon == "pulse_gun" and is_instance_valid(visual): visual.update_length(travelled)
 	if has_bounced: bounce_distance += motion.length()
 	global_position += motion
 	spin += deg_to_rad(480)*dt

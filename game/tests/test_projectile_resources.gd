@@ -1,5 +1,50 @@
 extends GutTest
 
+func test_pulse_contact_is_volumetric_and_recycles_without_shared_animation():
+	var a := PulseContact.new()
+	var b := PulseContact.new()
+	add_child_autofree(a)
+	add_child_autofree(b)
+	assert_lt(a.size_m,0.89,"Pulse footprint is smaller than the bio contact")
+	assert_shared_geometry(a,b)
+	assert_eq(a._layers.size(),11)
+	for entry in a._layers:
+		assert_false(entry.node.mesh is QuadMesh,"Every pulse impact layer has depth")
+	assert_not_same(a._materials[0],b._materials[0])
+	a.fire(Vector3.ZERO,Vector3.UP)
+	a._process(0.2)
+	assert_true(a.visible)
+	assert_eq(b.remaining,0.0)
+	a._process(1.0)
+	assert_false(a.visible)
+	a.fire(Vector3.ONE,Vector3.RIGHT)
+	assert_eq(a.global_position,Vector3.ONE)
+	assert_almost_eq(a._elapsed,0.0,0.00001)
+
+func test_pulse_tracer_grows_from_muzzle_and_absorbs_at_contact():
+	var projectile := Node3D.new()
+	add_child_autofree(projectile)
+	var tracer := PulseProjectileVisual.new()
+	projectile.add_child(tracer)
+	assert_false(tracer.visible)
+	tracer.update_length(0.1)
+	assert_almost_eq(tracer.length_m,0.1,0.00001)
+	assert_almost_eq(float(tracer.layers[0].get_instance_shader_parameter("length_m")),0.1,0.00001)
+	tracer.update_length(1.0)
+	assert_almost_eq(tracer.length_m,0.25,0.00001)
+	var contact := Vector3(0,1,-10)
+	tracer.absorb(contact,1.0)
+	assert_same(tracer.get_parent(),self,"Contact survives projectile deletion")
+	assert_eq(tracer.global_position,contact)
+	tracer._process(0.125)
+	assert_almost_eq(tracer.length_m,0.125,0.00001)
+	assert_eq(tracer.global_position,contact,"The nose stays at the hit surface")
+	tracer._process(0.125)
+	assert_false(tracer.visible)
+	assert_true(tracer.is_queued_for_deletion())
+	await get_tree().process_frame
+	assert_false(is_instance_valid(tracer),"The absorbed tracer releases its nodes")
+
 func test_flak_fragments_share_resources_and_keep_fades_independent():
 	var pair: Array[FlakRoundVisual] = []
 	for index in 2:
