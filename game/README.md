@@ -116,6 +116,12 @@ the mouse; click to resume. **F10** exits. The target stays stationary, health
 and ammo refill continuously, and the overlay reports range and accepted hits.
 These sandbox conveniences do not alter normal match rules.
 
+Hold **middle mouse** and drag to orbit the two robots. **Ctrl + wheel** zooms;
+the unmodified wheel still cycles weapons. **V** cycles scene, weapon and impact
+focus. **C** restores the side camera.
+Use `-- --harness-flame-preview` to verify orbit/zoom and save side, oblique, raised and
+impact close-up flame views under `reports/flame3d/`.
+
 Append `-- --harness-weapon=flamethrower` when launching the scene directly
 to start with that weapon selected; other weapon IDs work as well.
 

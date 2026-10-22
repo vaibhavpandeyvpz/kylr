@@ -555,6 +555,10 @@ func test_original_flame_tracks_segment_reuses_geometry_and_stops():
 	var source := flame.pack_beam as OriginalEffect
 	assert_not_null(source)
 	assert_null(flame.pack_fire)
+	assert_eq(source.surfaces.size(),11,"Three gas volumes, four muzzle flares and four terminal wisps compose the flame")
+	assert_true(source.emitters.is_empty(),"The stream has no projected flame cards")
+	for surface in source.surfaces:
+		assert_same(surface.node.mesh,EffectMeshes.mesh("ThermalShell"))
 	var core := source.get_node("ThermalPlume0") as MeshInstance3D
 	var mesh := core.mesh
 	for point in [Vector3(10,0,0),Vector3(0,15,0),Vector3(2,-1,-3)]:
@@ -565,6 +569,8 @@ func test_original_flame_tracks_segment_reuses_geometry_and_stops():
 		var length_m := float(core.material_override.get_shader_parameter("beam_length"))
 		assert_gt(length_m, 0.0)
 		assert_lte(length_m, point.length(), "Continuous ignition remains inside the hit segment")
+		for index in [3,4,5,6]:
+			assert_almost_eq(float(source.surfaces[index].material.get_shader_parameter("beam_length")),point.length()*0.5,0.0001,"Flares stop halfway along the beam")
 		for emitter in source.emitters:
 			assert_true(emitter.visibility_aabb.has_point(Vector3.UP*point.length()), "Projected gas bounds include the contact")
 		assert_same(core.mesh,mesh,"Changing endpoints reuses the geometry resource")
@@ -573,6 +579,15 @@ func test_original_flame_tracks_segment_reuses_geometry_and_stops():
 			assert_true(material.get_shader_parameter("clip_enabled"))
 			assert_eq(material.get_shader_parameter("clip_origin"),Vector3.ZERO)
 			assert_almost_eq(float(material.get_shader_parameter("clip_length")),point.length(),0.0001)
+	flame.update_endpoints(Vector3.ZERO,Vector3(0,0,-10),true)
+	assert_almost_eq(source.beam_length,10.15,0.0001,"Robot contact extends only the rendered volume by 15 cm")
+	assert_almost_eq(flame.reach,10.0,0.0001,"Authoritative reach stays at the surface")
+	for material in flame.beam_materials:
+		assert_true(material.get_shader_parameter("robot_contact"))
+		assert_almost_eq(float(material.get_shader_parameter("clip_length")),10.15,0.0001)
+	flame.update_endpoints(Vector3.ZERO,Vector3(0,0,-10),false)
+	assert_almost_eq(source.beam_length,10.0,0.0001,"Terrain restores the unextended endpoint")
+	for material in flame.beam_materials: assert_false(material.get_shader_parameter("robot_contact"))
 	flame.release()
 	assert_false(source.visible)
 	var exhaust := effects.stream("exhaust")
