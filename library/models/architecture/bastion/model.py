@@ -267,22 +267,6 @@ def foundation(k):
     pad=mach(pad,boxes=[cutbox((a[0],a[1],.08),(b[0],b[1],GROUND+.01)) for a,b in FLOOR_OPENINGS])
     emit(k,pad,SEC,'metallic foundation surface and integral clear entrance approach')
 
-def cladding(k):
-    # Dark broad faceted wall cassettes, bounded by seams instead of small
-    # raised white inspection rectangles. Recessed status lamps sit flush.
-    for side in range(4):
-        panels=((-3.45,3.40),(3.45,3.40)) if side==0 else ((-3.70,3.20),(0,3.20),(3.70,3.20))
-        for x,w in panels:
-            m=Matrix.Rotation(side*math.pi/2,4,'Z')@common.frame((x,-6.90,1.74),(0,-1,0),(0,0,1))
-            with k.frame(m):
-                casing=loft([(w,2.56,.12,0),(w,2.56,.12,.07),(w-.16,2.40,.09,.16)])
-                casing=mach(casing,boxes=[((0,-.95,.17),(w*.66,.075,.055)),((0,.52,.165),(w*.72,.025,.045))])
-                seat(k,casing,FRM,'broad chamfered bastion lower armor cassette')
-                emit(k,block((-w*.33+.002,-.986,.1425),(w*.33-.002,-.914,.16)),EMI,'flush lower armor status bar')
-                for xx in (-w/2+.22,w/2-.22):
-                    seat(k,rod((xx,.93,.16),(xx,.93,.174),.026,6),JNT,'armor cassette retained corner stud')
-
-
 def lift(k):
     # Open flat 3 x 3 m deck. Its crosshead and yoke are integral understructure.
     platform=block((-1.5,2.4,.12),(1.5,5.4,GROUND))
@@ -540,7 +524,7 @@ def main():
     bpy.data.materials[GLASS].diffuse_color=(0,0,0,.10)
     bpy.data.materials[GLASS].surface_render_method='DITHERED'
     joints=joints_and_actions();rig=kit.build_rig(joints,[]);k=kit.Kit()
-    foundation(k);shell(k);cladding(k);lift(k);roof_services(k)
+    foundation(k);shell(k);lift(k);roof_services(k)
     entrance(k)
     check_roof_layout(k)
     for p,label in zip(k.parts,common.LABELS):p.line=label
@@ -581,7 +565,7 @@ def main():
     scene['showcase_frame']=json.dumps(dict(lo=[-7.5,-7.5,0],hi=[7.5,7.5,10.10]))
     # Door export routine applies unique material atlases and native axis conventions.
     ceiling=[(level+tag,(x,y,z),(0,0,1)) for level,z in [('Ground',2.8),('Upper',6.5)]
-             for tag,x,y in [('FrontLeft',-4,-3),('FrontRight',4,-3),('RearLeft',-4,3),('RearRight',4,3)]]
+             for tag,x,y in [('FrontLeft',-3.2,-2.4),('FrontRight',3.2,-2.4),('RearLeft',-3.2,2.4),('RearRight',3.2,2.4)]]
     wall=[('GroundLeft',(0,0,2.2),(1,0,0)),('GroundRight',(0,0,2.2),(-1,0,0)),
           ('UpperLeft',(0,0,6.6),(1,0,0)),('UpperRight',(0,0,6.6),(-1,0,0))]
     markers,gizmos=door.light_mounts.install(rig,meshes,ceiling,wall)

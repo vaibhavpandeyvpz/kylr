@@ -226,6 +226,7 @@
         -1.0
       ],
       "attachment": "batten_light",
+      "surface": "interior",
       "matrix_world": [
         [
           1.0,
@@ -267,6 +268,7 @@
         -1.0
       ],
       "attachment": "batten_light",
+      "surface": "interior",
       "matrix_world": [
         [
           1.0,
@@ -308,6 +310,7 @@
         -1.0
       ],
       "attachment": "batten_light",
+      "surface": "interior",
       "matrix_world": [
         [
           1.0,
@@ -349,6 +352,7 @@
         -1.0
       ],
       "attachment": "batten_light",
+      "surface": "interior",
       "matrix_world": [
         [
           1.0,
@@ -381,7 +385,7 @@
       "bone": "Root",
       "origin": [
         6.5,
-        0.0,
+        1.199040866595169e-14,
         1.971649408340454
       ],
       "mount_normal": [
@@ -390,6 +394,7 @@
         0.0
       ],
       "attachment": "sconce_light",
+      "surface": "interior",
       "matrix_world": [
         [
           -3.961685735021092e-08,
@@ -401,7 +406,7 @@
           -1.0,
           -3.961685735021092e-08,
           0.0,
-          0.0
+          1.199040866595169e-14
         ],
         [
           0.0,
@@ -422,7 +427,7 @@
       "bone": "Root",
       "origin": [
         -6.5,
-        0.0,
+        -3.197442310920451e-14,
         1.971649408340454
       ],
       "mount_normal": [
@@ -431,6 +436,7 @@
         0.0
       ],
       "attachment": "sconce_light",
+      "surface": "interior",
       "matrix_world": [
         [
           1.0135963890434141e-07,
@@ -442,13 +448,181 @@
           1.0,
           1.0135963890434141e-07,
           0.0,
-          0.0
+          -3.197442310920451e-14
         ],
         [
           -0.0,
           -0.0,
           1.0,
           1.971649408340454
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "SconceLightMountExteriorFrontA",
+      "bone": "Root",
+      "origin": [
+        -3.5,
+        -6.849999904632568,
+        1.3917524814605713
+      ],
+      "mount_normal": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "attachment": "sconce_light",
+      "surface": "exterior",
+      "matrix_world": [
+        [
+          1.0,
+          -0.0,
+          0.0,
+          -3.5
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          -6.849999904632568
+        ],
+        [
+          -0.0,
+          -0.0,
+          1.0,
+          1.3917524814605713
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "SconceLightMountExteriorFrontB",
+      "bone": "Root",
+      "origin": [
+        3.5,
+        -6.849999904632568,
+        1.3917524814605713
+      ],
+      "mount_normal": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "attachment": "sconce_light",
+      "surface": "exterior",
+      "matrix_world": [
+        [
+          1.0,
+          -0.0,
+          0.0,
+          3.5
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          -6.849999904632568
+        ],
+        [
+          -0.0,
+          -0.0,
+          1.0,
+          1.3917524814605713
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "SconceLightMountExteriorRearA",
+      "bone": "Root",
+      "origin": [
+        -3.5,
+        6.849999904632568,
+        1.3917524814605713
+      ],
+      "mount_normal": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "attachment": "sconce_light",
+      "surface": "exterior",
+      "matrix_world": [
+        [
+          -1.0,
+          -0.0,
+          0.0,
+          -3.5
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0,
+          6.849999904632568
+        ],
+        [
+          0.0,
+          -0.0,
+          1.0,
+          1.3917524814605713
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "SconceLightMountExteriorRearB",
+      "bone": "Root",
+      "origin": [
+        3.5,
+        6.84999942779541,
+        1.3917524814605713
+      ],
+      "mount_normal": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "attachment": "sconce_light",
+      "surface": "exterior",
+      "matrix_world": [
+        [
+          -1.0,
+          -0.0,
+          0.0,
+          3.5
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0,
+          6.84999942779541
+        ],
+        [
+          0.0,
+          -0.0,
+          1.0,
+          1.3917524814605713
         ],
         [
           0.0,
@@ -548,8 +722,10 @@
     "M_Regolith_Diffuse": "Diffuse",
     "M_RegolithDark_Diffuse": "Diffuse",
     "M_RegolithLight_Diffuse": "Diffuse",
-    "M_Secondary_Diffuse": "Diffuse"
+    "M_Secondary_Diffuse": "Diffuse",
+    "M_PlanetaryFaceoff_Diffuse": "Diffuse"
   },
+  "lighting_contract": "Native fixtures back mounted on surface-supported gizmos; emitter follows mount_normal into room or away from exterior wall; source projection +Y becomes Godot -Z",
   "map_owned_boolean_triangles": 1648,
   "native_triangle_budget": 10000,
   "source_asset": "lodge",

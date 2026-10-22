@@ -3,6 +3,8 @@
 Run from library with Blender 5.2 headless. --preview renders a small proof;
 the default writes the final PNG into docs/media. The editable scene and full
 asset shelf stay in ignored build/hero_showcase, outside runtime exports.
+Sampled feet are seated against the rendered terrain; scene.json records each
+cast member's stance adjustment and verified foot clearances.
 """
 import argparse
 import json
@@ -12,6 +14,7 @@ from pathlib import Path
 
 import bpy
 from mathutils import Matrix, Vector
+from mathutils.bvhtree import BVHTree
 
 LIB = Path(__file__).resolve().parents[1]
 ROOT = LIB.parent
@@ -78,6 +81,108 @@ def sample_pose(rig, clip, frame, kind='tensor'):
     bpy.context.scene.frame_set(0)
 
 
+def terrain_surface():
+    """Use the rendered lunar mesh, excluding hidden native template collections."""
+    visible = set()
+    def visit(col):
+        if col.hide_render:
+            return
+        visible.add(col)
+        for child in col.children:
+            visit(child)
+    visit(bpy.context.scene.collection)
+    vertices, faces = [], []
+    deps = bpy.context.evaluated_depsgraph_get()
+    for obj in bpy.context.scene.objects:
+        if (obj.type != 'MESH' or obj.hide_render
+                or not any(col in visible for col in obj.users_collection)
+                or not obj.name.startswith(('SK_FaceoffLunarGround', 'SK_ArchitectureRegolith'))):
+            continue
+        evaluated = obj.evaluated_get(deps)
+        start = len(vertices)
+        vertices.extend(evaluated.matrix_world @ v.co for v in evaluated.data.vertices)
+        faces.extend(tuple(start + i for i in face.vertices) for face in evaluated.data.polygons)
+    assert faces, 'Hero requires the populated Faceoff terrain'
+    return BVHTree.FromPolygons(vertices, faces)
+
+
+def posed_feet(objects):
+    """Sample deformed foot/toe vertices, triangle centres and edge midpoints."""
+    bpy.context.view_layer.update()
+    deps = bpy.context.evaluated_depsgraph_get()
+    feet = {'Left': [], 'Right': []}
+    for obj in objects:
+        if obj.type != 'MESH' or obj.hide_render:
+            continue
+        evaluated = obj.evaluated_get(deps)
+        evaluated.data.calc_loop_triangles()
+        for side, samples in feet.items():
+            groups = {g.index for g in obj.vertex_groups if g.name in (side+'Foot', side+'Toes')}
+            indices = {v.index for v in obj.data.vertices
+                       if any(g.group in groups and g.weight > .9 for g in v.groups)}
+            points = {i: evaluated.matrix_world @ evaluated.data.vertices[i].co for i in indices}
+            samples.extend(points.values())
+            for tri in evaluated.data.loop_triangles:
+                if all(i in points for i in tri.vertices):
+                    a, b, c = (points[i] for i in tri.vertices)
+                    samples.extend(((a+b+c)/3, (a+b)/2, (b+c)/2, (c+a)/2))
+    assert all(feet.values()), 'Hero requires both native foot meshes'
+    return feet
+
+
+def ground_character(root, objects):
+    """Seat both posed feet on terrain using a small rigid stance adjustment.
+
+    Balance their terrain clearances before lifting the cast; the sampled joint
+    pose and hand/weapon relationships remain intact.
+    """
+    feet = posed_feet(objects)
+    pivot = root.matrix_world.translation.copy()
+    # Rotate about a horizontal axis perpendicular to the stance. This changes
+    # the relative foot height without stretching or re-keying the mechanical rig.
+    centres = [sum(points, Vector())/len(points) for points in feet.values()]
+    across = centres[1]-centres[0]
+    axis = Vector((across.y, -across.x, 0)).normalized()
+    def clearances(angle, samples=feet):
+        rotation = Matrix.Rotation(angle, 3, axis)
+        result = []
+        for points in samples.values():
+            gaps = []
+            for point in points:
+                p = pivot + rotation @ (point-pivot)
+                hit, normal, _, _ = GROUND.ray_cast(Vector((p.x,p.y,10)), Vector((0,0,-1)), 30)
+                assert hit is not None and normal.z > .7, (root.name, 'missing walkable terrain', list(p))
+                gaps.append(p.z-hit.z)
+            result.append(min(gaps))
+        return result
+    lo, hi = -math.radians(15), math.radians(15)
+    low, high = clearances(lo), clearances(hi)
+    assert (low[0]-low[1])*(high[0]-high[1]) <= 0, (root.name, 'stance needs another location')
+    for _ in range(24):
+        angle = (lo+hi)/2
+        gaps = clearances(angle)
+        if (gaps[0]-gaps[1])*(low[0]-low[1]) > 0:
+            lo, low = angle, gaps
+        else:
+            hi = angle
+    angle = (lo+hi)/2
+    gaps = clearances(angle)
+    lift = .002-min(gaps)
+    rotation = Matrix.Rotation(angle, 4, axis)
+    root.matrix_world = Matrix.Translation(pivot) @ rotation @ Matrix.Translation(-pivot) @ root.matrix_world
+    root.location.z += lift
+    bpy.context.view_layer.update()
+    # Re-evaluate the skinned rig after placement, independently of the solver's
+    # predicted rigid transform, so constraints cannot silently break contact.
+    contacts = clearances(0, posed_feet(objects))
+    assert all(.0019 <= gap <= .0021 for gap in contacts), (root.name, 'foot contact', contacts)
+    report = {'terrain_clearance_m': dict(zip(feet, contacts)),
+              'stance_rotation_degrees': math.degrees(angle), 'vertical_adjustment_m': lift,
+              'samples_per_foot': {side:len(points) for side,points in feet.items()}}
+    print('[showcase] ground contact', root.name, json.dumps(report), flush=True)
+    return report
+
+
 def character(label, weapon, head, clip, frame, position, yaw, color, upper_body):
     col = collection('CAST / ' + label, CAST)
     root, objects = append_asset('characters', 'tensor', col, position, yaw)
@@ -102,6 +207,7 @@ def character(label, weapon, head, clip, frame, position, yaw, color, upper_body
                       and obj.name.startswith('SK_TensorUpperBody') and not obj.hide_render]
     assert len(visible_uppers) == 1 and visible_uppers[0].name.startswith('SK_TensorUpperBody' + upper_body), label
     sample_pose(rig, clip, frame)
+    contact = ground_character(root, objects)
     weapon_root, obs = append_asset('weapons', weapon, col)
     body = next(o for o in obs if o.type == 'MESH' and not o.hide_render and o.parent and o.parent.type == 'ARMATURE')
     wrig = body.parent
@@ -131,14 +237,8 @@ def character(label, weapon, head, clip, frame, position, yaw, color, upper_body
                 obj.matrix_parent_inverse = Matrix.Identity(4)
                 obj.matrix_basis = Matrix.Identity(4)
     bpy.context.view_layer.update()
-    deps = bpy.context.evaluated_depsgraph_get()
-    minimum = min((o.evaluated_get(deps).matrix_world @ v.co).z
-                  for o in objects if o.type == 'MESH' and not o.hide_render
-                  for v in o.evaluated_get(deps).data.vertices)
-    root.location.z += position[2] - minimum
-    bpy.context.view_layer.update()
     records.append({'character': label, 'head': head, 'upper_body': upper_body.lower(), 'weapon': weapon,
-                    'clip': clip, 'sample_frame': frame})
+                    'clip': clip, 'sample_frame': frame, 'ground_contact': contact})
     return next((o for o in obs if o.name.split('.')[0] in ('Muzzle', 'Muzzle1')), None)
 
 
@@ -226,6 +326,7 @@ scene.frame_start = scene.frame_end = 0
 CAST, SET, FX, LIGHTS, CAMERAS = [collection(n) for n in
     ('COL_Cast', 'COL_LunarOutpost', 'COL_Effects', 'COL_Lights', 'COL_Cameras')]
 records = []
+GROUND = terrain_surface()
 
 CAM = bpy.data.objects.new('CAM_Hero', bpy.data.cameras.new('CAM_Hero'))
 CAMERAS.objects.link(CAM)

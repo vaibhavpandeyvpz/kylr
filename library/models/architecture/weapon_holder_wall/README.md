@@ -5,7 +5,8 @@ Static mechanical architecture block, exactly **2 × 2 × 2 m**, with a
 Its generator is `../mechanical_mounts.py`. Materials come directly from the
 existing `gameplay/item_table/model.py` palette: native off-white/grey paint,
 matte black and stainless steel. No replacement colours or finish settings.
-Block surfaces use native off-white paint; access plates use the existing
+Block surfaces and both recessed service-well linings on each side use native
+off-white paint; access plates use the existing
 M_Joint stainless finish (metallic 1, roughness 0.2).
 Real chamfered access plates, retained hex fasteners and recessed slot details
 follow the platform family's service-door construction.

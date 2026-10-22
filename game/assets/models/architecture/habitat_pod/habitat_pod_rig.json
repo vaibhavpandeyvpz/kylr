@@ -140,6 +140,7 @@
         -1.0
       ],
       "attachment": "batten_light",
+      "surface": "interior",
       "matrix_world": [
         [
           1.0,
@@ -158,6 +159,90 @@
           0.0,
           1.0,
           3.145023822784424
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "SconceLightMountExteriorLeft",
+      "bone": "Root",
+      "origin": [
+        1.3749995231628418,
+        0.0,
+        3.1300947666168213
+      ],
+      "mount_normal": [
+        0.7054253220558167,
+        0.0,
+        0.7087842226028442
+      ],
+      "attachment": "sconce_light",
+      "surface": "exterior",
+      "matrix_world": [
+        [
+          0.0,
+          -0.7054253220558167,
+          -0.7087842226028442,
+          1.3749995231628418
+        ],
+        [
+          1.0,
+          -0.0,
+          0.0,
+          0.0
+        ],
+        [
+          -0.0,
+          -0.7087842226028442,
+          0.7054254412651062,
+          3.1300947666168213
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "SconceLightMountExteriorRight",
+      "bone": "Root",
+      "origin": [
+        -1.3749995231628418,
+        0.0,
+        3.1300947666168213
+      ],
+      "mount_normal": [
+        -0.7054253220558167,
+        0.0,
+        0.7087842226028442
+      ],
+      "attachment": "sconce_light",
+      "surface": "exterior",
+      "matrix_world": [
+        [
+          0.0,
+          0.7054253220558167,
+          0.7087842226028442,
+          -1.3749995231628418
+        ],
+        [
+          -1.0,
+          -0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          -0.7087842226028442,
+          0.7054254412651062,
+          3.1300947666168213
         ],
         [
           0.0,
@@ -200,5 +285,6 @@
     "M_Joint_Diffuse": "Diffuse",
     "M_Primary_Diffuse": "Diffuse",
     "M_Secondary_Diffuse": "Diffuse"
-  }
+  },
+  "lighting_contract": "Native fixtures back mounted on surface-supported gizmos; emitter follows mount_normal into room or away from exterior wall; source projection +Y becomes Godot -Z"
 }

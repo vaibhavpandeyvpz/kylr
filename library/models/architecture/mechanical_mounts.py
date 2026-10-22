@@ -114,10 +114,10 @@ def details(ob,frames,dark,width,height):
                 head.matrix_world=frame@head.matrix_world;DETAIL_PARTS.append(head)
 
 
-def service_bay(ob,frame,height,dark):
+def service_bay(ob,frame,height,dark,well_material):
     # Closed service well, supported stainless thermal line with compression
     # unions and retaining clamps, as on the native tapered platform chassis.
-    pocket(ob,frame,.25,height,.065,dark,.018)
+    pocket(ob,frame,.25,height,.065,well_material,.018)
     bpy.ops.mesh.primitive_cylinder_add(vertices=12,radius=.018,depth=height*.72,location=(0,0,-.036))
     pipe=bpy.context.object;pipe.name='ThermalReturn';pipe.rotation_euler.x=math.pi/2
     pipe.data.materials.append(bpy.data.materials['M_Joint']);bpy.context.view_layer.update();pipe.matrix_world=frame@pipe.matrix_world;DETAIL_PARTS.append(pipe)
@@ -240,7 +240,7 @@ def build(folder):
             side=Matrix.Translation(Vector((x,0,1)))@Matrix(((0,sign,0),(0,0,1),(sign,0,0))).transposed().to_4x4()
             details(ob,[side],dark,.63,1.17)
             for offset in (-.65,.65):
-                service_bay(ob,side@Matrix.Translation(Vector((offset,0,0))),1.20,dark)
+                service_bay(ob,side@Matrix.Translation(Vector((offset,0,0))),1.20,dark,primary)
         # Lower strakes remain; the top receives the lodge service assembly.
         for z,rot in ((0,Matrix.Rotation(math.pi,4,'X')),):
             for x in (-.72,.72):

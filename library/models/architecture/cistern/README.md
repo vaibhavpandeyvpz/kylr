@@ -24,6 +24,10 @@ inspection cover rests on a machined annular ledge,
 with retained fasteners over that ledge. Roof seam bridges, crown clamps and
 buttress straps have fasteners on their flat seats.
 
+Two exterior sconce gizmos sit at the centres of the left and right wall bays,
+halfway between the adjacent buttresses. Each position has a shallow machined
+flat seat across the wall's facet junction, fully supporting the lamp backplate.
+
 The external service plate and complete skid follow the circular perimeter
 tangent at −105°, in the clear bay between buttress and doorway. Its pump, return
 pipe, instrument and conduit mount on bored clamps, flange seats and retained

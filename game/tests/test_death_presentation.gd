@@ -24,12 +24,13 @@ func test_nonlethal_hits_apply_damage_immediately_and_react_on_physics_sample():
 	assert_almost_eq(victim.hit_flash,0.2-1.0/60.0,0.00001)
 	assert_true(victim.alive)
 
-func test_lethal_lunar_contact_supports_the_dead_robot():
+func test_lethal_lunar_contact_keeps_physical_debris_and_death_camera():
 	var game := ArenaMatch.new()
 	game.online = true
 	add_child_autofree(game)
 	await wait_physics_frames(3)
 	game.authority = false
+	game.set_physics_process(false)
 	var floor := StaticBody3D.new()
 	floor.set_meta("lethal_surface",true)
 	game.add_child(floor)
@@ -49,20 +50,29 @@ func test_lethal_lunar_contact_supports_the_dead_robot():
 	game.eliminate(victim,null,"Fall off map")
 	assert_false(game.corpses[0].falling_out)
 	assert_false(game.local_fall_death)
-	assert_eq(game.corpses[0].node.find_child("RuntimeAnimator",true,false).assigned_animation,"common_death_front")
-	var impact_animator := game.corpses[0].node.find_child("RuntimeAnimator",true,false) as AnimationPlayer
-	assert_false(impact_animator.is_playing(),"Impact immediately holds the settled corpse pose")
-	assert_almost_eq(impact_animator.current_animation_position,impact_animator.current_animation_length,0.0001)
-	assert_almost_eq(victim.respawn_time,impact_animator.current_animation_length+1.0,0.02,"Visual settling does not shorten respawn")
-	var impact_skeleton := Assets.find(game.corpses[0].node,"Skeleton3D") as Skeleton3D
-	var held: Array[Transform3D] = []
-	for bone in impact_skeleton.get_bone_count(): held.append(impact_skeleton.get_bone_pose(bone))
-	assert_lt(impact_skeleton.get_bone_global_pose(impact_skeleton.find_bone("Head")).origin.y,0.65,"Impact corpse is lying down")
+	var debris := game.corpses[0].node as RobotDebris
+	assert_not_null(debris,"Lethal terrain scatters physical body assemblies")
+	if debris == null: return
+	assert_null(debris.find_child("RuntimeAnimator",true,false),"Debris does not replay a standing death clip")
+	assert_eq(debris.bodies.size(),RobotDebris.GROUPS.size())
+	assert_almost_eq(victim.respawn_time,4.0,0.02,"Lunar debris retains the four-second death presentation")
+	assert_almost_eq(game.death_view_remaining,4.0,0.02)
+	assert_almost_eq(game.corpses[0].point.y,20.0,0.002)
+	var initial: Dictionary = debris.snapshot().bodies
+	for body: RigidBody3D in debris.bodies.values():
+		assert_eq(body.collision_mask,1,"Assemblies collide with the contacted terrain")
+		assert_eq(body.collision_layer,0,"Cosmetic debris cannot block living robots")
 	await wait_seconds(0.15)
-	for bone in held.size(): assert_eq(impact_skeleton.get_bone_pose(bone),held[bone],"Corpse does not replay standing death")
-	game.tick_drops(0.5)
-	assert_almost_eq(game.corpses[0].node.position.y,20.0,0.002)
+	assert_true(debris.bodies.values().any(func(body):return not body.global_transform.is_equal_approx(initial[body.name].transform)),"Physical debris advances after contact")
+	game._process(0.0)
+	assert_eq(game.camera_rig.active_view,"death")
+	assert_almost_eq(game.camera_rig.focus_anchors.death.global_position.y,debris.focus_position().y,0.001,"Death camera follows the scattered chest")
 	assert_eq(game.corpses[0].ep,0.0)
+	game.tick_drops(3.9)
+	assert_eq(game.corpses.size(),1,"Debris remains through the death presentation")
+	game.tick_drops(0.11)
+	assert_true(game.corpses.is_empty())
+	assert_true(game.drops.is_empty(),"Lethal terrain never leaves an Energy Core")
 
 func test_direction_headshot_and_crouch_conditions_play_authored_death_variants():
 	var game := ArenaMatch.new()

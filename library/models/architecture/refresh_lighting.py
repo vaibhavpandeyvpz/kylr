@@ -2,11 +2,14 @@
 Geometry, rig, actions and collision exports are preserved; full builds use the
 same source mount planner. Run in headless Blender from library.
 """
-import bpy,json,sys
+import bpy,json,sys,importlib.util
 from pathlib import Path
 from mathutils import Vector
 HERE=Path(__file__).resolve().parent
 sys.path.insert(0,str(HERE));import light_mounts
+import door_actions
+default_controlled_bones=door_actions.controlled_bones
+door_actions.install_fbx_filter()
 sys.path.insert(0,str(HERE.parent/'maps/common'));from map_shells import export
 NAMES=['bastion','cistern','container','container_long','habitat_pod','hangar','hub','laboratory','lodge','shelter','bunker','lunar_dome']
 if '--only' in sys.argv:NAMES=sys.argv[sys.argv.index('--only')+1:]
@@ -19,7 +22,7 @@ for name in NAMES:
     if name in ('container','container_long','habitat_pod','lunar_dome'):
         mounts,info=light_mounts.install_default(rig,meshes,name)
     else:
-        old=[g for g in report.get('gizmos',[]) if g.get('attachment') in ('sconce_light','batten_light')]
+        old=[g for g in report.get('gizmos',[]) if g.get('attachment') in ('sconce_light','batten_light') and not g['name'].startswith('SconceLightMountExterior')]
         specs={'batten_light':[],'sconce_light':[]}
         for g in old:
             normal=Vector(g['mount_normal']);origin=Vector(g['origin'])+normal*.1
@@ -33,13 +36,19 @@ for name in NAMES:
     for g in info:
         matrix=bpy.data.objects[g['name']].matrix_world.to_3x3()
         forward=matrix@Vector((0,0,-1) if g['attachment']=='batten_light' else (0,-1,0))
-        assert forward.dot(Vector(g['mount_normal']))>.999,(name,g['name'],'lamp must face into room')
+        assert forward.dot(Vector(g['mount_normal']))>.999,(name,g['name'],'lamp must face away from support')
     assert before=={o.name:(len(o.data.vertices),len(o.data.polygons)) for o in meshes}
     report['materials']=sorted({o.data.materials[p.material_index].name for o in meshes for p in o.data.polygons})
     report['gizmos']=[g for g in report.get('gizmos',[]) if g.get('attachment') not in ('sconce_light','batten_light') and not g.get('name','').startswith('Interior')]+info
-    report['lighting_contract']='Native fixtures on surface-supported gizmos; emitter faces into room; source projection +Y becomes Godot -Z'
+    report['lighting_contract']='Native fixtures back mounted on surface-supported gizmos; emitter follows mount_normal into room or away from exterior wall; source projection +Y becomes Godot -Z'
     empties=[o for o in bpy.context.scene.objects if o.type=='EMPTY']
+    door_actions.controlled_bones=default_controlled_bones
+    if name=='hub':
+        spec=importlib.util.spec_from_file_location('lighting_hub_source',folder/'model.py')
+        module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
+        door_actions.controlled_bones=module.controlled_bones
     export([rig,*meshes,*empties],folder,name,animated=True)
+    door_actions.isolate_glb(folder/(name+'.glb'))
     (folder/(name+'_rig.json')).write_text(json.dumps(report,indent=2)+'\n')
     bpy.context.preferences.filepaths.save_version=0
     bpy.ops.wm.save_as_mainfile(filepath=str(folder/(name+'.blend')),compress=True)

@@ -1,11 +1,11 @@
 {
   "name": "cistern",
-  "triangles": 11572,
+  "triangles": 11609,
   "meshes": {
-    "SK_CisternStructure": 2650,
+    "SK_CisternStructure": 2690,
     "SK_CisternRoof": 2952,
-    "SK_CisternFrontMechanisms": 3460,
-    "SK_CisternRearMechanisms": 2270,
+    "SK_CisternFrontMechanisms": 3449,
+    "SK_CisternRearMechanisms": 2278,
     "SK_ArchitectureRegolith": 240
   },
   "triangle_budget": 12000,
@@ -245,6 +245,7 @@
         -1.0
       ],
       "attachment": "batten_light",
+      "surface": "interior",
       "matrix_world": [
         [
           1.0,
@@ -286,6 +287,7 @@
         -1.0
       ],
       "attachment": "batten_light",
+      "surface": "interior",
       "matrix_world": [
         [
           1.0,
@@ -327,6 +329,7 @@
         -1.0
       ],
       "attachment": "batten_light",
+      "surface": "interior",
       "matrix_world": [
         [
           1.0,
@@ -368,6 +371,7 @@
         -1.0
       ],
       "attachment": "batten_light",
+      "surface": "interior",
       "matrix_world": [
         [
           1.0,
@@ -409,6 +413,7 @@
         0.0
       ],
       "attachment": "sconce_light",
+      "surface": "interior",
       "matrix_world": [
         [
           0.07845890522003174,
@@ -450,6 +455,7 @@
         0.0
       ],
       "attachment": "sconce_light",
+      "surface": "interior",
       "matrix_world": [
         [
           -0.07845890522003174,
@@ -491,6 +497,7 @@
         -1.1125278120971416e-07
       ],
       "attachment": "sconce_light",
+      "surface": "interior",
       "matrix_world": [
         [
           0.972369909286499,
@@ -509,6 +516,90 @@
           1.1125278120971416e-07,
           1.0,
           1.5555555820465088
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "SconceLightMountExteriorLeft",
+      "bone": "Root",
+      "origin": [
+        6.810000896453857,
+        0.0,
+        1.3222222328186035
+      ],
+      "mount_normal": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "attachment": "sconce_light",
+      "surface": "exterior",
+      "matrix_world": [
+        [
+          0.0,
+          -1.0,
+          0.0,
+          6.810000896453857
+        ],
+        [
+          1.0,
+          -0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          -0.0,
+          1.0,
+          1.3222222328186035
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "SconceLightMountExteriorRight",
+      "bone": "Root",
+      "origin": [
+        -6.810000896453857,
+        0.0,
+        1.3222222328186035
+      ],
+      "mount_normal": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "attachment": "sconce_light",
+      "surface": "exterior",
+      "matrix_world": [
+        [
+          0.0,
+          1.0,
+          0.0,
+          -6.810000896453857
+        ],
+        [
+          -1.0,
+          -0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          -0.0,
+          1.0,
+          1.3222222328186035
         ],
         [
           0.0,

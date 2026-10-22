@@ -210,46 +210,8 @@ def foundation(k):
     pad=mach(pad,boxes=[cutbox((a[0],a[1],.08),(b[0],b[1],GROUND+.01)) for a,b in FLOOR_OPENINGS])
     emit(k,pad,SEC,'integral building floor slab and entrance ramp; no surrounding platform')
 
-def inspection_outline(gap=0.0,z=0.0,width_scale=1.0):
-    # Measure clearance after the front-panel narrowing and final height bake.
-    # The diagonal's offset follows its transformed normal, like the flat edges.
-    inverse_x=1.0/width_scale
-    inverse_y=1.0/dimensions.HEIGHT[NAME]
-    corner=.12+gap*(inverse_x+inverse_y-math.hypot(inverse_x,inverse_y))
-    return common.outline(1.72+2*gap*inverse_x,.83+2*gap*inverse_y,corner,z)
-
-
-def check_inspection_clearance(width_scale):
-    from mathutils import Vector as V
-    inner=[V((x*width_scale,y*dimensions.HEIGHT[NAME])) for x,y,_ in inspection_outline()]
-    outer=[V((x*width_scale,y*dimensions.HEIGHT[NAME])) for x,y,_ in inspection_outline(.01,width_scale=width_scale)]
-    for i in range(len(inner)):
-        edge=inner[(i+1)%len(inner)]-inner[i]
-        gap=abs(edge.cross(outer[i]-inner[i]))/edge.length
-        assert abs(gap-.01)<1e-6,('inspection perimeter clearance',width_scale,i,gap)
-
-
 def cladding(k):
-    for side in range(4):
-        rot=Matrix.Rotation(side*math.pi/2,4,'Z')
-        # Broad lofted service shells with true recesses and flush light inserts.
-        for x in (-3.5,3.5):
-            check_inspection_clearance(.77 if side==0 else 1.0)
-            panel_x=math.copysign(3.98,x) if side==0 else x
-            m=rot@common.frame((panel_x,-6.90,1.74),(0,-1,0),(0,0,1))
-            if side==0:m=m@Matrix.Diagonal((.77,1,1,1))
-            with k.frame(m):
-                casing=loft([(2.46,2.20,.18,0),(2.46,2.20,.18,.08),(2.25,1.98,.15,.19)])
-                pockets=[((0,.58,.20),(1.70,.065,.05))]
-                casing=mach(casing,boxes=pockets)
-                if side!=2:
-                    opening=[Vector(p)+Vector((0,-.28,0)) for p in inspection_outline(.01,.20,.77 if side==0 else 1.0)]
-                    casing=mach(casing,subtract=[(opening,(0,0,1),.055)])
-                seat(k,casing,PRI,'formed recessed service armour cassette')
-                emit(k,block((-.845,.549,.175),(.845,.611,.19)),EMI,'flush service status strip')
-                if side!=2:emit(k,offset(loft([(1.72,.83,.12,.1725),(1.64,.75,.10,.185)]),y=-.28),SEC,'fitted service inspection cover')
-                for xx in (-.94,.94):
-                    for yy in (-.84,.84):seat(k,rod((xx,yy,.19),(xx,yy,.204),.026,6),JNT,'cassette captive flange bolt')
+    # All ground-floor walls remain plain for paired surface-mounted sconces.
     # Rear process banks occupy real wall land, away from the room and shaft.
     for s in (-1,1):
         m=common.frame((s*3.6,6.7,5.48),(0,1,0),(0,0,1))
@@ -449,7 +411,7 @@ def main():
     scene['showcase_frame']=json.dumps(dict(lo=[-7.5,-7.5,0],hi=[7.5,7.5,8.42]))
     # Door export routine applies unique material atlases and native axis conventions.
     ceiling=[(level+tag,(x,y,z),(0,0,1)) for level,z in [('Ground',2.8),('Upper',6.5)]
-             for tag,x,y in [('FrontLeft',-4,-3),('FrontRight',4,-3),('RearLeft',-4,3),('RearRight',4,3)]]
+             for tag,x,y in [('FrontLeft',-3.2,-2.4),('FrontRight',3.2,-2.4),('RearLeft',-3.2,2.4),('RearRight',3.2,2.4)]]
     wall=[('GroundLeft',(0,0,2.2),(1,0,0)),('GroundRight',(0,0,2.2),(-1,0,0)),
           ('UpperLeft',(0,0,6.6),(1,0,0)),('UpperRight',(0,0,6.6),(-1,0,0))]
     markers,gizmos=door.light_mounts.install(rig,meshes,ceiling,wall)
