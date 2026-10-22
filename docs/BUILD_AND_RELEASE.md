@@ -73,8 +73,8 @@ sets up Python and official Godot 4.7.2 with matching export templates through
 and packages a native export. Export imports assets once; every OS checks the
 exported app, and the full GUT suite runs once on Linux. Builds run independently
 with `fail-fast: false`.
-The setup action caches its downloads; game tools select the Windows console
-executable when the action exposes a GUI alias. All three packages and checksums
+The setup action caches its downloads; game tools resolve its Windows alias to
+the installed `.exe` and wait through a pipeline. All three packages and checksums
 are uploaded as one-day Actions artifacts. Failed jobs also retain their logs.
 
 Configure bucket-scoped R2 credentials, endpoint/object variables and
