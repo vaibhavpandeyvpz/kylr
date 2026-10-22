@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="MuzzleFlashProfile" load_steps=2 format=3]
+[ext_resource type="Script" path="res://scripts/presentation/vfx/muzzle_flash_profile.gd" id="1"]
+[resource]
+script = ExtResource("1")
+outer_length = 0.1425
+outer_radius = 0.15
+jet_length = 0.57
+jet_radius = 0.048
+lifetime = 0.14

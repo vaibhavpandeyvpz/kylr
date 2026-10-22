@@ -18,3 +18,10 @@ built-in image generation. `export_rocket_cloud.py` derives matching linear
 albedo/height and normal/roughness maps and records channel samples and hashes.
 These packed maps contain material data in alpha and require lossless import,
 mipmaps, and disabled alpha-border repair and premultiplication.
+
+`muzzle_flow_source.png` supplies directional flame filaments for the 3D muzzle
+envelope, inner jet, crown and curls. Its [prompt](muzzle_flow_prompt.md) records
+the built-in image generation. `export_muzzle_flow.py` derives linear hot-gas
+albedo/density and matching tangent-normal/roughness maps. They use the same
+lossless packed-channel import rules as the cloud material. Weapon profiles
+control flame colors, dimensions and timing independently of these textures.

@@ -454,7 +454,7 @@ func test_effect_budget_and_socket_cleanup():
 	await wait_seconds(0.4)
 	assert_eq(effects.count, 0, "Expired effects return the complete budget")
 
-func test_authored_muzzle_cards_and_glow_point_forward_for_rotated_sockets():
+func test_spatial_muzzle_flare_points_forward_for_rotated_sockets():
 	var effects := ArenaEffects.new()
 	add_child_autofree(effects)
 	var socket := Node3D.new()
@@ -467,11 +467,41 @@ func test_authored_muzzle_cards_and_glow_point_forward_for_rotated_sockets():
 			for candidate in effects.muzzle_pool:
 				if candidate.remaining > 0: burst = candidate
 			var forward := -socket.global_basis.z.normalized()
-			var gas := burst.effect.get_node("Gas0") as MeshInstance3D
-			assert_gt(gas.global_basis.y.normalized().dot(forward),0.999)
-			assert_gt((gas.global_position-socket.global_position).dot(forward),0.0,"Flash extends beyond the barrel")
-			assert_almost_eq(gas.custom_aabb.size.y * gas.global_basis.y.length(),effects.MUZZLE_LENGTHS[weapon],0.001)
+			var gas := burst.effect.get_node("MuzzleFlare") as MeshInstance3D
+			assert_gt(gas.global_basis.x.normalized().dot(forward),0.999)
+			var tip := gas.global_transform*Vector3(gas.custom_aabb.end.x,0,0)
+			assert_gt((tip-socket.global_position).dot(forward),0.0,"Flare extends beyond the barrel")
+			var profile: MuzzleFlashProfile = effects.MUZZLE_PROFILES[weapon]
+			assert_almost_eq(tip.distance_to(socket.global_position),maxf(profile.outer_length,profile.jet_length),0.001)
+			assert_ne(gas.mesh,EffectMeshes.mesh("AxialCard"))
 			burst._process(10.0)
+
+func test_minigun_shots_overlap_and_reused_flashes_change_shape():
+	var effects := ArenaEffects.new()
+	add_child_autofree(effects)
+	var socket := Node3D.new()
+	add_child_autofree(socket)
+	effects.muzzle(socket,"minigun")
+	var first := effects.muzzle_pool[0]
+	var flare := first.effect.get_node("MuzzleFlare") as MeshInstance3D
+	var phase: float = flare.get_instance_shader_parameter("shot_phase")
+	first.effect._process(0.125)
+	first._process(0.125)
+	effects.muzzle(socket,"minigun")
+	assert_eq(effects.muzzle_pool.size(),2,"At 8 shots/s the previous flash tail remains alive")
+	assert_gt(first.remaining,0.0)
+	assert_gt(float(flare.get_instance_shader_parameter("progress")),0.5)
+	var next := effects.muzzle_pool[1].effect.get_node("MuzzleFlare") as MeshInstance3D
+	assert_eq(next.get_instance_shader_parameter("progress"),0.0)
+	assert_ne(next.get_instance_shader_parameter("shot_phase"),phase)
+	first.effect._process(0.1)
+	first._process(0.1)
+	effects.muzzle(socket,"minigun")
+	assert_eq(effects.muzzle_pool.size(),2,"Expired instances are reused")
+	assert_ne(flare.get_instance_shader_parameter("shot_phase"),phase,"Reuse regenerates the silhouette")
+	assert_eq(flare.get_instance_shader_parameter("progress"),0.0)
+	for index in 50: effects.muzzle(socket,"minigun")
+	assert_eq(effects.muzzle_pool.size(),32,"Overlapping flashes have their own bounded budget")
 
 func test_bullet_atlas_marks_follow_moving_surfaces_and_expire():
 	var effects := ArenaEffects.new()

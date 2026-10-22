@@ -3,7 +3,7 @@ extends GutTest
 const ROOT := "res://assets/models/effects/combat_effects/"
 
 func test_library_data_texture_channels_survive_export_and_handoff():
-	for name in ["combat_effects_rig.json","rocket_cloud_rig.json"]:
+	for name in ["combat_effects_rig.json","rocket_cloud_rig.json","muzzle_flow_rig.json"]:
 		check_data_textures(JSON.parse_string(FileAccess.get_file_as_string(ROOT+name)))
 
 func check_data_textures(manifest: Dictionary) -> void:
@@ -75,6 +75,35 @@ func test_grenade_is_a_spatial_dust_burst_with_small_ignition():
 		if int(surface.layer)==3 and surface.node.visible: visible_dust += 1
 	assert_gt(visible_dust,0)
 	assert_lt(visible_dust,dust)
+
+func test_muzzle_profile_controls_inner_and_outer_dimensions_and_colors():
+	var burst := load("res://assets/effects/original/flash_long.tscn").instantiate() as OriginalEffect
+	add_child_autofree(burst)
+	var profile := MuzzleFlashProfile.new()
+	profile.outer_color = Color.RED
+	profile.jet_color = Color.CYAN
+	profile.outer_radius = 0.12
+	profile.jet_radius = 0.04
+	profile.outer_length = 0.6
+	profile.jet_length = 0.85
+	profile.emission = 3.0
+	burst.configure_muzzle(profile)
+	assert_eq(burst.surfaces.size(),4,"Envelope, inner jet, crown and curled sheets form the flash")
+	assert_eq(burst.get_node("MuzzleFlare").mesh,EffectMeshes.mesh("FlameEnvelope"),"Outer layer uses an open lofted surface")
+	assert_eq(burst.get_node("MuzzleCrown").mesh,EffectMeshes.mesh("PressureRing"),"The front rim has a hole rather than a closing cap")
+	for surface in burst.surfaces:
+		assert_ne(surface.node.mesh,EffectMeshes.mesh("AxialCard"))
+		assert_eq(surface.material.get_shader_parameter("outer_color"),Color.RED)
+		assert_eq(surface.material.get_shader_parameter("jet_color"),Color.CYAN)
+		assert_eq(surface.material.get_shader_parameter("outer_radius"),0.12)
+		assert_eq(surface.material.get_shader_parameter("jet_radius"),0.04)
+		assert_eq(surface.material.get_shader_parameter("outer_length"),0.6)
+		assert_eq(surface.material.get_shader_parameter("jet_length"),0.85)
+		assert_not_null(surface.material.get_shader_parameter("flow_material"))
+		assert_almost_eq(surface.node.custom_aabb.end.x,0.85,0.00001)
+	burst.configure_muzzle(profile,0.425)
+	assert_eq(profile.outer_length,0.6,"Fitting a flash never mutates its shared profile")
+	assert_almost_eq(burst.surfaces[0].material.get_shader_parameter("outer_length"),0.3,0.00001)
 
 func test_rocket_has_spatial_gas_and_debris_without_camera_facing_cards():
 	var burst := load("res://assets/effects/original/rocket.tscn").instantiate() as OriginalEffect

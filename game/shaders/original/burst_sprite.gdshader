@@ -11,9 +11,6 @@ uniform int style = 0; // 0 hot gas, 1 smoke, 2 ring
 uniform bool billboard = true;
 uniform bool library_card = true;
 uniform float card_width = 1.0;
-uniform bool use_atlas = false;
-uniform int flash_profile = -1;
-uniform sampler2D gas_atlas : filter_linear_mipmap, repeat_disable;
 instance uniform float progress = 0.0;
 varying vec4 particle_color;
 void vertex() {
@@ -35,31 +32,6 @@ void fragment() {
 	float density = 1.0 - smoothstep(boundary - 0.25, boundary, r);
 	if (style == 2) density = exp(-pow((r - 0.73) / max(0.045, aa), 2.0));
 	float age = clamp(progress, 0.0, 1.0);
-	if (flash_profile >= 0) {
-		float along = clamp(1.0-UV.y,0.0,1.0);
-		float across = abs(UV.x*2.0-1.0);
-		float width = max(0.02,0.8*(1.0-along*0.6)*pow(sin(PI*along),0.45));
-		density = 1.0-smoothstep(max(0.0,width-0.2),width,across);
-		if (flash_profile == 1) {
-			float core = exp(-pow(across/(0.15+along*0.1),2.0));
-			float prongs = exp(-pow((across-along*0.55)/0.10,2.0))*0.65;
-			density = max(core,prongs)*pow(1.0-along,0.5);
-		}
-		if (flash_profile == 2) {
-			width = max(0.02,0.95*sin(PI*along));
-			density = (1.0-smoothstep(width*0.65,width,across))*(0.45+0.55*abs(sin(UV.x*PI*3.0+along*1.3)));
-		}
-		if (flash_profile == 3) {
-			width = 0.15+0.8*sqrt(along);
-			density = exp(-pow(across/width,2.0)*3.0)*(1.0-smoothstep(0.5,1.0,along));
-		}
-		density *= smoothstep(0.0,0.08,along);
-	}
-	if (use_atlas) {
-		float frame = min(floor(age*16.0),15.0);
-		vec2 tile = vec2(mod(frame,4.0),floor(frame/4.0));
-		density *= texture(gas_atlas,(clamp(UV,vec2(0.008),vec2(0.992))+tile)/4.0).a;
-	}
 	vec3 heat = mix(primary_color.rgb, secondary_color.rgb, smoothstep(0.0, 0.6, age));
 	float fade = (1.0 - smoothstep(0.15, 1.0, age)) * particle_color.a;
 	if (style == 1) {
