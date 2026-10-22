@@ -13,6 +13,11 @@ var side := Vector3.BACK
 var hits := 0
 var last_damage := 0.0
 var automated := false
+var orbit_dragging := false
+var orbit_yaw := 0.0
+var orbit_pitch := atan(0.3)
+var orbit_zoom := 1.0
+var camera_focus_mode := 0
 
 class TestFloor extends ArenaMap:
 	func _ready():
@@ -80,9 +85,12 @@ func _ready():
 			if starting_weapon in WEAPONS: select_weapon(WEAPONS.find(starting_weapon))
 	build_overlay()
 	automated = "--harness-smoke" in OS.get_cmdline_user_args()
+	var flame_preview := "--harness-flame-preview" in OS.get_cmdline_user_args()
+	automated = automated or flame_preview
 	if not automated: Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	update_side_camera()
-	if automated: smoke.call_deferred()
+	if flame_preview: preview_flame.call_deferred()
+	elif automated: smoke.call_deferred()
 
 func configure_projectile(node: Node) -> void:
 	# Every projectile uses this authoring speed, including future weapon types.
@@ -145,7 +153,7 @@ func build_overlay() -> void:
 	status.add_theme_font_size_override("font_size", 18)
 	panel.add_child(status)
 	var controls := Label.new()
-	controls.text = "WASD move / Ctrl sprint / Shift walk / Space jump\nWheel or 1–7 weapon / LMB primary / RMB secondary\nAuto aim at target / H body-head / T shield / R reset\nEsc release mouse / click to resume / F10 exit"
+	controls.text = "WASD move / Ctrl sprint / Shift walk / Space jump\nWheel or 1–7 weapon / LMB primary / RMB secondary\nMMB drag orbit / Ctrl+wheel zoom / V focus / C reset camera\nH body-head / T shield / R reset / Esc mouse / F10 exit"
 	controls.position = Vector2(18, 0)
 	controls.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_LEFT)
 	controls.offset_left = 18
@@ -207,14 +215,30 @@ func select_weapon(index: int) -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if automated: return
+	if event is InputEventMouseButton and event.button_index==MOUSE_BUTTON_MIDDLE:
+		orbit_dragging = event.pressed
+		return
+	if event is InputEventMouseMotion and orbit_dragging:
+		orbit_yaw -= event.relative.x*0.006
+		orbit_pitch = clampf(orbit_pitch+event.relative.y*0.006,-1.35,1.45)
+		update_side_camera()
+		return
 	if event is InputEventMouseButton and event.pressed:
-		if event.button_index == MOUSE_BUTTON_WHEEL_UP: select_weapon(weapon_index + 1)
+		if event.ctrl_pressed and event.button_index in [MOUSE_BUTTON_WHEEL_UP,MOUSE_BUTTON_WHEEL_DOWN]:
+			orbit_zoom = clampf(orbit_zoom*(0.9 if event.button_index==MOUSE_BUTTON_WHEEL_UP else 1.1),0.12,4.0)
+		elif event.button_index == MOUSE_BUTTON_WHEEL_UP: select_weapon(weapon_index + 1)
 		elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN: select_weapon(weapon_index - 1)
 		elif event.button_index == MOUSE_BUTTON_LEFT and Input.mouse_mode != Input.MOUSE_MODE_CAPTURED:
 			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	if event is InputEventKey and event.pressed and not event.echo:
 		if event.keycode >= KEY_1 and event.keycode <= KEY_7: select_weapon(event.keycode - KEY_1)
 		match event.keycode:
+			KEY_C:
+				camera_focus_mode = 0
+				orbit_yaw = 0.0
+				orbit_pitch = atan(0.3)
+				orbit_zoom = 1.0
+			KEY_V: camera_focus_mode = (camera_focus_mode+1)%3
 			KEY_ESCAPE: Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 			KEY_F10: get_tree().quit()
 			KEY_R: reset_positions()
@@ -272,7 +296,11 @@ func update_side_camera() -> void:
 	# Fit separation in the horizontal FOV and jumping in the vertical FOV.
 	var aspect := float(get_viewport().get_visible_rect().size.x) / maxf(1, get_viewport().get_visible_rect().size.y)
 	var distance := maxf(7, maxf((flat.length() * 0.5 + 2.8) / (tan(deg_to_rad(30)) * aspect), absf(between.y) * 1.1 + 5))
-	var point := focus + side * distance + Vector3.UP * distance * 0.3
+	if camera_focus_mode!=0:
+		focus = local_robot.eye() if camera_focus_mode==1 else target_aim_point()
+		distance = 2.5
+	var orbit_side := side.rotated(Vector3.UP,orbit_yaw)
+	var point := focus + (orbit_side*cos(orbit_pitch)+Vector3.UP*sin(orbit_pitch))*distance*sqrt(1.09)*orbit_zoom
 	var pose := Transform3D(Basis.looking_at(focus - point), point)
 	camera_rig.set_gameplay("tpv", pose, 60, true)
 
@@ -281,6 +309,45 @@ func eliminate(victim, _killer, _cause: String, _contact: Dictionary = {}):
 	# corpse clutter terminating a repeated effects comparison.
 	victim.ah = 100
 	victim.alive = true
+
+func preview_flame() -> void:
+	for frame in 15: await get_tree().physics_frame
+	select_weapon(6)
+	local_robot.wants_fire = true
+	for frame in 100: await get_tree().physics_frame
+	# Exercise the manual orbit/zoom input path as well as the rendered views.
+	automated = false
+	var drag := InputEventMouseButton.new()
+	drag.button_index = MOUSE_BUTTON_MIDDLE
+	drag.pressed = true
+	_unhandled_input(drag)
+	var motion := InputEventMouseMotion.new()
+	motion.relative = Vector2(50,20)
+	_unhandled_input(motion)
+	assert(absf(orbit_yaw)>0.1 and orbit_pitch>atan(0.3))
+	drag.pressed = false
+	_unhandled_input(drag)
+	var zoom := InputEventMouseButton.new()
+	zoom.button_index = MOUSE_BUTTON_WHEEL_UP
+	zoom.pressed = true
+	zoom.ctrl_pressed = true
+	_unhandled_input(zoom)
+	assert(orbit_zoom<1.0 and weapon_index==6)
+	automated = true
+	orbit_zoom = 0.85
+	DirAccess.make_dir_recursive_absolute("res://reports/flame3d")
+	for view in [{"name":"side","yaw":0.0,"pitch":0.15},{"name":"oblique","yaw":1.15,"pitch":0.25},{"name":"raised","yaw":-0.55,"pitch":0.95},{"name":"tip","yaw":0.0,"pitch":0.15,"focus":2}]:
+		orbit_yaw = view.yaw
+		orbit_pitch = view.pitch
+		camera_focus_mode = view.get("focus",0)
+		update_side_camera()
+		for frame in 20: await get_tree().process_frame
+		if DisplayServer.get_name()!="headless":
+			await RenderingServer.frame_post_draw
+			get_viewport().get_texture().get_image().save_png("res://reports/flame3d/"+view.name+".png")
+	assert(hits>0,"Volumetric flame retains the native hit path")
+	print("FLAME_3D_PREVIEW_PASS orbit=true zoom=true hits=",hits)
+	get_tree().quit()
 
 func smoke() -> void:
 	for frame in 12: await get_tree().physics_frame
@@ -338,7 +405,7 @@ func smoke() -> void:
 	wheel.pressed = true
 	wheel.button_index = MOUSE_BUTTON_WHEEL_UP
 	_unhandled_input(wheel)
-	assert(local_robot.equipped == "pistol")
+	assert(local_robot.equipped == "flak_cannon")
 	wheel.button_index = MOUSE_BUTTON_WHEEL_DOWN
 	_unhandled_input(wheel)
 	assert(local_robot.equipped == "flamethrower")

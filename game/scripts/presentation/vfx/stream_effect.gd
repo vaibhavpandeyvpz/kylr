@@ -7,6 +7,7 @@ const FLAME_SOURCE_RADIUS := 0.035
 const FLAME_END_RADIUS := 0.12
 const FLAME_OUTER_SOURCE_RADIUS := 0.05
 const FLAME_OUTER_END_RADIUS := 0.17
+const ROBOT_FLAME_OVERLAP := 0.15
 static var noise_texture: NoiseTexture2D
 var kind := "lightning"
 var layers: Array[Dictionary] = []
@@ -73,7 +74,7 @@ func layer(mesh: Mesh, shader: Shader, ratio: float, parameters: Dictionary) -> 
 	layers.append({"node": node, "material": material, "ratio": ratio})
 	return node
 
-func update_endpoints(from: Vector3, to: Vector3):
+func update_endpoints(from: Vector3, to: Vector3, robot_contact := false):
 	if released: return
 	idle_time = 0
 	reach = from.distance_to(to)
@@ -82,12 +83,14 @@ func update_endpoints(from: Vector3, to: Vector3):
 	global_transform = Transform3D(Basis(Quaternion(Vector3.UP, (to - from).normalized())), from)
 	var thermal := (pack_beam if pack_beam else pack_fire) as OriginalEffect
 	if thermal:
-		thermal.update_length(reach,FLAME_SOURCE_RADIUS if kind == "flame" else exhaust_radius * 0.55,FLAME_OUTER_END_RADIUS if kind == "flame" else exhaust_radius)
+		var overlap := ROBOT_FLAME_OVERLAP if kind=="flame" and robot_contact else 0.0
+		thermal.update_length(reach+overlap,FLAME_SOURCE_RADIUS if kind == "flame" else exhaust_radius * 0.55,FLAME_OUTER_END_RADIUS if kind == "flame" else exhaust_radius)
 		for material in beam_materials:
 			material.set_shader_parameter("clip_enabled",true)
 			material.set_shader_parameter("clip_origin",from)
 			material.set_shader_parameter("clip_direction",(to-from).normalized())
-			material.set_shader_parameter("clip_length",reach)
+			material.set_shader_parameter("clip_length",reach+overlap)
+			if kind=="flame": material.set_shader_parameter("robot_contact",robot_contact)
 		return
 	for entry in layers:
 		if entry.ratio == 0: continue

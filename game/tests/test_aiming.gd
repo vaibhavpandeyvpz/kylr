@@ -154,8 +154,11 @@ func test_flame_visual_stops_at_first_robot_hull_and_nearer_world_cover():
 	var shooter := Shooter.new()
 	world.add_child(shooter)
 	world.robots = [shooter]
+	var victim := ArenaRobot.new()
+	autofree(victim)
 	for distance in [6.0, 9.0]:
 		var body := StaticBody3D.new()
+		body.set_meta("robot",victim)
 		body.collision_layer = 4
 		world.add_child(body)
 		body.position = Vector3(0.2, 1.25, -distance)
@@ -166,6 +169,7 @@ func test_flame_visual_stops_at_first_robot_hull_and_nearer_world_cover():
 	await wait_physics_frames(2)
 	var combat := ArenaCombat.new(world)
 	assert_almost_eq(combat.flame_endpoint(shooter, shooter.muzzle()).z, -5.7, 0.01, "Nearest authored robot hull terminates the visible flame")
+	assert_true(combat.flame_segment(shooter,shooter.muzzle()).robot_hit,"Robot hull metadata enables cosmetic overlap")
 	var wall := StaticBody3D.new()
 	world.add_child(wall)
 	wall.position = Vector3(0, 1, -3)
@@ -175,6 +179,7 @@ func test_flame_visual_stops_at_first_robot_hull_and_nearer_world_cover():
 	wall.add_child(cover)
 	await wait_physics_frames(2)
 	assert_almost_eq(combat.flame_endpoint(shooter, shooter.muzzle()).z, -2.9, 0.01, "Nearer world cover takes precedence")
+	assert_false(combat.flame_segment(shooter,shooter.muzzle()).robot_hit,"World cover never enables cosmetic overlap")
 
 func test_pistol_fire_keeps_aimed_torso_and_preserves_arm_recoil():
 	var character := ContentRegistry.character("tensor")

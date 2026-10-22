@@ -29,19 +29,30 @@ var _muzzle_recipe: Array = []
 func _ready() -> void:
 	if kind.begins_with("flash"):
 		build_muzzle_3d()
-	elif kind in ["beam","exhaust"]:
+	elif kind == "beam":
+		duration = 0.0
+		for index in 11:
+			var volume := add_mesh("ThermalPlume"+str(index),"ThermalShell",preload("res://shaders/original/flame_stream_3d.gdshader"),"flame_volume")
+			var material: ShaderMaterial = volume.material_override
+			material.set_shader_parameter("layer",index if index<3 else 3 if index<7 else 4)
+			material.set_shader_parameter("flare_phase",float(index-3)*PI*0.5+(PI*0.25 if index>=7 else 0.0))
+			material.set_shader_parameter("density_volume",preload("res://assets/effects/original/rocket_density.tres"))
+			material.set_shader_parameter("flow_material",preload("res://assets/models/effects/combat_effects/muzzle_albedo_density.png"))
+			material.set_shader_parameter("flow_relief",preload("res://assets/models/effects/combat_effects/muzzle_normal_roughness.png"))
+		update_length(1.0)
+		playing = true
+	elif kind == "exhaust":
 		duration = 0.0
 		for index in 3:
-			var mesh_id := "Nozzle" if kind == "beam" and index == 0 else "FlameEnvelope" if index < 2 else "VortexSheets"
+			var mesh_id := "FlameEnvelope" if index < 2 else "VortexSheets"
 			var plume := add_mesh("ThermalPlume" + str(index),mesh_id,THERMAL,"plume")
 			plume.material_override.set_shader_parameter("axial",true)
-			plume.material_override.set_shader_parameter("plume_shape",0 if kind == "beam" and index == 0 else 1 if index < 2 else 2)
-			plume.material_override.set_shader_parameter("continuous_beam",kind == "beam")
+			plume.material_override.set_shader_parameter("plume_shape",1 if index < 2 else 2)
+			plume.material_override.set_shader_parameter("continuous_beam",false)
 			plume.material_override.set_shader_parameter("phase",index * 1.731)
 			plume.material_override.set_shader_parameter("turbulence_texture",NOISE)
-			plume.material_override.set_shader_parameter("effect_opacity",([0.09,0.08,0.06] if kind == "beam" else [0.8,0.32,0.24])[index])
+			plume.material_override.set_shader_parameter("effect_opacity",[0.8,0.32,0.24][index])
 		update_length(1.0)
-		if kind == "beam": add_projected_gas()
 		playing = true
 	elif kind == "orb":
 		duration = 0.0
@@ -273,50 +284,6 @@ func add_fragments() -> void:
 	add_child(emitter)
 	emitters.append(emitter)
 
-func add_projected_gas() -> void:
-	# Two fixed, reusable GPU emitters transport overlapping lobes. The same
-	# authored flame envelope is used for thrusters; no per-tick mesh creation.
-	for index in 2:
-		var emitter := GPUParticles3D.new()
-		emitter.name = "ProjectedFumes" if index == 1 else "ProjectedFlame"
-		emitter.amount = 32 if index == 0 else 16
-		emitter.lifetime = 0.85
-		emitter.fixed_fps = 60
-		emitter.interpolate = true
-		emitter.local_coords = true
-		emitter.transform_align = GPUParticles3D.TRANSFORM_ALIGN_Y_TO_VELOCITY
-		emitter.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
-		var process := ParticleProcessMaterial.new()
-		process.direction = Vector3.UP
-		process.spread = 0.6
-		process.anim_offset_max = 1.0
-		# A narrow velocity band keeps neighbouring lobes overlapping rather
-		# than overtaking each other and flickering into separate sheets.
-		process.initial_velocity_min = 16.0
-		process.initial_velocity_max = 17.0
-		process.gravity = Vector3.ZERO
-		emitter.process_material = process
-		emitter.draw_pass_1 = EffectMeshes.mesh("AxialCard")
-		var material := ShaderMaterial.new()
-		if index == 0:
-			material.shader = preload("res://shaders/original/gas_volume.gdshader")
-			material.set_shader_parameter("volume_atlas",preload("res://assets/models/effects/combat_effects/fireball_atlas.png"))
-			material.set_shader_parameter("particle_volume",true)
-			material.set_shader_parameter("projected_jet",true)
-			material.set_shader_parameter("event_profile",2)
-			material.set_shader_parameter("effect_opacity",0.65)
-			material.set_shader_parameter("emission",1.2)
-		else:
-			material.shader = preload("res://shaders/original/gas_volume.gdshader")
-			material.set_shader_parameter("volume_atlas",preload("res://assets/models/effects/combat_effects/fireball_atlas.png"))
-			material.set_shader_parameter("particle_volume",true)
-			material.set_shader_parameter("projected_jet",true)
-			material.set_shader_parameter("effect_opacity",0.18)
-			material.set_shader_parameter("emission",0.25)
-		emitter.material_override = material
-		add_child(emitter)
-		emitters.append(emitter)
-
 func apply_palette() -> void:
 	for surface in surfaces:
 		for key in ["primary_color","secondary_color","tertiary_color","emission"]:
@@ -360,11 +327,13 @@ func update_length(length_m: float, nozzle := 0.035, tip := 0.17) -> void:
 		if kind == "beam":
 			radius_from = 0.035 if index == 0 else 0.05
 			radius_to = 0.12 if index == 0 else tip
-		var layer_length: float = beam_length * ([0.45,0.6,0.9][index] if kind == "exhaust" else [0.25,0.85,1.0][index])
+		var layer_length: float = beam_length * ([0.45,0.6,0.9][index] if kind == "exhaust" else [0.32,1.0,1.0,0.5,0.5,0.5,0.5,1.0,1.0,1.0,1.0][index])
 		material.set_shader_parameter("beam_length",layer_length)
 		material.set_shader_parameter("start_radius",radius_from)
 		material.set_shader_parameter("end_radius",radius_to)
-		node.custom_aabb = AABB(Vector3(-radius,0,-radius),Vector3(radius * 2.0,beam_length,radius * 2.0))
+		if kind == "beam": material.set_shader_parameter("segment_length",beam_length)
+		var bounds_radius := radius*3.0 if kind=="beam" and index>=3 else radius
+		node.custom_aabb = AABB(Vector3(-bounds_radius,0,-bounds_radius),Vector3(bounds_radius * 2.0,beam_length,bounds_radius * 2.0))
 
 func set_budget(reduced: bool, distance: float) -> void:
 	budget_ratio = 0.25 if reduced or distance >= 60.0 else 0.5 if distance >= 25.0 else 1.0

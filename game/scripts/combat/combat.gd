@@ -366,12 +366,15 @@ func damageable_target(robot) -> ArenaRobot:
 	return hit.collider if not hit.is_empty() and hit.collider is ArenaRobot and hit.collider.can_take_damage(robot) else null
 
 func flame_endpoint(robot, origin: Vector3) -> Vector3:
+	return flame_segment(robot,origin).point
+
+func flame_segment(robot, _origin: Vector3) -> Dictionary:
 	var muzzle: Vector3 = robot.muzzle()
 	var direction := shot_direction(robot,15.0,true) if robot.get("streaming") == true else (aim_target(robot,15.0)-muzzle).normalized()
 	var target := muzzle + direction * 15.0
 	var hit := beam_hit(muzzle,target,CombatStream.FLAME_OUTER_END_RADIUS,[robot.get_rid()])
 	if not hit.is_empty(): target = hit.position
-	return target
+	return {"point":target,"robot_hit":not hit.is_empty() and hit.collider is ArenaRobot}
 
 
 func trace(robot, reach: float, damage: float, color: Color, scoped: bool) -> void:
