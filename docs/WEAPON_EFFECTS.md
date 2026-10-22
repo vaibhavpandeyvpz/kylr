@@ -225,6 +225,23 @@ shield, and R restores positions. Health/ammo refills and suppressed target
 knockback permit repeated comparisons without changing match rules.
 See the README for controls and the `--harness-smoke` verification command.
 
+`tools/pulse_gun_bench.tscn` is a separate manual fixture bench, launched with
+`tools/run_pulse_gun_bench.ps1`. The native ground-mounted pulse gun aims at a
+stationary Tensor's central Spine bone, with the muzzle exactly 10 m away in
+the neutral pose. The target has a random catalog head, upper body and paint;
+R replaces it. Left mouse press fires one native pulse when the one-second
+cooldown is ready. Holding the button never repeats firing. Automatic fixture
+firing is disabled only in this authoring scene. Native aiming/piston animation,
+swept collision, damage, slow status, audio and hit presentation remain in use.
+Bench pulses travel at 1 m/s with a 12-second lifetime to reach the target;
+match projectile settings retain their defaults. Target health refills for repeated comparisons.
+
+Right-drag orbits, the wheel zooms, and 1/2/3 select overview, fixture and target
+framing. Esc or F10 exits. Run the scene with `-- --pulse-bench-smoke` to check
+distance, manual mouse input, cooldown, accepted hits, no automatic repeats and
+target replacement. A rendered run also saves overview, flight and impact
+captures under `reports/pulse-bench/`.
+
 Portal fields and glow use original blue field shaders on the native skinned
 field plate. Bindings, transforms, availability and Reduced Motion remain
 preserved. No vertex displacement moves the field beyond its authored frame.
@@ -285,7 +302,7 @@ material maps from the tracked bitmap source. Add `--motion` to save a live
 100-frame sequence at the engine's selected fixed frame rate. The maps' independent alpha channels
 require lossless imports, mipmaps and disabled alpha-border repair.
 
-Pulse contacts use a brief cyan-white flash, three short ion filaments, a faint broken wavefront and small motes over 0.45 seconds, with their own 16-burst pool and replicated `pulse_contact` event. The projectile has a shared white core and cyan packet sheath, 10 cm long inside the existing 5 cm radius budget, oriented along flight. Its swept CylinderShape3D, speed, damage, cadence, energy cost and slowing behavior are unchanged.
+Pulse contacts use a compact 3D cyan ion bloom over 0.52 seconds, with their own 16-burst pool and replicated `pulse_contact` event. A bright core, scalloped closed shell, three broken latitude bands and eight solid ion beads expand away from the contact plane. The 46 cm nominal footprint and blue cellular seams distinguish the contact; it contains no camera-facing cards. It reuses the library's immutable effect meshes with isolated per-impact shader progress. The projectile is a glowing cyan cylinder, 5 cm in diameter, with a brighter cyan core. Its nose advances from the muzzle while its tail stays there until it reaches 25 cm long; both then travel together. On contact the nose stops at the surface and the remaining length feeds into that point at projectile speed, shrinking to zero. Absorption is cosmetic and applies no additional damage. The swept cylinder follows the growing length behind its nose. Damage, cadence, energy cost and slowing behavior retain their gameplay settings.
 
 Live bio/pulse visuals retain independent classes. Flak contacts use a brief friction flash, ejected hot metal chips and compact abrasion dust over 0.42 seconds; bio retains its green organic composition. Both have independent 16-burst pools. Flak rounds use tumbling metal fragments with compact tails. `WeaponContactBurst` owns shared lifecycle and particle mechanics. `BallisticProjectile` continues to own flight, bounce, status and damage; `ArenaEffects` dispatches replicated contacts. Effect shaders live in `shaders/original/` alongside the combat shaders.
 
