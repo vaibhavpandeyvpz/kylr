@@ -14,8 +14,7 @@ func set_reduced_motion(reduced: bool) -> void:
 ## Three staggered outlines rise from the 1 m pad and fade before restarting.
 func _ready() -> void:
 	if DisplayServer.get_name() == "headless": return
-	var mesh := PlaneMesh.new()
-	mesh.size = Vector2(0.92, 0.92)
+	var mesh := TraversalEnergyMesh.square_ring()
 	for index in 3:
 		var material := ShaderMaterial.new()
 		material.shader = preload("res://shaders/jump_pad_energy_pulse.gdshader")

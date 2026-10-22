@@ -20,7 +20,7 @@ Lethal lunar terrain is excluded from baked navigation source geometry.
 
 Four cyan chevrons travel along the native belt slope toward its lip. They
 sit above the actual belt surface, fade at the ends and add no collision or
-shadow. Each is 30 cm long, at 35 cm pitch: 5 cm clear gaps. Reduced Motion
+shadow. Each is a closed 2 cm thick mesh, 30 cm long, at 35 cm pitch: 5 cm clear gaps. Reduced Motion
 freezes the chevrons, including when the setting changes during play. Native
 convey animation loops again after each launch clip.
 
@@ -175,7 +175,7 @@ robot within 20 m. They fire once per second for 10 base damage (10 AH against a
 baked piston action drive aiming. Shots use the Galaxy Coldcase pulse behaviour,
 visuals, audio and hit effect, with a swept projectile collision and cover check.
 
-Jump pads carry square mint energy pulses that rise and fade. Reduced Motion
+Jump pads carry square mint energy pulses with closed 2 cm thick outlines that rise and fade. Their inner and outer walls remain visible edge-on. Reduced Motion
 freezes decorative phases; headless matches omit these render meshes. Map
 fixtures retain their authored idle animations during play.
 

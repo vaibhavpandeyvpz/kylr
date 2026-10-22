@@ -14,10 +14,7 @@ void vertex() {
 }
 
 void fragment() {
-	vec2 p = abs(UV - vec2(0.5));
-	float edge_distance = abs(max(p.x, p.y) - 0.46);
-	float band = 1.0 - smoothstep(0.012, 0.022, edge_distance);
 	ALBEDO = tint.rgb;
 	EMISSION = tint.rgb * 1.8;
-	ALPHA = band * tint.a * sin(phase * 3.14159265);
+	ALPHA = tint.a * sin(phase * 3.14159265);
 }
