@@ -232,6 +232,7 @@ models/effects/**/cache_fluid/
 models/effects/**/*.log
 !models/effects/combat_effects/source/*_atlas.png
 !models/effects/combat_effects/source/rocket_cloud_height_source.png
+!models/effects/combat_effects/source/muzzle_flow_source.png
 models/maps/**/_showcase_frames/
 models/maps/**/*.log
 models/maps/**/faceoff_validation.json

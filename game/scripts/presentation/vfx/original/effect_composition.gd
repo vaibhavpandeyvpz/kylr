@@ -23,22 +23,12 @@ var start_radius := 0.035
 var end_radius := 0.17
 var budget_ratio := 1.0
 var _last_fit := Vector3(-1,-1,-1)
+static var flash_sequence := 0
+var _muzzle_recipe: Array = []
 
 func _ready() -> void:
 	if kind.begins_with("flash"):
-		duration = 0.075
-		var width := 0.30 if kind == "flash_wide" else 0.18
-		if kind == "flash_big": width = 0.32
-		for index in 2:
-			var gas := add_mesh("Gas" + str(index),"AxialCard",SPRITE,"flash")
-			gas.material_override.set_shader_parameter("billboard",false)
-			gas.material_override.set_shader_parameter("use_atlas",true)
-			gas.material_override.set_shader_parameter("flash_profile",["flash_short","flash_long","flash_wide","flash_big"].find(kind))
-			gas.material_override.set_shader_parameter("gas_atlas",preload("res://assets/models/effects/combat_effects/gas_atlas.png"))
-			gas.basis = Basis(Vector3.RIGHT,index * PI / 2.0) * Basis(Vector3.FORWARD,PI / 2.0)
-			gas.scale = Vector3(width,1.5,1)
-			gas.position.x = 0.75
-			gas.custom_aabb = AABB(Vector3(-0.5,-0.5,-0.01),Vector3(1,1,0.02))
+		build_muzzle_3d()
 	elif kind in ["beam","exhaust"]:
 		duration = 0.0
 		for index in 3:
@@ -67,6 +57,42 @@ func _ready() -> void:
 	apply_palette()
 	set_detail(int(get_viewport().get_meta("effect_quality",2)))
 	set_process(playing and duration > 0.0)
+
+func build_muzzle_3d() -> void:
+	duration = 0.18 if kind == "flash_wide" else 0.12 if kind == "flash_big" else 0.10
+	emission = 5.5
+	var profile := ["flash_short","flash_long","flash_wide","flash_big"].find(kind)
+	for index in 4:
+		var gas := add_mesh(["MuzzleFlare","MuzzleCore","MuzzleCrown","MuzzleCurls"][index],"FlameEnvelope" if index==0 else "PressureRing" if index==2 else "VortexSheets" if index==3 else "Nozzle",preload("res://shaders/original/muzzle_flare_3d.gdshader"),"muzzle_3d")
+		gas.material_override.set_shader_parameter("turbulence",NOISE)
+		gas.material_override.set_shader_parameter("gas_atlas",preload("res://assets/models/effects/combat_effects/gas_atlas.png"))
+		gas.material_override.set_shader_parameter("flow_material",preload("res://assets/models/effects/combat_effects/muzzle_albedo_density.png"))
+		gas.material_override.set_shader_parameter("flow_relief",preload("res://assets/models/effects/combat_effects/muzzle_normal_roughness.png"))
+		gas.material_override.set_shader_parameter("profile",profile)
+		gas.material_override.set_shader_parameter("open_rim",index==2)
+		gas.material_override.set_shader_parameter("flow_sheet",index==3)
+		gas.material_override.set_shader_parameter("core_layer",index==1)
+		gas.material_override.set_shader_parameter("layer_energy",[0.3,1.0,0.55,0.25][index])
+		gas.material_override.set_shader_parameter("layer_scale",1.15 if index==3 else 1.0)
+		gas.material_override.set_shader_parameter("effect_opacity",0.4 if index==3 else 1.0)
+		gas.custom_aabb = AABB(Vector3(0,-0.75,-0.75),Vector3(1.5,1.5,1.5))
+	configure_muzzle(load("res://assets/effects/muzzle/"+["pistol","rifle","minigun","rocket_launcher"][profile]+".tres"))
+
+func configure_muzzle(profile: MuzzleFlashProfile, length_override := 0.0) -> void:
+	var recipe := [profile.outer_color,profile.jet_color,profile.edge_color,profile.outer_radius,profile.jet_radius,profile.outer_length,profile.jet_length,profile.lifetime,profile.emission,length_override]
+	if recipe == _muzzle_recipe: return
+	_muzzle_recipe = recipe
+	duration = profile.lifetime
+	var fit := length_override/maxf(profile.outer_length,profile.jet_length) if length_override>0.0 else 1.0
+	var radius := maxf(profile.outer_radius,profile.jet_radius)*fit*2.0
+	var length := maxf(profile.outer_length,profile.jet_length)*fit
+	for surface in surfaces:
+		if surface.role != "muzzle_3d": continue
+		for parameter in ["outer_color","jet_color","edge_color","emission"]:
+			surface.material.set_shader_parameter(parameter,profile.get(parameter))
+		for parameter in ["outer_radius","jet_radius","outer_length","jet_length"]:
+			surface.material.set_shader_parameter(parameter,float(profile.get(parameter))*fit)
+		surface.node.custom_aabb = AABB(Vector3(0,-radius,-radius),Vector3(length,radius*2.0,radius*2.0))
 
 func add_mesh(id: String, mesh_id: String, shader: Shader, role: String) -> MeshInstance3D:
 	var node := MeshInstance3D.new()
@@ -300,9 +326,12 @@ func play() -> float:
 	age = 0.0
 	playing = true
 	show()
+	if kind.begins_with("flash"): flash_sequence += 1
 	for surface in surfaces:
 		if surface.role == "spatial_gas":
 			surface.material.set_shader_parameter("impact_origin",global_position+global_basis.y*0.12)
+		elif surface.role == "muzzle_3d":
+			surface.node.set_instance_shader_parameter("shot_phase",fmod(flash_sequence*2.39996323,TAU*100.0))
 	for emitter in emitters:
 		emitter.amount_ratio = budget_ratio
 		emitter.restart()

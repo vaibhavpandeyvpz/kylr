@@ -11,10 +11,16 @@ var gravity := ArenaTuning.GRAVITY
 
 const MAX_EFFECTS := 160
 const MAX_SPARK_BURSTS := 16
+const MAX_MUZZLE_FLASHES := 32
 const SPARK_GRAVITY_RATIO := 8.0 / ArenaTuning.GRAVITY
 const IMPACT = preload("res://shaders/combat/impact.gdshader")
 const MUZZLE = preload("res://shaders/combat/muzzle_flash.gdshader")
-const MUZZLE_LENGTHS := {"pistol": 0.27, "rifle": 0.40, "minigun": 0.34, "rocket_launcher": 0.50, "lightning_gun": 0.20}
+const MUZZLE_PROFILES := {
+	"pistol":preload("res://assets/effects/muzzle/pistol.tres"),
+	"rifle":preload("res://assets/effects/muzzle/rifle.tres"),
+	"minigun":preload("res://assets/effects/muzzle/minigun.tres"),
+	"rocket_launcher":preload("res://assets/effects/muzzle/rocket_launcher.tres"),
+	"lightning_gun":preload("res://assets/effects/muzzle/lightning_gun.tres")}
 const FLASH_SHORT = preload("res://assets/effects/original/flash_short.tscn")
 const FLASH_LONG = preload("res://assets/effects/original/flash_long.tscn")
 const FLASH_WIDE = preload("res://assets/effects/original/flash_wide.tscn")
@@ -130,26 +136,26 @@ func muzzle(socket: Node3D, weapon: String, size_override := 0.0):
 	if not is_instance_valid(socket): return
 	if game is ArenaMatch and game.replicating and game.authority: return
 	var scene: PackedScene = FLASH_SHORT if weapon == "pistol" or size_override > 0 else FLASH_BIG if weapon == "rocket_launcher" else FLASH_WIDE if weapon == "minigun" else FLASH_LONG
-	var burst := packed_burst(muzzle_pool, scene)
+	var burst := packed_burst(muzzle_pool, scene, false, MAX_MUZZLE_FLASHES)
 	if not burst: return
-	var size: float = size_override if size_override > 0 else MUZZLE_LENGTHS.get(weapon, 0.12)
+	var profile: MuzzleFlashProfile = MUZZLE_PROFILES.get(weapon,MUZZLE_PROFILES.pistol)
+	burst.effect.configure_muzzle(profile,size_override)
 	# Gas jets extend along +X in their local composition; sockets emit -Z.
-	var factor := size / 1.5
 	burst.anchor = weakref(socket)
-	burst.anchor_offset = Transform3D(Basis(Vector3.UP, PI / 2) * Basis.from_scale(Vector3.ONE * factor), Vector3.ZERO)
+	burst.anchor_offset = Transform3D(Basis(Vector3.UP, PI / 2), Vector3.ZERO)
 	burst.fire(socket.global_position, Vector3.UP)
 	burst.global_transform = socket.global_transform * burst.anchor_offset
 
-func packed_burst(pool: Array[PackBurst], scene: PackedScene, emp := false) -> PackBurst:
+func packed_burst(pool: Array[PackBurst], scene: PackedScene, emp := false, limit := MAX_SPARK_BURSTS) -> PackBurst:
 	for candidate in pool:
 		if candidate.remaining <= 0 and candidate.scene == scene: return candidate
-	if pool.size() >= MAX_SPARK_BURSTS:
+	if pool.size() >= limit:
 		for candidate in pool:
 			if candidate.remaining <= 0:
 				pool.erase(candidate)
 				candidate.queue_free()
 				break
-	if pool.size() >= MAX_SPARK_BURSTS: return null
+	if pool.size() >= limit: return null
 	var node := PackBurst.new()
 	node.scene = scene
 	node.emp = emp

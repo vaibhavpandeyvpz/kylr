@@ -139,7 +139,45 @@ Each pistol, rifle, and minigun shot emits a very faint grey smoke puff at its a
 | EMP gun | `Muzzle`: faint pulse flash and a neutral conductive capsule inside a softly animated induction envelope. The visual stays 15 cm long and 6 cm wide, fading between 20 and 25 m. Contacts have subdued neutral filaments and a separately expanding refractive volume. `AirIntake`: inward-moving air during the firing cycle. `VentLeft/Right`: outward puffs per pulse. |
 | Shared sockets | `RightHandSocket`, `LeftHandSocket`: existing grip/arm alignment. `AmmoHandSocket`, `AmmoMount`: reload grip and separate pack attachment. Camera-relative framing is computed by the game. These are attachment frames, not particle emitters. |
 
-Ballistic surface hits retain bounded yellow spark streaks, a brief core, smoke and ten-second randomized bullet marks, omitted on robots. Accepted damage animates the contour surface in the accepted weapon color. Lightning contacts use authored curved ribbons, a 0.4-second dissolve and an 18 cm white-blue core, capped at 16 simultaneous bursts; sustained contacts refresh every 0.12 seconds per weapon. EMP contacts keep neutral grey opacity 0.18 and emission scale 0.08, without smoke or decals. A separate expanding volume refracts and blurs the background for 1.2 seconds using alpha mixing and five mipmapped screen samples. It adds no splash damage or hit confirmation. Rocket, EMP and muzzle effects retain separate reusable pools capped at 16 each. Muzzle profiles differ for pistol, rifle, minigun and rocket, with nominal lengths 0.27/0.40/0.34/0.50 m. Their authored +X emission axis rotates onto socket -Z; they depth-test, follow the sampled socket and hide if it disappears. Cosmetic casings are noncolliding and expire after 0.6 seconds. Authoritative servers replicate presentation events without constructing renderers.
+Ballistic surface hits retain bounded yellow spark streaks, a brief core, smoke and ten-second randomized bullet marks, omitted on robots. Accepted damage animates the contour surface in the accepted weapon color. Lightning contacts use authored curved ribbons, a 0.4-second dissolve and an 18 cm white-blue core, capped at 16 simultaneous bursts; sustained contacts refresh every 0.12 seconds per weapon. EMP contacts keep neutral grey opacity 0.18 and emission scale 0.08, without smoke or decals. A separate expanding volume refracts and blurs the background for 1.2 seconds using alpha mixing and five mipmapped screen samples. It adds no splash damage or hit confirmation. Rocket and EMP effects retain separate reusable pools capped at 16 each; muzzle flashes have a separate 32-instance pool. Cosmetic casings are noncolliding and expire after 0.6 seconds. Authoritative servers replicate presentation events without constructing renderers.
+
+Muzzle flashes combine four textured 3D library surfaces: an irregular outer
+open flared gas envelope, a narrow inner jet, a broken annular mouth rim and
+curled sheets. The outer layer widens toward its open front; the inner jet
+extends through it. No sphere or disc closes that opening. The shader
+wraps generated hot-gas albedo/density and matching normal/roughness detail over
+the surfaces. The procedural gas atlas feathers the crown. Additive emission,
+view-angle softening and texture erosion keep the flame readable without solid
+primitive edges. The +X emission axis rotates onto the displayed socket's -Z;
+geometry starts at that socket, depth-tests and follows its current transform.
+Deleting the socket retires its flashes.
+
+Editable `MuzzleFlashProfile` resources in `game/assets/effects/muzzle/` expose
+independent outer-flame and inner-jet colors, radii and lengths, edge color,
+emission and lifetime. Dimensions are metres in the weapon's socket frame;
+FPV fitting retains the displayed weapon's scale. Size overrides fit the complete
+envelope without mutating the shared profile. Each shot gets a new phase that
+varies length, width, lobes and texture offsets, including pooled reuse. The jet
+grows outward during the opening pulse; the curled envelope then erodes and fades.
+
+| Profile | Outer length / radius | Jet length / radius | Lifetime |
+| --- | --- | --- | --- |
+| Pistol | 0.0725 / 0.055 m | 0.29 / 0.018 m | 0.10 s |
+| Rifle | 0.105 / 0.075 m | 0.42 / 0.024 m | 0.10 s |
+| Minigun | 0.15 / 0.10 m | 0.60 / 0.028 m | 0.18 s |
+| Rocket launcher | 0.1425 / 0.15 m | 0.57 / 0.048 m | 0.14 s |
+| Lightning orb | 0.055 / 0.055 m | 0.22 / 0.018 m | 0.10 s |
+
+The presets keep the wide open outer cone at 25% of the full jet length; both
+lengths remain independently editable.
+
+The minigun's 0.18-second flashes overlap at its existing 8 shots/s cadence;
+each retains its own phase, growth and fade. `tools/preview_muzzle_flashes.gd`
+captures the actual FPV and world weapons, front openings, shape variants, growth phases and
+overlap under `reports/muzzle-3d/`. Pass `-- --rt` with
+`GODOT_DLSS_DIAGNOSTICS=1` for native ray-traced captures; add `--motion` for a
+100-frame recording of real minigun firing. The probe checks accepted shot counts
+and overlapping live instances.
 
 Surface marks now use original procedural cavities, chips, dust and fine fractures with 64 seeded variants. The existing instance identifier, 9–16 cm footprint, surface anchor, 64-mark cap and ten-second lifetime remain unchanged; the final second fades away. Marks remain omitted on robots. No bitmap atlas is required.
 

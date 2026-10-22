@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="MuzzleFlashProfile" load_steps=2 format=3]
+[ext_resource type="Script" path="res://scripts/presentation/vfx/muzzle_flash_profile.gd" id="1"]
+[resource]
+script = ExtResource("1")
+outer_color = Color(0.6,0.8,1,1)
+jet_color = Color(0.95,0.98,1,1)
+edge_color = Color(0.15,0.4,1,1)
+outer_length = 0.055
+outer_radius = 0.055
+jet_length = 0.22
+jet_radius = 0.018

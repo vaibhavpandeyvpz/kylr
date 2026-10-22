@@ -1,0 +1,119 @@
+{
+  "generator": "export_muzzle_flow.py",
+  "source": "source/muzzle_flow_source.png",
+  "source_sha256": "b3e6fd48a68f1bd9e34892722160f48c218ffc2cc9c179532210e7d4d0becdff",
+  "size": [
+    1254,
+    1254
+  ],
+  "textures": {
+    "muzzle_albedo_density.png": "972c4ddec1d15d69549e2e663cb05797ebf62044937fa73aac39b164b11f6342",
+    "muzzle_normal_roughness.png": "669465bbf4b7d50f9978b7291a7f1a4ed0e637d3961da3066aff18da9f18ce04"
+  },
+  "texture_samples": {
+    "muzzle_albedo_density.png": [
+      {
+        "pixel": [
+          0,
+          0
+        ],
+        "rgba8": [
+          224,
+          184,
+          112,
+          224
+        ]
+      },
+      {
+        "pixel": [
+          418,
+          418
+        ],
+        "rgba8": [
+          90,
+          39,
+          7,
+          90
+        ]
+      },
+      {
+        "pixel": [
+          627,
+          627
+        ],
+        "rgba8": [
+          180,
+          127,
+          59,
+          180
+        ]
+      },
+      {
+        "pixel": [
+          1253,
+          1253
+        ],
+        "rgba8": [
+          198,
+          149,
+          78,
+          198
+        ]
+      }
+    ],
+    "muzzle_normal_roughness.png": [
+      {
+        "pixel": [
+          0,
+          0
+        ],
+        "rgba8": [
+          26,
+          175,
+          189,
+          199
+        ]
+      },
+      {
+        "pixel": [
+          418,
+          418
+        ],
+        "rgba8": [
+          19,
+          112,
+          192,
+          231
+        ]
+      },
+      {
+        "pixel": [
+          627,
+          627
+        ],
+        "rgba8": [
+          50,
+          112,
+          228,
+          209
+        ]
+      },
+      {
+        "pixel": [
+          1253,
+          1253
+        ],
+        "rgba8": [
+          39,
+          122,
+          219,
+          205
+        ]
+      }
+    ]
+  },
+  "channels": {
+    "muzzle_albedo_density.png": "linear hot-gas color RGB; density A",
+    "muzzle_normal_roughness.png": "OpenGL tangent normal RGB; roughness A"
+  }
+}
