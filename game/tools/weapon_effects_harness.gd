@@ -74,6 +74,10 @@ func _ready():
 		collider.collision_layer = 0
 		collider.collision_mask = 0
 	reset_positions()
+	for argument in OS.get_cmdline_user_args():
+		if argument.begins_with("--harness-weapon="):
+			var starting_weapon := argument.trim_prefix("--harness-weapon=")
+			if starting_weapon in WEAPONS: select_weapon(WEAPONS.find(starting_weapon))
 	build_overlay()
 	automated = "--harness-smoke" in OS.get_cmdline_user_args()
 	if not automated: Input.mouse_mode = Input.MOUSE_MODE_CAPTURED

@@ -116,6 +116,9 @@ the mouse; click to resume. **F10** exits. The target stays stationary, health
 and ammo refill continuously, and the overlay reports range and accepted hits.
 These sandbox conveniences do not alter normal match rules.
 
+Append `-- --harness-weapon=flamethrower` when launching the scene directly
+to start with that weapon selected; other weapon IDs work as well.
+
 To verify all primary/secondary shots, movement, wheel cycling and camera
 framing automatically:
 
