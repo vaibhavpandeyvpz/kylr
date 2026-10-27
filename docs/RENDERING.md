@@ -8,6 +8,18 @@ use `tools/prepare_godot.py` with SHA-512 pins from `tools/godot-release.json`.
 
 ## Graphics presets
 
+Faceoff lava uses the opaque `lava.gdshader` material with an original Imagegen
+molten-basalt texture. Slow advected crust and analytic surface-normal folds
+produce flow without screen-color or depth-buffer refraction. Incandescent
+channels and bubble bursts emit light through the existing glow pass. Sparse
+instanced droplets and low-resolution geometric bubbles follow deterministic
+match time, reduce detail with effect quality and stop under reduced motion.
+Faceoff's ground, crater and mountains blend six original volcanic PBR layers.
+Slope-based basalt exposure distinguishes steep rock from ash and slag deposits;
+native soil aprons retain object-local projection. A low warm sun and softer
+sky fill light the evening scene. Its static procedural sky uses cached quality
+reflections rather than animated night-sky radiance updates.
+
 Low disables shadows, ambient occlusion, bloom and MSAA. Medium enables shadows,
 bloom and 2× MSAA. High enables fixture illumination, shadows, ambient occlusion,
 bloom and 4× MSAA. Low and Medium retain emissive-only fixtures. Custom preserves

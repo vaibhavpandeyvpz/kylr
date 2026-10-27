@@ -1,0 +1,6 @@
+{
+  "method": "built-in Imagegen",
+  "sources": {
+    "molten_basalt.png": "Create a production game material texture: seamless tileable square top-down orthographic molten basalt lava surface, covering the entire image edge to edge. Dense irregular charcoal-black cooled basalt crust rafts with crinkled rugged relief and curled thin edges, separated by branching incandescent orange-red molten channels, a few narrow yellow-hot cores, viscous swirling ribbons and small cellular eddies. Approximately 65 percent dark solid crust, 35 percent orange molten seams. Natural organic broad shapes and fine detail at multiple scales, physically convincing and crisp, avoid uniform crack grid, no landscape, no horizon, no rocks protruding in perspective, no border, no text, no watermark, no lighting gradient, no cast shadows. Uniform material capture intended for UV scrolling and emissive-mask extraction in a Godot lava shader. Texture edges must tile seamlessly on all four sides. 2048x2048."
+  }
+}

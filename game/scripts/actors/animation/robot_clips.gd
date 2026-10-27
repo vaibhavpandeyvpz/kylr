@@ -42,7 +42,7 @@ static func turn(crouched: bool, delta: float) -> String:
 	return ("crouch_" if crouched else "") + "turn_90_" + ("right" if delta < 0 else "left")
 
 static func death(cause: String, local_incoming: Vector3, crouched: bool) -> String:
-	if cause == "Fall off map": return "falling"
+	if cause in ["Fall off map","Lava"]: return "falling"
 	if cause == "rocket_launcher": return "death_flying_back"
 	var behind := local_incoming.z > 0.25
 	if "headshot" in cause:

@@ -35,3 +35,36 @@ func test_portal_heuristic_finds_shortest_paths_with_blockers_and_point_edits():
 		for from_id in 20:
 			for to_id in 20:
 				assert_almost_eq(path_cost(solver,solver.get_id_path(from_id,to_id)),path_cost(reference,reference.get_id_path(from_id,to_id)),0.001)
+
+func test_native_portal_segments_match_dijkstra_with_blockers_and_point_edits():
+	var solver:=graph(TraversalGraph.PortalTraversalAStar.new()) as TraversalGraph.PortalTraversalAStar
+	var reference:=graph(Dijkstra.new())
+	solver.native_routes=true
+	for phase in 3:
+		if phase==1:
+			for target in [solver,reference]:
+				for id in [6,7,12,15]:target.set_point_disabled(id)
+		if phase==2:
+			for target in [solver,reference]:target.set_point_position(19,Vector3(200,0,200))
+		for target in [solver,reference]:target.refresh_portal_metric()
+		for from_id in 20:
+			for to_id in 20:
+				var actual:=solver.cached_path(from_id,to_id)
+				var expected:=reference.get_id_path(from_id,to_id)
+				assert_eq(actual.is_empty(),expected.is_empty())
+				assert_almost_eq(path_cost(solver,actual),path_cost(reference,expected),.001)
+
+func test_native_portal_solver_can_choose_a_shorter_walk():
+	var solver:=TraversalGraph.PortalTraversalAStar.new()
+	for id in 3:solver.add_point(id,Vector3(id,0,0))
+	solver.connect_points(0,1);solver.connect_points(1,2);solver.connect_points(0,2,false)
+	solver.transitions[Vector2i(0,2)]="portal";solver.refresh_portal_metric();solver.native_routes=true
+	assert_eq(solver.cached_path(0,2),PackedInt64Array([0,1,2]))
+
+func test_native_portals_bridge_separate_walking_components_directionally():
+	var solver:=TraversalGraph.PortalTraversalAStar.new()
+	for id in 4:solver.add_point(id,Vector3(id*10,0,0))
+	solver.connect_points(0,1);solver.connect_points(2,3);solver.connect_points(1,2,false)
+	solver.transitions[Vector2i(1,2)]="portal";solver.refresh_portal_metric();solver.native_routes=true
+	assert_eq(solver.cached_path(0,3),PackedInt64Array([0,1,2,3]))
+	assert_true(solver.cached_path(3,0).is_empty())

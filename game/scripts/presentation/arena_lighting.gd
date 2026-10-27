@@ -1,7 +1,7 @@
 class_name ArenaLighting
 extends RefCounted
 
-static func environment(preview := false) -> Environment:
+static func environment(preview := false,recipe: Dictionary = {}) -> Environment:
 	var settings := Environment.new()
 	settings.background_mode = Environment.BG_COLOR if preview else Environment.BG_SKY
 	settings.background_color = Color("0b1119")
@@ -33,11 +33,26 @@ static func environment(preview := false) -> Environment:
 	settings.fog_sky_affect = 0.0
 	settings.volumetric_fog_enabled = false
 	settings.volumetric_fog_density = 0.0
+	if not recipe.is_empty():
+		var evening:=ProceduralSkyMaterial.new()
+		evening.sky_top_color=Color(recipe.sky_top)
+		evening.sky_horizon_color=Color(recipe.sky_horizon)
+		evening.ground_horizon_color=Color(recipe.ground_horizon)
+		evening.ground_bottom_color=Color(recipe.ground_bottom)
+		evening.sun_angle_max=5.0
+		evening.sky_curve=.45
+		evening.ground_curve=.4
+		settings.sky.sky_material=evening
+		settings.sky.process_mode=Sky.PROCESS_MODE_QUALITY
+		settings.ambient_light_color=Color(recipe.ambient_color)
+		settings.ambient_light_energy=float(recipe.ambient_energy)
+		settings.fog_light_color=Color(recipe.fog_color)
+		settings.fog_density=float(recipe.fog_density)
 	return settings
 
-static func install(parent: Node, preview := false) -> WorldEnvironment:
+static func install(parent: Node, preview := false,recipe: Dictionary = {}) -> WorldEnvironment:
 	var world := WorldEnvironment.new()
-	world.environment = environment(preview)
+	world.environment = environment(preview,recipe)
 	parent.add_child(world)
 	var moon := DirectionalLight3D.new()
 	moon.name = "LGT_Key_Moon"
@@ -46,6 +61,11 @@ static func install(parent: Node, preview := false) -> WorldEnvironment:
 	moon.light_energy = 0.28
 	moon.shadow_enabled = true
 	moon.directional_shadow_max_distance = 110
+	if not recipe.is_empty():
+		moon.name="LGT_EveningSun"
+		moon.rotation_degrees=MapCatalog.vector(recipe.key_rotation_degrees)
+		moon.light_color=Color(recipe.key_color)
+		moon.light_energy=float(recipe.key_energy)
 	parent.add_child(moon)
 	if preview:
 		# The menu has no arena fixtures; dedicated studio lights shape the portrait.

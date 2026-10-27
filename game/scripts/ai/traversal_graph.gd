@@ -29,12 +29,14 @@ class TraversalAStar extends AStar3D:
 	var path_cache: Dictionary={}
 	var corridor_nodes: Dictionary={}
 	var corridor_bias := 0
+	func uncached_path(from_id: int,to_id: int) -> PackedInt64Array:
+		return get_id_path(from_id,to_id)
 	func cached_path(from_id: int,to_id: int) -> PackedInt64Array:
 		var key:=Vector3i(from_id,to_id,corridor_bias)
 		if not path_cache.has(key):
 			if path_cache.size()>=1024:path_cache.erase(path_cache.keys()[0])
 			var started := Time.get_ticks_usec() if TraversalGraph.profile_paths else 0
-			path_cache[key]=get_id_path(from_id,to_id)
+			path_cache[key]=uncached_path(from_id,to_id)
 			if TraversalGraph.profile_paths:
 				var elapsed := Time.get_ticks_usec()-started
 				TraversalGraph.path_stats["calls"] = int(TraversalGraph.path_stats.get("calls",0))+1
@@ -60,6 +62,15 @@ class TraversalAStar extends AStar3D:
 			for i in portal_nodes.size():
 				for j in portal_nodes.size():portal_metric[i][j]=minf(portal_metric[i][j],portal_metric[i][k]+portal_metric[k][j])
 class PortalTraversalAStar extends TraversalAStar:
+	var native_routes:=false
+	var native_planner: NativePortalRoutes
+	func uncached_path(from_id: int,to_id: int) -> PackedInt64Array:
+		if not native_routes or corridor_bias!=0:return get_id_path(from_id,to_id)
+		if native_planner==null:native_planner=NativePortalRoutes.new(self,transitions)
+		return native_planner.path(from_id,to_id)
+	func refresh_portal_metric():
+		native_planner=null
+		super.refresh_portal_metric()
 	func _compute_cost(from_id: int,to_id: int) -> float:
 		if transitions.get(Vector2i(from_id,to_id))=="portal":return 3.0
 		return get_point_position(from_id).distance_to(get_point_position(to_id))
@@ -99,6 +110,8 @@ func _init(map):
 	var portals: bool=map==null or map.fixtures.any(func(fixture):return fixture.kind=="portal")
 	graph=PortalTraversalAStar.new() if portals else TraversalAStar.new()
 	basic_graph=PortalTraversalAStar.new() if portals else TraversalAStar.new()
+	if portals and map!=null and map.config.get("native_portal_routes",false):
+		graph.native_routes=true;basic_graph.native_routes=true
 	graph.transitions=actions
 	basic_graph.transitions=actions
 
@@ -111,6 +124,10 @@ func build():
 	for cell in cells: _connect_cell(cell,columns)
 	_build_links()
 	for cell in cells: _discover_gaps(cell)
+	if arena.get("lava")!=null:
+		var pit_routes:=LavaTraversal.new(self)
+		while not pit_routes.step():pass
+	prepare_portal_walks()
 
 func build_async() -> void:
 	_begin_build()
@@ -134,6 +151,19 @@ func build_async() -> void:
 		if Time.get_ticks_usec()-batch_started>=8000:
 			await arena.get_tree().process_frame
 			batch_started=Time.get_ticks_usec()
+	if arena.get("lava")!=null:
+		var pit_routes:=LavaTraversal.new(self)
+		while not pit_routes.step():
+			if Time.get_ticks_usec()-batch_started>=8000:
+				await arena.get_tree().process_frame
+				batch_started=Time.get_ticks_usec()
+	prepare_portal_walks()
+
+func prepare_portal_walks() -> void:
+	for navigation in [graph,basic_graph]:
+		if navigation is PortalTraversalAStar and navigation.native_routes:
+			if navigation.native_planner==null:navigation.native_planner=NativePortalRoutes.new(navigation,actions)
+			navigation.native_planner.prepare()
 
 func _begin_build() -> void:
 	for fixture in arena.fixtures:
@@ -163,6 +193,7 @@ func restore_snapshot(data: Dictionary) -> void:
 		for point in data.topology[index].points:
 			for connection in point.connections: navigation.connect_points(point.id,connection,false)
 		navigation.refresh_portal_metric()
+	prepare_portal_walks()
 
 func _sample_column(level: float,x: int,bounds: Dictionary) -> void:
 	for z in range(bounds.min_z,bounds.max_z+1):
@@ -547,6 +578,8 @@ func sync_barricades() -> void:
 	# Cached paths include failures; opening a barrier must invalidate both.
 	graph.path_cache.clear()
 	basic_graph.path_cache.clear()
+	for navigation in [graph,basic_graph]:
+		if navigation is PortalTraversalAStar:navigation.native_planner=null
 	# Only closed barricades can change reachability. Cache their frames once
 	# per update instead of rescanning the complete imported fixture catalog.
 	var blockers: Array[Transform3D]=[]

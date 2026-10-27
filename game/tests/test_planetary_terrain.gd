@@ -69,7 +69,7 @@ func test_deployed_lander_has_ground_under_its_complete_footprint():
 			assert_false(hit.is_empty(),"Terrain supports the deployed lander footprint")
 			if not hit.is_empty():assert_almost_eq(float(hit.position.y),point.y,.005,"Ground meets native foot and ladder plane")
 
-func test_bots_can_walk_from_the_cover_bank_to_level_ground():
+func test_bots_can_walk_from_volcanic_relief_to_level_ground():
 	var game := ArenaMatch.new()
 	game.online=true;game.map_id="faceoff"
 	add_child_autofree(game)
@@ -83,8 +83,9 @@ func test_bots_can_walk_from_the_cover_bank_to_level_ground():
 	var manifest: Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://assets/textures/planetary/manifest.json"))
 	var sample: Array=manifest.maps.faceoff.qa_points[1]
 	var summit:=Vector3(sample[0],sample[1],sample[2])
+	assert_lte(absf(summit.y),.5,"Playable volcanic relief stays within half a metre")
 	var first:=graph.get_closest_point(summit)
-	assert_lt(graph.get_point_position(first).distance_to(summit),1.5,"Cover bank has sampled bot support")
+	assert_lt(graph.get_point_position(first).distance_to(summit),1.5,"Exposed volcanic ground has sampled bot support")
 	var pending: Array[int]=[first]
 	var visited: Dictionary={first:true}
 	var reaches_level_ground:=false
@@ -94,7 +95,7 @@ func test_bots_can_walk_from_the_cover_bank_to_level_ground():
 		for next in graph.get_point_connections(current):
 			if visited.has(next) or game.map.traversal.actions.has(Vector2i(current,next)):continue
 			visited[next]=true;pending.append(next)
-	assert_true(reaches_level_ground,"Continuous walking routes connect the summit to the outpost")
+	assert_true(reaches_level_ground,"Continuous walking routes connect volcanic relief to the outpost")
 	for point: Vector3 in game.map.navigation_region.navigation_mesh.get_vertices():
 		assert_lte(absf(point.x),37.5,"Distant terrain is not navigable")
 		assert_lte(absf(point.z),37.5,"Distant terrain is not navigable")

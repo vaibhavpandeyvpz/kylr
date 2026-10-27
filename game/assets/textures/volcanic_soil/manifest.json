@@ -1,0 +1,35 @@
+{
+  "resolution": 2048,
+  "tile_metres": 4.0,
+  "layers": [
+    "dust",
+    "basalt",
+    "bedrock",
+    "rubble",
+    "compacted",
+    "scorch"
+  ],
+  "source_sha256": {
+    "dust": "9a5c69cf376ea497a1adf5c17f6128d7408170c352001fe5f2bbcb29bc40e15f",
+    "basalt": "46889ed31dfc2d6e13a61bdcf5ca06da946b226cd83f7bfbf8a25090a8fd1150",
+    "bedrock": "8faa8d0b9146cd7283472c63a3e04f8ac3036d3781c4ecf9bf7f4bb63f8a1d18",
+    "rubble": "94c80a967fa704221c7467e7447afbaa2f795824005eb0e88ef57871ea8bee39",
+    "compacted": "31a52f0d3ac620bf6caf94795853c35b55d55d7e5f0e4d21d72352caf486b1c1",
+    "scorch": "b67951dbfcd29a06763f3aec3433e3b5b37e8e574e6dcca610bbc7dee5fd1e9f"
+  },
+  "files": {
+    "dust_albedo_height.png": "9b3b91930c7c6af8e802ea5c46aa6795fc0b69866993c8225db30397ccde7814",
+    "dust_normal_roughness.png": "408ac4f1ceb30b83f68ca2e45337a2d2e67e1da0ddfd8403677da176e50dbc6b",
+    "basalt_albedo_height.png": "7ab531d6782c94bd790d1e4389c243c24a3297e32651a8a9446ac295f2872228",
+    "basalt_normal_roughness.png": "a24e7d475eb8779636d824d4572fa30b890e5e7f314c9342835923b8d0ed15f9",
+    "bedrock_albedo_height.png": "dd84683f7b140cbb840265d416b85d1e5f14d8f00248cd502e58687109455213",
+    "bedrock_normal_roughness.png": "a68fd5c01735f15333bacc7927d069dfff2dce74b5f0439befa45ef81cf99a3e",
+    "rubble_albedo_height.png": "f0eb034f19f59fce80ae009779d28f622dd07f04d4eb1920552848311de7c209",
+    "rubble_normal_roughness.png": "ac62bbb829e81443ea8ca6a7d0c306eb0bf63cf2c23c2469977dfed06eabe680",
+    "compacted_albedo_height.png": "a6cbe41e4ff59906fe41fb2722a7b44a794404790fe77e86ee89196a67317561",
+    "compacted_normal_roughness.png": "a61c9cecf53ed0e97d3dd795553dc05b189560b5691d04b12407d56158406787",
+    "scorch_albedo_height.png": "53f16b3ba0c90284d8a31b567562745c87e2f11ecd5b5151facb956dbe117b16",
+    "scorch_normal_roughness.png": "46a7eeeb4bdf5aa4423905c53264f270a76044067d7719af3dc96cbb80213277"
+  },
+  "maps": {}
+}

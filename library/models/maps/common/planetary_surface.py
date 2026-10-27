@@ -18,7 +18,7 @@ def clean_authoring_defaults():
         if mat.users==0:bpy.data.materials.remove(mat)
 
 
-def build(map_id,name):
+def build(map_id,name,bottom_elevation=None):
     path=CACHE/(map_id+'_baked.json')
     assert path.exists(), 'Run tools/build_planetary_terrain.py '+map_id+' first'
     data=json.loads(path.read_text(encoding='utf-8'))
@@ -69,7 +69,7 @@ def build(map_id,name):
             key=tuple(sorted((a,b)))
             if key in edges:edges[key]=None
             else:edges[key]=(a,b)
-    bottom=[(x,y,z-2) for x,y,z in vertices]
+    bottom=[(x,y,z-2 if bottom_elevation is None else min(z-2,bottom_elevation)) for x,y,z in vertices]
     lower=[tuple(index+count for index in reversed(face)) for face in faces]
     walls=[(b,a,a+count,b+count) for edge in edges.values() if edge is not None for a,b in [edge]]
     vertices.extend(bottom);faces.extend(lower);faces.extend(walls)
@@ -88,6 +88,7 @@ def build(map_id,name):
 
 
 def material(map_id):
+    texture_folder='volcanic_soil' if map_id=='faceoff' else 'planetary'
     name='M_Planetary'+map_id.capitalize()
     mat=bpy.data.materials.get(name) or bpy.data.materials.new(name)
     mat.use_nodes=True;mat.diffuse_color=(.35,.34,.32,1)
@@ -117,12 +118,12 @@ def material(map_id):
         rgb=nodes.new('ShaderNodeSeparateColor');links.new(tex.outputs['Color'],rgb.inputs[0]);channels.extend([rgb.outputs[c] for c in ['Red','Green','Blue']])
     total=None;normal_total=None;roughness_total=None
     for layer,weight in zip(LAYERS,channels):
-        tex=texture(ROOT.parent/'game/assets/textures/planetary'/f'{layer}_albedo_height.png',tiled.outputs[0],True,True)
+        tex=texture(ROOT.parent/'game/assets/textures'/texture_folder/f'{layer}_albedo_height.png',tiled.outputs[0],True,True)
         multiply=nodes.new('ShaderNodeVectorMath');multiply.operation='SCALE';links.new(tex.outputs['Color'],multiply.inputs[0]);links.new(weight,multiply.inputs['Scale'])
         if total is None:total=multiply.outputs[0]
         else:
             add=nodes.new('ShaderNodeVectorMath');add.operation='ADD';links.new(total,add.inputs[0]);links.new(multiply.outputs[0],add.inputs[1]);total=add.outputs[0]
-        packed=texture(ROOT.parent/'game/assets/textures/planetary'/f'{layer}_normal_roughness.png',tiled.outputs[0],False,True)
+        packed=texture(ROOT.parent/'game/assets/textures'/texture_folder/f'{layer}_normal_roughness.png',tiled.outputs[0],False,True)
         scale=nodes.new('ShaderNodeVectorMath');scale.operation='SCALE';links.new(packed.outputs['Color'],scale.inputs[0]);links.new(weight,scale.inputs['Scale'])
         if normal_total is None:normal_total=scale.outputs[0]
         else:
@@ -151,7 +152,7 @@ def preview():
                     ob.data.materials[index]=replacements[map_id]
 
 
-def apply_materials(ob,map_id,source_material=None):
+def apply_materials(ob,map_id,source_material=None,wall_face_charts=False):
     mat=source_material if source_material is not None else material(map_id)
     ob.data.materials.clear();ob.data.materials.append(mat)
     uv=ob.data.uv_layers.get('TiledSurface') or ob.data.uv_layers.new(name='TiledSurface')
@@ -165,22 +166,56 @@ def apply_materials(ob,map_id,source_material=None):
     # need unwrapping; treating the full terrain as small props folds charts.
     bm=bmesh.new();bm.from_mesh(ob.data)
     bmesh.ops.triangulate(bm,faces=[face for face in bm.faces if len(face.verts)>3])
+    if wall_face_charts:
+        # Native cuts may leave opposite faces enclosing a sub-float32 fin.
+        # Canonicalize those aliases before glTF quantization creates a seam.
+        bmesh.ops.remove_doubles(bm,verts=list(bm.verts),dist=1e-7)
+        bm.verts.index_update();groups={}
+        for face in bm.faces:groups.setdefault(tuple(sorted(v.index for v in face.verts)),[]).append(face)
+        fins=[]
+        for faces in groups.values():
+            if len(faces)==2 and faces[0].normal.dot(faces[1].normal)<-.999:fins.extend(faces)
+        bmesh.ops.delete(bm,geom=fins,context='FACES_ONLY')
+        bmesh.ops.delete(bm,geom=[edge for edge in bm.edges if not edge.link_faces],context='EDGES')
+        print('TERRAIN_QUANTIZATION_FINS',len(fins),flush=True)
     bmesh.ops.dissolve_degenerate(bm,edges=list(bm.edges),dist=1e-7)
+    if wall_face_charts:assert all(edge.is_manifold for edge in bm.edges),'Excavated terrain must remain closed'
     bm.to_mesh(ob.data);bm.free();ob.data.update()
     atlas=ob.data.uv_layers.get('MaterialAtlas') or ob.data.uv_layers.new(name='MaterialAtlas');ob.data.uv_layers.active=atlas
     bpy.ops.object.select_all(action='DESELECT');ob.select_set(True);bpy.context.view_layer.objects.active=ob
     walls=[]
     for polygon in ob.data.polygons:
-        polygon.select=abs(polygon.normal.z)<.4
+        polygon.select=abs(polygon.normal.z)<.4 or (wall_face_charts and abs(polygon.normal.z)<.999999 and min(ob.data.vertices[i].co.z for i in polygon.vertices)<-1.25)
         if polygon.select:walls.append(polygon.index)
-    if walls:
+    if walls and not wall_face_charts:
         bpy.ops.object.mode_set(mode='EDIT');bpy.ops.mesh.select_mode(type='FACE')
         bpy.ops.uv.smart_project(angle_limit=math.radians(60),island_margin=.02,scale_to_bounds=True)
         bpy.ops.object.mode_set(mode='OBJECT')
     ob.data.update()
     # Edit mesh conversion rebuilds UV storage; reacquire RNA layer handles.
     atlas=ob.data.uv_layers['MaterialAtlas'];uv=ob.data.uv_layers['TiledSurface']
+    wall_indices={index:slot for slot,index in enumerate(walls)}
+    columns=max(1,math.ceil(math.sqrt(len(walls))))
+    rows=max(1,math.ceil(len(walls)/columns))
     for polygon in ob.data.polygons:
+        if wall_face_charts and polygon.index in wall_indices:
+            slot=wall_indices[polygon.index];cell_x=.992/columns;cell_y=.30/rows
+            gutter=min(.004,min(cell_x,cell_y)*.15)
+            points=[ob.data.vertices[ob.data.loops[loop].vertex_index].co for loop in polygon.loop_indices]
+            axis=(points[1]-points[0]).normalized();other=polygon.normal.cross(axis)
+            projected=[((p-points[0]).dot(axis),(p-points[0]).dot(other)) for p in points]
+            lo=[min(p[k] for p in projected) for k in (0,1)];hi=[max(p[k] for p in projected) for k in (0,1)]
+            scale=min((cell_x-2*gutter)/max(hi[0]-lo[0],1e-9),(cell_y-2*gutter)/max(hi[1]-lo[1],1e-9))
+            for loop,p in zip(polygon.loop_indices,projected):
+                atlas.data[loop].uv=(.004+(slot%columns)*cell_x+gutter+(p[0]-lo[0])*scale,.004+(slot//columns)*cell_y+gutter+(p[1]-lo[1])*scale)
+            continue
+        if wall_face_charts and all(abs(ob.data.vertices[i].co.z+10)<1e-5 for i in polygon.vertices):
+            # Undercut pit floors can lie below intact rim terrain at the same
+            # XY coordinate, so their painting charts own a separate strip.
+            for loop in polygon.loop_indices:
+                point=ob.data.vertices[ob.data.loops[loop].vertex_index].co
+                atlas.data[loop].uv=(.004+(point.x+37.5)/75*.992,.308+(point.y+37.5)/75*.102)
+            continue
         for loop in polygon.loop_indices:
             # Edit-mode unwrap can reorder polygons; classify the current face.
             if abs(polygon.normal.z)<.4:
@@ -201,7 +236,8 @@ def apply_materials(ob,map_id,source_material=None):
         if area<1e-14:
             assert isolated<40,'Terrain needs more than the reserved UV exception strip'
             u=.008+isolated*.024
-            for index,value in zip(loops,[(u,.392),(u+.012,.392),(u,.404)]):atlas.data[index].uv=value
+            v=.414 if wall_face_charts else .392
+            for index,value in zip(loops,[(u,v),(u+.012,v),(u,v+(.006 if wall_face_charts else .012))]):atlas.data[index].uv=value
             isolated+=1
     ob.data.uv_layers.active=uv;uv.active_render=True
 

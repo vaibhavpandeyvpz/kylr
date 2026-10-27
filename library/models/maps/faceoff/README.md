@@ -3,7 +3,7 @@
 Authored from Figma file `0pxQrXAGeHplJ0ANVYwD8e`, frame `143:891` on page
 `143:890`. Both flag placements use the actual added node IDs and transforms.
 
-Native architecture, fixtures, weapons, ammo, lights and lunar scenery are
+Native architecture, fixtures, weapons, ammo, lights and volcanic scenery are
 separate assets imported at named map gizmos with identity local transforms.
 Each ammo pack has its own gizmo; pair origins are 20 cm apart. Held payloads
 attach to the holder/table's live rotating-bone socket.
@@ -16,7 +16,7 @@ the host building frame: native +Y backs face the building's +X wall, with
 the open shelves facing the room. Validate all four exported gizmos after regeneration. The habitat pod retains
 its native ceiling batten and has no rear sconce mount.
 
-The habitat pod faces the lunar centre. Its Figma footprint uses the reverse
+The habitat pod faces the arena centre. Its Figma footprint uses the reverse
 axis of the native pod: resolve that host orientation before rotating contained
 placements, retaining rocket ammo at the front and its cradle at the rear.
 The raised cabin deck is approximately 0.746 m above ground; native landing
@@ -39,29 +39,49 @@ on each side of the native fixture footprint (1.002 m for a 1 m fixture).
 The laboratory and bastion cargo lifts use their native CargoLift rig and
 LiftSurfaceMount gizmos. Flag bases sit on their upper floors. Pulse guns are
 disabled in DM; in TDM/CTF each targets the closest opposing robot within 20 m.
-Lunar common ground is playable here; Skyfall's lethal-ground rule is separate.
+Volcanic common ground is playable here; Skyfall's lethal-ground rule is separate.
+
+`sources/ground_holes.json` owns the Figma lava-pit outlines and transforms.
+`lava_pits.py` rounds and erodes their rims and excavates irregular tapered
+walls down to -10 m. Molten lava fills the lower 9.5 m, with its surface at
+-0.5 m. Contact is immediately lethal, including during spawn protection.
+All pit and fixture cutters execute in one native Boolean pass. The generated
+`faceoff_terrain.blend` checkpoint supports `model.py -- --reuse-terrain` for
+UV/export work only when its source-input fingerprint still matches. Pit walls
+and undercut floors own separate painting charts; runtime geological UVs remain
+unchanged. Placement-only updates reject changed pit geometry.
+The runtime handoff exports these footprints alongside the unchanged native
+fixture placements. Opaque flowing basalt, incandescent seams and sparse
+geometric bubbles, burst rings and droplets use the original lava shader and
+the Imagegen material source under `textures/lava/`. Reduced motion stops flow
+and bubbles; lower effect quality reduces bubble detail.
 
 Run headless Blender from library: architecture_variants.py, model.py,
 collision.py, validate.py, preview.py, animate.py. Then run
 tools/prepare_faceoff_runtime.py with the library Python venv and reimport in
 Godot. Validation covers placement axes and visual/collision GLB/FBX recesses.
 
-Faceoff has a 75 x 75 m playable boundary, implemented by four invisible perimeter walls at +/-37.5 m, extending from -2 m to 100 m to contain jump-pad and charged-jump routes. The lunar surface remains continuous through these walls into the surrounding geological rim. Skyfall has no perimeter walls and lunar contact is lethal.
+Faceoff has a 75 x 75 m playable boundary, implemented by four invisible perimeter walls at +/-37.5 m, extending from -2 m to 100 m to contain jump-pad and charged-jump routes. The volcanic surface remains continuous through these walls into the surrounding geological rim. Skyfall has no perimeter walls and lunar contact is lethal.
 
-Current map-owned geometry is 3,259 machining triangles against the 25,000 default; imported architecture/scenery/props remain excluded. The habitat pod has bidirectional normal-jump routes through its native doorway, with crouching only after takeoff and a waypoint clearing the cradle. Occupied cradles match their native closed pose and attach payload axes directly to ItemMount.
+Current map-owned geometry is 18,634 machining triangles against the 25,000 default; imported architecture/scenery/props remain excluded. The habitat pod has bidirectional normal-jump routes through its native doorway, with crouching only after takeoff and a waypoint clearing the cradle. Occupied cradles match their native closed pose and attach payload axes directly to ItemMount.
 
-## Shared builders and lunar crater
+## Shared builders and volcanic crater
 
 Shared scripts live in `models/maps/common/platform/` and `models/maps/common/bridge/`.
 The single dimensional platform builder unions proposed extensions before laying
 out its perimeter, adds the optional 1.5 m underbody and surface regolith, then
 applies placement cuts. Standalone lip and size-specific helpers are retired.
-Faceoff uses graded terrain banks, shallow channels, level native building seats
-and a broken impact rim. Six original PBR layers describe dust, basalt, exposed
-bedrock, rubble, compacted ground and scorch. Skyfall's deeper basin remains
+Faceoff uses terrain relief limited to +/-0.5 m inside its playable boundary,
+shallow channels, level native building seats
+and a broken crater rim. Six original Imagegen PBR layers describe burnt ash,
+cooled basalt, fractured bedrock, slag, compacted ground and soot. They cover
+the playable ground, pit walls, surrounding crater and mountains, with anchored
+variants for native soil aprons. `settings.json` owns the warm evening sun,
+sky fill and static sky reflections. Skyfall's deeper basin remains
 lethal. Terrain is separate scenery, excluded from map machining totals.
 
-Before rebuilding map geometry, generate textures and run
+Before rebuilding map geometry, generate the volcanic PBR layers with
+`textures/volcanic_soil/generate.py` and run
 `tools/build_planetary_terrain.py faceoff` with the library Python environment.
 After native model/collision/round-trip validation, use
 `tools/handoff_planetary_terrain.py` for geometry-preserving runtime delivery.
@@ -71,7 +91,7 @@ SDK setup, source ownership, UVs, packed channels and required validation.
 ## Jumbotron placement
 
 The central jumbotron placement gizmo is 10 m above ground in the game. The temporary arena benchmark alone raises its instance to 20 m.
-All four pole-light gizmos face outward from the lunar centre, illuminating
+All four pole-light gizmos face outward from the arena centre, illuminating
 the surrounding play area while the jumbotron lights the centre.
 
 First-floor flamethrower pickups in Bastion and Laboratory use native item

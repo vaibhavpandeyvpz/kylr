@@ -1,5 +1,9 @@
 shader_type spatial;
 render_mode diffuse_burley;
+uniform bool volcanic_surface = false;
+uniform bool local_surface = false;
+varying vec3 surface_local;
+varying vec3 normal_local;
 
 uniform sampler2D weights0 : filter_linear, repeat_disable;
 uniform sampler2D weights1 : filter_linear, repeat_disable;
@@ -19,6 +23,8 @@ varying vec3 terrain_world;
 varying vec3 terrain_normal;
 
 void vertex() {
+	surface_local=VERTEX;
+	normal_local=NORMAL;
 	terrain_world = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz;
 	terrain_normal = mat3(MODEL_MATRIX) * NORMAL;
 }
@@ -37,9 +43,15 @@ void fragment() {
 	vec2 control_uv = (terrain_world.xz + vec2(256.5)) / 512.0;
 	vec3 first = texture(weights0, control_uv).rgb;
 	vec3 second = texture(weights1, control_uv).rgb;
-	vec3 facing = abs(normalize(terrain_normal));
-	vec2 projection = facing.y >= max(facing.x, facing.z) ? terrain_world.xz :
-		(facing.x > facing.z ? terrain_world.zy : terrain_world.xy);
+	vec3 facing = abs(normalize(local_surface?normal_local:terrain_normal));
+	if(local_surface) { first=vec3(.48,.3,.12);second=vec3(.1,0.0,0.0); }
+	if(volcanic_surface) {
+		float rock=(1.0-smoothstep(.35,.85,facing.y))*.85;
+		first=mix(first,vec3(0.0,.4,.6),rock);second*=1.0-rock;
+	}
+	vec3 coordinates=local_surface?surface_local:terrain_world;
+	vec2 projection = facing.y >= max(facing.x, facing.z) ? coordinates.xz :
+		(facing.x > facing.z ? coordinates.zy : coordinates.xy);
 	vec2 uv = projection * 0.25;
 	vec4 colors = vec4(0.0);
 	vec4 normals = vec4(0.0);

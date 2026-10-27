@@ -501,8 +501,9 @@ func fall_killer(victim: ArenaRobot) -> ArenaRobot:
 
 func eliminate(victim,killer,cause: String, contact: Dictionary = {}):
 	if not victim.alive or phase != "Active": return
-	if cause=="Fall off map": killer=fall_killer(victim)
-	var credited_weapon: String=victim.last_hit_weapon if cause=="Fall off map" and killer!=null else cause
+	var environmental_fall: bool=cause in ["Fall off map","Lava"]
+	if environmental_fall: killer=fall_killer(victim)
+	var credited_weapon: String=victim.last_hit_weapon if environmental_fall and killer!=null else cause
 	victim.alive = false
 	kill_chains.erase(victim.robot_id)
 	map.abort_repair_for_robot(victim,"death")
@@ -514,7 +515,7 @@ func eliminate(victim,killer,cause: String, contact: Dictionary = {}):
 	var incoming := Vector3.ZERO
 	if killer != null:
 		incoming = Basis(Vector3.UP, victim.yaw).inverse() * (killer.global_position - victim.global_position).normalized()
-	var fall_death := cause == "Fall off map"
+	var fall_death := environmental_fall
 	var lunar_impact := {}
 	if fall_death:
 		var hit := combat.ray(victim.global_position+Vector3.UP*0.5,victim.global_position-Vector3.UP*0.5,[],1)
@@ -552,7 +553,7 @@ func eliminate(victim,killer,cause: String, contact: Dictionary = {}):
 	victim.respawn_time = death_duration + 1.0
 	if victim.carrying >= 0:
 		var flag: Dictionary = flags[victim.carrying]
-		drop_carried_flag(flag,victim.global_position,cause == "Fall off map")
+		drop_carried_flag(flag,victim.global_position,fall_death)
 		victim.carrying = -1
 	if killer != null:
 		killer.kills += 1

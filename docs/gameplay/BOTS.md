@@ -181,6 +181,11 @@ while a ceiling or unreachable target prevents firing. A final muzzle check
 after movement and pose updates verifies the actual launch direction before
 the shared trigger; newly obstructed shots prompt repositioning.
 
-Portal routes use `AStar3D` with scripted portal costs and an admissible portal
-heuristic. Runtime navigation snapshots store topology and action data; restore
-recomputes portal metrics and heuristic caches for an independent solver.
+Faceoff portal planning combines cached native `AStar3D` walking segments with
+a small shortest-path graph of portal endpoints. Portal edges retain their
+three-metre cost, direction and disabled-point checks. Its normal and charged
+graphs remain separate. Blocker changes invalidate the segment planner; restored
+navigation snapshots create independent solvers. Loading prepares both planners
+and their endpoint paths; a walking-component check rejects disconnected
+searches before invoking native AStar. Other portal maps retain the
+scripted portal costs and admissible portal heuristic.

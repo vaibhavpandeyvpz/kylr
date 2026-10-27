@@ -1,0 +1,16 @@
+{
+  "terrain_material": "volcanic_soil",
+  "environment": {
+    "sky_top": "28273e",
+    "sky_horizon": "b97858",
+    "ground_horizon": "b97858",
+    "ground_bottom": "18161c",
+    "ambient_color": "b5a5bd",
+    "ambient_energy": 0.34,
+    "key_color": "ffc18d",
+    "key_energy": 0.85,
+    "key_rotation_degrees": [-14, -35, 0],
+    "fog_color": "69565d",
+    "fog_density": 0.0007
+  }
+}

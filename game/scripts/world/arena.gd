@@ -20,6 +20,7 @@ var markers: Array = []
 var fixtures: Array = []
 var cargo_lifts: Array[ArchitectureLift] = []
 var carriers: MapCarriers
+var lava: LavaSurface
 var fixture_indices: Dictionary = {}
 const INTERACTION_KINDS := ["portal","jump_pad","speed_ramp","pressure_plate","repair_station"]
 var spawns: Array = []
@@ -115,6 +116,10 @@ func _finish_scene() -> void:
 	jumbotron.install(jumbo,game)
 	ScoreboardDisplay.new().install(jumbo,game)
 	add_world()
+	if config.has("lava_pits"):
+		lava=LavaSurface.new()
+		add_child(lava)
+		lava.install(game,config.lava_pits)
 	if config.has("moving_decks"):
 		carriers = MapCarriers.new()
 		carriers.install(self)
@@ -677,12 +682,15 @@ func add_world():
 		add_child(lake)
 		lake.install(game,config.environment)
 		return
-	ArenaLighting.install(self)
+	ArenaLighting.install(self,false,config.get("environment",{}))
 
 func finish_lunar_surface(root: Node) -> void:
 	for mesh in root.find_children("*", "MeshInstance3D", true, false):
 		for surface in mesh.mesh.get_surface_count():
 			var source := mesh.get_active_material(surface) as StandardMaterial3D
+			if source!=null and config.get("terrain_material","")=="volcanic_soil" and Assets.material_role(source.resource_name) in ["M_Regolith","M_RegolithLight","M_RegolithDark"]:
+				mesh.set_surface_override_material(surface,PlanetaryTerrain.material(game.map_id,true))
+				continue
 			if source != null and config.get("soil_material","") == "martian_soil" and Assets.material_role(source.resource_name) in ["M_Regolith","M_RegolithLight","M_RegolithDark","M_RampartsRock","M_RampartsPlain","M_RampartsStone"]:
 				var role:=Assets.material_role(source.resource_name)
 				mesh.set_surface_override_material(surface,MartianSoil.material(role=="M_RampartsStone",role in ["M_Regolith","M_RegolithLight","M_RegolithDark"]))
@@ -1082,9 +1090,7 @@ func build_navigation():
 	nav=traversal.graph
 	if carriers:carriers.capture_navigation()
 	if navigation_region:
-		for edge in traversal.actions:
-			if traversal.actions[edge]=="speed_ramp":
-				navigation_link(nav.get_point_position(edge.x),traversal.destinations[edge],false,"speed_ramp")
+		install_traversal_links()
 
 func build_navigation_async() -> void:
 	var key := "%s:%s:%s:%s:%s:%s"%[FileAccess.get_sha256(config.metadata),JSON.stringify(config),str(play_transform),game.gravity,ArenaTuning.NORMAL_JUMP_HEIGHT,ArenaTuning.CHARGED_JUMP_HEIGHT]
@@ -1097,8 +1103,7 @@ func build_navigation_async() -> void:
 		nav=traversal.graph
 		if carriers:carriers.capture_navigation()
 		if navigation_region:
-			for edge in traversal.actions:
-				if traversal.actions[edge]=="speed_ramp": navigation_link(nav.get_point_position(edge.x),traversal.destinations[edge],false,"speed_ramp")
+			install_traversal_links()
 		navigation_cache_hit=true
 		return
 	# Keep the sampled collision world stable across yields, without disabling
@@ -1120,10 +1125,26 @@ func build_navigation_async() -> void:
 	nav=traversal.graph
 	if carriers:carriers.capture_navigation()
 	if navigation_region:
-		for edge in traversal.actions:
-			if traversal.actions[edge]=="speed_ramp": navigation_link(nav.get_point_position(edge.x),traversal.destinations[edge],false,"speed_ramp")
+		install_traversal_links()
 	for player in players: player.play()
 	for motion in motions: motion.set_physics_process(true)
+
+func install_traversal_links() -> void:
+	var installed: Dictionary={}
+	for edge in traversal.actions:
+		var action: String=traversal.actions[edge]
+		var a:=nav.get_point_position(edge.x)
+		var b: Vector3=traversal.destinations.get(edge,nav.get_point_position(edge.y))
+		if action=="speed_ramp":navigation_link(a,b,false,action)
+		elif lava and action in ["jump","charged_jump","launch"]:
+			for pit_index in lava.pits.size():
+				var pit: Dictionary=lava.pits[pit_index]
+				if LavaTraversal.crosses_polygon(a,b,pit.polygon):
+					var direction:=posmod(roundi(atan2(b.z-a.z,b.x-a.x)*4.0/PI),8)
+					var key: String="%d:%s:%d"%[pit_index,action,direction]
+					if not installed.has(key):
+						navigation_link(a,b,false,action);installed[key]=true
+					break
 
 func bake_navigation():
 	if navigation_region: navigation_region.free()

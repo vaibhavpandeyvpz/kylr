@@ -30,14 +30,17 @@ assert len(flags)==2 and len(portals)==2
 links=[]
 for pad in [m for m in markers if m['role']=='jump_pad']:
  zone='A' if point(pad)[0]>0 else 'B';links.append({'from':point(pad),'to':dict(exits)[zone],'kind':'launch'})
-config=dict(id='faceoff',title='Faceoff',model='faceoff',subtitle='Opposing duplex bases on a shared lunar battlefield.',description='Fight through native architecture, cross the common lunar surface, and use cargo lifts to reach flag floors. Team pulse guns defend each base.',
- match_types=['DM','TDM','CTF'],metadata='res://assets/models/maps/faceoff/faceoff_rig.json',gravity_multiplier=1.2,
+sys.path.insert(0,str(HERE))
+from lava_pits import data as lava_pits
+settings=json.loads((HERE/'settings.json').read_text())
+config=dict(id='faceoff',title='Faceoff',model='faceoff',subtitle='Opposing bases on a volcanic battlefield at dusk.',description='Cross burnt basalt terrain and lethal lava fissures, use cargo lifts to reach flag floors, and take validated jump routes between the banks. Team pulse guns defend each base.',lava_pits=lava_pits(),terrain_material=settings['terrain_material'],environment=settings['environment'],
+ match_types=['DM','TDM','CTF'],metadata='res://assets/models/maps/faceoff/faceoff_rig.json',gravity_multiplier=1.2,native_portal_routes=True,reuse_navigation_query_shapes=True,
  flag_markers=[m['name'] for m in flags],flag_bases=[point(m) for m in flags],flag_capture_meshes=['SK_FaceoffFlagCaptureTrigger_A','SK_FaceoffFlagCaptureTrigger_B'],
  navigation=dict(terrain_scan=[-1.5,3.5],min_x=-36,max_x=36,min_z=-36,max_z=36,levels=sorted(levels)),camera_path=[[0,45,0],[60,45,60]],camera_focus=[[0,2,0]],fall_boundary=-8,
  zone_bounds=[{'min':[12,0,-36],'max':[36,10,-12]},{'min':[-36,0,12],'max':[-12,10,36]}],zone_exits=[p for _,p in sorted(exits)],
- audio_zones=[],event=dict(time=120,warning=10,type='none',title='Lunar battlefield'),portal_pairs=[[m['name'] for m in portals]],jump_links=links,normal_jump_links=normal_jumps,drop_links=drops,walk_routes=walks,lift_links=lifts,bake_navigation=True,barricade_links={},
+ audio_zones=[],event=dict(time=120,warning=10,type='none',title='Volcanic battlefield'),portal_pairs=[[m['name'] for m in portals]],jump_links=links,normal_jump_links=normal_jumps,drop_links=drops,walk_routes=walks,lift_links=lifts,bake_navigation=True,barricade_links={},
  pulse_gun=dict(range=20,damage=50,interval=1.0,speed=45,slow_multiplier=.25,slow_duration=.5,enabled_match_types=['TDM','CTF']))
-path=ROOT/'game/data/maps/catalog.json';catalog=json.loads(path.read_text());catalog['maps']=[m for m in catalog['maps'] if m['id']!='faceoff']+[config];path.write_text(json.dumps(catalog,indent=2)+'\n')
+path=ROOT/'game/data/maps/catalog.json';catalog=json.loads(path.read_text());catalog['maps']=[config if m['id']=='faceoff' else m for m in catalog['maps']];path.write_text(json.dumps(catalog,indent=2)+'\n')
 for marker in markers:
  if marker['category']=='maps':continue
  category,asset=marker['category'],marker['asset'];source=MODELS/category/asset;target=ROOT/'game/assets/models'/category/asset;target.mkdir(parents=True,exist_ok=True)

@@ -91,6 +91,11 @@ def field(map_id, x, z, seats=()):
     shelves*=smooth((np.maximum(np.abs(x),np.abs(z))-39)/6) if map_id=='faceoff' else smooth((radius-60)/10)
     height+=shelves
     height*=smooth((245-radius)/20)
+    if map_id=='faceoff':
+        # Keep the arena's native zero-plane seats and lava rims readable.
+        # The extra border sample keeps interpolation at +/-37.5 m in range.
+        playable=1-smooth((np.maximum(np.abs(x),np.abs(z))-39.0)/8.0)
+        height=height*(1-playable)+np.clip(height,-.5,.5)*playable
     # Geological patches have dominant interiors and soft, irregular edges.
     # Scores describe deposits, not a uniform low-strength mix of every layer.
     slope=np.hypot(*np.gradient(height)) if height.ndim==2 and min(height.shape)>1 else np.zeros_like(height)
@@ -123,8 +128,30 @@ def generate(map_id, markers, output):
         image=np.rint(weights[...,index*3:index*3+3]*255).astype('uint8')
         Image.fromarray(image).save(output/f'{map_id}_weights{index}.png')
     central=height[226:287,226:287]
+    safe=np.ones_like(central,dtype=bool)
+    if map_id=='faceoff':
+        # Sample exposed terrain, excluding native footprints and excavations.
+        # A margin also keeps the nearest navigation cell on solid ground.
+        import importlib.util
+        spec=importlib.util.spec_from_file_location('faceoff_qa_pits',ROOT/'models/maps/faceoff/lava_pits.py')
+        pits=importlib.util.module_from_spec(spec);spec.loader.exec_module(pits)
+        qx,qz=np.meshgrid(np.arange(-30,31),np.arange(-30,31))
+        for pit in pits.data():
+            points=np.array(pit['rim'])
+            lo=points.min(axis=0)-2;hi=points.max(axis=0)+2
+            safe &= ~((qx>=lo[0])&(qx<=hi[0])&(qz>=lo[1])&(qz<=hi[1]))
+        for seat in seats:
+            dx=qx-seat['x'];dz=qz-seat['z']
+            if 'radius' in seat:
+                safe &= np.hypot(dx,dz)>seat['radius']+2
+            else:
+                c=math.cos(seat['yaw']);s=math.sin(seat['yaw'])
+                lx=c*dx-s*dz;ly=-s*dx-c*dz
+                distance=np.maximum.reduce([seat['lo'][0]-lx,lx-seat['hi'][0],seat['lo'][1]-ly,ly-seat['hi'][1]])
+                safe &= distance>seat['margin']+2
+        assert safe.any(),'Terrain QA needs exposed solid ground'
     qa=[]
-    for flat in (central.argmin(),central.argmax()):
+    for flat in (np.where(safe,central,np.inf).argmin(),np.where(safe,central,-np.inf).argmax()):
         row,column=np.unravel_index(flat,central.shape)
         qa.append([int(column-30),float(central[row,column]),int(row-30)])
     record=dict(resolution=RESOLUTION,origin=ORIGIN,spacing=1.0,min_height=float(height.min()),max_height=float(height.max()),foundations=seats,qa_points=qa)

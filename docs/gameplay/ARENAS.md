@@ -76,6 +76,20 @@ Ramparts and Skyfall platform sconces retain their emissive models without
 illumination or mesh shadow casting, including under the High preset. Their
 source handoffs own this map policy independently of interior architecture lights.
 
+Faceoff's source-authored lava pits have irregular ten-metre excavations with
+molten surfaces 0.5 m below the ground datum. Lava contact kills immediately,
+including protected robots. Environmental knockback credit follows fall rules;
+carried flags recover through the fall path and no Energy Core remains in lava.
+The remaining volcanic ground stays playable, with natural ground relief limited
+to +/-0.5 m inside the arena and the outer crater rim retained. Navigation samples supported ground
+around the pits; it does not create routes on the lava floor.
+Pit-bank route baking considers diagonal as well as axial crossings. Normal
+jumps, EP-gated charged jumps and jump-pad departures require supported capsule
+landings and clear physical arcs. Pads retain their powered rise and ballistic
+coast. Work is performed during navigation preparation and cached; it adds no
+per-frame route scans. Native off-mesh links share representative directions,
+while the bot graphs retain the validated landing variants.
+
 Ramparts occupies a circular crater lake 150 m across and 15 m deep. A continuous
 mountain rim surrounds the water, with dunes and geometric fractured stones.
 Terrain3D bakes the basin and deposits; closed native meshes own runtime
@@ -299,9 +313,9 @@ these colliders from corpse, core and flag landing selection.
 
 ### Native-map geometry
 
-Skyfall owns 75,228 triangles (16 integral platform castings and four native bridge halves, including required machining); its geometry budget is 75,388 triangles. Faceoff owns 3,259 additional machining triangles under its 25,000 default. Separate authored props and lunar scenery are excluded and imported on authoritative native gizmos. Platform underbodies extend 1.5 m below the 0.8 m deck, making the lowest Skyfall belly 19.7 m above the nominal zero datum. Platform/lip cutters use 1 mm clearance per side and extend 0.5 m above the surface, clearing regolith before its separate export. The stitched planetary scenery is a closed volume with an irregular rim and circular outer footprint. Empty stasis chambers are closed; spawning opens them and full clearance of the native swinging door closes them once.
+Skyfall owns 75,228 triangles (16 integral platform castings and four native bridge halves, including required machining); its geometry budget is 75,388 triangles. Faceoff owns 18,634 additional machining triangles under its 25,000 default. Separate authored props and lunar scenery are excluded and imported on authoritative native gizmos. Platform underbodies extend 1.5 m below the 0.8 m deck, making the lowest Skyfall belly 19.7 m above the nominal zero datum. Platform/lip cutters use 1 mm clearance per side and extend 0.5 m above the surface, clearing regolith before its separate export. The stitched planetary scenery is a closed volume with an irregular rim and circular outer footprint. Empty stasis chambers are closed; spawning opens them and full clearance of the native swinging door closes them once.
 
-Faceoff keeps a bounded 75 x 75 m playable lunar area: invisible perimeter walls at +/-37.5 m extend from -2 m to 100 m, containing airborne routes as well as walking. Its graded playable terrain blends into the exterior impact rim. Skyfall has no play-area perimeter and lunar contact is lethal.
+Faceoff keeps a bounded 75 x 75 m playable volcanic area: invisible perimeter walls at +/-37.5 m extend from -2 m to 100 m, containing airborne routes as well as walking. Its playable terrain remains within +/-0.5 m and blends into the exterior volcanic rim. Skyfall has no play-area perimeter and lunar contact is lethal.
 
 Cradle payload origins and all axes align to the native `ItemMount` gizmo, parented to `ItemSocket`, with identity local transforms. Occupied cradles hold the native `close` pose; empty cradles use `open`. On respawn, close the claws before showing the payload. Previews and showcases use the same occupied pose.
 

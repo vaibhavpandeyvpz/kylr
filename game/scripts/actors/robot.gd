@@ -646,11 +646,12 @@ func simulate_movement(dt: float, predicted := false, replaying := false) -> voi
 		for index in get_slide_collision_count():
 			var collider := get_slide_collision(index).get_collider()
 			if collider != null and collider.get_meta("lethal_surface",false): lunar_contact = true
-	if not predicted and (lunar_contact or global_position.y < arena_match.map.config.fall_boundary):
-		if protection > 0: arena_match.spawn_robot(self)
+	var lava_contact: bool=arena_match.map.lava!=null and arena_match.map.lava.contains_contact(global_position)
+	if not predicted and (lava_contact or lunar_contact or global_position.y < arena_match.map.config.fall_boundary):
+		if protection > 0 and not lava_contact: arena_match.spawn_robot(self)
 		else:
 			ah = 0
-			arena_match.eliminate(self, null, "Fall off map", {"velocity":Vector3(velocity.x,falling_speed,velocity.z)})
+			arena_match.eliminate(self, null, "Lava" if lava_contact else "Fall off map", {"velocity":Vector3(velocity.x,falling_speed,velocity.z)})
 		return
 	body.rotation.y = yaw + character.forward_yaw
 	if human:

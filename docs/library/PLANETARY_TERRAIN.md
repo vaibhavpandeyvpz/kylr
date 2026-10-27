@@ -35,7 +35,7 @@ from `library/` before rebuilding the Ramparts model and collision companions.
 ## Shape and gameplay
 
 `library/models/maps/common/planetary_field.py` owns the height fields and six
-geological material weights. Faceoff has graded cover banks, shallow channels,
+geological material weights. Faceoff has volcanic ground bounded to +/-0.5 m, shallow channels,
 excavated building seats and a broken impact rim. Native architecture, doors,
 lift approaches, spawn mechanisms and pickup footprints retain their placement
 datum. Foundation masks come from the source layout and native footprint metadata.
@@ -57,7 +57,9 @@ the native footprint plus 1 mm clearance on each side.
 Height samples cover 512 × 512 m at 1 m spacing. Terrain3D bakes the central
 128 × 128 m at 1 m spacing and the outer landscape at 4 m spacing. The mesh
 builder stitches the resolution boundary, trims the distant circular footprint,
-and closes the volume with a vertical 2 m underside. Blender performs the native
+and closes the volume with a vertical underside. Faceoff extends the closed base
+to -14 m to contain its ten-metre lava excavations; Skyfall retains its 2 m
+underside. Blender performs the native
 fixture cuts and creates non-overlapping painting UVs. Render and collision
 companions derive from the same source geometry.
 
@@ -125,3 +127,9 @@ the complete two-map bot roster matrix, repeated CPU profiling and serial
 rendered High comparisons under [playtesting](../PLAYTESTING.md). Refresh
 map-selection and cinematic captures from fully populated runtime maps. Headless
 route checks do not qualify rendering performance or appearance.
+
+Faceoff uses six original volcanic Imagegen sources under
+`library/textures/volcanic_soil`, baked to periodic packed PBR layers by its
+`generate.py`. They cover arena ground, pit walls, crater and mountains. Native
+soil aprons use anchored local coordinates. `models/maps/faceoff/settings.json`
+owns the evening sky and sun. Its static sky radiance is cached.

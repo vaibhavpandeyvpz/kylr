@@ -13,7 +13,7 @@ MATERIAL_CLASSIFIERS = {
     'M_Secondary': 'Diffuse',
     'M_PlanetaryFaceoff': 'Diffuse',
 }
-import bpy,json,math,sys
+import bpy,json,math,sys,hashlib,time
 from pathlib import Path
 from mathutils import Matrix,Vector,Euler
 sys.path.insert(0,str(Path(__file__).resolve().parents[2]/'architecture'))
@@ -26,6 +26,10 @@ def main():
         report=json.loads((HERE/'faceoff_rig.json').read_text())
         assert holes==report['holes'], 'Changed machining requires a full map rebuild'
         bpy.ops.wm.open_mainfile(filepath=str(HERE/'faceoff.blend'))
+        from lava_pits import data as pit_data
+        from planetary_surface import CACHE
+        expected=hashlib.sha256(json.dumps([report['markers'],report['holes'],pit_data()],sort_keys=True).encode()+(HERE/'lava_pits.py').read_bytes()+(CACHE/'faceoff_baked.json').read_bytes()).hexdigest()
+        assert bpy.context.scene.get('terrain_fingerprint')==expected,'Changed lava terrain requires a full map rebuild'
         rig=bpy.data.objects['RIG_Faceoff']
         for marker in markers:
             ob=bpy.data.objects['Gizmo_'+marker['name'].replace('-','_')]
@@ -41,12 +45,26 @@ def main():
     scene=bpy.context.scene;scene.unit_settings.system='METRIC';scene.render.fps=24;scene.frame_start=1;scene.frame_end=73
     markers,holes=data()
     from planetary_surface import build as planetary_surface
-    ground=planetary_surface('faceoff','SK_FaceoffLunarGround')
-    ground_baseline_triangles=sum(len(p.vertices)-2 for p in ground.data.polygons)
-    for hole in holes:
-        if hole['center'][2]-hole['depth']<0:cutter(ground,hole['center'],recess_size(hole['size']),hole['depth'],hole['yaw'])
+    from lava_pits import excavate,data as pit_data
+    from planetary_surface import CACHE
+    fingerprint=hashlib.sha256(json.dumps([markers,holes,pit_data()],sort_keys=True).encode()+(HERE/'lava_pits.py').read_bytes()+(CACHE/'faceoff_baked.json').read_bytes()).hexdigest()
+    checkpoint=HERE/'faceoff_terrain.blend'
+    if '--reuse-terrain' in sys.argv:
+        bpy.ops.wm.open_mainfile(filepath=str(checkpoint));scene=bpy.context.scene
+        assert scene['terrain_fingerprint']==fingerprint,'Terrain inputs changed; rebuild the excavation'
+        ground=bpy.data.objects['SK_FaceoffLunarGround'];ground_baseline_triangles=scene['ground_baseline_triangles']
+        print('FACEOFF_REUSED_VALIDATED_INPUTS',flush=True)
+    else:
+        ground=planetary_surface('faceoff','SK_FaceoffLunarGround',bottom_elevation=-14)
+        ground_baseline_triangles=sum(len(p.vertices)-2 for p in ground.data.polygons)
+        excavate(ground,holes)
+        scene['terrain_fingerprint']=fingerprint;scene['ground_baseline_triangles']=ground_baseline_triangles
+        bpy.ops.wm.save_as_mainfile(filepath=str(checkpoint),compress=True)
     from planetary_surface import apply_materials
-    apply_materials(ground,'faceoff')
+    print('FACEOFF_TERRAIN_UVS',flush=True)
+    uv_started=time.perf_counter()
+    apply_materials(ground,'faceoff',wall_face_charts=True)
+    print('FACEOFF_UV_SECONDS',round(time.perf_counter()-uv_started,3),flush=True)
     arm_data=bpy.data.armatures.new('RIG_Faceoff');rig=bpy.data.objects.new('RIG_Faceoff',arm_data);scene.collection.objects.link(rig)
     bpy.context.view_layer.objects.active=rig;rig.select_set(True);bpy.ops.object.mode_set(mode='EDIT')
     root=arm_data.edit_bones.new('Root');root.head=(0,0,0);root.tail=(0,0,1);bpy.ops.object.mode_set(mode='OBJECT')
