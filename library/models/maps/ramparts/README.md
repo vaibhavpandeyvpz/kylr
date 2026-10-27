@@ -5,6 +5,10 @@ footprints at 100 pixels per metre. `layout.py` converts that snapshot into
 metre-based deck sections, fixture markers and machining specifications.
 Blender uses +Z up and -Y forward; Godot coordinates are `(x, z, -y)`.
 
+Floater 1 on each side carries a Bio Rifle and its matching ammo pickup.
+Weapon labels match the longest weapon name first so Bio Rifle remains distinct
+from Rifle.
+
 `settings.json` owns the Martian daytime lighting recipe and orientation rules.
 Its `excluded_assets` removes pole lights from all generated placements and
 carrier sockets while preserving the raw Figma snapshot. Barricades and pressure plates rotate

@@ -780,9 +780,9 @@
       "figma_node": "2057:1039"
     },
     {
-      "name": "B-rifle-2057_1040",
+      "name": "B-bio_rifle-2057_1040",
       "role": "ammo",
-      "asset": "rifle",
+      "asset": "bio_rifle",
       "category": "weapons",
       "zone": "B",
       "deck": "B_Floater_1",
@@ -804,7 +804,7 @@
         3.141592653589793
       ],
       "figma_node": "2057:1040",
-      "weapon": "rifle"
+      "weapon": "bio_rifle"
     },
     {
       "name": "B-weapon_holder-2057_1041",
@@ -831,7 +831,7 @@
         3.141592653589793
       ],
       "figma_node": "2057:1041",
-      "weapon": "rifle"
+      "weapon": "bio_rifle"
     },
     {
       "name": "B-jump_pad-2057_1049",
@@ -1732,9 +1732,9 @@
       "figma_node": "2057:1120"
     },
     {
-      "name": "A-rifle-2057_1121",
+      "name": "A-bio_rifle-2057_1121",
       "role": "ammo",
-      "asset": "rifle",
+      "asset": "bio_rifle",
       "category": "weapons",
       "zone": "A",
       "deck": "A_Floater_1",
@@ -1756,7 +1756,7 @@
         0.0
       ],
       "figma_node": "2057:1121",
-      "weapon": "rifle"
+      "weapon": "bio_rifle"
     },
     {
       "name": "A-weapon_holder-2057_1122",
@@ -1783,7 +1783,7 @@
         0.0
       ],
       "figma_node": "2057:1122",
-      "weapon": "rifle"
+      "weapon": "bio_rifle"
     },
     {
       "name": "A-jump_pad-2057_1130",

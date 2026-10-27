@@ -78,7 +78,7 @@ def data():
         label=n['name'].lower(); role=None; asset=None; category='gameplay'; weapon=None
         if label.startswith('weapon pickup') or label.startswith('ammo '):
             role='weapon' if label.startswith('weapon') else 'ammo'
-            weapon=next((v for k,v in weapons.items() if k in label),None)
+            weapon=next((weapons[k] for k in sorted(weapons,key=len,reverse=True) if k in label),None)
             assert weapon, n['name']
             asset='item_cradle' if 'cradle' in label else 'weapon_holder' if role=='weapon' else weapon
             if role=='ammo': category='weapons'

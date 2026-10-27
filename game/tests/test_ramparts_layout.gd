@@ -1,5 +1,17 @@
 extends GutTest
 
+func test_floater_one_has_bio_rifle_and_matching_ammo_on_both_sides():
+	var markers: Array=JSON.parse_string(FileAccess.get_file_as_string(MapCatalog.find("ramparts").metadata)).markers
+	var model:=Assets.model("maps","ramparts")
+	add_child_autofree(model)
+	for zone in ["A","B"]:
+		var pickups: Array=markers.filter(func(m):return m.deck==zone+"_Floater_1" and m.role in ["weapon","ammo"])
+		assert_eq(pickups.size(),2)
+		for pickup in pickups:
+			assert_eq(pickup.weapon,"bio_rifle")
+			assert_eq(pickup.asset,"bio_rifle" if pickup.role=="ammo" else "weapon_holder")
+			assert_not_null(Assets.socket(model,"Gizmo_"+pickup.name.replace("-","_")))
+
 func test_regular_spawns_are_inside_cisterns_and_stasis_chambers_are_outside():
 	var markers: Array=JSON.parse_string(FileAccess.get_file_as_string(MapCatalog.find("ramparts").metadata)).markers
 	for zone in ["A","B"]:
