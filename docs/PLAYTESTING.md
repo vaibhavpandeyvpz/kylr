@@ -23,13 +23,13 @@ Inspect spikes as well as the mean. Headless CPU diagnostics do not establish
 rendered FPS or qualify the 16.67 ms rendering target.
 
 Changes to AI, traversal, map collision/fixtures, objectives or movement cost
-require DM, TDM, CTF, Elimination and Gun Game at **2, 4, 6, 8 and 10 robots on both maps**. Use the
+require DM, TDM, CTF, Elimination and Gun Game at **2, 4, 6, 8 and 10 robots on every map**. Use the
 physical match controller, not teleports in place of traversal. Every CTF case
 runs for at least **120 simulated seconds**. Repeat chance-dependent results
 with additional seeds and inspect objective progress, not just exit codes.
 
 ```powershell
-foreach ($map in @('skyfall','faceoff')) {
+foreach ($map in @('skyfall','faceoff','ramparts')) {
     ./tools/run_roster_validation.ps1 -Map $map -ReportPrefix review -Godot $Godot
 }
 ```

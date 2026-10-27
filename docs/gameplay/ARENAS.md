@@ -26,6 +26,70 @@ convey animation loops again after each launch clip.
 
 ## Arena design and interactions
 
+Ramparts has a 75 × 75 m arena inside a Martian crater lake. Its two rocky mainland summit cores are
+25 × 25 m at 10 m above sea level, with rounded eroded shoulders beyond the
+blueprint core and level fixture seats. Fractured cliffs descend to a closed base
+17 m below the water. Two 15 × 15 m thruster-supported side islands, six
+10 × 10 m floaters and the central 22.5 m cross share the 10 m initial deck datum.
+Native cisterns, containers, hub, pickups, stasis chambers, spawn hatches,
+repair stations, barricades, plates and speed ramps occupy authored markers.
+Each zone has five spawns, one flag base, one Shield Core and one repair station.
+Two regular hatch spawns sit inside each cistern; three stasis chambers occupy
+the exterior spawn locations and face the cistern centre. The recessed hatch
+pairs face each other. Cistern
+floors and underlying terrain contain matching stepped hatch wells.
+The corpse-follow death camera freezes its position at 1 m above the sea and
+continues looking at the falling body.
+
+Each floater shuttles at 1 m/s along the long axis of its designated
+10 × 17.5 m span, giving 7.5 m of centre travel. It starts at the authored
+endpoint and reverses at the opposite endpoint. Vertical bob is
+`0.5 × sin(2 × elapsed_seconds)` metres: ±0.5 m amplitude, 1 m/s peak
+vertical speed. Native thruster vector clips direct the exhaust against travel.
+The junction rotates clockwise from overhead at 0.5 m/s at the 11.25 m arm tip
+(approximately 141.37 seconds per revolution). Its hub, pickups, thruster and
+collision rotate together. Gameplay motion uses the replicated match clock;
+Reduced Motion freezes cosmetic ocean animation while retaining carrier motion.
+
+Carrier collision uses AnimatableBody3D and native machined shells, including
+fixture wells with 1 mm clearance per side. Navigation samples follow their
+carrier transforms; cross-deck links refresh at 2 Hz after support and jump-arc
+clearance checks. Pickup contact points follow their mounted fixtures.
+The two side speed ramps release toward supported spots on the opposing
+mainland; map data specifies the ballistic speed and landing position.
+Ramparts uses gravity multiplier 1.0. Crossing the water datum at 0 m reduces
+AH to zero through the ordinary fall hazard. The lake supplies no walkable
+collision. CTF bases use authored nonblocking capture volumes on cistern floors.
+
+Ramparts uses a dusty peach Martian daytime sky, warm sunlight and sky ambient
+fill. Pole lights are excluded from the generated placements. The atmosphere is authored in
+`library/models/maps/ramparts/settings.json` and handed off into map data.
+Side-platform barricades and
+pressure plates share a quarter-turn orientation with the plates facing their
+nearer deck edge. Containers face the larger clear deck area; front doors open,
+rear doors stay closed, and the repair bay entrance follows the container front.
+These layout rules also drive the regenerated fixture wells and colliders.
+Cliffs, summit ground, platform
+regolith and prop aprons share one original Martian PBR texture set. Terrain,
+elevation, material selection and lighting recipes remain generator-owned.
+Ramparts and Skyfall platform sconces retain their emissive models without
+illumination or mesh shadow casting, including under the High preset. Their
+source handoffs own this map policy independently of interior architecture lights.
+
+Ramparts occupies a circular crater lake 150 m across and 15 m deep. A continuous
+mountain rim surrounds the water, with dunes and geometric fractured stones.
+Terrain3D bakes the basin and deposits; closed native meshes own runtime
+rendering and collision. Mesas extend below the lake bed, while all deck and
+fixture elevations retain their 10 m datum. The crater floor and mountain rim
+are scenery outside the traversal bounds; water contact remains lethal.
+
+Ramparts uses the original `lake.gdshader` surface:
+analytic swells and derivatives, distance-filtered capillary ripples, dielectric
+reflection, depth absorption, foreground-guarded refraction, shore wash, crest
+foam and submerged caustics. Rock shading uses world-space strata and wetness.
+The water's fine central mesh joins a flat horizon ring; surface normals are
+evaluated per fragment across both meshes.
+
 Skyfall is a 75 × 75 m lunar map. Its floating lower decks are at 22 m, higher decks at
 26 m and rooftops at 30 m. The depressed lunar impact basin, fissures and
 surrounding fractured rim are lethal scenery. There is no playable common ground or perimeter wall. Floating floors instance the library's shared map

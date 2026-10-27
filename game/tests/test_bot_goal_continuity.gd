@@ -2,7 +2,7 @@ extends GutTest
 
 class GoalTraversal extends TraversalGraph:
 	var calls := 0
-	func route(a: Vector3,b: Vector3,_charged := true,_grounded := false) -> Array:
+	func route(a: Vector3,b: Vector3,_charged := true,_grounded := false,_corridor_bias := 0) -> Array:
 		calls += 1
 		return [{"from":a,"point":b,"action":"walk"}]
 

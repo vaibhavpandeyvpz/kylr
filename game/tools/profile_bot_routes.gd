@@ -9,7 +9,7 @@ func matrix() -> void:
 	for argument in OS.get_cmdline_user_args():
 		if argument.begins_with("--map="): map_id=argument.trim_prefix("--map=")
 		if argument.begins_with("--report-directory="): directory=argument.trim_prefix("--report-directory=")
-	if map_id not in ["faceoff","skyfall"] or not directory.begins_with("res://reports/roster/"):
+	if not MapCatalog.all().any(func(map):return map.id==map_id) or not directory.begins_with("res://reports/roster/"):
 		push_error("Choose a map and a report directory under res://reports/roster/");quit(1);return
 	for mode in ["DM","TDM","CTF","ELIMINATION","GUNGAME"]:
 		for count in [2,4,6,8,10]:

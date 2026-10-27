@@ -2,6 +2,15 @@
 from pathlib import Path
 import json,shutil,runpy,math,sys
 ROOT=Path(__file__).resolve().parents[2];MODEL=ROOT/'library/models'
+PLATFORM_EMISSIVE_ONLY_ASSETS=['sconce_light']
+
+if '--lighting-only' in sys.argv:
+ catalog_path=ROOT/'game/data/maps/catalog.json'
+ catalog=json.loads(catalog_path.read_text())
+ next(m for m in catalog['maps'] if m['id']=='skyfall')['platform_emissive_only_assets']=PLATFORM_EMISSIVE_ONLY_ASSETS
+ catalog_path.write_text(json.dumps(catalog,indent=2)+'\n')
+ print('Updated Skyfall platform emissive-only lighting policy')
+ raise SystemExit(0)
 decks,markers=runpy.run_path(str(MODEL/'maps/skyfall/layout.py'))['data']()
 def point(m):return m['position_godot']
 portals=[m for m in markers if m['role']=='portal'];pairs=[]
@@ -92,6 +101,7 @@ bindings={p['name']:min([b for b in barricades if b['deck']==p['deck']],key=lamb
 catalog=dict(version=2,maps=[dict(id='skyfall',title='Skyfall',model='skyfall',
  subtitle='A lunar battlefield across three floating levels.',description='Fight across floating lunar platforms, use wall mounts and cradles, and traverse between levels. Falling onto the lunar surface is fatal.',
  match_types=['DM','TDM','CTF'],metadata='res://assets/models/maps/skyfall/skyfall_rig.json',gravity_multiplier=0.8,
+ platform_emissive_only_assets=PLATFORM_EMISSIVE_ONLY_ASSETS,
  flag_markers=[m['name'] for m in flags],flag_bases=[point(m) for m in flags],flag_capture_meshes=['SK_SkyfallFlagCaptureTrigger_A','SK_SkyfallFlagCaptureTrigger_B'],
  navigation=dict(min_x=-36,max_x=36,min_z=-36,max_z=36,levels=[22,26,26.53,30,30.1,30.10966,30.53]),
  camera_path=[[0,55,0],[70,58,70]],camera_focus=[[0,17,0]],fall_boundary=-20,lunar_surface_lethal=True,

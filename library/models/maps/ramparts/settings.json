@@ -1,0 +1,53 @@
+{
+  "deck_height_m": 10.0,
+  "death_camera_clearance_m": 1.0,
+  "excluded_assets": ["pole_light"],
+  "platform_emissive_only_assets": ["sconce_light"],
+  "crater": {
+    "diameter_m": 150.0,
+    "depth_m": 15.0,
+    "rim_height_m": 36.0,
+    "outer_radius_m": 240.0,
+    "segments": 128
+  },
+  "crossing_balance": {"junction": 1.0, "floaters": 1.0},
+  "reuse_navigation_query_shapes": true,
+  "floater_paths": [
+    ["A_Mainland", "A_Floater_1", "A_Floater_2", "A_Floater_3", "A_Island", "B_Mainland"],
+    ["A_Mainland", "B_Island", "B_Floater_3", "B_Floater_2", "B_Floater_1", "B_Mainland"]
+  ],
+  "spawns": {"cistern": "spawn_point", "outside": "stasis_chamber", "hatches_face": "each_other", "chambers_face": "cistern_center"},
+  "terrain": {
+    "segments": 96,
+    "summit_rings": 8,
+    "rim_drop_m": 0.65,
+    "shoulder_m": 1.4,
+    "fixture_seat_margin_m": 1.1
+  },
+  "orientation": {
+    "barricade_yaw_offset_degrees": 90.0,
+    "pressure_plate_yaw_offset_degrees": 90.0,
+    "container_yaw_offset_degrees": 90.0,
+    "container_open_actions": ["front_open"]
+  },
+  "environment": {
+    "sky_top": "a76e4d",
+    "sky_horizon": "dfb18b",
+    "ground_horizon": "b28465",
+    "ground_bottom": "64442e",
+    "ambient_color": "ffe0c0",
+    "ambient_energy": 0.3,
+    "key_color": "fff2e1",
+    "key_energy": 1.15,
+    "key_rotation_degrees": [-56, -38, 0],
+    "fog_color": "c39574",
+    "fog_density": 0.00065,
+    "water": {
+      "deep_color": "153139",
+      "shallow_color": "52736b",
+      "foam_color": "dedbd0",
+      "absorption": [0.26, 0.13, 0.08]
+    }
+  },
+  "soil_material": "martian_soil"
+}

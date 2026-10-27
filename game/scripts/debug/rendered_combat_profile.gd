@@ -406,7 +406,7 @@ func run() -> void:
 		await app.request_quit()
 		return
 	game.map.traversal.planning_cache_enabled = String(options.get("planning-cache","1")) == "1"
-	game.map.traversal.reuse_query_shapes = String(options.get("reuse-nav-shapes","0")) == "1"
+	game.map.traversal.reuse_query_shapes = String(options.get("reuse-nav-shapes",str(int(game.map.traversal.reuse_query_shapes)))) == "1"
 	if options.has("sample-at-sim"):
 		var sample_time := float(options["sample-at-sim"])
 		if not is_finite(sample_time) or sample_time <= game.elapsed:

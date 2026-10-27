@@ -19,6 +19,7 @@ var model: Node3D
 var markers: Array = []
 var fixtures: Array = []
 var cargo_lifts: Array[ArchitectureLift] = []
+var carriers: MapCarriers
 var fixture_indices: Dictionary = {}
 const INTERACTION_KINDS := ["portal","jump_pad","speed_ramp","pressure_plate","repair_station"]
 var spawns: Array = []
@@ -92,6 +93,10 @@ func _initialize_scene() -> void:
 	CollisionRig.install(model,"maps",config.model)
 	var data: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(config.metadata))
 	markers = data.markers
+	for marker in markers:
+		if marker.get("deck","") not in config.get("moving_decks",[]):continue
+		var mount := Assets.socket(model,"Gizmo_"+String(marker.name).replace("-","_"))
+		if mount:mount.set_meta("moving_platform",true)
 
 func _populate_fixtures() -> void:
 	for marker in markers:
@@ -110,6 +115,9 @@ func _finish_scene() -> void:
 	jumbotron.install(jumbo,game)
 	ScoreboardDisplay.new().install(jumbo,game)
 	add_world()
+	if config.has("moving_decks"):
+		carriers = MapCarriers.new()
+		carriers.install(self)
 
 	loading_complete=true
 	scene_loaded.emit()
@@ -231,7 +239,8 @@ func make_fixture(marker: Dictionary):
 		instance.transform = Transform3D.IDENTITY
 		finish_lunar_surface(instance)
 		if not marker.get("no_collision",false): CollisionRig.install(instance,marker.category,marker.asset,null,suffix+"_col")
-		ArchitectureLights.install(instance,marker.category,marker.asset,suffix)
+		var emissive_only: Array=config.get("platform_emissive_only_assets",[]) if role=="platform" else []
+		ArchitectureLights.install(instance,marker.category,marker.asset,suffix,emissive_only)
 		var placement := {"id":id,"kind":role,"point":point,"node":instance,"cooldown":0.0,"elapsed":0.0,"occupant":null,"inside":[],"open":true,"trigger":null}
 		fixtures.append(placement)
 		placement["asset_suffix"]=suffix
@@ -591,6 +600,9 @@ func update_repair_audio(f: Dictionary) -> void:
 	var tip := Assets.socket(f.node, "TorchTip") if is_instance_valid(f.get("node")) else null
 	game.audio.set_loop("welding_" + f.id, "repair_weld", tip.global_position if tip != null and tip.is_inside_tree() else f.point, state == "welding")
 
+func _physics_process(dt: float) -> void:
+	if carriers and not game.authority:carriers.remote_tick(dt)
+
 func _process(dt):
 	pickup_status_time += dt
 	RenderingServer.global_shader_parameter_set("arena_sky_time", fmod(pickup_status_time, 3600.0))
@@ -660,12 +672,21 @@ func update_pickup_status(fixture: Dictionary, time: float) -> void:
 		if changed or not ready: indicator.emission_energy_multiplier = energy
 
 func add_world():
+	if config.get("surface","")=="lake":
+		var lake := LakeSurface.new()
+		add_child(lake)
+		lake.install(game,config.environment)
+		return
 	ArenaLighting.install(self)
 
 func finish_lunar_surface(root: Node) -> void:
 	for mesh in root.find_children("*", "MeshInstance3D", true, false):
 		for surface in mesh.mesh.get_surface_count():
 			var source := mesh.get_active_material(surface) as StandardMaterial3D
+			if source != null and config.get("soil_material","") == "martian_soil" and Assets.material_role(source.resource_name) in ["M_Regolith","M_RegolithLight","M_RegolithDark","M_RampartsRock","M_RampartsPlain","M_RampartsStone"]:
+				var role:=Assets.material_role(source.resource_name)
+				mesh.set_surface_override_material(surface,MartianSoil.material(role=="M_RampartsStone",role in ["M_Regolith","M_RegolithLight","M_RegolithDark"]))
+				continue
 			if source!=null and Assets.material_role(source.resource_name)=="M_Planetary"+game.map_id.capitalize():
 				mesh.set_surface_override_material(surface,PlanetaryTerrain.material(game.map_id))
 				continue
@@ -696,6 +717,7 @@ func tick_stasis():
 		fixture.motion.play("close")
 
 func tick(dt: float):
+	if carriers:carriers.sample(game.elapsed)
 	var started := Time.get_ticks_usec() if profile_ticks else 0
 	tick_stasis()
 	if profile_ticks: started = profile_stage("stasis",started)
@@ -1058,6 +1080,7 @@ func build_navigation():
 	traversal=TraversalGraph.new(self)
 	traversal.build()
 	nav=traversal.graph
+	if carriers:carriers.capture_navigation()
 	if navigation_region:
 		for edge in traversal.actions:
 			if traversal.actions[edge]=="speed_ramp":
@@ -1072,6 +1095,7 @@ func build_navigation_async() -> void:
 		traversal=TraversalGraph.new(self)
 		traversal.restore_snapshot(navigation_snapshots[key])
 		nav=traversal.graph
+		if carriers:carriers.capture_navigation()
 		if navigation_region:
 			for edge in traversal.actions:
 				if traversal.actions[edge]=="speed_ramp": navigation_link(nav.get_point_position(edge.x),traversal.destinations[edge],false,"speed_ramp")
@@ -1094,6 +1118,7 @@ func build_navigation_async() -> void:
 	await traversal.build_async()
 	navigation_snapshots[key]=traversal.snapshot()
 	nav=traversal.graph
+	if carriers:carriers.capture_navigation()
 	if navigation_region:
 		for edge in traversal.actions:
 			if traversal.actions[edge]=="speed_ramp": navigation_link(nav.get_point_position(edge.x),traversal.destinations[edge],false,"speed_ramp")

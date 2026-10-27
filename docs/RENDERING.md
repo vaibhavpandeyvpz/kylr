@@ -14,6 +14,12 @@ bloom and 4× MSAA. Low and Medium retain emissive-only fixtures. Custom preserv
 individual settings, including optional 8× MSAA. All presets retain authored
 ambient light, raster GI and reflection maps at native resolution.
 
+Ramparts and Skyfall platform sconces retain their native emissive materials
+without projected illumination or mesh shadow casting at every quality setting.
+Their source map data sets `platform_emissive_only_assets`; these sconces create
+no Light3D nodes, so applying High cannot restore their illumination. Interior
+architecture lights and platform battens follow the normal preset rules.
+
 Menu portraits use independent raster studios with native resolution and 4×
 MSAA. Sconce and batten area lights and aimed pole/jumbotron spotlights follow
 their native sockets. Separate rendering is experimental and defaults Off;
@@ -25,6 +31,26 @@ queries use `PhysicsDirectSpaceState3D.intersect_ray`. Audio routes are fixed at
 startup as defined in [audio](AUDIO.md).
 
 ## Verification
+
+Ramparts blends six original 2048 px Martian PBR layers: dust, dunes, bedrock,
+rubble, mountain strata and lake sediment. Albedo/height and OpenGL
+normal/roughness pairs use 4 m repeat. Terrain3D height/deposit
+fields, surface slope and water elevation select the layers; native stones use
+a bedrock/strata blend. Source images and exact prompts live in
+`library/textures/martian_soil`.
+Terrain uses world-space geological mapping. Platform and prop deposits use
+object-local projection, fixed mineral weights and the moving object's normal
+basis, so translation, bobbing and rotation carry their texture details with them.
+Ramparts uses a dusty peach Martian daytime sky, warm directional sunlight and
+sky ambient fill from its generated map environment data. Pole lights are
+excluded by its source placement recipe. Its original lake shader provides analytic swells,
+per-fragment normals, depth absorption, guarded screen refraction, dielectric
+reflection, shore foam and caustics. It uses no external water textures.
+The circular water mesh has a 75 m radius, with displacement fading into the
+buried shoreline. There is no distant water surface. Reduced
+Motion freezes the cosmetic water clock, independently of moving deck gameplay.
+The shader reconstructs depth separately for Forward+/Mobile and Compatibility.
+Verify both paths with map captures; Forward+ on Vulkan is the shipping target.
 
 Run import, GUT, match smoke checks and exported package inspection using the
 same official release. Check menu and match appearance, moving fixtures, effects,

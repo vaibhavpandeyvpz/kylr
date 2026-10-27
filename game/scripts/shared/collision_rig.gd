@@ -2,6 +2,17 @@ class_name CollisionRig
 extends RefCounted
 static var hull_cache: Dictionary = {}
 
+static func moving_carrier(node: Node) -> bool:
+	while node!=null:
+		if node.get_meta("moving_platform",false):return true
+		node=node.get_parent()
+	return false
+
+static func world_body(parent: Node) -> StaticBody3D:
+	var body: StaticBody3D=AnimatableBody3D.new() if moving_carrier(parent) else StaticBody3D.new()
+	if body is AnimatableBody3D:body.sync_to_physics=false
+	return body
+
 static func install(visual: Node3D, category: String, id: String, owner_robot = null, suffix := "_col") -> void:
 	var source := Assets.model(category, id, suffix)
 	var target_skeleton := Assets.find(visual, "Skeleton3D") as Skeleton3D
@@ -28,7 +39,7 @@ static func install(visual: Node3D, category: String, id: String, owner_robot = 
 				bodies[hull.bone] = add_shape(attachment,hull.shape,owner_robot,hit_region,String(mesh_node.name))
 			continue
 		else:
-			var body := StaticBody3D.new()
+			var body := world_body(visual)
 			body.collision_layer = 1
 			body.collision_mask = 0
 			body.set_meta("spatio_material", Spatio.material_for_name(String(mesh_node.name), category))
@@ -140,7 +151,7 @@ static func install_trigger(visual: Node3D, category: String, id: String, mesh_n
 static func add_shape(parent: Node3D, shape: Shape3D, robot, hit_region := "body", hit_mesh := "", existing: StaticBody3D = null) -> StaticBody3D:
 	var body := existing
 	if body == null:
-		body = AnimatableBody3D.new() if parent is BoneAttachment3D and parent.bone_name=="CargoLift" else StaticBody3D.new()
+		body = AnimatableBody3D.new() if (parent is BoneAttachment3D and parent.bone_name=="CargoLift") or moving_carrier(parent) else StaticBody3D.new()
 		if body is AnimatableBody3D:body.sync_to_physics=false
 		body.collision_layer = 4 if robot != null else 1
 		body.collision_mask = 0

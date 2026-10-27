@@ -1,0 +1,743 @@
+{
+  "name": "ramparts_architecture_B_cistern",
+  "triangles": 13420,
+  "meshes": {
+    "SK_ArchitectureRegolith": 240,
+    "SK_CisternFrontMechanisms": 817,
+    "SK_CisternRearMechanisms": 850,
+    "SK_CisternRoof": 2952,
+    "SK_CisternStructure": 4501,
+    "SK_CisternFrontMechanisms_Fixed": 2632,
+    "SK_CisternRearMechanisms_Fixed": 1428
+  },
+  "triangle_budget": 13811,
+  "triangle_budget_per_mesh": 5000,
+  "budget_status": "approved",
+  "bounds_m": {
+    "lo": [
+      -8.506375312805176,
+      -8.616273880004883,
+      0.0
+    ],
+    "hi": [
+      8.670000076293945,
+      8.555617332458496,
+      2.661555767059326
+    ]
+  },
+  "dimensions_m": {
+    "width": 15,
+    "depth": 15,
+    "height": 2.0700989299350314
+  },
+  "materials": [
+    "M_Emissive",
+    "M_Frame_Diffuse",
+    "M_Joint_Diffuse",
+    "M_Primary_Diffuse",
+    "M_Regolith_Diffuse",
+    "M_Secondary_Diffuse"
+  ],
+  "bones": [
+    {
+      "name": "Root",
+      "parent": null,
+      "kind": "fixed"
+    },
+    {
+      "name": "Door",
+      "parent": "Root",
+      "kind": "hinge"
+    },
+    {
+      "name": "Lock",
+      "parent": "Door",
+      "kind": "slide"
+    },
+    {
+      "name": "RearDoor",
+      "parent": "Root",
+      "kind": "hinge"
+    },
+    {
+      "name": "RearLock",
+      "parent": "RearDoor",
+      "kind": "slide"
+    }
+  ],
+  "joints": [
+    {
+      "bone": "Root",
+      "type": "fixed",
+      "parent": null,
+      "pivot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "axis": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "range": null
+    },
+    {
+      "bone": "Door",
+      "type": "hinge",
+      "parent": "Root",
+      "pivot": [
+        -0.7799999713897705,
+        -7.382499694824219,
+        1.1277778148651123
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        -110,
+        0
+      ]
+    },
+    {
+      "bone": "Lock",
+      "type": "slide",
+      "parent": "Door",
+      "pivot": [
+        0.6749999523162842,
+        -7.25124979019165,
+        1.1277778148651123
+      ],
+      "axis": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "range": [
+        -0.135,
+        0.0
+      ]
+    },
+    {
+      "bone": "RearDoor",
+      "type": "hinge",
+      "parent": "Root",
+      "pivot": [
+        0.7799999713897705,
+        7.382499694824219,
+        1.1277778148651123
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range": [
+        -110,
+        0
+      ]
+    },
+    {
+      "bone": "RearLock",
+      "type": "slide",
+      "parent": "RearDoor",
+      "pivot": [
+        -0.6749999523162842,
+        7.25124979019165,
+        1.1277778148651123
+      ],
+      "axis": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "range": [
+        -0.135,
+        0.0
+      ]
+    }
+  ],
+  "animations": {
+    "open": {
+      "frames": [
+        0.0,
+        96.0
+      ],
+      "fps": 30,
+      "loop": false
+    },
+    "close": {
+      "frames": [
+        0.0,
+        96.0
+      ],
+      "fps": 30,
+      "loop": false
+    },
+    "open_front": {
+      "frames": [
+        0.0,
+        96.0
+      ],
+      "fps": 30,
+      "loop": false
+    },
+    "close_front": {
+      "frames": [
+        0.0,
+        96.0
+      ],
+      "fps": 30,
+      "loop": false
+    },
+    "open_rear": {
+      "frames": [
+        0.0,
+        96.0
+      ],
+      "fps": 30,
+      "loop": false
+    },
+    "close_rear": {
+      "frames": [
+        0.0,
+        96.0
+      ],
+      "fps": 30,
+      "loop": false
+    },
+    "open_both": {
+      "frames": [
+        0.0,
+        96.0
+      ],
+      "fps": 30,
+      "loop": false
+    },
+    "close_both": {
+      "frames": [
+        0.0,
+        96.0
+      ],
+      "fps": 30,
+      "loop": false
+    }
+  },
+  "checks": {
+    "connected_parts": 192,
+    "exact_solid_pairs": 268,
+    "motion_states": 998,
+    "coplanar": true,
+    "interior_retained": true
+  },
+  "gizmos": [
+    {
+      "name": "BattenLightMountNorth",
+      "bone": "Root",
+      "origin": [
+        0.0,
+        4.099999904632568,
+        2.4111111164093018
+      ],
+      "mount_normal": [
+        8.999426093225793e-09,
+        0.0,
+        -1.0
+      ],
+      "attachment": "batten_light",
+      "surface": "interior",
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          -8.999426093225793e-09,
+          0.0
+        ],
+        [
+          -0.0,
+          1.0,
+          -0.0,
+          4.099999904632568
+        ],
+        [
+          8.999426093225793e-09,
+          0.0,
+          1.0,
+          2.4111111164093018
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "BattenLightMountEast",
+      "bone": "Root",
+      "origin": [
+        4.099999904632568,
+        0.0,
+        2.4111111164093018
+      ],
+      "mount_normal": [
+        8.999426093225793e-09,
+        0.0,
+        -1.0
+      ],
+      "attachment": "batten_light",
+      "surface": "interior",
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          -8.999426093225793e-09,
+          4.099999904632568
+        ],
+        [
+          -0.0,
+          1.0,
+          -0.0,
+          0.0
+        ],
+        [
+          8.999426093225793e-09,
+          0.0,
+          1.0,
+          2.4111111164093018
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "BattenLightMountSouth",
+      "bone": "Root",
+      "origin": [
+        0.0,
+        -4.099999904632568,
+        2.4111111164093018
+      ],
+      "mount_normal": [
+        8.999426093225793e-09,
+        0.0,
+        -1.0
+      ],
+      "attachment": "batten_light",
+      "surface": "interior",
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          -8.999426093225793e-09,
+          0.0
+        ],
+        [
+          -0.0,
+          1.0,
+          -0.0,
+          -4.099999904632568
+        ],
+        [
+          8.999426093225793e-09,
+          0.0,
+          1.0,
+          2.4111111164093018
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "BattenLightMountWest",
+      "bone": "Root",
+      "origin": [
+        -4.099999904632568,
+        0.0,
+        2.4111111164093018
+      ],
+      "mount_normal": [
+        8.999426093225793e-09,
+        0.0,
+        -1.0
+      ],
+      "attachment": "batten_light",
+      "surface": "interior",
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          -8.999426093225793e-09,
+          -4.099999904632568
+        ],
+        [
+          -0.0,
+          1.0,
+          -0.0,
+          0.0
+        ],
+        [
+          8.999426093225793e-09,
+          0.0,
+          1.0,
+          2.4111111164093018
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "SconceLightMountEast",
+      "bone": "Root",
+      "origin": [
+        6.500000476837158,
+        0.0,
+        1.5555555820465088
+      ],
+      "mount_normal": [
+        -0.9969173669815063,
+        -0.07845890522003174,
+        0.0
+      ],
+      "attachment": "sconce_light",
+      "surface": "interior",
+      "matrix_world": [
+        [
+          0.07845890522003174,
+          0.9969173669815063,
+          0.0,
+          6.500000476837158
+        ],
+        [
+          -0.9969173669815063,
+          0.07845890522003174,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          -0.0,
+          1.0,
+          1.5555555820465088
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "SconceLightMountWest",
+      "bone": "Root",
+      "origin": [
+        -6.500000476837158,
+        0.0,
+        1.5555555820465088
+      ],
+      "mount_normal": [
+        0.9969173669815063,
+        0.07845890522003174,
+        0.0
+      ],
+      "attachment": "sconce_light",
+      "surface": "interior",
+      "matrix_world": [
+        [
+          -0.07845890522003174,
+          -0.9969173669815063,
+          0.0,
+          -6.500000476837158
+        ],
+        [
+          0.9969173669815063,
+          -0.07845890522003174,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          -0.0,
+          1.0,
+          1.5555555820465088
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "SconceLightMountNorth",
+      "bone": "Root",
+      "origin": [
+        2.0,
+        6.183934688568115,
+        1.5555555820465088
+      ],
+      "mount_normal": [
+        -0.23344579339027405,
+        -0.972369909286499,
+        -1.1125278120971416e-07
+      ],
+      "attachment": "sconce_light",
+      "surface": "interior",
+      "matrix_world": [
+        [
+          0.972369909286499,
+          0.23344579339027405,
+          -2.597149340033411e-08,
+          2.0
+        ],
+        [
+          -0.23344579339027405,
+          0.972369909286499,
+          -1.0817885964797824e-07,
+          6.183934688568115
+        ],
+        [
+          -1.7763568394002505e-15,
+          1.1125278120971416e-07,
+          1.0,
+          1.5555555820465088
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "SconceLightMountExteriorLeft",
+      "bone": "Root",
+      "origin": [
+        6.810000896453857,
+        0.0,
+        1.3222222328186035
+      ],
+      "mount_normal": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "attachment": "sconce_light",
+      "surface": "exterior",
+      "matrix_world": [
+        [
+          0.0,
+          -1.0,
+          0.0,
+          6.810000896453857
+        ],
+        [
+          1.0,
+          -0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          -0.0,
+          1.0,
+          1.3222222328186035
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "SconceLightMountExteriorRight",
+      "bone": "Root",
+      "origin": [
+        -6.810000896453857,
+        0.0,
+        1.3222222328186035
+      ],
+      "mount_normal": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "attachment": "sconce_light",
+      "surface": "exterior",
+      "matrix_world": [
+        [
+          0.0,
+          1.0,
+          0.0,
+          -6.810000896453857
+        ],
+        [
+          -1.0,
+          -0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          -0.0,
+          1.0,
+          1.3222222328186035
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    }
+  ],
+  "entrance": {
+    "width_m": 1.5,
+    "height_m": 2.1,
+    "floor_m": 0.07777777777777778,
+    "ceiling_m": 2.4111111111111114,
+    "door_swing_deg": 110
+  },
+  "placement": "15 m circular grade-contact foundation; origin at ground centre; front -Y; library only",
+  "mechanics": "Maintenance chamber over sealed below-deck water reservoir. Continuous machined pressure wall, formed roof, eight buttresses. Tangent-aligned service skid at -105 degrees. Three retained pinned hinges; geared hinge motor; enclosed 180 mm captive shoot bolt retracts before opening.",
+  "optional_surface": {
+    "object": "SK_ArchitectureRegolith",
+    "material": "M_Regolith_Diffuse",
+    "bone": "Root",
+    "optional": true,
+    "collision": false,
+    "scope": "visual apron only; excluded from building placement and traversal"
+  },
+  "building_bounds_m": {
+    "lo": [
+      -7.5,
+      -7.5,
+      0.0
+    ],
+    "hi": [
+      7.5,
+      7.5,
+      2.661555767059326
+    ]
+  },
+  "architecture_dimensions": {
+    "door_type": "single",
+    "opening_width_m": 1.5,
+    "opening_height_m": 2.1,
+    "rooms": [
+      {
+        "floor_m": 0.07777777777777778,
+        "ceiling_m": 2.4422222222222225,
+        "height_m": 2.3644444444444446
+      }
+    ],
+    "measurement": "Open structural aperture; floor top to ceiling underside; chamfers reduce local clearance"
+  },
+  "material_classifiers": {
+    "M_Frame_Diffuse": "Diffuse",
+    "M_Joint_Diffuse": "Diffuse",
+    "M_Primary_Diffuse": "Diffuse",
+    "M_Secondary_Diffuse": "Diffuse",
+    "M_Regolith_Diffuse": "Diffuse",
+    "M_RegolithLight_Diffuse": "Diffuse",
+    "M_RegolithDark_Diffuse": "Diffuse",
+    "M_Emissive": "Emissive",
+    "M_RampartsPlain_Diffuse": "Diffuse",
+    "M_RampartsRock_Diffuse": "Diffuse",
+    "M_RampartsStone_Diffuse": "Diffuse"
+  },
+  "source_asset": "cistern",
+  "source_category": "architecture",
+  "map_owned_boolean_triangles": 1811,
+  "native_triangle_budget": 12000,
+  "ramparts_cutouts": [
+    {
+      "marker": "B-spawn_point-2057_1053",
+      "center": [
+        -2.5000009536743164,
+        3.9097652435302734,
+        0.07777690887451172
+      ],
+      "size": [
+        2,
+        2
+      ],
+      "depth": 1.5,
+      "yaw": 4.712389325651718,
+      "tiers": [
+        {
+          "size": [
+            2.0,
+            2.0
+          ],
+          "from_z": 0.0,
+          "to_z": -0.22
+        },
+        {
+          "size": [
+            1.04,
+            1.04
+          ],
+          "from_z": -0.22,
+          "to_z": -1.5
+        }
+      ],
+      "building": "cistern"
+    },
+    {
+      "marker": "B-spawn_point-2057_1054",
+      "center": [
+        2.5000009536743164,
+        3.9097671508789062,
+        0.07777690887451172
+      ],
+      "size": [
+        2,
+        2
+      ],
+      "depth": 1.5,
+      "yaw": 7.853981979241511,
+      "tiers": [
+        {
+          "size": [
+            2.0,
+            2.0
+          ],
+          "from_z": 0.0,
+          "to_z": -0.22
+        },
+        {
+          "size": [
+            1.04,
+            1.04
+          ],
+          "from_z": -0.22,
+          "to_z": -1.5
+        }
+      ],
+      "building": "cistern"
+    }
+  ],
+  "recess_clearance_per_side_m": 0.001
+}

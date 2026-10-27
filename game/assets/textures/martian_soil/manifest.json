@@ -1,0 +1,52 @@
+{
+  "layers": [
+    "dust",
+    "dunes",
+    "bedrock",
+    "rubble",
+    "strata",
+    "sediment"
+  ],
+  "resolution": 2048,
+  "tile_metres": 4.0,
+  "source_sha256": {
+    "dust": "d112c56116a3c7fd397f8e93b069f8b6a60c4c8708280a786e1e2e3b0522e240",
+    "dunes": "6b60e42a3342098867525ca08fb7b4fd36952de03c0690246b377bd28dd6bf4f",
+    "bedrock": "cdfb5ac9799a053f31c42f598016bec139f3183d76cd233ad4b8250071e13174",
+    "rubble": "1da06e1c4b1e1b477b8c6d414832ebaf445626146b1473746a3e6e4857e8dcea",
+    "strata": "02dc9377fd9ba2035d1c9f1b15547ba455d5f4639e7d704a42b919f2ecbc88fb",
+    "sediment": "3ec15e04f49f6557e1addc7dfcc6d3f24e1d4465db80ee766ef8431a3ad27324"
+  },
+  "files": {
+    "dust_albedo_height.png": "a05424b74d6f1cc09c6c27f4b3596f6ce99a36c845a379d68c8561ce50fca4df",
+    "dust_normal_roughness.png": "aa63ea80f316b208adf1ecb24f6994b69531aa67345f4bc7328069ed24da6731",
+    "dunes_albedo_height.png": "37fa22fd003bf7115c877ddf7dab58ba82925a76f5c39db72870e1985920ac51",
+    "dunes_normal_roughness.png": "d6a49fd8abf419b7486e43813e750413f8a22d31bda24d539520c0b1ab6a63e2",
+    "bedrock_albedo_height.png": "46ba847110e79cfc35594e677cc09b61752588ee9be384350a39bc675ea83079",
+    "bedrock_normal_roughness.png": "75c83f336590e2a2fbc4b34e875c987f0a89879f5cca789be60523411e0bced2",
+    "rubble_albedo_height.png": "99e62e9bdc162f64eb1af0e5d485ed9f698c89bbcf070dd949f3ec7390194b06",
+    "rubble_normal_roughness.png": "e5309fa4ec107ed435bc789f06562cbac74361b83356ac3e9e8b3edc6824623f",
+    "strata_albedo_height.png": "f6bfa50bd74e16410d1b576d49b7b2023b3175196a24c0eadad027634f2c58ce",
+    "strata_normal_roughness.png": "f25ed4f34841f543286dd0b8e883951659711e995e36012888009442828047c3",
+    "sediment_albedo_height.png": "d23050d196bc26c49a493ac73ad8f1d14cbb3bd99b2713ad5cb79843e1e3ccc6",
+    "sediment_normal_roughness.png": "866fd43bf7a8ca1d11de918c037b78b46ba611b78420844eaf74ec5b26281646"
+  },
+  "terrain": {
+    "resolution": 512,
+    "origin": -256,
+    "spacing": 1,
+    "outer_lod": 2,
+    "single_grid": true,
+    "min_height": -15.0,
+    "max_height": 44.2508659362793,
+    "crater": {
+      "diameter_m": 150.0,
+      "depth_m": 15.0,
+      "rim_height_m": 36.0,
+      "outer_radius_m": 240.0,
+      "segments": 128
+    },
+    "height_sha256": "e9644c54583d03701e6c8c8c98a6a4a1c3153fcd5ee9f21fa1c667121d25d78d"
+  },
+  "relief": "Conservative image-derived microrelief, not scanned displacement"
+}

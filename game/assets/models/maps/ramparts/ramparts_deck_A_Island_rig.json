@@ -1,0 +1,1242 @@
+{
+  "name": "ramparts_deck_A_Island",
+  "source_helper": "platform",
+  "size_m": [
+    15.0,
+    15.0
+  ],
+  "extension_rects_m": [],
+  "footprint": [
+    [
+      -7.5,
+      -7.5
+    ],
+    [
+      7.5,
+      -7.5
+    ],
+    [
+      7.5,
+      7.5
+    ],
+    [
+      -7.5,
+      7.5
+    ]
+  ],
+  "perimeter": [
+    {
+      "a": [
+        -7.5,
+        -7.5
+      ],
+      "b": [
+        7.5,
+        -7.5
+      ],
+      "tangent": [
+        1.0,
+        0.0
+      ],
+      "normal": [
+        0.0,
+        -1.0
+      ],
+      "length": 15.0,
+      "border_width": 0.16
+    },
+    {
+      "a": [
+        7.5,
+        -7.5
+      ],
+      "b": [
+        7.5,
+        7.5
+      ],
+      "tangent": [
+        0.0,
+        1.0
+      ],
+      "normal": [
+        1.0,
+        -0.0
+      ],
+      "length": 15.0,
+      "border_width": 0.16
+    },
+    {
+      "a": [
+        7.5,
+        7.5
+      ],
+      "b": [
+        -7.5,
+        7.5
+      ],
+      "tangent": [
+        -1.0,
+        0.0
+      ],
+      "normal": [
+        0.0,
+        1.0
+      ],
+      "length": 15.0,
+      "border_width": 0.16
+    },
+    {
+      "a": [
+        -7.5,
+        7.5
+      ],
+      "b": [
+        -7.5,
+        -7.5
+      ],
+      "tangent": [
+        0.0,
+        -1.0
+      ],
+      "normal": [
+        -1.0,
+        -0.0
+      ],
+      "length": 15.0,
+      "border_width": 0.16
+    }
+  ],
+  "omit_border_segments_m": [],
+  "depth_m": 0.8,
+  "components": {
+    "deck": [
+      "SK_RampartsDeckAIslandDeck"
+    ],
+    "underbody": []
+  },
+  "underbody_proxies": [],
+  "gizmos": [
+    {
+      "name": "SconceLightMount1_1",
+      "attachment": "sconce_light",
+      "bone": "Root",
+      "origin": [
+        -6.4,
+        -7.5,
+        -0.4
+      ],
+      "matrix_world": [
+        [
+          1.0,
+          -0.0,
+          0.0,
+          -6.400000095367432
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          -7.5
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          -0.4000000059604645
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "SconceLightMount1_2",
+      "attachment": "sconce_light",
+      "bone": "Root",
+      "origin": [
+        -2.1333333333333337,
+        -7.5,
+        -0.4
+      ],
+      "matrix_world": [
+        [
+          1.0,
+          -0.0,
+          0.0,
+          -2.133333444595337
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          -7.5
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          -0.4000000059604645
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "SconceLightMount1_3",
+      "attachment": "sconce_light",
+      "bone": "Root",
+      "origin": [
+        2.133333333333333,
+        -7.5,
+        -0.4
+      ],
+      "matrix_world": [
+        [
+          1.0,
+          -0.0,
+          0.0,
+          2.133333444595337
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          -7.5
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          -0.4000000059604645
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "SconceLightMount1_4",
+      "attachment": "sconce_light",
+      "bone": "Root",
+      "origin": [
+        6.400000000000002,
+        -7.5,
+        -0.4
+      ],
+      "matrix_world": [
+        [
+          1.0,
+          -0.0,
+          0.0,
+          6.400000095367432
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          -7.5
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          -0.4000000059604645
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "SconceLightMount2_5",
+      "attachment": "sconce_light",
+      "bone": "Root",
+      "origin": [
+        7.5,
+        -6.4,
+        -0.4
+      ],
+      "matrix_world": [
+        [
+          7.549790126404332e-08,
+          -1.0,
+          0.0,
+          7.5
+        ],
+        [
+          1.0,
+          7.549790126404332e-08,
+          0.0,
+          -6.400000095367432
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          -0.4000000059604645
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "SconceLightMount2_6",
+      "attachment": "sconce_light",
+      "bone": "Root",
+      "origin": [
+        7.5,
+        -2.1333333333333337,
+        -0.4
+      ],
+      "matrix_world": [
+        [
+          7.549790126404332e-08,
+          -1.0,
+          0.0,
+          7.5
+        ],
+        [
+          1.0,
+          7.549790126404332e-08,
+          0.0,
+          -2.133333444595337
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          -0.4000000059604645
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "SconceLightMount2_7",
+      "attachment": "sconce_light",
+      "bone": "Root",
+      "origin": [
+        7.5,
+        2.133333333333333,
+        -0.4
+      ],
+      "matrix_world": [
+        [
+          7.549790126404332e-08,
+          -1.0,
+          0.0,
+          7.5
+        ],
+        [
+          1.0,
+          7.549790126404332e-08,
+          0.0,
+          2.133333444595337
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          -0.4000000059604645
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "SconceLightMount2_8",
+      "attachment": "sconce_light",
+      "bone": "Root",
+      "origin": [
+        7.5,
+        6.400000000000002,
+        -0.4
+      ],
+      "matrix_world": [
+        [
+          7.549790126404332e-08,
+          -1.0,
+          0.0,
+          7.5
+        ],
+        [
+          1.0,
+          7.549790126404332e-08,
+          0.0,
+          6.400000095367432
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          -0.4000000059604645
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "SconceLightMount3_9",
+      "attachment": "sconce_light",
+      "bone": "Root",
+      "origin": [
+        6.4,
+        7.5,
+        -0.4
+      ],
+      "matrix_world": [
+        [
+          -1.0,
+          -8.742277657347586e-08,
+          0.0,
+          6.400000095367432
+        ],
+        [
+          8.742277657347586e-08,
+          -1.0,
+          0.0,
+          7.5
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          -0.4000000059604645
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "SconceLightMount3_10",
+      "attachment": "sconce_light",
+      "bone": "Root",
+      "origin": [
+        2.1333333333333337,
+        7.5,
+        -0.4
+      ],
+      "matrix_world": [
+        [
+          -1.0,
+          -8.742277657347586e-08,
+          0.0,
+          2.133333444595337
+        ],
+        [
+          8.742277657347586e-08,
+          -1.0,
+          0.0,
+          7.5
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          -0.4000000059604645
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "SconceLightMount3_11",
+      "attachment": "sconce_light",
+      "bone": "Root",
+      "origin": [
+        -2.133333333333333,
+        7.5,
+        -0.4
+      ],
+      "matrix_world": [
+        [
+          -1.0,
+          -8.742277657347586e-08,
+          0.0,
+          -2.133333444595337
+        ],
+        [
+          8.742277657347586e-08,
+          -1.0,
+          0.0,
+          7.5
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          -0.4000000059604645
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "SconceLightMount3_12",
+      "attachment": "sconce_light",
+      "bone": "Root",
+      "origin": [
+        -6.400000000000002,
+        7.5,
+        -0.4
+      ],
+      "matrix_world": [
+        [
+          -1.0,
+          -8.742277657347586e-08,
+          0.0,
+          -6.400000095367432
+        ],
+        [
+          8.742277657347586e-08,
+          -1.0,
+          0.0,
+          7.5
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          -0.4000000059604645
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "SconceLightMount4_13",
+      "attachment": "sconce_light",
+      "bone": "Root",
+      "origin": [
+        -7.5,
+        6.4,
+        -0.4
+      ],
+      "matrix_world": [
+        [
+          -4.371138828673793e-08,
+          1.0,
+          0.0,
+          -7.5
+        ],
+        [
+          -1.0,
+          -4.371138828673793e-08,
+          0.0,
+          6.400000095367432
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          -0.4000000059604645
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "SconceLightMount4_14",
+      "attachment": "sconce_light",
+      "bone": "Root",
+      "origin": [
+        -7.5,
+        2.1333333333333337,
+        -0.4
+      ],
+      "matrix_world": [
+        [
+          -4.371138828673793e-08,
+          1.0,
+          0.0,
+          -7.5
+        ],
+        [
+          -1.0,
+          -4.371138828673793e-08,
+          0.0,
+          2.133333444595337
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          -0.4000000059604645
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "SconceLightMount4_15",
+      "attachment": "sconce_light",
+      "bone": "Root",
+      "origin": [
+        -7.5,
+        -2.133333333333333,
+        -0.4
+      ],
+      "matrix_world": [
+        [
+          -4.371138828673793e-08,
+          1.0,
+          0.0,
+          -7.5
+        ],
+        [
+          -1.0,
+          -4.371138828673793e-08,
+          0.0,
+          -2.133333444595337
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          -0.4000000059604645
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "SconceLightMount4_16",
+      "attachment": "sconce_light",
+      "bone": "Root",
+      "origin": [
+        -7.5,
+        -6.400000000000002,
+        -0.4
+      ],
+      "matrix_world": [
+        [
+          -4.371138828673793e-08,
+          1.0,
+          0.0,
+          -7.5
+        ],
+        [
+          -1.0,
+          -4.371138828673793e-08,
+          0.0,
+          -6.400000095367432
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          -0.4000000059604645
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "BridgePlugFront",
+      "bone": "Root",
+      "origin": [
+        0.0,
+        -7.5,
+        0
+      ],
+      "matrix_world": [
+        [
+          1.0,
+          -0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          -7.5
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "attachment_kind": "bridge_plug",
+      "compatible_assets": [
+        "bridge"
+      ],
+      "omit_fixture_mounts": []
+    },
+    {
+      "name": "BridgePlugRight",
+      "bone": "Root",
+      "origin": [
+        7.5,
+        0.0,
+        0
+      ],
+      "matrix_world": [
+        [
+          7.549790126404332e-08,
+          -1.0,
+          0.0,
+          7.5
+        ],
+        [
+          1.0,
+          7.549790126404332e-08,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "attachment_kind": "bridge_plug",
+      "compatible_assets": [
+        "bridge"
+      ],
+      "omit_fixture_mounts": []
+    },
+    {
+      "name": "BridgePlugRear",
+      "bone": "Root",
+      "origin": [
+        0.0,
+        7.5,
+        0
+      ],
+      "matrix_world": [
+        [
+          -1.0,
+          -8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          8.742277657347586e-08,
+          -1.0,
+          0.0,
+          7.5
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "attachment_kind": "bridge_plug",
+      "compatible_assets": [
+        "bridge"
+      ],
+      "omit_fixture_mounts": []
+    },
+    {
+      "name": "BridgePlugLeft",
+      "bone": "Root",
+      "origin": [
+        -7.5,
+        0.0,
+        0
+      ],
+      "matrix_world": [
+        [
+          -4.371138828673793e-08,
+          1.0,
+          0.0,
+          -7.5
+        ],
+        [
+          -1.0,
+          -4.371138828673793e-08,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "attachment_kind": "bridge_plug",
+      "compatible_assets": [
+        "bridge"
+      ],
+      "omit_fixture_mounts": []
+    },
+    {
+      "name": "BattenLightMountUnderside1",
+      "attachment": "batten_light",
+      "bone": "Root",
+      "origin": [
+        -5.0,
+        -5.0,
+        -0.8
+      ],
+      "matrix_world": [
+        [
+          1.0,
+          -0.0,
+          0.0,
+          -5.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          -5.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          -0.800000011920929
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "BattenLightMountUnderside2",
+      "attachment": "batten_light",
+      "bone": "Root",
+      "origin": [
+        -5.0,
+        0.0,
+        -0.8
+      ],
+      "matrix_world": [
+        [
+          1.0,
+          -0.0,
+          0.0,
+          -5.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          -0.800000011920929
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "BattenLightMountUnderside3",
+      "attachment": "batten_light",
+      "bone": "Root",
+      "origin": [
+        -5.0,
+        5.0,
+        -0.8
+      ],
+      "matrix_world": [
+        [
+          1.0,
+          -0.0,
+          0.0,
+          -5.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          5.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          -0.800000011920929
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "BattenLightMountUnderside4",
+      "attachment": "batten_light",
+      "bone": "Root",
+      "origin": [
+        0.0,
+        -5.0,
+        -0.8
+      ],
+      "matrix_world": [
+        [
+          1.0,
+          -0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          -5.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          -0.800000011920929
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "BattenLightMountUnderside5",
+      "attachment": "batten_light",
+      "bone": "Root",
+      "origin": [
+        0.0,
+        0.0,
+        -0.8
+      ],
+      "matrix_world": [
+        [
+          1.0,
+          -0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          -0.800000011920929
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "BattenLightMountUnderside6",
+      "attachment": "batten_light",
+      "bone": "Root",
+      "origin": [
+        0.0,
+        5.0,
+        -0.8
+      ],
+      "matrix_world": [
+        [
+          1.0,
+          -0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          5.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          -0.800000011920929
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "BattenLightMountUnderside7",
+      "attachment": "batten_light",
+      "bone": "Root",
+      "origin": [
+        5.0,
+        -5.0,
+        -0.8
+      ],
+      "matrix_world": [
+        [
+          1.0,
+          -0.0,
+          0.0,
+          5.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          -5.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          -0.800000011920929
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "BattenLightMountUnderside8",
+      "attachment": "batten_light",
+      "bone": "Root",
+      "origin": [
+        5.0,
+        0.0,
+        -0.8
+      ],
+      "matrix_world": [
+        [
+          1.0,
+          -0.0,
+          0.0,
+          5.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          -0.800000011920929
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "BattenLightMountUnderside9",
+      "attachment": "batten_light",
+      "bone": "Root",
+      "origin": [
+        5.0,
+        5.0,
+        -0.8
+      ],
+      "matrix_world": [
+        [
+          1.0,
+          -0.0,
+          0.0,
+          5.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          5.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          -0.800000011920929
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    }
+  ],
+  "top_surface": {
+    "layout": "continuous",
+    "perimeter_border_width_m": 0.16,
+    "internal_grid": false
+  },
+  "authoring_order": [
+    "union_extensions",
+    "perimeter_border",
+    "underbody",
+    "random_regolith",
+    "placement_booleans"
+  ],
+  "placement": "Platform base centre; +Z up; native root axes",
+  "meshes": {
+    "SK_RampartsDeckAIslandDeck": 508,
+    "SK_ArchitectureRegolith": 886
+  },
+  "triangles": 1394,
+  "cutouts": [
+    {
+      "marker": "A-barricade-2057_1088",
+      "center": [
+        22.5,
+        12.9915,
+        10.0
+      ],
+      "size": [
+        4,
+        2
+      ],
+      "depth": 1.5,
+      "yaw": 3.141592653589793
+    },
+    {
+      "marker": "A-pressure_plate-2057_1089",
+      "center": [
+        22.5,
+        10.0,
+        10.0
+      ],
+      "size": [
+        2.0,
+        1.0
+      ],
+      "depth": 0.2,
+      "yaw": 3.141592653589793
+    }
+  ],
+  "recess_clearance_per_side_m": 0.001,
+  "material_classifiers": {
+    "M_Frame_Diffuse": "Diffuse",
+    "M_Joint_Diffuse": "Diffuse",
+    "M_Primary_Diffuse": "Diffuse",
+    "M_Secondary_Diffuse": "Diffuse",
+    "M_Regolith_Diffuse": "Diffuse",
+    "M_RegolithLight_Diffuse": "Diffuse",
+    "M_RegolithDark_Diffuse": "Diffuse",
+    "M_Emissive": "Emissive",
+    "M_RampartsPlain_Diffuse": "Diffuse",
+    "M_RampartsRock_Diffuse": "Diffuse",
+    "M_RampartsStone_Diffuse": "Diffuse"
+  }
+}

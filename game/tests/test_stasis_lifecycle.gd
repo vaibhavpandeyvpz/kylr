@@ -40,7 +40,7 @@ func test_stasis_opens_only_for_spawn_and_closes_once_after_door_sweep_is_clear(
 
 func test_all_chambers_keep_initial_and_respawn_facing_until_deployment_finishes():
 	var checked:=0
-	for map_id in ["faceoff","skyfall"]:
+	for map_id in ["faceoff","skyfall","ramparts"]:
 		var game:=ArenaMatch.new()
 		game.map_id=map_id;game.online=true;game.authority=false
 		add_child_autofree(game)
@@ -75,7 +75,7 @@ func test_all_chambers_keep_initial_and_respawn_facing_until_deployment_finishes
 					assert_almost_eq(robot.yaw,float(command.yaw),0.0001,"Normal aiming resumes despite spawn protection")
 					assert_almost_eq(robot.pitch,0.5,0.0001)
 					checked+=1
-	assert_eq(checked,48,"Eight chambers, three modes, initial spawn and respawn")
+	assert_eq(checked,84,"Fourteen chambers, three modes, initial spawn and respawn")
 
 func test_all_skyfall_spawns_face_the_islands_on_admission_and_respawn():
 	var game:=ArenaMatch.new();game.online=true;game.authority=false

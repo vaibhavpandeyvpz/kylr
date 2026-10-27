@@ -72,13 +72,13 @@ func test_drop_homing_and_collection_use_world_positions():
 	var start: Vector3=game.drops[0].node.global_position
 	game.tick_drops(0.1)
 	assert_eq(game.drops[0].claim,killer.robot_id,"Nearby killer claims the drop despite its parent's transform")
-	assert_almost_eq(start.distance_to(game.drops[0].node.global_position),0.2,0.0001,"Core travels at 2 m/s")
-	assert_almost_eq(game.drops[0].node.global_position,start.move_toward(killer.body_shape.global_position,0.2),Vector3.ONE*0.0001,"Core homes toward the body's centre")
+	assert_almost_eq(start.distance_to(game.drops[0].node.global_position),0.5,0.0001,"Core travels at 5 m/s")
+	assert_almost_eq(game.drops[0].node.global_position,start.move_toward(killer.body_shape.global_position,0.5),Vector3.ONE*0.0001,"Core homes toward the body's centre")
 	assert_eq(killer.ep,10.0,"Energy transfers only on arrival")
 	killer.body_shape.position.y=0.59
 	var previous: Vector3=game.drops[0].node.global_position
 	game.tick_drops(0.1)
-	assert_almost_eq(game.drops[0].node.global_position,previous.move_toward(killer.body_shape.global_position,0.2),Vector3.ONE*0.0001,"Homing follows the crouched body centre")
+	assert_almost_eq(game.drops[0].node.global_position,previous.move_toward(killer.body_shape.global_position,0.5),Vector3.ONE*0.0001,"Homing follows the crouched body centre")
 	for step in 90:game.tick_drops(0.1)
 	assert_eq(game.drops.size(),0)
 	assert_eq(killer.ep,73.5,"Stored energy is added once")

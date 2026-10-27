@@ -27,8 +27,10 @@ class TraversalAStar extends AStar3D:
 	var target_costs: Dictionary={}
 	var heuristic_fields: Dictionary={}
 	var path_cache: Dictionary={}
+	var corridor_nodes: Dictionary={}
+	var corridor_bias := 0
 	func cached_path(from_id: int,to_id: int) -> PackedInt64Array:
-		var key:=Vector2i(from_id,to_id)
+		var key:=Vector3i(from_id,to_id,corridor_bias)
 		if not path_cache.has(key):
 			if path_cache.size()>=1024:path_cache.erase(path_cache.keys()[0])
 			var started := Time.get_ticks_usec() if TraversalGraph.profile_paths else 0
@@ -39,9 +41,9 @@ class TraversalAStar extends AStar3D:
 				TraversalGraph.path_stats["total_us"] = int(TraversalGraph.path_stats.get("total_us",0))+elapsed
 				TraversalGraph.path_stats["max_us"] = maxi(int(TraversalGraph.path_stats.get("max_us",0)),elapsed)
 		return path_cache[key]
-	func _compute_cost(from_id: int,to_id: int) -> float:
-		if transitions.get(Vector2i(from_id,to_id))=="portal":return 3.0
-		return get_point_position(from_id).distance_to(get_point_position(to_id))
+	func _filter_neighbor(_from_id: int,neighbor_id: int) -> bool:
+		var corridor: int=corridor_nodes.get(neighbor_id,0)
+		return corridor_bias!=0 and corridor!=0 and corridor!=corridor_bias
 	func refresh_portal_metric():
 		path_cache.clear()
 		portal_nodes.clear();portal_metric.clear();target_costs.clear();heuristic_fields.clear()
@@ -57,7 +59,12 @@ class TraversalAStar extends AStar3D:
 		for k in portal_nodes.size():
 			for i in portal_nodes.size():
 				for j in portal_nodes.size():portal_metric[i][j]=minf(portal_metric[i][j],portal_metric[i][k]+portal_metric[k][j])
+class PortalTraversalAStar extends TraversalAStar:
+	func _compute_cost(from_id: int,to_id: int) -> float:
+		if transitions.get(Vector2i(from_id,to_id))=="portal":return 3.0
+		return get_point_position(from_id).distance_to(get_point_position(to_id))
 	func _estimate_cost(from_id: int,to_id: int) -> float:
+		if portal_nodes.is_empty():return get_point_position(from_id).distance_to(get_point_position(to_id))
 		if heuristic_fields.has(to_id) and heuristic_fields[to_id].has(from_id):return heuristic_fields[to_id][from_id]
 		if not heuristic_fields.has(to_id):
 			if heuristic_fields.size()>=96:heuristic_fields.erase(heuristic_fields.keys()[0])
@@ -76,8 +83,8 @@ class TraversalAStar extends AStar3D:
 		heuristic_fields[to_id][from_id]=result
 		return result
 
-var graph:=TraversalAStar.new()
-var basic_graph:=TraversalAStar.new()
+var graph: TraversalAStar
+var basic_graph: TraversalAStar
 var actions: Dictionary={}
 var cells: Dictionary={}
 var entries: Dictionary={}
@@ -86,6 +93,12 @@ var portal_points: Array[Vector3]=[]
 
 func _init(map):
 	arena=map
+	reuse_query_shapes=map!=null and bool(map.config.get("reuse_navigation_query_shapes",false))
+	# Ordinary Euclidean graphs use native AStar costs and estimates. Only
+	# portals need the scripted shortcut cost and admissible portal heuristic.
+	var portals: bool=map==null or map.fixtures.any(func(fixture):return fixture.kind=="portal")
+	graph=PortalTraversalAStar.new() if portals else TraversalAStar.new()
+	basic_graph=PortalTraversalAStar.new() if portals else TraversalAStar.new()
 	graph.transitions=actions
 	basic_graph.transitions=actions
 
@@ -442,7 +455,18 @@ func link(a: Vector3,b: Vector3,kind: String,bidirectional: bool,entry := Vector
 		graph.refresh_portal_metric()
 		basic_graph.refresh_portal_metric()
 
-func route(a: Vector3,b: Vector3,allow_charged := true, grounded := false) -> Array:
+func route(a: Vector3,b: Vector3,allow_charged := true, grounded := false,corridor_bias := 0) -> Array:
+	var nav: TraversalAStar=graph if allow_charged else basic_graph
+	var previous_bias:=nav.corridor_bias
+	var previous_filter:=nav.neighbor_filter_enabled
+	nav.corridor_bias=corridor_bias
+	nav.neighbor_filter_enabled=corridor_bias!=0
+	var result:=_route(a,b,allow_charged,grounded)
+	nav.corridor_bias=previous_bias
+	nav.neighbor_filter_enabled=previous_filter
+	return result
+
+func _route(a: Vector3,b: Vector3,allow_charged: bool, grounded: bool) -> Array:
 	var nav: TraversalAStar=graph if allow_charged else basic_graph
 	var start:=nav.get_closest_point(a)
 	var finish:=nav.get_closest_point(b)
@@ -516,6 +540,7 @@ func route(a: Vector3,b: Vector3,allow_charged := true, grounded := false) -> Ar
 	elif not result.is_empty() and result[-1].point.distance_to(b)>.05 and absf(result[-1].point.y-b.y)<.45:
 		if result[-1].point.distance_to(b)>2.0 or not movement_clear(result[-1].point,b): return []
 		result.append({"point":b,"action":"walk","from":result[-1].point,"entry":Vector3.INF})
+	if arena.carriers:arena.carriers.bind_route(result)
 	return result
 
 func sync_barricades() -> void:

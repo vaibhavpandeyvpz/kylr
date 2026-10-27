@@ -1,0 +1,4134 @@
+{
+  "root": "69:3",
+  "pixels_per_metre": 100,
+  "nodes": [
+    {
+      "id": "69:3",
+      "name": "Ramparts",
+      "type": "FRAME",
+      "path": [],
+      "width": 7500,
+      "height": 7500,
+      "transform": [
+        [
+          1,
+          0,
+          -857
+        ],
+        [
+          0,
+          1,
+          -4090
+        ]
+      ]
+    },
+    {
+      "id": "118:281",
+      "name": "Bleed",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts"
+      ],
+      "width": 7000,
+      "height": 7000,
+      "transform": [
+        [
+          1,
+          0,
+          -607
+        ],
+        [
+          0,
+          1,
+          -3840
+        ]
+      ]
+    },
+    {
+      "id": "2057:1001",
+      "name": "Zone B",
+      "type": "GROUP",
+      "path": [
+        "Ramparts"
+      ],
+      "width": 7123.6259765625,
+      "height": 4097.6259765625,
+      "transform": [
+        [
+          -1,
+          1.2246468525851679e-16,
+          7016.6259765625
+        ],
+        [
+          -1.2246468525851679e-16,
+          -1,
+          3757.6259765625
+        ]
+      ]
+    },
+    {
+      "id": "2057:1002",
+      "name": "Island",
+      "type": "GROUP",
+      "path": [
+        "Ramparts",
+        "Zone B"
+      ],
+      "width": 1500,
+      "height": 1500,
+      "transform": [
+        [
+          -1,
+          1.2246468525851679e-16,
+          1393
+        ],
+        [
+          -1.2246468525851679e-16,
+          -1,
+          1160
+        ]
+      ]
+    },
+    {
+      "id": "2057:1003",
+      "name": "Thrusters",
+      "type": "GROUP",
+      "path": [
+        "Ramparts",
+        "Zone B",
+        "Island"
+      ],
+      "width": 500,
+      "height": 500,
+      "transform": [
+        [
+          -1,
+          1.2246468525851679e-16,
+          893
+        ],
+        [
+          -1.2246468525851679e-16,
+          -1,
+          660
+        ]
+      ]
+    },
+    {
+      "id": "2057:1004",
+      "name": "Thruster 1",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Zone B",
+        "Island",
+        "Thrusters"
+      ],
+      "width": 500,
+      "height": 500,
+      "transform": [
+        [
+          -1,
+          1.2246468525851679e-16,
+          893
+        ],
+        [
+          -1.2246468525851679e-16,
+          -1,
+          660
+        ]
+      ]
+    },
+    {
+      "id": "2057:1005",
+      "name": "Platform 10x10",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Zone B",
+        "Island"
+      ],
+      "width": 1500,
+      "height": 1500,
+      "transform": [
+        [
+          -1,
+          1.2246468525851679e-16,
+          1393
+        ],
+        [
+          -1.2246468525851679e-16,
+          -1,
+          1160
+        ]
+      ]
+    },
+    {
+      "id": "2057:1006",
+      "name": "Wather Sensor",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Zone B",
+        "Island"
+      ],
+      "width": 150,
+      "height": 150,
+      "transform": [
+        [
+          -1,
+          1.2246468525851679e-16,
+          1293
+        ],
+        [
+          -1.2246468525851679e-16,
+          -1,
+          1060
+        ]
+      ]
+    },
+    {
+      "id": "2057:1007",
+      "name": "Pole Light 4",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Zone B",
+        "Island"
+      ],
+      "width": 275,
+      "height": 50,
+      "transform": [
+        [
+          -1.2246467202362698e-16,
+          -0.9999999403953552,
+          168
+        ],
+        [
+          0.9999999403953552,
+          -1.2246467202362698e-16,
+          272
+        ]
+      ]
+    },
+    {
+      "id": "2057:1008",
+      "name": "Shield Core (Item cradle)",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Zone B",
+        "Island"
+      ],
+      "width": 100,
+      "height": 100,
+      "transform": [
+        [
+          -1,
+          1.2246468525851679e-16,
+          693
+        ],
+        [
+          -1.2246468525851679e-16,
+          -1,
+          460
+        ]
+      ]
+    },
+    {
+      "id": "2057:1009",
+      "name": "Speedramp",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Zone B",
+        "Island"
+      ],
+      "width": 300,
+      "height": 200,
+      "transform": [
+        [
+          -1,
+          1.2246468525851679e-16,
+          793
+        ],
+        [
+          -1.2246468525851679e-16,
+          -1,
+          -140
+        ]
+      ]
+    },
+    {
+      "id": "2057:1010",
+      "name": "Barricades",
+      "type": "GROUP",
+      "path": [
+        "Ramparts",
+        "Zone B",
+        "Island"
+      ],
+      "width": 450,
+      "height": 400,
+      "transform": [
+        [
+          1.5462811445253867e-17,
+          -1,
+          843
+        ],
+        [
+          1,
+          1.5462811445253867e-17,
+          610
+        ]
+      ]
+    },
+    {
+      "id": "2057:1011",
+      "name": "Barricade 1",
+      "type": "GROUP",
+      "path": [
+        "Ramparts",
+        "Zone B",
+        "Island",
+        "Barricades"
+      ],
+      "width": 450,
+      "height": 400,
+      "transform": [
+        [
+          1.5462811445253867e-17,
+          -1,
+          843
+        ],
+        [
+          1,
+          1.5462811445253867e-17,
+          610
+        ]
+      ]
+    },
+    {
+      "id": "2057:1012",
+      "name": "Barricade 1",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Zone B",
+        "Island",
+        "Barricades",
+        "Barricade 1"
+      ],
+      "width": 200,
+      "height": 400,
+      "transform": [
+        [
+          1.5462811445253867e-17,
+          -1,
+          843
+        ],
+        [
+          1,
+          1.5462811445253867e-17,
+          860
+        ]
+      ]
+    },
+    {
+      "id": "2057:1013",
+      "name": "Pressure plate 1",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Zone B",
+        "Island",
+        "Barricades",
+        "Barricade 1"
+      ],
+      "width": 100,
+      "height": 200,
+      "transform": [
+        [
+          1.5462811445253867e-17,
+          -1,
+          743
+        ],
+        [
+          1,
+          1.5462811445253867e-17,
+          610
+        ]
+      ]
+    },
+    {
+      "id": "2057:1014",
+      "name": "Container",
+      "type": "GROUP",
+      "path": [
+        "Ramparts",
+        "Zone B",
+        "Island"
+      ],
+      "width": 260.8896484375,
+      "height": 334.9690246582031,
+      "transform": [
+        [
+          -1,
+          1.2246468525851679e-16,
+          1273.0001220703125
+        ],
+        [
+          -1.2246468525851679e-16,
+          -1,
+          110
+        ]
+      ]
+    },
+    {
+      "id": "2057:1015",
+      "name": "Container",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Zone B",
+        "Island",
+        "Container"
+      ],
+      "width": 310,
+      "height": 225,
+      "transform": [
+        [
+          0.12111622095108032,
+          -0.992638349533081,
+          1235.4541015625
+        ],
+        [
+          0.992638349533081,
+          0.12111622095108032,
+          -224.96902465820312
+        ]
+      ]
+    },
+    {
+      "id": "2057:1016",
+      "name": "Repair station",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Zone B",
+        "Island",
+        "Container"
+      ],
+      "width": 100,
+      "height": 100,
+      "transform": [
+        [
+          -1,
+          -1.7664257556671004e-10,
+          1192.890625
+        ],
+        [
+          1.7664257556671004e-10,
+          -1,
+          -7.1787567138671875
+        ]
+      ]
+    },
+    {
+      "id": "2057:1069",
+      "name": "Floaters",
+      "type": "GROUP",
+      "path": [
+        "Ramparts",
+        "Zone B"
+      ],
+      "width": 3500,
+      "height": 1750,
+      "transform": [
+        [
+          -1,
+          1.2246468525851679e-16,
+          3643
+        ],
+        [
+          -1.2246468525851679e-16,
+          -1,
+          3159.999755859375
+        ]
+      ]
+    },
+    {
+      "id": "2057:1070",
+      "name": "Span",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Zone B",
+        "Floaters"
+      ],
+      "width": 3500,
+      "height": 1750,
+      "transform": [
+        [
+          -1,
+          1.2246468525851679e-16,
+          3643
+        ],
+        [
+          -1.2246468525851679e-16,
+          -1,
+          3159.999755859375
+        ]
+      ]
+    },
+    {
+      "id": "2057:1017",
+      "name": "Floater 3",
+      "type": "GROUP",
+      "path": [
+        "Ramparts",
+        "Zone B",
+        "Floaters"
+      ],
+      "width": 1000,
+      "height": 1750,
+      "transform": [
+        [
+          -1,
+          1.2246468525851679e-16,
+          1143
+        ],
+        [
+          -1.2246468525851679e-16,
+          -1,
+          3159.999755859375
+        ]
+      ]
+    },
+    {
+      "id": "2057:1071",
+      "name": "Span",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Zone B",
+        "Floaters",
+        "Floater 3"
+      ],
+      "width": 1000,
+      "height": 1750,
+      "transform": [
+        [
+          -1,
+          1.2246468525851679e-16,
+          1143
+        ],
+        [
+          -1.2246468525851679e-16,
+          -1,
+          3159.999755859375
+        ]
+      ]
+    },
+    {
+      "id": "2057:1018",
+      "name": "Thrusters",
+      "type": "GROUP",
+      "path": [
+        "Ramparts",
+        "Zone B",
+        "Floaters",
+        "Floater 3"
+      ],
+      "width": 500,
+      "height": 500,
+      "transform": [
+        [
+          -1,
+          1.2246468525851679e-16,
+          893
+        ],
+        [
+          -1.2246468525851679e-16,
+          -1,
+          2159.999755859375
+        ]
+      ]
+    },
+    {
+      "id": "2057:1019",
+      "name": "Thruster 1",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Zone B",
+        "Floaters",
+        "Floater 3",
+        "Thrusters"
+      ],
+      "width": 500,
+      "height": 500,
+      "transform": [
+        [
+          -1,
+          1.2246468525851679e-16,
+          893
+        ],
+        [
+          -1.2246468525851679e-16,
+          -1,
+          2159.999755859375
+        ]
+      ]
+    },
+    {
+      "id": "2057:1020",
+      "name": "Platform 10x10",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Zone B",
+        "Floaters",
+        "Floater 3"
+      ],
+      "width": 1000,
+      "height": 1000,
+      "transform": [
+        [
+          -1,
+          1.2246468525851679e-16,
+          1143
+        ],
+        [
+          -1.2246468525851679e-16,
+          -1,
+          2409.999755859375
+        ]
+      ]
+    },
+    {
+      "id": "2057:1021",
+      "name": "Energy Core (Item cradle)",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Zone B",
+        "Floaters",
+        "Floater 3"
+      ],
+      "width": 100,
+      "height": 100,
+      "transform": [
+        [
+          -1,
+          1.2246468525851679e-16,
+          693
+        ],
+        [
+          -1.2246468525851679e-16,
+          -1,
+          1959.999755859375
+        ]
+      ]
+    },
+    {
+      "id": "2057:1022",
+      "name": "Floater 2",
+      "type": "GROUP",
+      "path": [
+        "Ramparts",
+        "Zone B",
+        "Floaters"
+      ],
+      "width": 1000,
+      "height": 1750,
+      "transform": [
+        [
+          -1,
+          1.2246468525851679e-16,
+          2393
+        ],
+        [
+          -1.2246468525851679e-16,
+          -1,
+          3159.999755859375
+        ]
+      ]
+    },
+    {
+      "id": "2057:1073",
+      "name": "Span",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Zone B",
+        "Floaters",
+        "Floater 2"
+      ],
+      "width": 1000,
+      "height": 1750,
+      "transform": [
+        [
+          -1,
+          1.2246468525851679e-16,
+          2393
+        ],
+        [
+          -1.2246468525851679e-16,
+          -1,
+          3159.999755859375
+        ]
+      ]
+    },
+    {
+      "id": "2057:1023",
+      "name": "Thrusters",
+      "type": "GROUP",
+      "path": [
+        "Ramparts",
+        "Zone B",
+        "Floaters",
+        "Floater 2"
+      ],
+      "width": 500,
+      "height": 500,
+      "transform": [
+        [
+          -1,
+          1.2246468525851679e-16,
+          2143
+        ],
+        [
+          -1.2246468525851679e-16,
+          -1,
+          2909.999755859375
+        ]
+      ]
+    },
+    {
+      "id": "2057:1024",
+      "name": "Thruster 1",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Zone B",
+        "Floaters",
+        "Floater 2",
+        "Thrusters"
+      ],
+      "width": 500,
+      "height": 500,
+      "transform": [
+        [
+          -1,
+          1.2246468525851679e-16,
+          2143
+        ],
+        [
+          -1.2246468525851679e-16,
+          -1,
+          2909.999755859375
+        ]
+      ]
+    },
+    {
+      "id": "2057:1025",
+      "name": "Platform 10x10",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Zone B",
+        "Floaters",
+        "Floater 2"
+      ],
+      "width": 1000,
+      "height": 1000,
+      "transform": [
+        [
+          -1,
+          1.2246468525851679e-16,
+          2393
+        ],
+        [
+          -1.2246468525851679e-16,
+          -1,
+          3159.999755859375
+        ]
+      ]
+    },
+    {
+      "id": "2057:1026",
+      "name": "Barrels",
+      "type": "GROUP",
+      "path": [
+        "Ramparts",
+        "Zone B",
+        "Floaters",
+        "Floater 2"
+      ],
+      "width": 200,
+      "height": 214,
+      "transform": [
+        [
+          -1,
+          -1.2246467202362698e-16,
+          1643
+        ],
+        [
+          -1.2246467202362698e-16,
+          1,
+          2212.999755859375
+        ]
+      ]
+    },
+    {
+      "id": "2057:1027",
+      "name": "Barrel 3",
+      "type": "ELLIPSE",
+      "path": [
+        "Ramparts",
+        "Zone B",
+        "Floaters",
+        "Floater 2",
+        "Barrels"
+      ],
+      "width": 100,
+      "height": 100,
+      "transform": [
+        [
+          -1,
+          -1.2246467202362698e-16,
+          1643
+        ],
+        [
+          -1.2246467202362698e-16,
+          1,
+          2262.999755859375
+        ]
+      ]
+    },
+    {
+      "id": "2057:1028",
+      "name": "Barrel 2",
+      "type": "ELLIPSE",
+      "path": [
+        "Ramparts",
+        "Zone B",
+        "Floaters",
+        "Floater 2",
+        "Barrels"
+      ],
+      "width": 100,
+      "height": 100,
+      "transform": [
+        [
+          -1,
+          -1.2246467202362698e-16,
+          1543
+        ],
+        [
+          -1.2246467202362698e-16,
+          1,
+          2326.999755859375
+        ]
+      ]
+    },
+    {
+      "id": "2057:1029",
+      "name": "Barrel 1",
+      "type": "ELLIPSE",
+      "path": [
+        "Ramparts",
+        "Zone B",
+        "Floaters",
+        "Floater 2",
+        "Barrels"
+      ],
+      "width": 100,
+      "height": 100,
+      "transform": [
+        [
+          -1,
+          -1.2246467202362698e-16,
+          1543
+        ],
+        [
+          -1.2246467202362698e-16,
+          1,
+          2212.999755859375
+        ]
+      ]
+    },
+    {
+      "id": "2057:1030",
+      "name": "Ammo Pickup - Lightining gun",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Zone B",
+        "Floaters",
+        "Floater 2"
+      ],
+      "width": 100,
+      "height": 100,
+      "transform": [
+        [
+          -1,
+          1.2246468525851679e-16,
+          2043
+        ],
+        [
+          -1.2246468525851679e-16,
+          -1,
+          2709.999755859375
+        ]
+      ]
+    },
+    {
+      "id": "2057:1031",
+      "name": "Weapon Pickup - Lightining gun (Item holder)",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Zone B",
+        "Floaters",
+        "Floater 2"
+      ],
+      "width": 100,
+      "height": 100,
+      "transform": [
+        [
+          -1,
+          1.2246468525851679e-16,
+          1843
+        ],
+        [
+          -1.2246468525851679e-16,
+          -1,
+          2709.999755859375
+        ]
+      ]
+    },
+    {
+      "id": "2057:1032",
+      "name": "Floater 1",
+      "type": "GROUP",
+      "path": [
+        "Ramparts",
+        "Zone B",
+        "Floaters"
+      ],
+      "width": 1000,
+      "height": 1750,
+      "transform": [
+        [
+          -1,
+          1.2246468525851679e-16,
+          3643
+        ],
+        [
+          -1.2246468525851679e-16,
+          -1,
+          3159.999755859375
+        ]
+      ]
+    },
+    {
+      "id": "2057:1075",
+      "name": "Span",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Zone B",
+        "Floaters",
+        "Floater 1"
+      ],
+      "width": 1000,
+      "height": 1750,
+      "transform": [
+        [
+          -1,
+          1.2246468525851679e-16,
+          3643
+        ],
+        [
+          -1.2246468525851679e-16,
+          -1,
+          3159.999755859375
+        ]
+      ]
+    },
+    {
+      "id": "2057:1033",
+      "name": "Thrusters",
+      "type": "GROUP",
+      "path": [
+        "Ramparts",
+        "Zone B",
+        "Floaters",
+        "Floater 1"
+      ],
+      "width": 500,
+      "height": 500,
+      "transform": [
+        [
+          -1,
+          1.2246468525851679e-16,
+          3393
+        ],
+        [
+          -1.2246468525851679e-16,
+          -1,
+          2159.999755859375
+        ]
+      ]
+    },
+    {
+      "id": "2057:1034",
+      "name": "Thruster 1",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Zone B",
+        "Floaters",
+        "Floater 1",
+        "Thrusters"
+      ],
+      "width": 500,
+      "height": 500,
+      "transform": [
+        [
+          -1,
+          1.2246468525851679e-16,
+          3393
+        ],
+        [
+          -1.2246468525851679e-16,
+          -1,
+          2159.999755859375
+        ]
+      ]
+    },
+    {
+      "id": "2057:1035",
+      "name": "Platform 10x10",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Zone B",
+        "Floaters",
+        "Floater 1"
+      ],
+      "width": 1000,
+      "height": 1000,
+      "transform": [
+        [
+          -1,
+          1.2246468525851679e-16,
+          3643
+        ],
+        [
+          -1.2246468525851679e-16,
+          -1,
+          2409.999755859375
+        ]
+      ]
+    },
+    {
+      "id": "2057:1036",
+      "name": "Barrels",
+      "type": "GROUP",
+      "path": [
+        "Ramparts",
+        "Zone B",
+        "Floaters",
+        "Floater 1"
+      ],
+      "width": 200,
+      "height": 214,
+      "transform": [
+        [
+          -1,
+          1.2246468525851679e-16,
+          2893
+        ],
+        [
+          -1.2246468525851679e-16,
+          -1,
+          2356.999755859375
+        ]
+      ]
+    },
+    {
+      "id": "2057:1037",
+      "name": "Barrel 3",
+      "type": "ELLIPSE",
+      "path": [
+        "Ramparts",
+        "Zone B",
+        "Floaters",
+        "Floater 1",
+        "Barrels"
+      ],
+      "width": 100,
+      "height": 100,
+      "transform": [
+        [
+          -1,
+          1.2246468525851679e-16,
+          2893
+        ],
+        [
+          -1.2246468525851679e-16,
+          -1,
+          2306.999755859375
+        ]
+      ]
+    },
+    {
+      "id": "2057:1038",
+      "name": "Barrel 2",
+      "type": "ELLIPSE",
+      "path": [
+        "Ramparts",
+        "Zone B",
+        "Floaters",
+        "Floater 1",
+        "Barrels"
+      ],
+      "width": 100,
+      "height": 100,
+      "transform": [
+        [
+          -1,
+          1.2246468525851679e-16,
+          2793
+        ],
+        [
+          -1.2246468525851679e-16,
+          -1,
+          2242.999755859375
+        ]
+      ]
+    },
+    {
+      "id": "2057:1039",
+      "name": "Barrel 1",
+      "type": "ELLIPSE",
+      "path": [
+        "Ramparts",
+        "Zone B",
+        "Floaters",
+        "Floater 1",
+        "Barrels"
+      ],
+      "width": 100,
+      "height": 100,
+      "transform": [
+        [
+          -1,
+          1.2246468525851679e-16,
+          2793
+        ],
+        [
+          -1.2246468525851679e-16,
+          -1,
+          2356.999755859375
+        ]
+      ]
+    },
+    {
+      "id": "2057:1040",
+      "name": "Ammo Pickup - Bio rifle",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Zone B",
+        "Floaters",
+        "Floater 1"
+      ],
+      "width": 100,
+      "height": 100,
+      "transform": [
+        [
+          -1,
+          1.2246468525851679e-16,
+          3293
+        ],
+        [
+          -1.2246468525851679e-16,
+          -1,
+          1959.999755859375
+        ]
+      ]
+    },
+    {
+      "id": "2057:1041",
+      "name": "Weapon Pickup - Bio rifle (Item holder)",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Zone B",
+        "Floaters",
+        "Floater 1"
+      ],
+      "width": 100,
+      "height": 100,
+      "transform": [
+        [
+          -1,
+          1.2246468525851679e-16,
+          3093
+        ],
+        [
+          -1.2246468525851679e-16,
+          -1,
+          1959.999755859375
+        ]
+      ]
+    },
+    {
+      "id": "2057:1042",
+      "name": "Mainland",
+      "type": "GROUP",
+      "path": [
+        "Ramparts",
+        "Zone B"
+      ],
+      "width": 3123.6259765625,
+      "height": 3097.62548828125,
+      "transform": [
+        [
+          -1,
+          1.2246468525851679e-16,
+          7016.6259765625
+        ],
+        [
+          -1.2246468525851679e-16,
+          -1,
+          3757.6259765625
+        ]
+      ]
+    },
+    {
+      "id": "2057:1043",
+      "name": "Mountain top 25x25",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Zone B",
+        "Mainland"
+      ],
+      "width": 2500,
+      "height": 2500,
+      "transform": [
+        [
+          -1,
+          1.2246468525851679e-16,
+          6393
+        ],
+        [
+          -1.2246468525851679e-16,
+          -1,
+          3160.00048828125
+        ]
+      ]
+    },
+    {
+      "id": "2057:1044",
+      "name": "Pole Lights",
+      "type": "GROUP",
+      "path": [
+        "Ramparts",
+        "Zone B",
+        "Mainland"
+      ],
+      "width": 2649,
+      "height": 1462,
+      "transform": [
+        [
+          -0.7071067690849304,
+          -0.7071067690849304,
+          7016.6259765625
+        ],
+        [
+          0.7071067690849304,
+          -0.7071067690849304,
+          1884.5001220703125
+        ]
+      ]
+    },
+    {
+      "id": "2057:1045",
+      "name": "Pole Light 3",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Zone B",
+        "Mainland",
+        "Pole Lights"
+      ],
+      "width": 275,
+      "height": 50,
+      "transform": [
+        [
+          -0.7071067690849304,
+          0.7071067690849304,
+          4304.16455078125
+        ],
+        [
+          -0.7071067690849304,
+          -0.7071067690849304,
+          2918.2900390625
+        ]
+      ]
+    },
+    {
+      "id": "2057:1046",
+      "name": "Pole Light 2",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Zone B",
+        "Mainland",
+        "Pole Lights"
+      ],
+      "width": 275,
+      "height": 50,
+      "transform": [
+        [
+          -0.7071067690849304,
+          -0.7071067690849304,
+          6177.2900390625
+        ],
+        [
+          0.7071067690849304,
+          -0.7071067690849304,
+          2723.8359375
+        ]
+      ]
+    },
+    {
+      "id": "2057:1047",
+      "name": "Pole Light 1",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Zone B",
+        "Mainland",
+        "Pole Lights"
+      ],
+      "width": 275,
+      "height": 50,
+      "transform": [
+        [
+          -0.7071067690849304,
+          0.7071067690849304,
+          6141.93505859375
+        ],
+        [
+          -0.7071067690849304,
+          -0.7071067690849304,
+          1080.5196533203125
+        ]
+      ]
+    },
+    {
+      "id": "2057:1048",
+      "name": "Jump platforms",
+      "type": "GROUP",
+      "path": [
+        "Ramparts",
+        "Zone B",
+        "Mainland"
+      ],
+      "width": 100,
+      "height": 100,
+      "transform": [
+        [
+          -1,
+          1.2246468525851679e-16,
+          4068
+        ],
+        [
+          -1.2246468525851679e-16,
+          -1,
+          835.000732421875
+        ]
+      ]
+    },
+    {
+      "id": "2057:1049",
+      "name": "Jump platform 1",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Zone B",
+        "Mainland",
+        "Jump platforms"
+      ],
+      "width": 100,
+      "height": 100,
+      "transform": [
+        [
+          -1,
+          1.2246468525851679e-16,
+          4068
+        ],
+        [
+          -1.2246468525851679e-16,
+          -1,
+          835.000732421875
+        ]
+      ]
+    },
+    {
+      "id": "2057:1050",
+      "name": "Cistern",
+      "type": "GROUP",
+      "path": [
+        "Ramparts",
+        "Zone B",
+        "Mainland"
+      ],
+      "width": 2121.3203125,
+      "height": 2121.3203125,
+      "transform": [
+        [
+          -1,
+          1.2246468525851679e-16,
+          6204
+        ],
+        [
+          -1.2246468525851679e-16,
+          -1,
+          2971.000244140625
+        ]
+      ]
+    },
+    {
+      "id": "2057:1051",
+      "name": "Cistern",
+      "type": "ELLIPSE",
+      "path": [
+        "Ramparts",
+        "Zone B",
+        "Mainland",
+        "Cistern"
+      ],
+      "width": 1500,
+      "height": 1500,
+      "transform": [
+        [
+          -0.7071067690849304,
+          -0.7071067690849304,
+          6204
+        ],
+        [
+          0.7071067690849304,
+          -0.7071067690849304,
+          1910.340087890625
+        ]
+      ]
+    },
+    {
+      "id": "2057:1052",
+      "name": "Spawn Points",
+      "type": "GROUP",
+      "path": [
+        "Ramparts",
+        "Zone B",
+        "Mainland",
+        "Cistern"
+      ],
+      "width": 200,
+      "height": 700,
+      "transform": [
+        [
+          -0.7071067690849304,
+          0.7071067690849304,
+          5243.025390625
+        ],
+        [
+          -0.7071067690849304,
+          -0.7071067690849304,
+          2505.000244140625
+        ]
+      ]
+    },
+    {
+      "id": "2057:1053",
+      "name": "Spawn Point 5 (Stasis Chamber)",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Zone B",
+        "Mainland",
+        "Cistern",
+        "Spawn Points"
+      ],
+      "width": 200,
+      "height": 200,
+      "transform": [
+        [
+          -0.7071067690849304,
+          0.7071067690849304,
+          5596.57861328125
+        ],
+        [
+          -0.7071067690849304,
+          -0.7071067690849304,
+          2151.44677734375
+        ]
+      ]
+    },
+    {
+      "id": "2057:1054",
+      "name": "Spawn Point 4 (Stasis Chamber)",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Zone B",
+        "Mainland",
+        "Cistern",
+        "Spawn Points"
+      ],
+      "width": 200,
+      "height": 200,
+      "transform": [
+        [
+          -0.7071067690849304,
+          0.7071067690849304,
+          5243.025390625
+        ],
+        [
+          -0.7071067690849304,
+          -0.7071067690849304,
+          2505.000244140625
+        ]
+      ]
+    },
+    {
+      "id": "2057:1055",
+      "name": "Flag placement",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Zone B",
+        "Mainland",
+        "Cistern"
+      ],
+      "width": 200,
+      "height": 200,
+      "transform": [
+        [
+          -1,
+          1.2246468525851679e-16,
+          5243
+        ],
+        [
+          -1.2246468525851679e-16,
+          -1,
+          2010.000244140625
+        ]
+      ]
+    },
+    {
+      "id": "2057:1056",
+      "name": "Weapon pickups",
+      "type": "GROUP",
+      "path": [
+        "Ramparts",
+        "Zone B",
+        "Mainland"
+      ],
+      "width": 1689.8427734375,
+      "height": 1548.42138671875,
+      "transform": [
+        [
+          -1,
+          1.2246468525851679e-16,
+          5988.42138671875
+        ],
+        [
+          -1.2246468525851679e-16,
+          -1,
+          2658.7109375
+        ]
+      ]
+    },
+    {
+      "id": "2057:1057",
+      "name": "Weapon pickup - Flak cannon (Item holder)",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Zone B",
+        "Mainland",
+        "Weapon pickups"
+      ],
+      "width": 100.0000228881836,
+      "height": 100.0000228881836,
+      "transform": [
+        [
+          -0.7071067690849304,
+          -0.7071067690849304,
+          5988.42138671875
+        ],
+        [
+          0.7071067690849304,
+          -0.7071067690849304,
+          2587.998046875
+        ]
+      ]
+    },
+    {
+      "id": "2057:1058",
+      "name": "Weapon pickup - Rifle (Item holder)",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Zone B",
+        "Mainland",
+        "Weapon pickups"
+      ],
+      "width": 100.00006103515625,
+      "height": 100.00006103515625,
+      "transform": [
+        [
+          -0.7071067690849304,
+          -0.7071067690849304,
+          4440
+        ],
+        [
+          0.7071067690849304,
+          -0.7071067690849304,
+          2588.000244140625
+        ]
+      ]
+    },
+    {
+      "id": "2057:1059",
+      "name": "Weapon pickup - Minigun (Item holder)",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Zone B",
+        "Mainland",
+        "Weapon pickups"
+      ],
+      "width": 99.9999771118164,
+      "height": 99.9999771118164,
+      "transform": [
+        [
+          -0.7071067690849304,
+          -0.7071067690849304,
+          5847
+        ],
+        [
+          0.7071067690849304,
+          -0.7071067690849304,
+          1181.000244140625
+        ]
+      ]
+    },
+    {
+      "id": "2057:1060",
+      "name": "Ammo pickups",
+      "type": "GROUP",
+      "path": [
+        "Ramparts",
+        "Zone B",
+        "Mainland"
+      ],
+      "width": 1548.4215087890625,
+      "height": 1548.710693359375,
+      "transform": [
+        [
+          -1,
+          1.2246468525851679e-16,
+          5988.42138671875
+        ],
+        [
+          -1.2246468525851679e-16,
+          -1,
+          2659.000244140625
+        ]
+      ]
+    },
+    {
+      "id": "2057:1061",
+      "name": "Ammo pickup - Flak cannon",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Zone B",
+        "Mainland",
+        "Ammo pickups"
+      ],
+      "width": 100,
+      "height": 100,
+      "transform": [
+        [
+          -0.7071067690849304,
+          -0.7071067690849304,
+          5847
+        ],
+        [
+          0.7071067690849304,
+          -0.7071067690849304,
+          2588.28955078125
+        ]
+      ]
+    },
+    {
+      "id": "2057:1062",
+      "name": "Ammo pickup - Rifle",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Zone B",
+        "Mainland",
+        "Ammo pickups"
+      ],
+      "width": 100,
+      "height": 100,
+      "transform": [
+        [
+          -0.7071067690849304,
+          -0.7071067690849304,
+          4581.42138671875
+        ],
+        [
+          0.7071067690849304,
+          -0.7071067690849304,
+          2588.000244140625
+        ]
+      ]
+    },
+    {
+      "id": "2057:1063",
+      "name": "Ammo pickup - Minigun",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Zone B",
+        "Mainland",
+        "Ammo pickups"
+      ],
+      "width": 100,
+      "height": 100,
+      "transform": [
+        [
+          -0.7071067690849304,
+          -0.7071067690849304,
+          5988.42138671875
+        ],
+        [
+          0.7071067690849304,
+          -0.7071067690849304,
+          1181.000244140625
+        ]
+      ]
+    },
+    {
+      "id": "2057:1064",
+      "name": "Spawn Points",
+      "type": "GROUP",
+      "path": [
+        "Ramparts",
+        "Zone B"
+      ],
+      "width": 2022,
+      "height": 2022,
+      "transform": [
+        [
+          -1,
+          1.7797583648977461e-16,
+          6262
+        ],
+        [
+          -1.7797583648977461e-16,
+          -1,
+          3002.999755859375
+        ]
+      ]
+    },
+    {
+      "id": "2057:1065",
+      "name": "Spawn Point 3",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Zone B",
+        "Spawn Points"
+      ],
+      "width": 200,
+      "height": 200,
+      "transform": [
+        [
+          -1,
+          1.2246468525851679e-16,
+          4440
+        ],
+        [
+          -1.2246468525851679e-16,
+          -1,
+          1180.999755859375
+        ]
+      ]
+    },
+    {
+      "id": "2057:1066",
+      "name": "Spawn Point 2",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Zone B",
+        "Spawn Points"
+      ],
+      "width": 200,
+      "height": 200,
+      "transform": [
+        [
+          -1,
+          1.7797583648977461e-16,
+          6262
+        ],
+        [
+          -1.7797583648977461e-16,
+          -1,
+          2009.999755859375
+        ]
+      ]
+    },
+    {
+      "id": "2057:1067",
+      "name": "Spawn Point 1",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Zone B",
+        "Spawn Points"
+      ],
+      "width": 200,
+      "height": 200,
+      "transform": [
+        [
+          -1,
+          1.7797583648977461e-16,
+          5243
+        ],
+        [
+          -1.7797583648977461e-16,
+          -1,
+          3002.999755859375
+        ]
+      ]
+    },
+    {
+      "id": "2057:1077",
+      "name": "Zone A",
+      "type": "GROUP",
+      "path": [
+        "Ramparts"
+      ],
+      "width": 7123.6259765625,
+      "height": 4097.6259765625,
+      "transform": [
+        [
+          1,
+          -5.3437816372905846e-24,
+          -1230.6258544921875
+        ],
+        [
+          5.3437816372905846e-24,
+          1,
+          -4437.6259765625
+        ]
+      ]
+    },
+    {
+      "id": "2057:1078",
+      "name": "Island",
+      "type": "GROUP",
+      "path": [
+        "Ramparts",
+        "Zone A"
+      ],
+      "width": 1500,
+      "height": 1500,
+      "transform": [
+        [
+          1,
+          -5.3437816372905846e-24,
+          4393
+        ],
+        [
+          5.3437816372905846e-24,
+          1,
+          -1840
+        ]
+      ]
+    },
+    {
+      "id": "2057:1079",
+      "name": "Thrusters",
+      "type": "GROUP",
+      "path": [
+        "Ramparts",
+        "Zone A",
+        "Island"
+      ],
+      "width": 500,
+      "height": 500,
+      "transform": [
+        [
+          1,
+          -5.3437816372905846e-24,
+          4893
+        ],
+        [
+          5.3437816372905846e-24,
+          1,
+          -1340
+        ]
+      ]
+    },
+    {
+      "id": "2057:1080",
+      "name": "Thruster 1",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Zone A",
+        "Island",
+        "Thrusters"
+      ],
+      "width": 500,
+      "height": 500,
+      "transform": [
+        [
+          1,
+          -5.3437816372905846e-24,
+          4893
+        ],
+        [
+          5.3437816372905846e-24,
+          1,
+          -1340
+        ]
+      ]
+    },
+    {
+      "id": "2057:1081",
+      "name": "Platform 10x10",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Zone A",
+        "Island"
+      ],
+      "width": 1500,
+      "height": 1500,
+      "transform": [
+        [
+          1,
+          -5.3437816372905846e-24,
+          4393
+        ],
+        [
+          5.3437816372905846e-24,
+          1,
+          -1840
+        ]
+      ]
+    },
+    {
+      "id": "2057:1082",
+      "name": "Wather Sensor",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Zone A",
+        "Island"
+      ],
+      "width": 150,
+      "height": 150,
+      "transform": [
+        [
+          1,
+          0,
+          4493
+        ],
+        [
+          0,
+          1,
+          -1740
+        ]
+      ]
+    },
+    {
+      "id": "2057:1083",
+      "name": "Pole Light 4",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Zone A",
+        "Island"
+      ],
+      "width": 275,
+      "height": 50,
+      "transform": [
+        [
+          7.59162463625453e-32,
+          0.9999999403953552,
+          5618
+        ],
+        [
+          -0.9999999403953552,
+          7.59162463625453e-32,
+          -952
+        ]
+      ]
+    },
+    {
+      "id": "2057:1084",
+      "name": "Shield Core (Item cradle)",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Zone A",
+        "Island"
+      ],
+      "width": 100,
+      "height": 100,
+      "transform": [
+        [
+          1,
+          0,
+          5093
+        ],
+        [
+          0,
+          1,
+          -1140
+        ]
+      ]
+    },
+    {
+      "id": "2057:1085",
+      "name": "Speedramp",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Zone A",
+        "Island"
+      ],
+      "width": 300,
+      "height": 200,
+      "transform": [
+        [
+          1,
+          -5.3437816372905846e-24,
+          4993
+        ],
+        [
+          5.3437816372905846e-24,
+          1,
+          -540
+        ]
+      ]
+    },
+    {
+      "id": "2057:1086",
+      "name": "Barricades",
+      "type": "GROUP",
+      "path": [
+        "Ramparts",
+        "Zone A",
+        "Island"
+      ],
+      "width": 450,
+      "height": 400,
+      "transform": [
+        [
+          -1.3792749670377065e-16,
+          1,
+          4943
+        ],
+        [
+          -1,
+          -1.3792749670377065e-16,
+          -1290
+        ]
+      ]
+    },
+    {
+      "id": "2057:1087",
+      "name": "Barricade 1",
+      "type": "GROUP",
+      "path": [
+        "Ramparts",
+        "Zone A",
+        "Island",
+        "Barricades"
+      ],
+      "width": 450,
+      "height": 400,
+      "transform": [
+        [
+          -1.3792749670377065e-16,
+          1,
+          4943
+        ],
+        [
+          -1,
+          -1.3792749670377065e-16,
+          -1290
+        ]
+      ]
+    },
+    {
+      "id": "2057:1088",
+      "name": "Barricade 1",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Zone A",
+        "Island",
+        "Barricades",
+        "Barricade 1"
+      ],
+      "width": 200,
+      "height": 400,
+      "transform": [
+        [
+          -1.3792749670377065e-16,
+          1,
+          4943
+        ],
+        [
+          -1,
+          -1.3792749670377065e-16,
+          -1540
+        ]
+      ]
+    },
+    {
+      "id": "2057:1089",
+      "name": "Pressure plate 1",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Zone A",
+        "Island",
+        "Barricades",
+        "Barricade 1"
+      ],
+      "width": 100,
+      "height": 200,
+      "transform": [
+        [
+          -1.3792749670377065e-16,
+          1,
+          5043
+        ],
+        [
+          -1,
+          -1.3792749670377065e-16,
+          -1290
+        ]
+      ]
+    },
+    {
+      "id": "2057:1090",
+      "name": "Container",
+      "type": "GROUP",
+      "path": [
+        "Ramparts",
+        "Zone A",
+        "Island"
+      ],
+      "width": 260.8896484375,
+      "height": 334.9690246582031,
+      "transform": [
+        [
+          1,
+          -5.3437816372905846e-24,
+          4513
+        ],
+        [
+          5.3437816372905846e-24,
+          1,
+          -790
+        ]
+      ]
+    },
+    {
+      "id": "2057:1091",
+      "name": "Container",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Zone A",
+        "Island",
+        "Container"
+      ],
+      "width": 310,
+      "height": 225,
+      "transform": [
+        [
+          -0.12111622095108032,
+          0.992638349533081,
+          4550.5458984375
+        ],
+        [
+          -0.992638349533081,
+          -0.12111622095108032,
+          -455.0309753417969
+        ]
+      ]
+    },
+    {
+      "id": "2057:1092",
+      "name": "Repair station",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Zone A",
+        "Island",
+        "Container"
+      ],
+      "width": 100,
+      "height": 100,
+      "transform": [
+        [
+          1,
+          1.766427004668003e-10,
+          4593.109375
+        ],
+        [
+          -1.766427004668003e-10,
+          1,
+          -672.8212280273438
+        ]
+      ]
+    },
+    {
+      "id": "2057:1093",
+      "name": "Floaters",
+      "type": "GROUP",
+      "path": [
+        "Ramparts",
+        "Zone A"
+      ],
+      "width": 3500,
+      "height": 1750,
+      "transform": [
+        [
+          1,
+          -5.3437816372905846e-24,
+          2143
+        ],
+        [
+          5.3437816372905846e-24,
+          1,
+          -3840
+        ]
+      ]
+    },
+    {
+      "id": "2057:1094",
+      "name": "Span",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Zone A",
+        "Floaters"
+      ],
+      "width": 3500,
+      "height": 1750,
+      "transform": [
+        [
+          1,
+          0,
+          2143
+        ],
+        [
+          0,
+          1,
+          -3840
+        ]
+      ]
+    },
+    {
+      "id": "2057:1095",
+      "name": "Floater 3",
+      "type": "GROUP",
+      "path": [
+        "Ramparts",
+        "Zone A",
+        "Floaters"
+      ],
+      "width": 1000,
+      "height": 1750,
+      "transform": [
+        [
+          1,
+          -5.3437816372905846e-24,
+          4643
+        ],
+        [
+          5.3437816372905846e-24,
+          1,
+          -3840
+        ]
+      ]
+    },
+    {
+      "id": "2057:1096",
+      "name": "Span",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Zone A",
+        "Floaters",
+        "Floater 3"
+      ],
+      "width": 1000,
+      "height": 1750,
+      "transform": [
+        [
+          1,
+          0,
+          4643
+        ],
+        [
+          0,
+          1,
+          -3840
+        ]
+      ]
+    },
+    {
+      "id": "2057:1097",
+      "name": "Thrusters",
+      "type": "GROUP",
+      "path": [
+        "Ramparts",
+        "Zone A",
+        "Floaters",
+        "Floater 3"
+      ],
+      "width": 500,
+      "height": 500,
+      "transform": [
+        [
+          1,
+          -5.3437816372905846e-24,
+          4893
+        ],
+        [
+          5.3437816372905846e-24,
+          1,
+          -2840
+        ]
+      ]
+    },
+    {
+      "id": "2057:1098",
+      "name": "Thruster 1",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Zone A",
+        "Floaters",
+        "Floater 3",
+        "Thrusters"
+      ],
+      "width": 500,
+      "height": 500,
+      "transform": [
+        [
+          1,
+          -5.3437816372905846e-24,
+          4893
+        ],
+        [
+          5.3437816372905846e-24,
+          1,
+          -2840
+        ]
+      ]
+    },
+    {
+      "id": "2057:1099",
+      "name": "Platform 10x10",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Zone A",
+        "Floaters",
+        "Floater 3"
+      ],
+      "width": 1000,
+      "height": 1000,
+      "transform": [
+        [
+          1,
+          -5.3437816372905846e-24,
+          4643
+        ],
+        [
+          5.3437816372905846e-24,
+          1,
+          -3090
+        ]
+      ]
+    },
+    {
+      "id": "2057:1100",
+      "name": "Energy Core (Item cradle)",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Zone A",
+        "Floaters",
+        "Floater 3"
+      ],
+      "width": 100,
+      "height": 100,
+      "transform": [
+        [
+          1,
+          0,
+          5093
+        ],
+        [
+          0,
+          1,
+          -2640
+        ]
+      ]
+    },
+    {
+      "id": "2057:1101",
+      "name": "Floater 2",
+      "type": "GROUP",
+      "path": [
+        "Ramparts",
+        "Zone A",
+        "Floaters"
+      ],
+      "width": 1000,
+      "height": 1750,
+      "transform": [
+        [
+          1,
+          -5.3437816372905846e-24,
+          3393
+        ],
+        [
+          5.3437816372905846e-24,
+          1,
+          -3840
+        ]
+      ]
+    },
+    {
+      "id": "2057:1102",
+      "name": "Span",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Zone A",
+        "Floaters",
+        "Floater 2"
+      ],
+      "width": 1000,
+      "height": 1750,
+      "transform": [
+        [
+          1,
+          0,
+          3393
+        ],
+        [
+          0,
+          1,
+          -3840
+        ]
+      ]
+    },
+    {
+      "id": "2057:1103",
+      "name": "Thrusters",
+      "type": "GROUP",
+      "path": [
+        "Ramparts",
+        "Zone A",
+        "Floaters",
+        "Floater 2"
+      ],
+      "width": 500,
+      "height": 500,
+      "transform": [
+        [
+          1,
+          -5.3437816372905846e-24,
+          3643
+        ],
+        [
+          5.3437816372905846e-24,
+          1,
+          -3590
+        ]
+      ]
+    },
+    {
+      "id": "2057:1104",
+      "name": "Thruster 1",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Zone A",
+        "Floaters",
+        "Floater 2",
+        "Thrusters"
+      ],
+      "width": 500,
+      "height": 500,
+      "transform": [
+        [
+          1,
+          -5.3437816372905846e-24,
+          3643
+        ],
+        [
+          5.3437816372905846e-24,
+          1,
+          -3590
+        ]
+      ]
+    },
+    {
+      "id": "2057:1105",
+      "name": "Platform 10x10",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Zone A",
+        "Floaters",
+        "Floater 2"
+      ],
+      "width": 1000,
+      "height": 1000,
+      "transform": [
+        [
+          1,
+          -5.3437816372905846e-24,
+          3393
+        ],
+        [
+          5.3437816372905846e-24,
+          1,
+          -3840
+        ]
+      ]
+    },
+    {
+      "id": "2057:1106",
+      "name": "Barrels",
+      "type": "GROUP",
+      "path": [
+        "Ramparts",
+        "Zone A",
+        "Floaters",
+        "Floater 2"
+      ],
+      "width": 200,
+      "height": 214,
+      "transform": [
+        [
+          1,
+          -5.3437816372905846e-24,
+          4143
+        ],
+        [
+          -5.3437816372905846e-24,
+          -1,
+          -2893
+        ]
+      ]
+    },
+    {
+      "id": "2057:1107",
+      "name": "Barrel 3",
+      "type": "ELLIPSE",
+      "path": [
+        "Ramparts",
+        "Zone A",
+        "Floaters",
+        "Floater 2",
+        "Barrels"
+      ],
+      "width": 100,
+      "height": 100,
+      "transform": [
+        [
+          1,
+          0,
+          4143
+        ],
+        [
+          0,
+          -1,
+          -2943
+        ]
+      ]
+    },
+    {
+      "id": "2057:1108",
+      "name": "Barrel 2",
+      "type": "ELLIPSE",
+      "path": [
+        "Ramparts",
+        "Zone A",
+        "Floaters",
+        "Floater 2",
+        "Barrels"
+      ],
+      "width": 100,
+      "height": 100,
+      "transform": [
+        [
+          1,
+          0,
+          4243
+        ],
+        [
+          0,
+          -1,
+          -3007
+        ]
+      ]
+    },
+    {
+      "id": "2057:1109",
+      "name": "Barrel 1",
+      "type": "ELLIPSE",
+      "path": [
+        "Ramparts",
+        "Zone A",
+        "Floaters",
+        "Floater 2",
+        "Barrels"
+      ],
+      "width": 100,
+      "height": 100,
+      "transform": [
+        [
+          1,
+          0,
+          4243
+        ],
+        [
+          0,
+          -1,
+          -2893
+        ]
+      ]
+    },
+    {
+      "id": "2057:1110",
+      "name": "Ammo Pickup - Lightining gun",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Zone A",
+        "Floaters",
+        "Floater 2"
+      ],
+      "width": 100,
+      "height": 100,
+      "transform": [
+        [
+          1,
+          0,
+          3743
+        ],
+        [
+          0,
+          1,
+          -3390
+        ]
+      ]
+    },
+    {
+      "id": "2057:1111",
+      "name": "Weapon Pickup - Lightining gun (Item holder)",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Zone A",
+        "Floaters",
+        "Floater 2"
+      ],
+      "width": 100,
+      "height": 100,
+      "transform": [
+        [
+          1,
+          0,
+          3943
+        ],
+        [
+          0,
+          1,
+          -3390
+        ]
+      ]
+    },
+    {
+      "id": "2057:1112",
+      "name": "Floater 1",
+      "type": "GROUP",
+      "path": [
+        "Ramparts",
+        "Zone A",
+        "Floaters"
+      ],
+      "width": 1000,
+      "height": 1750,
+      "transform": [
+        [
+          1,
+          -5.3437816372905846e-24,
+          2143
+        ],
+        [
+          5.3437816372905846e-24,
+          1,
+          -3840
+        ]
+      ]
+    },
+    {
+      "id": "2057:1113",
+      "name": "Span",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Zone A",
+        "Floaters",
+        "Floater 1"
+      ],
+      "width": 1000,
+      "height": 1750,
+      "transform": [
+        [
+          1,
+          0,
+          2143
+        ],
+        [
+          0,
+          1,
+          -3840
+        ]
+      ]
+    },
+    {
+      "id": "2057:1114",
+      "name": "Thrusters",
+      "type": "GROUP",
+      "path": [
+        "Ramparts",
+        "Zone A",
+        "Floaters",
+        "Floater 1"
+      ],
+      "width": 500,
+      "height": 500,
+      "transform": [
+        [
+          1,
+          -5.3437816372905846e-24,
+          2393
+        ],
+        [
+          5.3437816372905846e-24,
+          1,
+          -2840
+        ]
+      ]
+    },
+    {
+      "id": "2057:1115",
+      "name": "Thruster 1",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Zone A",
+        "Floaters",
+        "Floater 1",
+        "Thrusters"
+      ],
+      "width": 500,
+      "height": 500,
+      "transform": [
+        [
+          1,
+          -5.3437816372905846e-24,
+          2393
+        ],
+        [
+          5.3437816372905846e-24,
+          1,
+          -2840
+        ]
+      ]
+    },
+    {
+      "id": "2057:1116",
+      "name": "Platform 10x10",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Zone A",
+        "Floaters",
+        "Floater 1"
+      ],
+      "width": 1000,
+      "height": 1000,
+      "transform": [
+        [
+          1,
+          -5.3437816372905846e-24,
+          2143
+        ],
+        [
+          5.3437816372905846e-24,
+          1,
+          -3090
+        ]
+      ]
+    },
+    {
+      "id": "2057:1117",
+      "name": "Barrels",
+      "type": "GROUP",
+      "path": [
+        "Ramparts",
+        "Zone A",
+        "Floaters",
+        "Floater 1"
+      ],
+      "width": 200,
+      "height": 214,
+      "transform": [
+        [
+          1,
+          -5.3437816372905846e-24,
+          2893
+        ],
+        [
+          5.3437816372905846e-24,
+          1,
+          -3037
+        ]
+      ]
+    },
+    {
+      "id": "2057:1118",
+      "name": "Barrel 3",
+      "type": "ELLIPSE",
+      "path": [
+        "Ramparts",
+        "Zone A",
+        "Floaters",
+        "Floater 1",
+        "Barrels"
+      ],
+      "width": 100,
+      "height": 100,
+      "transform": [
+        [
+          1,
+          0,
+          2893
+        ],
+        [
+          0,
+          1,
+          -2987
+        ]
+      ]
+    },
+    {
+      "id": "2057:1119",
+      "name": "Barrel 2",
+      "type": "ELLIPSE",
+      "path": [
+        "Ramparts",
+        "Zone A",
+        "Floaters",
+        "Floater 1",
+        "Barrels"
+      ],
+      "width": 100,
+      "height": 100,
+      "transform": [
+        [
+          1,
+          0,
+          2993
+        ],
+        [
+          0,
+          1,
+          -2923
+        ]
+      ]
+    },
+    {
+      "id": "2057:1120",
+      "name": "Barrel 1",
+      "type": "ELLIPSE",
+      "path": [
+        "Ramparts",
+        "Zone A",
+        "Floaters",
+        "Floater 1",
+        "Barrels"
+      ],
+      "width": 100,
+      "height": 100,
+      "transform": [
+        [
+          1,
+          0,
+          2993
+        ],
+        [
+          0,
+          1,
+          -3037
+        ]
+      ]
+    },
+    {
+      "id": "2057:1121",
+      "name": "Ammo Pickup - Bio rifle",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Zone A",
+        "Floaters",
+        "Floater 1"
+      ],
+      "width": 100,
+      "height": 100,
+      "transform": [
+        [
+          1,
+          0,
+          2493
+        ],
+        [
+          0,
+          1,
+          -2640
+        ]
+      ]
+    },
+    {
+      "id": "2057:1122",
+      "name": "Weapon Pickup - Bio rifle (Item holder)",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Zone A",
+        "Floaters",
+        "Floater 1"
+      ],
+      "width": 100,
+      "height": 100,
+      "transform": [
+        [
+          1,
+          0,
+          2693
+        ],
+        [
+          0,
+          1,
+          -2640
+        ]
+      ]
+    },
+    {
+      "id": "2057:1123",
+      "name": "Mainland",
+      "type": "GROUP",
+      "path": [
+        "Ramparts",
+        "Zone A"
+      ],
+      "width": 3123.6259765625,
+      "height": 3097.62548828125,
+      "transform": [
+        [
+          1,
+          -5.3437816372905846e-24,
+          -1230.6258544921875
+        ],
+        [
+          5.3437816372905846e-24,
+          1,
+          -4437.6259765625
+        ]
+      ]
+    },
+    {
+      "id": "2057:1124",
+      "name": "Mountain top 25x25",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Zone A",
+        "Mainland"
+      ],
+      "width": 2500,
+      "height": 2500,
+      "transform": [
+        [
+          1,
+          -5.3437816372905846e-24,
+          -607
+        ],
+        [
+          5.3437816372905846e-24,
+          1,
+          -3840.00048828125
+        ]
+      ]
+    },
+    {
+      "id": "2057:1125",
+      "name": "Pole Lights",
+      "type": "GROUP",
+      "path": [
+        "Ramparts",
+        "Zone A",
+        "Mainland"
+      ],
+      "width": 2649,
+      "height": 1462,
+      "transform": [
+        [
+          0.7071067690849304,
+          0.7071067690849304,
+          -1230.6258544921875
+        ],
+        [
+          -0.7071067690849304,
+          0.7071067690849304,
+          -2564.5
+        ]
+      ]
+    },
+    {
+      "id": "2057:1126",
+      "name": "Pole Light 3",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Zone A",
+        "Mainland",
+        "Pole Lights"
+      ],
+      "width": 275,
+      "height": 50,
+      "transform": [
+        [
+          0.7071067690849304,
+          -0.7071067690849304,
+          1481.8358154296875
+        ],
+        [
+          0.7071067690849304,
+          0.7071067690849304,
+          -3598.2900390625
+        ]
+      ]
+    },
+    {
+      "id": "2057:1127",
+      "name": "Pole Light 2",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Zone A",
+        "Mainland",
+        "Pole Lights"
+      ],
+      "width": 275,
+      "height": 50,
+      "transform": [
+        [
+          0.7071067690849304,
+          0.7071067690849304,
+          -391.2900695800781
+        ],
+        [
+          -0.7071067690849304,
+          0.7071067690849304,
+          -3403.835693359375
+        ]
+      ]
+    },
+    {
+      "id": "2057:1128",
+      "name": "Pole Light 1",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Zone A",
+        "Mainland",
+        "Pole Lights"
+      ],
+      "width": 275,
+      "height": 50,
+      "transform": [
+        [
+          0.7071067690849304,
+          -0.7071067690849304,
+          -355.9346923828125
+        ],
+        [
+          0.7071067690849304,
+          0.7071067690849304,
+          -1760.51953125
+        ]
+      ]
+    },
+    {
+      "id": "2057:1129",
+      "name": "Jump platforms",
+      "type": "GROUP",
+      "path": [
+        "Ramparts",
+        "Zone A",
+        "Mainland"
+      ],
+      "width": 100,
+      "height": 100,
+      "transform": [
+        [
+          1,
+          -5.3437816372905846e-24,
+          1718.0001220703125
+        ],
+        [
+          5.3437816372905846e-24,
+          1,
+          -1515.000732421875
+        ]
+      ]
+    },
+    {
+      "id": "2057:1130",
+      "name": "Jump platform 1",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Zone A",
+        "Mainland",
+        "Jump platforms"
+      ],
+      "width": 100,
+      "height": 100,
+      "transform": [
+        [
+          1,
+          0,
+          1718.0001220703125
+        ],
+        [
+          0,
+          1,
+          -1515.000732421875
+        ]
+      ]
+    },
+    {
+      "id": "2057:1131",
+      "name": "Cistern",
+      "type": "GROUP",
+      "path": [
+        "Ramparts",
+        "Zone A",
+        "Mainland"
+      ],
+      "width": 2121.3203125,
+      "height": 2121.3203125,
+      "transform": [
+        [
+          1,
+          -5.3437816372905846e-24,
+          -418
+        ],
+        [
+          5.3437816372905846e-24,
+          1,
+          -3651.000244140625
+        ]
+      ]
+    },
+    {
+      "id": "2057:1132",
+      "name": "Cistern",
+      "type": "ELLIPSE",
+      "path": [
+        "Ramparts",
+        "Zone A",
+        "Mainland",
+        "Cistern"
+      ],
+      "width": 1500,
+      "height": 1500,
+      "transform": [
+        [
+          0.7071067690849304,
+          0.7071067690849304,
+          -418
+        ],
+        [
+          -0.7071067690849304,
+          0.7071067690849304,
+          -2590.340087890625
+        ]
+      ]
+    },
+    {
+      "id": "2057:1133",
+      "name": "Spawn Points",
+      "type": "GROUP",
+      "path": [
+        "Ramparts",
+        "Zone A",
+        "Mainland",
+        "Cistern"
+      ],
+      "width": 200,
+      "height": 700,
+      "transform": [
+        [
+          0.7071067690849304,
+          -0.7071067690849304,
+          542.9747314453125
+        ],
+        [
+          0.7071067690849304,
+          0.7071067690849304,
+          -3185.000244140625
+        ]
+      ]
+    },
+    {
+      "id": "2057:1134",
+      "name": "Spawn Point 5 (Stasis Chamber)",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Zone A",
+        "Mainland",
+        "Cistern",
+        "Spawn Points"
+      ],
+      "width": 200,
+      "height": 200,
+      "transform": [
+        [
+          0.7071067690849304,
+          -0.7071067690849304,
+          189.4213409423828
+        ],
+        [
+          0.7071067690849304,
+          0.7071067690849304,
+          -2831.44677734375
+        ]
+      ]
+    },
+    {
+      "id": "2057:1135",
+      "name": "Spawn Point 4 (Stasis Chamber)",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Zone A",
+        "Mainland",
+        "Cistern",
+        "Spawn Points"
+      ],
+      "width": 200,
+      "height": 200,
+      "transform": [
+        [
+          0.7071067690849304,
+          -0.7071067690849304,
+          542.9747314453125
+        ],
+        [
+          0.7071067690849304,
+          0.7071067690849304,
+          -3185.000244140625
+        ]
+      ]
+    },
+    {
+      "id": "2057:1136",
+      "name": "Flag placement",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Zone A",
+        "Mainland",
+        "Cistern"
+      ],
+      "width": 200,
+      "height": 200,
+      "transform": [
+        [
+          1,
+          0,
+          543
+        ],
+        [
+          0,
+          1,
+          -2690.000244140625
+        ]
+      ]
+    },
+    {
+      "id": "2057:1137",
+      "name": "Weapon pickups",
+      "type": "GROUP",
+      "path": [
+        "Ramparts",
+        "Zone A",
+        "Mainland"
+      ],
+      "width": 1689.8427734375,
+      "height": 1548.42138671875,
+      "transform": [
+        [
+          1,
+          -5.3437816372905846e-24,
+          -202.42138671875
+        ],
+        [
+          5.3437816372905846e-24,
+          1,
+          -3338.7109375
+        ]
+      ]
+    },
+    {
+      "id": "2057:1138",
+      "name": "Weapon pickup - Flak cannon (Item holder)",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Zone A",
+        "Mainland",
+        "Weapon pickups"
+      ],
+      "width": 100.0000228881836,
+      "height": 100.0000228881836,
+      "transform": [
+        [
+          0.7071067690849304,
+          0.7071067690849304,
+          -202.42138671875
+        ],
+        [
+          -0.7071067690849304,
+          0.7071067690849304,
+          -3267.998046875
+        ]
+      ]
+    },
+    {
+      "id": "2057:1139",
+      "name": "Weapon pickup - Rifle (Item holder)",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Zone A",
+        "Mainland",
+        "Weapon pickups"
+      ],
+      "width": 100.00006103515625,
+      "height": 100.00006103515625,
+      "transform": [
+        [
+          0.7071067690849304,
+          0.7071067690849304,
+          1346
+        ],
+        [
+          -0.7071067690849304,
+          0.7071067690849304,
+          -3268.000244140625
+        ]
+      ]
+    },
+    {
+      "id": "2057:1140",
+      "name": "Weapon pickup - Minigun (Item holder)",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Zone A",
+        "Mainland",
+        "Weapon pickups"
+      ],
+      "width": 99.9999771118164,
+      "height": 99.9999771118164,
+      "transform": [
+        [
+          0.7071067690849304,
+          0.7071067690849304,
+          -61
+        ],
+        [
+          -0.7071067690849304,
+          0.7071067690849304,
+          -1861.000244140625
+        ]
+      ]
+    },
+    {
+      "id": "2057:1141",
+      "name": "Ammo pickups",
+      "type": "GROUP",
+      "path": [
+        "Ramparts",
+        "Zone A",
+        "Mainland"
+      ],
+      "width": 1548.4215087890625,
+      "height": 1548.710693359375,
+      "transform": [
+        [
+          1,
+          -5.3437816372905846e-24,
+          -202.42138671875
+        ],
+        [
+          5.3437816372905846e-24,
+          1,
+          -3339.000244140625
+        ]
+      ]
+    },
+    {
+      "id": "2057:1142",
+      "name": "Ammo pickup - Flak cannon",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Zone A",
+        "Mainland",
+        "Ammo pickups"
+      ],
+      "width": 100,
+      "height": 100,
+      "transform": [
+        [
+          0.7071067690849304,
+          0.7071067690849304,
+          -61
+        ],
+        [
+          -0.7071067690849304,
+          0.7071067690849304,
+          -3268.28955078125
+        ]
+      ]
+    },
+    {
+      "id": "2057:1143",
+      "name": "Ammo pickup - Rifle",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Zone A",
+        "Mainland",
+        "Ammo pickups"
+      ],
+      "width": 100,
+      "height": 100,
+      "transform": [
+        [
+          0.7071067690849304,
+          0.7071067690849304,
+          1204.5787353515625
+        ],
+        [
+          -0.7071067690849304,
+          0.7071067690849304,
+          -3268.000244140625
+        ]
+      ]
+    },
+    {
+      "id": "2057:1144",
+      "name": "Ammo pickup - Minigun",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Zone A",
+        "Mainland",
+        "Ammo pickups"
+      ],
+      "width": 100,
+      "height": 100,
+      "transform": [
+        [
+          0.7071067690849304,
+          0.7071067690849304,
+          -202.42138671875
+        ],
+        [
+          -0.7071067690849304,
+          0.7071067690849304,
+          -1861.000244140625
+        ]
+      ]
+    },
+    {
+      "id": "2057:1145",
+      "name": "Spawn Points",
+      "type": "GROUP",
+      "path": [
+        "Ramparts",
+        "Zone A"
+      ],
+      "width": 2022,
+      "height": 2022,
+      "transform": [
+        [
+          1,
+          -5.551115784870273e-17,
+          -476
+        ],
+        [
+          5.551115784870273e-17,
+          1,
+          -3683
+        ]
+      ]
+    },
+    {
+      "id": "2057:1146",
+      "name": "Spawn Point 3",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Zone A",
+        "Spawn Points"
+      ],
+      "width": 200,
+      "height": 200,
+      "transform": [
+        [
+          1,
+          0,
+          1346
+        ],
+        [
+          0,
+          1,
+          -1861
+        ]
+      ]
+    },
+    {
+      "id": "2057:1147",
+      "name": "Spawn Point 2",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Zone A",
+        "Spawn Points"
+      ],
+      "width": 200,
+      "height": 200,
+      "transform": [
+        [
+          1,
+          -5.551115784870273e-17,
+          -476
+        ],
+        [
+          5.551115784870273e-17,
+          1,
+          -2690
+        ]
+      ]
+    },
+    {
+      "id": "2057:1148",
+      "name": "Spawn Point 1",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Zone A",
+        "Spawn Points"
+      ],
+      "width": 200,
+      "height": 200,
+      "transform": [
+        [
+          1,
+          -5.551115784870273e-17,
+          543
+        ],
+        [
+          5.551115784870273e-17,
+          1,
+          -3683
+        ]
+      ]
+    },
+    {
+      "id": "2056:713",
+      "name": "Junction",
+      "type": "GROUP",
+      "path": [
+        "Ramparts"
+      ],
+      "width": 2250,
+      "height": 2250,
+      "transform": [
+        [
+          1,
+          0,
+          1768
+        ],
+        [
+          0,
+          1,
+          -1465
+        ]
+      ]
+    },
+    {
+      "id": "2056:723",
+      "name": "Thrusters",
+      "type": "GROUP",
+      "path": [
+        "Ramparts",
+        "Junction"
+      ],
+      "width": 500,
+      "height": 500,
+      "transform": [
+        [
+          1,
+          -5.3437816372905846e-24,
+          2643
+        ],
+        [
+          5.3437816372905846e-24,
+          1,
+          -590
+        ]
+      ]
+    },
+    {
+      "id": "2056:724",
+      "name": "Thruster 1",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Junction",
+        "Thrusters"
+      ],
+      "width": 500,
+      "height": 500,
+      "transform": [
+        [
+          1,
+          -5.3437816372905846e-24,
+          2643
+        ],
+        [
+          5.3437816372905846e-24,
+          1,
+          -590
+        ]
+      ]
+    },
+    {
+      "id": "2056:757",
+      "name": "Platform",
+      "type": "BOOLEAN_OPERATION",
+      "path": [
+        "Ramparts",
+        "Junction"
+      ],
+      "width": 2250,
+      "height": 2250,
+      "transform": [
+        [
+          1,
+          0,
+          1768
+        ],
+        [
+          0,
+          1,
+          -1465
+        ]
+      ]
+    },
+    {
+      "id": "2056:712",
+      "name": "Rectangle 1",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Junction",
+        "Platform"
+      ],
+      "width": 750,
+      "height": 750,
+      "transform": [
+        [
+          1,
+          0,
+          2518
+        ],
+        [
+          0,
+          1,
+          -715
+        ]
+      ]
+    },
+    {
+      "id": "2056:714",
+      "name": "Rectangle 2",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Junction",
+        "Platform"
+      ],
+      "width": 750,
+      "height": 750,
+      "transform": [
+        [
+          1,
+          0,
+          2518
+        ],
+        [
+          0,
+          1,
+          35
+        ]
+      ]
+    },
+    {
+      "id": "2056:718",
+      "name": "Rectangle 4",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Junction",
+        "Platform"
+      ],
+      "width": 750,
+      "height": 750,
+      "transform": [
+        [
+          1,
+          0,
+          3268
+        ],
+        [
+          0,
+          1,
+          -715
+        ]
+      ]
+    },
+    {
+      "id": "2056:720",
+      "name": "Rectangle 5",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Junction",
+        "Platform"
+      ],
+      "width": 750,
+      "height": 750,
+      "transform": [
+        [
+          1,
+          0,
+          1768
+        ],
+        [
+          0,
+          1,
+          -715
+        ]
+      ]
+    },
+    {
+      "id": "2056:716",
+      "name": "Rectangle 3",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Junction",
+        "Platform"
+      ],
+      "width": 750,
+      "height": 750,
+      "transform": [
+        [
+          1,
+          0,
+          2518
+        ],
+        [
+          0,
+          1,
+          -1465
+        ]
+      ]
+    },
+    {
+      "id": "2056:726",
+      "name": "Hub",
+      "type": "GROUP",
+      "path": [
+        "Ramparts",
+        "Junction"
+      ],
+      "width": 600,
+      "height": 600,
+      "transform": [
+        [
+          1,
+          0,
+          2593
+        ],
+        [
+          0,
+          1,
+          -640
+        ]
+      ]
+    },
+    {
+      "id": "2056:727",
+      "name": "Hub",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Junction",
+        "Hub"
+      ],
+      "width": 600,
+      "height": 600,
+      "transform": [
+        [
+          1,
+          0,
+          2593
+        ],
+        [
+          0,
+          1,
+          -640
+        ]
+      ]
+    },
+    {
+      "id": "2056:752",
+      "name": "Ammo Pickups",
+      "type": "GROUP",
+      "path": [
+        "Ramparts",
+        "Junction",
+        "Hub"
+      ],
+      "width": 300,
+      "height": 300,
+      "transform": [
+        [
+          1,
+          0,
+          2743
+        ],
+        [
+          0,
+          1,
+          -490
+        ]
+      ]
+    },
+    {
+      "id": "2056:728",
+      "name": "Ammo Pack - Flamethrower",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Junction",
+        "Hub",
+        "Ammo Pickups"
+      ],
+      "width": 100,
+      "height": 100,
+      "transform": [
+        [
+          1,
+          0,
+          2843
+        ],
+        [
+          0,
+          1,
+          -290
+        ]
+      ]
+    },
+    {
+      "id": "2056:729",
+      "name": "Ammo Pack - EMP",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Junction",
+        "Hub",
+        "Ammo Pickups"
+      ],
+      "width": 100,
+      "height": 100,
+      "transform": [
+        [
+          1,
+          0,
+          2843
+        ],
+        [
+          0,
+          1,
+          -490
+        ]
+      ]
+    },
+    {
+      "id": "2056:730",
+      "name": "Ammo Pack - Grenade launcher",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Junction",
+        "Hub",
+        "Ammo Pickups"
+      ],
+      "width": 100,
+      "height": 100,
+      "transform": [
+        [
+          1,
+          0,
+          2943
+        ],
+        [
+          0,
+          1,
+          -390
+        ]
+      ]
+    },
+    {
+      "id": "2056:731",
+      "name": "Ammo Pack - Rocket launcher",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Junction",
+        "Hub",
+        "Ammo Pickups"
+      ],
+      "width": 100,
+      "height": 100,
+      "transform": [
+        [
+          1,
+          0,
+          2743
+        ],
+        [
+          0,
+          1,
+          -390
+        ]
+      ]
+    },
+    {
+      "id": "2056:735",
+      "name": "Weapon pickups",
+      "type": "GROUP",
+      "path": [
+        "Ramparts",
+        "Junction"
+      ],
+      "width": 2100,
+      "height": 2100,
+      "transform": [
+        [
+          1,
+          0,
+          1843
+        ],
+        [
+          0,
+          1,
+          -1390
+        ]
+      ]
+    },
+    {
+      "id": "2056:749",
+      "name": "Weapon Pickup - Flamethrower Launcher (Item Cradle)",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Junction",
+        "Weapon pickups"
+      ],
+      "width": 100,
+      "height": 100,
+      "transform": [
+        [
+          1,
+          -5.551115123125783e-17,
+          2843
+        ],
+        [
+          5.551115123125783e-17,
+          1,
+          610
+        ]
+      ]
+    },
+    {
+      "id": "2056:746",
+      "name": "Weapon Pickup - EMP Launcher (Item Cradle)",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Junction",
+        "Weapon pickups"
+      ],
+      "width": 100,
+      "height": 100,
+      "transform": [
+        [
+          1,
+          -5.551115123125783e-17,
+          2843
+        ],
+        [
+          5.551115123125783e-17,
+          1,
+          -1390
+        ]
+      ]
+    },
+    {
+      "id": "2056:738",
+      "name": "Weapon Pickup - Grenade Launcher (Item Cradle)",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Junction",
+        "Weapon pickups"
+      ],
+      "width": 100,
+      "height": 100,
+      "transform": [
+        [
+          1,
+          -5.551115123125783e-17,
+          3843
+        ],
+        [
+          5.551115123125783e-17,
+          1,
+          -390
+        ]
+      ]
+    },
+    {
+      "id": "2056:743",
+      "name": "Weapon Pickup - Rocket Launcher (Item Cradle)",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts",
+        "Junction",
+        "Weapon pickups"
+      ],
+      "width": 100,
+      "height": 100,
+      "transform": [
+        [
+          1,
+          -5.551115123125783e-17,
+          1843
+        ],
+        [
+          5.551115123125783e-17,
+          1,
+          -390
+        ]
+      ]
+    },
+    {
+      "id": "131:182",
+      "name": "Jumbotron",
+      "type": "RECTANGLE",
+      "path": [
+        "Ramparts"
+      ],
+      "width": 1000,
+      "height": 1000,
+      "transform": [
+        [
+          1,
+          0,
+          2393
+        ],
+        [
+          0,
+          1,
+          -840
+        ]
+      ]
+    }
+  ]
+}

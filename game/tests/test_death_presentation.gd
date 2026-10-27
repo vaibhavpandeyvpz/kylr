@@ -178,6 +178,25 @@ func test_local_death_holds_third_person_for_one_second_after_animation():
 	game._process(0.0)
 	assert_eq(game.camera_rig.active_view, "death")
 
+func test_ocean_death_camera_stops_at_one_metre_and_keeps_looking_at_the_corpse():
+	var game:=ArenaMatch.new()
+	game.map_id="ramparts";game.online=true;game.authority=false
+	add_child_autofree(game)
+	await wait_physics_frames(3)
+	var victim: ArenaRobot=game.add_robot(0,"SeaCameraProbe",0,true,"projector")
+	game.local_robot=victim;game.phase="Active"
+	victim.global_position=Vector3(0,-2,0);victim.last_safe=Vector3(0,10,0)
+	victim.velocity=Vector3(0,-20,0)
+	game.eliminate(victim,null,"Fall off map")
+	game._process(0.0)
+	assert_almost_eq(game.fall_camera_stop.y,1.0,.0001)
+	var stopped: Vector3=game.fall_camera_stop
+	game.local_death_corpse.global_position=Vector3(4,-8,3)
+	game._process(0.0)
+	assert_eq(game.fall_camera_stop,stopped,"The entire follow position stays fixed")
+	assert_eq(game.camera_rig.cameras.death.global_position,stopped)
+	assert_almost_eq(game.camera_rig.focus_anchors.death.global_position.y,-7.05,.0001)
+
 func test_fall_death_keeps_falling_without_drops_and_camera_stops_at_depth():
 	var game := ArenaMatch.new()
 	game.online = true

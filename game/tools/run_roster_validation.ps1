@@ -1,5 +1,5 @@
 param(
-    [ValidateSet('faceoff','skyfall')][string]$Map = 'faceoff',
+    [ValidateSet('faceoff','skyfall','ramparts')][string]$Map = 'faceoff',
     [ValidatePattern('^[A-Za-z_][A-Za-z0-9_]*$')][string]$ReportPrefix = 'asset_handoff',
     [ValidateRange(1,16)][Nullable[int]]$DecisionPhases = $null,
     [string]$Godot = $(if ($env:GODOT) { $env:GODOT } else { 'godot' })

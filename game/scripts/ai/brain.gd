@@ -47,8 +47,11 @@ var projectile_dodge := ProjectileDodge.new()
 var firing_blocked := false
 var firing_position_cooldown := 0.0
 var firing_point := Vector3.INF
-# Diagnostic opt-in: stagger resets without changing the per-bot interval.
-static var decision_phases := 1
+# Keep respawns in the same four cohorts as initial construction, rather than
+# resetting every tree onto one physics tick. Per-bot intervals stay unchanged.
+static var decision_phases := 4
+static var profile_decisions := false
+static var decision_usec := 0
 
 static func decision_phase_offset(id: int,interval: float) -> float:
 	return float(posmod(id,decision_phases))*interval/float(decision_phases)
@@ -133,7 +136,9 @@ func tick(dt: float):
 	if decision <= 0:
 		decision = tuning.decision_interval
 		game.map.traversal.begin_planning_queries()
+		var decision_started := Time.get_ticks_usec() if profile_decisions else 0
 		behavior.update(tuning.decision_interval)
+		if profile_decisions: decision_usec += Time.get_ticks_usec()-decision_started
 		game.map.traversal.end_planning_queries()
 	if robot.protection > 0:
 		target=null
@@ -476,12 +481,13 @@ func combat_motion(route_direction: Vector3) -> Vector3:
 	if dodge_time <= 0:
 		strafe *= -1
 		dodge_time=robot.arena_match.rng.randf_range(0.7,1.5)+float(tuning.strafe_pause)
-	if robot.is_on_floor() and goal_kind in ["engage","hold_cover"] and dodge_time<float(tuning.strafe_pause):
+	var crossing: bool=robot.arena_match.map.carriers!=null and robot.arena_match.map.carriers.traffic.committed(robot)
+	if robot.is_on_floor() and goal_kind in ["engage","hold_cover"] and not crossing and dodge_time<float(tuning.strafe_pause):
 		combat_paused = true
 		return Vector3.ZERO
 	var lateral := toward.cross(Vector3.UP)*strafe
 	var desired := route_direction
-	if goal_kind in ["engage", "hold_cover"]:
+	if goal_kind in ["engage", "hold_cover"] and not crossing:
 		var closing := clampf((distance-engagement_range())/4.0,-0.8,0.8)
 		desired=(lateral*0.9+toward*closing).normalized()
 	else:
@@ -559,8 +565,8 @@ func commit_goal(destination: Vector3,kind: String) -> bool:
 	if blocked_destination_time > 0 and destination.distance_to(blocked_destination)<2.0: return false
 	if transition_index >= 0 and transition_index < path.size(): return true
 	if kind==goal_kind and kind not in ["firing_position","reposition"] and destination.distance_to(goal)<8.0 and retarget>0 and not path.is_empty(): return true
-	var route: Array=robot.arena_match.map.traversal.route(robot.position,destination,robot.ep>ArenaTuning.HALF_EP,robot.is_on_floor())
-	if route.is_empty() or route[-1].point.distance_to(destination)>2.0: return false
+	var route: Array=navigation_route(destination,kind)
+	if route.is_empty() or (not route[-1].get("staging",false) and route[-1].point.distance_to(destination)>2.0): return false
 	if destination.distance_to(goal) > 1.5 or kind != goal_kind:
 		if BotDifficulty.trace_enabled:
 			BotDifficulty.trace("goal_commit", {"robot":robot.robot_id,"time":robot.arena_match.elapsed,"position":robot.position,"previous_kind":goal_kind,"kind":kind,"previous_destination":goal,"destination":destination,"ah":robot.ah,"ep":robot.ep,"sh":robot.sh,"weapon":robot.equipped,"loaded":robot.loaded,"packs":robot.packs,"carrying":robot.carrying,"target":target.robot_id if target!=null else -1})
@@ -573,9 +579,19 @@ func commit_goal(destination: Vector3,kind: String) -> bool:
 		retarget=1.0
 	return true
 
+func navigation_route(destination: Vector3,kind: String) -> Array:
+	var map=robot.arena_match.map
+	if map.carriers:return map.carriers.traffic.route(robot,destination,kind)
+	return map.traversal.route(robot.position,destination,robot.ep>ArenaTuning.HALF_EP,robot.is_on_floor())
+
 func steer(dt):
 	combat_paused = false
 	var map = robot.arena_match.map
+	if map.carriers:
+		map.carriers.traffic.observe(robot)
+		map.carriers.advance_route(path)
+		if transition_launched and transition_index>=0 and transition_index<path.size() and path[transition_index].has("point_carrier"):
+			airborne_goal=path[transition_index].point
 	if clear_empty_lift(dt): return
 	# An entry trigger may fire before the approach waypoint is consumed.
 	# Recognise that transfer once and replan from the real exit position.
@@ -598,7 +614,7 @@ func steer(dt):
 		robot.wants_crouch=true
 		return
 	if retarget <= 0 and transition_index < 0 and robot.is_on_floor():
-		path = map.traversal.route(robot.position, goal, robot.ep>ArenaTuning.HALF_EP,robot.is_on_floor())
+		path = navigation_route(goal,goal_kind)
 		path_index = 0
 		retarget = 1.0
 	var destination: Vector3 = goal
@@ -611,10 +627,22 @@ func steer(dt):
 			path_index+=1
 		destination = path[path_index].point
 		action=path[path_index].action
+		if action=="walk" and map.carriers and robot.position.distance_to(path[path_index].from)<.9:
+			var step: Dictionary=path[path_index]
+			var source_deck: String=step.get("from_carrier",{}).get("deck","")
+			var destination_deck: String=step.get("point_carrier",{}).get("deck","")
+			if source_deck!=destination_deck and not map.carriers.walk_reachable(step):
+				robot.move_input=Vector2.ZERO;path.clear();retarget=.5
+				return
 	else:
 		robot.move_input=Vector2.ZERO
 		stuck+=dt
 		if stuck>1.5: recover_stuck("walk")
+		return
+	if action=="wait_carrier":
+		transition_index=-1
+		robot.move_input=Vector2.ZERO
+		stuck=0.0
 		return
 	if action != "walk":
 		if transition_index != path_index:
@@ -649,6 +677,12 @@ func steer(dt):
 					robot.move_input = Vector2.ZERO
 					return
 				if not transition_launched:
+					if map.carriers and robot.position.distance_to(source)<=.55 and (action=="jump" or robot.jump_charge>=ArenaTuning.CHARGE_SECONDS) and (path[path_index].has("point_carrier") or path[path_index].has("from_carrier")):
+						var height: float=ArenaTuning.CHARGED_JUMP_HEIGHT if action=="charged_jump" else ArenaTuning.NORMAL_JUMP_HEIGHT
+						if not map.carriers.jump_reachable(path[path_index],height):
+							transition_index=-1;robot.jump_held=false;robot.move_input=Vector2.ZERO
+							path.clear();retarget=0.5
+							return
 					if robot.position.distance_to(source) > 0.55:
 						destination=source
 					else:

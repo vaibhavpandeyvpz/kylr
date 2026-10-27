@@ -1,0 +1,3270 @@
+{
+  "name": "ramparts",
+  "canvas_m": [
+    75,
+    75
+  ],
+  "triangle_budget": 25000,
+  "triangles": 6002,
+  "helper_triangles": 10071,
+  "architecture_machining_triangles": 3622,
+  "total_map_triangles": 19695,
+  "scenery_triangles": 48200,
+  "markers": [
+    {
+      "name": "deck-Junction",
+      "role": "platform",
+      "asset": "ramparts",
+      "category": "maps",
+      "asset_suffix": "_deck_Junction",
+      "zone": "common",
+      "deck": "Junction",
+      "building": null,
+      "level": "ground",
+      "position_blender": [
+        0,
+        0,
+        10.0
+      ],
+      "position_godot": [
+        0,
+        10.0,
+        0
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        0
+      ],
+      "figma_node": "2056:757"
+    },
+    {
+      "name": "deck-A_Floater_1",
+      "role": "platform",
+      "asset": "ramparts",
+      "category": "maps",
+      "asset_suffix": "_deck_A_Floater_1",
+      "zone": "A",
+      "deck": "A_Floater_1",
+      "building": null,
+      "level": "ground",
+      "position_blender": [
+        -2.5,
+        22.5,
+        10.0
+      ],
+      "position_godot": [
+        -2.5,
+        10.0,
+        -22.5
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        0
+      ],
+      "figma_node": "2057:1116"
+    },
+    {
+      "name": "deck-A_Floater_2",
+      "role": "platform",
+      "asset": "ramparts",
+      "category": "maps",
+      "asset_suffix": "_deck_A_Floater_2",
+      "zone": "A",
+      "deck": "A_Floater_2",
+      "building": null,
+      "level": "ground",
+      "position_blender": [
+        10.0,
+        30.0,
+        10.0
+      ],
+      "position_godot": [
+        10.0,
+        10.0,
+        -30.0
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        0
+      ],
+      "figma_node": "2057:1105"
+    },
+    {
+      "name": "deck-A_Floater_3",
+      "role": "platform",
+      "asset": "ramparts",
+      "category": "maps",
+      "asset_suffix": "_deck_A_Floater_3",
+      "zone": "A",
+      "deck": "A_Floater_3",
+      "building": null,
+      "level": "ground",
+      "position_blender": [
+        22.5,
+        22.5,
+        10.0
+      ],
+      "position_godot": [
+        22.5,
+        10.0,
+        -22.5
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        0
+      ],
+      "figma_node": "2057:1099"
+    },
+    {
+      "name": "deck-A_Island",
+      "role": "platform",
+      "asset": "ramparts",
+      "category": "maps",
+      "asset_suffix": "_deck_A_Island",
+      "zone": "A",
+      "deck": "A_Island",
+      "building": null,
+      "level": "ground",
+      "position_blender": [
+        22.5,
+        7.5,
+        10.0
+      ],
+      "position_godot": [
+        22.5,
+        10.0,
+        -7.5
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        0
+      ],
+      "figma_node": "2057:1081"
+    },
+    {
+      "name": "deck-B_Floater_1",
+      "role": "platform",
+      "asset": "ramparts",
+      "category": "maps",
+      "asset_suffix": "_deck_B_Floater_1",
+      "zone": "B",
+      "deck": "B_Floater_1",
+      "building": null,
+      "level": "ground",
+      "position_blender": [
+        2.5,
+        -22.499997558593748,
+        10.0
+      ],
+      "position_godot": [
+        2.5,
+        10.0,
+        22.499997558593748
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        0
+      ],
+      "figma_node": "2057:1035"
+    },
+    {
+      "name": "deck-B_Floater_2",
+      "role": "platform",
+      "asset": "ramparts",
+      "category": "maps",
+      "asset_suffix": "_deck_B_Floater_2",
+      "zone": "B",
+      "deck": "B_Floater_2",
+      "building": null,
+      "level": "ground",
+      "position_blender": [
+        -10.0,
+        -29.999997558593748,
+        10.0
+      ],
+      "position_godot": [
+        -10.0,
+        10.0,
+        29.999997558593748
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        0
+      ],
+      "figma_node": "2057:1025"
+    },
+    {
+      "name": "deck-B_Floater_3",
+      "role": "platform",
+      "asset": "ramparts",
+      "category": "maps",
+      "asset_suffix": "_deck_B_Floater_3",
+      "zone": "B",
+      "deck": "B_Floater_3",
+      "building": null,
+      "level": "ground",
+      "position_blender": [
+        -22.5,
+        -22.499997558593748,
+        10.0
+      ],
+      "position_godot": [
+        -22.5,
+        10.0,
+        22.499997558593748
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        0
+      ],
+      "figma_node": "2057:1020"
+    },
+    {
+      "name": "deck-B_Island",
+      "role": "platform",
+      "asset": "ramparts",
+      "category": "maps",
+      "asset_suffix": "_deck_B_Island",
+      "zone": "B",
+      "deck": "B_Island",
+      "building": null,
+      "level": "ground",
+      "position_blender": [
+        -22.5,
+        -7.5,
+        10.0
+      ],
+      "position_godot": [
+        -22.5,
+        10.0,
+        7.5
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        0
+      ],
+      "figma_node": "2057:1005"
+    },
+    {
+      "name": "B-thruster-2057_1004",
+      "role": "thruster",
+      "asset": "thruster",
+      "category": "environments",
+      "zone": "B",
+      "deck": "B_Island",
+      "building": null,
+      "level": "ground",
+      "position_blender": [
+        -22.5,
+        -7.5,
+        9.2
+      ],
+      "position_godot": [
+        -22.5,
+        9.2,
+        7.5
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        3.141592653589793
+      ],
+      "figma_node": "2057:1004"
+    },
+    {
+      "name": "B-weather_sensor-2057_1006",
+      "role": "prop",
+      "asset": "weather_sensor",
+      "category": "environments",
+      "zone": "B",
+      "deck": "B_Island",
+      "building": null,
+      "level": "ground",
+      "position_blender": [
+        -16.75,
+        -13.25,
+        10.0
+      ],
+      "position_godot": [
+        -16.75,
+        10.0,
+        13.25
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        3.141592653589793
+      ],
+      "figma_node": "2057:1006"
+    },
+    {
+      "name": "B-item_cradle-2057_1008",
+      "role": "shield",
+      "asset": "item_cradle",
+      "category": "gameplay",
+      "zone": "B",
+      "deck": "B_Island",
+      "building": null,
+      "level": "ground",
+      "position_blender": [
+        -22.5,
+        -7.5,
+        10.0
+      ],
+      "position_godot": [
+        -22.5,
+        10.0,
+        7.5
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        3.141592653589793
+      ],
+      "figma_node": "2057:1008"
+    },
+    {
+      "name": "B-speed_ramp-2057_1009",
+      "role": "speed_ramp",
+      "asset": "speed_ramp",
+      "category": "gameplay",
+      "zone": "B",
+      "deck": "B_Island",
+      "building": null,
+      "level": "ground",
+      "position_blender": [
+        -22.5,
+        -1.0,
+        10.0
+      ],
+      "position_godot": [
+        -22.5,
+        10.0,
+        1.0
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        3.141592653589793
+      ],
+      "figma_node": "2057:1009"
+    },
+    {
+      "name": "B-barricade-2057_1012",
+      "role": "barricade",
+      "asset": "barricade",
+      "category": "gameplay",
+      "zone": "B",
+      "deck": "B_Island",
+      "building": null,
+      "level": "ground",
+      "position_blender": [
+        -22.5,
+        -13.0,
+        10.0
+      ],
+      "position_godot": [
+        -22.5,
+        10.0,
+        13.0
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        0.0
+      ],
+      "figma_node": "2057:1012"
+    },
+    {
+      "name": "B-pressure_plate-2057_1013",
+      "role": "pressure_plate",
+      "asset": "pressure_plate",
+      "category": "gameplay",
+      "zone": "B",
+      "deck": "B_Island",
+      "building": null,
+      "level": "ground",
+      "position_blender": [
+        -22.5,
+        -10.0,
+        10.0
+      ],
+      "position_godot": [
+        -22.5,
+        10.0,
+        10.0
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        0.0
+      ],
+      "figma_node": "2057:1013"
+    },
+    {
+      "name": "B-container-2057_1015",
+      "role": "prop",
+      "asset": "container",
+      "category": "architecture",
+      "zone": "B",
+      "deck": "B_Island",
+      "building": null,
+      "level": "ground",
+      "position_blender": [
+        -17.50444698512554,
+        -2.825154943764211,
+        10.0
+      ],
+      "position_godot": [
+        -17.50444698512554,
+        10.0,
+        2.825154943764211
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        0.12141430268888875
+      ],
+      "figma_node": "2057:1015",
+      "open_actions": [
+        "front_open"
+      ]
+    },
+    {
+      "name": "B-repair_station-2057_1016",
+      "role": "repair_station",
+      "asset": "repair_station",
+      "category": "gameplay",
+      "zone": "B",
+      "deck": "B_Island",
+      "building": "container",
+      "level": "ground",
+      "position_blender": [
+        -17.501389495940103,
+        -2.8218017087269907,
+        10.169430748543254
+      ],
+      "position_godot": [
+        -17.501389495940103,
+        10.169430748543254,
+        2.8218017087269907
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        0.12141430268888875
+      ],
+      "figma_node": "2057:1016"
+    },
+    {
+      "name": "B-thruster-2057_1019",
+      "role": "thruster",
+      "asset": "thruster",
+      "category": "environments",
+      "zone": "B",
+      "deck": "B_Floater_3",
+      "building": null,
+      "level": "ground",
+      "position_blender": [
+        -22.5,
+        -22.499997558593748,
+        9.2
+      ],
+      "position_godot": [
+        -22.5,
+        9.2,
+        22.499997558593748
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        3.141592653589793
+      ],
+      "figma_node": "2057:1019"
+    },
+    {
+      "name": "B-item_cradle-2057_1021",
+      "role": "energy",
+      "asset": "item_cradle",
+      "category": "gameplay",
+      "zone": "B",
+      "deck": "B_Floater_3",
+      "building": null,
+      "level": "ground",
+      "position_blender": [
+        -22.5,
+        -22.499997558593748,
+        10.0
+      ],
+      "position_godot": [
+        -22.5,
+        10.0,
+        22.499997558593748
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        3.141592653589793
+      ],
+      "figma_node": "2057:1021"
+    },
+    {
+      "name": "B-thruster-2057_1024",
+      "role": "thruster",
+      "asset": "thruster",
+      "category": "environments",
+      "zone": "B",
+      "deck": "B_Floater_2",
+      "building": null,
+      "level": "ground",
+      "position_blender": [
+        -10.0,
+        -29.999997558593748,
+        9.2
+      ],
+      "position_godot": [
+        -10.0,
+        9.2,
+        29.999997558593748
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        3.141592653589793
+      ],
+      "figma_node": "2057:1024"
+    },
+    {
+      "name": "B-barrel-2057_1027",
+      "role": "prop",
+      "asset": "barrel",
+      "category": "environments",
+      "zone": "B",
+      "deck": "B_Floater_2",
+      "building": null,
+      "level": "ground",
+      "position_blender": [
+        -13.0,
+        -26.52999755859375,
+        10.0
+      ],
+      "position_godot": [
+        -13.0,
+        10.0,
+        26.52999755859375
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        3.141592653589793
+      ],
+      "figma_node": "2057:1027"
+    },
+    {
+      "name": "B-barrel-2057_1028",
+      "role": "prop",
+      "asset": "barrel",
+      "category": "environments",
+      "zone": "B",
+      "deck": "B_Floater_2",
+      "building": null,
+      "level": "ground",
+      "position_blender": [
+        -14.0,
+        -27.16999755859375,
+        10.0
+      ],
+      "position_godot": [
+        -14.0,
+        10.0,
+        27.16999755859375
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        3.141592653589793
+      ],
+      "figma_node": "2057:1028"
+    },
+    {
+      "name": "B-barrel-2057_1029",
+      "role": "prop",
+      "asset": "barrel",
+      "category": "environments",
+      "zone": "B",
+      "deck": "B_Floater_2",
+      "building": null,
+      "level": "ground",
+      "position_blender": [
+        -14.0,
+        -26.02999755859375,
+        10.0
+      ],
+      "position_godot": [
+        -14.0,
+        10.0,
+        26.02999755859375
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        3.141592653589793
+      ],
+      "figma_node": "2057:1029"
+    },
+    {
+      "name": "B-lightning_gun-2057_1030",
+      "role": "ammo",
+      "asset": "lightning_gun",
+      "category": "weapons",
+      "zone": "B",
+      "deck": "B_Floater_2",
+      "building": null,
+      "level": "ground",
+      "position_blender": [
+        -9.0,
+        -29.999997558593748,
+        10.0
+      ],
+      "position_godot": [
+        -9.0,
+        10.0,
+        29.999997558593748
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        3.141592653589793
+      ],
+      "figma_node": "2057:1030",
+      "weapon": "lightning_gun"
+    },
+    {
+      "name": "B-weapon_holder-2057_1031",
+      "role": "weapon",
+      "asset": "weapon_holder",
+      "category": "gameplay",
+      "zone": "B",
+      "deck": "B_Floater_2",
+      "building": null,
+      "level": "ground",
+      "position_blender": [
+        -11.0,
+        -29.999997558593748,
+        10.0
+      ],
+      "position_godot": [
+        -11.0,
+        10.0,
+        29.999997558593748
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        3.141592653589793
+      ],
+      "figma_node": "2057:1031",
+      "weapon": "lightning_gun"
+    },
+    {
+      "name": "B-thruster-2057_1034",
+      "role": "thruster",
+      "asset": "thruster",
+      "category": "environments",
+      "zone": "B",
+      "deck": "B_Floater_1",
+      "building": null,
+      "level": "ground",
+      "position_blender": [
+        2.5,
+        -22.499997558593748,
+        9.2
+      ],
+      "position_godot": [
+        2.5,
+        9.2,
+        22.499997558593748
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        3.141592653589793
+      ],
+      "figma_node": "2057:1034"
+    },
+    {
+      "name": "B-barrel-2057_1037",
+      "role": "prop",
+      "asset": "barrel",
+      "category": "environments",
+      "zone": "B",
+      "deck": "B_Floater_1",
+      "building": null,
+      "level": "ground",
+      "position_blender": [
+        -0.5,
+        -25.969997558593747,
+        10.0
+      ],
+      "position_godot": [
+        -0.5,
+        10.0,
+        25.969997558593747
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        3.141592653589793
+      ],
+      "figma_node": "2057:1037"
+    },
+    {
+      "name": "B-barrel-2057_1038",
+      "role": "prop",
+      "asset": "barrel",
+      "category": "environments",
+      "zone": "B",
+      "deck": "B_Floater_1",
+      "building": null,
+      "level": "ground",
+      "position_blender": [
+        -1.5,
+        -25.329997558593753,
+        10.0
+      ],
+      "position_godot": [
+        -1.5,
+        10.0,
+        25.329997558593753
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        3.141592653589793
+      ],
+      "figma_node": "2057:1038"
+    },
+    {
+      "name": "B-barrel-2057_1039",
+      "role": "prop",
+      "asset": "barrel",
+      "category": "environments",
+      "zone": "B",
+      "deck": "B_Floater_1",
+      "building": null,
+      "level": "ground",
+      "position_blender": [
+        -1.5,
+        -26.469997558593747,
+        10.0
+      ],
+      "position_godot": [
+        -1.5,
+        10.0,
+        26.469997558593747
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        3.141592653589793
+      ],
+      "figma_node": "2057:1039"
+    },
+    {
+      "name": "B-rifle-2057_1040",
+      "role": "ammo",
+      "asset": "rifle",
+      "category": "weapons",
+      "zone": "B",
+      "deck": "B_Floater_1",
+      "building": null,
+      "level": "ground",
+      "position_blender": [
+        3.5,
+        -22.499997558593748,
+        10.0
+      ],
+      "position_godot": [
+        3.5,
+        10.0,
+        22.499997558593748
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        3.141592653589793
+      ],
+      "figma_node": "2057:1040",
+      "weapon": "rifle"
+    },
+    {
+      "name": "B-weapon_holder-2057_1041",
+      "role": "weapon",
+      "asset": "weapon_holder",
+      "category": "gameplay",
+      "zone": "B",
+      "deck": "B_Floater_1",
+      "building": null,
+      "level": "ground",
+      "position_blender": [
+        1.5,
+        -22.499997558593748,
+        10.0
+      ],
+      "position_godot": [
+        1.5,
+        10.0,
+        22.499997558593748
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        3.141592653589793
+      ],
+      "figma_node": "2057:1041",
+      "weapon": "rifle"
+    },
+    {
+      "name": "B-jump_pad-2057_1049",
+      "role": "jump_pad",
+      "asset": "jump_pad",
+      "category": "gameplay",
+      "zone": "B",
+      "deck": "B_Mainland",
+      "building": null,
+      "level": "ground",
+      "position_blender": [
+        11.25,
+        -11.25000732421875,
+        10.0
+      ],
+      "position_godot": [
+        11.25,
+        10.0,
+        11.25000732421875
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        3.141592653589793
+      ],
+      "figma_node": "2057:1049"
+    },
+    {
+      "name": "B-cistern-2057_1051",
+      "role": "prop",
+      "asset": "ramparts",
+      "category": "maps",
+      "zone": "B",
+      "deck": "B_Mainland",
+      "building": null,
+      "level": "ground",
+      "position_blender": [
+        22.503398463726043,
+        -22.50340087890625,
+        10.0
+      ],
+      "position_godot": [
+        22.503398463726043,
+        10.0,
+        22.50340087890625
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        -2.356194490192345
+      ],
+      "figma_node": "2057:1051",
+      "source_asset": "cistern",
+      "source_category": "architecture",
+      "asset_suffix": "_architecture_B_cistern"
+    },
+    {
+      "name": "B-spawn_point-2057_1053",
+      "role": "spawn",
+      "asset": "spawn_point",
+      "category": "gameplay",
+      "zone": "B",
+      "deck": "B_Mainland",
+      "building": "cistern",
+      "level": "ground",
+      "position_blender": [
+        27.035786132812504,
+        -23.50025423526764,
+        10.077777777777778
+      ],
+      "position_godot": [
+        27.035786132812504,
+        10.077777777777778,
+        23.50025423526764
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        2.356194835459373
+      ],
+      "figma_node": "2057:1053"
+    },
+    {
+      "name": "B-spawn_point-2057_1054",
+      "role": "spawn",
+      "asset": "spawn_point",
+      "category": "gameplay",
+      "zone": "B",
+      "deck": "B_Mainland",
+      "building": "cistern",
+      "level": "ground",
+      "position_blender": [
+        23.500253906250002,
+        -27.035788903236394,
+        10.077777777777778
+      ],
+      "position_godot": [
+        23.500253906250002,
+        10.077777777777778,
+        27.035788903236394
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        5.497787489049166
+      ],
+      "figma_node": "2057:1054"
+    },
+    {
+      "name": "B-ctf_flag-2057_1055",
+      "role": "flag_base",
+      "asset": "ctf_flag",
+      "category": "gameplay",
+      "zone": "B",
+      "deck": "B_Mainland",
+      "building": "cistern",
+      "level": "ground",
+      "position_blender": [
+        22.5,
+        -22.500002441406252,
+        10.077777777777778
+      ],
+      "position_godot": [
+        22.5,
+        10.077777777777778,
+        22.500002441406252
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        3.141592653589793
+      ],
+      "figma_node": "2057:1055"
+    },
+    {
+      "name": "B-weapon_holder-2057_1057",
+      "role": "weapon",
+      "asset": "weapon_holder",
+      "category": "gameplay",
+      "zone": "B",
+      "deck": "B_Mainland",
+      "building": null,
+      "level": "ground",
+      "position_blender": [
+        30.247106936258675,
+        -29.279980468749997,
+        10.0
+      ],
+      "position_godot": [
+        30.247106936258675,
+        10.0,
+        29.279980468749997
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        -2.356194490192345
+      ],
+      "figma_node": "2057:1057",
+      "weapon": "flak_cannon"
+    },
+    {
+      "name": "B-weapon_holder-2057_1058",
+      "role": "weapon",
+      "asset": "weapon_holder",
+      "category": "gameplay",
+      "zone": "B",
+      "deck": "B_Mainland",
+      "building": null,
+      "level": "ground",
+      "position_blender": [
+        14.762892799331347,
+        -29.280002441406253,
+        10.0
+      ],
+      "position_godot": [
+        14.762892799331347,
+        10.0,
+        29.280002441406253
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        -2.356194490192345
+      ],
+      "figma_node": "2057:1058",
+      "weapon": "rifle"
+    },
+    {
+      "name": "B-weapon_holder-2057_1059",
+      "role": "weapon",
+      "asset": "weapon_holder",
+      "category": "gameplay",
+      "zone": "B",
+      "deck": "B_Mainland",
+      "building": null,
+      "level": "ground",
+      "position_blender": [
+        28.83289339275896,
+        -15.210002441406253,
+        10.0
+      ],
+      "position_godot": [
+        28.83289339275896,
+        10.0,
+        15.210002441406253
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        -2.356194490192345
+      ],
+      "figma_node": "2057:1059",
+      "weapon": "minigun"
+    },
+    {
+      "name": "B-flak_cannon-2057_1061",
+      "role": "ammo",
+      "asset": "flak_cannon",
+      "category": "weapons",
+      "zone": "B",
+      "deck": "B_Mainland",
+      "building": null,
+      "level": "ground",
+      "position_blender": [
+        28.832893230915076,
+        -29.282895507812498,
+        10.0
+      ],
+      "position_godot": [
+        28.832893230915076,
+        10.0,
+        29.282895507812498
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        -2.356194490192345
+      ],
+      "figma_node": "2057:1061",
+      "weapon": "flak_cannon"
+    },
+    {
+      "name": "B-rifle-2057_1062",
+      "role": "ammo",
+      "asset": "rifle",
+      "category": "weapons",
+      "zone": "B",
+      "deck": "B_Mainland",
+      "building": null,
+      "level": "ground",
+      "position_blender": [
+        16.177107098102567,
+        -29.280002441406253,
+        10.0
+      ],
+      "position_godot": [
+        16.177107098102567,
+        10.0,
+        29.280002441406253
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        -2.356194490192345
+      ],
+      "figma_node": "2057:1062",
+      "weapon": "rifle"
+    },
+    {
+      "name": "B-minigun-2057_1063",
+      "role": "ammo",
+      "asset": "minigun",
+      "category": "weapons",
+      "zone": "B",
+      "deck": "B_Mainland",
+      "building": null,
+      "level": "ground",
+      "position_blender": [
+        30.247107098102575,
+        -15.210002441406253,
+        10.0
+      ],
+      "position_godot": [
+        30.247107098102575,
+        10.0,
+        15.210002441406253
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        -2.356194490192345
+      ],
+      "figma_node": "2057:1063",
+      "weapon": "minigun"
+    },
+    {
+      "name": "B-stasis_chamber-2057_1065",
+      "role": "spawn",
+      "asset": "stasis_chamber",
+      "category": "gameplay",
+      "zone": "B",
+      "deck": "B_Mainland",
+      "building": null,
+      "level": "ground",
+      "position_blender": [
+        14.469999999999999,
+        -14.209997558593749,
+        10.0
+      ],
+      "position_godot": [
+        14.469999999999999,
+        10.0,
+        14.209997558593749
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        0.7694744764614792
+      ],
+      "figma_node": "2057:1065"
+    },
+    {
+      "name": "B-stasis_chamber-2057_1066",
+      "role": "spawn",
+      "asset": "stasis_chamber",
+      "category": "gameplay",
+      "zone": "B",
+      "deck": "B_Mainland",
+      "building": null,
+      "level": "ground",
+      "position_blender": [
+        32.69,
+        -22.499997558593748,
+        10.0
+      ],
+      "position_godot": [
+        32.69,
+        10.0,
+        22.499997558593748
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        -1.5704622290907944
+      ],
+      "figma_node": "2057:1066"
+    },
+    {
+      "name": "B-stasis_chamber-2057_1067",
+      "role": "spawn",
+      "asset": "stasis_chamber",
+      "category": "gameplay",
+      "zone": "B",
+      "deck": "B_Mainland",
+      "building": null,
+      "level": "ground",
+      "position_blender": [
+        22.5,
+        -32.429997558593755,
+        10.0
+      ],
+      "position_godot": [
+        22.5,
+        10.0,
+        32.429997558593755
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        3.1412502941988634
+      ],
+      "figma_node": "2057:1067"
+    },
+    {
+      "name": "A-thruster-2057_1080",
+      "role": "thruster",
+      "asset": "thruster",
+      "category": "environments",
+      "zone": "A",
+      "deck": "A_Island",
+      "building": null,
+      "level": "ground",
+      "position_blender": [
+        22.5,
+        7.5,
+        9.2
+      ],
+      "position_godot": [
+        22.5,
+        9.2,
+        -7.5
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        -5.3437816372905846e-24
+      ],
+      "figma_node": "2057:1080"
+    },
+    {
+      "name": "A-weather_sensor-2057_1082",
+      "role": "prop",
+      "asset": "weather_sensor",
+      "category": "environments",
+      "zone": "A",
+      "deck": "A_Island",
+      "building": null,
+      "level": "ground",
+      "position_blender": [
+        16.75,
+        13.25,
+        10.0
+      ],
+      "position_godot": [
+        16.75,
+        10.0,
+        -13.25
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        0.0
+      ],
+      "figma_node": "2057:1082"
+    },
+    {
+      "name": "A-item_cradle-2057_1084",
+      "role": "shield",
+      "asset": "item_cradle",
+      "category": "gameplay",
+      "zone": "A",
+      "deck": "A_Island",
+      "building": null,
+      "level": "ground",
+      "position_blender": [
+        22.5,
+        7.5,
+        10.0
+      ],
+      "position_godot": [
+        22.5,
+        10.0,
+        -7.5
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        0.0
+      ],
+      "figma_node": "2057:1084"
+    },
+    {
+      "name": "A-speed_ramp-2057_1085",
+      "role": "speed_ramp",
+      "asset": "speed_ramp",
+      "category": "gameplay",
+      "zone": "A",
+      "deck": "A_Island",
+      "building": null,
+      "level": "ground",
+      "position_blender": [
+        22.5,
+        1.0,
+        10.0
+      ],
+      "position_godot": [
+        22.5,
+        10.0,
+        -1.0
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        -5.3437816372905846e-24
+      ],
+      "figma_node": "2057:1085"
+    },
+    {
+      "name": "A-barricade-2057_1088",
+      "role": "barricade",
+      "asset": "barricade",
+      "category": "gameplay",
+      "zone": "A",
+      "deck": "A_Island",
+      "building": null,
+      "level": "ground",
+      "position_blender": [
+        22.5,
+        13.0,
+        10.0
+      ],
+      "position_godot": [
+        22.5,
+        10.0,
+        -13.0
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        3.141592653589793
+      ],
+      "figma_node": "2057:1088"
+    },
+    {
+      "name": "A-pressure_plate-2057_1089",
+      "role": "pressure_plate",
+      "asset": "pressure_plate",
+      "category": "gameplay",
+      "zone": "A",
+      "deck": "A_Island",
+      "building": null,
+      "level": "ground",
+      "position_blender": [
+        22.5,
+        10.0,
+        10.0
+      ],
+      "position_godot": [
+        22.5,
+        10.0,
+        -10.0
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        3.141592653589793
+      ],
+      "figma_node": "2057:1089"
+    },
+    {
+      "name": "A-container-2057_1091",
+      "role": "prop",
+      "asset": "container",
+      "category": "architecture",
+      "zone": "A",
+      "deck": "A_Island",
+      "building": null,
+      "level": "ground",
+      "position_blender": [
+        17.50444698512554,
+        2.825154943764211,
+        10.0
+      ],
+      "position_godot": [
+        17.50444698512554,
+        10.0,
+        -2.825154943764211
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        3.263006956278682
+      ],
+      "figma_node": "2057:1091",
+      "open_actions": [
+        "front_open"
+      ]
+    },
+    {
+      "name": "A-repair_station-2057_1092",
+      "role": "repair_station",
+      "asset": "repair_station",
+      "category": "gameplay",
+      "zone": "A",
+      "deck": "A_Island",
+      "building": "container",
+      "level": "ground",
+      "position_blender": [
+        17.50138964852799,
+        2.821801708726994,
+        10.169430748543254
+      ],
+      "position_godot": [
+        17.50138964852799,
+        10.169430748543254,
+        -2.821801708726994
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        3.263006956278682
+      ],
+      "figma_node": "2057:1092"
+    },
+    {
+      "name": "A-thruster-2057_1098",
+      "role": "thruster",
+      "asset": "thruster",
+      "category": "environments",
+      "zone": "A",
+      "deck": "A_Floater_3",
+      "building": null,
+      "level": "ground",
+      "position_blender": [
+        22.5,
+        22.5,
+        9.2
+      ],
+      "position_godot": [
+        22.5,
+        9.2,
+        -22.5
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        -5.3437816372905846e-24
+      ],
+      "figma_node": "2057:1098"
+    },
+    {
+      "name": "A-item_cradle-2057_1100",
+      "role": "energy",
+      "asset": "item_cradle",
+      "category": "gameplay",
+      "zone": "A",
+      "deck": "A_Floater_3",
+      "building": null,
+      "level": "ground",
+      "position_blender": [
+        22.5,
+        22.5,
+        10.0
+      ],
+      "position_godot": [
+        22.5,
+        10.0,
+        -22.5
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        0.0
+      ],
+      "figma_node": "2057:1100"
+    },
+    {
+      "name": "A-thruster-2057_1104",
+      "role": "thruster",
+      "asset": "thruster",
+      "category": "environments",
+      "zone": "A",
+      "deck": "A_Floater_2",
+      "building": null,
+      "level": "ground",
+      "position_blender": [
+        10.0,
+        30.0,
+        9.2
+      ],
+      "position_godot": [
+        10.0,
+        9.2,
+        -30.0
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        -5.3437816372905846e-24
+      ],
+      "figma_node": "2057:1104"
+    },
+    {
+      "name": "A-barrel-2057_1107",
+      "role": "prop",
+      "asset": "barrel",
+      "category": "environments",
+      "zone": "A",
+      "deck": "A_Floater_2",
+      "building": null,
+      "level": "ground",
+      "position_blender": [
+        13.0,
+        26.53,
+        10.0
+      ],
+      "position_godot": [
+        13.0,
+        10.0,
+        -26.53
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        0.0
+      ],
+      "figma_node": "2057:1107"
+    },
+    {
+      "name": "A-barrel-2057_1108",
+      "role": "prop",
+      "asset": "barrel",
+      "category": "environments",
+      "zone": "A",
+      "deck": "A_Floater_2",
+      "building": null,
+      "level": "ground",
+      "position_blender": [
+        14.0,
+        27.17,
+        10.0
+      ],
+      "position_godot": [
+        14.0,
+        10.0,
+        -27.17
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        0.0
+      ],
+      "figma_node": "2057:1108"
+    },
+    {
+      "name": "A-barrel-2057_1109",
+      "role": "prop",
+      "asset": "barrel",
+      "category": "environments",
+      "zone": "A",
+      "deck": "A_Floater_2",
+      "building": null,
+      "level": "ground",
+      "position_blender": [
+        14.0,
+        26.03,
+        10.0
+      ],
+      "position_godot": [
+        14.0,
+        10.0,
+        -26.03
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        0.0
+      ],
+      "figma_node": "2057:1109"
+    },
+    {
+      "name": "A-lightning_gun-2057_1110",
+      "role": "ammo",
+      "asset": "lightning_gun",
+      "category": "weapons",
+      "zone": "A",
+      "deck": "A_Floater_2",
+      "building": null,
+      "level": "ground",
+      "position_blender": [
+        9.0,
+        30.0,
+        10.0
+      ],
+      "position_godot": [
+        9.0,
+        10.0,
+        -30.0
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        0.0
+      ],
+      "figma_node": "2057:1110",
+      "weapon": "lightning_gun"
+    },
+    {
+      "name": "A-weapon_holder-2057_1111",
+      "role": "weapon",
+      "asset": "weapon_holder",
+      "category": "gameplay",
+      "zone": "A",
+      "deck": "A_Floater_2",
+      "building": null,
+      "level": "ground",
+      "position_blender": [
+        11.0,
+        30.0,
+        10.0
+      ],
+      "position_godot": [
+        11.0,
+        10.0,
+        -30.0
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        0.0
+      ],
+      "figma_node": "2057:1111",
+      "weapon": "lightning_gun"
+    },
+    {
+      "name": "A-thruster-2057_1115",
+      "role": "thruster",
+      "asset": "thruster",
+      "category": "environments",
+      "zone": "A",
+      "deck": "A_Floater_1",
+      "building": null,
+      "level": "ground",
+      "position_blender": [
+        -2.5,
+        22.5,
+        9.2
+      ],
+      "position_godot": [
+        -2.5,
+        9.2,
+        -22.5
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        -5.3437816372905846e-24
+      ],
+      "figma_node": "2057:1115"
+    },
+    {
+      "name": "A-barrel-2057_1118",
+      "role": "prop",
+      "asset": "barrel",
+      "category": "environments",
+      "zone": "A",
+      "deck": "A_Floater_1",
+      "building": null,
+      "level": "ground",
+      "position_blender": [
+        0.5,
+        25.97,
+        10.0
+      ],
+      "position_godot": [
+        0.5,
+        10.0,
+        -25.97
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        0.0
+      ],
+      "figma_node": "2057:1118"
+    },
+    {
+      "name": "A-barrel-2057_1119",
+      "role": "prop",
+      "asset": "barrel",
+      "category": "environments",
+      "zone": "A",
+      "deck": "A_Floater_1",
+      "building": null,
+      "level": "ground",
+      "position_blender": [
+        1.5,
+        25.33,
+        10.0
+      ],
+      "position_godot": [
+        1.5,
+        10.0,
+        -25.33
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        0.0
+      ],
+      "figma_node": "2057:1119"
+    },
+    {
+      "name": "A-barrel-2057_1120",
+      "role": "prop",
+      "asset": "barrel",
+      "category": "environments",
+      "zone": "A",
+      "deck": "A_Floater_1",
+      "building": null,
+      "level": "ground",
+      "position_blender": [
+        1.5,
+        26.47,
+        10.0
+      ],
+      "position_godot": [
+        1.5,
+        10.0,
+        -26.47
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        0.0
+      ],
+      "figma_node": "2057:1120"
+    },
+    {
+      "name": "A-rifle-2057_1121",
+      "role": "ammo",
+      "asset": "rifle",
+      "category": "weapons",
+      "zone": "A",
+      "deck": "A_Floater_1",
+      "building": null,
+      "level": "ground",
+      "position_blender": [
+        -3.5,
+        22.5,
+        10.0
+      ],
+      "position_godot": [
+        -3.5,
+        10.0,
+        -22.5
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        0.0
+      ],
+      "figma_node": "2057:1121",
+      "weapon": "rifle"
+    },
+    {
+      "name": "A-weapon_holder-2057_1122",
+      "role": "weapon",
+      "asset": "weapon_holder",
+      "category": "gameplay",
+      "zone": "A",
+      "deck": "A_Floater_1",
+      "building": null,
+      "level": "ground",
+      "position_blender": [
+        -1.5,
+        22.5,
+        10.0
+      ],
+      "position_godot": [
+        -1.5,
+        10.0,
+        -22.5
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        0.0
+      ],
+      "figma_node": "2057:1122",
+      "weapon": "rifle"
+    },
+    {
+      "name": "A-jump_pad-2057_1130",
+      "role": "jump_pad",
+      "asset": "jump_pad",
+      "category": "gameplay",
+      "zone": "A",
+      "deck": "A_Mainland",
+      "building": null,
+      "level": "ground",
+      "position_blender": [
+        -11.249998779296874,
+        11.25000732421875,
+        10.0
+      ],
+      "position_godot": [
+        -11.249998779296874,
+        10.0,
+        -11.25000732421875
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        0.0
+      ],
+      "figma_node": "2057:1130"
+    },
+    {
+      "name": "A-cistern-2057_1132",
+      "role": "prop",
+      "asset": "ramparts",
+      "category": "maps",
+      "zone": "A",
+      "deck": "A_Mainland",
+      "building": null,
+      "level": "ground",
+      "position_blender": [
+        -22.503398463726043,
+        22.50340087890625,
+        10.0
+      ],
+      "position_godot": [
+        -22.503398463726043,
+        10.0,
+        -22.50340087890625
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        0.7853981633974483
+      ],
+      "figma_node": "2057:1132",
+      "source_asset": "cistern",
+      "source_category": "architecture",
+      "asset_suffix": "_architecture_A_cistern"
+    },
+    {
+      "name": "A-spawn_point-2057_1134",
+      "role": "spawn",
+      "asset": "spawn_point",
+      "category": "gameplay",
+      "zone": "A",
+      "deck": "A_Mainland",
+      "building": "cistern",
+      "level": "ground",
+      "position_blender": [
+        -27.035786590576173,
+        23.50025423526764,
+        10.077777777777778
+      ],
+      "position_godot": [
+        -27.035786590576173,
+        10.077777777777778,
+        -23.50025423526764
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        5.497787251678059
+      ],
+      "figma_node": "2057:1134"
+    },
+    {
+      "name": "A-spawn_point-2057_1135",
+      "role": "spawn",
+      "asset": "spawn_point",
+      "category": "gameplay",
+      "zone": "A",
+      "deck": "A_Mainland",
+      "building": "cistern",
+      "level": "ground",
+      "position_blender": [
+        -23.500252685546876,
+        27.035788903236387,
+        10.077777777777778
+      ],
+      "position_godot": [
+        -23.500252685546876,
+        10.077777777777778,
+        -27.035788903236387
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        2.356194598088265
+      ],
+      "figma_node": "2057:1135"
+    },
+    {
+      "name": "A-ctf_flag-2057_1136",
+      "role": "flag_base",
+      "asset": "ctf_flag",
+      "category": "gameplay",
+      "zone": "A",
+      "deck": "A_Mainland",
+      "building": "cistern",
+      "level": "ground",
+      "position_blender": [
+        -22.5,
+        22.500002441406252,
+        10.077777777777778
+      ],
+      "position_godot": [
+        -22.5,
+        10.077777777777778,
+        -22.500002441406252
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        0.0
+      ],
+      "figma_node": "2057:1136"
+    },
+    {
+      "name": "A-weapon_holder-2057_1138",
+      "role": "weapon",
+      "asset": "weapon_holder",
+      "category": "gameplay",
+      "zone": "A",
+      "deck": "A_Mainland",
+      "building": null,
+      "level": "ground",
+      "position_blender": [
+        -30.247106936258675,
+        29.27998046875,
+        10.0
+      ],
+      "position_godot": [
+        -30.247106936258675,
+        10.0,
+        -29.27998046875
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        0.7853981633974483
+      ],
+      "figma_node": "2057:1138",
+      "weapon": "flak_cannon"
+    },
+    {
+      "name": "A-weapon_holder-2057_1139",
+      "role": "weapon",
+      "asset": "weapon_holder",
+      "category": "gameplay",
+      "zone": "A",
+      "deck": "A_Mainland",
+      "building": null,
+      "level": "ground",
+      "position_blender": [
+        -14.762892799331347,
+        29.28000244140625,
+        10.0
+      ],
+      "position_godot": [
+        -14.762892799331347,
+        10.0,
+        -29.28000244140625
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        0.7853981633974483
+      ],
+      "figma_node": "2057:1139",
+      "weapon": "rifle"
+    },
+    {
+      "name": "A-weapon_holder-2057_1140",
+      "role": "weapon",
+      "asset": "weapon_holder",
+      "category": "gameplay",
+      "zone": "A",
+      "deck": "A_Mainland",
+      "building": null,
+      "level": "ground",
+      "position_blender": [
+        -28.832893392758965,
+        15.21000244140625,
+        10.0
+      ],
+      "position_godot": [
+        -28.832893392758965,
+        10.0,
+        -15.21000244140625
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        0.7853981633974483
+      ],
+      "figma_node": "2057:1140",
+      "weapon": "minigun"
+    },
+    {
+      "name": "A-flak_cannon-2057_1142",
+      "role": "ammo",
+      "asset": "flak_cannon",
+      "category": "weapons",
+      "zone": "A",
+      "deck": "A_Mainland",
+      "building": null,
+      "level": "ground",
+      "position_blender": [
+        -28.83289323091507,
+        29.282895507812498,
+        10.0
+      ],
+      "position_godot": [
+        -28.83289323091507,
+        10.0,
+        -29.282895507812498
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        0.7853981633974483
+      ],
+      "figma_node": "2057:1142",
+      "weapon": "flak_cannon"
+    },
+    {
+      "name": "A-rifle-2057_1143",
+      "role": "ammo",
+      "asset": "rifle",
+      "category": "weapons",
+      "zone": "A",
+      "deck": "A_Mainland",
+      "building": null,
+      "level": "ground",
+      "position_blender": [
+        -16.177105877399445,
+        29.28000244140625,
+        10.0
+      ],
+      "position_godot": [
+        -16.177105877399445,
+        10.0,
+        -29.28000244140625
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        0.7853981633974483
+      ],
+      "figma_node": "2057:1143",
+      "weapon": "rifle"
+    },
+    {
+      "name": "A-minigun-2057_1144",
+      "role": "ammo",
+      "asset": "minigun",
+      "category": "weapons",
+      "zone": "A",
+      "deck": "A_Mainland",
+      "building": null,
+      "level": "ground",
+      "position_blender": [
+        -30.247107098102568,
+        15.21000244140625,
+        10.0
+      ],
+      "position_godot": [
+        -30.247107098102568,
+        10.0,
+        -15.21000244140625
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        0.7853981633974483
+      ],
+      "figma_node": "2057:1144",
+      "weapon": "minigun"
+    },
+    {
+      "name": "A-stasis_chamber-2057_1146",
+      "role": "spawn",
+      "asset": "stasis_chamber",
+      "category": "gameplay",
+      "zone": "A",
+      "deck": "A_Mainland",
+      "building": null,
+      "level": "ground",
+      "position_blender": [
+        -14.469999999999999,
+        14.21,
+        10.0
+      ],
+      "position_godot": [
+        -14.469999999999999,
+        10.0,
+        -14.21
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        -2.3721180300132803
+      ],
+      "figma_node": "2057:1146"
+    },
+    {
+      "name": "A-stasis_chamber-2057_1147",
+      "role": "spawn",
+      "asset": "stasis_chamber",
+      "category": "gameplay",
+      "zone": "A",
+      "deck": "A_Mainland",
+      "building": null,
+      "level": "ground",
+      "position_blender": [
+        -32.69,
+        22.5,
+        10.0
+      ],
+      "position_godot": [
+        -32.69,
+        10.0,
+        -22.5
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        1.571130184830649
+      ],
+      "figma_node": "2057:1147"
+    },
+    {
+      "name": "A-stasis_chamber-2057_1148",
+      "role": "spawn",
+      "asset": "stasis_chamber",
+      "category": "gameplay",
+      "zone": "A",
+      "deck": "A_Mainland",
+      "building": null,
+      "level": "ground",
+      "position_blender": [
+        -22.5,
+        32.43,
+        10.0
+      ],
+      "position_godot": [
+        -22.5,
+        10.0,
+        -32.43
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        -0.00034235930672808486
+      ],
+      "figma_node": "2057:1148"
+    },
+    {
+      "name": "common-thruster-2056_724",
+      "role": "thruster",
+      "asset": "thruster",
+      "category": "environments",
+      "zone": "common",
+      "deck": "Junction",
+      "building": null,
+      "level": "ground",
+      "position_blender": [
+        0.0,
+        0.0,
+        9.2
+      ],
+      "position_godot": [
+        0.0,
+        9.2,
+        -0.0
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        -5.3437816372905846e-24
+      ],
+      "figma_node": "2056:724"
+    },
+    {
+      "name": "common-hub-2056_727",
+      "role": "prop",
+      "asset": "hub",
+      "category": "architecture",
+      "zone": "common",
+      "deck": "Junction",
+      "building": null,
+      "level": "ground",
+      "position_blender": [
+        0.0,
+        0.0,
+        10.0
+      ],
+      "position_godot": [
+        0.0,
+        10.0,
+        -0.0
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        0.0
+      ],
+      "figma_node": "2056:727"
+    },
+    {
+      "name": "common-flamethrower-2056_728",
+      "role": "ammo",
+      "asset": "flamethrower",
+      "category": "weapons",
+      "zone": "common",
+      "deck": "Junction",
+      "building": "hub",
+      "level": "ground",
+      "position_blender": [
+        0.0,
+        -1.0,
+        10.096774193548388
+      ],
+      "position_godot": [
+        0.0,
+        10.096774193548388,
+        1.0
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        0.0
+      ],
+      "figma_node": "2056:728",
+      "weapon": "flamethrower"
+    },
+    {
+      "name": "common-emp_gun-2056_729",
+      "role": "ammo",
+      "asset": "emp_gun",
+      "category": "weapons",
+      "zone": "common",
+      "deck": "Junction",
+      "building": "hub",
+      "level": "ground",
+      "position_blender": [
+        0.0,
+        1.0,
+        10.096774193548388
+      ],
+      "position_godot": [
+        0.0,
+        10.096774193548388,
+        -1.0
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        0.0
+      ],
+      "figma_node": "2056:729",
+      "weapon": "emp_gun"
+    },
+    {
+      "name": "common-grenade_launcher-2056_730",
+      "role": "ammo",
+      "asset": "grenade_launcher",
+      "category": "weapons",
+      "zone": "common",
+      "deck": "Junction",
+      "building": "hub",
+      "level": "ground",
+      "position_blender": [
+        1.0,
+        0.0,
+        10.096774193548388
+      ],
+      "position_godot": [
+        1.0,
+        10.096774193548388,
+        -0.0
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        0.0
+      ],
+      "figma_node": "2056:730",
+      "weapon": "grenade_launcher"
+    },
+    {
+      "name": "common-rocket_launcher-2056_731",
+      "role": "ammo",
+      "asset": "rocket_launcher",
+      "category": "weapons",
+      "zone": "common",
+      "deck": "Junction",
+      "building": "hub",
+      "level": "ground",
+      "position_blender": [
+        -1.0,
+        0.0,
+        10.096774193548388
+      ],
+      "position_godot": [
+        -1.0,
+        10.096774193548388,
+        -0.0
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        0.0
+      ],
+      "figma_node": "2056:731",
+      "weapon": "rocket_launcher"
+    },
+    {
+      "name": "common-item_cradle-2056_749",
+      "role": "weapon",
+      "asset": "item_cradle",
+      "category": "gameplay",
+      "zone": "common",
+      "deck": "Junction",
+      "building": null,
+      "level": "ground",
+      "position_blender": [
+        0.0,
+        -10.0,
+        10.0
+      ],
+      "position_godot": [
+        0.0,
+        10.0,
+        10.0
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        -5.551115123125783e-17
+      ],
+      "figma_node": "2056:749",
+      "weapon": "flamethrower"
+    },
+    {
+      "name": "common-item_cradle-2056_746",
+      "role": "weapon",
+      "asset": "item_cradle",
+      "category": "gameplay",
+      "zone": "common",
+      "deck": "Junction",
+      "building": null,
+      "level": "ground",
+      "position_blender": [
+        0.0,
+        10.0,
+        10.0
+      ],
+      "position_godot": [
+        0.0,
+        10.0,
+        -10.0
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        -5.551115123125783e-17
+      ],
+      "figma_node": "2056:746",
+      "weapon": "emp_gun"
+    },
+    {
+      "name": "common-item_cradle-2056_738",
+      "role": "weapon",
+      "asset": "item_cradle",
+      "category": "gameplay",
+      "zone": "common",
+      "deck": "Junction",
+      "building": null,
+      "level": "ground",
+      "position_blender": [
+        10.0,
+        0.0,
+        10.0
+      ],
+      "position_godot": [
+        10.0,
+        10.0,
+        -0.0
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        -5.551115123125783e-17
+      ],
+      "figma_node": "2056:738",
+      "weapon": "grenade_launcher"
+    },
+    {
+      "name": "common-item_cradle-2056_743",
+      "role": "weapon",
+      "asset": "item_cradle",
+      "category": "gameplay",
+      "zone": "common",
+      "deck": "Junction",
+      "building": null,
+      "level": "ground",
+      "position_blender": [
+        -10.0,
+        0.0,
+        10.0
+      ],
+      "position_godot": [
+        -10.0,
+        10.0,
+        -0.0
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        -5.551115123125783e-17
+      ],
+      "figma_node": "2056:743",
+      "weapon": "rocket_launcher"
+    },
+    {
+      "name": "common-jumbotron-131_182",
+      "role": "jumbotron",
+      "asset": "jumbotron",
+      "category": "environments",
+      "zone": "common",
+      "deck": null,
+      "building": null,
+      "level": "ground",
+      "position_blender": [
+        0.0,
+        0.0,
+        22.0
+      ],
+      "position_godot": [
+        0.0,
+        22.0,
+        -0.0
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        0.0
+      ],
+      "figma_node": "131:182"
+    },
+    {
+      "name": "martian-crater-scenery",
+      "role": "prop",
+      "asset": "ramparts",
+      "category": "maps",
+      "asset_suffix": "_scenery",
+      "zone": "common",
+      "deck": null,
+      "building": null,
+      "level": "scenery",
+      "position_blender": [
+        0,
+        0,
+        0
+      ],
+      "position_godot": [
+        0,
+        0,
+        0
+      ],
+      "rotation_blender": [
+        0,
+        0,
+        0
+      ],
+      "figma_node": null,
+      "load_at_start": true,
+      "budget_excluded": true
+    }
+  ],
+  "deck_sections": [
+    {
+      "name": "B_Island",
+      "position": [
+        -22.5,
+        -7.5,
+        10.0
+      ],
+      "size_m": [
+        15.0,
+        15.0
+      ],
+      "rects": [
+        [
+          -7.5,
+          -7.5,
+          7.5,
+          7.5
+        ]
+      ],
+      "rock": false,
+      "figma_node": "2057:1005",
+      "holes": [
+        {
+          "marker": "B-barricade-2057_1012",
+          "center": [
+            -22.5,
+            -12.9915,
+            10.0
+          ],
+          "size": [
+            4,
+            2
+          ],
+          "depth": 1.5,
+          "yaw": 0.0,
+          "building": null
+        },
+        {
+          "marker": "B-pressure_plate-2057_1013",
+          "center": [
+            -22.5,
+            -10.0,
+            10.0
+          ],
+          "size": [
+            2.0,
+            1.0
+          ],
+          "depth": 0.2,
+          "yaw": 0.0,
+          "building": null
+        }
+      ]
+    },
+    {
+      "name": "B_Floater_3",
+      "position": [
+        -22.5,
+        -22.499997558593748,
+        10.0
+      ],
+      "size_m": [
+        10.0,
+        10.0
+      ],
+      "rects": [
+        [
+          -5.0,
+          -5.0,
+          5.0,
+          5.0
+        ]
+      ],
+      "rock": false,
+      "figma_node": "2057:1020",
+      "holes": [],
+      "motion": {
+        "kind": "shuttle",
+        "axis": [
+          0,
+          0,
+          1
+        ],
+        "distance": 7.5,
+        "start": 0.0,
+        "speed": 1.0,
+        "bob_amplitude": 0.5,
+        "bob_peak_speed": 1.0
+      }
+    },
+    {
+      "name": "B_Floater_2",
+      "position": [
+        -10.0,
+        -29.999997558593748,
+        10.0
+      ],
+      "size_m": [
+        10.0,
+        10.0
+      ],
+      "rects": [
+        [
+          -5.0,
+          -5.0,
+          5.0,
+          5.0
+        ]
+      ],
+      "rock": false,
+      "figma_node": "2057:1025",
+      "holes": [
+        {
+          "marker": "B-weapon_holder-2057_1031",
+          "center": [
+            -11.0,
+            -29.999997558593748,
+            10.0
+          ],
+          "size": [
+            1.0,
+            1.0
+          ],
+          "depth": 1.38,
+          "yaw": 3.141592653589793,
+          "building": null
+        }
+      ],
+      "motion": {
+        "kind": "shuttle",
+        "axis": [
+          0,
+          0,
+          1
+        ],
+        "distance": 7.5,
+        "start": 7.5,
+        "speed": 1.0,
+        "bob_amplitude": 0.5,
+        "bob_peak_speed": 1.0
+      }
+    },
+    {
+      "name": "B_Floater_1",
+      "position": [
+        2.5,
+        -22.499997558593748,
+        10.0
+      ],
+      "size_m": [
+        10.0,
+        10.0
+      ],
+      "rects": [
+        [
+          -5.0,
+          -5.0,
+          5.0,
+          5.0
+        ]
+      ],
+      "rock": false,
+      "figma_node": "2057:1035",
+      "holes": [
+        {
+          "marker": "B-weapon_holder-2057_1041",
+          "center": [
+            1.5,
+            -22.499997558593748,
+            10.0
+          ],
+          "size": [
+            1.0,
+            1.0
+          ],
+          "depth": 1.38,
+          "yaw": 3.141592653589793,
+          "building": null
+        }
+      ],
+      "motion": {
+        "kind": "shuttle",
+        "axis": [
+          0,
+          0,
+          1
+        ],
+        "distance": 7.5,
+        "start": 0.0,
+        "speed": 1.0,
+        "bob_amplitude": 0.5,
+        "bob_peak_speed": 1.0
+      }
+    },
+    {
+      "name": "B_Mainland",
+      "position": [
+        22.5,
+        -22.500004882812497,
+        10.0
+      ],
+      "size_m": [
+        25.0,
+        25.0
+      ],
+      "rects": [
+        [
+          -12.5,
+          -12.5,
+          12.5,
+          12.5
+        ]
+      ],
+      "rock": true,
+      "figma_node": "2057:1043",
+      "holes": [
+        {
+          "marker": "B-jump_pad-2057_1049",
+          "center": [
+            11.25,
+            -11.25000732421875,
+            10.0
+          ],
+          "size": [
+            1.0,
+            1.0
+          ],
+          "depth": 0.265,
+          "yaw": 3.141592653589793,
+          "building": null
+        },
+        {
+          "marker": "B-spawn_point-2057_1053",
+          "center": [
+            27.035786132812504,
+            -23.50025423526764,
+            10.077777777777778
+          ],
+          "size": [
+            2,
+            2
+          ],
+          "depth": 1.5,
+          "yaw": 2.356194835459373,
+          "tiers": [
+            {
+              "size": [
+                2.0,
+                2.0
+              ],
+              "from_z": 0.0,
+              "to_z": -0.22
+            },
+            {
+              "size": [
+                1.04,
+                1.04
+              ],
+              "from_z": -0.22,
+              "to_z": -1.5
+            }
+          ],
+          "building": "cistern"
+        },
+        {
+          "marker": "B-spawn_point-2057_1054",
+          "center": [
+            23.500253906250002,
+            -27.035788903236394,
+            10.077777777777778
+          ],
+          "size": [
+            2,
+            2
+          ],
+          "depth": 1.5,
+          "yaw": 5.497787489049166,
+          "tiers": [
+            {
+              "size": [
+                2.0,
+                2.0
+              ],
+              "from_z": 0.0,
+              "to_z": -0.22
+            },
+            {
+              "size": [
+                1.04,
+                1.04
+              ],
+              "from_z": -0.22,
+              "to_z": -1.5
+            }
+          ],
+          "building": "cistern"
+        },
+        {
+          "marker": "B-weapon_holder-2057_1057",
+          "center": [
+            30.247106936258675,
+            -29.279980468749997,
+            10.0
+          ],
+          "size": [
+            1.0,
+            1.0
+          ],
+          "depth": 1.38,
+          "yaw": -2.356194490192345,
+          "building": null
+        },
+        {
+          "marker": "B-weapon_holder-2057_1058",
+          "center": [
+            14.762892799331347,
+            -29.280002441406253,
+            10.0
+          ],
+          "size": [
+            1.0,
+            1.0
+          ],
+          "depth": 1.38,
+          "yaw": -2.356194490192345,
+          "building": null
+        },
+        {
+          "marker": "B-weapon_holder-2057_1059",
+          "center": [
+            28.83289339275896,
+            -15.210002441406253,
+            10.0
+          ],
+          "size": [
+            1.0,
+            1.0
+          ],
+          "depth": 1.38,
+          "yaw": -2.356194490192345,
+          "building": null
+        }
+      ]
+    },
+    {
+      "name": "A_Island",
+      "position": [
+        22.5,
+        7.5,
+        10.0
+      ],
+      "size_m": [
+        15.0,
+        15.0
+      ],
+      "rects": [
+        [
+          -7.5,
+          -7.5,
+          7.5,
+          7.5
+        ]
+      ],
+      "rock": false,
+      "figma_node": "2057:1081",
+      "holes": [
+        {
+          "marker": "A-barricade-2057_1088",
+          "center": [
+            22.5,
+            12.9915,
+            10.0
+          ],
+          "size": [
+            4,
+            2
+          ],
+          "depth": 1.5,
+          "yaw": 3.141592653589793,
+          "building": null
+        },
+        {
+          "marker": "A-pressure_plate-2057_1089",
+          "center": [
+            22.5,
+            10.0,
+            10.0
+          ],
+          "size": [
+            2.0,
+            1.0
+          ],
+          "depth": 0.2,
+          "yaw": 3.141592653589793,
+          "building": null
+        }
+      ]
+    },
+    {
+      "name": "A_Floater_3",
+      "position": [
+        22.5,
+        22.5,
+        10.0
+      ],
+      "size_m": [
+        10.0,
+        10.0
+      ],
+      "rects": [
+        [
+          -5.0,
+          -5.0,
+          5.0,
+          5.0
+        ]
+      ],
+      "rock": false,
+      "figma_node": "2057:1099",
+      "holes": [],
+      "motion": {
+        "kind": "shuttle",
+        "axis": [
+          0,
+          0,
+          1
+        ],
+        "distance": 7.5,
+        "start": 7.5,
+        "speed": 1.0,
+        "bob_amplitude": 0.5,
+        "bob_peak_speed": 1.0
+      }
+    },
+    {
+      "name": "A_Floater_2",
+      "position": [
+        10.0,
+        30.0,
+        10.0
+      ],
+      "size_m": [
+        10.0,
+        10.0
+      ],
+      "rects": [
+        [
+          -5.0,
+          -5.0,
+          5.0,
+          5.0
+        ]
+      ],
+      "rock": false,
+      "figma_node": "2057:1105",
+      "holes": [
+        {
+          "marker": "A-weapon_holder-2057_1111",
+          "center": [
+            11.0,
+            30.0,
+            10.0
+          ],
+          "size": [
+            1.0,
+            1.0
+          ],
+          "depth": 1.38,
+          "yaw": 0.0,
+          "building": null
+        }
+      ],
+      "motion": {
+        "kind": "shuttle",
+        "axis": [
+          0,
+          0,
+          1
+        ],
+        "distance": 7.5,
+        "start": 0.0,
+        "speed": 1.0,
+        "bob_amplitude": 0.5,
+        "bob_peak_speed": 1.0
+      }
+    },
+    {
+      "name": "A_Floater_1",
+      "position": [
+        -2.5,
+        22.5,
+        10.0
+      ],
+      "size_m": [
+        10.0,
+        10.0
+      ],
+      "rects": [
+        [
+          -5.0,
+          -5.0,
+          5.0,
+          5.0
+        ]
+      ],
+      "rock": false,
+      "figma_node": "2057:1116",
+      "holes": [
+        {
+          "marker": "A-weapon_holder-2057_1122",
+          "center": [
+            -1.5,
+            22.5,
+            10.0
+          ],
+          "size": [
+            1.0,
+            1.0
+          ],
+          "depth": 1.38,
+          "yaw": 0.0,
+          "building": null
+        }
+      ],
+      "motion": {
+        "kind": "shuttle",
+        "axis": [
+          0,
+          0,
+          1
+        ],
+        "distance": 7.5,
+        "start": 7.5,
+        "speed": 1.0,
+        "bob_amplitude": 0.5,
+        "bob_peak_speed": 1.0
+      }
+    },
+    {
+      "name": "A_Mainland",
+      "position": [
+        -22.5,
+        22.500004882812497,
+        10.0
+      ],
+      "size_m": [
+        25.0,
+        25.0
+      ],
+      "rects": [
+        [
+          -12.5,
+          -12.5,
+          12.5,
+          12.5
+        ]
+      ],
+      "rock": true,
+      "figma_node": "2057:1124",
+      "holes": [
+        {
+          "marker": "A-jump_pad-2057_1130",
+          "center": [
+            -11.249998779296874,
+            11.25000732421875,
+            10.0
+          ],
+          "size": [
+            1.0,
+            1.0
+          ],
+          "depth": 0.265,
+          "yaw": 0.0,
+          "building": null
+        },
+        {
+          "marker": "A-spawn_point-2057_1134",
+          "center": [
+            -27.035786590576173,
+            23.50025423526764,
+            10.077777777777778
+          ],
+          "size": [
+            2,
+            2
+          ],
+          "depth": 1.5,
+          "yaw": 5.497787251678059,
+          "tiers": [
+            {
+              "size": [
+                2.0,
+                2.0
+              ],
+              "from_z": 0.0,
+              "to_z": -0.22
+            },
+            {
+              "size": [
+                1.04,
+                1.04
+              ],
+              "from_z": -0.22,
+              "to_z": -1.5
+            }
+          ],
+          "building": "cistern"
+        },
+        {
+          "marker": "A-spawn_point-2057_1135",
+          "center": [
+            -23.500252685546876,
+            27.035788903236387,
+            10.077777777777778
+          ],
+          "size": [
+            2,
+            2
+          ],
+          "depth": 1.5,
+          "yaw": 2.356194598088265,
+          "tiers": [
+            {
+              "size": [
+                2.0,
+                2.0
+              ],
+              "from_z": 0.0,
+              "to_z": -0.22
+            },
+            {
+              "size": [
+                1.04,
+                1.04
+              ],
+              "from_z": -0.22,
+              "to_z": -1.5
+            }
+          ],
+          "building": "cistern"
+        },
+        {
+          "marker": "A-weapon_holder-2057_1138",
+          "center": [
+            -30.247106936258675,
+            29.27998046875,
+            10.0
+          ],
+          "size": [
+            1.0,
+            1.0
+          ],
+          "depth": 1.38,
+          "yaw": 0.7853981633974483,
+          "building": null
+        },
+        {
+          "marker": "A-weapon_holder-2057_1139",
+          "center": [
+            -14.762892799331347,
+            29.28000244140625,
+            10.0
+          ],
+          "size": [
+            1.0,
+            1.0
+          ],
+          "depth": 1.38,
+          "yaw": 0.7853981633974483,
+          "building": null
+        },
+        {
+          "marker": "A-weapon_holder-2057_1140",
+          "center": [
+            -28.832893392758965,
+            15.21000244140625,
+            10.0
+          ],
+          "size": [
+            1.0,
+            1.0
+          ],
+          "depth": 1.38,
+          "yaw": 0.7853981633974483,
+          "building": null
+        }
+      ]
+    },
+    {
+      "name": "Junction",
+      "position": [
+        0,
+        0,
+        10.0
+      ],
+      "size_m": [
+        7.5,
+        7.5
+      ],
+      "rects": [
+        [
+          -3.75,
+          -3.75,
+          3.75,
+          3.75
+        ],
+        [
+          -3.75,
+          -11.25,
+          3.75,
+          -3.75
+        ],
+        [
+          3.75,
+          -3.75,
+          11.25,
+          3.75
+        ],
+        [
+          -11.25,
+          -3.75,
+          -3.75,
+          3.75
+        ],
+        [
+          -3.75,
+          3.75,
+          3.75,
+          11.25
+        ]
+      ],
+      "rock": false,
+      "figma_node": "2056:757",
+      "holes": [],
+      "motion": {
+        "kind": "rotation",
+        "radius": 11.25,
+        "rim_speed": 0.5
+      }
+    }
+  ],
+  "level_surface_z_m": [
+    10.0
+  ],
+  "water_surface_m": 0,
+  "rock_bottom_m": -17.0,
+  "crater": {
+    "diameter_m": 150.0,
+    "depth_m": 15.0,
+    "rim_height_m": 36.0,
+    "outer_radius_m": 240.0,
+    "segments": 128
+  },
+  "recess_clearance_per_side_m": 0.001,
+  "actions": [
+    {
+      "name": "assemble",
+      "frames": [
+        1,
+        73
+      ],
+      "fps": 24
+    }
+  ],
+  "skeleton": "RIG_Ramparts",
+  "meshes": {
+    "SK_RampartsRock_B_Mainland": 3002,
+    "SK_RampartsRock_A_Mainland": 3000
+  },
+  "gizmos": [],
+  "budget_scope": "Integral rock islands, native deck castings and machining; imported native props excluded",
+  "material_classifiers": {
+    "M_Frame_Diffuse": "Diffuse",
+    "M_Joint_Diffuse": "Diffuse",
+    "M_Primary_Diffuse": "Diffuse",
+    "M_Secondary_Diffuse": "Diffuse",
+    "M_Regolith_Diffuse": "Diffuse",
+    "M_RegolithLight_Diffuse": "Diffuse",
+    "M_RegolithDark_Diffuse": "Diffuse",
+    "M_Emissive": "Emissive",
+    "M_RampartsPlain_Diffuse": "Diffuse",
+    "M_RampartsRock_Diffuse": "Diffuse",
+    "M_RampartsStone_Diffuse": "Diffuse"
+  }
+}

@@ -8,6 +8,13 @@ The player should read a bot's intention from its movement and target choice. Bo
 
 ## Perception and decision loop
 
+Ramparts route samples store carrier-local positions for moving decks. The
+steering pass resolves current source, landing, entry and via points before
+executing each step, including during a committed flight. Cross-deck links
+refresh against physical support and jump clearance; launch-pad tiles expose
+their authored launch route rather than an ordinary charged-jump departure.
+This retains the shared decision cadence, priorities and jump/EP rules.
+
 Movement continuity is an acceptance requirement: keep pursuing a committed
 decision until it completes, becomes invalid, or a significant event changes
 the priorities. Damage, crossing health/energy or ammo thresholds, a useful
@@ -145,6 +152,26 @@ walking edges; taller obstructions and low lintels remain blocked.
 Projectile avoidance scans nearby visible rockets, grenades, fireballs, EMP/lightning orbs, flak and pulse shots every 0.12 seconds. It predicts closest approach (including grenade gravity), waits the selected difficulty's reaction delay, then uses its dodge chance and cooldown. A lateral dodge requires a supported, unobstructed runway with stopping room and cannot cross portals, interrupt committed traversal, or run off a ledge. It does not read projectiles through cover or behind the robot, and ignores the robot's own projectiles and allied pulse bolts.
 
 Identical navigation-node paths share a bounded 1,024-entry cache per graph (charged-jump and low-energy graphs stay separate). Barricade changes invalidate both successful and failed paths before replanning; route selection and physical safety checks remain unchanged.
+Initial construction and respawns distribute decisions over four cohorts. Each
+robot retains its difficulty's decision interval and update frequency; resetting
+a spawn does not synchronize every native tree onto one physics tick.
+
+Moving-platform paths cache node IDs and read their current positions when
+building routes. Docking-connection changes invalidate the cache; continuous
+platform motion updates coordinates at the physics rate. Ramparts corridor
+assignments have separate cache keys and filter the other corridor during search.
+Balancing counts actual corridor entries and pending assignments. Flag carriers
+use the ordinary safe objective route without a balancing detour.
+Floater itineraries come from the map's `floater_paths`. Bots board the next
+reachable deck, wait for its docking window, then advance to the following deck;
+they do not require the entire moving chain to be connected simultaneously.
+Docking collision checks run in small batches and publish one consistent graph
+revision. Bots recheck inter-deck walking support and moving jump reach before
+crossing. Graphs without portals use native Euclidean AStar costs and estimates;
+portal graphs retain the shortcut-aware solver.
+Ramparts reuses immutable navigation capsule shapes while creating fresh query
+parameters for each sweep and contact test. Shape reuse is owned by the source
+map's `reuse_navigation_query_shapes` setting.
 
 Bots request rocket secondary scope beyond 15 m and acquire locks through the same visible-target trace and delay as human robots. The scoped rocket retains its 100 m aiming range; it does not inherit the orb range or rifle headshot policy. Traversal clearance and dodge runway estimates include powered jump ascent followed by the longer ballistic coast.
 

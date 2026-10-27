@@ -1,5 +1,5 @@
 param(
-    [ValidateSet('skyfall','faceoff')][string[]]$Maps = @('skyfall','faceoff'),
+    [ValidateSet('skyfall','faceoff','ramparts')][string[]]$Maps = @('skyfall','faceoff'),
     [ValidateSet('DM','TDM','CTF')][string[]]$Modes = @('DM','TDM','CTF'),
     [ValidateRange(0,2)][int[]]$Qualities = @(0,1,2),
     [ValidateRange(2,10)][int[]]$Counts = @(10),

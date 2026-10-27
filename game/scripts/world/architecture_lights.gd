@@ -51,14 +51,19 @@ static func share_static_meshes(root: Node3D) -> void:
 	# Parent platform motion still moves the complete lamp normally.
 	share_fixed_pose_meshes(root)
 
-static func install(root: Node3D, category: String, asset: String, suffix: String = "") -> int:
+static func emissive_only(root: Node3D) -> void:
+	for mesh: MeshInstance3D in root.find_children("*","MeshInstance3D",true,false):
+		mesh.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+
+static func install(root: Node3D, category: String, asset: String, suffix: String = "", emissive_assets: Array = []) -> int:
 	var path := "res://assets/models/%s/%s/%s%s_rig.json"%[category,asset,asset,suffix]
 	if not FileAccess.file_exists(path):return 0
 	var metadata: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(path))
 	if metadata.get("static",false): share_static_meshes(root)
 	var count := 0
 	if asset in ["sconce_light","batten_light"]:
-		FixtureLighting.area(Assets.socket(root,"LightProjection"),asset,float(metadata.gizmos[0].range_m))
+		if asset in emissive_assets:emissive_only(root)
+		else:FixtureLighting.area(Assets.socket(root,"LightProjection"),asset,float(metadata.gizmos[0].range_m))
 		return 1
 	if asset=="pole_light":
 		for beam in metadata.gizmos:
@@ -79,6 +84,7 @@ static func install(root: Node3D, category: String, asset: String, suffix: Strin
 		share_static_meshes(lamp)
 		var projection := Assets.socket(lamp,"LightProjection")
 		assert(projection != null,"Luminaire requires its native projection gizmo")
-		FixtureLighting.area(projection,lamp_asset,8.0 if lamp_asset=="batten_light" else 6.0)
+		if lamp_asset in emissive_assets:emissive_only(lamp)
+		else:FixtureLighting.area(projection,lamp_asset,8.0 if lamp_asset=="batten_light" else 6.0)
 		count+=1
 	return count

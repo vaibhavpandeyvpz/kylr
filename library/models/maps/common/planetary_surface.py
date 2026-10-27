@@ -22,6 +22,7 @@ def build(map_id,name):
     path=CACHE/(map_id+'_baked.json')
     assert path.exists(), 'Run tools/build_planetary_terrain.py '+map_id+' first'
     data=json.loads(path.read_text(encoding='utf-8'))
+    has_inner=any(part['inner'] for part in data['parts'])
     vertices=[];faces=[];lookup={}
     height={}
     for part in data['parts']:
@@ -40,12 +41,12 @@ def build(map_id,name):
             cx=sum(v[0] for v in triangle)/3;cz=sum(v[2] for v in triangle)/3
             if part['inner']:
                 if abs(cx)>64 or abs(cz)>64:continue
-            elif (abs(cx)<64 and abs(cz)<64) or math.hypot(cx,cz)>240:
+            elif (has_inner and abs(cx)<64 and abs(cz)<64) or math.hypot(cx,cz)>240:
                 continue
             # Match every fine boundary vertex; split coarse boundary triangles.
             # No overlapping skins, T junctions or vertical skirts at the join.
             split=False
-            if not part['inner']:
+            if not part['inner'] and has_inner:
                 for edge in range(3):
                     a,b=triangle[edge],triangle[(edge+1)%3];c=triangle[(edge+2)%3]
                     same_x=abs(a[0])==64 and a[0]==b[0] and max(abs(a[2]),abs(b[2]))<=64
@@ -150,8 +151,8 @@ def preview():
                     ob.data.materials[index]=replacements[map_id]
 
 
-def apply_materials(ob,map_id):
-    mat=material(map_id)
+def apply_materials(ob,map_id,source_material=None):
+    mat=source_material if source_material is not None else material(map_id)
     ob.data.materials.clear();ob.data.materials.append(mat)
     uv=ob.data.uv_layers.get('TiledSurface') or ob.data.uv_layers.new(name='TiledSurface')
     for polygon in ob.data.polygons:

@@ -29,7 +29,7 @@ def mark_seams(obj):
     bm.faces.ensure_lookup_table()
     bm.verts.ensure_lookup_table()
     for edge in bm.edges:
-        edge.seam = (obj.name.startswith("SK_TensorShield") or not edge.is_manifold or
+        edge.seam = (obj.get('uv_face_charts',False) or obj.name.startswith("SK_TensorShield") or not edge.is_manifold or
                      edge.link_faces[0].material_index != edge.link_faces[1].material_index or
                      edge.calc_face_angle(0.0) > math.radians(30) or
                      (edge.calc_face_angle(0.0) > math.radians(1) and

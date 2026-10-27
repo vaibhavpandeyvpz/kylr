@@ -1,6 +1,6 @@
 extends GutTest
 
-class Dijkstra extends TraversalGraph.TraversalAStar:
+class Dijkstra extends TraversalGraph.PortalTraversalAStar:
 	func _estimate_cost(_from: int, _to: int) -> float: return 0.0
 
 func graph(solver: TraversalGraph.TraversalAStar) -> TraversalGraph.TraversalAStar:
@@ -20,7 +20,7 @@ func path_cost(solver: TraversalGraph.TraversalAStar, path: PackedInt64Array) ->
 	return cost
 
 func test_portal_heuristic_finds_shortest_paths_with_blockers_and_point_edits():
-	var solver := graph(TraversalGraph.TraversalAStar.new())
+	var solver := graph(TraversalGraph.PortalTraversalAStar.new())
 	var reference := graph(Dijkstra.new())
 	assert_eq(solver.get_id_path(0,19),PackedInt64Array([0,19]))
 	assert_ne(solver.get_id_path(19,0),PackedInt64Array([19,0]))

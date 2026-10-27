@@ -152,5 +152,82 @@
       ],
       "fov": 62
     }
+  ],
+  "ramparts": [
+    {
+      "title": "Crater lake",
+      "image": "res://assets/ui/maps/ramparts/01.webp",
+      "position": [
+        65,
+        55.0,
+        65
+      ],
+      "target": [
+        0,
+        10.0,
+        0
+      ],
+      "fov": 57
+    },
+    {
+      "title": "Cistern mainland",
+      "image": "res://assets/ui/maps/ramparts/02.webp",
+      "position": [
+        -6,
+        19.0,
+        -8
+      ],
+      "target": [
+        -23,
+        11.0,
+        -23
+      ],
+      "fov": 63
+    },
+    {
+      "title": "Thruster crossings",
+      "image": "res://assets/ui/maps/ramparts/03.webp",
+      "position": [
+        16,
+        15.0,
+        -12
+      ],
+      "target": [
+        10,
+        10.0,
+        -26
+      ],
+      "fov": 68
+    },
+    {
+      "title": "Rotating junction",
+      "image": "res://assets/ui/maps/ramparts/04.webp",
+      "position": [
+        22,
+        22.0,
+        16
+      ],
+      "target": [
+        0,
+        10.0,
+        0
+      ],
+      "fov": 65
+    },
+    {
+      "title": "Island outpost",
+      "image": "res://assets/ui/maps/ramparts/05.webp",
+      "position": [
+        -4,
+        18.0,
+        12
+      ],
+      "target": [
+        -23,
+        10.0,
+        8
+      ],
+      "fov": 65
+    }
   ]
 }

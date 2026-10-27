@@ -470,13 +470,14 @@ func _process(dt):
 	if not r.alive and death_view_remaining > 0 and is_instance_valid(local_death_corpse):
 		var focus: Vector3 = local_death_corpse.focus_position() if local_death_corpse is RobotDebris else local_death_corpse.global_position + Vector3.UP * 0.95
 		var desired := focus + Basis(Vector3.UP, r.yaw) * Vector3(1.5, 1.0, -3.2)
-		if local_fall_death:
-			if fall_camera_stop == Vector3.INF and desired.y <= -25.0:
-				fall_camera_stop = Vector3(desired.x, -25.0, desired.z)
-			if fall_camera_stop != Vector3.INF: desired = fall_camera_stop
-		else:
+		if not local_fall_death:
 			var obstruction := combat.ray(focus, desired, [], 1)
 			if not obstruction.is_empty(): desired = obstruction.position + obstruction.normal * 0.15
+		if local_fall_death or map.config.has("death_camera_min_height"):
+			var minimum_height: float = float(map.config.get("death_camera_min_height",-25.0))
+			if fall_camera_stop == Vector3.INF and desired.y <= minimum_height:
+				fall_camera_stop = Vector3(desired.x,minimum_height,desired.z)
+			if fall_camera_stop != Vector3.INF: desired = fall_camera_stop
 		camera_rig.set_cinematic("death",desired,focus,fov)
 		return
 	var third := not uses_first_person()

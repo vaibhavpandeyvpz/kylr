@@ -508,7 +508,10 @@
           "TDM",
           "CTF"
         ]
-      }
+      },
+      "platform_emissive_only_assets": [
+        "sconce_light"
+      ]
     },
     {
       "id": "faceoff",
@@ -963,6 +966,389 @@
           "CTF"
         ]
       }
+    },
+    {
+      "id": "ramparts",
+      "title": "Ramparts",
+      "model": "ramparts",
+      "subtitle": "Martian crater lake linked by thruster decks and a rotating junction.",
+      "description": "Cross six moving floaters and a clockwise rotating junction, raid the cistern bases, and control the side platforms inside a mountain-ringed crater lake. Falling into the lake is fatal.",
+      "match_types": [
+        "DM",
+        "TDM",
+        "CTF",
+        "ELIMINATION",
+        "GUNGAME"
+      ],
+      "metadata": "res://assets/models/maps/ramparts/ramparts_rig.json",
+      "surface": "lake",
+      "crater": {
+        "diameter_m": 150.0,
+        "depth_m": 15.0,
+        "rim_height_m": 36.0,
+        "outer_radius_m": 240.0,
+        "segments": 128
+      },
+      "lethal_terrain_contact": true,
+      "soil_material": "martian_soil",
+      "environment": {
+        "sky_top": "a76e4d",
+        "sky_horizon": "dfb18b",
+        "ground_horizon": "b28465",
+        "ground_bottom": "64442e",
+        "ambient_color": "ffe0c0",
+        "ambient_energy": 0.3,
+        "key_color": "fff2e1",
+        "key_energy": 1.15,
+        "key_rotation_degrees": [
+          -56,
+          -38,
+          0
+        ],
+        "fog_color": "c39574",
+        "fog_density": 0.00065,
+        "water": {
+          "deep_color": "153139",
+          "shallow_color": "52736b",
+          "foam_color": "dedbd0",
+          "absorption": [
+            0.26,
+            0.13,
+            0.08
+          ],
+          "radius_m": 75.0
+        }
+      },
+      "gravity_multiplier": 1.0,
+      "flag_bases": [
+        [
+          -22.5,
+          10.077777777777778,
+          -22.500002441406252
+        ],
+        [
+          22.5,
+          10.077777777777778,
+          22.500002441406252
+        ]
+      ],
+      "flag_markers": [
+        "A-ctf_flag-2057_1136",
+        "B-ctf_flag-2057_1055"
+      ],
+      "flag_capture_meshes": [
+        "SK_RampartsFlagCaptureTrigger_A",
+        "SK_RampartsFlagCaptureTrigger_B"
+      ],
+      "navigation": {
+        "min_x": -36,
+        "max_x": 36,
+        "min_z": -36,
+        "max_z": 36,
+        "levels": [
+          10.0,
+          10.08,
+          10.097,
+          10.169,
+          12.67,
+          13.15
+        ]
+      },
+      "camera_path": [
+        [
+          0,
+          55.0,
+          0
+        ],
+        [
+          68,
+          52.0,
+          68
+        ]
+      ],
+      "camera_focus": [
+        [
+          0,
+          10.0,
+          0
+        ]
+      ],
+      "fall_boundary": 0.0,
+      "death_camera_min_height": 1.0,
+      "crossing_balance": {
+        "junction": 1.0,
+        "floaters": 1.0
+      },
+      "floater_paths": [
+        [
+          "A_Mainland",
+          "A_Floater_1",
+          "A_Floater_2",
+          "A_Floater_3",
+          "A_Island",
+          "B_Mainland"
+        ],
+        [
+          "A_Mainland",
+          "B_Island",
+          "B_Floater_3",
+          "B_Floater_2",
+          "B_Floater_1",
+          "B_Mainland"
+        ]
+      ],
+      "reuse_navigation_query_shapes": true,
+      "platform_emissive_only_assets": [
+        "sconce_light"
+      ],
+      "zone_bounds": [
+        {
+          "min": [
+            -36,
+            8.0,
+            -36
+          ],
+          "max": [
+            -10,
+            15.0,
+            -10
+          ]
+        },
+        {
+          "min": [
+            10,
+            8.0,
+            10
+          ],
+          "max": [
+            36,
+            15.0,
+            36
+          ]
+        }
+      ],
+      "zone_exits": [
+        [
+          -12,
+          10.0,
+          -12
+        ],
+        [
+          12,
+          10.0,
+          12
+        ]
+      ],
+      "portal_pairs": [],
+      "jump_links": [
+        {
+          "to": [
+            -22.5,
+            10.0,
+            4.0
+          ],
+          "from": [
+            -11.249998779296874,
+            10.0,
+            -11.25000732421875
+          ]
+        },
+        {
+          "to": [
+            22.5,
+            10.0,
+            -4.0
+          ],
+          "from": [
+            11.25,
+            10.0,
+            11.25000732421875
+          ]
+        }
+      ],
+      "drop_links": [],
+      "event": {
+        "time": 120,
+        "warning": 10,
+        "type": "none",
+        "title": "Continuous carrier motion"
+      },
+      "bake_navigation": true,
+      "moving_decks": [
+        "B_Floater_3",
+        "B_Floater_2",
+        "B_Floater_1",
+        "A_Floater_3",
+        "A_Floater_2",
+        "A_Floater_1",
+        "Junction"
+      ],
+      "patrol_points": [
+        [
+          -22.5,
+          10.0,
+          7.5
+        ],
+        [
+          -22.5,
+          10.0,
+          22.499997558593748
+        ],
+        [
+          -11.0,
+          10.0,
+          29.999997558593748
+        ],
+        [
+          1.5,
+          10.0,
+          22.499997558593748
+        ],
+        [
+          27.035786132812504,
+          10.077777777777778,
+          23.50025423526764
+        ],
+        [
+          23.500253906250002,
+          10.077777777777778,
+          27.035788903236394
+        ],
+        [
+          30.247106936258675,
+          10.0,
+          29.279980468749997
+        ],
+        [
+          14.762892799331347,
+          10.0,
+          29.280002441406253
+        ],
+        [
+          28.83289339275896,
+          10.0,
+          15.210002441406253
+        ],
+        [
+          14.469999999999999,
+          10.0,
+          14.209997558593749
+        ],
+        [
+          32.69,
+          10.0,
+          22.499997558593748
+        ],
+        [
+          22.5,
+          10.0,
+          32.429997558593755
+        ],
+        [
+          22.5,
+          10.0,
+          -7.5
+        ],
+        [
+          22.5,
+          10.0,
+          -22.5
+        ],
+        [
+          11.0,
+          10.0,
+          -30.0
+        ],
+        [
+          -1.5,
+          10.0,
+          -22.5
+        ],
+        [
+          -27.035786590576173,
+          10.077777777777778,
+          -23.50025423526764
+        ],
+        [
+          -23.500252685546876,
+          10.077777777777778,
+          -27.035788903236387
+        ],
+        [
+          -30.247106936258675,
+          10.0,
+          -29.27998046875
+        ],
+        [
+          -14.762892799331347,
+          10.0,
+          -29.28000244140625
+        ],
+        [
+          -28.832893392758965,
+          10.0,
+          -15.21000244140625
+        ],
+        [
+          -14.469999999999999,
+          10.0,
+          -14.21
+        ],
+        [
+          -32.69,
+          10.0,
+          -22.5
+        ],
+        [
+          -22.5,
+          10.0,
+          -32.43
+        ],
+        [
+          0.0,
+          10.0,
+          10.0
+        ],
+        [
+          0.0,
+          10.0,
+          -10.0
+        ],
+        [
+          10.0,
+          10.0,
+          -0.0
+        ],
+        [
+          -10.0,
+          10.0,
+          -0.0
+        ]
+      ],
+      "barricade_links": {
+        "A-pressure_plate-2057_1089": "A-barricade-2057_1088",
+        "B-pressure_plate-2057_1013": "B-barricade-2057_1012"
+      },
+      "speed_ramp_links": [
+        {
+          "fixture": "A-speed_ramp-2057_1085",
+          "to": [
+            22.5,
+            10.0,
+            12.0
+          ],
+          "speed": 15.417046483124636
+        },
+        {
+          "fixture": "B-speed_ramp-2057_1009",
+          "to": [
+            -22.5,
+            10.0,
+            -12.0
+          ],
+          "speed": 15.417046483124636
+        }
+      ]
     }
   ]
 }

@@ -1,5 +1,10 @@
 # Skyfall
 
+Platform sconces retain their native emission without projected light or shadow
+casting. `tools/prepare_skyfall_runtime.py` owns the map's
+`platform_emissive_only_assets` policy; `--lighting-only` hands off that policy
+without rebuilding geometry or other gameplay catalogs.
+
 All ten spawn views face toward their zone's islands. Floor spawn-pad gizmos
 include a 180-degree facing correction for their native PlayerMount axis;
 stasis chambers retain their island-facing door orientation.

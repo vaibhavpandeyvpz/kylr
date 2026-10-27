@@ -105,7 +105,7 @@ Select supported positions with neighboring Core centers **25–35 cm** apart, c
 If no supported footprint exists within 2 m of the landing point, do not spawn Cores over void.
 A fall death leaves no Cores. Each Core lasts **15 seconds** from appearance. Only living, actionable robots
 with EP below 100 can collect them, adding their stored EP up to 100. If the credited killer is eligible and
-within **10 m**, each Core independently flies toward that killer's body centre at **2 m/s**, following the
+within **10 m**, each Core independently flies toward that killer's body centre at **5 m/s**, following the
 standing or crouched collision capsule. Otherwise eligible robots collect by contact. Stop collection when full.
 This dropped Core differs from a map Energy Core: map Cores refill to 100, while dropped Cores transfer a stored amount. The dropped Core retains its native 25 cm rounded mesh, glass and spin animation. It shares the square Energy Core’s exact finished glass and emissive materials in every graphics preset; pickup models and shared finishes are prepared before matches.
 

@@ -5,6 +5,33 @@ machined and exported through the Blender map generators. The game and dedicated
 server load static render and collision meshes. They do not load Terrain3D's
 native extension or generate terrain during a match.
 
+Ramparts uses a closed radial mesa surface from
+`library/models/maps/ramparts/terrain.py`. Its eroded summit shoulders and
+undercut strata share one render/collision source, while native fixture seats
+stay at 10 m above the lake. The source JSON controls the rim and elevation.
+This mesh construction retains overhangs and deep recessed fixtures. Its shared
+Martian material layers are authored in `library/textures/martian_soil` and bound
+to cliffs, summit ground, platform regolith and prop aprons by map data.
+Its 150 m circular lake occupies a 15 m deep Terrain3D-baked basin. The same
+height field contains the eroded mountain rim, geological shelves and wind-shaped
+dunes. Blender closes the native 4 m Terrain3D grid into 46,160 terrain triangles;
+72 fractured rock solids add 2,040 triangles. This separate scenery stays within
+its 60,000-triangle budget; Ramparts' integral map geometry contains 19,695
+triangles against the 25,000-triangle arena budget. The native render and collision
+surfaces share this geometry, while navigation retains the arena's route bounds.
+
+Ramparts' six original Imagegen sources are dust, dunes, bedrock, rubble,
+mountain strata and lake sediment. Periodic 2048 px albedo/height and OpenGL
+normal/roughness pairs retain their exact prompts. The height and normals are
+image-derived microrelief approximations. Terrain3D geometry supplies the broad
+relief; control maps, slope and water height select the geological layers.
+Platform and prop deposits use object-local projection and fixed mineral weights,
+so the six-layer material moves and rotates with its authored mesh. Their normal
+detail follows the same object basis. Stationary terrain retains world-space
+projection, geological controls and water-height blending.
+Run `textures/martian_soil/generate.py`, then `tools/build_martian_terrain.py`
+from `library/` before rebuilding the Ramparts model and collision companions.
+
 ## Shape and gameplay
 
 `library/models/maps/common/planetary_field.py` owns the height fields and six

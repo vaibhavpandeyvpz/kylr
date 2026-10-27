@@ -121,3 +121,25 @@ func test_high_enables_native_rectangles_and_aimed_heads_and_switches_back_live(
 	for light in game.find_children("*","Light3D",true,false):
 		if not light.get_meta("fixture_light",false):continue
 		assert_false(light.visible);assert_false(light.shadow_enabled);assert_eq(light.light_cull_mask,0)
+
+func test_ramparts_and_skyfall_platform_sconces_stay_emissive_only_in_high():
+	for map_id in ["ramparts","skyfall"]:
+		var game:=ArenaMatch.new()
+		game.map_id=map_id;game.online=true;game.authority=false
+		add_child_autofree(game)
+		while not game.initialization_complete:await wait_process_frames(1)
+		var prefs:=Preferences.new("user://platform_sconce_test.cfg")
+		for preset in [1,2]:
+			prefs.values.merge(Preferences.QUALITY_PRESETS[preset],true)
+			prefs.apply_rendering(game)
+			var count:=0
+			for fixture in game.map.fixtures:
+				if fixture.kind!="platform":continue
+				for lamp in fixture.node.find_children("MountedLuminaire","Node3D",true,false):
+					var meshes: Array=lamp.find_children("*","MeshInstance3D",true,false)
+					if not meshes.any(func(mesh):return "Sconce" in String(mesh.name)):continue
+					count+=1
+					assert_true(lamp.find_children("*","Light3D",true,false).is_empty(),map_id+" sconce emits no projected light")
+					for mesh in meshes:assert_eq(mesh.cast_shadow,GeometryInstance3D.SHADOW_CASTING_SETTING_OFF)
+			assert_gt(count,0,map_id+" retains visible native sconces")
+		game.free()

@@ -1,5 +1,5 @@
 class_name OpponentMarker
-extends Label3D
+extends Sprite3D
 
 var robot: ArenaRobot
 var arena_match: ArenaMatch
@@ -7,14 +7,13 @@ var visibility_elapsed := 0.0
 const MAX_CAMERA_DISTANCE := 15.0
 
 func _ready() -> void:
-	text = "â—†"
+	texture = preload("res://assets/ui/icons/material_symbols/skull.svg")
 	position.y = 2.16
 	billboard = BaseMaterial3D.BILLBOARD_ENABLED
 	fixed_size = true
 	pixel_size = 0.002
-	font_size = 24
-	outline_size = 5
-	outline_modulate = Color(0, 0, 0, 0.9)
+	alpha_cut = SpriteBase3D.ALPHA_CUT_DISCARD
+	alpha_scissor_threshold = 0.1
 	no_depth_test = false
 	visibility_range_end = MAX_CAMERA_DISTANCE
 	visible = false

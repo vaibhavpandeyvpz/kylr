@@ -642,7 +642,7 @@ func simulate_movement(dt: float, predicted := false, replaying := false) -> voi
 	arena_match.audio.set_loop("walk_" + str(robot_id), "walk", global_position, is_on_floor() and ground_speed > 0.25, self == arena_match.local_robot, Locomotion.footstep_rate(ground_speed))
 	if is_on_floor(): last_safe = global_position
 	var lunar_contact := false
-	if arena_match.map.config.get("lunar_surface_lethal",false):
+	if arena_match.map.config.get("lethal_terrain_contact",arena_match.map.config.get("lunar_surface_lethal",false)):
 		for index in get_slide_collision_count():
 			var collider := get_slide_collision(index).get_collider()
 			if collider != null and collider.get_meta("lethal_surface",false): lunar_contact = true

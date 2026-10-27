@@ -61,12 +61,17 @@ func schedule(phases: int) -> Dictionary:
 
 func test_staggering_preserves_real_tree_update_cadence():
 	var original := schedule(1)
+	var cohorts := schedule(4)
 	var staggered := schedule(9)
 	assert_eq(original.peak,9,"Baseline evaluates the nine native trees together")
+	assert_lte(cohorts.peak,3,"Four cohorts bound the normal reset burst")
 	assert_eq(staggered.peak,1,"Offsets spread initial and repeated native updates")
 	for index in 9:
+		assert_lte(absi(cohorts.calls[index]-original.calls[index]),1,"Cohorts retain the native per-robot update count")
 		assert_lte(absi(staggered.calls[index]-original.calls[index]),1,"Per-robot count differs only at sample boundaries")
 		assert_almost_eq(staggered.initial_offsets[index],float((index+1)%9)*0.25/9.0,0.000001,"Constructor also uses the opt-in phase")
 		assert_almost_eq(original.initial_offsets[index],float((index+1)%4)*0.25/4.0,0.000001,"Default constructor keeps legacy offsets")
 	assert_eq(staggered.intervals.min(),original.intervals.min())
 	assert_eq(staggered.intervals.max(),original.intervals.max())
+	assert_eq(cohorts.intervals.min(),original.intervals.min())
+	assert_eq(cohorts.intervals.max(),original.intervals.max())
