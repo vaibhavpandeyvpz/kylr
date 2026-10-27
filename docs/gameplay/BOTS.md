@@ -181,11 +181,37 @@ while a ceiling or unreachable target prevents firing. A final muzzle check
 after movement and pose updates verifies the actual launch direction before
 the shared trigger; newly obstructed shots prompt repositioning.
 
-Faceoff portal planning combines cached native `AStar3D` walking segments with
-a small shortest-path graph of portal endpoints. Portal edges retain their
-three-metre cost, direction and disabled-point checks. Its normal and charged
-graphs remain separate. Blocker changes invalidate the segment planner; restored
-navigation snapshots create independent solvers. Loading prepares both planners
-and their endpoint paths; a walking-component check rejects disconnected
-searches before invoking native AStar. Other portal maps retain the
-scripted portal costs and admissible portal heuristic.
+Faceoff and Skyfall portal planning combine cached native `AStar3D` walking
+segments with a small shortest-path graph of portal endpoints. Portal edges
+retain their three-metre cost, direction and disabled-point checks. Normal and
+charged graphs remain separate. Moving connections and blockers synchronize
+the native mirror incrementally; restored snapshots create independent solvers.
+Loading prepares both planners and their endpoint paths. A conservative walking
+component check skips disconnected searches.
+Endpoint walking paths survive edge removals that do not touch their directed
+path. Added edges retain a cached endpoint path only when a weighted distance
+lower bound proves that the edge cannot shorten it. Other walking queries and
+disabled-point changes invalidate their applicable caches.
+
+Skyfall keeps navigation coordinates in platform rest frames and projects active
+route points into the current physical frames. Graph edge weights use the rest
+geometry; current-world capsule sweeps validate dynamic crossings and departures.
+Spatial candidate pairs are cached because bobbing preserves horizontal positions.
+Baking includes diagonal, directed normal and EP-eligible charged jumps, with
+ballistic arrival times for different-height landings. The 12 m candidate radius
+covers the longest physically possible charged descent between its sampled
+floors; current gravity, launch impulse and capsule sweeps reject infeasible arcs. Pads, ramps and portals
+retain their authored links. Crossing discovery refreshes under a bounded physics
+budget; departure checks use the current physical platforms. DM hunt targets
+are snapped to supported deck navigation at the flag-home elevation. Impossible
+vertical destinations are rejected before a moving-map path search.
+Ramparts retains live-coordinate navigation and corridor balancing for horizontal and rotating carriers.
+
+Skyfall binds route points using the planner's known node IDs and cached carrier
+frames. Off-grid continuations retain physical nearest-point projection; binding
+hints are removed after local frames are assigned. Resource-cost evaluation and
+commitment share a route only within the same synchronous planning epoch, before
+movement or collision changes. Normal/charged reclassification preserves full
+walking caches when connectivity stays unchanged; real edge changes invalidate
+the affected graph. Walks within one rigid assembly retain their baked geometry
+checks, while departures between independently moving assemblies are checked live.

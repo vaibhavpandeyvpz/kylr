@@ -15,6 +15,11 @@ func test_only_equipped_head_collision_is_marked_as_headshot():
 		var visual := Assets.model("characters", "tensor")
 		add_child_autofree(visual)
 		CollisionRig.install(visual, "characters", "tensor", owner)
+		var anchors: Dictionary={}
+		for anchor: BoneAttachment3D in visual.find_children("*","BoneAttachment3D",true,false):
+			if not anchor.get_meta("collision_anchor",false):continue
+			assert_false(anchors.has(anchor.bone_name),"Collision meshes share one transform notification per native bone")
+			anchors[anchor.bone_name]=anchor
 		var head_shapes := 0
 		var body_shapes := 0
 		for collision in visual.find_children("*", "StaticBody3D", true, false):

@@ -61,6 +61,10 @@ def build():
     ground=planetary_surface('skyfall','SK_SkyfallLunar_LethalSurface')
     apply_materials(ground,'skyfall')
     parts.append(ground);ownership[ground.name]='Root'
+    from lunar_stones import build as build_stones
+    qa=json.loads((HERE.parents[2]/'.local/planetary/skyfall.json').read_text())['qa_points']
+    stones=build_stones(ground,qa)
+    parts.append(stones);ownership[stones.name]='Root'
     # Platforms and mechanical support/wall props are native gizmo imports.
     arm_data=bpy.data.armatures.new('RIG_Skyfall');arm=bpy.data.objects.new('RIG_Skyfall',arm_data);bpy.context.collection.objects.link(arm)
     bpy.context.view_layer.objects.active=arm;arm.select_set(True);bpy.ops.object.mode_set(mode='EDIT')
@@ -103,10 +107,12 @@ def build():
     scene.frame_set(73);bpy.context.view_layer.update()
     sys.path.insert(0,str(HERE.parents[1]));from material_uv import prepare_export
     from platform_common import split_large
-    ground_details=dict(terrain_authoring='Terrain3D 1.0.2',interior_gravel_stone_count=0,maximum_interior_stone_height_m=0.0)
+    ground_details=dict(terrain_authoring='Terrain3D 1.0.2',terrain_style='lunar impact crater with secondary bowls and regolith drifts',stone_count=int(stones['stone_count']))
     scenery=split_large(ground,arm,'SkyfallLunarLethalSurface')
     from planetary_surface import validate_atlas
     validate_atlas(scenery,HERE,NAME)
+    prepare_export([stones],HERE,NAME)
+    scenery.append(stones)
     parts=scenery
     prepare_export(parts,HERE,NAME)
     scenery_tris=sum(sum(len(p.vertices)-2 for p in o.data.polygons) for o in scenery)

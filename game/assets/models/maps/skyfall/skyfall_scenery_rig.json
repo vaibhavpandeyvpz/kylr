@@ -1,11 +1,11 @@
 {
   "name": "skyfall_scenery",
-  "triangles": 108368,
+  "triangles": 113168,
   "budget_excluded": true,
   "gizmos": [],
   "terrain_authoring": "Terrain3D 1.0.2",
-  "interior_gravel_stone_count": 0,
-  "maximum_interior_stone_height_m": 0.0,
+  "terrain_style": "lunar impact crater with secondary bowls and regolith drifts",
+  "stone_count": 192,
   "material_classifiers": {
     "M_Frame_Diffuse": "Diffuse",
     "M_Joint_Diffuse": "Diffuse",

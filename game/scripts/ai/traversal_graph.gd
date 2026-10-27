@@ -5,6 +5,7 @@ var jump_waypoints: Dictionary={}
 var crouched_jumps: Dictionary={}
 var planning_cache_enabled := true
 var planning_queries_active := false
+var planning_epoch:=0
 var planning_movement_queries: Dictionary = {}
 var reuse_query_shapes := false
 var movement_capsule: CapsuleShape3D
@@ -12,6 +13,7 @@ var standing_capsule: CapsuleShape3D
 
 func begin_planning_queries() -> void:
 	assert(not planning_queries_active)
+	planning_epoch+=1
 	planning_movement_queries.clear()
 	planning_queries_active = planning_cache_enabled
 
@@ -71,6 +73,13 @@ class PortalTraversalAStar extends TraversalAStar:
 	func refresh_portal_metric():
 		native_planner=null
 		super.refresh_portal_metric()
+	func refresh_moving_topology():
+		# Moving maps synchronize their native mirror incrementally.
+		super.refresh_portal_metric()
+		if native_planner!=null:native_planner.invalidate_walks()
+	func sync_native_edge(from_id: int,to_id: int):
+		if native_planner!=null:
+			native_planner.sync_edge(from_id,to_id,are_points_connected(from_id,to_id,false))
 	func _compute_cost(from_id: int,to_id: int) -> float:
 		if transitions.get(Vector2i(from_id,to_id))=="portal":return 3.0
 		return get_point_position(from_id).distance_to(get_point_position(to_id))
@@ -294,9 +303,11 @@ func _build_links() -> void:
 			link(fixture.point-forward*0.9,destination,"speed_ramp",false,fixture.point+forward*0.1)
 
 func _discover_gaps(cell: Vector3i) -> void:
-	for step in [Vector3i(1,0,0),Vector3i(-1,0,0),Vector3i(0,0,1),Vector3i(0,0,-1)]:
+	var directions: Array[Vector3i]=[Vector3i(1,0,0),Vector3i(-1,0,0),Vector3i(0,0,1),Vector3i(0,0,-1)]
+	if arena.config.get("angular_gap_routes",false):directions.append_array([Vector3i(1,0,1),Vector3i(1,0,-1),Vector3i(-1,0,1),Vector3i(-1,0,-1)])
+	for step in directions:
 		if cells.has(cell+step) and graph.are_points_connected(cells[cell],cells[cell+step]): continue
-		for distance in range(1,8):
+		for distance in range(1,int(floor(float(arena.config.get("jump_search_radius",7.0))/Vector3(step).length()))+1):
 			if not cells.has(cell+step*distance): continue
 			if graph.are_points_connected(cells[cell],cells[cell+step*distance]): break
 			var a: Vector3=graph.get_point_position(cells[cell])
@@ -426,7 +437,18 @@ func arc_clear(a: Vector3,b: Vector3,height := ArenaTuning.NORMAL_JUMP_HEIGHT) -
 	var powered: float = effective_height / jump_speed
 	var coast: float = (jump_speed + sqrt(jump_speed * jump_speed + 2.0 * gravity * effective_height)) / gravity
 	var flight: float = powered + coast
-	if a.distance_to(b)>ArenaTuning.RUN_SPEED*flight*0.9: return false
+	var physical_landing: bool=arena.config.get("vertical_bobbing_only",false)
+	var query: PhysicsShapeQueryParameters3D
+	if physical_landing:
+		var discriminant: float=jump_speed*jump_speed+2.0*gravity*(effective_height-(b.y-a.y))
+		if discriminant<0:return false
+		flight=powered+(jump_speed+sqrt(discriminant))/gravity
+		if Vector2(b.x-a.x,b.z-a.z).length()>ArenaTuning.RUN_SPEED*flight*.9:return false
+		if not standing_clear(a) or not standing_clear(b):return false
+		if movement_capsule==null:
+			movement_capsule=CapsuleShape3D.new();movement_capsule.radius=.32;movement_capsule.height=1.75
+		query=PhysicsShapeQueryParameters3D.new();query.shape=movement_capsule;query.collision_mask=1;query.margin=.001
+	elif a.distance_to(b)>ArenaTuning.RUN_SPEED*flight*0.9: return false
 	var previous:=a+Vector3.UP*0.9
 	for i in range(1,13):
 		var t:=float(i)/12
@@ -434,7 +456,12 @@ func arc_clear(a: Vector3,b: Vector3,height := ArenaTuning.NORMAL_JUMP_HEIGHT) -
 		var released := maxf(0.0, elapsed-powered)
 		var rise := jump_speed*elapsed if elapsed <= powered else effective_height+jump_speed*released-0.5*gravity*released*released
 		var next:=a.lerp(b,t)+Vector3.UP*(0.9+rise)
-		if not standing_clear(next-Vector3.UP*.9) or not arena.game.combat.clear(previous,next): return false
+		if physical_landing:
+			next.y=a.y+.9+rise
+			query.transform=Transform3D(Basis.IDENTITY,previous);query.motion=next-previous
+			var result: PackedFloat32Array=arena.get_world_3d().direct_space_state.cast_motion(query)
+			if result.size()!=2 or result[0]<.999:return false
+		elif not standing_clear(next-Vector3.UP*.9) or not arena.game.combat.clear(previous,next): return false
 		previous=next
 	return supported(b)
 
@@ -473,8 +500,11 @@ func link(a: Vector3,b: Vector3,kind: String,bidirectional: bool,entry := Vector
 	var from:=graph.get_closest_point(a)
 	var to:=graph.get_closest_point(b)
 	if from<0 or to<0 or from==to: return
-	graph.connect_points(from,to,bidirectional)
-	if kind != "charged_jump": basic_graph.connect_points(from,to,bidirectional)
+	for navigation in [graph,basic_graph]:
+		var connected: bool=navigation==graph or kind!="charged_jump"
+		set_connection(navigation,from,to,connected)
+		if bidirectional:set_connection(navigation,to,from,connected)
+
 	actions[Vector2i(from,to)]=kind
 	if kind in ["drop","launch","speed_ramp","lift"]:destinations[Vector2i(from,to)]=b
 	if kind=="jump" and entry!=Vector3.INF:destinations[Vector2i(from,to)]=b
@@ -485,6 +515,13 @@ func link(a: Vector3,b: Vector3,kind: String,bidirectional: bool,entry := Vector
 	if kind=="portal":
 		graph.refresh_portal_metric()
 		basic_graph.refresh_portal_metric()
+
+func set_connection(navigation: TraversalAStar,from: int,to: int,connected: bool) -> void:
+	if navigation.are_points_connected(from,to,false)==connected:return
+	if connected:navigation.connect_points(from,to,false)
+	else:navigation.disconnect_points(from,to,false)
+	navigation.path_cache.clear()
+	if navigation is PortalTraversalAStar:navigation.sync_native_edge(from,to)
 
 func route(a: Vector3,b: Vector3,allow_charged := true, grounded := false,corridor_bias := 0) -> Array:
 	var nav: TraversalAStar=graph if allow_charged else basic_graph
@@ -497,19 +534,32 @@ func route(a: Vector3,b: Vector3,allow_charged := true, grounded := false,corrid
 	nav.neighbor_filter_enabled=previous_filter
 	return result
 
+func position_of(id: int) -> Vector3:
+	if arena!=null and arena.config.get("vertical_bobbing_only",false) and arena.carriers!=null:
+		return arena.carriers.world_point_for(id)
+	return graph.get_point_position(id)
+
+func query_point(point: Vector3) -> Vector3:
+	if arena!=null and arena.config.get("vertical_bobbing_only",false) and arena.carriers!=null:
+		return arena.carriers.query_point(point)
+	return point
+
 func _route(a: Vector3,b: Vector3,allow_charged: bool, grounded: bool) -> Array:
 	var nav: TraversalAStar=graph if allow_charged else basic_graph
-	var start:=nav.get_closest_point(a)
-	var finish:=nav.get_closest_point(b)
+	var start:=nav.get_closest_point(query_point(a))
+	var finish:=nav.get_closest_point(query_point(b))
 	if start<0 or finish<0: return []
+	# A destination on another elevation cannot become a valid final approach.
+	# Reject it before searching the entire moving, multi-storey graph.
+	if arena.config.get("vertical_bobbing_only",false) and absf(position_of(finish).y-b.y)>2.0:return []
 	# Nearest by distance can be across an interior wall or outside a lift
 	# landing. A grounded robot must physically reach its first walk sample.
-	if grounded and absf(a.y-nav.get_point_position(start).y)<0.8 and not movement_clear(a,nav.get_point_position(start)):
+	if grounded and absf(a.y-position_of(start).y)<0.8 and not movement_clear(a,position_of(start)):
 		var reachable_start := -1
 		var nearest := INF
 		for candidate in nav.get_point_ids():
 			if nav.is_point_disabled(candidate): continue
-			var point := nav.get_point_position(candidate)
+			var point := position_of(candidate)
 			var distance := a.distance_to(point)
 			if distance>2.0 or distance>=nearest or absf(point.y-a.y)>.45: continue
 			if crosses_portal(a,point) or not movement_clear(a,point): continue
@@ -519,14 +569,14 @@ func _route(a: Vector3,b: Vector3,allow_charged: bool, grounded: bool) -> Array:
 	var recovery := Vector3.INF
 	# Knockback or a pad can leave a robot on raised cover above the sampled
 	# floor. Route a short physical drop off it instead of aiming at its feet.
-	var offset := a.y-nav.get_point_position(start).y
+	var offset := a.y-position_of(start).y
 	if grounded and offset>0.8 and offset<4.0:
 		var best := INF
 		for id in nav.get_point_ids():
 			if nav.is_point_disabled(id): continue
-			var landing := nav.get_point_position(id)
+			var landing := position_of(id)
 			var horizontal := Vector2(landing.x-a.x,landing.z-a.z).length()
-			if horizontal<1.8 or horizontal>4 or absf(landing.y-nav.get_point_position(start).y)>0.5: continue
+			if horizontal<1.8 or horizontal>4 or absf(landing.y-position_of(start).y)>0.5: continue
 			if not standing_clear(landing): continue
 			if not arena.game.combat.clear(a+Vector3.UP*0.9,Vector3(landing.x,a.y+0.9,landing.z)): continue
 			if nav.cached_path(id,finish).is_empty(): continue
@@ -538,7 +588,7 @@ func _route(a: Vector3,b: Vector3,allow_charged: bool, grounded: bool) -> Array:
 		var best:=INF
 		for candidate in nav.get_point_ids():
 			if nav.is_point_disabled(candidate):continue
-			var point:=nav.get_point_position(candidate)
+			var point:=position_of(candidate)
 			var distance:=point.distance_to(b)
 			if distance>1.75 or absf(point.y-b.y)>.25 or distance>=best:continue
 			if crosses_portal(point,b) or not movement_clear(point,b):continue
@@ -548,11 +598,11 @@ func _route(a: Vector3,b: Vector3,allow_charged: bool, grounded: bool) -> Array:
 	# A closed fixture can leave the nearest sample on an isolated contact tile.
 	# Recover onto a nearby clear floor sample without crossing a wall or gap.
 	if ids.is_empty():
-		var anchor:=nav.get_point_position(start)
+		var anchor:=position_of(start)
 		var best:=INF
 		for candidate in nav.get_point_ids():
 			if nav.is_point_disabled(candidate):continue
-			var point:=nav.get_point_position(candidate)
+			var point:=position_of(candidate)
 			var distance:=point.distance_to(anchor)
 			if distance>1.75 or absf(point.y-anchor.y)>0.25 or distance>=best:continue
 			if not movement_clear(a if grounded and absf(a.y-point.y)<.45 else anchor,point):continue
@@ -564,9 +614,12 @@ func _route(a: Vector3,b: Vector3,allow_charged: bool, grounded: bool) -> Array:
 	if recovery!=Vector3.INF: result.append({"point":recovery,"action":"drop","from":a,"entry":Vector3.INF})
 	for i in ids.size():
 		var edge := Vector2i(ids[i-1],ids[i]) if i>0 else Vector2i(-1,-1)
-		var origin: Vector3=nav.get_point_position(ids[i-1]) if i>0 else nav.get_point_position(ids[i])
+		var origin: Vector3=position_of(ids[i-1]) if i>0 else position_of(ids[i])
 		if actions.get(edge,"")=="jump" and entries.has(edge):origin=entries[edge]
-		result.append({"point":destinations.get(edge,nav.get_point_position(ids[i])),"action":actions.get(edge,"walk"),"from":origin,"entry":entries.get(edge,Vector3.INF),"via":jump_waypoints.get(edge,Vector3.INF),"crouch":crouched_jumps.get(edge,false)})
+		var step: Dictionary={"point":destinations.get(edge,position_of(ids[i])),"action":actions.get(edge,"walk"),"from":origin,"entry":entries.get(edge,Vector3.INF),"via":jump_waypoints.get(edge,Vector3.INF),"crouch":crouched_jumps.get(edge,false)}
+		if arena.carriers!=null and arena.config.get("vertical_bobbing_only",false):
+			step["_point_node"]=ids[i];step["_from_node"]=ids[maxi(0,i-1)]
+		result.append(step)
 	if finish_recovered:result.append({"point":b,"action":"walk","from":result[-1].point,"entry":Vector3.INF})
 	elif not result.is_empty() and result[-1].point.distance_to(b)>.05 and absf(result[-1].point.y-b.y)<.45:
 		if result[-1].point.distance_to(b)>2.0 or not movement_clear(result[-1].point,b): return []
@@ -578,8 +631,6 @@ func sync_barricades() -> void:
 	# Cached paths include failures; opening a barrier must invalidate both.
 	graph.path_cache.clear()
 	basic_graph.path_cache.clear()
-	for navigation in [graph,basic_graph]:
-		if navigation is PortalTraversalAStar:navigation.native_planner=null
 	# Only closed barricades can change reachability. Cache their frames once
 	# per update instead of rescanning the complete imported fixture catalog.
 	var blockers: Array[Transform3D]=[]
@@ -587,11 +638,13 @@ func sync_barricades() -> void:
 		if fixture.kind=="barricade" and not fixture.open:
 			blockers.append(fixture.node.global_transform.affine_inverse())
 	for id in graph.get_point_ids():
-		var point:=graph.get_point_position(id)
+		var point:=position_of(id)
 		var blocked:=false
 		for inverse in blockers:
 			var local: Vector3=inverse*point
 			if absf(local.x)<2.3 and absf(local.z)<1.25 and absf(local.y)<1.5:
 				blocked=true;break
-		if graph.is_point_disabled(id)!=blocked:graph.set_point_disabled(id,blocked)
-		if basic_graph.is_point_disabled(id)!=blocked:basic_graph.set_point_disabled(id,blocked)
+		for navigation in [graph,basic_graph]:
+			if navigation.is_point_disabled(id)==blocked:continue
+			navigation.set_point_disabled(id,blocked)
+			if navigation is PortalTraversalAStar and navigation.native_planner!=null:navigation.native_planner.sync_disabled(id,blocked)

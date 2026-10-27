@@ -1,14 +1,41 @@
 """Physical surface heights, socket axes, pit clearance and exchange checks."""
-import bpy,json,math,bmesh
+import bpy,json,math,bmesh,sys
 from pathlib import Path
 from mathutils import Vector,Euler,Matrix
 HERE=Path(__file__).resolve().parent
 rig=json.loads((HERE/'skyfall_rig.json').read_text())
+PLACEMENT_HANDOFF='--placement-handoff' in sys.argv
+RUNTIME=HERE.parents[3]/'game/assets/models/maps/skyfall'
+if PLACEMENT_HANDOFF:
+    # Read-only acceptance against unchanged deployed castings. Editable
+    # geometry still belongs to platform_variants.py and its native builders.
+    previous=json.loads((RUNTIME/'skyfall_rig.json').read_text())
+    delta=rig['level_surface_z_m']['lower']-previous['level_surface_z_m']['lower']
+    assert len(previous['markers'])==len(rig['markers'])
+    positions=['position_blender','position_godot','mount_position_blender','pickup_position_godot','figma_position_blender','wall_figma_center_blender']
+    for before,after in zip(previous['markers'],rig['markers']):
+        normalized=json.loads(json.dumps(after))
+        for key in positions:
+            if key in normalized and normalized['name']!='lunar-scenery':
+                normalized[key][1 if 'godot' in key else 2]-=delta
+        for key in set(before)|set(normalized):
+            if key in positions:
+                assert all(abs(a-b)<1e-6 for a,b in zip(before[key],normalized[key])),(after['name'],key)
+            else:assert before.get(key)==normalized.get(key),(after['name'],key)
+    for before,after in zip(previous['deck_sections'],rig['deck_sections']):
+        normalized=json.loads(json.dumps(after));baseline=json.loads(json.dumps(before))
+        for value in [baseline,normalized]:value.pop('motion',None);value.pop('position',None)
+        normalized['z']-=delta
+        for hole in normalized['holes']:hole['center'][2]-=delta
+        for wall in normalized.get('walls',[]):wall[2]-=delta
+        assert normalized==baseline,(after['name'],'changed native machining')
 assert rig['canvas_m']==[75,75] and rig['total_map_triangles']<=rig['triangle_budget']
 assert rig['recess_clearance_per_side_m']==.001
-assert rig['level_surface_z_m']==dict(common=0,lower=22,higher=26,roof=30)
+sys.path.insert(0,str(HERE))
+from layout import HEIGHTS
+assert rig['level_surface_z_m']==HEIGHTS
 jumbo=next(m for m in rig['markers'] if m['role']=='jumbotron')
-assert jumbo['position_godot']==[0,35,0], 'Jumbotron must be 5 m above the rooftop level'
+assert jumbo['position_godot']==[0,HEIGHTS['roof']+5,0], 'Jumbotron must be 5 m above the rooftop level'
 spawns=[m for m in rig['markers'] if m['role']=='spawn']
 assert len(spawns)==10,'Ten island-facing spawns required'
 for spawn in spawns:
@@ -65,7 +92,7 @@ for marker in rig['markers']:
     x,y,_=socket['origin']
     assert abs(x)+2.5<=float(w)*.35 and abs(y)+2.5<=float(h)*.35,marker['name']
     thruster_count+=1
-assert abs(min(bottoms.values())-19.7)<1e-6
+assert abs(min(bottoms.values())-(HEIGHTS['lower']-2.3))<1e-6
 assert rig['level_surface_z_m']['higher']-rig['level_surface_z_m']['lower']==4
 assert rig['level_surface_z_m']['roof']-rig['level_surface_z_m']['higher']==4
 
@@ -77,13 +104,13 @@ def audit(source):
     # former native wells, in both render and collision exchange formats.
     for sign in (-1,1):
         for x in (14,17):
-            origin=Vector((sign*x,-sign*22.5,26.1))
+            origin=Vector((sign*x,-sign*22.5,HEIGHTS['higher']+.1))
             hits=[]
             for mesh in meshes:
                 inv=mesh.matrix_world.inverted()
                 hit,at,_,_=mesh.ray_cast(inv@origin,inv.to_3x3()@Vector((0,0,-1)),distance=.2)
                 if hit:hits.append((mesh.matrix_world@at).z)
-            assert any(abs(z-26)<.01 for z in hits),(source,'deleted fixture left a floor hole',tuple(origin),hits)
+            assert any(abs(z-HEIGHTS['higher'])<.01 for z in hits),(source,'deleted fixture left a floor hole',tuple(origin),hits)
     for d in rig['deck_sections']:
         for hole in d['holes']:
             tested+=1;w,h=hole['size'];rot=Euler(hole.get('rotation',[0,0,hole.get('yaw',0)])).to_matrix();center=Vector(hole['center'])
@@ -101,8 +128,8 @@ def import_platforms(extension='glb',collision=False):
         if marker['role']!='platform' and not (marker.get('no_collision') and not collision):continue
         before=set(bpy.data.objects)
         stem=marker['asset']+marker['asset_suffix']+('_col' if collision else '')
-        path=HERE/(stem+'.'+extension)
-        if extension=='fbx':bpy.ops.import_scene.fbx(filepath=str(path))
+        path=(RUNTIME/(stem+'.glb')) if PLACEMENT_HANDOFF else HERE/(stem+'.'+extension)
+        if extension=='fbx' and not PLACEMENT_HANDOFF:bpy.ops.import_scene.fbx(filepath=str(path))
         else:bpy.ops.import_scene.gltf(filepath=str(path))
         objects=set(bpy.data.objects)-before
         transform=Matrix.Translation(Vector(marker['position_blender']))@Euler(marker['rotation_blender']).to_matrix().to_4x4()
@@ -133,5 +160,5 @@ for suffix in ('','.fbx','_col','_col.fbx'):
             for bone in ob.pose.bones:bone.location=(0,0,0);bone.rotation_quaternion=(1,0,0,0)
     import_platforms('fbx' if is_fbx else 'glb',suffix.startswith('_col'))
     exchange[path.name]={'recesses':audit(path.name),'triangles':sum(sum(len(p.vertices)-2 for p in o.data.polygons) for o in bpy.context.scene.objects if o.type=='MESH' and o.name.startswith('SK_Skyfall'))}
-report=dict(triangles=rig['triangles'],total_map_triangles=rig['total_map_triangles'],markers=len(rig['markers']),deck_sections=len(rig['deck_sections']),recesses=recesses,budget=rig['triangle_budget'],helper_instance_triangles=helper_counts,minimum_platform_bottom_m=min(bottoms.values()),native_thruster_mounts=thruster_count,roundtrip=exchange)
+report=dict(triangles=rig['triangles'],total_map_triangles=rig['total_map_triangles'],markers=len(rig['markers']),deck_sections=len(rig['deck_sections']),recesses=recesses,budget=rig['triangle_budget'],helper_instance_triangles=helper_counts,minimum_platform_bottom_m=min(bottoms.values()),native_thruster_mounts=thruster_count,roundtrip=exchange,unchanged_deployed_castings=PLACEMENT_HANDOFF)
 (HERE/'skyfall_validation.json').write_text(json.dumps(report,indent=2)+'\n');print('SKYFALL_VALIDATION',json.dumps(report))

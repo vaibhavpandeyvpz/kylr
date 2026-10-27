@@ -17,6 +17,9 @@ static func install(visual: Node3D, category: String, id: String, owner_robot = 
 	var source := Assets.model(category, id, suffix)
 	var target_skeleton := Assets.find(visual, "Skeleton3D") as Skeleton3D
 	var source_skeleton := Assets.find(source, "Skeleton3D") as Skeleton3D
+	var attachments: Dictionary={}
+	var shared_bodies: Dictionary={}
+	var compound_carrier:=owner_robot==null and moving_carrier(visual) and id!="item_cradle"
 	for mesh_node in source.find_children("*", "MeshInstance3D", true, false):
 		if owner_robot != null and String(mesh_node.name).begins_with("SK_TensorUpperBody") and not String(mesh_node.name).trim_suffix("Col").to_lower().ends_with(owner_robot.upper_body): continue
 		if owner_robot != null and String(mesh_node.name).begins_with("SK_TensorHead") and not String(mesh_node.name).to_lower().contains(owner_robot.head): continue
@@ -27,19 +30,30 @@ static func install(visual: Node3D, category: String, id: String, owner_robot = 
 			cache_key += "/convex" if owner_robot != null else "/surface"
 			if not hull_cache.has(cache_key):
 				hull_cache[cache_key] = split_hulls(mesh_node,source_skeleton) if owner_robot != null else bone_surfaces(mesh_node,source_skeleton)
-			var bodies: Dictionary = {}
+			var bodies: Dictionary = shared_bodies if compound_carrier else {}
 			for hull in hull_cache[cache_key]:
 				if target_skeleton.find_bone(hull.bone)<0: continue
-				if bodies.has(hull.bone):
-					add_shape(null,hull.shape,owner_robot,hit_region,String(mesh_node.name),bodies[hull.bone])
+				# Fixed casting parts on one native bone have identical motion and
+				# collision policy. Keep lethal scenery in its own body.
+				var body_key: Variant=String(hull.bone)+("/lethal" if String(mesh_node.name).contains("LethalSurface") else "/solid") if compound_carrier else hull.bone
+				if bodies.has(body_key):
+					add_shape(null,hull.shape,owner_robot,hit_region,String(mesh_node.name),bodies[body_key])
 					continue
-				var attachment:=BoneAttachment3D.new()
-				attachment.bone_name=hull.bone
-				target_skeleton.add_child(attachment)
-				bodies[hull.bone] = add_shape(attachment,hull.shape,owner_robot,hit_region,String(mesh_node.name))
+				# All authored collision meshes on this bone share its transform.
+				# Bodies retain independent names, shapes and hit/fixture metadata.
+				if not attachments.has(hull.bone):
+					var anchor:=BoneAttachment3D.new()
+					anchor.bone_name=hull.bone
+					anchor.set_meta("collision_anchor",true)
+					target_skeleton.add_child(anchor)
+					attachments[hull.bone]=anchor
+				var attachment: BoneAttachment3D=attachments[hull.bone]
+				bodies[body_key] = add_shape(attachment,hull.shape,owner_robot,hit_region,String(mesh_node.name))
+				bodies[body_key].set_meta("collision_asset_root",visual.get_instance_id())
 			continue
 		else:
 			var body := world_body(visual)
+			body.set_meta("collision_asset_root",visual.get_instance_id())
 			body.collision_layer = 1
 			body.collision_mask = 0
 			body.set_meta("spatio_material", Spatio.material_for_name(String(mesh_node.name), category))

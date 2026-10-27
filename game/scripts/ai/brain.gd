@@ -9,6 +9,8 @@ var visible_time := 0.0
 var goal := Vector3.ZERO
 var goal_kind := "patrol"
 var path: Array=[]
+var equipment_routes: Dictionary={}
+var equipment_route_epoch: int=-1
 var path_index := 0
 var retarget := 0.0
 var strafe := 1.0
@@ -137,7 +139,9 @@ func tick(dt: float):
 		decision = tuning.decision_interval
 		game.map.traversal.begin_planning_queries()
 		var decision_started := Time.get_ticks_usec() if profile_decisions else 0
+		equipment_routes.clear()
 		behavior.update(tuning.decision_interval)
+		equipment_routes.clear()
 		if profile_decisions: decision_usec += Time.get_ticks_usec()-decision_started
 		game.map.traversal.end_planning_queries()
 	if robot.protection > 0:
@@ -301,7 +305,10 @@ func interception_point(carrier_id: int) -> Vector3:
 	if game.map.traversal != null:
 		# The interpolation can lie over the void or above a lower bridge.
 		# Route to its supported endpoint before commit_goal checks reachability.
-		var route: Array = game.map.traversal.route(robot.position,search,robot.ep>ArenaTuning.HALF_EP,robot.is_on_floor())
+		var traversal: TraversalGraph=game.map.traversal
+		var id: int=game.map.nav.get_closest_point(traversal.query_point(search))
+		if id>=0:search=traversal.position_of(id)
+		var route: Array = traversal.route(robot.position,search,robot.ep>ArenaTuning.HALF_EP,robot.is_on_floor())
 		if not route.is_empty(): return route.back().point
 	return search
 
@@ -427,7 +434,11 @@ func plan_intent(intent: String) -> bool:
 				return commit_goal(attack_point,"assault")
 			if MatchTypes.individual(game.match_type):
 				var opposite := -signf(robot.spawn_fixture.point.z) if not robot.spawn_fixture.is_empty() else -signf(robot.position.z)
-				return commit_goal(Vector3(strafe*6.0,0,opposite*22.0),"hunt")
+				var hunt:=Vector3(strafe*6.0,game.flags[0].home.y,opposite*22.0)
+				if game.map.carriers:
+					var id: int=game.map.nav.get_closest_point(game.map.traversal.query_point(hunt))
+					if id>=0:hunt=game.map.traversal.position_of(id)
+				return commit_goal(hunt,"hunt")
 			return false
 		"equipment":
 			return equipment.plan(false)
@@ -548,9 +559,14 @@ func resource_cost(point: Vector3) -> float:
 		cost += threat*float(tuning.route_risk)*float(BotDifficulty.data.tactics.threat_route_penalty)
 	return cost
 
+
 func equipment_travel(point: Vector3) -> float:
 	var route: Array = robot.arena_match.map.traversal.route(robot.position,point,robot.ep>ArenaTuning.HALF_EP,robot.is_on_floor())
 	if route.is_empty() or route[-1].point.distance_to(point)>2.0: return INF
+	if robot.arena_match.map.config.get("reuse_equipment_routes",false) and robot.arena_match.map.traversal.planning_queries_active:
+		var epoch: int=robot.arena_match.map.traversal.planning_epoch
+		if equipment_route_epoch!=epoch:equipment_routes.clear();equipment_route_epoch=epoch
+		equipment_routes[point]=route
 	var cost := 0.0
 	var previous_point: Vector3 = robot.position
 	for step in route:
@@ -581,6 +597,9 @@ func commit_goal(destination: Vector3,kind: String) -> bool:
 
 func navigation_route(destination: Vector3,kind: String) -> Array:
 	var map=robot.arena_match.map
+	if equipment_routes.has(destination) and kind in ["weapon","ammo","shield"] and map.traversal.planning_queries_active and equipment_route_epoch==map.traversal.planning_epoch:
+		if TraversalGraph.profile_paths:TraversalGraph.path_stats["equipment_route_hits"]=int(TraversalGraph.path_stats.get("equipment_route_hits",0))+1
+		return equipment_routes[destination]
 	if map.carriers:return map.carriers.traffic.route(robot,destination,kind)
 	return map.traversal.route(robot.position,destination,robot.ep>ArenaTuning.HALF_EP,robot.is_on_floor())
 
@@ -631,7 +650,9 @@ func steer(dt):
 			var step: Dictionary=path[path_index]
 			var source_deck: String=step.get("from_carrier",{}).get("deck","")
 			var destination_deck: String=step.get("point_carrier",{}).get("deck","")
-			if source_deck!=destination_deck and not map.carriers.walk_reachable(step):
+			var separate_frames: bool=source_deck!=destination_deck
+			if map.config.get("vertical_bobbing_only",false) and map.carriers.same_rigid_group(source_deck,destination_deck):separate_frames=false
+			if separate_frames and not map.carriers.walk_reachable(step):
 				robot.move_input=Vector2.ZERO;path.clear();retarget=.5
 				return
 	else:

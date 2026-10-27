@@ -77,18 +77,18 @@ func test_removed_upper_fixture_wells_support_physics_rays():
 	await wait_physics_frames(2)
 	for sign in [-1.0, 1.0]:
 		for x in [14.0, 17.0]:
-			var point := Vector3(sign * x, 26, sign * 22.5)
+			var point := Vector3(sign * x, 36, sign * 22.5)
 			var query := PhysicsRayQueryParameters3D.create(point + Vector3.UP * .1, point - Vector3.UP * .1, 1)
 			var hit := model.get_world_3d().direct_space_state.intersect_ray(query)
 			assert_false(hit.is_empty(), "Former upper barricade/plate well is solid: %s" % point)
-			if not hit.is_empty(): assert_almost_eq(float(hit.position.y), 26.0, .001)
+			if not hit.is_empty(): assert_almost_eq(float(hit.position.y), 36.0, .001)
 
 func test_lunar_surface_has_no_playable_placements_or_navigation():
 	assert_true(MapCatalog.find("skyfall").lunar_surface_lethal)
-	for height in MapCatalog.find("skyfall").navigation.levels: assert_gte(height,22)
+	for height in MapCatalog.find("skyfall").navigation.levels: assert_gte(height,32)
 	for marker in layout().markers:
 		assert_true(marker.zone != "common" or marker.role == "jumbotron" or marker.get("budget_excluded",false),String(marker.name))
-	for link in MapCatalog.find("skyfall").drop_links: assert_gte(link.to[1],22)
+	for link in MapCatalog.find("skyfall").drop_links: assert_gte(link.to[1],32)
 
 func test_wall_pickup_axes_are_authored_into_gizmos():
 	var model := Assets.model("maps","skyfall")
@@ -192,7 +192,7 @@ func test_thrusters_attach_to_authorized_native_platform_sockets():
 
 func test_floor_heights_and_tapered_bases_meet_lunar_clearance():
 	assert_lte(layout().total_map_triangles,layout().triangle_budget)
-	assert_eq(layout().level_surface_z_m,{"common":0.0,"lower":22.0,"higher":26.0,"roof":30.0})
+	assert_eq(layout().level_surface_z_m,{"common":0.0,"lower":32.0,"higher":36.0,"roof":40.0})
 	var bottom:=INF
 	for marker in layout().markers:
 		if marker.role!="platform" or not marker.underbody:continue
@@ -201,7 +201,7 @@ func test_floor_heights_and_tapered_bases_meet_lunar_clearance():
 		bottom=minf(bottom,float(marker.position_godot[1])-float(metadata.depth_m))
 		assert_almost_eq(float(metadata.depth_m)-0.8,1.5,0.00001)
 		assert_gte(float(marker.position_godot[1])-float(metadata.depth_m),15.0)
-	assert_almost_eq(bottom,19.7,0.00001)
+	assert_almost_eq(bottom,29.7,0.00001)
 
 func test_map_budget_counts_castings_and_mounting_geometry_only():
 	var data:=layout()

@@ -24,6 +24,7 @@ static func create(world: ArenaMatch, robot: ArenaRobot, placement: Transform3D,
 			mesh.set_surface_override_material(surface, Assets.extinguished_material(source.get_active_material(surface), world.corpse_materials))
 		mesh.material_overlay = null
 		if String(mesh.name).begins_with("SK_TensorShield"): mesh.hide()
+	ShadowBatch.install(corpse)
 	var skeleton := Assets.find(corpse, "Skeleton3D") as Skeleton3D
 	var animator := AnimationPlayer.new()
 	animator.name = "RuntimeAnimator"

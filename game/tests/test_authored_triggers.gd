@@ -102,7 +102,7 @@ func test_skyfall_plate_toggles_once_per_entry_and_repair_requires_pad_overlap()
 	assert_true(station.trigger.overlaps_body(robot))
 	assert_eq(station.occupant,robot,"Repair begins only when the robot reaches the authored pad")
 	assert_gt(status.emission.r,status.emission.g,"Activation claims the bay and turns status red immediately")
-	assert_true(game.audio.events.any(func(event): return event.get("id", "") == "repair_start_stop" and event.point == station.point),"Shield powers up as the repair station activates")
+	assert_true(game.audio.events.any(func(event): return event.get("id", "") == "repair_start_stop" and event.point.distance_to(station.point)<.1),"Shield activation sound originates at the moving repair bay")
 	game.authority = false
 	robot.set_physics_process(false)
 	station.elapsed = 0.0

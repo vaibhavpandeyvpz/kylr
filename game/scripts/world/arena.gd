@@ -172,6 +172,8 @@ func start_map_assembly():
 func start_loadout():
 	for marker in markers:
 		make_fixture(marker)
+	if carriers!=null and config.get("rigid_carrier_collision",false) and carriers.collision_groups.is_empty():
+		carriers.collision_groups=CarrierCollision.consolidate(carriers)
 	for flag in game.flags:
 		flag.base_effect.visible = game.match_type == "CTF"
 
@@ -246,6 +248,9 @@ func make_fixture(marker: Dictionary):
 		if not marker.get("no_collision",false): CollisionRig.install(instance,marker.category,marker.asset,null,suffix+"_col")
 		var emissive_only: Array=config.get("platform_emissive_only_assets",[]) if role=="platform" else []
 		ArchitectureLights.install(instance,marker.category,marker.asset,suffix,emissive_only)
+		if role=="platform" and config.get("rigid_platform_render_geometry",false):
+			# Helper casting bones are fixed; the outer map carrier owns motion.
+			ArchitectureLights.share_fixed_pose_meshes(instance)
 		var placement := {"id":id,"kind":role,"point":point,"node":instance,"cooldown":0.0,"elapsed":0.0,"occupant":null,"inside":[],"open":true,"trigger":null}
 		fixtures.append(placement)
 		placement["asset_suffix"]=suffix
@@ -699,7 +704,7 @@ func finish_lunar_surface(root: Node) -> void:
 				mesh.set_surface_override_material(surface,PlanetaryTerrain.material(game.map_id))
 				continue
 			if source == null or Assets.material_role(source.resource_name) not in ["M_Regolith", "M_RegolithLight", "M_RegolithDark"]: continue
-			mesh.set_surface_override_material(surface, Assets.regolith_material(source))
+			mesh.set_surface_override_material(surface, Assets.regolith_material(source,config.get("vertical_bobbing_only",false)))
 
 func begin_spawn(spawn: Dictionary,robot: ArenaRobot) -> void:
 	var fixture=fixture_by_id(spawn.id)
@@ -891,8 +896,9 @@ func repair_geometry_valid(f: Dictionary) -> bool:
 		for shape in collider.get_children():
 			if shape is CollisionShape3D and (shape.disabled or shape.shape == null): return false
 	# Capture the assembled transform, never the moving opening pose.
-	if not f.has("geometry_transform"): f["geometry_transform"] = node.global_transform
-	return node.global_transform.is_equal_approx(f.geometry_transform)
+	var transform: Transform3D=carriers.fixture_transform(f) if carriers!=null else node.global_transform
+	if not f.has("geometry_transform"): f["geometry_transform"] = transform
+	return transform.is_equal_approx(f.geometry_transform)
 
 func set_repair_geometry_valid(f: Dictionary, valid: bool) -> void:
 	f["geometry_valid"] = valid
@@ -1088,7 +1094,8 @@ func build_navigation():
 	traversal=TraversalGraph.new(self)
 	traversal.build()
 	nav=traversal.graph
-	if carriers:carriers.capture_navigation()
+	if carriers:
+		carriers.capture_navigation();carriers.finish_initial_connections()
 	if navigation_region:
 		install_traversal_links()
 
@@ -1101,7 +1108,8 @@ func build_navigation_async() -> void:
 		traversal=TraversalGraph.new(self)
 		traversal.restore_snapshot(navigation_snapshots[key])
 		nav=traversal.graph
-		if carriers:carriers.capture_navigation()
+		if carriers:
+			carriers.capture_navigation();await carriers.finish_initial_connections_async()
 		if navigation_region:
 			install_traversal_links()
 		navigation_cache_hit=true
@@ -1123,7 +1131,8 @@ func build_navigation_async() -> void:
 	await traversal.build_async()
 	navigation_snapshots[key]=traversal.snapshot()
 	nav=traversal.graph
-	if carriers:carriers.capture_navigation()
+	if carriers:
+		carriers.capture_navigation();await carriers.finish_initial_connections_async()
 	if navigation_region:
 		install_traversal_links()
 	for player in players: player.play()

@@ -171,6 +171,7 @@ func _ready() -> void:
 	armor_secondary = Assets.robot_accent(body, tint, character.model)
 	Assets.paint(body, tint, armor_secondary, head, false, upper_body)
 	CollisionRig.install(body,"characters",character.model,self)
+	ShadowBatch.install(body)
 	if not (arena_match.replicating and DisplayServer.get_name() == "headless"):
 		RobotDebrisMesh.prepare(body)
 	opponent_marker = OpponentMarker.new()

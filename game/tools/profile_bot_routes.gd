@@ -114,6 +114,12 @@ func profile(args: PackedStringArray=PackedStringArray(), exit_after := true):
 		stats.append({"id":id,"team":team,"start":robot.position,"roof_exit":false,"left_zone":false,"enemy_zone":false,"portal":0,"pad":0,"normal_jump":0,"charged_jump":0,"blocked_frames":0,"distance":0.0,"closest_enemy_flag":9999.0,"repair_visits":0,"repairing":false,"kinds":{},"last":robot.position,"lift":false,"jumping":false})
 	var frame_times: Array[float] = []
 	var physics_times: Array[float] = []
+	var roof_level:=30.0
+	if game.map_id=="skyfall":
+		roof_level=INF
+		for section in game.map.carriers.deck_sections:
+			if String(section.name).ends_with("_roof"):roof_level=minf(roof_level,float(section.position[2]))
+		assert(is_finite(roof_level),"Skyfall roof diagnostics require authored roof decks")
 	var total_frames := roundi(seconds * 60.0)
 	var started_usec := Time.get_ticks_usec()
 	for frame in total_frames:
@@ -147,7 +153,7 @@ func profile(args: PackedStringArray=PackedStringArray(), exit_after := true):
 			var displacement: float = p.distance_to(previous)
 			row.distance += displacement
 			if displacement > 10.0 and absf(p.y-previous.y)>5.0: row.portal += 1
-			if not row.roof_exit and row.start.y>=30 and p.y<29: row.roof_exit=true
+			if not row.roof_exit and row.start.y>=roof_level-.3 and p.y<roof_level-1.0: row.roof_exit=true
 			if upper_floor_case and row.start.y>3 and p.y<row.start.y-1.0 and not row.has("upper_floor_exit"):
 				row["upper_floor_exit"]=robot.deaths==0
 				row["upper_floor_exit_deaths"]=robot.deaths

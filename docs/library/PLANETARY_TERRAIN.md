@@ -48,10 +48,12 @@ actions. These checks run during graph construction, not every frame.
 The playable area remains 75 × 75 m, bounded by walls at ±37.5 m. Distant scenery
 is excluded from the navigation bake using the catalog's route bounds.
 
-Skyfall floats over a depressed impact basin with fissures and secondary impacts.
-Decks remain at 22/26/30 m; lunar contact remains lethal and is excluded from
+Skyfall floats over a broad lunar impact bowl with a low rim, secondary craters,
+regolith drifts and closed ejecta stones. `skyfall/lunar_field.py` owns its height
+field; `skyfall/lunar_stones.py` owns the rock scatter. Decks rest at 32/36/40 m
+and bob +/-0.25 m in eight rigid assemblies; lunar contact remains lethal and is excluded from
 navigation. Its void boundary is -20 m, below the deepest basin, so terrain
-contact retains the lethal-ground impact behavior. Neither map moves fixtures to accommodate terrain. Recesses retain
+contact retains the lethal-ground impact behavior. Native fixture axes and relative seating remain authoritative. Recesses retain
 the native footprint plus 1 mm clearance on each side.
 
 Height samples cover 512 × 512 m at 1 m spacing. Terrain3D bakes the central
@@ -123,7 +125,7 @@ Git. Runtime textures, control maps, their manifest and prepared game meshes are
 checked in. The Terrain3D MIT notice ships with packaged licenses.
 
 After handoff, run official Godot import, tests, physical source-height checks,
-the complete two-map bot roster matrix, repeated CPU profiling and serial
+the complete three-map bot roster matrix, repeated CPU profiling and serial
 rendered High comparisons under [playtesting](../PLAYTESTING.md). Refresh
 map-selection and cinematic captures from fully populated runtime maps. Headless
 route checks do not qualify rendering performance or appearance.

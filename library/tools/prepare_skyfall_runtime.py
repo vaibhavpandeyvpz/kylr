@@ -11,7 +11,14 @@ if '--lighting-only' in sys.argv:
  catalog_path.write_text(json.dumps(catalog,indent=2)+'\n')
  print('Updated Skyfall platform emissive-only lighting policy')
  raise SystemExit(0)
-decks,markers=runpy.run_path(str(MODEL/'maps/skyfall/layout.py'))['data']()
+layout=runpy.run_path(str(MODEL/'maps/skyfall/layout.py'))
+decks,markers=layout['data']()
+HEIGHTS=layout['HEIGHTS']
+ELEVATION=float(layout['SETTINGS']['elevation_offset_m'])
+if '--placements-only' in sys.argv:
+ rig=json.loads((MODEL/'maps/skyfall/skyfall_rig.json').read_text())
+ assert rig['markers']==json.loads(json.dumps(markers)), 'Rebuild and validate the native placement rig before handoff'
+ assert [(d['name'],d['motion']) for d in rig['deck_sections']]==[(d['name'],d['motion']) for d in decks], 'Motion metadata must match the validated native rig'
 def point(m):return m['position_godot']
 portals=[m for m in markers if m['role']=='portal'];pairs=[]
 for zone in ('A','B'):
@@ -34,19 +41,19 @@ links=[];drops=[];ramp_links=[]
 for m in markers:
  if m['role']=='speed_ramp':
   x,z,y=point(m);sign=1 if y>0 else -1
-  ramp_links.append(dict(fixture=m['name'],to=[x,26,sign*2.5],speed=12.6))
+  ramp_links.append(dict(fixture=m['name'],to=[x,HEIGHTS['higher'],sign*2.5],speed=12.6))
 for m in markers:
  if m['role']!='jump_pad':continue
  x,z,y=m['position_godot']
  # Pads on a lip clear the upper slab before steering inward.
- if 'island_2' in m['deck']:target=[x,26,-2.5 if y<0 else 2.5]
+ if 'island_2' in m['deck']:target=[x,HEIGHTS['higher'],-2.5 if y<0 else 2.5]
  elif 'mainland_1_lower' in m['deck']:
   # Rise through the authored opening, then steer onto its nearest solid rim.
-  target=[math.copysign(18.5 if abs(x)<22.5 else 26.5,x),26,y]
+  target=[math.copysign(18.5 if abs(x)<22.5 else 26.5,x),HEIGHTS['higher'],y]
  elif 'island_1' in m['deck']:
-  sign=1 if m['zone']=='A' else -1;target=[sign*25,26,-sign*14]
+  sign=1 if m['zone']=='A' else -1;target=[sign*25,HEIGHTS['higher'],-sign*14]
  else:
-  sign=1 if m['zone']=='A' else -1;target=[sign*25,30,-sign*20]
+  sign=1 if m['zone']=='A' else -1;target=[sign*25,HEIGHTS['roof'],-sign*20]
  links.append(dict(from_=point(m),to=target,kind='launch'))
 def recessed(point):
  for marker in markers:
@@ -80,9 +87,9 @@ for d in decks:
 # Authored clear approaches connect each higher mainland to its lower island.
 # Rooftop pads have explicit drop apertures; the surrounding native floor stays solid.
 for sign in (-1,1):
- drops.append({'from':[sign*14,26,-sign*26.5],'to':[sign*11,22,-sign*23.5],'kind':'drop'})
- drops.append({'from':[sign*22,30,-sign*22.5],'to':[sign*22,26,-sign*22.5],'kind':'drop'})
- drops.append({'from':[sign*25,26,-sign*1.9],'to':[sign*25,22,0],'kind':'drop'})
+ drops.append({'from':[sign*14,HEIGHTS['higher'],-sign*26.5],'to':[sign*11,HEIGHTS['lower'],-sign*23.5],'kind':'drop'})
+ drops.append({'from':[sign*22,HEIGHTS['roof'],-sign*22.5],'to':[sign*22,HEIGHTS['higher'],-sign*22.5],'kind':'drop'})
+ drops.append({'from':[sign*25,HEIGHTS['higher'],-sign*1.9],'to':[sign*25,HEIGHTS['lower'],0],'kind':'drop'})
 walk_routes=[]
 for m in markers:
  if m['category']!='architecture':continue
@@ -102,18 +109,22 @@ catalog=dict(version=2,maps=[dict(id='skyfall',title='Skyfall',model='skyfall',
  subtitle='A lunar battlefield across three floating levels.',description='Fight across floating lunar platforms, use wall mounts and cradles, and traverse between levels. Falling onto the lunar surface is fatal.',
  match_types=['DM','TDM','CTF'],metadata='res://assets/models/maps/skyfall/skyfall_rig.json',gravity_multiplier=0.8,
  platform_emissive_only_assets=PLATFORM_EMISSIVE_ONLY_ASSETS,
+ moving_decks=[d['name'] for d in decks],vertical_bobbing_only=True,rigid_platform_render_geometry=True,rigid_carrier_collision=True,reuse_navigation_query_shapes=True,reuse_equipment_routes=True,native_portal_routes=True,angular_gap_routes=True,jump_search_radius=12.0,
  flag_markers=[m['name'] for m in flags],flag_bases=[point(m) for m in flags],flag_capture_meshes=['SK_SkyfallFlagCaptureTrigger_A','SK_SkyfallFlagCaptureTrigger_B'],
- navigation=dict(min_x=-36,max_x=36,min_z=-36,max_z=36,levels=[22,26,26.53,30,30.1,30.10966,30.53]),
- camera_path=[[0,55,0],[70,58,70]],camera_focus=[[0,17,0]],fall_boundary=-20,lunar_surface_lethal=True,
- zone_bounds=[{'min':[-36,15,-36],'max':[36,35,-1]},{'min':[-36,15,1],'max':[36,35,36]}],
- audio_zones=[],event=dict(time=120,warning=10,type='none',title='Static lunar battlefield'),
+ navigation=dict(min_x=-36,max_x=36,min_z=-36,max_z=36,levels=[height+ELEVATION for height in [22,26,26.53,30,30.1,30.10966,30.53]]),
+ camera_path=[[0,55+ELEVATION,0],[70,58+ELEVATION,70]],camera_focus=[[0,17+ELEVATION,0]],fall_boundary=-20,lunar_surface_lethal=True,
+ zone_bounds=[{'min':[-36,15+ELEVATION,-36],'max':[36,35+ELEVATION,-1]},{'min':[-36,15+ELEVATION,1],'max':[36,35+ELEVATION,36]}],
+ audio_zones=[],event=dict(time=120,warning=10,type='none',title='Hovering lunar battlefield'),
  portal_pairs=pairs,vertical_pad_departure=True,pad_lift_heights={m['name']:5 for m in markers if m['role']=='jump_pad' and 'mainland_1_lower' in m['deck']},jump_links=links,drop_links=drops,walk_routes=walk_routes,bake_navigation=True,
- zone_exits=[[-25,22,-25],[25,22,25]],barricade_links=bindings,speed_ramp_links=ramp_links,
+ zone_exits=[[-25,HEIGHTS['lower'],-25],[25,HEIGHTS['lower'],25]],barricade_links=bindings,speed_ramp_links=ramp_links,
  pulse_gun=dict(range=20,damage=50,interval=1.0,speed=45,slow_multiplier=.25,slow_duration=.5,enabled_match_types=['TDM','CTF']))])
 catalog_path=ROOT/'game/data/maps/catalog.json'
 existing=json.loads(catalog_path.read_text())
 catalog['maps'].extend(m for m in existing['maps'] if m['id']!='skyfall')
 catalog_path.write_text(json.dumps(catalog,indent=2)+'\n')
+if '--placements-only' in sys.argv:
+ print('Updated Skyfall placements, elevations and bobbing catalog')
+ raise SystemExit(0)
 weapons_path=ROOT/'game/data/weapons/catalog.json';weapons=json.loads(weapons_path.read_text())
 for id,title,capacity,damage,interval,reach,speed,muzzle in [('flak_cannon','Flak cannon',100,15,2/3,100,45,'Muzzle1'),('bio_rifle','Bio rifle',100,15,1,100,45,'Muzzle'),('grenade_launcher','Grenade launcher',40,40,1,100,15,'Muzzle1')]:
  weapons['weapons'][id]=dict(title=title,model=id,animation_family=id,range=reach,damage=damage,interval=interval,capacity=capacity,recoil=2,attack='reference_projectile',muzzles=[muzzle],projectile_speed=speed,crosshair=dict(style='circle',width=2,radius=14))

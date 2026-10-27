@@ -18,7 +18,8 @@ Faceoff's ground, crater and mountains blend six original volcanic PBR layers.
 Slope-based basalt exposure distinguishes steep rock from ash and slag deposits;
 native soil aprons retain object-local projection. A low warm sun and softer
 sky fill light the evening scene. Its static procedural sky uses cached quality
-reflections rather than animated night-sky radiance updates.
+reflections. Skyfall caches its fixed reflection cubemap while the visible wisps
+continue to use the background clock.
 
 Low disables shadows, ambient occlusion, bloom and MSAA. Medium enables shadows,
 bloom and 2× MSAA. High enables fixture illumination, shadows, ambient occlusion,
@@ -41,6 +42,15 @@ Game scripts use standard Godot APIs. Portal navigation
 uses scripted costs and an admissible portal heuristic on `AStar3D`; visibility
 queries use `PhysicsDirectSpaceState3D.intersect_ray`. Audio routes are fixed at
 startup as defined in [audio](AUDIO.md).
+
+## Geometry and shadow work
+
+Opaque material sections share a shadow-only mesh with the same indexed vertices,
+normals and skin weights. Visible native materials and meshes stay unchanged.
+Transparent, custom-shader and grown surfaces retain their native shadow path.
+Shadow batches share the source skin, transform, culling range and visibility;
+robot debris caches their rigid fragments during loading. Fixed platform
+castings use shared unskinned meshes while their parent carrier rigs bob.
 
 ## Verification
 

@@ -22,7 +22,9 @@ class PlanetaryFieldTests(unittest.TestCase):
             self.assertTrue(np.isfinite(weights).all())
             self.assertTrue(np.allclose(weights.sum(axis=-1),1.0))
             for index in (0,1,2,3):
-                self.assertGreater(float((weights[...,index]>.65).mean()),.04,
+                # The flattened volcanic floor exposes less basalt than the crater walls.
+                minimum=.02 if map_id=='faceoff' and index==1 else .04
+                self.assertGreater(float((weights[...,index]>.65).mean()),minimum,
                     f'{map_id} layer {index} retains visible patches rather than a uniform blend')
             if map_id=='faceoff':
                 self.assertGreater(float((weights[...,4]>.65).mean()),.1,'Compacted ground remains readable near fixtures')
@@ -67,8 +69,9 @@ class PlanetaryFieldTests(unittest.TestCase):
         scan=next(item for item in catalog['maps'] if item['id']=='faceoff')['navigation']['terrain_scan']
         self.assertGreater(float(height.min()),scan[0])
         self.assertLess(float(height.max()),scan[1])
-        self.assertLess(float(height.min()),-.5)
-        self.assertGreater(float(height.max()),1.0)
+        self.assertGreaterEqual(float(height.min()),-.500001)
+        self.assertLessEqual(float(height.max()),.500001)
+        self.assertGreater(float(np.ptp(height)),.5,'The bounded floor retains shallow relief')
         self.assertTrue(np.allclose(weights.sum(axis=-1),1.0))
 
     def test_skyfall_ground_retains_clearance_below_platforms(self):
@@ -76,6 +79,14 @@ class PlanetaryFieldTests(unittest.TestCase):
         height,_=field('skyfall',x,z)
         self.assertLess(float(height.max()),15.0)
         self.assertGreater(float(height.min()),-20.0)
+
+    def test_skyfall_has_a_low_circular_impact_rim_and_depressed_floor(self):
+        angles=np.linspace(0,np.pi*2,360,endpoint=False)
+        rim,_=field('skyfall',np.cos(angles)*68,np.sin(angles)*68)
+        floor,_=field('skyfall',np.array([0.0]),np.array([0.0]))
+        self.assertGreater(float(rim.min()),2.5)
+        self.assertLess(float(rim.max()),9)
+        self.assertLess(float(floor[0]),-5)
 
     def test_packed_pbr_keeps_roughness_alpha_and_unit_normals(self):
         folder=ROOT.parent/'game/assets/textures/planetary'

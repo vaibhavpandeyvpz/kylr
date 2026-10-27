@@ -10,12 +10,41 @@
       "match_types": [
         "DM",
         "TDM",
-        "CTF",
-        "ELIMINATION",
-        "GUNGAME"
+        "CTF"
       ],
       "metadata": "res://assets/models/maps/skyfall/skyfall_rig.json",
       "gravity_multiplier": 0.8,
+      "platform_emissive_only_assets": [
+        "sconce_light"
+      ],
+      "moving_decks": [
+        "B_island_2_lower",
+        "B_island_2_higher",
+        "B_mainland_2_higher",
+        "B_mainland_2_roof",
+        "B_island_1_lower",
+        "B_bridge_lower",
+        "B_mainland_1_lower",
+        "B_mainland_1_higher",
+        "B_mainland_1_roof",
+        "A_island_2_lower",
+        "A_island_2_higher",
+        "A_mainland_2_higher",
+        "A_mainland_2_roof",
+        "A_island_1_lower",
+        "A_bridge_lower",
+        "A_mainland_1_lower",
+        "A_mainland_1_higher",
+        "A_mainland_1_roof"
+      ],
+      "vertical_bobbing_only": true,
+      "rigid_platform_render_geometry": true,
+      "rigid_carrier_collision": true,
+      "reuse_navigation_query_shapes": true,
+      "reuse_equipment_routes": true,
+      "native_portal_routes": true,
+      "angular_gap_routes": true,
+      "jump_search_radius": 12.0,
       "flag_markers": [
         "A-ctf_flag-218",
         "B-ctf_flag-108"
@@ -23,12 +52,12 @@
       "flag_bases": [
         [
           -23.5,
-          30.1096605744,
+          40.1096605744,
           -22.5
         ],
         [
           23.5,
-          30.1,
+          40.1,
           22.5
         ]
       ],
@@ -42,31 +71,31 @@
         "min_z": -36,
         "max_z": 36,
         "levels": [
-          22,
-          26,
-          26.53,
-          30,
-          30.1,
-          30.10966,
-          30.53
+          32.0,
+          36.0,
+          36.53,
+          40.0,
+          40.1,
+          40.109660000000005,
+          40.53
         ]
       },
       "camera_path": [
         [
           0,
-          55,
+          65.0,
           0
         ],
         [
           70,
-          58,
+          68.0,
           70
         ]
       ],
       "camera_focus": [
         [
           0,
-          17,
+          27.0,
           0
         ]
       ],
@@ -76,24 +105,24 @@
         {
           "min": [
             -36,
-            15,
+            25.0,
             -36
           ],
           "max": [
             36,
-            35,
+            45.0,
             -1
           ]
         },
         {
           "min": [
             -36,
-            15,
+            25.0,
             1
           ],
           "max": [
             36,
-            35,
+            45.0,
             36
           ]
         }
@@ -103,7 +132,7 @@
         "time": 120,
         "warning": 10,
         "type": "none",
-        "title": "Static lunar battlefield"
+        "title": "Hovering lunar battlefield"
       },
       "portal_pairs": [
         [
@@ -116,134 +145,140 @@
         ]
       ],
       "vertical_pad_departure": true,
+      "pad_lift_heights": {
+        "B-jump_pad-80": 5,
+        "B-jump_pad-81": 5,
+        "A-jump_pad-190": 5,
+        "A-jump_pad-191": 5
+      },
       "jump_links": [
         {
           "to": [
             -25.0,
-            26,
+            36.0,
             -2.5
           ],
           "kind": "launch",
           "from": [
             -25.0,
-            22,
+            32.0,
             -6.5
           ]
         },
         {
           "to": [
             -25,
-            30,
+            40.0,
             20
           ],
           "kind": "launch",
           "from": [
             -14.0,
-            26,
+            36.0,
             26.5
           ]
         },
         {
           "to": [
             -25,
-            26,
+            36.0,
             14
           ],
           "kind": "launch",
           "from": [
             -13.0,
-            22,
+            32.0,
             18.5
           ]
         },
         {
           "to": [
             18.5,
-            26,
+            36.0,
             16.5
           ],
           "kind": "launch",
           "from": [
             21.0,
-            22,
+            32.0,
             16.5
           ]
         },
         {
           "to": [
             26.5,
-            26,
+            36.0,
             28.5
           ],
           "kind": "launch",
           "from": [
             24.0,
-            22,
+            32.0,
             28.5
           ]
         },
         {
           "to": [
             25.0,
-            26,
+            36.0,
             2.5
           ],
           "kind": "launch",
           "from": [
             25.0,
-            22,
+            32.0,
             6.5
           ]
         },
         {
           "to": [
             25,
-            30,
+            40.0,
             -20
           ],
           "kind": "launch",
           "from": [
             14.0,
-            26,
+            36.0,
             -26.5
           ]
         },
         {
           "to": [
             25,
-            26,
+            36.0,
             -14
           ],
           "kind": "launch",
           "from": [
             13.0,
-            22,
+            32.0,
             -18.5
           ]
         },
         {
           "to": [
             -18.5,
-            26,
+            36.0,
             -16.5
           ],
           "kind": "launch",
           "from": [
             -21.0,
-            22,
+            32.0,
             -16.5
           ]
         },
         {
           "to": [
             -26.5,
-            26,
+            36.0,
             -28.5
           ],
           "kind": "launch",
           "from": [
             -24.0,
-            22,
+            32.0,
             -28.5
           ]
         }
@@ -252,12 +287,12 @@
         {
           "from": [
             -26.5,
-            26,
+            36.0,
             -4.2
           ],
           "to": [
             -26.5,
-            22,
+            32.0,
             -6.0
           ],
           "kind": "drop"
@@ -265,12 +300,12 @@
         {
           "from": [
             -25.0,
-            30,
+            40.0,
             26.7
           ],
           "to": [
             -25.0,
-            26,
+            36.0,
             28.5
           ],
           "kind": "drop"
@@ -278,38 +313,38 @@
         {
           "from": [
             31.7,
-            26,
+            36.0,
             22.5
           ],
           "to": [
             33.5,
-            22,
+            32.0,
             22.5
           ],
           "kind": "drop"
         },
         {
           "from": [
-            22.5,
-            30,
-            29.2
+            15.8,
+            40.0,
+            22.5
           ],
           "to": [
-            22.5,
-            26,
-            31.0
+            14.0,
+            36.0,
+            22.5
           ],
           "kind": "drop"
         },
         {
           "from": [
             23.5,
-            26,
+            36.0,
             4.2
           ],
           "to": [
             23.5,
-            22,
+            32.0,
             6.0
           ],
           "kind": "drop"
@@ -317,12 +352,12 @@
         {
           "from": [
             25.0,
-            30,
+            40.0,
             -26.7
           ],
           "to": [
             25.0,
-            26,
+            36.0,
             -28.5
           ],
           "kind": "drop"
@@ -330,38 +365,38 @@
         {
           "from": [
             -31.7,
-            26,
+            36.0,
             -22.5
           ],
           "to": [
             -33.5,
-            22,
+            32.0,
             -22.5
           ],
           "kind": "drop"
         },
         {
           "from": [
-            -22.5,
-            30,
-            -15.8
+            -15.8,
+            40.0,
+            -22.5
           ],
           "to": [
-            -22.5,
-            26,
-            -14.0
+            -14.0,
+            36.0,
+            -22.5
           ],
           "kind": "drop"
         },
         {
           "from": [
             -14,
-            26,
+            36.0,
             26.5
           ],
           "to": [
             -11,
-            22,
+            32.0,
             23.5
           ],
           "kind": "drop"
@@ -369,12 +404,12 @@
         {
           "from": [
             -22,
-            30,
+            40.0,
             22.5
           ],
           "to": [
             -22,
-            26,
+            36.0,
             22.5
           ],
           "kind": "drop"
@@ -382,12 +417,12 @@
         {
           "from": [
             -25,
-            26,
+            36.0,
             1.9
           ],
           "to": [
             -25,
-            22,
+            32.0,
             0
           ],
           "kind": "drop"
@@ -395,12 +430,12 @@
         {
           "from": [
             14,
-            26,
+            36.0,
             -26.5
           ],
           "to": [
             11,
-            22,
+            32.0,
             -23.5
           ],
           "kind": "drop"
@@ -408,12 +443,12 @@
         {
           "from": [
             22,
-            30,
+            40.0,
             -22.5
           ],
           "to": [
             22,
-            26,
+            36.0,
             -22.5
           ],
           "kind": "drop"
@@ -421,12 +456,12 @@
         {
           "from": [
             25,
-            26,
+            36.0,
             -1.9
           ],
           "to": [
             25,
-            22,
+            32.0,
             0
           ],
           "kind": "drop"
@@ -436,24 +471,24 @@
         [
           [
             18.5,
-            30.1,
+            40.1,
             22.5
           ],
           [
             22.5,
-            30.1,
+            40.1,
             22.5
           ]
         ],
         [
           [
             -18.5,
-            30.109660574412533,
+            40.10966057441253,
             -22.5
           ],
           [
             -22.5,
-            30.109660574412533,
+            40.10966057441253,
             -22.5
           ]
         ]
@@ -462,12 +497,12 @@
       "zone_exits": [
         [
           -25,
-          22,
+          32.0,
           -25
         ],
         [
           25,
-          22,
+          32.0,
           25
         ]
       ],
@@ -482,7 +517,7 @@
           "fixture": "B-speed_ramp-32",
           "to": [
             -25.0,
-            26,
+            36.0,
             2.5
           ],
           "speed": 12.6
@@ -491,27 +526,24 @@
           "fixture": "A-speed_ramp-142",
           "to": [
             25.0,
-            26,
+            36.0,
             -2.5
           ],
           "speed": 12.6
         }
       ],
       "pulse_gun": {
-        "range": 20.0,
-        "damage": 10.0,
+        "range": 20,
+        "damage": 50,
         "interval": 1.0,
-        "speed": 15.0,
+        "speed": 45,
         "slow_multiplier": 0.25,
         "slow_duration": 0.5,
         "enabled_match_types": [
           "TDM",
           "CTF"
         ]
-      },
-      "platform_emissive_only_assets": [
-        "sconce_light"
-      ]
+      }
     },
     {
       "id": "faceoff",

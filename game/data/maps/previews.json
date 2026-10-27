@@ -82,12 +82,12 @@
       "image": "res://assets/ui/maps/skyfall/01.webp",
       "position": [
         69,
-        56,
+        66,
         72
       ],
       "target": [
         0,
-        25,
+        35,
         0
       ],
       "fov": 55
@@ -97,12 +97,12 @@
       "image": "res://assets/ui/maps/skyfall/02.webp",
       "position": [
         1,
-        25,
+        35,
         -14.5
       ],
       "target": [
         -1,
-        23,
+        33,
         -22.5
       ],
       "fov": 60
@@ -112,12 +112,12 @@
       "image": "res://assets/ui/maps/skyfall/03.webp",
       "position": [
         37.5,
-        24.1,
+        34.1,
         29
       ],
       "target": [
         30,
-        23,
+        33,
         22.5
       ],
       "fov": 58
@@ -127,12 +127,12 @@
       "image": "res://assets/ui/maps/skyfall/04.webp",
       "position": [
         19.5,
-        33,
+        43,
         33
       ],
       "target": [
         25.5,
-        31,
+        41,
         27
       ],
       "fov": 60
@@ -142,12 +142,12 @@
       "image": "res://assets/ui/maps/skyfall/05.webp",
       "position": [
         21,
-        24.4,
+        34.4,
         8.5
       ],
       "target": [
         21,
-        23,
+        33,
         16.5
       ],
       "fov": 62

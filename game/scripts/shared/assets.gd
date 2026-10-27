@@ -13,7 +13,7 @@ const REGOLITH_ALBEDO = preload("res://assets/textures/lunar_surface/regolith_al
 const REGOLITH_NORMAL = preload("res://assets/textures/lunar_surface/regolith_normal.png")
 const REGOLITH_ORM = preload("res://assets/textures/lunar_surface/regolith_orm.png")
 
-static func regolith_material(source: StandardMaterial3D = null) -> StandardMaterial3D:
+static func regolith_material(source: StandardMaterial3D = null, local_surface := false) -> StandardMaterial3D:
 	var material: StandardMaterial3D = source.duplicate() if source else StandardMaterial3D.new()
 	if source == null: material.resource_name = "M_Regolith_Diffuse"
 	material.albedo_texture = REGOLITH_ALBEDO
@@ -30,7 +30,7 @@ static func regolith_material(source: StandardMaterial3D = null) -> StandardMate
 	material.ao_texture_channel = BaseMaterial3D.TEXTURE_CHANNEL_RED
 	material.metallic = 0.0
 	material.uv1_triplanar = true
-	material.uv1_world_triplanar = true
+	material.uv1_world_triplanar = not local_surface
 	material.uv1_scale = Vector3.ONE * 0.24
 	return material
 
@@ -134,7 +134,7 @@ static func socket_world_transform(mount: Node3D) -> Transform3D:
 		var skeleton:=node.get_parent() as Skeleton3D
 		if skeleton!=null:
 			var bone:=skeleton.find_bone(node.bone_name)
-			if bone>=0:return skeleton.global_transform*skeleton.get_bone_global_pose(bone)*relative
+			if bone>=0:return socket_world_transform(skeleton)*skeleton.get_bone_global_pose(bone)*relative
 	return mount.global_transform
 
 static func play(root: Node, clip: String, loop := false, speed := 1.0) -> void:

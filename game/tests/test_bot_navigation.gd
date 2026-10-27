@@ -235,7 +235,7 @@ func test_charged_edges_are_excluded_without_energy():
 		charged+=1
 		var from: Vector3=game.map.traversal.graph.get_point_position(action.x)
 		var to: Vector3=game.map.traversal.graph.get_point_position(action.y)
-		assert_false(game.map.traversal.basic_graph.are_points_connected(action.x,action.y),"Low-EP graph must exclude charged edge")
+		assert_false(game.map.traversal.basic_graph.are_points_connected(action.x,action.y,false),"Low-EP graph must exclude the charged direction; the reverse can be a normal descent")
 		assert_true(game.map.traversal.arc_clear(from,to,ArenaTuning.CHARGED_JUMP_HEIGHT),"Charged edge must match the live charged-jump cutoff")
 	assert_gt(charged,0,"Map exposes tested charged-jump routes")
 

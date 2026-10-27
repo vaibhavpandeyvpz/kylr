@@ -43,6 +43,7 @@ static func share_mesh(instance: MeshInstance3D, key: Variant) -> void:
 	instance.mesh=rigid_meshes[key]
 	instance.skin=null
 	instance.skeleton=NodePath("")
+	ShadowBatch.install_one(instance)
 
 static func share_static_meshes(root: Node3D) -> void:
 	# Only assets declared static by their native rig metadata use this path.

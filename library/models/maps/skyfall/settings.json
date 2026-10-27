@@ -1,0 +1,14 @@
+{
+  "elevation_offset_m": 10,
+  "bob_amplitude_m": 0.25,
+  "bob_period_seconds": {
+    "A_mainland_1": 7.1,
+    "A_mainland_2": 8.3,
+    "A_island_1": 6.5,
+    "A_island_2": 7.7,
+    "B_mainland_1": 8.0,
+    "B_mainland_2": 9.2,
+    "B_island_1": 7.4,
+    "B_island_2": 8.6
+  }
+}

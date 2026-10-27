@@ -1,4 +1,4 @@
-"""Deterministic lunar landforms and geological masks, in Godot world metres."""
+"""Deterministic planetary landforms and geological masks, in Godot world metres."""
 from pathlib import Path
 import json
 import math
@@ -73,17 +73,17 @@ def field(map_id, x, z, seats=()):
             disturbance=np.maximum(disturbance,1-smooth(np.maximum(distance,0)/6))
         height=np.sign(height)*np.minimum(np.abs(height)*seating,np.maximum(nearest,0)*.6)
     else:
-        basin=-3.0*np.exp(-(radius/52)**4)
-        scar=-5*np.exp(-((x+8)**2+(z-5)**2)/130)-3*np.exp(-((x-25)**2+(z+15)**2)/70)
-        fissure=-1.8*np.exp(-((z-.3*x-4*np.sin(x*.05))/2.8)**2)*np.exp(-(x/48)**4)
-        height=basin+scar+fissure+rim+(.8+outer)*broad*smooth((240-radius)/50)
+        import importlib.util
+        spec=importlib.util.spec_from_file_location('skyfall_lunar_field',ROOT/'models/maps/skyfall/lunar_field.py')
+        lunar=importlib.util.module_from_spec(spec);spec.loader.exec_module(lunar)
+        height=lunar.landscape(x,z)
         disturbance=np.zeros_like(radius)
     # Fractured bedrock shelves break the smooth bowl silhouette. They stay
     # outside Faceoff's walk boundary and clear of Skyfall's floating decks.
     shelves=np.zeros_like(radius)
-    for cx,cz,rx,rz,turn,rise in [(-51,-20,11,8,.3,5),(48,25,12,7,.7,6),(-22,54,14,8,-.4,5),
+    for cx,cz,rx,rz,turn,rise in ([(-51,-20,11,8,.3,5),(48,25,12,7,.7,6),(-22,54,14,8,-.4,5),
                                  (24,-55,15,8,-.4,6),(-62,47,18,11,.8,7),(63,-48,18,10,.8,6),
-                                 (-85,-15,20,12,.2,8),(87,18,22,12,.2,7),(-30,-83,21,12,-.4,7),(30,83,20,13,-.4,8)]:
+                                 (-85,-15,20,12,.2,8),(87,18,22,12,.2,7),(-30,-83,21,12,-.4,7),(30,83,20,13,-.4,8)] if map_id=='faceoff' else []):
         dx=x-cx;dz=z-cz;c=math.cos(turn);s=math.sin(turn)
         u=(c*dx+s*dz)/rx;v=(-s*dx+c*dz)/rz
         shape=np.maximum.reduce([np.abs(u),np.abs(v),np.abs(u+v)*.65])

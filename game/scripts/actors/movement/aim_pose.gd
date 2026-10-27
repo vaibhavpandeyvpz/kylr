@@ -61,12 +61,14 @@ func layout(skeleton: Skeleton3D, root_name: String) -> Dictionary:
 		if root >= 0 and ancestor == root:
 			bones.append({"bone":bone,"name":String(skeleton.get_bone_name(bone))})
 	var chain: Array[int] = []
+	var rests: Dictionary = {}
 	var parent := skeleton.get_bone_parent(root) if root >= 0 else -1
 	var cursor := parent
 	while cursor >= 0:
 		chain.push_front(cursor)
+		rests[cursor]=skeleton.get_bone_rest(cursor)
 		cursor = skeleton.get_bone_parent(cursor)
-	skeleton_layout = {"id":id,"count":skeleton.get_bone_count(),"root_name":root_name,"root":root,"parent":parent,"bones":bones,"chain":chain}
+	skeleton_layout = {"id":id,"count":skeleton.get_bone_count(),"root_name":root_name,"root":root,"parent":parent,"bones":bones,"chain":chain,"rests":rests}
 	return skeleton_layout
 
 func restore(skeleton: Skeleton3D):
@@ -111,25 +113,37 @@ func apply(robot, pitch_radians: float):
 		# torso/head reference while retaining the shot motion in shoulders/arms.
 		var pistol_fire_torso: bool = pistol_firing and entry.torso
 		var preserve_bone_event := preserve_event and not pistol_fire_torso
-		saved[bone] = skeleton.get_bone_pose(bone)
+		var original:=skeleton.get_bone_pose(bone)
 		if entry.has_rotation:
 			var aimed: Quaternion=entry.rotation_a.slerp(entry.rotation_b,blend)
 			if preserve_bone_event and entry.has_neutral_rotation:
 				aimed=aimed*entry.neutral_inverse*skeleton.get_bone_pose_rotation(bone)
-			skeleton.set_bone_pose_rotation(bone, aimed)
+			if not skeleton.get_bone_pose_rotation(bone).is_equal_approx(aimed):
+				saved[bone]=original
+				skeleton.set_bone_pose_rotation(bone, aimed)
 		if entry.has_position:
 			var aimed: Vector3=entry.position_a.lerp(entry.position_b,blend)
 			if preserve_bone_event and entry.has_neutral_position:
 				aimed+=skeleton.get_bone_pose_position(bone)-entry.neutral_position
-			skeleton.set_bone_pose_position(bone, aimed)
+			if not original.origin.is_equal_approx(aimed):
+				saved[bone]=original
+				skeleton.set_bone_pose_position(bone, aimed)
 	# Keep the authored aim frame above the waist while locomotion animates the hips.
 	if root >= 0:
 		var parent: int = data.parent
 		var reference := Quaternion.IDENTITY
+		var parent_frame:=Transform3D.IDENTITY
 		for bone in data.chain:
+			parent_frame=parent_frame*data.rests[bone]*skeleton.get_bone_pose(bone)
 			var name := String(skeleton.get_bone_name(bone))
 			reference *= neutral[name].rotation if neutral.has(name) and neutral[name].has("rotation") else skeleton.get_bone_pose_rotation(bone)
 		if parent >= 0:
-			var actual := skeleton.get_bone_global_pose(parent).basis.get_rotation_quaternion()
-			skeleton.set_bone_pose_rotation(root, actual.inverse() * reference * skeleton.get_bone_pose_rotation(root))
+			# Reading a dirty global pose would flush every collision attachment
+			# before the aim root has its final pose. Compose the short chain locally.
+			var actual := parent_frame.basis.get_rotation_quaternion()
+			var current:=skeleton.get_bone_pose_rotation(root)
+			var compensated:=actual.inverse()*reference*current
+			if not current.is_equal_approx(compensated):
+				if not saved.has(root):saved[root]=skeleton.get_bone_pose(root)
+				skeleton.set_bone_pose_rotation(root,compensated)
 	skeleton.force_update_all_bone_transforms()

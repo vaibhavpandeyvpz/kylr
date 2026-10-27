@@ -11,7 +11,9 @@ static func environment(preview := false,recipe: Dictionary = {}) -> Environment
 	settings.sky.sky_material = sky_material
 	sky_material.set_shader_parameter("wisps",preload("res://assets/models/effects/combat_effects/turbulence_rgba.png"))
 	# Share the reflection recipe, with independent mutable environment settings.
-	settings.sky.process_mode = Sky.PROCESS_MODE_REALTIME
+	# Cubemap reflection inputs are static; wisps animate only in the
+	# background pass through the global clock. Cache reflection convolution.
+	settings.sky.process_mode = Sky.PROCESS_MODE_QUALITY
 	settings.sky.sky_material = settings.sky.sky_material.duplicate()
 	(settings.sky.sky_material as ShaderMaterial).set_shader_parameter("reflection_fill_energy",0.45)
 	(settings.sky.sky_material as ShaderMaterial).set_shader_parameter("reflection_detail_strength",1.0)

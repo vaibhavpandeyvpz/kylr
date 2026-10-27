@@ -14,7 +14,7 @@ func check_mount(map_id: String,height: float) -> void:
 		assert_almost_eq(socket.global_position.y,height,0.001,"Delivered GLB placement must match source metadata")
 
 func test_skyfall_five_metres_above_rooftop() -> void:
-	check_mount("skyfall",35.0)
+	check_mount("skyfall",45.0)
 
 func test_faceoff_ten_metres_above_ground() -> void:
 	check_mount("faceoff",10.0)

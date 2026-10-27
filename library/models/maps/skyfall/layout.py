@@ -5,7 +5,8 @@ HERE=Path(__file__).resolve().parent
 sys.path.insert(0,str(HERE.parent/'common'));sys.path.insert(0,str(HERE.parent/'common/platform'))
 from platform_placements import thruster_positions
 from platform_layout import consolidate
-HEIGHTS={'common':0,'lower':22,'higher':26,'roof':30}
+SETTINGS=json.loads((HERE/'settings.json').read_text())
+HEIGHTS={'common':0,**{key:height+float(SETTINGS['elevation_offset_m']) for key,height in [('lower',22),('higher',26),('roof',30)]}}
 ARCHITECTURE={'cistern','container_long','container','hangar','lodge','bastion','laboratory','habitat_pod','shelter','hub','bunker','lunar_dome'}
 ENVIRONMENT={'barrel','storage_rack','lunar_rover','weather_sensor','solar_tower','lunar_lander','beacon_lantern','pole_light','satellite','terminal','workstation','roof_display_assembly','thruster','pillar'}
 ALIASES={'wather_sensor':'weather_sensor','speedramp':'speed_ramp','flak_cannon':'flak_cannon','rocket_pack':'rocket_launcher','rocket_launcher':'rocket_launcher','lightning_gun':'lightning_gun','emp':'emp_gun','bio_rifle':'bio_rifle'}
@@ -193,4 +194,10 @@ def data():
     markers.append(dict(name='lunar-scenery',role='prop',asset='skyfall',category='maps',asset_suffix='_scenery',
         zone='common',deck='common',level='common',position_blender=[0,0,0],position_godot=[0,0,0],rotation_blender=[0,0,0],
         figma_node='69:3',label='Lunar scenery',wall_mounted=False,cutout_m=[0,0],load_at_start=True,budget_excluded=True))
+    for deck in decks.values():
+        group='_'.join(deck['name'].split('_')[:3])
+        if 'bridge' in deck['name']:group=deck['name'][0]+'_mainland_1'
+        deck['position']=[0,0,deck['z']]
+        deck['motion']=dict(kind='bob',bob_amplitude=float(SETTINGS['bob_amplitude_m']),
+                            period=float(SETTINGS['bob_period_seconds'][group]),group=group)
     return list(decks.values()),markers

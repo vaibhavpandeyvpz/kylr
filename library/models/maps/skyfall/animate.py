@@ -6,6 +6,8 @@ import bpy,json,math,re,sys
 from pathlib import Path
 from mathutils import Vector,Matrix
 HERE=Path(__file__).resolve().parent
+elevation=json.loads((HERE/'settings.json').read_text())['elevation_offset_m']
+sections=json.loads((HERE/'skyfall_rig.json').read_text())['deck_sections']
 bpy.ops.wm.open_mainfile(filepath=str(HERE/'skyfall_preview.blend'))
 scene=bpy.context.scene;scene.frame_set(73);FPS=24;LAST=13*FPS
 scene.render.fps=FPS;scene.frame_start=1;scene.frame_end=LAST
@@ -75,6 +77,10 @@ for frame in range(1,LAST+1):
         if loop and (t>=3 or asset not in ('weapon_holder','item_table')):
             span=loop.frame_range[1]-loop.frame_range[0]
             if span>0:apply(arm,loop,loop.frame_range[0]+((max(0,t-3) if asset in ('weapon_holder','item_table') else t)*FPS)%span,True)
+        if arm.name=='RIG_Skyfall' and t>=3:
+            for section in sections:
+                motion=section['motion'];bone=arm.pose.bones.get('Deck_'+section['name'])
+                if bone:bone.location.y+=motion['bob_amplitude']*math.sin(math.tau*(t-3)/motion['period'])
         for bone in arm.pose.bones:
             bone.rotation_mode='QUATERNION'
             for field in ('location','rotation_quaternion','scale'):bone.keyframe_insert(field,frame=frame)
@@ -96,6 +102,7 @@ for frame in range(1,LAST+1):
         index=next(i for i in range(len(knots)-1) if knots[i][0]<=t<=knots[i+1][0])
         a,b=knots[index:index+2];u=(t-a[0])/(b[0]-a[0]);u=u*u*(3-2*u)
         position=Vector(a[1]).lerp(Vector(b[1]),u);focus=Vector(a[2]).lerp(Vector(b[2]),u)
+    position.z+=elevation;focus.z+=elevation
     cam.location=position;direction=focus-position
     cam.rotation_mode='QUATERNION';cam.rotation_quaternion=direction.to_track_quat('-Z','Y')
     cam.keyframe_insert('location',frame=frame);cam.keyframe_insert('rotation_quaternion',frame=frame)

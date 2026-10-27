@@ -11,9 +11,9 @@
   ],
   "level_surface_z_m": {
     "common": 0,
-    "lower": 22,
-    "higher": 26,
-    "roof": 30
+    "lower": 32.0,
+    "higher": 36.0,
+    "roof": 40.0
   },
   "markers": [
     {
@@ -28,11 +28,11 @@
       "position_blender": [
         -25.0,
         0.0,
-        19.7
+        29.7
       ],
       "position_godot": [
         -25.0,
-        19.7,
+        29.7,
         -0.0
       ],
       "rotation_blender": [
@@ -51,7 +51,7 @@
       "figma_position_blender": [
         -25.0,
         0.0,
-        21.2
+        31.2
       ],
       "parent_fixture": "B-platform_10x10-1-0",
       "parent_socket": "ThrusterMount01",
@@ -70,11 +70,11 @@
       "position_blender": [
         -25.0,
         0.0,
-        22
+        32.0
       ],
       "position_godot": [
         -25.0,
-        22,
+        32.0,
         -0.0
       ],
       "rotation_blender": [
@@ -128,11 +128,11 @@
       "position_blender": [
         -29.5,
         4.5,
-        22
+        32.0
       ],
       "position_godot": [
         -29.5,
-        23,
+        33.0,
         -4.5
       ],
       "rotation_blender": [
@@ -156,7 +156,7 @@
       "mount_position_blender": [
         -29.5,
         4.5,
-        23
+        33.0
       ],
       "budget_excluded": true
     },
@@ -172,11 +172,11 @@
       "position_blender": [
         -29.5,
         -4.5,
-        22
+        32.0
       ],
       "position_godot": [
         -29.5,
-        23,
+        33.0,
         4.5
       ],
       "rotation_blender": [
@@ -200,7 +200,7 @@
       "mount_position_blender": [
         -29.5,
         -4.5,
-        23
+        33.0
       ],
       "budget_excluded": true
     },
@@ -216,11 +216,11 @@
       "position_blender": [
         -20.5,
         4.5,
-        22
+        32.0
       ],
       "position_godot": [
         -20.5,
-        23,
+        33.0,
         -4.5
       ],
       "rotation_blender": [
@@ -244,7 +244,7 @@
       "mount_position_blender": [
         -20.5,
         4.5,
-        23
+        33.0
       ],
       "budget_excluded": true
     },
@@ -260,11 +260,11 @@
       "position_blender": [
         -20.5,
         -4.5,
-        22
+        32.0
       ],
       "position_godot": [
         -20.5,
-        23,
+        33.0,
         4.5
       ],
       "rotation_blender": [
@@ -288,7 +288,7 @@
       "mount_position_blender": [
         -20.5,
         -4.5,
-        23
+        33.0
       ],
       "budget_excluded": true
     },
@@ -304,11 +304,11 @@
       "position_blender": [
         -25.0,
         6.5,
-        22
+        32.0
       ],
       "position_godot": [
         -25.0,
-        22,
+        32.0,
         -6.5
       ],
       "rotation_blender": [
@@ -338,11 +338,11 @@
       "position_blender": [
         -25.0,
         0.0,
-        26
+        36.0
       ],
       "position_godot": [
         -25.0,
-        26,
+        36.0,
         -0.0
       ],
       "rotation_blender": [
@@ -388,11 +388,11 @@
       "position_blender": [
         -28.0,
         -3.47,
-        26
+        36.0
       ],
       "position_godot": [
         -28.0,
-        26,
+        36.0,
         3.47
       ],
       "rotation_blender": [
@@ -421,11 +421,11 @@
       "position_blender": [
         -29.0,
         -2.83,
-        26
+        36.0
       ],
       "position_godot": [
         -29.0,
-        26,
+        36.0,
         2.83
       ],
       "rotation_blender": [
@@ -454,11 +454,11 @@
       "position_blender": [
         -29.0,
         -3.97,
-        26
+        36.0
       ],
       "position_godot": [
         -29.0,
-        26,
+        36.0,
         3.97
       ],
       "rotation_blender": [
@@ -487,11 +487,11 @@
       "position_blender": [
         -25.0,
         3.25,
-        26
+        36.0
       ],
       "position_godot": [
         -25.0,
-        26,
+        36.0,
         -3.25
       ],
       "rotation_blender": [
@@ -520,11 +520,11 @@
       "position_blender": [
         -21.65,
         -1.2246467991473533e-17,
-        26
+        36.0
       ],
       "position_godot": [
         -21.65,
-        26,
+        36.0,
         1.2246467991473533e-17
       ],
       "rotation_blender": [
@@ -553,11 +553,11 @@
       "position_blender": [
         -21.85,
         1.2246467991473533e-17,
-        26
+        36.0
       ],
       "position_godot": [
         -21.85,
-        26,
+        36.0,
         -1.2246467991473533e-17
       ],
       "rotation_blender": [
@@ -586,11 +586,11 @@
       "position_blender": [
         -21.0,
         -18.5,
-        23.7
+        33.7
       ],
       "position_godot": [
         -21.0,
-        23.7,
+        33.7,
         18.5
       ],
       "rotation_blender": [
@@ -609,7 +609,7 @@
       "figma_position_blender": [
         -30.5,
         -17.0,
-        25.2
+        35.2
       ],
       "parent_fixture": "B-platform_20x20-17-0",
       "parent_socket": "ThrusterMount01",
@@ -627,11 +627,11 @@
       "position_blender": [
         -29.0,
         -26.5,
-        23.7
+        33.7
       ],
       "position_godot": [
         -29.0,
-        23.7,
+        33.7,
         26.5
       ],
       "rotation_blender": [
@@ -650,7 +650,7 @@
       "figma_position_blender": [
         -20.0,
         -27.5,
-        25.2
+        35.2
       ],
       "parent_fixture": "B-platform_20x20-17-0",
       "parent_socket": "ThrusterMount02",
@@ -669,11 +669,11 @@
       "position_blender": [
         -25.0,
         -22.5,
-        26
+        36.0
       ],
       "position_godot": [
         -25.0,
-        26,
+        36.0,
         22.5
       ],
       "rotation_blender": [
@@ -734,11 +734,11 @@
       "position_blender": [
         -17.0,
         -15.0,
-        26
+        36.0
       ],
       "position_godot": [
         -17.0,
-        26,
+        36.0,
         15.0
       ],
       "rotation_blender": [
@@ -767,11 +767,11 @@
       "position_blender": [
         -18.0,
         -14.36,
-        26
+        36.0
       ],
       "position_godot": [
         -18.0,
-        26,
+        36.0,
         14.36
       ],
       "rotation_blender": [
@@ -800,11 +800,11 @@
       "position_blender": [
         -18.0,
         -15.5,
-        26
+        36.0
       ],
       "position_godot": [
         -18.0,
-        26,
+        36.0,
         15.5
       ],
       "rotation_blender": [
@@ -833,11 +833,11 @@
       "position_blender": [
         -29.5,
         -18.0,
-        26
+        36.0
       ],
       "position_godot": [
         -29.5,
-        27,
+        37.0,
         18.0
       ],
       "rotation_blender": [
@@ -861,7 +861,7 @@
       "mount_position_blender": [
         -29.5,
         -18.0,
-        27
+        37.0
       ],
       "budget_excluded": true
     },
@@ -877,11 +877,11 @@
       "position_blender": [
         -29.5,
         -27.0,
-        26
+        36.0
       ],
       "position_godot": [
         -29.5,
-        27,
+        37.0,
         27.0
       ],
       "rotation_blender": [
@@ -905,7 +905,7 @@
       "mount_position_blender": [
         -29.5,
         -27.0,
-        27
+        37.0
       ],
       "budget_excluded": true
     },
@@ -921,11 +921,11 @@
       "position_blender": [
         -20.5,
         -18.0,
-        26
+        36.0
       ],
       "position_godot": [
         -20.5,
-        27,
+        37.0,
         18.0
       ],
       "rotation_blender": [
@@ -949,7 +949,7 @@
       "mount_position_blender": [
         -20.5,
         -18.0,
-        27
+        37.0
       ],
       "budget_excluded": true
     },
@@ -965,11 +965,11 @@
       "position_blender": [
         -20.5,
         -27.0,
-        26
+        36.0
       ],
       "position_godot": [
         -20.5,
-        27,
+        37.0,
         27.0
       ],
       "rotation_blender": [
@@ -993,7 +993,7 @@
       "mount_position_blender": [
         -20.5,
         -27.0,
-        27
+        37.0
       ],
       "budget_excluded": true
     },
@@ -1009,11 +1009,11 @@
       "position_blender": [
         -25.0,
         -15.0,
-        26
+        36.0
       ],
       "position_godot": [
         -25.0,
-        26,
+        36.0,
         15.0
       ],
       "rotation_blender": [
@@ -1042,11 +1042,11 @@
       "position_blender": [
         -25.0,
         -18.0,
-        26
+        36.0
       ],
       "position_godot": [
         -25.0,
-        26,
+        36.0,
         18.0
       ],
       "rotation_blender": [
@@ -1075,11 +1075,11 @@
       "position_blender": [
         -28.4,
         -22.5,
-        26
+        36.0
       ],
       "position_godot": [
         -28.4,
-        26,
+        36.0,
         22.5
       ],
       "rotation_blender": [
@@ -1108,11 +1108,11 @@
       "position_blender": [
         -28.6,
         -22.5,
-        26
+        36.0
       ],
       "position_godot": [
         -28.6,
-        26,
+        36.0,
         22.5
       ],
       "rotation_blender": [
@@ -1141,11 +1141,11 @@
       "position_blender": [
         -31.5,
         -22.5,
-        26
+        36.0
       ],
       "position_godot": [
         -31.5,
-        26,
+        36.0,
         22.5
       ],
       "rotation_blender": [
@@ -1175,11 +1175,11 @@
       "position_blender": [
         -30.0,
         -22.5,
-        26
+        36.0
       ],
       "position_godot": [
         -30.0,
-        26,
+        36.0,
         22.5
       ],
       "rotation_blender": [
@@ -1200,7 +1200,7 @@
       "mount_position_blender": [
         -30.5,
         -22.5,
-        27
+        37.0
       ],
       "mount_rotation_euler": [
         1.5707963267948966,
@@ -1209,13 +1209,13 @@
       ],
       "pickup_position_godot": [
         -30.0,
-        26,
+        36.0,
         22.5
       ],
       "wall_figma_center_blender": [
         -31.5,
         -22.5,
-        26
+        36.0
       ],
       "pickup_contact_gizmo": "Gizmo_B_weapon_holder_31_PickupContact"
     },
@@ -1231,11 +1231,11 @@
       "position_blender": [
         -25.0,
         -11.5,
-        26
+        36.0
       ],
       "position_godot": [
         -25.0,
-        26,
+        36.0,
         11.5
       ],
       "rotation_blender": [
@@ -1264,11 +1264,11 @@
       "position_blender": [
         -14.0,
         -26.5,
-        26
+        36.0
       ],
       "position_godot": [
         -14.0,
-        26,
+        36.0,
         26.5
       ],
       "rotation_blender": [
@@ -1297,11 +1297,11 @@
       "position_blender": [
         -25.0,
         -22.5,
-        26
+        36.0
       ],
       "position_godot": [
         -25.0,
-        26,
+        36.0,
         22.5
       ],
       "rotation_blender": [
@@ -1332,11 +1332,11 @@
       "position_blender": [
         -25.0,
         -22.5,
-        30
+        40.0
       ],
       "position_godot": [
         -25.0,
-        30,
+        40.0,
         22.5
       ],
       "rotation_blender": [
@@ -1382,11 +1382,11 @@
       "position_blender": [
         -28.0,
         -25.97,
-        30
+        40.0
       ],
       "position_godot": [
         -28.0,
-        30,
+        40.0,
         25.97
       ],
       "rotation_blender": [
@@ -1415,11 +1415,11 @@
       "position_blender": [
         -29.0,
         -25.33,
-        30
+        40.0
       ],
       "position_godot": [
         -29.0,
-        30,
+        40.0,
         25.33
       ],
       "rotation_blender": [
@@ -1448,11 +1448,11 @@
       "position_blender": [
         -29.0,
         -26.47,
-        30
+        40.0
       ],
       "position_godot": [
         -29.0,
-        30,
+        40.0,
         26.47
       ],
       "rotation_blender": [
@@ -1481,11 +1481,11 @@
       "position_blender": [
         -27.0,
         -19.0,
-        30
+        40.0
       ],
       "position_godot": [
         -27.0,
-        30,
+        40.0,
         19.0
       ],
       "rotation_blender": [
@@ -1514,11 +1514,11 @@
       "position_blender": [
         -28.4,
         -19.0,
-        30
+        40.0
       ],
       "position_godot": [
         -28.4,
-        30,
+        40.0,
         19.0
       ],
       "rotation_blender": [
@@ -1547,11 +1547,11 @@
       "position_blender": [
         -28.6,
         -19.0,
-        30
+        40.0
       ],
       "position_godot": [
         -28.6,
-        30,
+        40.0,
         19.0
       ],
       "rotation_blender": [
@@ -1580,11 +1580,11 @@
       "position_blender": [
         -7.0,
         -22.5,
-        19.7
+        29.7
       ],
       "position_godot": [
         -7.0,
-        19.7,
+        29.7,
         22.5
       ],
       "rotation_blender": [
@@ -1603,7 +1603,7 @@
       "figma_position_blender": [
         -7.0,
         -22.5,
-        21.2
+        31.2
       ],
       "parent_fixture": "B-platform_10x10-44-0",
       "parent_socket": "ThrusterMount01",
@@ -1622,11 +1622,11 @@
       "position_blender": [
         -7.0,
         -22.5,
-        22
+        32.0
       ],
       "position_godot": [
         -7.0,
-        22,
+        32.0,
         22.5
       ],
       "rotation_blender": [
@@ -1691,11 +1691,11 @@
       "position_blender": [
         -7.0,
         -22.5,
-        22
+        32.0
       ],
       "position_godot": [
         -7.0,
-        22,
+        32.0,
         22.5
       ],
       "rotation_blender": [
@@ -1724,11 +1724,11 @@
       "position_blender": [
         -8.9,
         -22.5,
-        22
+        32.0
       ],
       "position_godot": [
         -8.9,
-        22,
+        32.0,
         22.5
       ],
       "rotation_blender": [
@@ -1757,11 +1757,11 @@
       "position_blender": [
         -9.1,
         -22.5,
-        22
+        32.0
       ],
       "position_godot": [
         -9.1,
-        22,
+        32.0,
         22.5
       ],
       "rotation_blender": [
@@ -1790,11 +1790,11 @@
       "position_blender": [
         -4.9,
         -22.5,
-        22
+        32.0
       ],
       "position_godot": [
         -4.9,
-        22,
+        32.0,
         22.5
       ],
       "rotation_blender": [
@@ -1823,11 +1823,11 @@
       "position_blender": [
         -5.1,
         -22.5,
-        22
+        32.0
       ],
       "position_godot": [
         -5.1,
-        22,
+        32.0,
         22.5
       ],
       "rotation_blender": [
@@ -1856,11 +1856,11 @@
       "position_blender": [
         -13.0,
         -18.5,
-        22
+        32.0
       ],
       "position_godot": [
         -13.0,
-        22,
+        32.0,
         18.5
       ],
       "rotation_blender": [
@@ -1890,11 +1890,11 @@
       "position_blender": [
         -2.0,
         -22.5,
-        22
+        32.0
       ],
       "position_godot": [
         -2.0,
-        22,
+        32.0,
         22.5
       ],
       "rotation_blender": [
@@ -1932,11 +1932,11 @@
       "position_blender": [
         3.0,
         -22.5,
-        22
+        32.0
       ],
       "position_godot": [
         3.0,
-        22,
+        32.0,
         22.5
       ],
       "rotation_blender": [
@@ -1973,11 +1973,11 @@
       "position_blender": [
         16.75,
         -16.75,
-        19.7
+        29.7
       ],
       "position_godot": [
         16.75,
-        19.7,
+        29.7,
         16.75
       ],
       "rotation_blender": [
@@ -1996,7 +1996,7 @@
       "figma_position_blender": [
         13.5,
         -13.5,
-        21.2
+        31.2
       ],
       "parent_fixture": "B-platform_25x25-54-0",
       "parent_socket": "ThrusterMount02",
@@ -2014,11 +2014,11 @@
       "position_blender": [
         28.25,
         -16.75,
-        19.7
+        29.7
       ],
       "position_godot": [
         28.25,
-        19.7,
+        29.7,
         16.75
       ],
       "rotation_blender": [
@@ -2037,7 +2037,7 @@
       "figma_position_blender": [
         31.5,
         -13.5,
-        21.2
+        31.2
       ],
       "parent_fixture": "B-platform_25x25-54-0",
       "parent_socket": "ThrusterMount01",
@@ -2055,11 +2055,11 @@
       "position_blender": [
         16.75,
         -28.25,
-        19.7
+        29.7
       ],
       "position_godot": [
         16.75,
-        19.7,
+        29.7,
         28.25
       ],
       "rotation_blender": [
@@ -2078,7 +2078,7 @@
       "figma_position_blender": [
         13.5,
         -31.5,
-        21.2
+        31.2
       ],
       "parent_fixture": "B-platform_25x25-54-0",
       "parent_socket": "ThrusterMount04",
@@ -2096,11 +2096,11 @@
       "position_blender": [
         28.25,
         -28.25,
-        19.7
+        29.7
       ],
       "position_godot": [
         28.25,
-        19.7,
+        29.7,
         28.25
       ],
       "rotation_blender": [
@@ -2119,7 +2119,7 @@
       "figma_position_blender": [
         31.5,
         -31.5,
-        21.2
+        31.2
       ],
       "parent_fixture": "B-platform_25x25-54-0",
       "parent_socket": "ThrusterMount03",
@@ -2138,11 +2138,11 @@
       "position_blender": [
         22.5,
         -22.5,
-        22
+        32.0
       ],
       "position_godot": [
         22.5,
-        22,
+        32.0,
         22.5
       ],
       "rotation_blender": [
@@ -2214,11 +2214,11 @@
       "position_blender": [
         13.0,
         -13.0,
-        22
+        32.0
       ],
       "position_godot": [
         13.0,
-        23,
+        33.0,
         13.0
       ],
       "rotation_blender": [
@@ -2242,7 +2242,7 @@
       "mount_position_blender": [
         13.0,
         -13.0,
-        23
+        33.0
       ],
       "budget_excluded": true
     },
@@ -2258,11 +2258,11 @@
       "position_blender": [
         13.0,
         -32.0,
-        22
+        32.0
       ],
       "position_godot": [
         13.0,
-        23,
+        33.0,
         32.0
       ],
       "rotation_blender": [
@@ -2286,7 +2286,7 @@
       "mount_position_blender": [
         13.0,
         -32.0,
-        23
+        33.0
       ],
       "budget_excluded": true
     },
@@ -2302,11 +2302,11 @@
       "position_blender": [
         32.0,
         -13.0,
-        22
+        32.0
       ],
       "position_godot": [
         32.0,
-        23,
+        33.0,
         13.0
       ],
       "rotation_blender": [
@@ -2330,7 +2330,7 @@
       "mount_position_blender": [
         32.0,
         -13.0,
-        23
+        33.0
       ],
       "budget_excluded": true
     },
@@ -2346,11 +2346,11 @@
       "position_blender": [
         32.0,
         -32.0,
-        22
+        32.0
       ],
       "position_godot": [
         32.0,
-        23,
+        33.0,
         32.0
       ],
       "rotation_blender": [
@@ -2374,7 +2374,7 @@
       "mount_position_blender": [
         32.0,
         -32.0,
-        23
+        33.0
       ],
       "budget_excluded": true
     },
@@ -2390,11 +2390,11 @@
       "position_blender": [
         11.0,
         -22.5,
-        22
+        32.0
       ],
       "position_godot": [
         11.0,
-        22,
+        32.0,
         22.5
       ],
       "rotation_blender": [
@@ -2423,11 +2423,11 @@
       "position_blender": [
         14.0,
         -22.5,
-        22
+        32.0
       ],
       "position_godot": [
         14.0,
-        22,
+        32.0,
         22.5
       ],
       "rotation_blender": [
@@ -2456,11 +2456,11 @@
       "position_blender": [
         11.5,
         -11.4,
-        22
+        32.0
       ],
       "position_godot": [
         11.5,
-        22,
+        32.0,
         11.4
       ],
       "rotation_blender": [
@@ -2490,11 +2490,11 @@
       "position_blender": [
         11.5,
         -11.6,
-        22
+        32.0
       ],
       "position_godot": [
         11.5,
-        22,
+        32.0,
         11.6
       ],
       "rotation_blender": [
@@ -2524,11 +2524,11 @@
       "position_blender": [
         11.5,
         -33.4,
-        22
+        32.0
       ],
       "position_godot": [
         11.5,
-        22,
+        32.0,
         33.4
       ],
       "rotation_blender": [
@@ -2558,11 +2558,11 @@
       "position_blender": [
         11.5,
         -33.6,
-        22
+        32.0
       ],
       "position_godot": [
         11.5,
-        22,
+        32.0,
         33.6
       ],
       "rotation_blender": [
@@ -2592,11 +2592,11 @@
       "position_blender": [
         18.5,
         -16.5,
-        22
+        32.0
       ],
       "position_godot": [
         18.5,
-        22,
+        32.0,
         16.5
       ],
       "rotation_blender": [
@@ -2626,11 +2626,11 @@
       "position_blender": [
         18.5,
         -28.5,
-        22
+        32.0
       ],
       "position_godot": [
         18.5,
-        22,
+        32.0,
         28.5
       ],
       "rotation_blender": [
@@ -2660,11 +2660,11 @@
       "position_blender": [
         28.5,
         -30.0,
-        22
+        32.0
       ],
       "position_godot": [
         28.5,
-        22,
+        32.0,
         30.0
       ],
       "rotation_blender": [
@@ -2686,7 +2686,7 @@
       "mount_position_blender": [
         29.0,
         -30.0,
-        23
+        33.0
       ],
       "mount_rotation_euler": [
         1.5707963267948966,
@@ -2695,13 +2695,13 @@
       ],
       "pickup_position_godot": [
         28.5,
-        22,
+        32.0,
         30.0
       ],
       "wall_figma_center_blender": [
         30.0,
         -30.0,
-        22
+        32.0
       ],
       "pickup_contact_gizmo": "Gizmo_B_weapon_holder_66_PickupContact"
     },
@@ -2717,11 +2717,11 @@
       "position_blender": [
         30.0,
         -30.0,
-        22
+        32.0
       ],
       "position_godot": [
         30.0,
-        22,
+        32.0,
         30.0
       ],
       "rotation_blender": [
@@ -2751,11 +2751,11 @@
       "position_blender": [
         28.5,
         -15.0,
-        22
+        32.0
       ],
       "position_godot": [
         28.5,
-        22,
+        32.0,
         15.0
       ],
       "rotation_blender": [
@@ -2777,7 +2777,7 @@
       "mount_position_blender": [
         29.0,
         -15.0,
-        23
+        33.0
       ],
       "mount_rotation_euler": [
         1.5707963267948966,
@@ -2786,13 +2786,13 @@
       ],
       "pickup_position_godot": [
         28.5,
-        22,
+        32.0,
         15.0
       ],
       "wall_figma_center_blender": [
         30.0,
         -15.0,
-        22
+        32.0
       ],
       "pickup_contact_gizmo": "Gizmo_B_weapon_holder_68_PickupContact"
     },
@@ -2808,11 +2808,11 @@
       "position_blender": [
         30.0,
         -15.0,
-        22
+        32.0
       ],
       "position_godot": [
         30.0,
-        22,
+        32.0,
         15.0
       ],
       "rotation_blender": [
@@ -2842,11 +2842,11 @@
       "position_blender": [
         31.5,
         -20.0,
-        22
+        32.0
       ],
       "position_godot": [
         31.5,
-        22,
+        32.0,
         20.0
       ],
       "rotation_blender": [
@@ -2876,11 +2876,11 @@
       "position_blender": [
         31.5,
         -25.0,
-        22
+        32.0
       ],
       "position_godot": [
         31.5,
-        22,
+        32.0,
         25.0
       ],
       "rotation_blender": [
@@ -2910,11 +2910,11 @@
       "position_blender": [
         31.5,
         -22.5,
-        22
+        32.0
       ],
       "position_godot": [
         31.5,
-        22,
+        32.0,
         22.5
       ],
       "rotation_blender": [
@@ -2945,11 +2945,11 @@
       "position_blender": [
         28.5,
         -12.14,
-        22
+        32.0
       ],
       "position_godot": [
         28.5,
-        22,
+        32.0,
         12.14
       ],
       "rotation_blender": [
@@ -2979,11 +2979,11 @@
       "position_blender": [
         27.5,
         -11.5,
-        22
+        32.0
       ],
       "position_godot": [
         27.5,
-        22,
+        32.0,
         11.5
       ],
       "rotation_blender": [
@@ -3013,11 +3013,11 @@
       "position_blender": [
         27.5,
         -12.64,
-        22
+        32.0
       ],
       "position_godot": [
         27.5,
-        22,
+        32.0,
         12.64
       ],
       "rotation_blender": [
@@ -3047,11 +3047,11 @@
       "position_blender": [
         28.5,
         -33.0,
-        22
+        32.0
       ],
       "position_godot": [
         28.5,
-        22,
+        32.0,
         33.0
       ],
       "rotation_blender": [
@@ -3081,11 +3081,11 @@
       "position_blender": [
         27.5,
         -32.36,
-        22
+        32.0
       ],
       "position_godot": [
         27.5,
-        22,
+        32.0,
         32.36
       ],
       "rotation_blender": [
@@ -3115,11 +3115,11 @@
       "position_blender": [
         27.5,
         -33.5,
-        22
+        32.0
       ],
       "position_godot": [
         27.5,
-        22,
+        32.0,
         33.5
       ],
       "rotation_blender": [
@@ -3149,11 +3149,11 @@
       "position_blender": [
         22.5,
         -22.5,
-        22
+        32.0
       ],
       "position_godot": [
         22.5,
-        22,
+        32.0,
         22.5
       ],
       "rotation_blender": [
@@ -3183,11 +3183,11 @@
       "position_blender": [
         21.0,
         -16.5,
-        22
+        32.0
       ],
       "position_godot": [
         21.0,
-        22,
+        32.0,
         16.5
       ],
       "rotation_blender": [
@@ -3217,11 +3217,11 @@
       "position_blender": [
         24.0,
         -28.5,
-        22
+        32.0
       ],
       "position_godot": [
         24.0,
-        22,
+        32.0,
         28.5
       ],
       "rotation_blender": [
@@ -3252,11 +3252,11 @@
       "position_blender": [
         22.5,
         -22.5,
-        26
+        36.0
       ],
       "position_godot": [
         22.5,
-        26,
+        36.0,
         22.5
       ],
       "rotation_blender": [
@@ -3302,11 +3302,11 @@
       "position_blender": [
         15.5,
         -15.5,
-        26
+        36.0
       ],
       "position_godot": [
         15.5,
-        27,
+        37.0,
         15.5
       ],
       "rotation_blender": [
@@ -3330,7 +3330,7 @@
       "mount_position_blender": [
         15.5,
         -15.5,
-        27
+        37.0
       ],
       "budget_excluded": true
     },
@@ -3346,11 +3346,11 @@
       "position_blender": [
         15.5,
         -29.5,
-        26
+        36.0
       ],
       "position_godot": [
         15.5,
-        27,
+        37.0,
         29.5
       ],
       "rotation_blender": [
@@ -3374,7 +3374,7 @@
       "mount_position_blender": [
         15.5,
         -29.5,
-        27
+        37.0
       ],
       "budget_excluded": true
     },
@@ -3390,11 +3390,11 @@
       "position_blender": [
         29.5,
         -15.5,
-        26
+        36.0
       ],
       "position_godot": [
         29.5,
-        27,
+        37.0,
         15.5
       ],
       "rotation_blender": [
@@ -3418,7 +3418,7 @@
       "mount_position_blender": [
         29.5,
         -15.5,
-        27
+        37.0
       ],
       "budget_excluded": true
     },
@@ -3434,11 +3434,11 @@
       "position_blender": [
         29.5,
         -29.5,
-        26
+        36.0
       ],
       "position_godot": [
         29.5,
-        27,
+        37.0,
         29.5
       ],
       "rotation_blender": [
@@ -3462,7 +3462,7 @@
       "mount_position_blender": [
         29.5,
         -29.5,
-        27
+        37.0
       ],
       "budget_excluded": true
     },
@@ -3478,11 +3478,11 @@
       "position_blender": [
         31.5,
         -20.0,
-        26
+        36.0
       ],
       "position_godot": [
         31.5,
-        26,
+        36.0,
         20.0
       ],
       "rotation_blender": [
@@ -3512,11 +3512,11 @@
       "position_blender": [
         31.5,
         -25.0,
-        26
+        36.0
       ],
       "position_godot": [
         31.5,
-        26,
+        36.0,
         25.0
       ],
       "rotation_blender": [
@@ -3546,11 +3546,11 @@
       "position_blender": [
         22.5,
         -22.5,
-        26
+        36.0
       ],
       "position_godot": [
         22.5,
-        26,
+        36.0,
         22.5
       ],
       "rotation_blender": [
@@ -3580,11 +3580,11 @@
       "position_blender": [
         13.5,
         -31.4,
-        26
+        36.0
       ],
       "position_godot": [
         13.5,
-        26,
+        36.0,
         31.4
       ],
       "rotation_blender": [
@@ -3614,11 +3614,11 @@
       "position_blender": [
         13.5,
         -31.6,
-        26
+        36.0
       ],
       "position_godot": [
         13.5,
-        26,
+        36.0,
         31.6
       ],
       "rotation_blender": [
@@ -3648,11 +3648,11 @@
       "position_blender": [
         13.5,
         -13.4,
-        26
+        36.0
       ],
       "position_godot": [
         13.5,
-        26,
+        36.0,
         13.4
       ],
       "rotation_blender": [
@@ -3682,11 +3682,11 @@
       "position_blender": [
         13.5,
         -13.6,
-        26
+        36.0
       ],
       "position_godot": [
         13.5,
-        26,
+        36.0,
         13.6
       ],
       "rotation_blender": [
@@ -3716,11 +3716,11 @@
       "position_blender": [
         31.5,
         -31.5,
-        26
+        36.0
       ],
       "position_godot": [
         31.5,
-        26,
+        36.0,
         31.5
       ],
       "rotation_blender": [
@@ -3750,11 +3750,11 @@
       "position_blender": [
         31.5,
         -13.5,
-        26
+        36.0
       ],
       "position_godot": [
         31.5,
-        26,
+        36.0,
         13.5
       ],
       "rotation_blender": [
@@ -3784,11 +3784,11 @@
       "position_blender": [
         25.61,
         -22.5,
-        26
+        36.0
       ],
       "position_godot": [
         25.61,
-        26,
+        36.0,
         22.5
       ],
       "rotation_blender": [
@@ -3819,11 +3819,11 @@
       "position_blender": [
         22.5,
         -22.5,
-        30
+        40.0
       ],
       "position_godot": [
         22.5,
-        30,
+        40.0,
         22.5
       ],
       "rotation_blender": [
@@ -3869,11 +3869,11 @@
       "position_blender": [
         17.5,
         -28.09,
-        30
+        40.0
       ],
       "position_godot": [
         17.5,
-        30,
+        40.0,
         28.09
       ],
       "rotation_blender": [
@@ -3903,11 +3903,11 @@
       "position_blender": [
         16.5,
         -27.45,
-        30
+        40.0
       ],
       "position_godot": [
         16.5,
-        30,
+        40.0,
         27.45
       ],
       "rotation_blender": [
@@ -3937,11 +3937,11 @@
       "position_blender": [
         16.5,
         -28.59,
-        30
+        40.0
       ],
       "position_godot": [
         16.5,
-        30,
+        40.0,
         28.59
       ],
       "rotation_blender": [
@@ -3971,11 +3971,11 @@
       "position_blender": [
         28.5,
         -28.5,
-        30
+        40.0
       ],
       "position_godot": [
         28.5,
-        30,
+        40.0,
         28.5
       ],
       "rotation_blender": [
@@ -4005,11 +4005,11 @@
       "position_blender": [
         17.0,
         -17.0,
-        30
+        40.0
       ],
       "position_godot": [
         17.0,
-        30,
+        40.0,
         17.0
       ],
       "rotation_blender": [
@@ -4039,11 +4039,11 @@
       "position_blender": [
         17.0,
         -18.5,
-        30
+        40.0
       ],
       "position_godot": [
         17.0,
-        30,
+        40.0,
         18.5
       ],
       "rotation_blender": [
@@ -4065,7 +4065,7 @@
       "mount_position_blender": [
         17.0,
         -18.0,
-        31
+        41.0
       ],
       "mount_rotation_euler": [
         1.5707963267948966,
@@ -4074,13 +4074,13 @@
       ],
       "pickup_position_godot": [
         17.0,
-        30,
+        40.0,
         18.5
       ],
       "wall_figma_center_blender": [
         17.0,
         -17.0,
-        30
+        40.0
       ],
       "pickup_contact_gizmo": "Gizmo_B_weapon_holder_105_PickupContact"
     },
@@ -4096,11 +4096,11 @@
       "position_blender": [
         19.0,
         -16.9,
-        30
+        40.0
       ],
       "position_godot": [
         19.0,
-        30,
+        40.0,
         16.9
       ],
       "rotation_blender": [
@@ -4130,11 +4130,11 @@
       "position_blender": [
         19.0,
         -17.1,
-        30
+        40.0
       ],
       "position_godot": [
         19.0,
-        30,
+        40.0,
         17.1
       ],
       "rotation_blender": [
@@ -4164,11 +4164,11 @@
       "position_blender": [
         28.5,
         -22.5,
-        30
+        40.0
       ],
       "position_godot": [
         28.5,
-        30,
+        40.0,
         22.5
       ],
       "rotation_blender": [
@@ -4199,11 +4199,11 @@
       "position_blender": [
         23.5,
         -22.5,
-        30.1
+        40.1
       ],
       "position_godot": [
         23.5,
-        30.1,
+        40.1,
         22.5
       ],
       "rotation_blender": [
@@ -4233,11 +4233,11 @@
       "position_blender": [
         22.5,
         -22.5,
-        30
+        40.0
       ],
       "position_godot": [
         22.5,
-        30,
+        40.0,
         22.5
       ],
       "rotation_blender": [
@@ -4267,11 +4267,11 @@
       "position_blender": [
         25.0,
         0.0,
-        19.7
+        29.7
       ],
       "position_godot": [
         25.0,
-        19.7,
+        29.7,
         -0.0
       ],
       "rotation_blender": [
@@ -4290,7 +4290,7 @@
       "figma_position_blender": [
         25.0,
         0.0,
-        21.2
+        31.2
       ],
       "parent_fixture": "A-platform_10x10-111-0",
       "parent_socket": "ThrusterMount01",
@@ -4309,11 +4309,11 @@
       "position_blender": [
         25.0,
         0.0,
-        22
+        32.0
       ],
       "position_godot": [
         25.0,
-        22,
+        32.0,
         -0.0
       ],
       "rotation_blender": [
@@ -4367,11 +4367,11 @@
       "position_blender": [
         29.5,
         -4.5,
-        22
+        32.0
       ],
       "position_godot": [
         29.5,
-        23,
+        33.0,
         4.5
       ],
       "rotation_blender": [
@@ -4395,7 +4395,7 @@
       "mount_position_blender": [
         29.5,
         -4.5,
-        23
+        33.0
       ],
       "budget_excluded": true
     },
@@ -4411,11 +4411,11 @@
       "position_blender": [
         29.5,
         4.5,
-        22
+        32.0
       ],
       "position_godot": [
         29.5,
-        23,
+        33.0,
         -4.5
       ],
       "rotation_blender": [
@@ -4439,7 +4439,7 @@
       "mount_position_blender": [
         29.5,
         4.5,
-        23
+        33.0
       ],
       "budget_excluded": true
     },
@@ -4455,11 +4455,11 @@
       "position_blender": [
         20.5,
         -4.5,
-        22
+        32.0
       ],
       "position_godot": [
         20.5,
-        23,
+        33.0,
         4.5
       ],
       "rotation_blender": [
@@ -4483,7 +4483,7 @@
       "mount_position_blender": [
         20.5,
         -4.5,
-        23
+        33.0
       ],
       "budget_excluded": true
     },
@@ -4499,11 +4499,11 @@
       "position_blender": [
         20.5,
         4.5,
-        22
+        32.0
       ],
       "position_godot": [
         20.5,
-        23,
+        33.0,
         -4.5
       ],
       "rotation_blender": [
@@ -4527,7 +4527,7 @@
       "mount_position_blender": [
         20.5,
         4.5,
-        23
+        33.0
       ],
       "budget_excluded": true
     },
@@ -4543,11 +4543,11 @@
       "position_blender": [
         25.0,
         -6.5,
-        22
+        32.0
       ],
       "position_godot": [
         25.0,
-        22,
+        32.0,
         6.5
       ],
       "rotation_blender": [
@@ -4577,11 +4577,11 @@
       "position_blender": [
         25.0,
         0.0,
-        26
+        36.0
       ],
       "position_godot": [
         25.0,
-        26,
+        36.0,
         -0.0
       ],
       "rotation_blender": [
@@ -4627,11 +4627,11 @@
       "position_blender": [
         28.0,
         3.47,
-        26
+        36.0
       ],
       "position_godot": [
         28.0,
-        26,
+        36.0,
         -3.47
       ],
       "rotation_blender": [
@@ -4660,11 +4660,11 @@
       "position_blender": [
         29.0,
         2.83,
-        26
+        36.0
       ],
       "position_godot": [
         29.0,
-        26,
+        36.0,
         -2.83
       ],
       "rotation_blender": [
@@ -4693,11 +4693,11 @@
       "position_blender": [
         29.0,
         3.97,
-        26
+        36.0
       ],
       "position_godot": [
         29.0,
-        26,
+        36.0,
         -3.97
       ],
       "rotation_blender": [
@@ -4726,11 +4726,11 @@
       "position_blender": [
         25.0,
         -3.25,
-        26
+        36.0
       ],
       "position_godot": [
         25.0,
-        26,
+        36.0,
         3.25
       ],
       "rotation_blender": [
@@ -4759,11 +4759,11 @@
       "position_blender": [
         21.65,
         5.343781637290585e-25,
-        26
+        36.0
       ],
       "position_godot": [
         21.65,
-        26,
+        36.0,
         -5.343781637290585e-25
       ],
       "rotation_blender": [
@@ -4792,11 +4792,11 @@
       "position_blender": [
         21.85,
         -5.343781637290585e-25,
-        26
+        36.0
       ],
       "position_godot": [
         21.85,
-        26,
+        36.0,
         5.343781637290585e-25
       ],
       "rotation_blender": [
@@ -4825,11 +4825,11 @@
       "position_blender": [
         21.0,
         18.5,
-        23.7
+        33.7
       ],
       "position_godot": [
         21.0,
-        23.7,
+        33.7,
         -18.5
       ],
       "rotation_blender": [
@@ -4848,7 +4848,7 @@
       "figma_position_blender": [
         30.5,
         17.0,
-        25.2
+        35.2
       ],
       "parent_fixture": "A-platform_20x20-127-0",
       "parent_socket": "ThrusterMount01",
@@ -4866,11 +4866,11 @@
       "position_blender": [
         29.0,
         26.5,
-        23.7
+        33.7
       ],
       "position_godot": [
         29.0,
-        23.7,
+        33.7,
         -26.5
       ],
       "rotation_blender": [
@@ -4889,7 +4889,7 @@
       "figma_position_blender": [
         20.0,
         27.5,
-        25.2
+        35.2
       ],
       "parent_fixture": "A-platform_20x20-127-0",
       "parent_socket": "ThrusterMount02",
@@ -4908,11 +4908,11 @@
       "position_blender": [
         25.0,
         22.5,
-        26
+        36.0
       ],
       "position_godot": [
         25.0,
-        26,
+        36.0,
         -22.5
       ],
       "rotation_blender": [
@@ -4973,11 +4973,11 @@
       "position_blender": [
         17.0,
         15.0,
-        26
+        36.0
       ],
       "position_godot": [
         17.0,
-        26,
+        36.0,
         -15.0
       ],
       "rotation_blender": [
@@ -5006,11 +5006,11 @@
       "position_blender": [
         18.0,
         14.36,
-        26
+        36.0
       ],
       "position_godot": [
         18.0,
-        26,
+        36.0,
         -14.36
       ],
       "rotation_blender": [
@@ -5039,11 +5039,11 @@
       "position_blender": [
         18.0,
         15.5,
-        26
+        36.0
       ],
       "position_godot": [
         18.0,
-        26,
+        36.0,
         -15.5
       ],
       "rotation_blender": [
@@ -5072,11 +5072,11 @@
       "position_blender": [
         29.5,
         18.0,
-        26
+        36.0
       ],
       "position_godot": [
         29.5,
-        27,
+        37.0,
         -18.0
       ],
       "rotation_blender": [
@@ -5100,7 +5100,7 @@
       "mount_position_blender": [
         29.5,
         18.0,
-        27
+        37.0
       ],
       "budget_excluded": true
     },
@@ -5116,11 +5116,11 @@
       "position_blender": [
         29.5,
         27.0,
-        26
+        36.0
       ],
       "position_godot": [
         29.5,
-        27,
+        37.0,
         -27.0
       ],
       "rotation_blender": [
@@ -5144,7 +5144,7 @@
       "mount_position_blender": [
         29.5,
         27.0,
-        27
+        37.0
       ],
       "budget_excluded": true
     },
@@ -5160,11 +5160,11 @@
       "position_blender": [
         20.5,
         18.0,
-        26
+        36.0
       ],
       "position_godot": [
         20.5,
-        27,
+        37.0,
         -18.0
       ],
       "rotation_blender": [
@@ -5188,7 +5188,7 @@
       "mount_position_blender": [
         20.5,
         18.0,
-        27
+        37.0
       ],
       "budget_excluded": true
     },
@@ -5204,11 +5204,11 @@
       "position_blender": [
         20.5,
         27.0,
-        26
+        36.0
       ],
       "position_godot": [
         20.5,
-        27,
+        37.0,
         -27.0
       ],
       "rotation_blender": [
@@ -5232,7 +5232,7 @@
       "mount_position_blender": [
         20.5,
         27.0,
-        27
+        37.0
       ],
       "budget_excluded": true
     },
@@ -5248,11 +5248,11 @@
       "position_blender": [
         25.0,
         15.0,
-        26
+        36.0
       ],
       "position_godot": [
         25.0,
-        26,
+        36.0,
         -15.0
       ],
       "rotation_blender": [
@@ -5281,11 +5281,11 @@
       "position_blender": [
         25.0,
         18.0,
-        26
+        36.0
       ],
       "position_godot": [
         25.0,
-        26,
+        36.0,
         -18.0
       ],
       "rotation_blender": [
@@ -5314,11 +5314,11 @@
       "position_blender": [
         28.4,
         22.5,
-        26
+        36.0
       ],
       "position_godot": [
         28.4,
-        26,
+        36.0,
         -22.5
       ],
       "rotation_blender": [
@@ -5347,11 +5347,11 @@
       "position_blender": [
         28.6,
         22.5,
-        26
+        36.0
       ],
       "position_godot": [
         28.6,
-        26,
+        36.0,
         -22.5
       ],
       "rotation_blender": [
@@ -5380,11 +5380,11 @@
       "position_blender": [
         31.5,
         22.5,
-        26
+        36.0
       ],
       "position_godot": [
         31.5,
-        26,
+        36.0,
         -22.5
       ],
       "rotation_blender": [
@@ -5414,11 +5414,11 @@
       "position_blender": [
         30.0,
         22.5,
-        26
+        36.0
       ],
       "position_godot": [
         30.0,
-        26,
+        36.0,
         -22.5
       ],
       "rotation_blender": [
@@ -5439,7 +5439,7 @@
       "mount_position_blender": [
         30.5,
         22.5,
-        27
+        37.0
       ],
       "mount_rotation_euler": [
         1.5707963267948966,
@@ -5448,13 +5448,13 @@
       ],
       "pickup_position_godot": [
         30.0,
-        26,
+        36.0,
         -22.5
       ],
       "wall_figma_center_blender": [
         31.5,
         22.5,
-        26
+        36.0
       ],
       "pickup_contact_gizmo": "Gizmo_A_weapon_holder_141_PickupContact"
     },
@@ -5470,11 +5470,11 @@
       "position_blender": [
         25.0,
         11.5,
-        26
+        36.0
       ],
       "position_godot": [
         25.0,
-        26,
+        36.0,
         -11.5
       ],
       "rotation_blender": [
@@ -5503,11 +5503,11 @@
       "position_blender": [
         14.0,
         26.5,
-        26
+        36.0
       ],
       "position_godot": [
         14.0,
-        26,
+        36.0,
         -26.5
       ],
       "rotation_blender": [
@@ -5536,11 +5536,11 @@
       "position_blender": [
         25.0,
         22.5,
-        26
+        36.0
       ],
       "position_godot": [
         25.0,
-        26,
+        36.0,
         -22.5
       ],
       "rotation_blender": [
@@ -5571,11 +5571,11 @@
       "position_blender": [
         25.0,
         22.5,
-        30
+        40.0
       ],
       "position_godot": [
         25.0,
-        30,
+        40.0,
         -22.5
       ],
       "rotation_blender": [
@@ -5621,11 +5621,11 @@
       "position_blender": [
         28.0,
         25.97,
-        30
+        40.0
       ],
       "position_godot": [
         28.0,
-        30,
+        40.0,
         -25.97
       ],
       "rotation_blender": [
@@ -5654,11 +5654,11 @@
       "position_blender": [
         29.0,
         25.33,
-        30
+        40.0
       ],
       "position_godot": [
         29.0,
-        30,
+        40.0,
         -25.33
       ],
       "rotation_blender": [
@@ -5687,11 +5687,11 @@
       "position_blender": [
         29.0,
         26.47,
-        30
+        40.0
       ],
       "position_godot": [
         29.0,
-        30,
+        40.0,
         -26.47
       ],
       "rotation_blender": [
@@ -5720,11 +5720,11 @@
       "position_blender": [
         27.0,
         19.0,
-        30
+        40.0
       ],
       "position_godot": [
         27.0,
-        30,
+        40.0,
         -19.0
       ],
       "rotation_blender": [
@@ -5753,11 +5753,11 @@
       "position_blender": [
         28.4,
         19.0,
-        30
+        40.0
       ],
       "position_godot": [
         28.4,
-        30,
+        40.0,
         -19.0
       ],
       "rotation_blender": [
@@ -5786,11 +5786,11 @@
       "position_blender": [
         28.6,
         19.0,
-        30
+        40.0
       ],
       "position_godot": [
         28.6,
-        30,
+        40.0,
         -19.0
       ],
       "rotation_blender": [
@@ -5819,11 +5819,11 @@
       "position_blender": [
         7.0,
         22.5,
-        19.7
+        29.7
       ],
       "position_godot": [
         7.0,
-        19.7,
+        29.7,
         -22.5
       ],
       "rotation_blender": [
@@ -5842,7 +5842,7 @@
       "figma_position_blender": [
         7.0,
         22.5,
-        21.2
+        31.2
       ],
       "parent_fixture": "A-platform_10x10-154-0",
       "parent_socket": "ThrusterMount01",
@@ -5861,11 +5861,11 @@
       "position_blender": [
         7.0,
         22.5,
-        22
+        32.0
       ],
       "position_godot": [
         7.0,
-        22,
+        32.0,
         -22.5
       ],
       "rotation_blender": [
@@ -5930,11 +5930,11 @@
       "position_blender": [
         7.0,
         22.5,
-        22
+        32.0
       ],
       "position_godot": [
         7.0,
-        22,
+        32.0,
         -22.5
       ],
       "rotation_blender": [
@@ -5963,11 +5963,11 @@
       "position_blender": [
         8.9,
         22.5,
-        22
+        32.0
       ],
       "position_godot": [
         8.9,
-        22,
+        32.0,
         -22.5
       ],
       "rotation_blender": [
@@ -5996,11 +5996,11 @@
       "position_blender": [
         9.1,
         22.5,
-        22
+        32.0
       ],
       "position_godot": [
         9.1,
-        22,
+        32.0,
         -22.5
       ],
       "rotation_blender": [
@@ -6029,11 +6029,11 @@
       "position_blender": [
         4.9,
         22.5,
-        22
+        32.0
       ],
       "position_godot": [
         4.9,
-        22,
+        32.0,
         -22.5
       ],
       "rotation_blender": [
@@ -6062,11 +6062,11 @@
       "position_blender": [
         5.1,
         22.5,
-        22
+        32.0
       ],
       "position_godot": [
         5.1,
-        22,
+        32.0,
         -22.5
       ],
       "rotation_blender": [
@@ -6095,11 +6095,11 @@
       "position_blender": [
         13.0,
         18.5,
-        22
+        32.0
       ],
       "position_godot": [
         13.0,
-        22,
+        32.0,
         -18.5
       ],
       "rotation_blender": [
@@ -6129,11 +6129,11 @@
       "position_blender": [
         -8.0,
         22.5,
-        22
+        32.0
       ],
       "position_godot": [
         -8.0,
-        22,
+        32.0,
         -22.5
       ],
       "rotation_blender": [
@@ -6171,11 +6171,11 @@
       "position_blender": [
         -3.0,
         22.5,
-        22
+        32.0
       ],
       "position_godot": [
         -3.0,
-        22,
+        32.0,
         -22.5
       ],
       "rotation_blender": [
@@ -6212,11 +6212,11 @@
       "position_blender": [
         -16.75,
         16.75,
-        19.7
+        29.7
       ],
       "position_godot": [
         -16.75,
-        19.7,
+        29.7,
         -16.75
       ],
       "rotation_blender": [
@@ -6235,7 +6235,7 @@
       "figma_position_blender": [
         -13.5,
         13.5,
-        21.2
+        31.2
       ],
       "parent_fixture": "A-platform_25x25-164-0",
       "parent_socket": "ThrusterMount02",
@@ -6253,11 +6253,11 @@
       "position_blender": [
         -28.25,
         16.75,
-        19.7
+        29.7
       ],
       "position_godot": [
         -28.25,
-        19.7,
+        29.7,
         -16.75
       ],
       "rotation_blender": [
@@ -6276,7 +6276,7 @@
       "figma_position_blender": [
         -31.5,
         13.5,
-        21.2
+        31.2
       ],
       "parent_fixture": "A-platform_25x25-164-0",
       "parent_socket": "ThrusterMount01",
@@ -6294,11 +6294,11 @@
       "position_blender": [
         -16.75,
         28.25,
-        19.7
+        29.7
       ],
       "position_godot": [
         -16.75,
-        19.7,
+        29.7,
         -28.25
       ],
       "rotation_blender": [
@@ -6317,7 +6317,7 @@
       "figma_position_blender": [
         -13.5,
         31.5,
-        21.2
+        31.2
       ],
       "parent_fixture": "A-platform_25x25-164-0",
       "parent_socket": "ThrusterMount04",
@@ -6335,11 +6335,11 @@
       "position_blender": [
         -28.25,
         28.25,
-        19.7
+        29.7
       ],
       "position_godot": [
         -28.25,
-        19.7,
+        29.7,
         -28.25
       ],
       "rotation_blender": [
@@ -6358,7 +6358,7 @@
       "figma_position_blender": [
         -31.5,
         31.5,
-        21.2
+        31.2
       ],
       "parent_fixture": "A-platform_25x25-164-0",
       "parent_socket": "ThrusterMount03",
@@ -6377,11 +6377,11 @@
       "position_blender": [
         -22.5,
         22.5,
-        22
+        32.0
       ],
       "position_godot": [
         -22.5,
-        22,
+        32.0,
         -22.5
       ],
       "rotation_blender": [
@@ -6453,11 +6453,11 @@
       "position_blender": [
         -13.0,
         13.0,
-        22
+        32.0
       ],
       "position_godot": [
         -13.0,
-        23,
+        33.0,
         -13.0
       ],
       "rotation_blender": [
@@ -6481,7 +6481,7 @@
       "mount_position_blender": [
         -13.0,
         13.0,
-        23
+        33.0
       ],
       "budget_excluded": true
     },
@@ -6497,11 +6497,11 @@
       "position_blender": [
         -13.0,
         32.0,
-        22
+        32.0
       ],
       "position_godot": [
         -13.0,
-        23,
+        33.0,
         -32.0
       ],
       "rotation_blender": [
@@ -6525,7 +6525,7 @@
       "mount_position_blender": [
         -13.0,
         32.0,
-        23
+        33.0
       ],
       "budget_excluded": true
     },
@@ -6541,11 +6541,11 @@
       "position_blender": [
         -32.0,
         13.0,
-        22
+        32.0
       ],
       "position_godot": [
         -32.0,
-        23,
+        33.0,
         -13.0
       ],
       "rotation_blender": [
@@ -6569,7 +6569,7 @@
       "mount_position_blender": [
         -32.0,
         13.0,
-        23
+        33.0
       ],
       "budget_excluded": true
     },
@@ -6585,11 +6585,11 @@
       "position_blender": [
         -32.0,
         32.0,
-        22
+        32.0
       ],
       "position_godot": [
         -32.0,
-        23,
+        33.0,
         -32.0
       ],
       "rotation_blender": [
@@ -6613,7 +6613,7 @@
       "mount_position_blender": [
         -32.0,
         32.0,
-        23
+        33.0
       ],
       "budget_excluded": true
     },
@@ -6629,11 +6629,11 @@
       "position_blender": [
         -11.0,
         22.5,
-        22
+        32.0
       ],
       "position_godot": [
         -11.0,
-        22,
+        32.0,
         -22.5
       ],
       "rotation_blender": [
@@ -6662,11 +6662,11 @@
       "position_blender": [
         -14.0,
         22.5,
-        22
+        32.0
       ],
       "position_godot": [
         -14.0,
-        22,
+        32.0,
         -22.5
       ],
       "rotation_blender": [
@@ -6695,11 +6695,11 @@
       "position_blender": [
         -11.5,
         11.4,
-        22
+        32.0
       ],
       "position_godot": [
         -11.5,
-        22,
+        32.0,
         -11.4
       ],
       "rotation_blender": [
@@ -6729,11 +6729,11 @@
       "position_blender": [
         -11.5,
         11.6,
-        22
+        32.0
       ],
       "position_godot": [
         -11.5,
-        22,
+        32.0,
         -11.6
       ],
       "rotation_blender": [
@@ -6763,11 +6763,11 @@
       "position_blender": [
         -11.5,
         33.4,
-        22
+        32.0
       ],
       "position_godot": [
         -11.5,
-        22,
+        32.0,
         -33.4
       ],
       "rotation_blender": [
@@ -6797,11 +6797,11 @@
       "position_blender": [
         -11.5,
         33.6,
-        22
+        32.0
       ],
       "position_godot": [
         -11.5,
-        22,
+        32.0,
         -33.6
       ],
       "rotation_blender": [
@@ -6831,11 +6831,11 @@
       "position_blender": [
         -18.5,
         16.5,
-        22
+        32.0
       ],
       "position_godot": [
         -18.5,
-        22,
+        32.0,
         -16.5
       ],
       "rotation_blender": [
@@ -6865,11 +6865,11 @@
       "position_blender": [
         -18.5,
         28.5,
-        22
+        32.0
       ],
       "position_godot": [
         -18.5,
-        22,
+        32.0,
         -28.5
       ],
       "rotation_blender": [
@@ -6899,11 +6899,11 @@
       "position_blender": [
         -28.5,
         30.0,
-        22
+        32.0
       ],
       "position_godot": [
         -28.5,
-        22,
+        32.0,
         -30.0
       ],
       "rotation_blender": [
@@ -6925,7 +6925,7 @@
       "mount_position_blender": [
         -29.0,
         30.0,
-        23
+        33.0
       ],
       "mount_rotation_euler": [
         1.5707963267948966,
@@ -6934,13 +6934,13 @@
       ],
       "pickup_position_godot": [
         -28.5,
-        22,
+        32.0,
         -30.0
       ],
       "wall_figma_center_blender": [
         -30.0,
         30.0,
-        22
+        32.0
       ],
       "pickup_contact_gizmo": "Gizmo_A_weapon_holder_176_PickupContact"
     },
@@ -6956,11 +6956,11 @@
       "position_blender": [
         -30.0,
         30.0,
-        22
+        32.0
       ],
       "position_godot": [
         -30.0,
-        22,
+        32.0,
         -30.0
       ],
       "rotation_blender": [
@@ -6990,11 +6990,11 @@
       "position_blender": [
         -28.5,
         15.0,
-        22
+        32.0
       ],
       "position_godot": [
         -28.5,
-        22,
+        32.0,
         -15.0
       ],
       "rotation_blender": [
@@ -7016,7 +7016,7 @@
       "mount_position_blender": [
         -29.0,
         15.0,
-        23
+        33.0
       ],
       "mount_rotation_euler": [
         1.5707963267948966,
@@ -7025,13 +7025,13 @@
       ],
       "pickup_position_godot": [
         -28.5,
-        22,
+        32.0,
         -15.0
       ],
       "wall_figma_center_blender": [
         -30.0,
         15.0,
-        22
+        32.0
       ],
       "pickup_contact_gizmo": "Gizmo_A_weapon_holder_178_PickupContact"
     },
@@ -7047,11 +7047,11 @@
       "position_blender": [
         -30.0,
         15.0,
-        22
+        32.0
       ],
       "position_godot": [
         -30.0,
-        22,
+        32.0,
         -15.0
       ],
       "rotation_blender": [
@@ -7081,11 +7081,11 @@
       "position_blender": [
         -31.5,
         20.0,
-        22
+        32.0
       ],
       "position_godot": [
         -31.5,
-        22,
+        32.0,
         -20.0
       ],
       "rotation_blender": [
@@ -7115,11 +7115,11 @@
       "position_blender": [
         -31.5,
         25.0,
-        22
+        32.0
       ],
       "position_godot": [
         -31.5,
-        22,
+        32.0,
         -25.0
       ],
       "rotation_blender": [
@@ -7149,11 +7149,11 @@
       "position_blender": [
         -31.5,
         22.5,
-        22
+        32.0
       ],
       "position_godot": [
         -31.5,
-        22,
+        32.0,
         -22.5
       ],
       "rotation_blender": [
@@ -7184,11 +7184,11 @@
       "position_blender": [
         -28.5,
         12.14,
-        22
+        32.0
       ],
       "position_godot": [
         -28.5,
-        22,
+        32.0,
         -12.14
       ],
       "rotation_blender": [
@@ -7218,11 +7218,11 @@
       "position_blender": [
         -27.5,
         11.5,
-        22
+        32.0
       ],
       "position_godot": [
         -27.5,
-        22,
+        32.0,
         -11.5
       ],
       "rotation_blender": [
@@ -7252,11 +7252,11 @@
       "position_blender": [
         -27.5,
         12.64,
-        22
+        32.0
       ],
       "position_godot": [
         -27.5,
-        22,
+        32.0,
         -12.64
       ],
       "rotation_blender": [
@@ -7286,11 +7286,11 @@
       "position_blender": [
         -28.5,
         33.0,
-        22
+        32.0
       ],
       "position_godot": [
         -28.5,
-        22,
+        32.0,
         -33.0
       ],
       "rotation_blender": [
@@ -7320,11 +7320,11 @@
       "position_blender": [
         -27.5,
         32.36,
-        22
+        32.0
       ],
       "position_godot": [
         -27.5,
-        22,
+        32.0,
         -32.36
       ],
       "rotation_blender": [
@@ -7354,11 +7354,11 @@
       "position_blender": [
         -27.5,
         33.5,
-        22
+        32.0
       ],
       "position_godot": [
         -27.5,
-        22,
+        32.0,
         -33.5
       ],
       "rotation_blender": [
@@ -7388,11 +7388,11 @@
       "position_blender": [
         -22.5,
         22.5,
-        22
+        32.0
       ],
       "position_godot": [
         -22.5,
-        22,
+        32.0,
         -22.5
       ],
       "rotation_blender": [
@@ -7422,11 +7422,11 @@
       "position_blender": [
         -21.0,
         16.5,
-        22
+        32.0
       ],
       "position_godot": [
         -21.0,
-        22,
+        32.0,
         -16.5
       ],
       "rotation_blender": [
@@ -7456,11 +7456,11 @@
       "position_blender": [
         -24.0,
         28.5,
-        22
+        32.0
       ],
       "position_godot": [
         -24.0,
-        22,
+        32.0,
         -28.5
       ],
       "rotation_blender": [
@@ -7491,11 +7491,11 @@
       "position_blender": [
         -22.5,
         22.5,
-        26
+        36.0
       ],
       "position_godot": [
         -22.5,
-        26,
+        36.0,
         -22.5
       ],
       "rotation_blender": [
@@ -7541,11 +7541,11 @@
       "position_blender": [
         -15.5,
         15.5,
-        26
+        36.0
       ],
       "position_godot": [
         -15.5,
-        27,
+        37.0,
         -15.5
       ],
       "rotation_blender": [
@@ -7569,7 +7569,7 @@
       "mount_position_blender": [
         -15.5,
         15.5,
-        27
+        37.0
       ],
       "budget_excluded": true
     },
@@ -7585,11 +7585,11 @@
       "position_blender": [
         -15.5,
         29.5,
-        26
+        36.0
       ],
       "position_godot": [
         -15.5,
-        27,
+        37.0,
         -29.5
       ],
       "rotation_blender": [
@@ -7613,7 +7613,7 @@
       "mount_position_blender": [
         -15.5,
         29.5,
-        27
+        37.0
       ],
       "budget_excluded": true
     },
@@ -7629,11 +7629,11 @@
       "position_blender": [
         -29.5,
         15.5,
-        26
+        36.0
       ],
       "position_godot": [
         -29.5,
-        27,
+        37.0,
         -15.5
       ],
       "rotation_blender": [
@@ -7657,7 +7657,7 @@
       "mount_position_blender": [
         -29.5,
         15.5,
-        27
+        37.0
       ],
       "budget_excluded": true
     },
@@ -7673,11 +7673,11 @@
       "position_blender": [
         -29.5,
         29.5,
-        26
+        36.0
       ],
       "position_godot": [
         -29.5,
-        27,
+        37.0,
         -29.5
       ],
       "rotation_blender": [
@@ -7701,7 +7701,7 @@
       "mount_position_blender": [
         -29.5,
         29.5,
-        27
+        37.0
       ],
       "budget_excluded": true
     },
@@ -7717,11 +7717,11 @@
       "position_blender": [
         -31.5,
         20.0,
-        26
+        36.0
       ],
       "position_godot": [
         -31.5,
-        26,
+        36.0,
         -20.0
       ],
       "rotation_blender": [
@@ -7751,11 +7751,11 @@
       "position_blender": [
         -31.5,
         25.0,
-        26
+        36.0
       ],
       "position_godot": [
         -31.5,
-        26,
+        36.0,
         -25.0
       ],
       "rotation_blender": [
@@ -7785,11 +7785,11 @@
       "position_blender": [
         -22.5,
         22.5,
-        26
+        36.0
       ],
       "position_godot": [
         -22.5,
-        26,
+        36.0,
         -22.5
       ],
       "rotation_blender": [
@@ -7819,11 +7819,11 @@
       "position_blender": [
         -13.5,
         31.4,
-        26
+        36.0
       ],
       "position_godot": [
         -13.5,
-        26,
+        36.0,
         -31.4
       ],
       "rotation_blender": [
@@ -7853,11 +7853,11 @@
       "position_blender": [
         -13.5,
         31.6,
-        26
+        36.0
       ],
       "position_godot": [
         -13.5,
-        26,
+        36.0,
         -31.6
       ],
       "rotation_blender": [
@@ -7887,11 +7887,11 @@
       "position_blender": [
         -13.5,
         13.4,
-        26
+        36.0
       ],
       "position_godot": [
         -13.5,
-        26,
+        36.0,
         -13.4
       ],
       "rotation_blender": [
@@ -7921,11 +7921,11 @@
       "position_blender": [
         -13.5,
         13.6,
-        26
+        36.0
       ],
       "position_godot": [
         -13.5,
-        26,
+        36.0,
         -13.6
       ],
       "rotation_blender": [
@@ -7955,11 +7955,11 @@
       "position_blender": [
         -31.5,
         31.5,
-        26
+        36.0
       ],
       "position_godot": [
         -31.5,
-        26,
+        36.0,
         -31.5
       ],
       "rotation_blender": [
@@ -7989,11 +7989,11 @@
       "position_blender": [
         -31.5,
         13.5,
-        26
+        36.0
       ],
       "position_godot": [
         -31.5,
-        26,
+        36.0,
         -13.5
       ],
       "rotation_blender": [
@@ -8023,11 +8023,11 @@
       "position_blender": [
         -25.61,
         22.5,
-        26
+        36.0
       ],
       "position_godot": [
         -25.61,
-        26,
+        36.0,
         -22.5
       ],
       "rotation_blender": [
@@ -8058,11 +8058,11 @@
       "position_blender": [
         -22.5,
         22.5,
-        30
+        40.0
       ],
       "position_godot": [
         -22.5,
-        30,
+        40.0,
         -22.5
       ],
       "rotation_blender": [
@@ -8108,11 +8108,11 @@
       "position_blender": [
         -17.5,
         28.09,
-        30
+        40.0
       ],
       "position_godot": [
         -17.5,
-        30,
+        40.0,
         -28.09
       ],
       "rotation_blender": [
@@ -8142,11 +8142,11 @@
       "position_blender": [
         -16.5,
         27.45,
-        30
+        40.0
       ],
       "position_godot": [
         -16.5,
-        30,
+        40.0,
         -27.45
       ],
       "rotation_blender": [
@@ -8176,11 +8176,11 @@
       "position_blender": [
         -16.5,
         28.59,
-        30
+        40.0
       ],
       "position_godot": [
         -16.5,
-        30,
+        40.0,
         -28.59
       ],
       "rotation_blender": [
@@ -8210,11 +8210,11 @@
       "position_blender": [
         -28.5,
         28.5,
-        30
+        40.0
       ],
       "position_godot": [
         -28.5,
-        30,
+        40.0,
         -28.5
       ],
       "rotation_blender": [
@@ -8244,11 +8244,11 @@
       "position_blender": [
         -17.0,
         17.0,
-        30
+        40.0
       ],
       "position_godot": [
         -17.0,
-        30,
+        40.0,
         -17.0
       ],
       "rotation_blender": [
@@ -8278,11 +8278,11 @@
       "position_blender": [
         -17.0,
         18.5,
-        30
+        40.0
       ],
       "position_godot": [
         -17.0,
-        30,
+        40.0,
         -18.5
       ],
       "rotation_blender": [
@@ -8304,7 +8304,7 @@
       "mount_position_blender": [
         -17.0,
         18.0,
-        31
+        41.0
       ],
       "mount_rotation_euler": [
         1.5707963267948966,
@@ -8313,13 +8313,13 @@
       ],
       "pickup_position_godot": [
         -17.0,
-        30,
+        40.0,
         -18.5
       ],
       "wall_figma_center_blender": [
         -17.0,
         17.0,
-        30
+        40.0
       ],
       "pickup_contact_gizmo": "Gizmo_A_weapon_holder_215_PickupContact"
     },
@@ -8335,11 +8335,11 @@
       "position_blender": [
         -19.0,
         16.9,
-        30
+        40.0
       ],
       "position_godot": [
         -19.0,
-        30,
+        40.0,
         -16.9
       ],
       "rotation_blender": [
@@ -8369,11 +8369,11 @@
       "position_blender": [
         -19.0,
         17.1,
-        30
+        40.0
       ],
       "position_godot": [
         -19.0,
-        30,
+        40.0,
         -17.1
       ],
       "rotation_blender": [
@@ -8403,11 +8403,11 @@
       "position_blender": [
         -28.5,
         22.5,
-        30
+        40.0
       ],
       "position_godot": [
         -28.5,
-        30,
+        40.0,
         -22.5
       ],
       "rotation_blender": [
@@ -8438,11 +8438,11 @@
       "position_blender": [
         -23.5,
         22.5,
-        30.1096605744
+        40.1096605744
       ],
       "position_godot": [
         -23.5,
-        30.1096605744,
+        40.1096605744,
         -22.5
       ],
       "rotation_blender": [
@@ -8472,11 +8472,11 @@
       "position_blender": [
         -22.5,
         22.5,
-        30
+        40.0
       ],
       "position_godot": [
         -22.5,
-        30,
+        40.0,
         -22.5
       ],
       "rotation_blender": [
@@ -8506,11 +8506,11 @@
       "position_blender": [
         0,
         0,
-        35
+        45.0
       ],
       "position_godot": [
         0,
-        35,
+        45.0,
         0
       ],
       "rotation_blender": [
@@ -8538,11 +8538,11 @@
       "position_blender": [
         -29.5,
         4.5,
-        22.5
+        32.5
       ],
       "position_godot": [
         -29.5,
-        22.5,
+        32.5,
         -4.5
       ],
       "rotation_blender": [
@@ -8574,11 +8574,11 @@
       "position_blender": [
         -29.5,
         -4.5,
-        22.5
+        32.5
       ],
       "position_godot": [
         -29.5,
-        22.5,
+        32.5,
         4.5
       ],
       "rotation_blender": [
@@ -8610,11 +8610,11 @@
       "position_blender": [
         -20.5,
         4.5,
-        22.5
+        32.5
       ],
       "position_godot": [
         -20.5,
-        22.5,
+        32.5,
         -4.5
       ],
       "rotation_blender": [
@@ -8646,11 +8646,11 @@
       "position_blender": [
         -20.5,
         -4.5,
-        22.5
+        32.5
       ],
       "position_godot": [
         -20.5,
-        22.5,
+        32.5,
         4.5
       ],
       "rotation_blender": [
@@ -8682,11 +8682,11 @@
       "position_blender": [
         -29.5,
         -18.0,
-        26.5
+        36.5
       ],
       "position_godot": [
         -29.5,
-        26.5,
+        36.5,
         18.0
       ],
       "rotation_blender": [
@@ -8718,11 +8718,11 @@
       "position_blender": [
         -29.5,
         -27.0,
-        26.5
+        36.5
       ],
       "position_godot": [
         -29.5,
-        26.5,
+        36.5,
         27.0
       ],
       "rotation_blender": [
@@ -8754,11 +8754,11 @@
       "position_blender": [
         -20.5,
         -18.0,
-        26.5
+        36.5
       ],
       "position_godot": [
         -20.5,
-        26.5,
+        36.5,
         18.0
       ],
       "rotation_blender": [
@@ -8790,11 +8790,11 @@
       "position_blender": [
         -20.5,
         -27.0,
-        26.5
+        36.5
       ],
       "position_godot": [
         -20.5,
-        26.5,
+        36.5,
         27.0
       ],
       "rotation_blender": [
@@ -8826,11 +8826,11 @@
       "position_blender": [
         13.0,
         -13.0,
-        22.5
+        32.5
       ],
       "position_godot": [
         13.0,
-        22.5,
+        32.5,
         13.0
       ],
       "rotation_blender": [
@@ -8862,11 +8862,11 @@
       "position_blender": [
         13.0,
         -32.0,
-        22.5
+        32.5
       ],
       "position_godot": [
         13.0,
-        22.5,
+        32.5,
         32.0
       ],
       "rotation_blender": [
@@ -8898,11 +8898,11 @@
       "position_blender": [
         32.0,
         -13.0,
-        22.5
+        32.5
       ],
       "position_godot": [
         32.0,
-        22.5,
+        32.5,
         13.0
       ],
       "rotation_blender": [
@@ -8934,11 +8934,11 @@
       "position_blender": [
         32.0,
         -32.0,
-        22.5
+        32.5
       ],
       "position_godot": [
         32.0,
-        22.5,
+        32.5,
         32.0
       ],
       "rotation_blender": [
@@ -8970,11 +8970,11 @@
       "position_blender": [
         15.5,
         -15.5,
-        26.5
+        36.5
       ],
       "position_godot": [
         15.5,
-        26.5,
+        36.5,
         15.5
       ],
       "rotation_blender": [
@@ -9006,11 +9006,11 @@
       "position_blender": [
         15.5,
         -29.5,
-        26.5
+        36.5
       ],
       "position_godot": [
         15.5,
-        26.5,
+        36.5,
         29.5
       ],
       "rotation_blender": [
@@ -9042,11 +9042,11 @@
       "position_blender": [
         29.5,
         -15.5,
-        26.5
+        36.5
       ],
       "position_godot": [
         29.5,
-        26.5,
+        36.5,
         15.5
       ],
       "rotation_blender": [
@@ -9078,11 +9078,11 @@
       "position_blender": [
         29.5,
         -29.5,
-        26.5
+        36.5
       ],
       "position_godot": [
         29.5,
-        26.5,
+        36.5,
         29.5
       ],
       "rotation_blender": [
@@ -9114,11 +9114,11 @@
       "position_blender": [
         29.5,
         -4.5,
-        22.5
+        32.5
       ],
       "position_godot": [
         29.5,
-        22.5,
+        32.5,
         4.5
       ],
       "rotation_blender": [
@@ -9150,11 +9150,11 @@
       "position_blender": [
         29.5,
         4.5,
-        22.5
+        32.5
       ],
       "position_godot": [
         29.5,
-        22.5,
+        32.5,
         -4.5
       ],
       "rotation_blender": [
@@ -9186,11 +9186,11 @@
       "position_blender": [
         20.5,
         -4.5,
-        22.5
+        32.5
       ],
       "position_godot": [
         20.5,
-        22.5,
+        32.5,
         4.5
       ],
       "rotation_blender": [
@@ -9222,11 +9222,11 @@
       "position_blender": [
         20.5,
         4.5,
-        22.5
+        32.5
       ],
       "position_godot": [
         20.5,
-        22.5,
+        32.5,
         -4.5
       ],
       "rotation_blender": [
@@ -9258,11 +9258,11 @@
       "position_blender": [
         29.5,
         18.0,
-        26.5
+        36.5
       ],
       "position_godot": [
         29.5,
-        26.5,
+        36.5,
         -18.0
       ],
       "rotation_blender": [
@@ -9294,11 +9294,11 @@
       "position_blender": [
         29.5,
         27.0,
-        26.5
+        36.5
       ],
       "position_godot": [
         29.5,
-        26.5,
+        36.5,
         -27.0
       ],
       "rotation_blender": [
@@ -9330,11 +9330,11 @@
       "position_blender": [
         20.5,
         18.0,
-        26.5
+        36.5
       ],
       "position_godot": [
         20.5,
-        26.5,
+        36.5,
         -18.0
       ],
       "rotation_blender": [
@@ -9366,11 +9366,11 @@
       "position_blender": [
         20.5,
         27.0,
-        26.5
+        36.5
       ],
       "position_godot": [
         20.5,
-        26.5,
+        36.5,
         -27.0
       ],
       "rotation_blender": [
@@ -9402,11 +9402,11 @@
       "position_blender": [
         -13.0,
         13.0,
-        22.5
+        32.5
       ],
       "position_godot": [
         -13.0,
-        22.5,
+        32.5,
         -13.0
       ],
       "rotation_blender": [
@@ -9438,11 +9438,11 @@
       "position_blender": [
         -13.0,
         32.0,
-        22.5
+        32.5
       ],
       "position_godot": [
         -13.0,
-        22.5,
+        32.5,
         -32.0
       ],
       "rotation_blender": [
@@ -9474,11 +9474,11 @@
       "position_blender": [
         -32.0,
         13.0,
-        22.5
+        32.5
       ],
       "position_godot": [
         -32.0,
-        22.5,
+        32.5,
         -13.0
       ],
       "rotation_blender": [
@@ -9510,11 +9510,11 @@
       "position_blender": [
         -32.0,
         32.0,
-        22.5
+        32.5
       ],
       "position_godot": [
         -32.0,
-        22.5,
+        32.5,
         -32.0
       ],
       "rotation_blender": [
@@ -9546,11 +9546,11 @@
       "position_blender": [
         -15.5,
         15.5,
-        26.5
+        36.5
       ],
       "position_godot": [
         -15.5,
-        26.5,
+        36.5,
         -15.5
       ],
       "rotation_blender": [
@@ -9582,11 +9582,11 @@
       "position_blender": [
         -15.5,
         29.5,
-        26.5
+        36.5
       ],
       "position_godot": [
         -15.5,
-        26.5,
+        36.5,
         -29.5
       ],
       "rotation_blender": [
@@ -9618,11 +9618,11 @@
       "position_blender": [
         -29.5,
         15.5,
-        26.5
+        36.5
       ],
       "position_godot": [
         -29.5,
-        26.5,
+        36.5,
         -15.5
       ],
       "rotation_blender": [
@@ -9654,11 +9654,11 @@
       "position_blender": [
         -29.5,
         29.5,
-        26.5
+        36.5
       ],
       "position_godot": [
         -29.5,
-        26.5,
+        36.5,
         -29.5
       ],
       "rotation_blender": [
@@ -9691,11 +9691,11 @@
       "position_blender": [
         -25.0,
         0.0,
-        22
+        32.0
       ],
       "position_godot": [
         -25.0,
-        22,
+        32.0,
         -0.0
       ],
       "rotation_blender": [
@@ -9755,11 +9755,11 @@
       "position_blender": [
         -25.0,
         0.0,
-        26
+        36.0
       ],
       "position_godot": [
         -25.0,
-        26,
+        36.0,
         -0.0
       ],
       "rotation_blender": [
@@ -9811,11 +9811,11 @@
       "position_blender": [
         -25.0,
         -22.5,
-        26
+        36.0
       ],
       "position_godot": [
         -25.0,
-        26,
+        36.0,
         22.5
       ],
       "rotation_blender": [
@@ -9882,11 +9882,11 @@
       "position_blender": [
         -25.0,
         -22.5,
-        30
+        40.0
       ],
       "position_godot": [
         -25.0,
-        30,
+        40.0,
         22.5
       ],
       "rotation_blender": [
@@ -9938,11 +9938,11 @@
       "position_blender": [
         -7.0,
         -22.5,
-        22
+        32.0
       ],
       "position_godot": [
         -7.0,
-        22,
+        32.0,
         22.5
       ],
       "rotation_blender": [
@@ -10013,11 +10013,11 @@
       "position_blender": [
         22.5,
         -22.5,
-        22
+        32.0
       ],
       "position_godot": [
         22.5,
-        22,
+        32.0,
         22.5
       ],
       "rotation_blender": [
@@ -10095,11 +10095,11 @@
       "position_blender": [
         22.5,
         -22.5,
-        26
+        36.0
       ],
       "position_godot": [
         22.5,
-        26,
+        36.0,
         22.5
       ],
       "rotation_blender": [
@@ -10151,11 +10151,11 @@
       "position_blender": [
         22.5,
         -22.5,
-        30
+        40.0
       ],
       "position_godot": [
         22.5,
-        30,
+        40.0,
         22.5
       ],
       "rotation_blender": [
@@ -10207,11 +10207,11 @@
       "position_blender": [
         25.0,
         0.0,
-        22
+        32.0
       ],
       "position_godot": [
         25.0,
-        22,
+        32.0,
         -0.0
       ],
       "rotation_blender": [
@@ -10271,11 +10271,11 @@
       "position_blender": [
         25.0,
         0.0,
-        26
+        36.0
       ],
       "position_godot": [
         25.0,
-        26,
+        36.0,
         -0.0
       ],
       "rotation_blender": [
@@ -10327,11 +10327,11 @@
       "position_blender": [
         25.0,
         22.5,
-        26
+        36.0
       ],
       "position_godot": [
         25.0,
-        26,
+        36.0,
         -22.5
       ],
       "rotation_blender": [
@@ -10398,11 +10398,11 @@
       "position_blender": [
         25.0,
         22.5,
-        30
+        40.0
       ],
       "position_godot": [
         25.0,
-        30,
+        40.0,
         -22.5
       ],
       "rotation_blender": [
@@ -10454,11 +10454,11 @@
       "position_blender": [
         7.0,
         22.5,
-        22
+        32.0
       ],
       "position_godot": [
         7.0,
-        22,
+        32.0,
         -22.5
       ],
       "rotation_blender": [
@@ -10529,11 +10529,11 @@
       "position_blender": [
         -22.5,
         22.5,
-        22
+        32.0
       ],
       "position_godot": [
         -22.5,
-        22,
+        32.0,
         -22.5
       ],
       "rotation_blender": [
@@ -10611,11 +10611,11 @@
       "position_blender": [
         -22.5,
         22.5,
-        26
+        36.0
       ],
       "position_godot": [
         -22.5,
-        26,
+        36.0,
         -22.5
       ],
       "rotation_blender": [
@@ -10667,11 +10667,11 @@
       "position_blender": [
         -22.5,
         22.5,
-        30
+        40.0
       ],
       "position_godot": [
         -22.5,
-        30,
+        40.0,
         -22.5
       ],
       "rotation_blender": [
@@ -10748,7 +10748,7 @@
   "deck_sections": [
     {
       "name": "B_island_2_lower",
-      "z": 22,
+      "z": 32.0,
       "rects": [
         [
           -30.0,
@@ -10768,7 +10768,7 @@
           "center": [
             -25.0,
             6.5,
-            22
+            32.0
           ],
           "size": [
             1,
@@ -10777,11 +10777,22 @@
           "depth": 0.265,
           "yaw": 3.141592653589793
         }
-      ]
+      ],
+      "position": [
+        0,
+        0,
+        32.0
+      ],
+      "motion": {
+        "kind": "bob",
+        "bob_amplitude": 0.25,
+        "period": 8.6,
+        "group": "B_island_2"
+      }
     },
     {
       "name": "B_island_2_higher",
-      "z": 26,
+      "z": 36.0,
       "rects": [
         [
           -30.0,
@@ -10795,7 +10806,7 @@
           "center": [
             -25.0,
             0.0,
-            26
+            36.0
           ],
           "size": [
             3.0,
@@ -10803,11 +10814,22 @@
           ],
           "depth": 2.01
         }
-      ]
+      ],
+      "position": [
+        0,
+        0,
+        36.0
+      ],
+      "motion": {
+        "kind": "bob",
+        "bob_amplitude": 0.25,
+        "period": 8.6,
+        "group": "B_island_2"
+      }
     },
     {
       "name": "B_mainland_2_higher",
-      "z": 26,
+      "z": 36.0,
       "rects": [
         [
           -35.0,
@@ -10833,7 +10855,7 @@
           "center": [
             -25.0,
             -15.0085,
-            26
+            36.0
           ],
           "size": [
             4.11,
@@ -10846,7 +10868,7 @@
           "center": [
             -25.0,
             -18.0,
-            26
+            36.0
           ],
           "size": [
             2,
@@ -10859,7 +10881,7 @@
           "center": [
             -14.0,
             -26.5,
-            26
+            36.0
           ],
           "size": [
             1,
@@ -10873,16 +10895,27 @@
         [
           -31.5,
           -22.5,
-          26,
+          36.0,
           2,
           2,
           2
         ]
-      ]
+      ],
+      "position": [
+        0,
+        0,
+        36.0
+      ],
+      "motion": {
+        "kind": "bob",
+        "bob_amplitude": 0.25,
+        "period": 9.2,
+        "group": "B_mainland_2"
+      }
     },
     {
       "name": "B_mainland_2_roof",
-      "z": 30,
+      "z": 40.0,
       "rects": [
         [
           -30.0,
@@ -10896,7 +10929,7 @@
           "center": [
             -22.5,
             -22.5,
-            30
+            40.0
           ],
           "size": [
             3.0,
@@ -10904,11 +10937,22 @@
           ],
           "depth": 2.01
         }
-      ]
+      ],
+      "position": [
+        0,
+        0,
+        40.0
+      ],
+      "motion": {
+        "kind": "bob",
+        "bob_amplitude": 0.25,
+        "period": 9.2,
+        "group": "B_mainland_2"
+      }
     },
     {
       "name": "B_island_1_lower",
-      "z": 22,
+      "z": 32.0,
       "rects": [
         [
           -14.0,
@@ -10928,7 +10972,7 @@
           "center": [
             -13.0,
             -18.5,
-            22
+            32.0
           ],
           "size": [
             1,
@@ -10937,11 +10981,22 @@
           "depth": 0.265,
           "yaw": 3.141592653589793
         }
-      ]
+      ],
+      "position": [
+        0,
+        0,
+        32.0
+      ],
+      "motion": {
+        "kind": "bob",
+        "bob_amplitude": 0.25,
+        "period": 7.4,
+        "group": "B_island_1"
+      }
     },
     {
       "name": "B_bridge_lower",
-      "z": 22,
+      "z": 32.0,
       "rects": [
         [
           -2.0,
@@ -10950,11 +11005,22 @@
           -20.0
         ]
       ],
-      "holes": []
+      "holes": [],
+      "position": [
+        0,
+        0,
+        32.0
+      ],
+      "motion": {
+        "kind": "bob",
+        "bob_amplitude": 0.25,
+        "period": 8.0,
+        "group": "B_mainland_1"
+      }
     },
     {
       "name": "B_mainland_1_lower",
-      "z": 22,
+      "z": 32.0,
       "rects": [
         [
           10.0,
@@ -10974,7 +11040,7 @@
           "center": [
             11.0085,
             -22.5,
-            22
+            32.0
           ],
           "size": [
             4.11,
@@ -10987,7 +11053,7 @@
           "center": [
             14.0,
             -22.5,
-            22
+            32.0
           ],
           "size": [
             2,
@@ -11000,7 +11066,7 @@
           "center": [
             18.5,
             -16.5,
-            22
+            32.0
           ],
           "size": [
             1,
@@ -11013,7 +11079,7 @@
           "center": [
             18.5,
             -28.5,
-            22
+            32.0
           ],
           "size": [
             1,
@@ -11026,7 +11092,7 @@
           "center": [
             31.5,
             -20.0,
-            22
+            32.0
           ],
           "size": [
             2,
@@ -11039,7 +11105,7 @@
           "center": [
             31.5,
             -25.0,
-            22
+            32.0
           ],
           "size": [
             2,
@@ -11052,7 +11118,7 @@
           "center": [
             21.0,
             -16.5,
-            22
+            32.0
           ],
           "size": [
             1,
@@ -11065,7 +11131,7 @@
           "center": [
             24.0,
             -28.5,
-            22
+            32.0
           ],
           "size": [
             1,
@@ -11079,7 +11145,7 @@
         [
           30.0,
           -30.0,
-          22,
+          32.0,
           2,
           2,
           2
@@ -11087,16 +11153,27 @@
         [
           30.0,
           -15.0,
-          22,
+          32.0,
           2,
           2,
           2
         ]
-      ]
+      ],
+      "position": [
+        0,
+        0,
+        32.0
+      ],
+      "motion": {
+        "kind": "bob",
+        "bob_amplitude": 0.25,
+        "period": 8.0,
+        "group": "B_mainland_1"
+      }
     },
     {
       "name": "B_mainland_1_higher",
-      "z": 26,
+      "z": 36.0,
       "rects": [
         [
           12.5,
@@ -11110,7 +11187,7 @@
           "center": [
             22.5,
             -16.5,
-            26
+            36.0
           ],
           "size": [
             6.0,
@@ -11122,7 +11199,7 @@
           "center": [
             22.5,
             -28.5,
-            26
+            36.0
           ],
           "size": [
             6.0,
@@ -11130,11 +11207,22 @@
           ],
           "depth": 2.01
         }
-      ]
+      ],
+      "position": [
+        0,
+        0,
+        36.0
+      ],
+      "motion": {
+        "kind": "bob",
+        "bob_amplitude": 0.25,
+        "period": 8.0,
+        "group": "B_mainland_1"
+      }
     },
     {
       "name": "B_mainland_1_roof",
-      "z": 30,
+      "z": 40.0,
       "rects": [
         [
           15.0,
@@ -11148,16 +11236,27 @@
         [
           17.0,
           -17.0,
-          30,
+          40.0,
           2,
           2,
           2
         ]
-      ]
+      ],
+      "position": [
+        0,
+        0,
+        40.0
+      ],
+      "motion": {
+        "kind": "bob",
+        "bob_amplitude": 0.25,
+        "period": 8.0,
+        "group": "B_mainland_1"
+      }
     },
     {
       "name": "A_island_2_lower",
-      "z": 22,
+      "z": 32.0,
       "rects": [
         [
           20.0,
@@ -11177,7 +11276,7 @@
           "center": [
             25.0,
             -6.5,
-            22
+            32.0
           ],
           "size": [
             1,
@@ -11186,11 +11285,22 @@
           "depth": 0.265,
           "yaw": -5.3437816372905846e-24
         }
-      ]
+      ],
+      "position": [
+        0,
+        0,
+        32.0
+      ],
+      "motion": {
+        "kind": "bob",
+        "bob_amplitude": 0.25,
+        "period": 7.7,
+        "group": "A_island_2"
+      }
     },
     {
       "name": "A_island_2_higher",
-      "z": 26,
+      "z": 36.0,
       "rects": [
         [
           20.0,
@@ -11204,7 +11314,7 @@
           "center": [
             25.0,
             0.0,
-            26
+            36.0
           ],
           "size": [
             3.0,
@@ -11212,11 +11322,22 @@
           ],
           "depth": 2.01
         }
-      ]
+      ],
+      "position": [
+        0,
+        0,
+        36.0
+      ],
+      "motion": {
+        "kind": "bob",
+        "bob_amplitude": 0.25,
+        "period": 7.7,
+        "group": "A_island_2"
+      }
     },
     {
       "name": "A_mainland_2_higher",
-      "z": 26,
+      "z": 36.0,
       "rects": [
         [
           15.0,
@@ -11242,7 +11363,7 @@
           "center": [
             25.0,
             15.0085,
-            26
+            36.0
           ],
           "size": [
             4.11,
@@ -11255,7 +11376,7 @@
           "center": [
             25.0,
             18.0,
-            26
+            36.0
           ],
           "size": [
             2,
@@ -11268,7 +11389,7 @@
           "center": [
             14.0,
             26.5,
-            26
+            36.0
           ],
           "size": [
             1,
@@ -11282,16 +11403,27 @@
         [
           31.5,
           22.5,
-          26,
+          36.0,
           2,
           2,
           2
         ]
-      ]
+      ],
+      "position": [
+        0,
+        0,
+        36.0
+      ],
+      "motion": {
+        "kind": "bob",
+        "bob_amplitude": 0.25,
+        "period": 8.3,
+        "group": "A_mainland_2"
+      }
     },
     {
       "name": "A_mainland_2_roof",
-      "z": 30,
+      "z": 40.0,
       "rects": [
         [
           20.0,
@@ -11305,7 +11437,7 @@
           "center": [
             22.5,
             22.5,
-            30
+            40.0
           ],
           "size": [
             3.0,
@@ -11313,11 +11445,22 @@
           ],
           "depth": 2.01
         }
-      ]
+      ],
+      "position": [
+        0,
+        0,
+        40.0
+      ],
+      "motion": {
+        "kind": "bob",
+        "bob_amplitude": 0.25,
+        "period": 8.3,
+        "group": "A_mainland_2"
+      }
     },
     {
       "name": "A_island_1_lower",
-      "z": 22,
+      "z": 32.0,
       "rects": [
         [
           12.0,
@@ -11337,7 +11480,7 @@
           "center": [
             13.0,
             18.5,
-            22
+            32.0
           ],
           "size": [
             1,
@@ -11346,11 +11489,22 @@
           "depth": 0.265,
           "yaw": -5.3437816372905846e-24
         }
-      ]
+      ],
+      "position": [
+        0,
+        0,
+        32.0
+      ],
+      "motion": {
+        "kind": "bob",
+        "bob_amplitude": 0.25,
+        "period": 6.5,
+        "group": "A_island_1"
+      }
     },
     {
       "name": "A_bridge_lower",
-      "z": 22,
+      "z": 32.0,
       "rects": [
         [
           -8.0,
@@ -11359,11 +11513,22 @@
           25.0
         ]
       ],
-      "holes": []
+      "holes": [],
+      "position": [
+        0,
+        0,
+        32.0
+      ],
+      "motion": {
+        "kind": "bob",
+        "bob_amplitude": 0.25,
+        "period": 7.1,
+        "group": "A_mainland_1"
+      }
     },
     {
       "name": "A_mainland_1_lower",
-      "z": 22,
+      "z": 32.0,
       "rects": [
         [
           -35.0,
@@ -11383,7 +11548,7 @@
           "center": [
             -11.0085,
             22.5,
-            22
+            32.0
           ],
           "size": [
             4.11,
@@ -11396,7 +11561,7 @@
           "center": [
             -14.0,
             22.5,
-            22
+            32.0
           ],
           "size": [
             2,
@@ -11409,7 +11574,7 @@
           "center": [
             -18.5,
             16.5,
-            22
+            32.0
           ],
           "size": [
             1,
@@ -11422,7 +11587,7 @@
           "center": [
             -18.5,
             28.5,
-            22
+            32.0
           ],
           "size": [
             1,
@@ -11435,7 +11600,7 @@
           "center": [
             -31.5,
             20.0,
-            22
+            32.0
           ],
           "size": [
             2,
@@ -11448,7 +11613,7 @@
           "center": [
             -31.5,
             25.0,
-            22
+            32.0
           ],
           "size": [
             2,
@@ -11461,7 +11626,7 @@
           "center": [
             -21.0,
             16.5,
-            22
+            32.0
           ],
           "size": [
             1,
@@ -11474,7 +11639,7 @@
           "center": [
             -24.0,
             28.5,
-            22
+            32.0
           ],
           "size": [
             1,
@@ -11488,7 +11653,7 @@
         [
           -30.0,
           30.0,
-          22,
+          32.0,
           2,
           2,
           2
@@ -11496,16 +11661,27 @@
         [
           -30.0,
           15.0,
-          22,
+          32.0,
           2,
           2,
           2
         ]
-      ]
+      ],
+      "position": [
+        0,
+        0,
+        32.0
+      ],
+      "motion": {
+        "kind": "bob",
+        "bob_amplitude": 0.25,
+        "period": 7.1,
+        "group": "A_mainland_1"
+      }
     },
     {
       "name": "A_mainland_1_higher",
-      "z": 26,
+      "z": 36.0,
       "rects": [
         [
           -32.5,
@@ -11519,7 +11695,7 @@
           "center": [
             -22.5,
             16.5,
-            26
+            36.0
           ],
           "size": [
             6.0,
@@ -11531,7 +11707,7 @@
           "center": [
             -22.5,
             28.5,
-            26
+            36.0
           ],
           "size": [
             6.0,
@@ -11539,11 +11715,22 @@
           ],
           "depth": 2.01
         }
-      ]
+      ],
+      "position": [
+        0,
+        0,
+        36.0
+      ],
+      "motion": {
+        "kind": "bob",
+        "bob_amplitude": 0.25,
+        "period": 7.1,
+        "group": "A_mainland_1"
+      }
     },
     {
       "name": "A_mainland_1_roof",
-      "z": 30,
+      "z": 40.0,
       "rects": [
         [
           -30.0,
@@ -11557,12 +11744,23 @@
         [
           -17.0,
           17.0,
-          30,
+          40.0,
           2,
           2,
           2
         ]
-      ]
+      ],
+      "position": [
+        0,
+        0,
+        40.0
+      ],
+      "motion": {
+        "kind": "bob",
+        "bob_amplitude": 0.25,
+        "period": 7.1,
+        "group": "A_mainland_1"
+      }
     }
   ],
   "skeleton": "RIG_Skyfall",
@@ -11572,7 +11770,7 @@
     "playable": false,
     "boundary": false
   },
-  "scenery_triangles": 108368,
+  "scenery_triangles": 113168,
   "geometry": "placement rig; native floors, pillar platforms and weapon-holder walls imported on gizmos",
   "budget_approval": "2026-10-13: restore all native geometry and raise map-owned geometry limit to measured total; separately imported props excluded",
   "actions": [

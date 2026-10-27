@@ -6,6 +6,9 @@ HERE=Path(__file__).resolve().parent;ROOT=HERE.parents[1]
 bpy.ops.wm.open_mainfile(filepath=str(HERE/'skyfall.blend'))
 scene=bpy.context.scene;scene.frame_set(73)
 rig=json.loads((HERE/'skyfall_rig.json').read_text())
+elevation=json.loads((HERE/'settings.json').read_text())['elevation_offset_m']
+def render_still():
+    if '--no-render' not in sys.argv:bpy.ops.render.render(write_still=True)
 def material(name,color,glow=0):
     m=bpy.data.materials.new(name);p=m.node_tree.nodes.get('Principled BSDF');p.inputs['Base Color'].default_value=(*color,1)
     p.inputs['Emission Color'].default_value=(*color,1);p.inputs['Emission Strength'].default_value=glow;return m
@@ -13,7 +16,7 @@ world=bpy.data.worlds.new('Lunar preview');world.node_tree.nodes['Background'].i
 for name,loc,power,size in [('Key',(-35,-45,80),18000,60),('Fill',(45,25,55),11000,45),('Rim',(-20,50,40),8000,25)]:
     d=bpy.data.lights.new(name,'AREA');d.energy=power;d.shape='DISK';d.size=size;o=bpy.data.objects.new('LGT_'+name,d);scene.collection.objects.link(o);o.location=loc;o.rotation_euler=(-Vector(loc)).to_track_quat('-Z','Y').to_euler()
 camera_data=bpy.data.cameras.new('Skyfall');camera=bpy.data.objects.new('CAM_Skyfall',camera_data);scene.collection.objects.link(camera);scene.camera=camera;camera_data.type='ORTHO';camera_data.ortho_scale=115
-def view(position,target,scale):camera.location=position;camera.rotation_euler=(Vector(target)-camera.location).to_track_quat('-Z','Y').to_euler();camera_data.ortho_scale=scale
+def view(position,target,scale):camera.location=Vector(position)+Vector((0,0,elevation));target=Vector(target)+Vector((0,0,elevation));camera.rotation_euler=(Vector(target)-camera.location).to_track_quat('-Z','Y').to_euler();camera_data.ortho_scale=scale
 scene.render.engine='CYCLES';scene.cycles.samples=16;scene.render.resolution_x=1600;scene.render.resolution_y=1200;scene.render.resolution_percentage=100
 scene.render.image_settings.file_format='PNG';scene.view_settings.view_transform='AgX'
 preferences=bpy.context.preferences.addons['cycles'].preferences
@@ -39,7 +42,10 @@ template_collection=bpy.data.collections.new('PRV / native templates');scene.col
 def instance(category,asset,suffix,mount):
     key=(category,asset,suffix)
     if key not in templates:
-        before=set(bpy.data.objects);bpy.ops.import_scene.gltf(filepath=str(ROOT/category/asset/(asset+suffix+'.glb')))
+        path=ROOT/category/asset/(asset+suffix+'.glb')
+        if not path.exists() and '--runtime-assets' in sys.argv:
+            path=HERE.parents[3]/'game/assets/models'/category/asset/(asset+suffix+'.glb')
+        before=set(bpy.data.objects);bpy.ops.import_scene.gltf(filepath=str(path))
         source=list(set(bpy.data.objects)-before)
         helpers={bone.custom_shape for ob in source if ob.type=='ARMATURE' for bone in ob.pose.bones if bone.custom_shape}
         for helper in helpers:helper.hide_render=True
@@ -109,7 +115,7 @@ for marker in rig['markers']:
 lunar_preview()
 view((70,-95,88),(0,0,5),125)
 lunar_preview()
-scene.render.filepath=str(HERE/'skyfall_preview_gizmos.png');bpy.ops.render.render(write_still=True)
+scene.render.filepath=str(HERE/'skyfall_preview_gizmos.png');render_still()
 gizmo_collection.hide_render=True
 gizmo_phase=False
 for fixture in hidden_fixtures:fixture.hide_render=False
@@ -143,9 +149,9 @@ lunar_preview()
 sys.path.insert(0,str(HERE.parent/'common'))
 from planetary_surface import preview as planetary_preview
 planetary_preview()
-view((70,-95,88),(0,0,5),125);scene.render.filepath=str(HERE/'skyfall_preview_models.png');bpy.ops.render.render(write_still=True)
-view((0,0,130),(0,0,0),90);scene.render.filepath=str(HERE/'skyfall_preview_top.png');bpy.ops.render.render(write_still=True)
-view((44,-46,42),(23,-22,25),42);scene.render.filepath=str(HERE/'skyfall_preview_layers.png');bpy.ops.render.render(write_still=True)
-view((85,-115,95),(0,0,10),185);scene.render.filepath=str(HERE/'skyfall_preview_crater.png');bpy.ops.render.render(write_still=True)
+view((70,-95,88),(0,0,5),125);scene.render.filepath=str(HERE/'skyfall_preview_models.png');render_still()
+view((0,0,130),(0,0,0),90);scene.render.filepath=str(HERE/'skyfall_preview_top.png');render_still()
+view((44,-46,42),(23,-22,25),42);scene.render.filepath=str(HERE/'skyfall_preview_layers.png');render_still()
+view((85,-115,95),(0,0,10),185);scene.render.filepath=str(HERE/'skyfall_preview_crater.png');render_still()
 bpy.ops.wm.save_as_mainfile(filepath=str(HERE/'skyfall_preview.blend'),compress=True)
 print('SKYFALL_PREVIEW',len(rig['markers']),'native placements')

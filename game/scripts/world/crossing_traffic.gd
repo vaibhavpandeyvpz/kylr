@@ -22,6 +22,7 @@ func state_for(robot) -> Dictionary:
 	return actors[robot.robot_id]
 
 func observe(robot) -> void:
+	if arena.config.get("vertical_bobbing_only",false):return
 	var state:=state_for(robot)
 	var base:=base_at(robot.position)
 	if not robot.alive or robot.protection>0:
@@ -87,6 +88,8 @@ func has_other_corridor(path: Array,kind: String) -> bool:
 	return false
 
 func route(robot,destination: Vector3,goal_kind: String) -> Array:
+	if arena.config.get("vertical_bobbing_only",false):
+		return arena.traversal.route(robot.position,destination,robot.ep>ArenaTuning.HALF_EP,robot.is_on_floor())
 	var allow: bool=robot.ep>ArenaTuning.HALF_EP
 	var grounded: bool=robot.is_on_floor()
 	var graph: TraversalGraph=arena.traversal
@@ -190,4 +193,5 @@ func waiting_route(robot,assignment: Dictionary,allow: bool,grounded: bool) -> A
 	return path
 
 func committed(robot) -> bool:
+	if arena.config.get("vertical_bobbing_only",false):return false
 	return actors.has(robot.robot_id) and not actors[robot.robot_id].assignment.is_empty()
