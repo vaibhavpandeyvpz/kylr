@@ -102,8 +102,9 @@ A completed hosted matrix is required to claim validation on all three OSes.
 
 [Cloud hosting](CLOUD_HOSTING.md) owns Render, Atlas and Edgegap configuration.
 The manual multiplayer workflow runs one API/publication test suite against
-MongoDB on Ubuntu 24.04, then builds the private server image once. The API runner
-is pinned because MongoDB 8.0 cannot start on Linux 6.19+ kernels.
+MongoDB on Ubuntu 22.04, then builds the private server image once. The API runner
+uses that image's 6.8 kernel because MongoDB 8.0 rejects the newer Ubuntu kernels
+on the 24.04 runners; see [the runner compatibility issue](https://github.com/actions/runner-images/issues/15005).
 The download stage installs
 checksum-pinned official Godot for Linux; the Docker build imports restored
 assets and rejects script errors. BuildKit caches binary-download and import

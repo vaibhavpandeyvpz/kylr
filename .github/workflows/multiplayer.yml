@@ -17,8 +17,9 @@ concurrency:
 
 jobs:
   api:
-    # MongoDB 8.0 cannot start on Linux 6.19+; this image uses a supported kernel.
-    runs-on: ubuntu-24.04
+    # MongoDB 8.0 rejects the newer kernels on Ubuntu 24.04 runners.
+    # https://github.com/actions/runner-images/issues/15005
+    runs-on: ubuntu-22.04
     timeout-minutes: 15
     services:
       mongo:
