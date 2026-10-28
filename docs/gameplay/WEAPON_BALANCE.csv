@@ -1,17 +1,17 @@
-weapon,fire_mode,map,damage,damage_basis,headshot_damage,pellets_per_shot,splash_damage_max,splash_radius_m,dot_damage_per_s,dot_duration_s,fire_rate_per_s,range_m,full_damage_range_m,projectile_speed_m_per_s,damage_tick_interval_s,notes
-Pistol,Primary,All,10,per_hit,,,,,,,4,40,,,,Hitscan; no secondary fire.
-Rifle,Primary,All,10,per_hit,,,,,,,4,50,,,,Hitscan; normal head hits also deal 10 damage.
-Rifle,Secondary scope (primary fire),All,25,per_hit,100,,,,,,2,75,,,,Hitscan; secondary scopes the primary shot.
-Minigun,Primary,All,5,per_hit,,,,,,,8,50,,,,Hitscan; no secondary fire.
-Lightning gun,Primary,All,20,per_second,,,,,,,,25,,,0.1,Continuous beam; 2 direct damage per 0.1 s tick (20 per second).
-Lightning gun,Secondary orb,All,25,per_hit,,,,,,,4,40,,25,,Gravity starts after 40 m; damage continues beyond this distance; 20 s lifetime; no splash.
-EMP gun,Primary,All,15,per_hit,,,,,,,4,25,20,25,,Full damage through 20 m; loses 3 damage per additional metre to zero at 25 m and disappears. No secondary fire.
-Rocket launcher,Primary,All,50,per_hit,,,10,10,,,2,100,,15,,Gravity starts after 100 m; 20 s lifetime. Direct victim does not also take splash. Splash is 10 within 1 m and 11 minus distance from 1 to 10 m (1 at 10 m).
-Rocket launcher,Secondary scope/guidance (primary fire),All,50,per_hit,,,10,10,,,2,100,,20,,Scoped launch speed is 20 m/s; other damage and cadence match primary. Guided rockets ignore gravity while tracking. Splash excludes direct victim; 10 within 1 m to 1 at 10 m.
-Flamethrower,Primary,All,20,per_second,,,1,5,,,,10,8,,0.1,2 direct damage per 0.1 s tick (20 per second) through 8 m; fades to zero at 10 m. Splash: 1 per tick within 1 m to 0.2 at 5 m; direct victim excluded.
-Flamethrower,Secondary fireball,All,25,per_hit,,,,,,,4,40,,10,,Gravity starts after 40 m; damage continues beyond this distance; 20 s lifetime; no splash or lingering burn.
-Flak cannon,Primary,All,10,per_pellet,,10,,,,,2,50,,30,,Up to 100 damage if all 10 pellets hit. 50 m travelled-distance cap; 8 s lifetime; speed decreases on bounces. No secondary fire.
-Bio rifle,Primary,All,15,per_hit,,,,,5,3,4,50,,25,,15 direct plus 15 damage over time (30 total); 50 m travelled-distance cap; 8 s lifetime. No secondary fire.
-Grenade launcher,Primary,All,40,per_hit,,,15,5,,,2,40,,20,,Splash fades to zero at 5 m; direct victim excluded. Initial speed; gravity changes velocity and actual reach. 40 m travelled-distance cap; 8 s lifetime. No secondary fire.
-Pulse gun,Primary,skyfall,10,per_hit,,,,,,,1,20,,15,,Team map fixture; TDM/CTF only. 8 s projectile lifetime. No secondary fire.
-Pulse gun,Primary,faceoff,10,per_hit,,,,,,,1,20,,15,,Team map fixture; TDM/CTF only. 8 s projectile lifetime. No secondary fire.
+weapon,fire_mode,map,damage,damage_basis,headshot_damage,pellets_per_shot,splash_damage_max,splash_radius_m,dot_damage_per_s,dot_duration_s,fire_rate_per_s,range_m,full_damage_range_m,projectile_speed_m_per_s,damage_tick_interval_s,slow_multiplier,slow_duration_s,notes
+Pistol,Primary,All,10,per_hit,,,,,,,4,40,,,,,,Hitscan; no secondary fire.
+Rifle,Primary,All,10,per_hit,,,,,,,4,50,,,,,,Hitscan; normal head hits also deal 10 damage.
+Rifle,Secondary scope (primary fire),All,25,per_hit,100,,,,,,2,75,,,,,,Hitscan; secondary scopes the primary shot.
+Minigun,Primary,All,5,per_hit,,,,,,,8,50,,,,,,Hitscan; no secondary fire.
+Lightning gun,Primary,All,33.333333333333336,per_second,,,,,,,,25,,,0.1,0.8,0.05,Continuous beam; 100 direct damage over 3 s in 0.1 s ticks. Every accepted hit including secondary slows movement by 20% for 50 ms; refreshes without stacking.
+Lightning gun,Secondary orb,All,25,per_hit,,,,,,,4,40,,25,,,,Gravity starts after 40 m; damage continues beyond this distance; 20 s lifetime; no splash.
+EMP gun,Primary,All,15,per_hit,,,,,,,4,25,20,25,,,,Full damage through 20 m; loses 3 damage per additional metre to zero at 25 m and disappears. No secondary fire.
+Rocket launcher,Primary,All,50,per_hit,,,10,10,,,2,100,,15,,,,Gravity starts after 100 m; 20 s lifetime. Direct victim does not also take splash. Splash is 10 within 1 m and 11 minus distance from 1 to 10 m (1 at 10 m).
+Rocket launcher,Secondary scope/guidance (primary fire),All,50,per_hit,,,10,10,,,2,100,,20,,,,Scoped launch speed is 20 m/s; other damage and cadence match primary. Guided rockets ignore gravity while tracking. Splash excludes direct victim; 10 within 1 m to 1 at 10 m.
+Flamethrower,Primary,All,33.333333333333336,per_second,,,1,5,,,,10,8,,0.1,0.9,0.025,Full direct damage through 8 m; fades to zero at 10 m. Splash: 1 per tick within 1 m to 0.2 at 5 m; direct victim excluded. 100 direct damage over 3 s in 0.1 s ticks. Every accepted hit including secondary slows movement by 10% for 25 ms; refreshes without stacking.
+Flamethrower,Secondary fireball,All,25,per_hit,,,,,,,4,40,,10,,,,Gravity starts after 40 m; damage continues beyond this distance; 20 s lifetime; no splash or lingering burn.
+Flak cannon,Primary,All,10,per_pellet,,10,,,,,2,50,,30,,,,Up to 100 damage if all 10 pellets hit. 50 m travelled-distance cap; 8 s lifetime; speed decreases on bounces. No secondary fire.
+Bio rifle,Primary,All,15,per_hit,,,,,5,3,4,50,,25,,0.9,0.025,15 direct plus 15 damage over time (30 total); 50 m travelled-distance cap; 8 s lifetime. No secondary fire. Impact slows movement by 10% for 25 ms; refreshes without stacking; poison ticks do not refresh slow.
+Grenade launcher,Primary,All,40,per_hit,,,15,5,,,2,40,,20,,,,Splash fades to zero at 5 m; direct victim excluded. Initial speed; gravity changes velocity and actual reach. 40 m travelled-distance cap; 8 s lifetime. No secondary fire.
+Pulse gun,Primary,skyfall,10,per_hit,,,,,,,1,20,,15,,,,Team map fixture; TDM/CTF only. 8 s projectile lifetime. No secondary fire.
+Pulse gun,Primary,faceoff,10,per_hit,,,,,,,1,20,,15,,,,Team map fixture; TDM/CTF only. 8 s projectile lifetime. No secondary fire.

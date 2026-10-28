@@ -276,7 +276,7 @@ func test_flame_damage_volume_and_visual_endpoint_share_the_cached_error():
 	assert_eq(victim.damage_received,0.0,"Failed flame accuracy offsets the damage volume")
 	victim.position = direction*8.0
 	combat.flame(shooter)
-	assert_eq(victim.damage_received,2.0,"Direct flame damage is still resolved normally")
+	assert_almost_eq(victim.damage_received,100.0/30.0,0.00001,"Direct flame damage is still resolved normally")
 	assert_almost_eq(combat.flame_endpoint(shooter,shooter.muzzle()),victim.eye(),Vector3.ONE*0.0001)
 	assert_eq(combat.rolls,0,"Contact/presentation queries cannot consume rolls")
 

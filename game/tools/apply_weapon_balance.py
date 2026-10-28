@@ -60,7 +60,8 @@ def main():
             for column, key in [('projectile_speed_m_per_s','projectile_speed'),
                                 ('damage_tick_interval_s','damage_tick'),
                                 ('pellets_per_shot','pellets'),('splash_damage_max','splash_damage'),
-                                ('splash_radius_m','splash_radius'),('dot_duration_s','dot_duration')]:
+                                ('splash_radius_m','splash_radius'),('dot_duration_s','dot_duration'),
+                                ('slow_multiplier','slow_multiplier'),('slow_duration_s','slow_duration')]:
                 if row[column]:
                     profile[key] = number(column)
             if row['dot_damage_per_s']:

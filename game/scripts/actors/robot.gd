@@ -474,14 +474,17 @@ func tick_spawn_reload(dt: float) -> void:
 	if not alive or equipped != "pistol" or protection <= 0: spawn_reload_remaining = 0
 	if spawn_reload_remaining == 0 and anim_state == "pistol/reload": pose("idle")
 
+func tick_movement_slow(dt: float) -> void:
+	slow_remaining = maxf(0,slow_remaining-dt)
+	if slow_remaining == 0: slow_multiplier=1.0
+
 func _physics_process(dt: float) -> void:
 	if arena_match == null or not arena_match.authority: return
 	if spawn_look_locked(): align_spawn_facing()
 	if not can_act() or equipped != "rocket_launcher" or not wants_secondary or reload_time > 0:
 		rocket_lock_target = -1
 		rocket_lock_progress = 0.0
-	slow_remaining = maxf(0,slow_remaining-dt)
-	if slow_remaining == 0:slow_multiplier=1.0
+	tick_movement_slow(dt)
 	if spawn_remaining > 0:
 		# Scene preparation renders the world before the opening is revealed.
 		# Keep spawn motion and its fixture cues tied to the visible countdown.
@@ -779,6 +782,9 @@ func tick_repair_motion(dt: float) -> void:
 
 func hit(amount: float, attacker, cause: String, impulse := Vector3.ZERO, contact: Dictionary = {}) -> bool:
 	if amount <= 0 or not can_take_damage(attacker): return false
+	if cause in ["lightning_gun", "flamethrower"]:
+		slow_remaining = maxf(slow_remaining, float(Arsenal.WEAPONS[cause].slow_duration))
+		slow_multiplier = minf(slow_multiplier, float(Arsenal.WEAPONS[cause].slow_multiplier))
 	last_hit_robot_id=attacker.robot_id if attacker!=null else -1
 	last_hit_weapon=cause
 	if attacker != null and not attacker.human: amount *= BotDifficulty.profile(arena_match.difficulty).damage

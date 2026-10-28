@@ -77,7 +77,7 @@
       "model": "lightning_gun",
       "animation_family": "lightning_gun",
       "range": 25.0,
-      "damage": 20.0,
+      "damage": 33.333333333333336,
       "interval": 0.5,
       "capacity": 50,
       "recoil": 1.0,
@@ -99,7 +99,9 @@
       "damage_tick": 0.1,
       "secondary_damage": 25.0,
       "secondary_range": 40.0,
-      "secondary_projectile_speed": 25.0
+      "secondary_projectile_speed": 25.0,
+      "slow_multiplier": 0.8,
+      "slow_duration": 0.05
     },
     "emp_gun": {
       "title": "EMP gun",
@@ -160,7 +162,7 @@
       "model": "flamethrower",
       "animation_family": "flamethrower",
       "range": 10.0,
-      "damage": 20.0,
+      "damage": 33.333333333333336,
       "interval": 0.5,
       "capacity": 50,
       "recoil": 1.0,
@@ -185,7 +187,9 @@
       "splash_radius": 5.0,
       "secondary_damage": 25.0,
       "secondary_range": 40.0,
-      "secondary_projectile_speed": 10.0
+      "secondary_projectile_speed": 10.0,
+      "slow_multiplier": 0.9,
+      "slow_duration": 0.025
     },
     "flak_cannon": {
       "title": "Flak cannon",
@@ -235,8 +239,8 @@
       "dot_damage": 5.0,
       "dot_interval": 1,
       "dot_duration": 3.0,
-      "slow_multiplier": 0.25,
-      "slow_duration": 0.5
+      "slow_multiplier": 0.9,
+      "slow_duration": 0.025
     },
     "grenade_launcher": {
       "title": "Grenade launcher",
