@@ -1,11 +1,14 @@
 # KYLR
 
 A Godot robot arena shooter with **Instant Action** and **Online Multiplayer**.
-Both offer DM, TDM, CTF, five-life Elimination and Gun Game on Skyfall and Faceoff
+Both offer DM, TDM, CTF, five-life Elimination and Gun Game on Ramparts, Skyfall and Faceoff
 using the Tensor character. Online play uses authenticated accounts, matchmaking,
 and dedicated authoritative servers hosted through Render and Edgegap.
 Instant Action offers map, bot difficulty, robot count, goal score and time-limit
 controls for every match type. See the [match rules](../docs/RULES.md).
+
+Ramparts spans a **Martian lake valley**, Skyfall floats above a **lunar crater**,
+and Faceoff combines a **volcanic landscape** with flowing lava pits.
 
 ## Requirements
 

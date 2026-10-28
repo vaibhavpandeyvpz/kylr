@@ -1,140 +1,157 @@
 # KYLR
 
-![Five Tensor head and upper-body configurations with authored weapons and combat effects in a lunar outpost](docs/media/hero-showcase.png)
+**Jump the gap. Steal the flag. Keep moving.**
 
-*Authored game assets posed and rendered in Blender.*
+[![Download](https://img.shields.io/github/v/release/vaibhavpandeyvpz/kylr?label=Download)](https://github.com/vaibhavpandeyvpz/kylr/releases/latest)
+[![Desktop builds](https://github.com/vaibhavpandeyvpz/kylr/actions/workflows/package.yml/badge.svg)](https://github.com/vaibhavpandeyvpz/kylr/actions/workflows/package.yml)
+[![Multiplayer](https://github.com/vaibhavpandeyvpz/kylr/actions/workflows/multiplayer.yml/badge.svg)](https://github.com/vaibhavpandeyvpz/kylr/actions/workflows/multiplayer.yml)
+[![Godot 4.7.2](https://img.shields.io/badge/Godot-4.7.2-478cbf?logo=godotengine&logoColor=white)](https://godotengine.org/)
+[![Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue)](LICENSE)
 
-A robot arena shooter with fast movement, ten weapons and lunar battlegrounds.
-Gameplay is heavily inspired by the **Unreal Tournament** games and their
-**Secret Level** episode. Instant Action supports Deathmatch, Team Deathmatch,
-Capture the Flag, five-life Elimination, and Gun Game on Skyfall and Faceoff.
-Online Multiplayer uses authenticated accounts and authoritative dedicated
-servers for the same match types.
+KYLR is an open-source robot arena shooter with fast movement, ten weapons and
+three very different worlds to fight in. Play against bots, compete online,
+or open the project and make it your own.
 
-Development started with **Claude**, then moved to
-**ChatGPT / Codex** to bring image generation into the asset creation workflow.
-Game code, scripted Blender models, effects and tools are developed through that
-prompt-driven process.[^ai-tools]
+**[Download & Play](https://github.com/vaibhavpandeyvpz/kylr/releases/latest)** ·
+[Explore the arenas](docs/CINEMATICS.md) ·
+[Build your own](#make-it-yours) ·
+[Contribute](#join-in)
 
-- **Graphics:** official **Godot 4.7.2 stable**, with Forward+ raster rendering,
-  Low/Medium/High presets and individual graphics controls.
-- **Spatial audio:** [Spatio](docs/SPATIO.md) combines positional sound,
-  material-aware obstruction, filtered transmission, sound travel delay and
-  map-zone reverb.
-- **Full multiplayer matchmaking and authoritative servers:** authenticated
-  accounts, automatic match allocation and dedicated servers for DM, TDM, CTF,
-  Elimination and Gun Game,
-  powered by [Render](https://render.com/) and [Edgegap](https://edgegap.com/).
-- **Combat feedback:** local kill confirmations, rapid-kill accolades and voiced
-  match announcements, plus spatial kill quips in ten robot voices with matching
-  killfeed dialogue. Grenade, rocket and EMP hits can earn credit for a later
-  fall when they are the victim's last accepted hit that life.
-- **Player customisation:** five head variants, six upper-body assemblies, 12 primary and 12 secondary armor
-  colors, and victory emotes. Preview your robot in 3D and save your online
-  loadout to your account.
-- **Maps designed in Figma:** explore the
-  [KYLR map designs](https://www.figma.com/community/file/1693957204725961135/kylr-maps?fuid=962370705244141890).
-- **Planetary terrain:** crater basins, fractured bedrock shelves and graded
-  combat routes, with six original blended PBR surfaces authored through Terrain3D.
-- **Open source:** KYLR's original game and library work is **Apache 2.0 licensed**.
-  The engine, bundled dependencies and separately licensed assets retain their
-  applicable licenses.
+![Ten robot configurations and all ten weapons across Ramparts, Skyfall and Faceoff](docs/media/hero-showcase.webp)
 
-See the [in-game cinematic gallery](docs/CINEMATICS.md) for five scenes on each map.
+## Three worlds. Different ways to win.
 
-This is a single repository on `main`:
+| Arena | Setting | The fight |
+| --- | --- | --- |
+| **Ramparts** | Martian lake valley | Cross the lake on thruster-powered platforms, time the rotating junction, and push onto rocky island strongholds. |
+| **Skyfall** | Lunar crater | Fight across stacked floating decks, bridges and portals. Use the launch routes; the lunar ground below is lethal. |
+| **Faceoff** | Volcanic world | Breach outpost buildings and cross burnt terrain broken by flowing lava pits. A charged jump can open a route around an opponent. |
 
-| Folder | Contents |
+[See the cinematic gallery](docs/CINEMATICS.md) for encounters from every map.
+The arenas' layouts are also available in [Figma](https://www.figma.com/community/file/1693957204725961135/kylr-maps?fuid=962370705244141890).
+
+## Pick a fight
+
+- **Five match types:** Deathmatch, Team Deathmatch, Capture the Flag,
+  five-life Elimination and Gun Game.
+- **Movement with options:** sprint, use normal or charged jumps, ride moving
+  platforms, take a jump pad or speed ramp, and cut through portals.
+- **Ten weapons:** pistol, rifle, minigun, flak cannon, grenade launcher,
+  rocket launcher, bio rifle, lightning gun, flamethrower and EMP gun.
+- **Your robot, your look:** five heads, six upper-body assemblies, separate
+  primary and secondary armor colors, and victory emotes.
+- **Combat you can read and hear:** weapon impacts, armor feedback, kill
+  confirmations, voiced callouts and spatial sound that responds to distance,
+  walls and the arena around you.
+
+**Instant Action** lets you choose the map, bot difficulty, robot count, score
+limit and time limit. **Online Multiplayer** supports authenticated accounts,
+matchmaking and authoritative dedicated servers.
+
+## Download and play
+
+1. Open the **[latest release](https://github.com/vaibhavpandeyvpz/kylr/releases/latest)**.
+2. Download the package for **Windows, Linux or macOS**, then extract the complete archive.
+3. Launch KYLR and choose **Instant Action** for a match with bots or **Online Multiplayer**.
+
+Release packages include the prepared game assets. You do not need Godot or
+Blender to play. [Controls and setup](game/README.md) cover the details.
+
+## Make it yours
+
+Change a weapon's behavior. Build another arena. Create a robot assembly.
+KYLR keeps the Godot game, scripted Blender library and asset handoff tools in
+one repository, so you can follow a feature from its source model to the game.
+
+| Start here | What you can change |
 | --- | --- |
-| [game/](game/README.md) | Godot project, runtime assets, scripts, services and tests |
-| [library/](library/AGENTS.md) | Scripted Blender asset generators, animation sources and audio |
-| [docs/](docs/README.md) | Shared rules, design contracts, development and release guidance |
-| [tools/](tools/README.md) | Pinned Godot downloads and asset preparation |
+| [Weapon data](game/data/weapons/catalog.json) | Weapon profiles, ammunition and firing behavior. |
+| [Map sources](library/models/maps) | Layouts, terrain, native fixtures and platform motion. |
+| [Tensor robot](library/models/characters/tensor) | Character geometry, materials and interchangeable assemblies. |
+| [Bot data](game/data/ai) | Difficulty, tactics and behavior trees. |
+| [Game scripts](game/scripts) | Movement, combat, presentation, UI and networking. |
+| [Gameplay contracts](docs/GAMEPLAY.md) | The rules connecting all of those pieces. |
 
-## Build and run on Windows
+Use **official Godot 4.7.2** for the game and matching export templates for
+builds. **Blender 5.2** is needed only when regenerating model or animation assets.
+Git LFS is required for the repository's binary assets.
 
-Install Git with Git LFS, PowerShell 7 and Python 3.12. Clone this repository normally; no submodule initialization
-or other source checkout is needed.
-Install the [separately licensed assets](docs/ASSET_SETUP.md) before the first
-game import.
+The public checkout includes KYLR's original models, textures, tools and code.
+Mixamo animation binaries and Epidemic Sound recordings are **separately licensed**
+and must be installed locally before importing the source project. Follow
+[asset setup](docs/ASSET_SETUP.md); downloading a release is the quickest way to play.
+
+<details>
+<summary><strong>Windows source quick start</strong></summary>
+
+Install Git LFS, PowerShell 7 and Python 3.12, then clone:
 
 ```powershell
 git lfs install
 git clone https://github.com/vaibhavpandeyvpz/kylr.git KYLR
 Set-Location KYLR
-python tools/prepare_godot.py --platform windows --templates
-$env:GODOT = (Resolve-Path .local/godot/godot_console.exe).Path
-$Godot = $env:GODOT
-& ./game/tools/check_local_assets.ps1
-& $Godot --headless --path game --editor --import --quit
-& $Godot --path game
 ```
 
-Use official Godot 4.7.2 for imports, tests and exports. Existing installations
-can be selected with `GODOT` or explicit `-Godot` arguments.
-Blender is needed for asset authoring, not for running with prepared game assets.
-Before the first game import, follow [licensed asset setup](docs/ASSET_SETUP.md)
-to install locally retargeted Mixamo animations and Epidemic
-Sound effects. These files are excluded from the public source checkout.
-See [game setup and controls](game/README.md) and
-[asset modelling](docs/library/MODELLING.md).
-
-## Verify and release
+Restore the [separately licensed assets](docs/ASSET_SETUP.md), then prepare Godot
+and open the game:
 
 ```powershell
-pwsh -File game/tools/verify.ps1 -Godot $Godot
-pwsh -File game/tools/package.ps1 -Godot $Godot -Version dev-local
+python tools/prepare_godot.py --platform windows --templates
+$env:GODOT = (Resolve-Path .local/godot/godot_console.exe).Path
+& ./game/tools/check_local_assets.ps1
+& $env:GODOT --headless --path game --editor --import --quit
+& $env:GODOT --path game
 ```
 
-The [release workflow](.github/workflows/package.yml) sets up official Godot
-on Windows, macOS and Linux, then verifies and exports on each OS. A pushed `v*` tag publishes the
-verified Windows x64, Linux x64 and universal macOS packages with checksums as
-one GitHub release after all three builds pass. Manual runs on `main` build
-artifacts; manual runs on a `v*` tag also publish. See [build and release](docs/BUILD_AND_RELEASE.md).
+See [game setup](game/README.md) and [build instructions](docs/BUILD_AND_RELEASE.md)
+for other platforms and existing Godot installations.
 
-## Host multiplayer
+</details>
 
-Run the account API on Render, store accounts in MongoDB Atlas and host private
-dedicated-server images on Edgegap. The [multiplayer workflow](.github/workflows/multiplayer.yml)
-verifies the backend and builds the server image with official Godot; optional
-publication registers an immutable Edgegap app version. Configure the public
-API origin in client builds. See [hosting setup](docs/CLOUD_HOSTING.md) for secrets,
-network access, free-tier capacity limits and live connectivity checks.
+### Build and test
 
-## Contributing
+From the repository root with Godot configured:
 
-**Pull requests are welcome!** Help make KYLR the best open-source Godot FPS game
-ever. Contributions to gameplay, maps, weapons, visuals, audio, accessibility,
-multiplayer, performance, tests and documentation are all welcome.
+```powershell
+pwsh -File game/tools/verify.ps1 -Godot $env:GODOT
+pwsh -File game/tools/package.ps1 -Godot $env:GODOT -Version dev-local
+```
 
-Start with [the contributor guide](AGENTS.md) and
-[development guidance](docs/DEVELOPMENT.md). Keep PRs focused, explain the player
-experience or problem they improve, and include relevant test results and
-screenshots or clips for visual changes. Use official Godot 4.7.2 for validation
-and keep separately licensed assets and local credentials out of your PR.
+The desktop workflow builds Windows x64, Linux x64 and universal macOS packages.
+[Build and release](docs/BUILD_AND_RELEASE.md) explains validation, export
+requirements and publishing.
 
-## Godot addon credits
+### Run your own multiplayer services
 
-| Addon | Role |
-| --- | --- |
-| [LimboAI](https://github.com/limbonaut/limboai) | Drives bot behavior trees. |
-| [Phantom Camera](https://github.com/ramokz/phantom-camera) | Controls menu and gameplay cameras. |
-| [Shaker](https://github.com/Eneskp3441/Shaker) | Adds local explosion and EMP impact shake. |
-| [Terrain3D](https://github.com/TokisanGames/Terrain3D) | Bakes authored planetary terrain. |
-| [ProtonScatter](https://github.com/HungryProton/scatter) | Generates and projects dropped Energy Core positions. |
-| [GUT](https://github.com/bitwes/Gut) | Runs automated gameplay and integration tests. |
+KYLR's backend combines an account API, MongoDB, matchmaking and dedicated game
+servers. The project includes deployment workflows for Render, Atlas and Edgegap.
+[Hosting setup](docs/CLOUD_HOSTING.md) covers service configuration, credentials
+and server publication.
 
-Licenses and dependency details are in [third-party notices](game/THIRD_PARTY.md).
+## Join in
+
+New arenas, weapon tuning, robot designs, performance improvements, accessibility,
+playtesting and documentation all help. Pick something you would enjoy playing
+or building, then start with [the contributor guide](AGENTS.md).
+
+For code or visual changes, describe the player-facing result and include the
+relevant checks, screenshots or clips. [The documentation index](docs/README.md)
+points to each subsystem's source and contracts.
+
+## Built with
+
+- [Godot](https://godotengine.org/) — game engine and desktop exports.
+- [LimboAI](https://github.com/limbonaut/limboai) — bot behavior trees.
+- [Phantom Camera](https://github.com/ramokz/phantom-camera) — gameplay and menu cameras.
+- [Shaker](https://github.com/Eneskp3441/Shaker) — local impact shake.
+- [Terrain3D](https://github.com/TokisanGames/Terrain3D) — authored planetary landforms.
+- [ProtonScatter](https://github.com/HungryProton/scatter) — dropped Energy Core placement.
+- [GUT](https://github.com/bitwes/Gut) — automated gameplay and integration tests.
 
 ## License
 
-KYLR's original game and library code, tools, documentation and original assets
-are distributed under the [Apache License 2.0](LICENSE), except where a file or
-asset carries separate terms. See [NOTICE](NOTICE) for the project notice.
-Godot and bundled dependencies retain their own licenses; see
-[Godot licensing](https://godotengine.org/license/) and [game notices](game/THIRD_PARTY.md).
-Mixamo animations and Epidemic Sound recordings are separately licensed local
-assets, as described in [asset setup](docs/ASSET_SETUP.md).
-
-[^ai-tools]: KYLR can be considered a perfect example of what frontier AI models,
-    Godot and Blender can achieve when combined together.
+KYLR's original code, tools, documentation and authored assets are
+**[Apache 2.0 licensed](LICENSE)**, except where separate terms apply.
+Godot, addons and separately licensed assets retain their own licenses.
+See [NOTICE](NOTICE), [third-party notices](game/THIRD_PARTY.md) and
+[asset setup](docs/ASSET_SETUP.md).

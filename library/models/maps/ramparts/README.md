@@ -1,5 +1,8 @@
 # Ramparts
 
+A Martian lake valley with rocky mainland summits, thruster-powered platforms
+and a rotating junction above a finite lake, surrounded by dunes and mountains.
+
 `figma_layout.json` records the map hierarchy, layer transforms and native
 footprints at 100 pixels per metre. `layout.py` converts that snapshot into
 metre-based deck sections, fixture markers and machining specifications.

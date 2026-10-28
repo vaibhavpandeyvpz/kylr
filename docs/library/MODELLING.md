@@ -1031,8 +1031,9 @@ and host platforms follow the layout; native `ThrusterMountNN` positions and
 axes are authoritative. Attach a separate thruster with identity local
 transforms in both preview and runtime, never override XY or reshape a chassis
 around the map marker. Thruster-bearing bases retain the tapered chassis;
-stacked upper floors omit it. Skyfall’s lowest platform bottom is 19.7 m above
-the lunar surface, with deck tops at 22/26/30 m.
+stacked upper floors omit it. Skyfall's nominal lowest platform bottom is
+29.7 m above the zero datum, with deck tops at 32/36/40 m and +/-0.25 m bobbing.
+The lunar crater floor varies below that datum.
 
 All thruster-bearing platform underbodies extend uniformly 1.5 m below the 0.8 m deck underside: their nominal total depth is 2.3 m. Preserve native mounting socket frames when regenerating them.
 

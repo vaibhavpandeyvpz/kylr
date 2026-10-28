@@ -35,13 +35,16 @@ damage falloff begins. Flamethrower primary uses 8 m full damage and 10 m maximu
 `preview_original_fields.gd`, `preview_surface_marks.gd`,
 `preview_energy_surface.gd` and `probe_effect_texture_imports.gd` check effects,
 fields, hit marks and texture imports. `run_armor_overlay_probe.ps1` checks
-foreground occlusion. `run_loading_lifecycle_probe.ps1` checks menu, both maps,
+foreground occlusion. `run_loading_lifecycle_probe.ps1` checks the menu, map loading,
 repeat loads and shutdown. These graphical checks require image inspection.
 
 ## Profiling and authoring helpers
 
-The ten [cinematic scenes](cinematics/README.md) stage five compositions per map
-with the actual arena renderer, actors and gameplay effects.
+The fifteen [cinematic scenes](cinematics/README.md) stage five compositions per
+map across Ramparts, Skyfall and Faceoff, using the actual arena renderer,
+actors and gameplay effects. `library/tools/render_hero_showcase.py`, run with
+the library Python environment, captures those scenes plus three ten-robot
+portrait renders and installs compressed WebP media for the README and gallery.
 `capture_map_previews.gd` refreshes the player-free arena photographs.
 `capture_map_selection.gd -- --output=res://reports/<fresh-name>` captures both
 real setup screens at native 1920×1080 High using isolated preferences.

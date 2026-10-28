@@ -9,20 +9,19 @@ All ten spawn views face toward their zone's islands. Floor spawn-pad gizmos
 include a 180-degree facing correction for their native PlayerMount axis;
 stasis chambers retain their island-facing door orientation.
 
-Figma source, inspected 2026-10-15.
-Both zones use actual node IDs and transforms recorded in figma_inspection.json.
+Both zones use the blueprint node IDs and transforms recorded in
+figma_inspection.json and figma_layout.json.
 tools/read_skyfall_snapshot.py converts the audit to figma_layout.json.
 Placement indices are retained across snapshot updates so deleting a fixture
 does not rename unrelated runtime gizmos or platform modules.
 
-The 2026-10-15 layout removes the Mainland 1 higher-ground barricade and its
-pressure plate in both zones, beside the repair stations. Their native wells
-are filled in both render and collision exports. The Mainland 1 lower-ground
-and Mainland 2 higher-ground barricades and their controls remain as authored.
+Mainland 1 higher ground has continuous flooring beside its repair stations.
+The Mainland 1 lower-ground and Mainland 2 higher-ground barricades and their
+controls retain their authored recesses.
 
-Common ground and its fixtures are removed. The depressed impact basin, fissures and
-fractured outer rim are lethal scenery with matching collision. There are no
-invisible perimeter walls or playable lunar navigation cells. Deck tops remain
+The depressed impact basin, fissures and fractured outer rim are lethal scenery
+with matching collision. There are no
+invisible perimeter walls or playable lunar navigation cells. Assembled deck tops are
 32/36/40 m, with the lowest tapered underbody at 29.7 m above the nominal zero datum; the basin floor varies below it.
 
 All 34 remaining floor openings use measured geometry, including 6 x 3 m mainland apertures
