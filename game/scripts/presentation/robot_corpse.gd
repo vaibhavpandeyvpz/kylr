@@ -44,9 +44,12 @@ static func create(world: ArenaMatch, robot: ArenaRobot, placement: Transform3D,
 
 static func snapshot(corpse: Node3D) -> Dictionary:
 	var animator := corpse.find_child("RuntimeAnimator", true, false) as AnimationPlayer
-	return {"transform":corpse.global_transform, "animation":animator.current_animation if animator else "",
-		"frame":animator.current_animation_position if animator and animator.current_animation != "" else 0.0,
+	var state := {"transform":corpse.global_transform, "animation":animator.assigned_animation if animator else "",
+		"frame":animator.current_animation_position if animator and animator.assigned_animation != "" else 0.0,
 		"breakup":corpse.snapshot() if corpse is RobotDebris else {}}
+	if corpse.has_meta("lava_origin"): state["lava_origin"] = corpse.get_meta("lava_origin")
+	if corpse.has_meta("lava_bubbles"): state["lava_bubbles"] = corpse.get_meta("lava_bubbles")
+	return state
 
 static func from_snapshot(world: ArenaMatch, robot: ArenaRobot, state: Dictionary) -> Node3D:
 	var breakup: Dictionary = state.get("breakup", {})
@@ -58,6 +61,10 @@ static func from_snapshot(world: ArenaMatch, robot: ArenaRobot, state: Dictionar
 
 static func apply_snapshot(corpse: Node3D, state: Dictionary) -> void:
 	if corpse is RobotDebris: return
+	if state.has("lava_origin"): corpse.set_meta("lava_origin",state.lava_origin)
+	if state.has("lava_bubbles"):
+		corpse.set_meta("lava_bubbles",state.lava_bubbles)
+		LavaDeathBubbles.attach(corpse.get_parent() as ArenaMatch,corpse,state.lava_bubbles)
 	corpse.global_transform = state.transform
 	var animator := corpse.find_child("RuntimeAnimator", true, false) as AnimationPlayer
 	if animator and state.animation != "":

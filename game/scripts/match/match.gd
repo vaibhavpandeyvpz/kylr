@@ -469,6 +469,9 @@ func _process(dt):
 			return
 	if not r.alive and death_view_remaining > 0 and is_instance_valid(local_death_corpse):
 		var focus: Vector3 = local_death_corpse.focus_position() if local_death_corpse is RobotDebris else local_death_corpse.global_position + Vector3.UP * 0.95
+		if local_death_corpse.has_meta("lava_origin"):
+			camera_rig.set_cinematic("death",LavaDeath.camera_position(self,local_death_corpse,r.yaw),focus,fov)
+			return
 		var desired := focus + Basis(Vector3.UP, r.yaw) * Vector3(1.5, 1.0, -3.2)
 		if not local_fall_death:
 			var obstruction := combat.ray(focus, desired, [], 1)
@@ -516,8 +519,9 @@ func eliminate(victim,killer,cause: String, contact: Dictionary = {}):
 	if killer != null:
 		incoming = Basis(Vector3.UP, victim.yaw).inverse() * (killer.global_position - victim.global_position).normalized()
 	var fall_death := environmental_fall
+	var lava_death := cause == "Lava"
 	var lunar_impact := {}
-	if fall_death:
+	if fall_death and not lava_death:
 		var hit := combat.ray(victim.global_position+Vector3.UP*0.5,victim.global_position-Vector3.UP*0.5,[],1)
 		if not hit.is_empty() and hit.collider.get_meta("lethal_surface",false): lunar_impact=hit
 	var death_clip := "death_explode" if cause in RobotDebris.WEAPONS else RobotClips.death(cause, incoming, victim.crouched)
@@ -528,7 +532,7 @@ func eliminate(victim,killer,cause: String, contact: Dictionary = {}):
 		breakup = RobotDebris.capture(victim,cause,{"point":lunar_impact.position,"direction":lunar_impact.normal,"radial":true,"velocity":Vector3(impact_velocity.x,0,impact_velocity.z)*0.25},gravity)
 		effects.fall_explosion(lunar_impact.position,lunar_impact.normal,impact_velocity)
 		fall_impact_feedback(victim.robot_id)
-	var falling_out := fall_death and lunar_impact.is_empty()
+	var falling_out := fall_death and not lava_death and lunar_impact.is_empty()
 	var death_duration := RobotDebris.PRESENTATION_SECONDS
 	if breakup.is_empty():
 		victim.pose(death_clip)
@@ -540,6 +544,9 @@ func eliminate(victim,killer,cause: String, contact: Dictionary = {}):
 	Assets.paint(victim.body,victim.tint,victim.armor_secondary,victim.head,true,victim.upper_body)
 	Assets.paint(victim.gun,victim.tint,victim.armor_secondary,victim.head,true,victim.upper_body)
 	var corpse := RobotCorpse.create(self, victim, victim.body.global_transform, death_clip, breakup, not lunar_impact.is_empty())
+	if lava_death:
+		var height: float = map.lava.contact_height(victim.global_position) if map.lava != null else INF
+		LavaDeath.begin(self,corpse,victim.global_position.y if height == INF else height,death_duration,victim.robot_id*1009+victim.deaths*9176)
 	var landing_point: Vector3 = victim.global_position
 	if not lunar_impact.is_empty():
 		landing_point=lunar_impact.position
@@ -548,7 +555,7 @@ func eliminate(victim,killer,cause: String, contact: Dictionary = {}):
 		var landing := SurfacePlacement.below(get_world_3d(),victim.global_position,map.config.fall_boundary)
 		if landing.is_empty(): landing = SurfacePlacement.below(get_world_3d(),victim.last_safe,map.config.fall_boundary)
 		landing_point = landing.position if not landing.is_empty() else victim.last_safe
-	corpses.append({"robot":victim.robot_id,"node":corpse,"time":death_duration + 1.0,"point":landing_point,"fall_velocity":victim.velocity.y if falling_out else 0.0,"falling_out":falling_out,"ep":0.0 if fall_death else victim.ep if victim.ah <= 0 else 0.0,"killer":killer.robot_id if killer else -1})
+	corpses.append({"robot":victim.robot_id,"node":corpse,"time":death_duration + 1.0,"sink_duration":death_duration if lava_death else 0.0,"point":landing_point,"fall_velocity":victim.velocity.y if falling_out else 0.0,"falling_out":falling_out,"ep":0.0 if fall_death else victim.ep if victim.ah <= 0 else 0.0,"killer":killer.robot_id if killer else -1})
 	victim.hide()
 	victim.respawn_time = death_duration + 1.0
 	if victim.carrying >= 0:
@@ -602,7 +609,10 @@ func spawn_energy_drops(point: Vector3, energy: float, killer_id: int) -> void:
 
 func tick_drops(dt: float):
 	for corpse in corpses.duplicate():
-		if not corpse.node is RobotDebris and (corpse.falling_out or corpse.node.global_position.y > corpse.point.y + 0.01):
+		if corpse.node.has_meta("lava_origin"):
+			var progress := clampf((corpse.sink_duration + 1.0 - corpse.time + dt) / corpse.sink_duration,0.0,1.0)
+			corpse.node.global_position = corpse.node.get_meta("lava_origin") - Vector3.UP * LavaDeath.SINK_DEPTH * progress
+		elif not corpse.node is RobotDebris and (corpse.falling_out or corpse.node.global_position.y > corpse.point.y + 0.01):
 			corpse.fall_velocity -= gravity * dt
 			var position: Vector3 = corpse.node.global_position
 			position.y += corpse.fall_velocity * dt

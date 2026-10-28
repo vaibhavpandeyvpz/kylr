@@ -1,6 +1,8 @@
 class_name LavaSurface
 extends Node3D
 ## Source-authored pit surfaces and sparse deterministic bubble bursts.
+const MIN_BUBBLE_RADIUS := 0.025
+const MAX_BUBBLE_RADIUS := 0.075
 var game
 var pits: Array[Dictionary] = []
 var bubble_mesh: SphereMesh
@@ -11,10 +13,10 @@ func install(match_node, definitions: Array) -> void:
 	game=match_node
 	name="LavaSurface"
 	bubble_mesh=SphereMesh.new()
-	bubble_mesh.radius=.24;bubble_mesh.height=.48
+	bubble_mesh.radius=1.0;bubble_mesh.height=2.0
 	bubble_mesh.radial_segments=12;bubble_mesh.rings=6
 	droplet_mesh=SphereMesh.new()
-	droplet_mesh.radius=.045;droplet_mesh.height=.09
+	droplet_mesh.radius=1.0;droplet_mesh.height=2.0
 	droplet_mesh.radial_segments=6;droplet_mesh.rings=3
 	bubble_material=StandardMaterial3D.new()
 	bubble_material.albedo_color=Color(.3,.025,.002)
@@ -52,16 +54,19 @@ func install(match_node, definitions: Array) -> void:
 		var bounds:=Rect2(polygon[0],Vector2.ZERO)
 		for point in polygon:bounds=bounds.expand(point)
 		pits.append({"polygon":polygon,"height":float(definition.surface_m),"material":material,
-			"bubble":bubble,"droplets":droplets,"bounds":bounds,"cycle":-1,"point":Vector2.ZERO})
+			"bubble":bubble,"droplets":droplets,"bounds":bounds,"cycle":-1,"point":Vector2.ZERO,"radius":MIN_BUBBLE_RADIUS})
 
 func contains_contact(point: Vector3) -> bool:
+	return contact_height(point) != INF
+
+func contact_height(point: Vector3) -> float:
 	var local:=to_local(point)
 	var horizontal:=Vector2(local.x,local.z)
 	for pit in pits:
 		if local.y>float(pit.height)+.03:continue
 		if not pit.bounds.has_point(horizontal):continue
-		if Geometry2D.is_point_in_polygon(horizontal,pit.polygon):return true
-	return false
+		if Geometry2D.is_point_in_polygon(horizontal,pit.polygon):return to_global(Vector3(local.x,float(pit.height),local.z)).y
+	return INF
 
 func random_value(seed_value: float) -> float:
 	return fposmod(sin(seed_value*12.9898)*43758.5453,1.0)
@@ -88,6 +93,8 @@ func _process(_dt: float) -> void:
 		var phase:=fposmod(shifted,period)
 		if cycle!=int(pit.cycle):
 			pit.cycle=cycle;pit.point=bubble_point(pit,index*213.0+cycle*43.0+7.0)
+			pit.radius=lerpf(MIN_BUBBLE_RADIUS,MAX_BUBBLE_RADIUS,random_value(index*719.0+cycle*89.0+31.0))
+			pit.material.set_shader_parameter("bubble_radius",pit.radius)
 		var enabled: bool=not game.reduced_motion and (quality>0 or index%2==0)
 		var growing: bool=enabled and phase<1.0
 		pit.bubble.visible=growing
@@ -96,11 +103,11 @@ func _process(_dt: float) -> void:
 		pit.material.set_shader_parameter("bubble_phase",phase if enabled else -1.0)
 		if growing:
 			var rise:=sin(phase*PI*.5)
-			pit.bubble.position=Vector3(pit.point.x,pit.height-.13+rise*.13,pit.point.y)
-			pit.bubble.scale=Vector3(.45+rise*.8,.25+rise*.9,.45+rise*.8)
+			pit.bubble.position=Vector3(pit.point.x,pit.height-pit.radius*(.15+(1.0-rise)*1.2),pit.point.y)
+			pit.bubble.scale=Vector3.ONE*pit.radius*rise
 		if pit.droplets.visible:
-			var age:=phase-1.0
+			var age: float=(phase-1.0)/.65
 			for drop in 4:
 				var angle:=TAU*drop/4+index
-				var position:=Vector3(pit.point.x+cos(angle)*age*.65,pit.height+age*2.1-4.5*age*age,pit.point.y+sin(angle)*age*.65)
-				pit.droplets.multimesh.set_instance_transform(drop,Transform3D(Basis.IDENTITY.scaled(Vector3.ONE*(1.0-age)),position))
+				var position:=Vector3(pit.point.x+cos(angle)*age*pit.radius*.6,pit.height+pit.radius*(2.0*age*(1.0-age)-.15),pit.point.y+sin(angle)*age*pit.radius*.6)
+				pit.droplets.multimesh.set_instance_transform(drop,Transform3D(Basis.IDENTITY.scaled(Vector3.ONE*pit.radius*.12*(1.0-age)),position))

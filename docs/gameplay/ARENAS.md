@@ -80,6 +80,21 @@ Faceoff's source-authored lava pits have irregular ten-metre excavations with
 molten surfaces 0.5 m below the ground datum. Lava contact kills immediately,
 including protected robots. Environmental knockback credit follows fall rules;
 carried flags recover through the fall path and no Energy Core remains in lava.
+The corpse stops its incoming motion at the molten surface, plays the standing
+`death_front` clip and sinks vertically by 2.4 m over that clip's duration.
+It remains submerged for the one-second cleanup hold before respawn. The local
+death camera chooses a clear elevated three-quarter view once, holds that
+position and only turns to keep pointing at the sinking robot. Online snapshots
+retain the lava surface anchor, current transform and animation frame.
+Each sinking robot produces 20–25 randomly sized bubbles within 1.6 m of its
+entry point. They inflate and pop at staggered times during the death clip,
+with small molten spatters; the whole effect stays inside its lava footprint.
+Death bubbles and spatters use the ambient bubbles' solid orange emissive finish.
+Regular and death bubbles both choose a random peak diameter of 5–15 cm;
+spatters and pop ripples scale with that bubble's size.
+One instanced batch animates on the GPU without lights, collision or shadows.
+The replicated seed and start time preserve the burst across online snapshots,
+and corpse cleanup removes it. Reduced Motion hides this decorative burst.
 The remaining volcanic ground stays playable, with natural ground relief limited
 to +/-0.5 m inside the arena and the outer crater rim retained. Navigation samples supported ground
 around the pits; it does not create routes on the lava floor.

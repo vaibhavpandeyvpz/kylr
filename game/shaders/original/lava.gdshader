@@ -9,6 +9,7 @@ uniform int detail = 2;
 uniform vec2 flow_direction = vec2(0.8, 0.6);
 uniform vec2 bubble_center = vec2(10000.0);
 uniform float bubble_phase = -1.0;
+uniform float bubble_radius = 0.05;
 varying vec3 world_surface;
 
 float hash(vec2 p) {
@@ -56,8 +57,8 @@ void fragment() {
     // Short expanding incandescent ripples follow each geometric bubble burst.
     if(bubble_phase>=1.0 && bubble_phase<1.65) {
         float age=(bubble_phase-1.0)/.65;
-        float radius=.2+age*.95;
-        float ring=1.0-smoothstep(.018,.065,abs(length(p-bubble_center)-radius));
+        float radius=bubble_radius*(1.0+age*2.0);
+        float ring=1.0-smoothstep(bubble_radius*.06,bubble_radius*.2,abs(length(p-bubble_center)-radius));
         EMISSION+=vec3(3.5,.55,.025)*ring*(1.0-age);
     }
 }

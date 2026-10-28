@@ -82,6 +82,13 @@ At death, switch immediately to a third-person camera on the local robot. Rocket
 
 A robot that falls beyond the map boundary dies where it is. Its visible body continues downward in the looping falling pose; it is never moved back to a safe floor and drops no weapon or Energy Core. A carried flag returns home immediately. The local death camera follows that body until the camera reaches 25 m below the arena surface, then holds its position and keeps looking at the body as it falls away. The bottom five metres of the 50 m service pit contain black volumetric fog. The saved FPV/TPV preference returns after spawn protection; match results interrupt the death view if the match ends first.
 
+Faceoff lava contact kills immediately, even during spawn protection. The robot
+plays its standing death animation while slowly sinking from the molten surface,
+fully submerges by the end of the clip and remains submerged for the one-second
+cleanup hold. The camera holds an elevated, obstruction-tested position and
+keeps looking toward the robot. Lava deaths retain environmental knockback
+credit and flag recovery, and leave no dropped weapon or Energy Core.
+
 ## Combat and equipment
 
 Every robot starts with 100 AH and 100 EP, a fixed infinite-ammo pistol, and one empty pickup slot. See [WEAPONS.md](gameplay/WEAPONS.md) for the authoritative weapon, ammo, recoil, damage, pickup, and death-drop details. [WEAPON_EFFECTS.md](WEAPON_EFFECTS.md) maps their animated asset gizmos to presentation.
