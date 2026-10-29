@@ -24,9 +24,11 @@ function Invoke-GodotCheck([string]$Name, [string]$Executable, [string[]]$Argume
     # A pipeline also makes PowerShell wait for GUI-subsystem executables.
     & $Executable --log-file $log @Arguments 2>&1 | Out-Null
     $engineExit = $LASTEXITCODE
-    if ($engineExit -ne 0 -or (Select-String -LiteralPath $log -Pattern 'SCRIPT ERROR:|ERROR:|VUID-|SYNC-HAZARD|ObjectDB.*leaked at exit|Resources still in use at exit')) {
+    $errors = @(Select-String -LiteralPath $log -Pattern 'SCRIPT ERROR:|ERROR:|VUID-|SYNC-HAZARD|ObjectDB.*leaked at exit|Resources still in use at exit')
+    if ($engineExit -ne 0 -or $errors.Count -gt 0) {
+        $errors | ForEach-Object { Write-Host "${log}:$($_.LineNumber): $($_.Line)" }
         Get-Content -LiteralPath $log -Tail 40
-        throw "$Name failed. See $log"
+        throw "$Name failed (exit $engineExit, $($errors.Count) log errors). See $log"
     }
     Write-Host "PASS $Name"
 }
