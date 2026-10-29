@@ -486,6 +486,14 @@ func portrait(parent: Node, loadout: Dictionary):
 	stage.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	stage.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	parent.add_child(stage)
+	var studio:=portrait_viewport
+	var resize_studio:=func(): MenuStudio.fit_to_control(studio,stage)
+	stage.resized.connect(resize_studio)
+	var window:=get_window()
+	window.size_changed.connect(resize_studio)
+	stage.tree_exiting.connect(func():
+		if window.size_changed.is_connected(resize_studio): window.size_changed.disconnect(resize_studio))
+	resize_studio.call_deferred()
 	stage.tooltip_text = "Drag to rotate the platform"
 	stage.gui_input.connect(func(event):
 		if event is InputEventMouseMotion and Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):

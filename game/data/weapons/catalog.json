@@ -195,8 +195,8 @@
       "title": "Flak cannon",
       "model": "flak_cannon",
       "animation_family": "flak_cannon",
-      "range": 50.0,
-      "damage": 10.0,
+      "range": 30.0,
+      "damage": 5.0,
       "interval": 0.5,
       "capacity": 100,
       "recoil": 2,
@@ -215,7 +215,8 @@
       "bounces": 3,
       "bounce_restitution": 0.5,
       "bounce_falloff_ratio": 0.5,
-      "bounce_gravity": 19.6
+      "bounce_gravity": 19.6,
+      "full_damage_range": 25.0
     },
     "bio_rifle": {
       "title": "Bio rifle",

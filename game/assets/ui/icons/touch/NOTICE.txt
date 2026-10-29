@@ -1,0 +1,5 @@
+Touch control icons pause, view (3d_rotation), fire (gps_fixed), secondary
+(center_focus_strong), jump (arrow_upward), and charged_jump
+(keyboard_double_arrow_up) are from Google Material Design Icons, Apache 2.0.
+https://github.com/google/material-design-icons
+SVG fill colors are adapted for runtime tinting. crouch.svg is authored for KYLR.

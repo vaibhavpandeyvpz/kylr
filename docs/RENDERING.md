@@ -25,7 +25,7 @@ Low disables shadows, ambient occlusion, bloom and MSAA. Medium enables shadows,
 bloom and 2× MSAA. High enables fixture illumination, shadows, ambient occlusion,
 bloom and 4× MSAA. Low and Medium retain emissive-only fixtures. Custom preserves
 individual settings, including optional 8× MSAA. All presets retain authored
-ambient light, raster GI and reflection maps at native resolution.
+ambient light, raster GI and reflection maps.
 
 Ramparts and Skyfall platform sconces retain their native emissive materials
 without projected illumination or mesh shadow casting at every quality setting.
@@ -33,7 +33,7 @@ Their source map data sets `platform_emissive_only_assets`; these sconces create
 no Light3D nodes, so applying High cannot restore their illumination. Interior
 architecture lights and platform battens follow the normal preset rules.
 
-Menu portraits use independent raster studios with native resolution and 4×
+Menu portraits use independent raster studios at the selected 3D resolution and 4×
 MSAA. Sconce and batten area lights and aimed pole/jumbotron spotlights follow
 their native sockets. Separate rendering is experimental and defaults Off;
 changing it requires restart and does not change quality preferences.
@@ -79,3 +79,26 @@ same official release. Check menu and match appearance, moving fixtures, effects
 scene transitions and clean exit graphically. Headless checks do not establish
 visual quality, audio quality or frame rates. [Playtesting](PLAYTESTING.md) owns
 roster and performance qualification.
+
+Android uses the Mobile renderer with Swappy frame pacing disabled; Godot's
+normal frame loop presents frames. Use the x86-64 emulator preset with host GPU
+rendering for Android virtual-device checks and the ARM64 preset for phones.
+
+## Display resolution
+
+Graphics settings offer Native and explicit 3D display resolutions in windowed
+and fullscreen modes. Desktop defaults to Native; Android defaults to 720 pixels
+high at the phone's native aspect ratio, capped to its physical dimensions.
+Fullscreen fits the selected aspect ratio inside the physical display with
+centered letterboxing. Canvas Items renders menus, HUD, SVG icons and touch
+controls at the native pixel density within that effective content area.
+Only 3D rendering uses bilinear resolution scaling; menu portraits follow the
+same resolution choice. Resizing recalculates the content area and render scale.
+Display changes support the existing 15-second confirmation and revert flow.
+
+Android packages include compressed imported mesh LOD index metadata generated
+by the editor export plugin. Permanently baked fixture geometry and combined
+shadow surfaces retain those LODs without runtime GPU readback. Fixed opaque
+fixtures share spatial MultiMesh batches under their rigid carrier anchors;
+transparent surfaces retain individual sorting, and native collision, lights,
+sockets and moving attachments retain their hierarchy.

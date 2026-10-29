@@ -3,6 +3,11 @@ extends GutTest
 class MenuHost extends Node:
 	var match_node = null
 
+func test_portrait_pixels_follow_native_ui_density_and_preserve_framing():
+	assert_eq(MenuStudio.fitted_dimensions(Vector2(560,640),Vector2(1.5,1.5)),Vector2i(840,960))
+	assert_eq(MenuStudio.fitted_dimensions(Vector2(1000,640),Vector2.ONE),Vector2i(560,640))
+	assert_eq(MenuStudio.fitted_dimensions(Vector2(280,640),Vector2(2,2)),Vector2i(560,640))
+
 func test_match_presets_do_not_relight_or_downscale_menu_studios():
 	var host := MenuHost.new()
 	host.set_meta("menu_studio_host",true)

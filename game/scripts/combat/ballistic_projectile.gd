@@ -68,11 +68,13 @@ func orient() -> void:
 func _physics_process(dt: float) -> void:
 	if game.phase != "Active": queue_free(); return
 	age += dt
-	if age > float(profile.get("projectile_lifetime",8.0)) or travelled > float(profile.get("range",100)): queue_free(); return
+	var maximum_range := float(profile.get("range",100))
+	if age > float(profile.get("projectile_lifetime",8.0)) or travelled > maximum_range or (weapon == "flak_cannon" and travelled >= maximum_range): queue_free(); return
 	velocity.y -= float(profile.get("projectile_gravity",0)) * game.gravity / ArenaTuning.GRAVITY * dt
 	if has_bounced and bounce_distance >= bounce_falloff:
 		velocity.y -= float(profile.get("bounce_gravity",0)) * game.gravity / ArenaTuning.GRAVITY * dt
 	var motion := velocity*dt
+	if weapon == "flak_cannon": motion = motion.limit_length(maxf(0.0,maximum_range-travelled))
 	var excluded: Array = [shooter.get_rid()] if is_instance_valid(shooter) else []
 	excluded.append_array(extra_exclusions)
 	orient()
@@ -99,15 +101,23 @@ func _physics_process(dt: float) -> void:
 	if weapon == "pulse_gun" and is_instance_valid(visual): visual.update_length(travelled)
 	if has_bounced: bounce_distance += motion.length()
 	global_position += motion
+	if weapon == "flak_cannon" and travelled >= maximum_range: queue_free(); return
 	spin += deg_to_rad(480)*dt
 	orient()
+
+func impact_damage() -> float:
+	var damage := float(profile.damage)
+	if weapon != "flak_cannon": return damage
+	var maximum_range := float(profile.range)
+	var full_range := float(profile.full_damage_range)
+	return damage * clampf((maximum_range-travelled)/(maximum_range-full_range),0.0,1.0)
 
 func impact(hit: Dictionary) -> void:
 	if not cosmetic_only and game.authority:
 		if hit.collider is ArenaRobot:
 			var allied_pulse: bool=weapon=="pulse_gun" and hit.collider.team==int(profile.get("owner_team",-1))
 			var impulse := Knockback.grenade(velocity) if weapon=="grenade_launcher" else Vector3.ZERO
-			if not allied_pulse and hit.collider.hit(float(profile.damage),shooter,weapon,impulse,{"point":hit.position,"direction":velocity.normalized(),"radial":false}):
+			if not allied_pulse and hit.collider.hit(impact_damage(),shooter,weapon,impulse,{"point":hit.position,"direction":velocity.normalized(),"radial":false}):
 				apply_status(hit.collider)
 				if game is ArenaMatch: game.impact_at(hit.collider,weapon,hit.position,float(profile.get("splash_radius",0)))
 		var radius := float(profile.get("splash_radius",0))

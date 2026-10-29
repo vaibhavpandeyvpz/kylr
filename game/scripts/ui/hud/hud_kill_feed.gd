@@ -33,7 +33,7 @@ func _process(_dt: float) -> void:
 	for index in rows.size():
 		var row := rows[index]
 		row.size.x = size.x - 18
-		row.visible = index < active.size()
+		row.visible = index < mini(active.size(),2 if OS.has_feature("mobile") else 4)
 		if not row.visible: continue
 		var event := active[index]
 		var formatted := format_event(event, arena_match.match_type, arena_match.team_colors)

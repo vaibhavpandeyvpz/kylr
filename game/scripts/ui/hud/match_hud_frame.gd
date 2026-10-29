@@ -119,6 +119,9 @@ func _draw_notice() -> void:
 	if width <= 32: return
 	var left := 24.0
 	var top := size.y - 218.0
+	if OS.has_feature("mobile"):
+		left = (size.x - width) * 0.5
+		top = 184.0
 	var accent := HudSkin.message_accent(notice_text)
 	HudSkin.fade_backdrop(self, Rect2(left, top, width, 32), (0.74 if high_contrast else 0.24) * opacity)
 	draw_line(Vector2(left, top + 6), Vector2(left, top + 26), Color(accent, opacity), 2)

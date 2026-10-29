@@ -180,8 +180,13 @@ func display_state() -> Dictionary:
 		"screen_size":str(DisplayServer.screen_get_size(display_screen)) if screen_available else null,
 		"window_position":str(DisplayServer.window_get_position()),
 		"window_size":str(DisplayServer.window_get_size()),
-		"render_size":str(root.get_texture().get_size()),
+		"render_size":str(physical_render_size()),
+		"ui_raster_size":str(Preferences.effective_area(root.size,requested_size).size),
 		"requested_size":str(requested_size),"changed_during_sample":display_changed_during_sample}
+
+func physical_render_size() -> Vector2i:
+	var extent:=Preferences.effective_area(root.size,requested_size).size
+	return Vector2i((Vector2(extent)*root.scaling_3d_scale).round())
 
 func valid_display() -> bool:
 	var valid: bool = display_screen>=0 and display_screen<DisplayServer.get_screen_count() and \
@@ -189,7 +194,8 @@ func valid_display() -> bool:
 		int(DisplayServer.window_get_vsync_mode()) == requested_vsync and \
 		DisplayServer.window_get_position() == DisplayServer.screen_get_position(display_screen) and \
 		DisplayServer.window_get_size() == DisplayServer.screen_get_size(display_screen) and \
-		Vector2i(root.get_texture().get_size()) == requested_size
+		root.content_scale_mode == Window.CONTENT_SCALE_MODE_CANVAS_ITEMS and \
+		(options.has("diagnostic-raster-scale") or physical_render_size() == requested_size)
 	if not valid: push_error("Invalid benchmark display: " + JSON.stringify(display_state()))
 	return valid
 
@@ -233,19 +239,20 @@ func run() -> void:
 	app.prefs = Preferences.new(report_directory().path_join("preferences.cfg"))
 	app.prefs.values.quality_benchmarked = true
 	requested_size = size
+	app.prefs.values.native_resolution=false
+	app.prefs.values.resolution=size
+	app.prefs.display_options.clear()
 	display_screen = int(options.get("screen",DisplayServer.window_get_current_screen()))
 	if display_screen<0 or display_screen>=DisplayServer.get_screen_count():
 		push_error("Requested benchmark screen is unavailable: "+JSON.stringify(display_state()))
 		await app.request_quit();return
 	# Fullscreen owns desktop placement. Manual borderless resize/position calls
 	# can race Windows' pending centering events and leave the window offscreen.
-	root.content_scale_size = size
-	root.content_scale_mode = Window.CONTENT_SCALE_MODE_VIEWPORT
-	root.content_scale_aspect = Window.CONTENT_SCALE_ASPECT_KEEP
 	DisplayServer.window_set_current_screen(display_screen)
 	root.mode = Window.MODE_FULLSCREEN
 	await get_tree().process_frame
 	await get_tree().process_frame
+	app.prefs.update_display_frame(root)
 	# Fullscreen recreation can restore a presentation setting on some drivers.
 	DisplayServer.window_set_vsync_mode(requested_vsync)
 	if not valid_display():
@@ -282,13 +289,7 @@ func run() -> void:
 		# Keep preparation covered until those new materials are usable too.
 		app.loading_screen.begin("Preparing benchmark…")
 		await app.loading_screen.paint()
-	var renderer_state := [false]
-	var renderer_checked := Semaphore.new()
-	RenderingServer.call_on_render_thread(func():
-		renderer_state[0] = OS.get_thread_caller_id() != OS.get_main_thread_id()
-		renderer_checked.post())
-	renderer_checked.wait()
-	separate_render_thread = renderer_state[0]
+	separate_render_thread = not RenderingServer.is_on_render_thread()
 	# Profiling is automated; desktop typing must not pause or steer a sample.
 	app.set_process_input(false)
 	app.set_process_unhandled_input(false)

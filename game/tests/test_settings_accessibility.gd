@@ -154,6 +154,15 @@ func test_mouse_capture_and_conflict_swap_preserve_both_actions():
 	assert_eq(ui.pending_bindings.fire,KEY_R)
 	assert_eq(ui.pending_bindings.reload,-MOUSE_BUTTON_MIDDLE)
 func test_display_preview_timeout_reverts_without_saving_other_edits():
+	ui.settings_tab("Graphics")
+	var display_nodes: Dictionary={}
+	for option in ui.page.find_children("*","OptionButton",true,false):
+		var key: String=option.get_meta("setting_key","")
+		if key in ["resolution","display_mode"]: display_nodes[key]=option
+	display_nodes.resolution.select(1)
+	display_nodes.display_mode.select(1)
+	ui.pending.native_resolution=false
+	ui.pending.display_mode=1
 	ui.pending.resolution=Vector2i(800,600)
 	ui.pending.fov=85.0
 	ui.begin_display_preview()
@@ -167,6 +176,8 @@ func test_display_preview_timeout_reverts_without_saving_other_edits():
 	assert_eq(ui.pending.fov,85.0)
 	assert_eq(app.prefs.saves,0)
 	assert_true(ui.display_before.is_empty())
+	assert_eq(display_nodes.resolution.selected,0,"Revert restores the visible Native choice")
+	assert_eq(display_nodes.display_mode.selected,Preferences.DEFAULTS.display_mode)
 func test_display_confirmation_saves_and_applies_pending_preferences():
 	ui.pending.display_mode=1
 	ui.pending.callouts=2

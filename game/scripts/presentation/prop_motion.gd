@@ -9,6 +9,8 @@ var reduced_motion := false
 var sample_interval := 0.0
 var sample_remaining := 0.0
 var skeleton: Skeleton3D
+static var profile_ticks := false
+static var tick_usec := 0
 
 func install(root: Node3D, split_jumbotron := false, bone_prefix := "") -> void:
 	asset = root
@@ -146,7 +148,9 @@ func set_budget(reduced: bool, distance: float) -> void:
 			else: sample(state)
 
 func _physics_process(dt: float) -> void:
+	var started := Time.get_ticks_usec() if profile_ticks else 0
 	advance(dt)
+	if profile_ticks: tick_usec += Time.get_ticks_usec()-started
 
 func advance(dt: float) -> void:
 	sample_remaining -= dt

@@ -111,8 +111,18 @@ This dropped Core differs from a map Energy Core: map Cores refill to 100, while
 
 ### Galaxy-derived projectile weapons
 
-Flak cannon uses Flock's ten pellets (10 damage each), 30 m/s speed, three
-world bounces with 0.5 velocity retention, and its round shader/audio/hit effect.
+Flak cannon fires ten pellets at 30 m/s, twice per second. Each pellet deals
+5 base damage through 25 m, then loses 1 damage per additional metre, reaching
+zero at 30 m: 26 m gives 4, 27.5 m gives 2.5, and 29 m gives 1. Damage is
+`5 * clamp((30 - d)/5, 0, 1)`, where `d` is cumulative projectile travel at
+contact, including ricochets. All ten pellets can deal up to 50 AH to an
+unshielded robot. The shared 80/20 shield split applies per pellet: a full hit
+removes 4 SH and 1 AH while shielded. Each pellet has a 30 m total travel cap
+and an eight-second lifetime. Clamp its final collision sweep to the remaining
+travel allowance and retire it at the cap. Pellets can bounce off the world
+three times, retaining half their speed per bounce; a bounce never resets damage
+falloff or the total travel cap. Flak retains its round shader/audio/hit effect.
+
 Bio rifle uses Covid 90's deforming poison bolt, 15 direct damage and 5 damage
 per second for 3 seconds; repeated poison refreshes the effect without stacking.
 Grenade launcher uses Grenada's 20 m/s grenade, 9 m/s² gravity, 40 direct damage
@@ -140,7 +150,7 @@ eligibility. Respawn clears it. Self-hits never award an opponent a kill.
 Fall animation, lethal lunar contact and the no-drop rule remain unchanged.
 [RULES.md](../RULES.md) owns scoring, assists and posthumous credit.
 
-After the first ricochet, a flak fragment travels half its pre-impact distance before curving downward under 19.6 m/s² gravity scaled by match gravity. Each subsequent bounce resets the travelled distance and halves the previous allowance: a 20 m initial flight gives 10 m, then 5 m, then 2.5 m. Initial flight, three-bounce limit, restitution, damage and lifetime remain unchanged.
+After the first ricochet, a flak fragment travels half its pre-impact distance before curving downward under 19.6 m/s² gravity scaled by match gravity. Each subsequent bounce resets its local travel counter and halves the previous allowance: a 10 m initial flight gives 5 m, then 2.5 m, then 1.25 m. The 30 m cumulative travel cap and distance-based damage falloff apply throughout flight.
 
 ## Projectile and beam collision volumes
 
@@ -152,4 +162,4 @@ Lightning primary sweeps its 2 cm core radius; flame primary sweeps its 17 cm ou
 
 `WEAPON_BALANCE.csv` records the reviewed per-mode values. Run `../library/.venv/Scripts/python.exe tools/apply_weapon_balance.py` from `game/` after editing it to update runtime weapon and map catalogs. CSV damage bases distinguish per-hit, per-pellet and per-second values; blank fire rates denote continuous fire, not the ammunition-consumption interval. Lightning and flamethrower primary damage is recorded as 100/3 per second, delivered in 10/3-damage ticks every 0.1 seconds; the damage-tick column controls that cadence. Their first tick is immediate, giving an unshielded kill in approximately three seconds of uninterrupted full-strength contact. Shields, missed contact and flame range falloff extend the kill time. Flamethrower CSV range is its 10 m maximum, with full damage through 8 m. The slow-multiplier and slow-duration columns configure movement slows for lightning, flame and Bio impacts; secondary lightning/flame hits share their primary profile's slow.
 
-Flak fires twice per second with a 50 m travelled-distance cap. Bio fires four times per second at 25 m/s with a 50 m cap. Grenades fire twice per second with a 40 m travelled-distance cap. These three projectiles retain their eight-second lifetime. Both pulse-gun map variants deal 10 damage per shot.
+Flak fires twice per second with 5 damage per pellet through 25 m, fading linearly to zero at its 30 m cumulative travelled-distance cap. Bio fires four times per second at 25 m/s with a 50 m cap. Grenades fire twice per second with a 40 m travelled-distance cap. These three projectiles retain their eight-second lifetime. Both pulse-gun map variants deal 10 damage per shot.

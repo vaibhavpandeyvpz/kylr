@@ -286,8 +286,10 @@ previous saved startup mode.
 Visual quality offers Low, Medium, High and Custom. High enables fixture
 illumination and shadow casting with 4× MSAA. Low and Medium keep fixtures
 emissive-only. Individual lighting, shadow, ambient-occlusion, bloom and
-antialiasing edits select Custom. All presets use native-resolution raster
-rendering and retain authored ambient fill and reflection maps.
+antialiasing edits select Custom. All presets retain authored ambient fill and reflection maps. The 3D display
+resolution is independent of quality: Native by default on desktop and 720p at
+the native aspect ratio on phones. Menus, HUD and touch controls render at native
+pixel density inside the fitted content area; fullscreen preserves aspect ratio.
 
 ## Elimination and Gun Game presentation
 
@@ -316,3 +318,24 @@ callsign; `renderer.cfg` stores early renderer startup settings;
 Windows DPAPI for the current user. The access token remains in memory and
 passwords are not saved locally. Online account/display-name/loadout data is
 owned by the backend, rather than these local settings files.
+
+## Android touch controls
+
+Landscape touch layout keeps the reticle and bottom resource/weapon readouts
+clear. A visible left stick provides a dead zone, walking at small displacement,
+running in the middle and sprint at full displacement. Crouch sits beside it.
+A right aim stick continuously turns the view according to its displacement;
+releasing it stops turning. The right cluster has Fire, secondary fire, Jump and a separate
+hold/release Charge target. Dragging on either fire control also aims; the open
+right side supports aim without firing. View and Pause occupy the upper right.
+
+Tap an inventory slot to equip it; tap the equipped slot to reload. Hold the
+score area to show the scoreboard. These readouts replace separate reload,
+weapon-selection and scoreboard buttons. Each finger is tracked independently.
+Pause, navigation and lost focus release held movement and combat actions.
+Desktop tutorial prompts are hidden on touch devices. Device safe areas and
+physical-phone comfort still require hardware validation.
+
+Touch surfaces use white at 10% opacity, white borders at 25%, and SVG icons at
+50%. Pressed surfaces increase in opacity. The compact mobile killfeed shows
+two rows above the combat controls; transient notices sit under the score.

@@ -176,6 +176,14 @@ func start_loadout():
 		carriers.collision_groups=CarrierCollision.consolidate(carriers)
 	for flag in game.flags:
 		flag.base_effect.visible = game.match_type == "CTF"
+	if RenderingServer.get_current_rendering_method()=="mobile" and not has_meta("fixed_mesh_batches"):
+		set_meta("fixed_mesh_batches",{})
+		batch_fixed_meshes.call_deferred()
+
+func batch_fixed_meshes() -> void:
+	await RenderingServer.frame_post_draw
+	await get_tree().process_frame
+	set_meta("fixed_mesh_batches",FixedMeshBatch.install(self))
 
 func world_point(coordinates: Array) -> Vector3:
 	return play_transform * MapCatalog.vector(coordinates)
@@ -730,8 +738,9 @@ func tick_stasis():
 		fixture.motion.play("close")
 
 func tick(dt: float):
-	if carriers:carriers.sample(game.elapsed)
 	var started := Time.get_ticks_usec() if profile_ticks else 0
+	if carriers:carriers.sample(game.elapsed)
+	if profile_ticks: started = profile_stage("carriers",started)
 	tick_stasis()
 	if profile_ticks: started = profile_stage("stasis",started)
 	for label in screen_labels:

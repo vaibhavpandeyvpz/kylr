@@ -20,7 +20,7 @@ config/icon="res://icon.svg"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/phantom_camera/plugin.cfg")
+enabled=PackedStringArray("res://addons/phantom_camera/plugin.cfg", "res://addons/kylr_export/plugin.cfg")
 
 [debug]
 
@@ -32,11 +32,13 @@ PhantomCameraManager="*res://addons/phantom_camera/scripts/managers/phantom_came
 
 [display]
 
+window/frame_pacing/android/enable_frame_pacing=false
 window/size/viewport_width=1280
 window/size/viewport_height=720
 window/size/window_width_override=1280
 window/size/window_height_override=720
 window/stretch/mode="disabled"
+window/stretch/mode.mobile="canvas_items"
 window/stretch/aspect="expand"
 
 [physics]

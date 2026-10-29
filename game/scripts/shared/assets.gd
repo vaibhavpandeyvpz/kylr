@@ -51,6 +51,7 @@ static func scene(path: String) -> Node3D:
 	if not scenes.has(path):
 		scenes[path] = load(path)
 	var instance: Node3D = scenes[path].instantiate()
+	MeshLods.bind(instance,path)
 	finish_metals(instance)
 	finish_glass(instance)
 	if profile_loads: record_load(path,started)

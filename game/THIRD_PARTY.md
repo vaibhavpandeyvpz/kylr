@@ -1,5 +1,7 @@
 # Runtime and development dependencies
 
+- Google Material Design Icons, Apache-2.0, https://github.com/google/material-design-icons: mobile action SVGs in `assets/ui/icons/touch`. The directory retains the license and attribution notice; SVG fills are white for runtime tinting. The crouch icon is authored for KYLR.
+
 - Godot 4.7.2 and its bundled Jolt Physics, ENet, glTF/FBX importers, and AStar3D: engine-maintained runtime subsystems.
 - GUT 9.6.1, MIT, https://github.com/bitwes/Gut: automated Godot integration and rule tests. License retained in `addons/gut`.
 - LimboAI 1.8.1, MIT, https://github.com/limbonaut/limboai/releases/tag/v1.8.1: official GDExtension package for Godot 4.6+, tested here with Godot 4.7.2. Behavior trees and native debugging are bundled in `addons/limboai`; game-specific tasks live in `scripts/ai/tasks`.

@@ -2,7 +2,7 @@ class_name Preferences
 extends RefCounted
 const DEFAULTS = {"tutorial_hints":true,"map":"skyfall","name":"","type":0,"difficulty":1,"count":10,"goal":25,"minutes":15,"mode":"Instant Action","online_type":0,"third_person":false,
 	"sensitivity":0.0022,"fov":60.0,"master":1.0,"effects":1.0,"music":0.6,"interface":1.0,"announcer":1.0,"voices":1.0,"reduced_audio_range":false,"hud_scale":1.0,"reduced_motion":false,"contrast":false,"subtitles":true,"invert":false,
-	"display_mode":0,"resolution":Vector2i(1280,720),"quality":1,"quality_benchmarked":false,"separate_rendering_thread":false,"fixture_lighting":false,"shadows":true,"ambient_occlusion":false,"bloom":true,"antialiasing":1,"sprint_blur":0.35,"speed_lines":true,"callouts":0}
+	"display_mode":0,"native_resolution":true,"resolution":Vector2i(1280,720),"quality":1,"quality_benchmarked":false,"separate_rendering_thread":false,"fixture_lighting":false,"shadows":true,"ambient_occlusion":false,"bloom":true,"antialiasing":1,"sprint_blur":0.35,"speed_lines":true,"callouts":0}
 const QUALITY_PRESETS = [
 	{"shadows":false,"ambient_occlusion":false,"bloom":false,"antialiasing":0,"fixture_lighting":false},
 	{"shadows":true,"ambient_occlusion":false,"bloom":true,"antialiasing":1,"fixture_lighting":false},
@@ -13,6 +13,7 @@ const OFFLINE_COUNTS = [2,4,6,8,10]
 var setup_notices: Array[String] = []
 var storage_path := "user://preferences.cfg"
 var values := DEFAULTS.duplicate(true)
+var display_options: Dictionary = {}
 const DEFAULT_BINDINGS := {"forward":KEY_W,"backward":KEY_S,"left":KEY_A,"right":KEY_D,"jump":KEY_SPACE,"charged_jump":KEY_Q,"sprint":KEY_CTRL,"walk":KEY_SHIFT,"crouch":KEY_C,"reload":KEY_R,"view":KEY_V,"pistol":KEY_1,"pickup":KEY_2,"scoreboard":KEY_TAB,"fire":-MOUSE_BUTTON_LEFT,"secondary":-MOUSE_BUTTON_RIGHT}
 var bindings := DEFAULT_BINDINGS.duplicate()
 
@@ -33,7 +34,9 @@ func _init(path := "user://preferences.cfg"):
 	if config.load(storage_path) == OK:
 		for key in values: values[key] = config.get_value("preferences",key,values[key])
 		bindings = read_bindings(config)
-	if not config.has_section_key("preferences","resolution"): values.resolution=resolutions().back()
+	values["native_resolution"]=config.get_value("preferences","native_resolution",not OS.has_feature("mobile"))
+	if not config.has_section_key("preferences","resolution") or (OS.has_feature("mobile") and not config.has_section_key("preferences","native_resolution")):
+		values.resolution=default_resolution()
 	var previous_count := int(values.count)
 	values.count = clampi(int(ceil(previous_count / 2.0)) * 2,2,10)
 	if previous_count != values.count: setup_notices.append("Saved robot count reset to %d." % values.count)
@@ -76,26 +79,68 @@ func apply():
 static func binding_text(value: int) -> String:
 	return "Mouse %d" % -value if value < 0 else OS.get_keycode_string(value)
 
-static func resolutions() -> Array[Vector2i]:
-	var native := DisplayServer.screen_get_size()
+static func native_size() -> Vector2i:
+	var size:=DisplayServer.screen_get_size()
+	return size if size.x>0 and size.y>0 else Vector2i(1280,720)
+
+static func default_resolution(output := native_size(), mobile := OS.has_feature("mobile")) -> Vector2i:
+	if not mobile: return output
+	return Vector2i(roundi(float(output.x)*minf(720.0,output.y)/output.y),mini(output.y,720))
+
+static func resolutions(native := native_size(), mobile := OS.has_feature("mobile")) -> Array[Vector2i]:
 	var result: Array[Vector2i] = []
+	if mobile:
+		for height in [360,480,540,720,900,1080,1440,2160]:
+			if height<=native.y and height>=native.y*0.25:
+				result.append(Vector2i(roundi(float(native.x)*height/native.y),height))
 	for size in [Vector2i(800,600),Vector2i(960,540),Vector2i(1024,768),Vector2i(1280,720),Vector2i(1600,900),Vector2i(1920,1080),Vector2i(2560,1440),Vector2i(3840,2160)]:
-		if size.x <= native.x and size.y <= native.y: result.append(size)
+		if not mobile and size.x <= native.x and size.y <= native.y and size.y>=native.y*0.25: result.append(size)
 	if native.x > 0 and native.y > 0 and not native in result: result.append(native)
 	if result.is_empty(): result.append(Vector2i(1280,720))
 	return result
 
+static func effective_area(output: Vector2i, desired: Vector2i) -> Rect2i:
+	var scale:=minf(float(output.x)/maxi(desired.x,1),float(output.y)/maxi(desired.y,1))
+	var extent:=Vector2i(Vector2(desired)*scale)
+	return Rect2i((output-extent)/2,extent)
+
+func update_display_frame(window: Window) -> Vector2i:
+	var options: Dictionary=values if display_options.is_empty() else display_options
+	var output:=window.size.max(Vector2i.ONE)
+	var desired: Vector2i=output if options.get("native_resolution",true) else options.resolution
+	var base:=Vector2i(roundi(720.0*desired.x/maxi(desired.y,1)),720)
+	window.content_scale_mode=Window.CONTENT_SCALE_MODE_CANVAS_ITEMS
+	window.content_scale_aspect=Window.CONTENT_SCALE_ASPECT_KEEP
+	if window.content_scale_size!=base: window.content_scale_size=base
+	var extent:=effective_area(output,desired).size
+	window.scaling_3d_scale=render_scale(extent,options)
+	window.set_meta("render_resolution_scale",window.scaling_3d_scale)
+	for studio in window.find_children("MenuPortraitStudio","SubViewport",true,false):
+		studio.scaling_3d_scale=window.scaling_3d_scale
+	return extent
+
+func render_scale(output: Vector2i, options: Dictionary = {}) -> float:
+	if options.is_empty(): options=values if display_options.is_empty() else display_options
+	if options.get("native_resolution",true): return 1.0
+	var desired: Vector2i=options.resolution
+	return clampf(minf(float(desired.x)/maxi(output.x,1),float(desired.y)/maxi(output.y,1)),0.25,1.0)
+
 func apply_display(options: Dictionary = {}):
 	if options.is_empty(): options = values
+	display_options=options.duplicate(true)
 	if DisplayServer.get_name() == "headless": return
+	if OS.has_feature("mobile"):
+		update_display_frame(Engine.get_main_loop().root)
+		return
 	var mode := clampi(int(options.display_mode),0,2)
 	DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED if mode == 0 else DisplayServer.WINDOW_MODE_FULLSCREEN if mode == 1 else DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN)
 	if mode == 0:
-		var size: Vector2i = options.resolution
+		var size: Vector2i = native_size() if options.get("native_resolution",true) else options.resolution
 		var usable := DisplayServer.screen_get_usable_rect()
 		size = size.min(usable.size)
 		DisplayServer.window_set_size(size)
 		DisplayServer.window_set_position(usable.position + (usable.size-size)/2)
+	update_display_frame(Engine.get_main_loop().root)
 
 static func active_renderer_label(_target: Node) -> String:
 	return "Headless" if DisplayServer.get_name()=="headless" else "Raster"
@@ -104,7 +149,8 @@ func _apply_viewport_rendering(viewport: Viewport):
 	viewport.set_meta("effect_quality",int(values.quality))
 	viewport.msaa_3d = clampi(int(values.antialiasing),0,3)
 	viewport.scaling_3d_mode = Viewport.SCALING_3D_MODE_BILINEAR
-	viewport.scaling_3d_scale = 1.0
+	if viewport is Window and DisplayServer.get_name()!="headless": update_display_frame(viewport)
+	else: viewport.scaling_3d_scale = render_scale(viewport.get_texture().get_size())
 	viewport.screen_space_aa = Viewport.SCREEN_SPACE_AA_DISABLED
 	viewport.use_taa = false
 

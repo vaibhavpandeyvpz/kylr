@@ -35,3 +35,10 @@
 **/.claude/agent-memory-local
 **/.claude/first-run
 **/.claude/assistant-daemon-state.json
+# Android signing material and Godot native-library hot-reload caches.
+*.p12
+*.jks
+*.keystore
+**/keystore-password.txt
+**/keystore.base64.txt
+/game/addons/limboai/bin/~*.TMP

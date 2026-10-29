@@ -84,9 +84,108 @@ jobs:
             game/reports/packaging/
           retention-days: 1
 
+  android:
+    name: Build signed Android APK
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    defaults:
+      run:
+        shell: bash
+    env:
+      VERSION: ${{ github.ref_type == 'tag' && github.ref_name || format('dev-{0}', github.sha) }}
+      ANDROID_KEY_ALIAS: ${{ vars.ANDROID_KEY_ALIAS || 'kylr-release' }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+          lfs: true
+      - name: Check signing configuration
+        env:
+          ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+        run: |
+          test -n "$ANDROID_KEYSTORE_BASE64" || { echo 'Set ANDROID_KEYSTORE_BASE64 in Actions secrets'; exit 1; }
+          test -n "$ANDROID_KEYSTORE_PASSWORD" || { echo 'Set ANDROID_KEYSTORE_PASSWORD in Actions secrets'; exit 1; }
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+      - name: Validate packaging tools
+        run: |
+          python -m unittest discover -s tools/tests -p 'test_android_package.py' -v
+          python -m unittest discover -s tools/tests -p 'test_release_version.py' -v
+      - uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: '25'
+      - uses: android-actions/setup-android@v4
+        with:
+          packages: 'platform-tools platforms;android-36 build-tools;36.0.0'
+      - uses: chickensoft-games/setup-godot@v2
+        with:
+          version: '4.7.2'
+          use-dotnet: false
+          include-templates: true
+          path: .local/godot/runtime
+          downloads-path: .local/godot/downloads
+          bin-path: .local/godot/bin
+      - name: Restore licensed assets
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: auto
+          AWS_EC2_METADATA_DISABLED: 'true'
+          R2_ENDPOINT_URL: ${{ vars.R2_ENDPOINT_URL }}
+          R2_ASSET_URI: ${{ vars.R2_ASSET_URI }}
+          PRIVATE_GAME_ASSETS_SHA256: ${{ secrets.PRIVATE_GAME_ASSETS_SHA256 }}
+        run: python tools/install_private_assets.py --download
+      - name: Configure client endpoint
+        env:
+          KYLR_PUBLIC_API_URL: ${{ vars.KYLR_PUBLIC_API_URL }}
+        run: if [[ -n "$KYLR_PUBLIC_API_URL" ]]; then python tools/configure_online.py; fi
+      - name: Restore signing key
+        env:
+          ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          ANDROID_KEYSTORE_PATH: ${{ runner.temp }}/kylr-release.p12
+        run: |
+          python - <<'PY'
+          import base64, os
+          from pathlib import Path
+          path = Path(os.environ['ANDROID_KEYSTORE_PATH'])
+          with path.open('xb') as output:
+              os.chmod(path, 0o600)
+              encoded = ''.join(os.environ['ANDROID_KEYSTORE_BASE64'].split())
+              output.write(base64.b64decode(encoded, validate=True))
+          PY
+      - name: Build and verify signed APK
+        env:
+          ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          ANDROID_KEYSTORE_PATH: ${{ runner.temp }}/kylr-release.p12
+        run: |
+          if [[ "$GITHUB_REF_TYPE" == tag ]]; then python tools/stamp_release_version.py "$VERSION"; fi
+          pwsh -File game/tools/package_android.ps1 -Version "$VERSION" -VersionCode "$GITHUB_RUN_NUMBER"
+      - uses: actions/upload-artifact@v7
+        with:
+          name: KYLR-Android
+          path: |
+            game/build/KYLR-Android-*.apk
+            game/build/KYLR-Android-*.manifest.json
+            game/build/KYLR-Android-*.sha256
+          if-no-files-found: error
+          retention-days: 1
+          compression-level: 0
+      - uses: actions/upload-artifact@v7
+        if: failure()
+        with:
+          name: logs-Android
+          path: game/reports/packaging/
+          retention-days: 1
+      - name: Remove temporary signing key
+        if: always()
+        run: rm -f -- "$RUNNER_TEMP/kylr-release.p12"
+
   release:
-    name: Publish all desktop packages
-    needs: build
+    name: Publish all platform packages
+    needs: [build, android]
     if: startsWith(github.ref, 'refs/tags/v')
     runs-on: ubuntu-latest
     permissions:
@@ -108,4 +207,4 @@ jobs:
           sha256sum --check KYLR-*.sha256
           args=()
           if [[ "$RELEASE_TAG" == *-* ]]; then args+=(--prerelease); fi
-          gh release create "$RELEASE_TAG" KYLR-*.zip KYLR-*.tar.gz KYLR-*.sha256 --verify-tag --generate-notes --title "KYLR $RELEASE_TAG" "${args[@]}"
+          gh release create "$RELEASE_TAG" KYLR-*.zip KYLR-*.tar.gz KYLR-*.apk KYLR-Android-*.manifest.json KYLR-*.sha256 --verify-tag --generate-notes --title "KYLR $RELEASE_TAG" "${args[@]}"

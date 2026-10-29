@@ -21,6 +21,7 @@ var music: ArenaMusic
 var preview_animator: AnimationPlayer
 var preview_victory_id := ""
 var closing := false
+var mobile_controls
 var leaving := false
 
 func _ready():
@@ -58,6 +59,13 @@ func _ready():
 	loading_screen.finish()
 	startup_complete=true
 	startup_finished.emit()
+	if (OS.has_feature("debug") or OS.has_feature("mobile_profile")) and OS.has_feature("android") and FileAccess.file_exists("user://mobile-profile.json"):
+		var diagnostic_path := "res://scripts/debug/mobile_benchmark.gd"
+		if ResourceLoader.exists(diagnostic_path):
+			var diagnostic = load(diagnostic_path).new()
+			diagnostic.app = self
+			add_child(diagnostic)
+			return
 	if not get_meta("automated_profile",false) and DisplayServer.get_name()!="headless" and "--smoke" not in OS.get_cmdline_user_args():
 		ResourcePreparation.match_resources(get_tree(),String(prefs.values.map))
 	if OS.has_feature("debug") and "--capture" in OS.get_cmdline_user_args():
@@ -123,7 +131,8 @@ func argument(key: String, fallback: String) -> String:
 
 func make_preview():
 	if is_instance_valid(preview): return
-	preview_viewport=MenuStudio.create(get_tree(),Vector2i(get_viewport().get_visible_rect().size))
+	preview_viewport=MenuStudio.create(get_tree(),prefs.update_display_frame(get_window()))
+	preview_viewport.scaling_3d_scale=prefs.render_scale(preview_viewport.size)
 	preview_surface=TextureRect.new()
 	preview_surface.name="MainMenuPortrait"
 	preview_surface.texture=preview_viewport.get_texture()
@@ -195,7 +204,10 @@ func make_preview():
 	call_deferred("benchmark_quality")
 
 func resize_preview():
-	if is_instance_valid(preview_viewport): preview_viewport.size=Vector2i(ui.root.size).max(Vector2i.ONE)
+	var extent:=prefs.update_display_frame(get_window())
+	if is_instance_valid(preview_viewport):
+		preview_viewport.size=extent
+		preview_viewport.scaling_3d_scale=prefs.render_scale(extent)
 
 func retire_preview():
 	if is_instance_valid(preview_surface):
@@ -257,9 +269,9 @@ func start_match():
 	await loading_screen.paint()
 	await ResourcePreparation.match_resources(get_tree(),String(prefs.values.map))
 	retire_preview()
-	# Keep native rendering during asynchronous scene assembly.
+	# Loading overlays stay native while scene assembly retains the 3D budget.
 	get_viewport().scaling_3d_mode=Viewport.SCALING_3D_MODE_BILINEAR
-	get_viewport().scaling_3d_scale=1.0
+	prefs.update_display_frame(get_window())
 	match_node=ArenaMatch.new()
 	match_node.async_scene_loading=true
 	match_node.loading_hold=true
@@ -326,6 +338,7 @@ func _process(dt):
 	if match_node and match_node.local_robot and ui.screen=="match":
 		var r=match_node.local_robot
 		r.move_input=Input.get_vector("left","right","forward","backward")
+		if is_instance_valid(mobile_controls): r.move_input=(r.move_input+mobile_controls.movement).limit_length()
 		r.wants_walk=Input.is_action_pressed("walk")
 		r.wants_crouch=Input.is_action_pressed("crouch")
 		r.wants_sprint=Input.is_action_pressed("sprint") and not r.wants_walk
@@ -412,6 +425,8 @@ func preview_emote(id: String):
 
 # The first two slots retain their configurable actions; 3–0 address slots 3–10.
 static func numbered_slot(event: InputEvent) -> int:
+	if event is InputEventAction and event.pressed and event.action.begins_with("mobile_slot:"):
+		return event.action.get_slice(":",1).to_int()
 	if event is InputEventKey and event.pressed and not event.echo:
 		if event.keycode>=KEY_3 and event.keycode<=KEY_9: return event.keycode-KEY_1
 		if event.keycode==KEY_0: return 9

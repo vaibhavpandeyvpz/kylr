@@ -26,7 +26,9 @@ static func install_one(source: MeshInstance3D) -> void:
 	proxy.mesh=meshes[key];proxy.skin=source.skin;proxy.skeleton=source.skeleton
 	proxy.transform=source.transform;proxy.layers=source.layers
 	proxy.custom_aabb=source.custom_aabb;proxy.extra_cull_margin=source.extra_cull_margin
+	proxy.lod_bias=source.lod_bias
 	proxy.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_SHADOWS_ONLY
+	if source.get_meta("fixed_render_mesh",false): proxy.set_meta("fixed_render_mesh",true)
 	source.get_parent().add_child(proxy)
 	for property in ["visibility_range_begin","visibility_range_begin_margin","visibility_range_end","visibility_range_end_margin","visibility_range_fade_mode"]:
 		proxy.set(property,source.get(property))
@@ -38,10 +40,19 @@ static func combine(mesh: ArrayMesh,skinned: bool,cull: int) -> ArrayMesh:
 	var vertices:=PackedVector3Array();var normals:=PackedVector3Array()
 	var indices:=PackedInt32Array();var bones:=PackedInt32Array();var weights:=PackedFloat32Array()
 	var flags:=0
+	var sections: Array[Dictionary]=[]
 	for surface in mesh.get_surface_count():
 		var arrays:=mesh.surface_get_arrays(surface)
 		var offset:=vertices.size()
 		var points: PackedVector3Array=arrays[Mesh.ARRAY_VERTEX]
+		var lods := MeshLods.surface(mesh,surface)
+		var base := PackedInt32Array()
+		if arrays[Mesh.ARRAY_INDEX]!=null and arrays[Mesh.ARRAY_INDEX].size()>0: base=arrays[Mesh.ARRAY_INDEX]
+		else:
+			for index in points.size(): base.append(index)
+		var distances: Array=lods.keys()
+		distances.sort()
+		sections.append({"offset":offset,"base":base,"lods":lods,"distances":distances})
 		vertices.append_array(points);normals.append_array(arrays[Mesh.ARRAY_NORMAL])
 		if arrays[Mesh.ARRAY_INDEX]!=null and arrays[Mesh.ARRAY_INDEX].size()>0:
 			for index in arrays[Mesh.ARRAY_INDEX]:indices.append(index+offset)
@@ -54,7 +65,13 @@ static func combine(mesh: ArrayMesh,skinned: bool,cull: int) -> ArrayMesh:
 	combined[Mesh.ARRAY_VERTEX]=vertices;combined[Mesh.ARRAY_NORMAL]=normals;combined[Mesh.ARRAY_INDEX]=indices
 	if skinned:combined[Mesh.ARRAY_BONES]=bones;combined[Mesh.ARRAY_WEIGHTS]=weights
 	var result:=ArrayMesh.new()
-	result.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES,combined,[],{},flags)
+	var combined_lods: Dictionary={}
+	if mesh.has_meta("shadow_lods"):
+		combined_lods=mesh.get_meta("shadow_lods")
+	elif not OS.has_feature("android"):
+		combined_lods=MeshLods.combine_shadow_lods(sections)
+	result.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES,combined,[],combined_lods,flags)
+	result.set_meta("imported_lods",[combined_lods])
 	var material:=StandardMaterial3D.new();material.cull_mode=cull
 	result.surface_set_material(0,material)
 	return result

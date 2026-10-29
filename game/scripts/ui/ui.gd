@@ -45,7 +45,7 @@ const SETTING_HELP = {
  "sensitivity":"Changes mouse-look speed. Does not add aim assistance.",
  "invert":"Reverses vertical mouse look.", "fov":"Sets camera field of view in degrees. A wider view makes distant objects appear smaller.",
  "display_mode":"Windowed is resizable. Borderless and exclusive fullscreen use the monitor's native resolution. Display changes need confirmation within 15 seconds.",
- "resolution":"Windowed size, limited to the connected display. Fullscreen uses native resolution.",
+ "resolution":"3D rendering resolution. Menus, HUD and touch controls stay sharp at native display resolution. Fullscreen fits the image without stretching its aspect ratio.",
  "quality":"High enables fixture illumination and shadows. Raster rendering uses the selected ambient occlusion and MSAA settings. Low and Medium retain emissive-only fixtures. Detail changes select Custom.",
  "fixture_lighting":"Makes sconces, battens, pole heads and jumbotron spotlights illuminate nearby surfaces using their authored facing. Light shadows controls their shadows.",
  "shadows":"Draws supported light shadows. Turning this off reduces rendering cost.",
@@ -92,6 +92,7 @@ func close_page():
 	binding_button = null
 
 func clear_page(id: String):
+	if OS.has_feature("mobile"): Input.emulate_mouse_from_touch=true
 	screen = id
 	var stage = app.get("preview")
 	if id == "main" and not is_instance_valid(stage) and app.has_method("make_preview"):
@@ -395,14 +396,16 @@ func settings_tab(tab: String):
 			toggle(rows,"Reduced dynamic range","reduced_audio_range")
 		"Graphics":
 			label(rows,"DISPLAY",20,ACTION)
-			setting_choice(rows,"Display mode","display_mode",["Windowed","Borderless fullscreen","Exclusive fullscreen"])
+			if not OS.has_feature("mobile"): setting_choice(rows,"Display mode","display_mode",["Windowed","Borderless fullscreen","Exclusive fullscreen"])
 			var sizes := Preferences.resolutions()
-			var titles: Array[String] = []
+			var titles: Array[String] = ["Native (%d × %d)" % [Preferences.native_size().x,Preferences.native_size().y]]
 			for size in sizes: titles.append("%d × %d" % [size.x,size.y])
-			var selected := sizes.find(pending.resolution)
-			if selected < 0: pending.resolution=sizes.back(); selected=sizes.size()-1
-			var resolution := choice(rows,"Windowed resolution",titles,selected,func(i): pending.resolution=sizes[i]; settings_dirty())
-			resolution.disabled = int(pending.display_mode) != 0 or DisplayServer.get_name() == "headless"
+			var selected := 0 if pending.native_resolution else sizes.find(pending.resolution)+1
+			var resolution := choice(rows,"3D display resolution",titles,selected,func(i):
+				pending.native_resolution=i==0
+				if i>0: pending.resolution=sizes[i-1]
+				settings_dirty())
+			resolution.set_meta("setting_key","resolution")
 			setting_help(resolution,"resolution","Resolution")
 			label(rows,"QUALITY",20,ACTION)
 			setting_choice(rows,"Visual quality","quality",["Low","Medium","High","Custom"])
@@ -444,9 +447,9 @@ func settings_tab(tab: String):
 			confirm.popup_centered()
 		else: settings_return.call())
 	button(footer,"DEFAULTS",func():
-		var groups := {"Controls":["sensitivity","invert","third_person"],"Audio":["master","music","effects","interface","announcer","voices","reduced_audio_range","callouts","subtitles"],"Graphics":["fov","display_mode","resolution","quality","separate_rendering_thread","fixture_lighting","shadows","ambient_occlusion","bloom","antialiasing","sprint_blur","speed_lines"],"HUD":["hud_scale","contrast","subtitles","reduced_motion","tutorial_hints"]}
+		var groups := {"Controls":["sensitivity","invert","third_person"],"Audio":["master","music","effects","interface","announcer","voices","reduced_audio_range","callouts","subtitles"],"Graphics":["fov","display_mode","native_resolution","resolution","quality","separate_rendering_thread","fixture_lighting","shadows","ambient_occlusion","bloom","antialiasing","sprint_blur","speed_lines"],"HUD":["hud_scale","contrast","subtitles","reduced_motion","tutorial_hints"]}
 		for key in groups[tab]: pending[key]=Preferences.DEFAULTS[key]
-		if tab == "Graphics": pending.resolution=Preferences.resolutions().back()
+		if tab == "Graphics": pending.resolution=Preferences.default_resolution(); pending.native_resolution=not OS.has_feature("mobile")
 		if tab == "Controls": pending_bindings=Preferences.DEFAULT_BINDINGS.duplicate()
 		settings_tab(tab))
 	OnlineLayout.spacer(footer)
@@ -472,7 +475,7 @@ func apply_settings():
 	if pending.name!=app.prefs.values.name and not Preferences.valid_name(str(pending.name)):
 		status.text="Callsign must use 1–20 letters, digits, dots or underscores."
 		return
-	if (pending.display_mode != app.prefs.values.display_mode or pending.resolution != app.prefs.values.resolution) and DisplayServer.get_name() != "headless":
+	if (pending.display_mode != app.prefs.values.display_mode or pending.resolution != app.prefs.values.resolution or pending.native_resolution != app.prefs.values.native_resolution) and DisplayServer.get_name() != "headless":
 		begin_display_preview()
 	else: commit_settings()
 
@@ -493,7 +496,7 @@ func begin_display_preview():
 	display_prompt.popup_centered()
 
 func restore_display_window():
-	if not display_window_before.is_empty() and DisplayServer.get_name() != "headless":
+	if not display_window_before.is_empty() and DisplayServer.get_name() != "headless" and not OS.has_feature("mobile"):
 		DisplayServer.window_set_mode(display_window_before.mode)
 		if int(display_window_before.mode) == DisplayServer.WINDOW_MODE_WINDOWED:
 			DisplayServer.window_set_size(display_window_before.size)
@@ -506,9 +509,15 @@ func revert_display():
 	restore_display_window()
 	pending.display_mode=display_before.display_mode
 	pending.resolution=display_before.resolution
+	pending.native_resolution=display_before.native_resolution
 	display_before.clear()
 	display_remaining=0.0
 	return_after_apply=false
+	if is_instance_valid(page):
+		for option: OptionButton in page.find_children("*","OptionButton",true,false):
+			match option.get_meta("setting_key",""):
+				"display_mode": option.select(int(pending.display_mode))
+				"resolution": option.select(0 if pending.native_resolution else maxi(0,Preferences.resolutions().find(pending.resolution)+1))
 	if is_instance_valid(display_prompt): display_prompt.queue_free()
 	if is_instance_valid(status): status.text="Display reverted. Other edits remain pending."
 
@@ -663,6 +672,8 @@ func start_hud():
 	hud.add_child(kill_feed)
 	hud_place(kill_feed,Vector2(1,0),Vector2(-360,106),Vector2(336,204))
 	kill_feed.arena_match=app.match_node as ArenaMatch
+	if OS.has_feature("mobile"):
+		hud_place(kill_feed,Vector2(1,0),Vector2(-304,106),Vector2(280,112))
 	kill_accolade=KillAccolade.new()
 	hud.add_child(kill_accolade)
 	kill_accolade.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -683,7 +694,13 @@ func start_hud():
 	hud.add_child(tutorial)
 	hud_place(tutorial,Vector2(0,0.5),Vector2(24,-72),Vector2(300,144))
 	tutorial.accessibility_live = 1 # Platform live-region mode: Polite.
-	Input.mouse_mode=Input.MOUSE_MODE_CAPTURED
+	Input.mouse_mode=Input.MOUSE_MODE_VISIBLE if OS.has_feature("mobile") else Input.MOUSE_MODE_CAPTURED
+	if OS.has_feature("mobile"):
+		Input.emulate_mouse_from_touch=false
+		app.mobile_controls=preload("res://scripts/ui/mobile_controls.gd").new()
+		app.mobile_controls.app=app
+		hud.add_child(app.mobile_controls)
+		app.mobile_controls.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 
 func show_notice(text: String):
 	if match_frame:
@@ -774,7 +791,7 @@ func _process(dt):
 	match_frame.accessibility_name=match_frame.phase_text
 	if is_instance_valid(tutorial):
 		tutorial.text = tutorial_hints.text(game,app.prefs,dt)
-		tutorial.visible = not tutorial.text.is_empty()
+		tutorial.visible = not tutorial.text.is_empty() and not OS.has_feature("mobile")
 	board.visible=not opening and Input.is_action_pressed("scoreboard") and screen=="match"
 	if board.visible:
 		var sorted: Array=game.robots.duplicate()
@@ -797,7 +814,8 @@ func resume():
 	get_tree().paused=false
 	close_page()
 	screen="match"
-	Input.mouse_mode=Input.MOUSE_MODE_CAPTURED
+	if OS.has_feature("mobile"): Input.emulate_mouse_from_touch=false
+	Input.mouse_mode=Input.MOUSE_MODE_VISIBLE if OS.has_feature("mobile") else Input.MOUSE_MODE_CAPTURED
 
 func results():
 	clear_page("results")

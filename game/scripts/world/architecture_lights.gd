@@ -12,7 +12,7 @@ static func share_fixed_pose_meshes(root: Node3D) -> void:
 		if instance.skin==null: continue
 		# Snapshot eligible meshes now: later attachments can contain animated parts.
 		if pending_meshes.is_empty():
-			RenderingServer.frame_post_draw.connect(bake_pending_meshes,CONNECT_ONE_SHOT)
+			RenderingServer.frame_post_draw.connect(bake_pending_meshes,CONNECT_ONE_SHOT|CONNECT_DEFERRED)
 		pending_meshes[instance.get_instance_id()] = weakref(instance)
 
 static func bake_pending_meshes() -> void:
@@ -35,7 +35,7 @@ static func share_mesh(instance: MeshInstance3D, key: Variant) -> void:
 	if not rigid_meshes.has(key):
 		var skeleton := instance.get_node(instance.skeleton) as Skeleton3D
 		skeleton.force_update_all_bone_transforms()
-		var baked := instance.bake_mesh_from_current_skeleton_pose()
+		var baked := MeshLods.retain(instance.bake_mesh_from_current_skeleton_pose(),source)
 		baked.set_meta("source_mesh_path",source.resource_path)
 		for surface in source.get_surface_count():
 			baked.surface_set_material(surface,source.surface_get_material(surface))
@@ -43,6 +43,7 @@ static func share_mesh(instance: MeshInstance3D, key: Variant) -> void:
 	instance.mesh=rigid_meshes[key]
 	instance.skin=null
 	instance.skeleton=NodePath("")
+	instance.set_meta("fixed_render_mesh",true)
 	ShadowBatch.install_one(instance)
 
 static func share_static_meshes(root: Node3D) -> void:
